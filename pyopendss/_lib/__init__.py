@@ -2,9 +2,20 @@ import os
 import ctypes
 import sys
 import struct
-
+import json
 
 dir_path = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
+
+mapping = {
+    u'longint': ctypes.c_int32,
+    u'longword': ctypes.c_uint32,
+    u'pansichar': ctypes.c_char_p,
+    u'double': ctypes.c_double,
+    u'integer': ctypes.c_int
+}
+
+with open(os.path.join(dir_path, 'schema.json')) as f:
+    schema = json.loads(f.read())
 
 
 def load_library():
@@ -48,6 +59,8 @@ def load_library():
 
     check_library(library)
 
+    setup_library(library)
+
     return library
 
 
@@ -59,6 +72,12 @@ def check_library(library):
     if not success == 1:
         error_description = ctypes.c_char_p(library.ErrorDesc()).value
         raise ImportError("Could not start OpenDSS: " + error_description)
+
+
+def setup_library(library):
+    for f in schema['interface']:
+        if f['return_type']:
+            getattr(library, f['name']).restype = mapping[f['return_type'].lower()]
 
 
 def is_x64():
