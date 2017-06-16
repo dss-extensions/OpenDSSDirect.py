@@ -46,7 +46,19 @@ def load_library():
 
     os.chdir(curdir)
 
+    check_library(library)
+
     return library
+
+
+def check_library(library):
+
+    success = int(library.DSSI(ctypes.c_int32(3), ctypes.c_int32(0)))
+    library.ErrorDesc.restype = ctypes.c_char_p
+
+    if not success == 1:
+        error_description = ctypes.c_char_p(library.ErrorDesc()).value
+        raise ImportError("Could not start OpenDSS: " + error_description)
 
 
 def is_x64():
