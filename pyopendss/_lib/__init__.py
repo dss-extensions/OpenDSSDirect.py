@@ -8,6 +8,9 @@ dir_path = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
 
 
 def load_library():
+
+    curdir = os.path.abspath(os.curdir)
+
     if is_x64():
         architecture = 'x64'
     else:
@@ -40,6 +43,8 @@ def load_library():
 
     libopendssdirect = os.path.abspath(os.path.join(dir_path, platform, architecture, libopendssdirect))
     library = DLL(libopendssdirect)
+
+    os.chdir(curdir)
 
     return library
 
