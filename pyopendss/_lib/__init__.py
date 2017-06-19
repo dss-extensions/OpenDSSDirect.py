@@ -25,6 +25,15 @@ class SAFEARRAY(ctypes.Structure):
     ]
 
 
+class VArg(ctypes.Structure):
+    _fields_ = [
+        ('dtype', ctypes.c_uint64),
+        ('p', ctypes.POINTER(None)),
+        ('dum1', ctypes.c_uint64),
+        ('dum2', ctypes.c_uint64),
+    ]
+
+
 mapping = {
     u'longint': ctypes.c_int32,
     u'longword': ctypes.c_uint32,
