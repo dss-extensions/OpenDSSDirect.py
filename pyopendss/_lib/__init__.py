@@ -6,12 +6,35 @@ import json
 
 dir_path = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
 
+
+class SAFEARRAYBOUND(ctypes.Structure):
+    _fields_ = [
+        ('cElements', ctypes.c_uint32),
+        ('lLbound', ctypes.c_long),
+    ]
+
+
+class SAFEARRAY(ctypes.Structure):
+    _fields_ = [
+        ('cDims', ctypes.c_ushort),
+        ('fFeatures', ctypes.c_ushort),
+        ('cbElements', ctypes.c_uint32),
+        ('cLocks', ctypes.c_uint32),
+        ('pvData', ctypes.c_void_p),
+        ('rgsabound', SAFEARRAYBOUND * 1),
+    ]
+
+
 mapping = {
     u'longint': ctypes.c_int32,
     u'longword': ctypes.c_uint32,
     u'pansichar': ctypes.c_char_p,
     u'double': ctypes.c_double,
-    u'integer': ctypes.c_int
+    u'integer': ctypes.c_int,
+    u'pcomplexarray': None,
+    u'pintegerarray': None,
+    u'pnodevarray': None,
+    u'variant': SAFEARRAY,
 }
 
 with open(os.path.join(dir_path, 'schema.json')) as f:
@@ -66,18 +89,30 @@ def load_library():
 
 def check_library(library):
 
-    success = int(library.DSSI(ctypes.c_int32(3), ctypes.c_int32(0)))
-    library.ErrorDesc.restype = ctypes.c_char_p
+    # Start DSS engine
+    success = library.DSSI(3, 0)
 
     if not success == 1:
-        error_description = ctypes.c_char_p(library.ErrorDesc()).value
+        error_description = library.ErrorDesc()
         raise ImportError("Could not start OpenDSS: " + error_description)
+
+    # Set forms to False
+    library.DSSI(8, 0)
+
+    # Verify forms are False
+    if library.DSSI(7) != 1:
+        raise ImportError("Unable to turn off forms")
 
 
 def setup_library(library):
     for f in schema['interface']:
         if f['return_type']:
             getattr(library, f['name']).restype = mapping[f['return_type'].lower()]
+        else:
+            getattr(library, f['name']).restype = None
+
+        # if f['args']:
+            # getattr(library, f['name']).argtypes = tuple(mapping[arg.lower()] for arg in f['args'])
 
 
 def is_x64():
