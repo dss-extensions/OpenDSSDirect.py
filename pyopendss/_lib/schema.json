@@ -33,6 +33,7 @@
         },
         {
             "args":[
+                "longint",
                 "longint"
             ],
             "name":"BuildYMatrixD",
@@ -406,7 +407,11 @@
         {
             "args":[
                 "Longword",
+                "Longword",
+                "Longword",
                 "pIntegerArray",
+                "pIntegerArray",
+                "pComplexArray",
                 "pComplexArray"
             ],
             "name":"GetCompressedYMatrix",
@@ -438,6 +443,8 @@
         },
         {
             "args":[
+                "LongWord",
+                "LongWord",
                 "LongWord"
             ],
             "name":"InitAndGetYparams",
@@ -971,6 +978,7 @@
         },
         {
             "args":[
+                "longint",
                 "longint"
             ],
             "name":"UseAuxCurrents",
