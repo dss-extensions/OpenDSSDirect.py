@@ -4,6 +4,7 @@ import sys
 import struct
 import json
 
+
 dir_path = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
 
 
@@ -40,9 +41,9 @@ mapping = {
     u'pansichar': ctypes.c_char_p,
     u'double': ctypes.c_double,
     u'integer': ctypes.c_int,
-    u'pcomplexarray': None,
-    u'pintegerarray': None,
-    u'pnodevarray': None,
+    u'pcomplexarray': ctypes.POINTER(ctypes.POINTER(ctypes.c_double * 2)),
+    u'pintegerarray': ctypes.POINTER(ctypes.POINTER(ctypes.c_double * 2)),
+    u'pnodevarray': ctypes.POINTER(ctypes.POINTER(ctypes.c_double * 2)),
     u'variant': SAFEARRAY,
 }
 
@@ -120,9 +121,19 @@ def setup_library(library):
         else:
             getattr(library, f['name']).restype = None
 
-        # if f['args']:
-            # getattr(library, f['name']).argtypes = tuple(mapping[arg.lower()] for arg in f['args'])
+        if f['args']:
+            getattr(library, f['name']).argtypes = tuple(mapping[arg.lower()] for arg in f['args'])
 
 
 def is_x64():
     return 8 * struct.calcsize("P") == 64
+
+
+def setup_class(kls):
+
+    for f in schema['interface']:
+        name = f['name']
+        func = getattr(kls, name, None)
+        if func is None:
+            func = getattr(kls._lib, name)
+            setattr(kls, f['name'], func)
