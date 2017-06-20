@@ -7,8 +7,8 @@
                         0,
                         0
                     ],
-                    "library_function_name":"CircuitI",
                     "doc":"Vector of doubles containing complex injection currents for the present solution.",
+                    "library_function_name":"CircuitI",
                     "name":"NumCktElements"
                 }
             ],
@@ -90,6 +90,466 @@
                 }
             ],
             "name":"ActiveClass"
+        },
+        {
+            "functions":[
+                {
+                    "args":[
+                        0,
+                        0
+                    ],
+                    "doc":"Number of Circuits currently defined",
+                    "library_function_name":"DSSI",
+                    "name":"NumCircuits"
+                },
+                {
+                    "args":[
+                        1,
+                        0
+                    ],
+                    "doc":"Clears all circuit definitions",
+                    "library_function_name":"DSSI",
+                    "name":"ClearAll"
+                },
+                {
+                    "args":[
+                        2,
+                        0
+                    ],
+                    "doc":"Shows non-MDI child form of the Main DSS Edit Form",
+                    "library_function_name":"DSSI",
+                    "name":"ShowPanel"
+                },
+                {
+                    "args":[
+                        3,
+                        0
+                    ],
+                    "doc":"Validate the user and start OpenDSS; returns true if successful",
+                    "library_function_name":"DSSI",
+                    "name":"Start"
+                },
+                {
+                    "args":[
+                        4,
+                        0
+                    ],
+                    "doc":"Number of DSS intrinsic classes",
+                    "library_function_name":"DSSI",
+                    "name":"NumClasses"
+                },
+                {
+                    "args":[
+                        5,
+                        0
+                    ],
+                    "doc":"Number of user-defined classes",
+                    "library_function_name":"DSSI",
+                    "name":"NumUserClasses"
+                },
+                {
+                    "args":[
+                        6,
+                        0
+                    ],
+                    "doc":"Resets DSS Initialization for restarts",
+                    "library_function_name":"DSSI",
+                    "name":"Reset"
+                },
+                {
+                    "args":[
+                        7,
+                        0
+                    ],
+                    "doc":"Bool flag on the status of allowing forms",
+                    "library_function_name":"DSSI",
+                    "name":"AllowForms"
+                },
+                {
+                    "args":[
+                        8,
+                        0
+                    ],
+                    "doc":"Bool flag to disable forms (once disabled, can't be enabled again)",
+                    "library_function_name":"DSSI",
+                    "name":"AllowForms"
+                },
+                {
+                    "args":[
+                        0,
+                        ""
+                    ],
+                    "doc":"Make a new circuit",
+                    "library_function_name":"DSSS",
+                    "name":"NewCircuit"
+                },
+                {
+                    "args":[
+                        1,
+                        ""
+                    ],
+                    "doc":"Get version string for OpenDSS",
+                    "library_function_name":"DSSS",
+                    "name":"Version"
+                },
+                {
+                    "args":[
+                        2,
+                        ""
+                    ],
+                    "doc":"Default file path for reports, etc.",
+                    "library_function_name":"DSSS",
+                    "name":"DataPath"
+                },
+                {
+                    "args":[
+                        3,
+                        ""
+                    ],
+                    "doc":"Set the default file path for reports, etc.",
+                    "library_function_name":"DSSS",
+                    "name":"DataPath"
+                },
+                {
+                    "args":[
+                        4,
+                        ""
+                    ],
+                    "doc":"The path name for the default text editor",
+                    "library_function_name":"DSSS",
+                    "name":"DefaultEditor"
+                },
+                {
+                    "args":[
+                        0,
+                        null
+                    ],
+                    "doc":"List of the names of intrinsic classes",
+                    "library_function_name":"DSSV",
+                    "name":"Classes"
+                },
+                {
+                    "args":[
+                        1,
+                        null
+                    ],
+                    "doc":"List of the names of user-defined classes",
+                    "library_function_name":"DSSV",
+                    "name":"UserClasses"
+                }
+            ],
+            "name":"Basic"
+        },
+        {
+            "functions":[
+                {
+                    "args":[
+                        0,
+                        0
+                    ],
+                    "doc":"Number of nodes",
+                    "library_function_name":"BUSI",
+                    "name":"NumNodes"
+                },
+                {
+                    "args":[
+                        1,
+                        0
+                    ],
+                    "doc":"Refresh Zsc and Ysc values; execute after a major change in the circuit",
+                    "library_function_name":"BUSI",
+                    "name":"ZscRefresh"
+                },
+                {
+                    "args":[
+                        2,
+                        0
+                    ],
+                    "doc":"Returns true if the X-Y coordinates are defined for the active bus",
+                    "library_function_name":"BUSI",
+                    "name":"Coorddefined"
+                },
+                {
+                    "args":[
+                        3,
+                        0
+                    ],
+                    "doc":"Returns a unique node number at the active bus to avoid node collisions and adds it to the node list for the bus",
+                    "library_function_name":"BUSI",
+                    "name":"GetUniqueNodeNumber"
+                },
+                {
+                    "args":[
+                        4,
+                        0
+                    ],
+                    "doc":"Returns the total number of customers downline from the active bus after reliability calcs",
+                    "library_function_name":"BUSI",
+                    "name":"N_Customers"
+                },
+                {
+                    "args":[
+                        5,
+                        0
+                    ],
+                    "doc":"Integer ID of the feeder section in which this bus is located",
+                    "library_function_name":"BUSI",
+                    "name":"SectionID"
+                },
+                {
+                    "args":[
+                        0,
+                        0
+                    ],
+                    "doc":"Base voltage",
+                    "library_function_name":"BUSF",
+                    "name":"kVBase"
+                },
+                {
+                    "args":[
+                        1,
+                        0
+                    ],
+                    "doc":"X coordinate of the bus",
+                    "library_function_name":"BUSF",
+                    "name":"X"
+                },
+                {
+                    "args":[
+                        2,
+                        0
+                    ],
+                    "doc":"Set the X coordinate of the bus",
+                    "library_function_name":"BUSF",
+                    "name":"X"
+                },
+                {
+                    "args":[
+                        3,
+                        0
+                    ],
+                    "doc":"Y coordinate of the bus",
+                    "library_function_name":"BUSF",
+                    "name":"Y"
+                },
+                {
+                    "args":[
+                        4,
+                        0
+                    ],
+                    "doc":"Set the Y coordinate of the bus",
+                    "library_function_name":"BUSF",
+                    "name":"Y"
+                },
+                {
+                    "args":[
+                        5,
+                        0
+                    ],
+                    "doc":"Distance in km that this bus isfrom the parent EnergyMeter",
+                    "library_function_name":"BUSF",
+                    "name":"Distance"
+                },
+                {
+                    "args":[
+                        6,
+                        0
+                    ],
+                    "doc":"Total annual failure rate for active bus after reliability calcs",
+                    "library_function_name":"BUSF",
+                    "name":"Lambda"
+                },
+                {
+                    "args":[
+                        7,
+                        0
+                    ],
+                    "doc":"Number of interruptions this bus per year",
+                    "library_function_name":"BUSF",
+                    "name":"N_interrupts"
+                },
+                {
+                    "args":[
+                        8,
+                        0
+                    ],
+                    "doc":"Average interruption duration, hours",
+                    "library_function_name":"BUSF",
+                    "name":"Int_Duration"
+                },
+                {
+                    "args":[
+                        9,
+                        0
+                    ],
+                    "doc":"Annual number of customer-interruptions from this bus",
+                    "library_function_name":"BUSF",
+                    "name":"Cust_Interrupts"
+                },
+                {
+                    "args":[
+                        10,
+                        0
+                    ],
+                    "doc":"Accumulated customer outage durations, hours",
+                    "library_function_name":"BUSF",
+                    "name":"Cust_Duration"
+                },
+                {
+                    "args":[
+                        11,
+                        0
+                    ],
+                    "doc":"Total length of line downline from this bus, miles",
+                    "library_function_name":"BUSF",
+                    "name":"TotalMiles"
+                },
+                {
+                    "args":[
+                        0,
+                        ""
+                    ],
+                    "doc":"Active bus name; set the active bus by name with `circuit.SetActiveBus(name)`",
+                    "library_function_name":"BUSS",
+                    "name":"Name"
+                },
+                {
+                    "args":[
+                        0,
+                        null
+                    ],
+                    "doc":"Bus voltages, complex",
+                    "library_function_name":"BUSV",
+                    "name":"Voltages"
+                },
+                {
+                    "args":[
+                        1,
+                        null
+                    ],
+                    "doc":"Sequence voltages in order of 0, 1, then 2",
+                    "library_function_name":"BUSV",
+                    "name":"SeqVoltages"
+                },
+                {
+                    "args":[
+                        2,
+                        null
+                    ],
+                    "doc":"Vector of node numbers defined at the bus in the same order as the voltages",
+                    "library_function_name":"BUSV",
+                    "name":"Nodes"
+                },
+                {
+                    "args":[
+                        3,
+                        null
+                    ],
+                    "doc":"Open-circuit voltage vector, complex",
+                    "library_function_name":"BUSV",
+                    "name":"Voc"
+                },
+                {
+                    "args":[
+                        4,
+                        null
+                    ],
+                    "doc":"Short-circuit current vector, complex",
+                    "library_function_name":"BUSV",
+                    "name":"Isc"
+                },
+                {
+                    "args":[
+                        5,
+                        null
+                    ],
+                    "doc":"Per-unit voltages at the bus, complex",
+                    "library_function_name":"BUSV",
+                    "name":"PuVoltage"
+                },
+                {
+                    "args":[
+                        6,
+                        null
+                    ],
+                    "doc":"Short-circuit impedance matrix, complex",
+                    "library_function_name":"BUSV",
+                    "name":"ZscMatrix"
+                },
+                {
+                    "args":[
+                        7,
+                        null
+                    ],
+                    "doc":"Positive-sequence short-circuit impedance looking into the bus, complex",
+                    "library_function_name":"BUSV",
+                    "name":"Zsc1"
+                },
+                {
+                    "args":[
+                        8,
+                        null
+                    ],
+                    "doc":"Zero-sequence short-circuit impedance looking into the bus, complex",
+                    "library_function_name":"BUSV",
+                    "name":"Zsc0"
+                },
+                {
+                    "args":[
+                        9,
+                        null
+                    ],
+                    "doc":"Short-circuit admittance matrix, complex",
+                    "library_function_name":"BUSV",
+                    "name":"YscMatrix"
+                },
+                {
+                    "args":[
+                        10,
+                        null
+                    ],
+                    "doc":"All complex sequence voltages",
+                    "library_function_name":"BUSV",
+                    "name":"CplxSeqVoltages"
+                },
+                {
+                    "args":[
+                        11,
+                        null
+                    ],
+                    "doc":"Complex vector of line-to-line voltages for 2- and 3-phase buses; returns -1. for a 1-phase bus; for more than 3 phases, only returns 3 phases",
+                    "library_function_name":"BUSV",
+                    "name":"VLL"
+                },
+                {
+                    "args":[
+                        12,
+                        null
+                    ],
+                    "doc":"Complex vector of per-unit line-to-line voltages for 2- and 3-phase buses; returns -1. for a 1-phase bus; for more than 3 phases, only returns 3 phases",
+                    "library_function_name":"BUSV",
+                    "name":"puVLL"
+                },
+                {
+                    "args":[
+                        13,
+                        null
+                    ],
+                    "doc":"Bus voltage magnitudes with angles",
+                    "library_function_name":"BUSV",
+                    "name":"VMagAngle"
+                },
+                {
+                    "args":[
+                        14,
+                        null
+                    ],
+                    "doc":"Bus voltage magnitudes (per unit) with angles",
+                    "library_function_name":"BUSV",
+                    "name":"puVmagAngle"
+                }
+            ],
+            "name":"Bus"
         }
     ]
 }
