@@ -7,11 +7,89 @@
                         0,
                         0
                     ],
+                    "library_function_name":"CircuitI",
                     "doc":"Vector of doubles containing complex injection currents for the present solution.",
                     "name":"NumCktElements"
                 }
             ],
             "name":"Circuit"
+        },
+        {
+            "functions":[
+                {
+                    "args":[
+                        0,
+                        0
+                    ],
+                    "doc":"Sets the first element in the active class to be the active object; if object is a CktElement, ActiveCktElement also points to this element; returns 0 if none",
+                    "library_function_name":"ActiveClassI",
+                    "name":"First"
+                },
+                {
+                    "args":[
+                        1,
+                        0
+                    ],
+                    "doc":"Sets the next element in the active class to be the active object; if object is a CktElement, ActiveCktElement also points to this element; returns 0 if no more",
+                    "library_function_name":"ActiveClassI",
+                    "name":"Next"
+                },
+                {
+                    "args":[
+                        2,
+                        0
+                    ],
+                    "doc":"Number of elements in the active class",
+                    "library_function_name":"ActiveClassI",
+                    "name":"NumElements"
+                },
+                {
+                    "args":[
+                        3,
+                        0
+                    ],
+                    "doc":"Number of elements in the active class; same as NumElements",
+                    "library_function_name":"ActiveClassI",
+                    "name":"Count"
+                },
+                {
+                    "args":[
+                        0,
+                        ""
+                    ],
+                    "doc":"Name of the active element of the active class",
+                    "library_function_name":"ActiveClassS",
+                    "name":"Name"
+                },
+                {
+                    "args":[
+                        1,
+                        ""
+                    ],
+                    "doc":"Set the name of the active element of the active class",
+                    "library_function_name":"ActiveClassS",
+                    "name":"Name"
+                },
+                {
+                    "args":[
+                        2,
+                        ""
+                    ],
+                    "doc":"Name of the active class",
+                    "library_function_name":"ActiveClassS",
+                    "name":"ActiveClassName"
+                },
+                {
+                    "args":[
+                        0,
+                        null
+                    ],
+                    "doc":"All element names in the active class",
+                    "library_function_name":"ActiveClassV",
+                    "name":"AllNames"
+                }
+            ],
+            "name":"ActiveClass"
         }
     ]
 }

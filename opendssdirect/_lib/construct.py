@@ -4,6 +4,7 @@ import os
 import sys
 import json
 from collections import OrderedDict
+from functools import partial
 
 from ..compat import ModuleType
 
@@ -35,18 +36,43 @@ def construct():
 
     create_modules()
 
-    create_functions()
+    create_functions(library)
+
+    for name, f in functions.items():
+        module_name = '.'.join(name.split('.')[:-1])
+        function_name = name.split('.')[-1]
+        setattr(modules[module_name], function_name, f)
 
     for name, m in modules.items():
         sys.modules[name] = m
+
+    return modules
 
 
 def create_modules():
 
     for m in interface['modules']:
-        modules[m['name']] = ModuleType('opendssdirect.' + (m['name']))
+        name = 'opendssdirect.' + (m['name'])
+        modules[name] = ModuleType(name)
 
 
-def create_functions():
+def create_functions(library):
 
-    pass
+    for m in interface['modules']:
+
+        module_name = 'opendssdirect.' + (m['name'])
+        for function in m['functions']:
+
+            f = getattr(library, function['library_function_name'])
+
+            f = partial(f, *function['args'])
+
+            f.__name__ = function['name']
+            f.__module__ = module_name
+            f.__doc__ = function['doc']
+
+            functions[f.__module__ + '.' + f.__name__] = f
+
+
+def caller_function(f, *args):
+    return f(*args)
