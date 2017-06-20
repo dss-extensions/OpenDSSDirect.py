@@ -1,0 +1,17 @@
+{
+    "modules":[
+        {
+            "functions":[
+                {
+                    "args":[
+                        0,
+                        0
+                    ],
+                    "doc":"Vector of doubles containing complex injection currents for the present solution.",
+                    "name":"NumCktElements"
+                }
+            ],
+            "name":"Circuit"
+        }
+    ]
+}
