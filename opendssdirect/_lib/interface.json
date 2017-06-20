@@ -7,20 +7,6 @@
                         0,
                         0
                     ],
-                    "doc":"Vector of doubles containing complex injection currents for the present solution.",
-                    "library_function_name":"CircuitI",
-                    "name":"NumCktElements"
-                }
-            ],
-            "name":"Circuit"
-        },
-        {
-            "functions":[
-                {
-                    "args":[
-                        0,
-                        0
-                    ],
                     "doc":"Sets the first element in the active class to be the active object; if object is a CktElement, ActiveCktElement also points to this element; returns 0 if none",
                     "library_function_name":"ActiveClassI",
                     "name":"First"
@@ -550,6 +536,1241 @@
                 }
             ],
             "name":"Bus"
+        },
+        {
+            "functions":[
+                {
+                    "args":[
+                        0,
+                        0
+                    ],
+                    "doc":"Number of steps",
+                    "library_function_name":"CapacitorsI",
+                    "name":"NumSteps"
+                },
+                {
+                    "args":[
+                        1,
+                        0
+                    ],
+                    "doc":"Set the number of steps",
+                    "library_function_name":"CapacitorsI",
+                    "name":"NumSteps"
+                },
+                {
+                    "args":[
+                        2,
+                        0
+                    ],
+                    "doc":"Is the connection a delta",
+                    "library_function_name":"CapacitorsI",
+                    "name":"IsDelta"
+                },
+                {
+                    "args":[
+                        3,
+                        0
+                    ],
+                    "doc":"Set connection type; use `arg==true` for delta and `arg==false` for wye",
+                    "library_function_name":"CapacitorsI",
+                    "name":"IsDelta"
+                },
+                {
+                    "args":[
+                        4,
+                        0
+                    ],
+                    "doc":"Sets the first Capacitor active; returns 0 if none",
+                    "library_function_name":"CapacitorsI",
+                    "name":"First"
+                },
+                {
+                    "args":[
+                        5,
+                        0
+                    ],
+                    "doc":"Sets the next Capacitor active; returns 0 if no more",
+                    "library_function_name":"CapacitorsI",
+                    "name":"Next"
+                },
+                {
+                    "args":[
+                        6,
+                        0
+                    ],
+                    "doc":"Number of capacitor objects in the active circuit",
+                    "library_function_name":"CapacitorsI",
+                    "name":"Count"
+                },
+                {
+                    "args":[
+                        7,
+                        0
+                    ],
+                    "doc":"Adds one step of the capacitor if available; if successful, returns 1",
+                    "library_function_name":"CapacitorsI",
+                    "name":"AddStep"
+                },
+                {
+                    "args":[
+                        8,
+                        0
+                    ],
+                    "doc":"Subtracts one step of the capacitor; if no more steps, returns 0",
+                    "library_function_name":"CapacitorsI",
+                    "name":"SubtractStep"
+                },
+                {
+                    "args":[
+                        9,
+                        0
+                    ],
+                    "doc":"Number of steps available in the cap bank to be switched ON",
+                    "library_function_name":"CapacitorsI",
+                    "name":"AvailableSteps"
+                },
+                {
+                    "args":[
+                        10,
+                        0
+                    ],
+                    "doc":"Open all steps, all phases of the capacitor",
+                    "library_function_name":"CapacitorsI",
+                    "name":"Open"
+                },
+                {
+                    "args":[
+                        11,
+                        0
+                    ],
+                    "doc":"Close all steps of all phases of the capacitor",
+                    "library_function_name":"CapacitorsI",
+                    "name":"Close"
+                },
+                {
+                    "args":[
+                        0,
+                        0
+                    ],
+                    "doc":"Bank kV rating; use LL for 2 or 3 phases, or actual can rating for 1 phase",
+                    "library_function_name":"CapacitorsF",
+                    "name":"kV"
+                },
+                {
+                    "args":[
+                        1,
+                        0
+                    ],
+                    "doc":"Set the bank kV rating; use LL for 2 or 3 phases, or actual can rating for 1 phase",
+                    "library_function_name":"CapacitorsF",
+                    "name":"kV"
+                },
+                {
+                    "args":[
+                        2,
+                        0
+                    ],
+                    "doc":"Total bank kvar, distributed equally among phases and steps",
+                    "library_function_name":"CapacitorsF",
+                    "name":"kvar"
+                },
+                {
+                    "args":[
+                        3,
+                        0
+                    ],
+                    "doc":"Set the total bank kvar, distributed equally among phases and steps",
+                    "library_function_name":"CapacitorsF",
+                    "name":"kvar"
+                },
+                {
+                    "args":[
+                        0,
+                        ""
+                    ],
+                    "doc":"The name of the active capacitor",
+                    "library_function_name":"CapacitorsS",
+                    "name":"Name"
+                },
+                {
+                    "args":[
+                        1,
+                        ""
+                    ],
+                    "doc":"Sets the active capacitor by name",
+                    "library_function_name":"CapacitorsS",
+                    "name":"Name"
+                },
+                {
+                    "args":[
+                        0,
+                        null
+                    ],
+                    "doc":"All capacitor names in the circuit",
+                    "library_function_name":"CapacitorsV",
+                    "name":"AllNames"
+                },
+                {
+                    "args":[
+                        1,
+                        null
+                    ],
+                    "doc":"A vector of  integers [0..numsteps\u20101] indicating state of each step; if value is \u20101 an error has occurred.",
+                    "library_function_name":"CapacitorsV",
+                    "name":"States"
+                }
+            ],
+            "name":"Capacitors"
+        },
+        {
+            "functions":[
+                {
+                    "args":[
+                        0,
+                        0
+                    ],
+                    "doc":"Sets the first CapControl active; returns 0 if none",
+                    "library_function_name":"CapControlsI",
+                    "name":"First"
+                },
+                {
+                    "args":[
+                        1,
+                        0
+                    ],
+                    "doc":"Sets the next CapControl active; returns 0 if no more",
+                    "library_function_name":"CapControlsI",
+                    "name":"Next"
+                },
+                {
+                    "args":[
+                        2,
+                        0
+                    ],
+                    "doc":"Type of automatic controller; for meaning, see CapControlModes",
+                    "library_function_name":"CapControlsI",
+                    "name":"Mode"
+                },
+                {
+                    "args":[
+                        3,
+                        0
+                    ],
+                    "doc":"Set the type of automatic controller; for choices, see CapControlModes",
+                    "library_function_name":"CapControlsI",
+                    "name":"Mode"
+                },
+                {
+                    "args":[
+                        4,
+                        0
+                    ],
+                    "doc":"Terminal number on the element that PT and CT are connected to",
+                    "library_function_name":"CapControlsI",
+                    "name":"MonitoredTerm"
+                },
+                {
+                    "args":[
+                        5,
+                        0
+                    ],
+                    "doc":"Set the terminal number on the element that PT and CT are connected to",
+                    "library_function_name":"CapControlsI",
+                    "name":"MonitoredTerm"
+                },
+                {
+                    "args":[
+                        6,
+                        0
+                    ],
+                    "doc":"Bool flag that enables Vmin and Vmax to override the control mode",
+                    "library_function_name":"CapControlsI",
+                    "name":"UseVoltOverride"
+                },
+                {
+                    "args":[
+                        7,
+                        0
+                    ],
+                    "doc":"Set the Bool flag that enables Vmin and Vmax to override the control mode",
+                    "library_function_name":"CapControlsI",
+                    "name":"UseVoltOverride"
+                },
+                {
+                    "args":[
+                        8,
+                        0
+                    ],
+                    "doc":"Number of CapControls in the active circuit",
+                    "library_function_name":"CapControlsI",
+                    "name":"Count"
+                },
+                {
+                    "args":[
+                        0,
+                        0
+                    ],
+                    "doc":"Transducer ratio from primary current to control current",
+                    "library_function_name":"CapControlsF",
+                    "name":"CTRatio"
+                },
+                {
+                    "args":[
+                        1,
+                        0
+                    ],
+                    "doc":"Set the transducer ratio from primary current to control current",
+                    "library_function_name":"CapControlsF",
+                    "name":"CTRatio"
+                },
+                {
+                    "args":[
+                        2,
+                        0
+                    ],
+                    "doc":"Transducer ratio from primary voltage to control voltage",
+                    "library_function_name":"CapControlsF",
+                    "name":"PTRatio"
+                },
+                {
+                    "args":[
+                        3,
+                        0
+                    ],
+                    "doc":"Set the transducer ratio from primary voltage to control voltage",
+                    "library_function_name":"CapControlsF",
+                    "name":"PTRatio"
+                },
+                {
+                    "args":[
+                        4,
+                        0
+                    ],
+                    "doc":"Threshold to arm or switch on a step; see Mode for units",
+                    "library_function_name":"CapControlsF",
+                    "name":"ONSetting"
+                },
+                {
+                    "args":[
+                        5,
+                        0
+                    ],
+                    "doc":"Set the threshold to arm or switch on a step; see Mode for units",
+                    "library_function_name":"CapControlsF",
+                    "name":"ONSetting"
+                },
+                {
+                    "args":[
+                        6,
+                        0
+                    ],
+                    "doc":"Threshold to switch off a step; see the particular CapControlModes option for units",
+                    "library_function_name":"CapControlsF",
+                    "name":"OFFSetting"
+                },
+                {
+                    "args":[
+                        7,
+                        0
+                    ],
+                    "doc":"Set the threshold to switch off a step; see the particular CapControlModes option for units",
+                    "library_function_name":"CapControlsF",
+                    "name":"OFFSetting"
+                },
+                {
+                    "args":[
+                        8,
+                        0
+                    ],
+                    "doc":"With VoltOverride, switch off whenever PT voltage exceeds this level",
+                    "library_function_name":"CapControlsF",
+                    "name":"Vmax"
+                },
+                {
+                    "args":[
+                        9,
+                        0
+                    ],
+                    "doc":"Set Vmax; with VoltOverride, switch off whenever PT voltage exceeds this level",
+                    "library_function_name":"CapControlsF",
+                    "name":"Vmax"
+                },
+                {
+                    "args":[
+                        10,
+                        0
+                    ],
+                    "doc":"With VoltOverride, switch on whenever PT voltage drops below this level",
+                    "library_function_name":"CapControlsF",
+                    "name":"Vmin"
+                },
+                {
+                    "args":[
+                        11,
+                        0
+                    ],
+                    "doc":"Set Vmin; with VoltOverride, switch on whenever PT voltage drops below this level",
+                    "library_function_name":"CapControlsF",
+                    "name":"Vmin"
+                },
+                {
+                    "args":[
+                        12,
+                        0
+                    ],
+                    "doc":"Time delay [s] to switch on after arming; control may reset before actuallyswitching",
+                    "library_function_name":"CapControlsF",
+                    "name":"Delay"
+                },
+                {
+                    "args":[
+                        13,
+                        0
+                    ],
+                    "doc":"Set the time delay [s] to switch on after arming; control may reset before actuallyswitching",
+                    "library_function_name":"CapControlsF",
+                    "name":"Delay"
+                },
+                {
+                    "args":[
+                        14,
+                        0
+                    ],
+                    "doc":"Time delay [s] before switching off a step; control may reset before actuallyswitching",
+                    "library_function_name":"CapControlsF",
+                    "name":"DelayOff"
+                },
+                {
+                    "args":[
+                        15,
+                        0
+                    ],
+                    "doc":"Set the time delay [s] before switching off a step; control may reset before actually switching",
+                    "library_function_name":"CapControlsF",
+                    "name":"DelayOff"
+                },
+                {
+                    "args":[
+                        0,
+                        ""
+                    ],
+                    "doc":"The name of the active CapControl",
+                    "library_function_name":"CapControlsS",
+                    "name":"Name"
+                },
+                {
+                    "args":[
+                        1,
+                        ""
+                    ],
+                    "doc":"Set the active CapControl by name",
+                    "library_function_name":"CapControlsS",
+                    "name":"Name"
+                },
+                {
+                    "args":[
+                        2,
+                        ""
+                    ],
+                    "doc":"Name of the Capacitor that is controlled",
+                    "library_function_name":"CapControlsS",
+                    "name":"Capacitor"
+                },
+                {
+                    "args":[
+                        3,
+                        ""
+                    ],
+                    "doc":"Set the Capacitor (by name) that is controlled",
+                    "library_function_name":"CapControlsS",
+                    "name":"Capacitor"
+                },
+                {
+                    "args":[
+                        4,
+                        ""
+                    ],
+                    "doc":"Full name of the element that PT and CT are connected to",
+                    "library_function_name":"CapControlsS",
+                    "name":"MonitoredObj"
+                },
+                {
+                    "args":[
+                        5,
+                        ""
+                    ],
+                    "doc":"Set the element (by full name) that PT and CT are connected to",
+                    "library_function_name":"CapControlsS",
+                    "name":"MonitoredObj"
+                },
+                {
+                    "args":[
+                        0,
+                        null
+                    ],
+                    "doc":"Names of all CapControls in the circuit",
+                    "library_function_name":"CapControlsV",
+                    "name":"AllNames"
+                }
+            ],
+            "name":"CapControls"
+        },
+        {
+            "functions":[
+                {
+                    "args":[
+                        0,
+                        0
+                    ],
+                    "doc":"Number of CktElements in the circuit",
+                    "library_function_name":"CircuitI",
+                    "name":"NumCktElements"
+                },
+                {
+                    "args":[
+                        1,
+                        0
+                    ],
+                    "doc":"Total number of Buses in the circuit",
+                    "library_function_name":"CircuitI",
+                    "name":"NumBuses"
+                },
+                {
+                    "args":[
+                        2,
+                        0
+                    ],
+                    "doc":"Total number of Nodes in the circuit",
+                    "library_function_name":"CircuitI",
+                    "name":"NumNodes"
+                },
+                {
+                    "args":[
+                        3,
+                        0
+                    ],
+                    "doc":"Sets the first enabled Power Conversion (PC) element in the circuit to be active; if not successful returns a 0",
+                    "library_function_name":"CircuitI",
+                    "name":"FirstPCElement"
+                },
+                {
+                    "args":[
+                        4,
+                        0
+                    ],
+                    "doc":"Sets the next enabled Power Conversion (PC) element in the circuit to be active; if not successful returns a 0",
+                    "library_function_name":"CircuitI",
+                    "name":"NextPCElement"
+                },
+                {
+                    "args":[
+                        5,
+                        0
+                    ],
+                    "doc":"Sets the first enabled Power Delivery (PD) element in the circuit to be active; if not successful returns a 0",
+                    "library_function_name":"CircuitI",
+                    "name":"FirstPDElement"
+                },
+                {
+                    "args":[
+                        6,
+                        0
+                    ],
+                    "doc":"Sets the next enabled Power Delivery (PD) element in the circuit to be active; if not successful returns a 0",
+                    "library_function_name":"CircuitI",
+                    "name":"NextPDElement"
+                },
+                {
+                    "args":[
+                        7,
+                        0
+                    ],
+                    "doc":"Force all Meters and Monitors to take a sample",
+                    "library_function_name":"CircuitI",
+                    "name":"Sample"
+                },
+                {
+                    "args":[
+                        8,
+                        0
+                    ],
+                    "doc":"Force all Meters and Monitors to save their current buffers",
+                    "library_function_name":"CircuitI",
+                    "name":"SaveSample"
+                },
+                {
+                    "args":[
+                        9,
+                        0
+                    ],
+                    "doc":"Sets the active bus by integer index. The index is 0 based. That is, the first bus has an index of 0. Returns -1 if an error occurs.",
+                    "library_function_name":"CircuitI",
+                    "name":"SetActiveBusi"
+                },
+                {
+                    "args":[
+                        10,
+                        0
+                    ],
+                    "doc":"Sets First element of active class to be the Active element in the active circuit. Returns 0 if none.",
+                    "library_function_name":"CircuitI",
+                    "name":"FirstElement"
+                },
+                {
+                    "args":[
+                        11,
+                        0
+                    ],
+                    "doc":"Sets the next element of the active class to be the active element in the active circuit. Returns 0 if no more elements.",
+                    "library_function_name":"CircuitI",
+                    "name":"NextElement"
+                },
+                {
+                    "args":[
+                        12,
+                        0
+                    ],
+                    "doc":"Forces update to all storage classes. Typically done after a solution. Done automatically in intrinsic solution modes.",
+                    "library_function_name":"CircuitI",
+                    "name":"UpdateStorage"
+                },
+                {
+                    "args":[
+                        13,
+                        0
+                    ],
+                    "doc":"Sets Parent PD element, if any, to be the active circuit element and returns index>0; Returns 0 if it fails or not applicable.",
+                    "library_function_name":"CircuitI",
+                    "name":"ParentPDElement"
+                },
+                {
+                    "args":[
+                        14,
+                        0
+                    ],
+                    "doc":"Calls EndOfTimeStepCleanup in SolutionAlgs",
+                    "library_function_name":"CircuitI",
+                    "name":"EndOfTimeStepUpdate"
+                },
+                {
+                    "args":[
+                        0,
+                        0
+                    ],
+                    "doc":"Executes the DSS capacity function. Start is the per unit load multiplier for the current year at which to start the search. Increment is the per unit value by which the load increments for each step of the analysis. The program sets the load at the Start value the PRESENT YEAR (including growth) and increments the load until something in thecircuit reports an overload or undervoltage violation. The function returns the total load at which the violation occurs or the peak load for the present year if no violations.",
+                    "library_function_name":"CircuitF",
+                    "name":"Capacity"
+                },
+                {
+                    "args":[
+                        0,
+                        ""
+                    ],
+                    "doc":"Name of the active circuit",
+                    "library_function_name":"CircuitS",
+                    "name":"Name"
+                },
+                {
+                    "args":[
+                        1,
+                        ""
+                    ],
+                    "doc":"Disable a circuit element by name (full name).",
+                    "library_function_name":"CircuitS",
+                    "name":"Disable"
+                },
+                {
+                    "args":[
+                        2,
+                        ""
+                    ],
+                    "doc":"Enable a circuit element by name (full name).",
+                    "library_function_name":"CircuitS",
+                    "name":"Enable"
+                },
+                {
+                    "args":[
+                        3,
+                        ""
+                    ],
+                    "doc":"Activate an element of the active circuit by name. Returns a string with the index of the active element.",
+                    "library_function_name":"CircuitS",
+                    "name":"SetActiveElement"
+                },
+                {
+                    "args":[
+                        4,
+                        ""
+                    ],
+                    "doc":"Sets the active bus by name. Returns a 0 based index of the bus to use for future direct indexing of bus values returned in arrays. Returns -1 if an error occurs.",
+                    "library_function_name":"CircuitS",
+                    "name":"SetActiveBus"
+                },
+                {
+                    "args":[
+                        5,
+                        ""
+                    ],
+                    "doc":"Sets the active class by name.  Use FirstElement, NextElement to iterate through the class. Returns \u20101 if fails.",
+                    "library_function_name":"CircuitS",
+                    "name":"SetActiveClass"
+                },
+                {
+                    "args":[
+                        0,
+                        null
+                    ],
+                    "doc":"Watt and var losses in the entire circuit, complex",
+                    "library_function_name":"CircuitV",
+                    "name":"Losses"
+                },
+                {
+                    "args":[
+                        1,
+                        null
+                    ],
+                    "doc":"Watt and var losses in all the Line elements in the circuit, complex",
+                    "library_function_name":"CircuitV",
+                    "name":"LineLosses"
+                },
+                {
+                    "args":[
+                        2,
+                        null
+                    ],
+                    "doc":"Watt and var losses in all the Transformer elements in the circuit that are designated as substations",
+                    "library_function_name":"CircuitV",
+                    "name":"SubstationLosses"
+                },
+                {
+                    "args":[
+                        3,
+                        null
+                    ],
+                    "doc":"Returns the total power in kW and kvar supplied to the circuit by all Vsource and Isource objects. Does not include Generator objects. Complex.",
+                    "library_function_name":"CircuitV",
+                    "name":"TotalPower"
+                },
+                {
+                    "args":[
+                        4,
+                        null
+                    ],
+                    "doc":"Returns the voltage (complex) for every node in the circuit as a complex vector. The order of the array is the same as AllNodeNames property. The array is constructed bus-by-bus and then by node at each bus. Thus, all nodes from each bus are grouped together.",
+                    "library_function_name":"CircuitV",
+                    "name":"AllBusVolts"
+                },
+                {
+                    "args":[
+                        5,
+                        null
+                    ],
+                    "doc":"Similar to AllBusVolts except magnitude only (in actual volts). Returns the voltage (magnitude) for every node in the circuit as a complex vector.",
+                    "library_function_name":"CircuitV",
+                    "name":"AllBusVMag"
+                },
+                {
+                    "args":[
+                        6,
+                        null
+                    ],
+                    "doc":"The names of all elements",
+                    "library_function_name":"CircuitV",
+                    "name":"AllElementNames"
+                },
+                {
+                    "args":[
+                        7,
+                        null
+                    ],
+                    "doc":"The names of all buses in the system. See `:AllNodeNames`.",
+                    "library_function_name":"CircuitV",
+                    "name":"AllBusNames"
+                },
+                {
+                    "args":[
+                        8,
+                        null
+                    ],
+                    "doc":"Returns the watt and var losses in each element of the system as a complex vector. Order is the same as AllElementNames.",
+                    "library_function_name":"CircuitV",
+                    "name":"AllElementLosses"
+                },
+                {
+                    "args":[
+                        9,
+                        null
+                    ],
+                    "doc":"Similar to AllBusVmag except that the magnitudes are reported in per unit for all buses with kVBase defined.",
+                    "library_function_name":"CircuitV",
+                    "name":"AllBusMagPu"
+                },
+                {
+                    "args":[
+                        10,
+                        null
+                    ],
+                    "doc":"Returns the names of all nodes (busname.nodenumber) in the same order as AllBusVolts, AllBusVmag, and AllBusVMagPu",
+                    "library_function_name":"CircuitV",
+                    "name":"AllNodeNames"
+                },
+                {
+                    "args":[
+                        11,
+                        null
+                    ],
+                    "doc":"Return the System Y matrix as a complex (dense) matrix",
+                    "library_function_name":"CircuitV",
+                    "name":"SystemY"
+                },
+                {
+                    "args":[
+                        12,
+                        null
+                    ],
+                    "doc":"Returns all distances from a bus to its parent EnergyMeter element, which is generally in the substation, as a variant array of doubles. Order corresponds to that of all bus properties.",
+                    "library_function_name":"CircuitV",
+                    "name":"AllBusDistances"
+                },
+                {
+                    "args":[
+                        13,
+                        null
+                    ],
+                    "doc":"Returns the distance from all nodes to the parent energy meter that match the designated phase number. Returns a vector of doubles. Matches the order of AllNodeNamesByPhase, AllNodeVmagByPhase, AllNodeVmagPUByPhase.",
+                    "library_function_name":"CircuitV",
+                    "name":"AllNodeDistances"
+                },
+                {
+                    "args":[
+                        18,
+                        null
+                    ],
+                    "doc":"Complex array of actual node voltages in same order as SystemY matrix.",
+                    "library_function_name":"CircuitV",
+                    "name":"YNodeVArray"
+                },
+                {
+                    "args":[
+                        19,
+                        null
+                    ],
+                    "doc":"The names of the nodes in the same order as the Y matrix",
+                    "library_function_name":"CircuitV",
+                    "name":"YNodeOrder"
+                },
+                {
+                    "args":[
+                        20,
+                        null
+                    ],
+                    "doc":"Vector of doubles containing complex injection currents for the present solution.",
+                    "library_function_name":"CircuitV",
+                    "name":"YCurrents"
+                }
+            ],
+            "name":"Circuit"
+        },
+        {
+            "functions":[
+                {
+                    "args":[
+                        0,
+                        0
+                    ],
+                    "doc":"Number of Terminals on this Circuit Element",
+                    "library_function_name":"CktElementI",
+                    "name":"NumTerminals"
+                },
+                {
+                    "args":[
+                        1,
+                        0
+                    ],
+                    "doc":"Number of Conductors per Terminal",
+                    "library_function_name":"CktElementI",
+                    "name":"NumConductors"
+                },
+                {
+                    "args":[
+                        2,
+                        0
+                    ],
+                    "doc":"Number of phases",
+                    "library_function_name":"CktElementI",
+                    "name":"NumPhases"
+                },
+                {
+                    "args":[
+                        3,
+                        0
+                    ],
+                    "doc":"Open the specified terminal and phase, if non\u2010zero.  Else all conductors at terminal.",
+                    "library_function_name":"CktElementI",
+                    "name":"Open"
+                },
+                {
+                    "args":[
+                        4,
+                        0
+                    ],
+                    "doc":"Close the specified terminal and phase, if non\u2010zero.  Else all conductors at terminal.",
+                    "library_function_name":"CktElementI",
+                    "name":"Close"
+                },
+                {
+                    "args":[
+                        5,
+                        0
+                    ],
+                    "doc":"Bool indicating if the specified terminal and, optionally, phase is open.",
+                    "library_function_name":"CktElementI",
+                    "name":"IsOpen"
+                },
+                {
+                    "args":[
+                        6,
+                        0
+                    ],
+                    "doc":"Number of Properties this Circuit Element.",
+                    "library_function_name":"CktElementI",
+                    "name":"NumProperties"
+                },
+                {
+                    "args":[
+                        7,
+                        0
+                    ],
+                    "doc":"Bool indicating whether this element has a SwtControl attached.",
+                    "library_function_name":"CktElementI",
+                    "name":"HasSwitchControl"
+                },
+                {
+                    "args":[
+                        8,
+                        0
+                    ],
+                    "doc":"This element has a CapControl or RegControl attached.",
+                    "library_function_name":"CktElementI",
+                    "name":"HasVoltControl"
+                },
+                {
+                    "args":[
+                        9,
+                        0
+                    ],
+                    "doc":"Number of controls connected to this device. Use to determine valid range for index into Controller array.",
+                    "library_function_name":"CktElementI",
+                    "name":"NumControls"
+                },
+                {
+                    "args":[
+                        10,
+                        0
+                    ],
+                    "doc":"Index into Controller list of OCP Device controlling this CktElement",
+                    "library_function_name":"CktElementI",
+                    "name":"OCPDevIndex"
+                },
+                {
+                    "args":[
+                        11,
+                        0
+                    ],
+                    "doc":"0=None; 1=Fuse; 2=Recloser; 3=Relay;  Type of OCP controller device",
+                    "library_function_name":"CktElementI",
+                    "name":"OCPDevType"
+                },
+                {
+                    "args":[
+                        12,
+                        0
+                    ],
+                    "doc":"Element is enabled",
+                    "library_function_name":"CktElementI",
+                    "name":"Enabled"
+                },
+                {
+                    "args":[
+                        13,
+                        0
+                    ],
+                    "doc":"Enable the active circuit element",
+                    "library_function_name":"CktElementI",
+                    "name":"Enabled"
+                },
+                {
+                    "args":[
+                        0,
+                        0
+                    ],
+                    "doc":"Normal ampere rating for PD Elements",
+                    "library_function_name":"CktElementF",
+                    "name":"NormalAmps"
+                },
+                {
+                    "args":[
+                        1,
+                        0
+                    ],
+                    "doc":"Set the normal ampere rating for PD Elements",
+                    "library_function_name":"CktElementF",
+                    "name":"NormalAmps"
+                },
+                {
+                    "args":[
+                        2,
+                        0
+                    ],
+                    "doc":"Emergency Ampere Rating for PD elements",
+                    "library_function_name":"CktElementF",
+                    "name":"EmergAmps"
+                },
+                {
+                    "args":[
+                        3,
+                        0
+                    ],
+                    "doc":"Set the emergency Ampere Rating for PD elements",
+                    "library_function_name":"CktElementF",
+                    "name":"EmergAmps"
+                },
+                {
+                    "args":[
+                        4,
+                        0
+                    ],
+                    "doc":"For PCElement, get the value of a variable by integer index.",
+                    "library_function_name":"CktElementF",
+                    "name":"Variablei"
+                },
+                {
+                    "args":[
+                        0,
+                        ""
+                    ],
+                    "doc":"Full Name of Active Circuit Element",
+                    "library_function_name":"CktElementS",
+                    "name":"Name"
+                },
+                {
+                    "args":[
+                        1,
+                        ""
+                    ],
+                    "doc":"Display name of the object (not necessarily unique)",
+                    "library_function_name":"CktElementS",
+                    "name":"DisplayName"
+                },
+                {
+                    "args":[
+                        2,
+                        ""
+                    ],
+                    "doc":"Set the display name of the object (not necessarily unique)",
+                    "library_function_name":"CktElementS",
+                    "name":"DisplayName"
+                },
+                {
+                    "args":[
+                        3,
+                        ""
+                    ],
+                    "doc":"Globally unique identifier for this object",
+                    "library_function_name":"CktElementS",
+                    "name":"GUID"
+                },
+                {
+                    "args":[
+                        4,
+                        ""
+                    ],
+                    "doc":"Name of the Energy Meter this element is assigned to",
+                    "library_function_name":"CktElementS",
+                    "name":"EnergyMeter"
+                },
+                {
+                    "args":[
+                        5,
+                        ""
+                    ],
+                    "doc":"Full name of the i\u2010th controller attached to this element. Ex: str = Controller",
+                    "library_function_name":"CktElementS",
+                    "name":"Controller"
+                },
+                {
+                    "args":[
+                        0,
+                        null
+                    ],
+                    "doc":"Get  Bus definitions to which each terminal is connected. 0\u2010based array.",
+                    "library_function_name":"CktElementV",
+                    "name":"BusNames"
+                },
+                {
+                    "args":[
+                        2,
+                        null
+                    ],
+                    "doc":"Complex array of voltages at terminals",
+                    "library_function_name":"CktElementV",
+                    "name":"Voltages"
+                },
+                {
+                    "args":[
+                        3,
+                        null
+                    ],
+                    "doc":"Complex array of currents into each conductor of each terminal",
+                    "library_function_name":"CktElementV",
+                    "name":"Currents"
+                },
+                {
+                    "args":[
+                        4,
+                        null
+                    ],
+                    "doc":"Complex array of powers into each conductor of each terminal",
+                    "library_function_name":"CktElementV",
+                    "name":"Powers"
+                },
+                {
+                    "args":[
+                        5,
+                        null
+                    ],
+                    "doc":"Total losses in the element: two\u2010element complex array",
+                    "library_function_name":"CktElementV",
+                    "name":"Losses"
+                },
+                {
+                    "args":[
+                        6,
+                        null
+                    ],
+                    "doc":"Complex array of losses by phase",
+                    "library_function_name":"CktElementV",
+                    "name":"PhaseLosses"
+                },
+                {
+                    "args":[
+                        7,
+                        null
+                    ],
+                    "doc":"Double array of symmetrical component voltages at each 3\u2010phase terminal",
+                    "library_function_name":"CktElementV",
+                    "name":"SeqVoltages"
+                },
+                {
+                    "args":[
+                        8,
+                        null
+                    ],
+                    "doc":"Double array of symmetrical component currents into each 3\u2010phase terminal",
+                    "library_function_name":"CktElementV",
+                    "name":"SeqCurrents"
+                },
+                {
+                    "args":[
+                        9,
+                        null
+                    ],
+                    "doc":"Double array of sequence powers into each 3\u2010phase teminal",
+                    "library_function_name":"CktElementV",
+                    "name":"SeqPowers"
+                },
+                {
+                    "args":[
+                        10,
+                        null
+                    ],
+                    "doc":"All property names of the active device.",
+                    "library_function_name":"CktElementV",
+                    "name":"AllPropertyNames"
+                },
+                {
+                    "args":[
+                        11,
+                        null
+                    ],
+                    "doc":"Residual currents for each terminal: (mag, angle)",
+                    "library_function_name":"CktElementV",
+                    "name":"Residuals"
+                },
+                {
+                    "args":[
+                        12,
+                        null
+                    ],
+                    "doc":"YPrim matrix, column order, complex numbers",
+                    "library_function_name":"CktElementV",
+                    "name":"YPrim"
+                },
+                {
+                    "args":[
+                        13,
+                        null
+                    ],
+                    "doc":"Complex double array of Sequence Voltage for all terminals of active circuit element.",
+                    "library_function_name":"CktElementV",
+                    "name":"CplxSeqVoltages"
+                },
+                {
+                    "args":[
+                        14,
+                        null
+                    ],
+                    "doc":"Complex double array of Sequence Currents for all conductors of all terminals of active circuit element.",
+                    "library_function_name":"CktElementV",
+                    "name":"CplxSeqCurrents"
+                },
+                {
+                    "args":[
+                        15,
+                        null
+                    ],
+                    "doc":"Variant array of strings listing all the published variable names, if a PCElement. Otherwise, null string.",
+                    "library_function_name":"CktElementV",
+                    "name":"AllVariableNames"
+                },
+                {
+                    "args":[
+                        16,
+                        null
+                    ],
+                    "doc":"Values of state variables of active element if PC element.",
+                    "library_function_name":"CktElementV",
+                    "name":"AllVariableValues"
+                },
+                {
+                    "args":[
+                        17,
+                        null
+                    ],
+                    "doc":"Node numbers (representing phases, for example)",
+                    "library_function_name":"CktElementV",
+                    "name":"NodeOrder"
+                },
+                {
+                    "args":[
+                        18,
+                        null
+                    ],
+                    "doc":"Currents in magnitude, angle format as a variant array of doubles.",
+                    "library_function_name":"CktElementV",
+                    "name":"CurrentsMagAng"
+                },
+                {
+                    "args":[
+                        19,
+                        null
+                    ],
+                    "doc":"Voltages at each conductor in magnitude, angle form as variant array of doubles.",
+                    "library_function_name":"CktElementV",
+                    "name":"VoltagesMagAng"
+                }
+            ],
+            "name":"CktElement"
         }
     ]
 }
