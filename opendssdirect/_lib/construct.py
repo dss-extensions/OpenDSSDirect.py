@@ -25,12 +25,7 @@ with open(os.path.join(dir_path, 'interface.json'), encoding='utf-8') as f:
     interface = json.loads(f.read())
 
 
-library = None
-
-
 def construct():
-
-    global library
 
     library = load_library()
 
@@ -46,7 +41,7 @@ def construct():
     for name, m in modules.items():
         sys.modules[name] = m
 
-    return modules
+    return modules, library
 
 
 def create_modules():

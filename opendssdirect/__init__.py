@@ -1,6 +1,6 @@
 from ._lib.construct import construct as __c
 
-__m = __c()
+__m, __l = __c()
 
 ActiveClass = __m['opendssdirect.ActiveClass']
 Basic = __m['opendssdirect.Basic']
@@ -34,3 +34,5 @@ Topology = __m['opendssdirect.Topology']
 Transformers = __m['opendssdirect.Transformers']
 Vsources = __m['opendssdirect.Vsources']
 XYCurves = __m['opendssdirect.XYCurves']
+
+Engine = __l
