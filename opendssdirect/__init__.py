@@ -35,4 +35,4 @@ Transformers = __m['opendssdirect.Transformers']
 Vsources = __m['opendssdirect.Vsources']
 XYCurves = __m['opendssdirect.XYCurves']
 
-Engine = __l
+dss_lib = __l
