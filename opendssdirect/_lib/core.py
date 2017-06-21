@@ -35,6 +35,18 @@ class VArg(ctypes.Structure):
     ]
 
 
+class VarArray(ctypes.Structure):
+    _fields_ = [
+        ('dimcount', ctypes.c_uint8),
+        ('flags', ctypes.c_uint8),
+        ('elementsize', ctypes.c_uint32),
+        ('lockcount', ctypes.c_uint32),
+        ('data', ctypes.POINTER(None)),
+        ('length', ctypes.c_uint),
+        ('lbound', ctypes.c_uint),
+    ]
+
+
 mapping = {
     u'longint': ctypes.c_int32,
     u'longword': ctypes.c_uint32,
@@ -49,6 +61,13 @@ mapping = {
 
 with open(os.path.join(dir_path, 'schema.json')) as f:
     schema = json.loads(f.read())
+
+
+def is_delphi():
+    if 'darwin' in sys.platform or 'linux' in sys.platform:
+        return False
+    else:
+        return True
 
 
 def load_library():
