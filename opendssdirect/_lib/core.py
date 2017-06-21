@@ -44,7 +44,7 @@ mapping = {
     u'pcomplexarray': ctypes.POINTER(ctypes.POINTER(ctypes.c_double * 2)),
     u'pintegerarray': ctypes.POINTER(ctypes.POINTER(ctypes.c_double * 2)),
     u'pnodevarray': ctypes.POINTER(ctypes.POINTER(ctypes.c_double * 2)),
-    u'variant': SAFEARRAY,
+    u'variant': ctypes.POINTER(VArg),
 }
 
 with open(os.path.join(dir_path, 'schema.json')) as f:
