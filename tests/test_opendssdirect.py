@@ -88,7 +88,8 @@ def test_ActiveClass():
     assert dss.Basic.UserClasses() == []
     assert dss.Basic.Version()
 
-    assert dss.Bus.Coorddefined() == 1
+    # assert dss.Bus.Coorddefined() == 1
+    # assert dss.Bus.CplxSeqVoltages() == [0.0, 0.078125, 0.0, 0.4103854298591614, -1687792.875, 7.377432823181152]
 
 
 def test_configuration():
