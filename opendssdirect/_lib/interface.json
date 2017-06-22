@@ -1571,7 +1571,7 @@
             ]
           ],
           "doc":"Return the System Y matrix as a complex (dense) matrix",
-          "enabled":true,
+          "enabled":false,
           "library_function_name":"CircuitV",
           "name":"SystemY"
         },
