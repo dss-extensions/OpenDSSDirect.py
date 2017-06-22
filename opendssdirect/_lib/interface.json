@@ -2350,7 +2350,7 @@
           "doc":"Close the fuse back in and reset.",
           "enabled":true,
           "library_function_name":"FusesI",
-          "name":" Close"
+          "name":"Close"
         },
         {
           "args":[
@@ -2378,7 +2378,7 @@
           "doc":"Get/set active fuse by index into the list of fuses. 1 based: 1..count\nSet Fuse active by index into the list of fuses. 1..count",
           "enabled":true,
           "library_function_name":"FusesI",
-          "name":" Idx"
+          "name":"Idx"
         },
         {
           "args":[
@@ -5163,7 +5163,7 @@
           "doc":"Returns next parameter as a double.",
           "enabled":true,
           "library_function_name":"ParserF",
-          "name":"DblValue "
+          "name":"DblValue"
         },
         {
           "args":[
