@@ -138,6 +138,8 @@ def VarArrayFunction(f, mode, name, optional):
         logger.debug("Calling function {} with arguments {}".format(name, (mode, p)))
         f(mode, p)
 
+    logger.debug("Successively calling function {}")
+
     var_arr = ctypes.cast(varg.p, ctypes.POINTER(VarArray)).contents
 
     l = list()
