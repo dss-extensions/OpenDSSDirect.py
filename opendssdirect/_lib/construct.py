@@ -146,7 +146,7 @@ def VarArrayFunction(f, mode, name, optional):
 
     l = list()
 
-    if varg.dtype == 0x2008:  # CString
+    if varg.dtype == 0x2008 and var_arr.length != 0:  # CString
 
         data = ctypes.cast(var_arr.data, ctypes.POINTER(POINTER * var_arr.length))
 
@@ -161,7 +161,7 @@ def VarArrayFunction(f, mode, name, optional):
 
                 l.append(''.join([chr(x).decode('ascii') for x in s.contents[:]]))
 
-    elif varg.dtype == 0x2005:  # Float64
+    elif varg.dtype == 0x2005 and var_arr.length != 0:  # Float64
 
         data = ctypes.cast(var_arr.data, ctypes.POINTER(ctypes.c_float * var_arr.length))
 
@@ -170,7 +170,7 @@ def VarArrayFunction(f, mode, name, optional):
         for i in data.contents:
             l.append(i)
 
-    elif varg.dtype == 0x2003:  # Int32
+    elif varg.dtype == 0x2003 and var_arr.length != 0:  # Int32
 
         data = ctypes.cast(var_arr.data, ctypes.POINTER(ctypes.c_int32 * var_arr.length))
 
