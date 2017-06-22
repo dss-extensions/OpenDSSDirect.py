@@ -54,7 +54,7 @@
           "args":[
             [
               0,
-              ""
+              "0"
             ],
             [
               1,
@@ -1909,7 +1909,7 @@
             ]
           ],
           "doc":"Full name of the i\u2010th controller attached to this element. Ex: str = Controller",
-          "enabled":true,
+          "enabled":false,
           "library_function_name":"CktElementS",
           "name":"Controller"
         },
@@ -2156,7 +2156,7 @@
           "doc":"Number of Properties for the active DSS object.",
           "enabled":true,
           "library_function_name":"DSSElementI",
-          "name":"NumProperties "
+          "name":"NumProperties"
         },
         {
           "args":[
