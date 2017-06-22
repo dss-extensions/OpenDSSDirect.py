@@ -1315,7 +1315,8 @@
           "args":[
             [
               0,
-              null
+              null,
+              0
             ]
           ],
           "doc":"Watt and var losses in the entire circuit, complex",
@@ -1326,7 +1327,8 @@
           "args":[
             [
               1,
-              null
+              null,
+              0
             ]
           ],
           "doc":"Watt and var losses in all the Line elements in the circuit, complex",
@@ -1337,7 +1339,8 @@
           "args":[
             [
               2,
-              null
+              null,
+              0
             ]
           ],
           "doc":"Watt and var losses in all the Transformer elements in the circuit that are designated as substations",
@@ -1348,7 +1351,8 @@
           "args":[
             [
               3,
-              null
+              null,
+              0
             ]
           ],
           "doc":"Returns the total power in kW and kvar supplied to the circuit by all Vsource and Isource objects. Does not include Generator objects. Complex.",
@@ -1359,7 +1363,8 @@
           "args":[
             [
               4,
-              null
+              null,
+              0
             ]
           ],
           "doc":"Returns the voltage (complex) for every node in the circuit as a complex vector. The order of the array is the same as AllNodeNames property. The array is constructed bus-by-bus and then by node at each bus. Thus, all nodes from each bus are grouped together.",
@@ -1370,7 +1375,8 @@
           "args":[
             [
               5,
-              null
+              null,
+              0
             ]
           ],
           "doc":"Similar to AllBusVolts except magnitude only (in actual volts). Returns the voltage (magnitude) for every node in the circuit as a complex vector.",
@@ -1381,7 +1387,8 @@
           "args":[
             [
               6,
-              null
+              null,
+              0
             ]
           ],
           "doc":"The names of all elements",
@@ -1392,7 +1399,8 @@
           "args":[
             [
               7,
-              null
+              null,
+              0
             ]
           ],
           "doc":"The names of all buses in the system. See `:AllNodeNames`.",
@@ -1403,7 +1411,8 @@
           "args":[
             [
               8,
-              null
+              null,
+              0
             ]
           ],
           "doc":"Returns the watt and var losses in each element of the system as a complex vector. Order is the same as AllElementNames.",
@@ -1414,7 +1423,8 @@
           "args":[
             [
               9,
-              null
+              null,
+              0
             ]
           ],
           "doc":"Similar to AllBusVmag except that the magnitudes are reported in per unit for all buses with kVBase defined.",
@@ -1425,7 +1435,8 @@
           "args":[
             [
               10,
-              null
+              null,
+              0
             ]
           ],
           "doc":"Returns the names of all nodes (busname.nodenumber) in the same order as AllBusVolts, AllBusVmag, and AllBusVMagPu",
@@ -1436,7 +1447,8 @@
           "args":[
             [
               11,
-              null
+              null,
+              0
             ]
           ],
           "doc":"Return the System Y matrix as a complex (dense) matrix",
@@ -1447,7 +1459,8 @@
           "args":[
             [
               12,
-              null
+              null,
+              0
             ]
           ],
           "doc":"Returns all distances from a bus to its parent EnergyMeter element, which is generally in the substation, as a variant array of doubles. Order corresponds to that of all bus properties.",
@@ -1458,7 +1471,8 @@
           "args":[
             [
               13,
-              null
+              null,
+              0
             ]
           ],
           "doc":"Returns the distance from all nodes to the parent energy meter that match the designated phase number. Returns a vector of doubles. Matches the order of AllNodeNamesByPhase, AllNodeVmagByPhase, AllNodeVmagPUByPhase.",
@@ -1469,7 +1483,8 @@
           "args":[
             [
               18,
-              null
+              null,
+              0
             ]
           ],
           "doc":"Complex array of actual node voltages in same order as SystemY matrix.",
@@ -1480,7 +1495,8 @@
           "args":[
             [
               19,
-              null
+              null,
+              0
             ]
           ],
           "doc":"The names of the nodes in the same order as the Y matrix",
@@ -1491,7 +1507,8 @@
           "args":[
             [
               20,
-              null
+              null,
+              0
             ]
           ],
           "doc":"Vector of doubles containing complex injection currents for the present solution.",

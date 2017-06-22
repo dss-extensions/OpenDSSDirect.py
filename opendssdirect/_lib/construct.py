@@ -88,11 +88,15 @@ def create_functions(library):
 
 def generate_function(f, function):
 
-    if len(function['args']) == 1 and function['args'][0][-1] is None:
+    if len(function['args']) == 1 and function['args'][0][1] is None:
         args = function['args'][0]
-        assert args[-1] is None, "Expected second argument to be None"
+        assert args[1] is None, "Expected second argument to be None"
         mode = args[0]
-        f = partial(VarArrayFunction, f=f, mode=mode, name=function['library_function_name'])
+        if len(args) == 3:
+            optional = args[2]
+        else:
+            optional = None
+        f = partial(VarArrayFunction, f=f, mode=mode, optional=optional, name=function['library_function_name'])
     else:
         modes = tuple(mode for mode, arg in function['args'])
         args = tuple(arg for mode, arg in function['args'])
@@ -109,7 +113,7 @@ def CtypesFunction(arg=None, f=None, modes=None, args=None, name=None):
     else:
         # Second mode should be used
         arg = arg  # Ignore the args
-        mode = modes[1]
+        mode = modes[-1]
 
     logger.debug("Calling function {} with arguments {}".format(name, (mode, arg)))
 
@@ -121,14 +125,18 @@ def CtypesFunction(arg=None, f=None, modes=None, args=None, name=None):
     return r
 
 
-def VarArrayFunction(f, mode, name):
+def VarArrayFunction(f, mode, name, optional):
 
     varg = VArg(0, None, 0, 0)
 
     p = ctypes.POINTER(VArg)(varg)
 
-    logger.debug("Calling function {} with arguments {}".format(name, (mode, p)))
-    f(mode, p)
+    if optional is not None:
+        logger.debug("Calling function {} with arguments {}".format(name, (mode, p, optional)))
+        f(mode, p, optional)
+    else:
+        logger.debug("Calling function {} with arguments {}".format(name, (mode, p)))
+        f(mode, p)
 
     var_arr = ctypes.cast(varg.p, ctypes.POINTER(VarArray)).contents
 
