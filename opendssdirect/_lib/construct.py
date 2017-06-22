@@ -84,19 +84,38 @@ def create_functions(library):
 
 def generate_function(f, function):
     if function['args'][-1] is None:
-        f = partial(caller_function, f=f)
-    else:
-        f = partial(f, *function['args'])
+        f = partial(VarArrayFunction, f=f, function=function['args'])
+    elif function['library_function_name']:
+        f = partial(CtypesNoInputFunction, f=f, function=function['args'])
     return f
 
 
-def caller_function(f):
+def CtypesNoInputFunction(f, function):
+
+    args = function['args']
+    inputs = function['input']
+
+    assert len(inputs) <= 2, "Excepted a list of length less than or equal to 2"
+
+    mode, arg = args
+
+    f(mode, arg)
+
+    return f
+
+
+
+
+def VarArrayFunction(f, args):
+
+    assert len(args)==2, "Excepted two args but found {}".format(args)
+    assert args[-1] is None, "Excepted second argument to be None but found {}".format(args[-1])
 
     varg = VArg(0, None, 0, 0)
 
     p = ctypes.POINTER(VArg)(varg)
 
-    f(0, p)
+    f(args[0], p)
 
     var_arr = ctypes.cast(varg.p, ctypes.POINTER(VarArray)).contents
 
