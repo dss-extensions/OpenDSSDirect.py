@@ -54,11 +54,11 @@
           "args":[
             [
               0,
-              "0"
+              "1"
             ],
             [
               1,
-              ""
+              "1"
             ]
           ],
           "doc":"Name of the active element of the active class\nSet the name of the active element of the active class",
@@ -70,7 +70,7 @@
           "args":[
             [
               2,
-              ""
+              "1"
             ]
           ],
           "doc":"Name of the active class",
@@ -199,7 +199,7 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ]
           ],
           "doc":"Make a new circuit",
@@ -211,7 +211,7 @@
           "args":[
             [
               1,
-              ""
+              "1"
             ]
           ],
           "doc":"Get version string for OpenDSS",
@@ -223,11 +223,11 @@
           "args":[
             [
               2,
-              ""
+              "1"
             ],
             [
               3,
-              ""
+              "1"
             ]
           ],
           "doc":"Default file path for reports, etc.\nSet the default file path for reports, etc.",
@@ -239,7 +239,7 @@
           "args":[
             [
               4,
-              ""
+              "1"
             ]
           ],
           "doc":"The path name for the default text editor",
@@ -480,7 +480,7 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ]
           ],
           "doc":"Active bus name; set the active bus by name with `circuit.SetActiveBus(name)`",
@@ -837,11 +837,11 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ],
             [
               1,
-              ""
+              "1"
             ]
           ],
           "doc":"The name of the active capacitor\nSets the active capacitor by name",
@@ -1094,11 +1094,11 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ],
             [
               1,
-              ""
+              "1"
             ]
           ],
           "doc":"The name of the active CapControl\nSet the active CapControl by name",
@@ -1110,11 +1110,11 @@
           "args":[
             [
               2,
-              ""
+              "1"
             ],
             [
               3,
-              ""
+              "1"
             ]
           ],
           "doc":"Name of the Capacitor that is controlled\nSet the Capacitor (by name) that is controlled",
@@ -1126,11 +1126,11 @@
           "args":[
             [
               4,
-              ""
+              "1"
             ],
             [
               5,
-              ""
+              "1"
             ]
           ],
           "doc":"Full name of the element that PT and CT are connected to\nSet the element (by full name) that PT and CT are connected to",
@@ -1351,7 +1351,7 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ]
           ],
           "doc":"Name of the active circuit",
@@ -1363,7 +1363,7 @@
           "args":[
             [
               1,
-              ""
+              "1"
             ]
           ],
           "doc":"Disable a circuit element by name (full name).",
@@ -1375,7 +1375,7 @@
           "args":[
             [
               2,
-              ""
+              "1"
             ]
           ],
           "doc":"Enable a circuit element by name (full name).",
@@ -1387,7 +1387,7 @@
           "args":[
             [
               3,
-              ""
+              "1"
             ]
           ],
           "doc":"Activate an element of the active circuit by name. Returns a string with the index of the active element.",
@@ -1399,7 +1399,7 @@
           "args":[
             [
               4,
-              ""
+              "1"
             ]
           ],
           "doc":"Sets the active bus by name. Returns a 0 based index of the bus to use for future direct indexing of bus values returned in arrays. Returns -1 if an error occurs.",
@@ -1411,7 +1411,7 @@
           "args":[
             [
               5,
-              ""
+              "1"
             ]
           ],
           "doc":"Sets the active class by name.  Use FirstElement, NextElement to iterate through the class. Returns \u20101 if fails.",
@@ -1853,7 +1853,7 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ]
           ],
           "doc":"Full Name of Active Circuit Element",
@@ -1865,11 +1865,11 @@
           "args":[
             [
               1,
-              ""
+              "1"
             ],
             [
               2,
-              ""
+              "1"
             ]
           ],
           "doc":"Display name of the object (not necessarily unique)\nSet the display name of the object (not necessarily unique)",
@@ -1881,7 +1881,7 @@
           "args":[
             [
               3,
-              ""
+              "1"
             ]
           ],
           "doc":"Globally unique identifier for this object",
@@ -1893,7 +1893,7 @@
           "args":[
             [
               4,
-              ""
+              "1"
             ]
           ],
           "doc":"Name of the Energy Meter this element is assigned to",
@@ -1905,7 +1905,7 @@
           "args":[
             [
               5,
-              ""
+              "1"
             ]
           ],
           "doc":"Full name of the i\u2010th controller attached to this element. Ex: str = Controller",
@@ -2162,7 +2162,7 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ]
           ],
           "doc":"Full Name of Active DSS Object (general element or circuit element)",
@@ -2215,7 +2215,7 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ]
           ],
           "doc":"Get i\u2010th command (with i as a string)",
@@ -2227,7 +2227,7 @@
           "args":[
             [
               1,
-              ""
+              "1"
             ]
           ],
           "doc":"Get i\u2010th option (with i as a string)",
@@ -2239,7 +2239,7 @@
           "args":[
             [
               2,
-              ""
+              "1"
             ]
           ],
           "doc":"Get help string for i\u2010th command (with i as a string)",
@@ -2251,7 +2251,7 @@
           "args":[
             [
               3,
-              ""
+              "1"
             ]
           ],
           "doc":"Get help string for i\u2010th option (with i as a string)",
@@ -2263,7 +2263,7 @@
           "args":[
             [
               4,
-              ""
+              "1"
             ]
           ],
           "doc":"Get present value of i\u2010th option (with i as a string)",
@@ -2412,11 +2412,11 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ],
             [
               1,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the name of the active Fuse element\nSet the name of the active Fuse element",
@@ -2428,11 +2428,11 @@
           "args":[
             [
               2,
-              ""
+              "1"
             ],
             [
               3,
-              ""
+              "1"
             ]
           ],
           "doc":"Full name of the circuit element to which the fuse is connected.\nSet the full name of the circuit element to which the fuse is connected.",
@@ -2444,11 +2444,11 @@
           "args":[
             [
               4,
-              ""
+              "1"
             ],
             [
               5,
-              ""
+              "1"
             ]
           ],
           "doc":"Full name of the circuit element switch that the fuse controls. Defaults to the MonitoredObj.\nSet the full name of the circuit element switch that the fuse controls. Defaults to the MonitoredObj.",
@@ -2460,11 +2460,11 @@
           "args":[
             [
               6,
-              ""
+              "1"
             ],
             [
               7,
-              ""
+              "1"
             ]
           ],
           "doc":"Name of the TCCcurve object that determines fuse blowing.\nSet the name of the TCCcurve object that determines fuse blowing.",
@@ -2705,11 +2705,11 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ],
             [
               1,
-              ""
+              "1"
             ]
           ],
           "doc":"Active generator name.\nSets a generator active by name.",
@@ -2891,11 +2891,11 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ],
             [
               1,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the name of the active Isource object.\nSet the name of the active Isource object.",
@@ -3208,11 +3208,11 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ],
             [
               1,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the name of the active Line element.\nSet the name of the Line element to set it active.",
@@ -3224,11 +3224,11 @@
           "args":[
             [
               2,
-              ""
+              "1"
             ],
             [
               3,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the name of bus for terminal 1.\nSet the name of bus for terminal 1.",
@@ -3240,11 +3240,11 @@
           "args":[
             [
               4,
-              ""
+              "1"
             ],
             [
               5,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the name of bus for terminal 2.\nSet the name of bus for terminal 2.",
@@ -3256,11 +3256,11 @@
           "args":[
             [
               6,
-              ""
+              "1"
             ],
             [
               7,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the name of LineCode object that defines the impedances.\nSet the name of LineCode object that defines the impedances.",
@@ -3272,11 +3272,11 @@
           "args":[
             [
               8,
-              ""
+              "1"
             ],
             [
               9,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the name of the Line geometry code.\nSet the name of the Line geometry code.",
@@ -3288,11 +3288,11 @@
           "args":[
             [
               10,
-              ""
+              "1"
             ],
             [
               11,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the name of the Line spacing code.\nSet the name of the Line spacing code.",
@@ -3853,11 +3853,11 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ],
             [
               1,
-              ""
+              "1"
             ]
           ],
           "doc":"The Name property of the active load. The parameter argument can be filled with an empty string.\nSet the active load by specifying the Name load. The parameter argument must contain the Name of the load to activate. The return value will be equal to empty.",
@@ -3869,11 +3869,11 @@
           "args":[
             [
               2,
-              ""
+              "1"
             ],
             [
               3,
-              ""
+              "1"
             ]
           ],
           "doc":"The CVRCUrve property of the active load. The parameter argument can be filled with an empty string.\nSet the CVRCurve property for the active load. The parameter argument must contain the Name of the new CVRCurve to be linked to the active load. The return value will be equal to empty.",
@@ -3885,11 +3885,11 @@
           "args":[
             [
               4,
-              ""
+              "1"
             ],
             [
               5,
-              ""
+              "1"
             ]
           ],
           "doc":"The daily property of the active load. The parameter argument can be filled with an empty string.\nSet the daily property for the active load. The parameter argument must contain the Name of the new daily to be linked to the active load. The return value will be equal to empty.",
@@ -3901,11 +3901,11 @@
           "args":[
             [
               6,
-              ""
+              "1"
             ],
             [
               7,
-              ""
+              "1"
             ]
           ],
           "doc":"The duty property of the active load. The parameter argument can be filled with an empty string.\nSet the duty property for the active load. The parameter argument must contain the Name of the new duty to be linked to the active load. The return value will be equal to empty.",
@@ -3917,11 +3917,11 @@
           "args":[
             [
               8,
-              ""
+              "1"
             ],
             [
               9,
-              ""
+              "1"
             ]
           ],
           "doc":"The Spectrum property of the active load. The parameter argument can be filled with an empty string.\nSet the Spectrum property for the active load. The parameter argument must contain the Name of the new Spectrum to be linked to the active load. The return value will be equal to empty.",
@@ -3933,11 +3933,11 @@
           "args":[
             [
               10,
-              ""
+              "1"
             ],
             [
               11,
-              ""
+              "1"
             ]
           ],
           "doc":"The Yearly property of the active load. The parameter argument can be filled with an empty string.\nSet the Yearly property for the active load. The parameter argument must contain the Name of the new Yearly to be linked to the active load. The return value will be equal to empty.",
@@ -3949,11 +3949,11 @@
           "args":[
             [
               12,
-              ""
+              "1"
             ],
             [
               13,
-              ""
+              "1"
             ]
           ],
           "doc":"The Growth property of the active load. The parameter argument can be filled with an empty string.\nSet the Growth property for the active load. The parameter argument must contain the Name of the new Growth to be linked to the active load. The return value will be equal to empty.",
@@ -4154,11 +4154,11 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ],
             [
               1,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the name of the active LoadShape object.\nSet the name of the active LoadShape object.",
@@ -4627,11 +4627,11 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ],
             [
               1,
-              ""
+              "1"
             ]
           ],
           "doc":"The active Energy Meter's name.\nSet the active Energy Meter's name.",
@@ -4643,11 +4643,11 @@
           "args":[
             [
               2,
-              ""
+              "1"
             ],
             [
               3,
-              ""
+              "1"
             ]
           ],
           "doc":"The name of the metered element (considering the active Energy Meter).\nSet the name of the metered element (considering the active Energy Meter).",
@@ -4996,7 +4996,7 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ]
           ],
           "doc":"The name of the CSV file associated with active monitor.",
@@ -5008,11 +5008,11 @@
           "args":[
             [
               1,
-              ""
+              "1"
             ],
             [
               2,
-              ""
+              "1"
             ]
           ],
           "doc":"The active Monitor object by name.\nSet the active Monitor object by name.",
@@ -5024,11 +5024,11 @@
           "args":[
             [
               3,
-              ""
+              "1"
             ],
             [
               4,
-              ""
+              "1"
             ]
           ],
           "doc":"The full name of element being monitored by the active Monitor.\nSet the full name of element being monitored by the active Monitor.",
@@ -5169,11 +5169,11 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ],
             [
               1,
-              ""
+              "1"
             ]
           ],
           "doc":"Get a string to be parsed. Loading this string resets the Parser to the beginning of the line. Then parse off the tokens in sequence.\nSet a string to be parsed. Loading this string resets the Parser to the beginning of the line. Then parse off the tokens in sequence.",
@@ -5185,7 +5185,7 @@
           "args":[
             [
               2,
-              ""
+              "1"
             ]
           ],
           "doc":"Get next token and return tag name (before = sign) if any. See Autoincrement.",
@@ -5197,7 +5197,7 @@
           "args":[
             [
               3,
-              ""
+              "1"
             ]
           ],
           "doc":"Return next parameter as a string.",
@@ -5209,11 +5209,11 @@
           "args":[
             [
               4,
-              ""
+              "1"
             ],
             [
               5,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the characters used for White space in the command string. Default in blank and Tab.\nSet the characters used for White space in the command string. Default in blank and Tab.",
@@ -5225,11 +5225,11 @@
           "args":[
             [
               6,
-              ""
+              "1"
             ],
             [
               7,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the string containing the characters for quoting in OpenDSS scripts. Matching pairs defined in EndQuote. Default is \"([{.\nSet the string containing the characters for quoting in OpenDSS scripts. Matching pairs defined in EndQuote. Default is \"([{.",
@@ -5241,11 +5241,11 @@
           "args":[
             [
               8,
-              ""
+              "1"
             ],
             [
               9,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the string containing the characters, in order, that match the beginning quote characters in BeginQuote. Default is \")]}.\nSet the string containing the characters, in order, that match the beginning quote characters in BeginQuote. Default is \")]}.",
@@ -5257,11 +5257,11 @@
           "args":[
             [
               10,
-              ""
+              "1"
             ],
             [
               11,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the string defining hard delimiters used to separate token on the command string. Default is , and =. The = separates token name from token value. These override whitespace to separate tokens.\nSet the string defining hard delimiters used to separate token on the command string. Default is , and =. The = separates token name from token value. These override whitespace to separate tokens.",
@@ -5502,11 +5502,11 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ],
             [
               1,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the name of the active PDElement, returns null string if active element id not PDElement.\nSet the name of the active PDElement, returns null string if active element id not PDElement.",
@@ -5860,11 +5860,11 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ],
             [
               1,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the name of the active Recloser Object.\nSet the name of the active Recloser Object.",
@@ -5876,11 +5876,11 @@
           "args":[
             [
               2,
-              ""
+              "1"
             ],
             [
               3,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the full name of object this Recloser is monitoring.\nSet the full name of object this Recloser is monitoring.",
@@ -5892,11 +5892,11 @@
           "args":[
             [
               4,
-              ""
+              "1"
             ],
             [
               5,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the full name of the circuit element that is being switched by this Recloser.\nSet the full name of the circuit element that is being switched by this Recloser.",
@@ -6277,11 +6277,11 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ],
             [
               1,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the active RegControl name.\nSet the active RegControl name.",
@@ -6293,11 +6293,11 @@
           "args":[
             [
               2,
-              ""
+              "1"
             ],
             [
               3,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the name of the remote regulated bus, in lieu of LDC settings.\nSet the name of the remote regulated bus, in lieu of LDC settings.",
@@ -6309,11 +6309,11 @@
           "args":[
             [
               4,
-              ""
+              "1"
             ],
             [
               5,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the name of the transformer this regulator controls.\nSet the name of the transformer this regulator controls.",
@@ -6426,11 +6426,11 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ],
             [
               1,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the name of the active Relay.\nSet the name of the active Relay.",
@@ -6442,11 +6442,11 @@
           "args":[
             [
               2,
-              ""
+              "1"
             ],
             [
               3,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the full name of the object this relay is monitoring.\nSet the full name of the object this relay is monitoring.",
@@ -6458,11 +6458,11 @@
           "args":[
             [
               4,
-              ""
+              "1"
             ],
             [
               5,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the full name of element that will switched when relay trips.\nSet the full name of element that will switched when relay trips.",
@@ -6647,11 +6647,11 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ],
             [
               1,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the name of the active sensor object.\nSet the name of the active sensor object.",
@@ -6663,11 +6663,11 @@
           "args":[
             [
               2,
-              ""
+              "1"
             ],
             [
               3,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the full name of the measured element.\nSet the full name of the measured element.",
@@ -6920,11 +6920,11 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ],
             [
               1,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the list of Buses or (File=xxxxx) syntax for the AutoAdd solution mode.\nSet the list of Buses or (File=xxxxx) syntax for the AutoAdd solution mode.",
@@ -6936,11 +6936,11 @@
           "args":[
             [
               2,
-              ""
+              "1"
             ],
             [
               3,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the name of LoadShape object that serves as the source of price signal data for yearly simulations, etc.\nSet the name of LoadShape object that serves as the source of price signal data for yearly simulations, etc.",
@@ -7673,7 +7673,7 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ]
           ],
           "doc":"The ID (text) of the present solution mode.",
@@ -7685,11 +7685,11 @@
           "args":[
             [
               1,
-              ""
+              "1"
             ],
             [
               2,
-              ""
+              "1"
             ]
           ],
           "doc":"The Load-Duration Curve name for LD modes.\nSet the Load-Duration Curve name for LD modes.",
@@ -7701,11 +7701,11 @@
           "args":[
             [
               3,
-              ""
+              "1"
             ],
             [
               4,
-              ""
+              "1"
             ]
           ],
           "doc":"The default daily load shape (defaults to 'Default').\nSet the default daily load shape (defaults to 'Default').",
@@ -7717,11 +7717,11 @@
           "args":[
             [
               5,
-              ""
+              "1"
             ],
             [
               6,
-              ""
+              "1"
             ]
           ],
           "doc":"The default yearly load shape (defaults to 'Default').\nSet the default yearly load shape (defaults to 'Default').",
@@ -7850,11 +7850,11 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ],
             [
               1,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the name of the active SwtControl.\nSet a SwtControl active by name.",
@@ -7866,11 +7866,11 @@
           "args":[
             [
               2,
-              ""
+              "1"
             ],
             [
               3,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the name of the switched object by the active SwtControl.\nSet the switched object by name.",
@@ -8055,11 +8055,11 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ],
             [
               1,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the name of the active branch.\nSet the name of the active branch.",
@@ -8071,11 +8071,11 @@
           "args":[
             [
               2,
-              ""
+              "1"
             ],
             [
               3,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the name of the active Bus.\nSet the Bus active by name.",
@@ -8404,11 +8404,11 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ],
             [
               1,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the name of an XfrmCode that supplies electrical paraMeters for this transformer.\nSet the name of an XfrmCode that supplies electrical paraMeters for this transformer.",
@@ -8420,11 +8420,11 @@
           "args":[
             [
               2,
-              ""
+              "1"
             ],
             [
               3,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the active transformer name and 3, on winding_1_kVA base. Use for 3 winding transformer only.\nSet the active transformer name and 3, on winding_1_kVA base. Use for 3 winding transformer only.",
@@ -8569,11 +8569,11 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ],
             [
               1,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the name of the active VSource.\nSet the name of the active VSource.",
@@ -8750,11 +8750,11 @@
           "args":[
             [
               0,
-              ""
+              "1"
             ],
             [
               1,
-              ""
+              "1"
             ]
           ],
           "doc":"Get the name of the active XYCurve Object.\nSet the name of the active XYCurve Object.",
