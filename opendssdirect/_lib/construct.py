@@ -75,15 +75,17 @@ def create_functions(library):
         module_name = 'opendssdirect.' + (m['name'])
         for function in m['functions']:
 
-            f = getattr(library, function['library_function_name'])
+            if function['enabled'] is True:
 
-            f = generate_function(f, function)
+                f = getattr(library, function['library_function_name'])
 
-            f.__name__ = function['name']
-            f.__module__ = module_name
-            f.__doc__ = function['doc']
+                f = generate_function(f, function)
 
-            functions[f.__module__ + '.' + f.__name__] = f
+                f.__name__ = function['name']
+                f.__module__ = module_name
+                f.__doc__ = function['doc']
+
+                functions[f.__module__ + '.' + f.__name__] = f
 
 
 def generate_function(f, function):
