@@ -6,11 +6,15 @@ import json
 from collections import OrderedDict
 from functools import partial
 import ctypes
+import logging
 
 from ..compat import ModuleType
 
 from .core import load_library
 from .core import VArg, VarArray, is_x64, is_delphi
+
+
+logger = logging.getLogger('opendssdirect.core')
 
 
 # Global modules and classes that can be populated by functions
@@ -83,39 +87,43 @@ def create_functions(library):
 
 
 def generate_function(f, function):
-    if function['args'][-1] is None:
-        f = partial(VarArrayFunction, f=f, function=function['args'])
-    elif function['library_function_name']:
-        f = partial(CtypesNoInputFunction, f=f, function=function['args'])
+
+    if len(function['args']) == 1 and function['args'][0][-1] is None:
+        args = function['args'][0]
+        assert args[-1] is None, "Expected second argument to be None"
+        mode = args[0]
+        f = partial(VarArrayFunction, f=f, mode=mode, name=function['library_function_name'])
+    else:
+        modes = tuple(mode for mode, arg in function['args'])
+        args = tuple(arg for mode, arg in function['args'])
+        f = partial(CtypesFunction, f=f, modes=modes, args=args, name=function['library_function_name'])
     return f
 
 
-def CtypesNoInputFunction(f, function):
+def CtypesFunction(arg=None, f=None, modes=None, args=None, name=None):
 
-    args = function['args']
-    inputs = function['input']
+    if arg is None:
+        # First mode should be used
+        arg = args[0]
+        mode = modes[0]
+    else:
+        # Second mode should be used
+        arg = arg  # Ignore the args
+        mode = modes[1]
 
-    assert len(inputs) <= 2, "Excepted a list of length less than or equal to 2"
+    logger.debug("Calling function {} with arguments {}".format(name, (mode, arg)))
 
-    mode, arg = args
-
-    f(mode, arg)
-
-    return f
+    return f(mode, arg)
 
 
-
-
-def VarArrayFunction(f, args):
-
-    assert len(args)==2, "Excepted two args but found {}".format(args)
-    assert args[-1] is None, "Excepted second argument to be None but found {}".format(args[-1])
+def VarArrayFunction(f, mode, name):
 
     varg = VArg(0, None, 0, 0)
 
     p = ctypes.POINTER(VArg)(varg)
 
-    f(args[0], p)
+    logger.debug("Calling function {} with arguments {}".format(name, (mode, p)))
+    f(mode, p)
 
     var_arr = ctypes.cast(varg.p, ctypes.POINTER(VarArray)).contents
 

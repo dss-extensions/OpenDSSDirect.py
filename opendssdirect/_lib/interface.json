@@ -64,17 +64,6 @@
         {
           "args":[
             [
-              1,
-              ""
-            ]
-          ],
-          "doc":"Set the name of the active element of the active class",
-          "library_function_name":"ActiveClassS",
-          "name":"Name"
-        },
-        {
-          "args":[
-            [
               2,
               ""
             ]
@@ -194,17 +183,6 @@
         {
           "args":[
             [
-              8,
-              0
-            ]
-          ],
-          "doc":"Bool flag to disable forms (once disabled, can't be enabled again)",
-          "library_function_name":"DSSI",
-          "name":"AllowForms"
-        },
-        {
-          "args":[
-            [
               0,
               ""
             ]
@@ -236,17 +214,6 @@
             ]
           ],
           "doc":"Default file path for reports, etc.\nSet the default file path for reports, etc.",
-          "library_function_name":"DSSS",
-          "name":"DataPath"
-        },
-        {
-          "args":[
-            [
-              3,
-              ""
-            ]
-          ],
-          "doc":"Set the default file path for reports, etc.",
           "library_function_name":"DSSS",
           "name":"DataPath"
         },
@@ -383,17 +350,6 @@
         {
           "args":[
             [
-              2,
-              0
-            ]
-          ],
-          "doc":"Set the X coordinate of the bus",
-          "library_function_name":"BUSF",
-          "name":"X"
-        },
-        {
-          "args":[
-            [
               3,
               0
             ],
@@ -403,17 +359,6 @@
             ]
           ],
           "doc":"Y coordinate of the bus\nSet the Y coordinate of the bus",
-          "library_function_name":"BUSF",
-          "name":"Y"
-        },
-        {
-          "args":[
-            [
-              4,
-              0
-            ]
-          ],
-          "doc":"Set the Y coordinate of the bus",
           "library_function_name":"BUSF",
           "name":"Y"
         },
@@ -693,17 +638,6 @@
         {
           "args":[
             [
-              1,
-              0
-            ]
-          ],
-          "doc":"Set the number of steps",
-          "library_function_name":"CapacitorsI",
-          "name":"NumSteps"
-        },
-        {
-          "args":[
-            [
               2,
               0
             ],
@@ -713,17 +647,6 @@
             ]
           ],
           "doc":"Is the connection a delta\nSet connection type; use `arg==true` for delta and `arg==false` for wye",
-          "library_function_name":"CapacitorsI",
-          "name":"IsDelta"
-        },
-        {
-          "args":[
-            [
-              3,
-              0
-            ]
-          ],
-          "doc":"Set connection type; use `arg==true` for delta and `arg==false` for wye",
           "library_function_name":"CapacitorsI",
           "name":"IsDelta"
         },
@@ -833,17 +756,6 @@
         {
           "args":[
             [
-              1,
-              0
-            ]
-          ],
-          "doc":"Set the bank kV rating; use LL for 2 or 3 phases, or actual can rating for 1 phase",
-          "library_function_name":"CapacitorsF",
-          "name":"kV"
-        },
-        {
-          "args":[
-            [
               2,
               0
             ],
@@ -859,17 +771,6 @@
         {
           "args":[
             [
-              3,
-              0
-            ]
-          ],
-          "doc":"Set the total bank kvar, distributed equally among phases and steps",
-          "library_function_name":"CapacitorsF",
-          "name":"kvar"
-        },
-        {
-          "args":[
-            [
               0,
               ""
             ],
@@ -879,17 +780,6 @@
             ]
           ],
           "doc":"The name of the active capacitor\nSets the active capacitor by name",
-          "library_function_name":"CapacitorsS",
-          "name":"Name"
-        },
-        {
-          "args":[
-            [
-              1,
-              ""
-            ]
-          ],
-          "doc":"Sets the active capacitor by name",
           "library_function_name":"CapacitorsS",
           "name":"Name"
         },
@@ -960,17 +850,6 @@
         {
           "args":[
             [
-              3,
-              0
-            ]
-          ],
-          "doc":"Set the type of automatic controller; for choices, see CapControlModes",
-          "library_function_name":"CapControlsI",
-          "name":"Mode"
-        },
-        {
-          "args":[
-            [
               4,
               0
             ],
@@ -986,17 +865,6 @@
         {
           "args":[
             [
-              5,
-              0
-            ]
-          ],
-          "doc":"Set the terminal number on the element that PT and CT are connected to",
-          "library_function_name":"CapControlsI",
-          "name":"MonitoredTerm"
-        },
-        {
-          "args":[
-            [
               6,
               0
             ],
@@ -1006,17 +874,6 @@
             ]
           ],
           "doc":"Bool flag that enables Vmin and Vmax to override the control mode\nSet the Bool flag that enables Vmin and Vmax to override the control mode",
-          "library_function_name":"CapControlsI",
-          "name":"UseVoltOverride"
-        },
-        {
-          "args":[
-            [
-              7,
-              0
-            ]
-          ],
-          "doc":"Set the Bool flag that enables Vmin and Vmax to override the control mode",
           "library_function_name":"CapControlsI",
           "name":"UseVoltOverride"
         },
@@ -1049,17 +906,6 @@
         {
           "args":[
             [
-              1,
-              0
-            ]
-          ],
-          "doc":"Set the transducer ratio from primary current to control current",
-          "library_function_name":"CapControlsF",
-          "name":"CTRatio"
-        },
-        {
-          "args":[
-            [
               2,
               0
             ],
@@ -1069,17 +915,6 @@
             ]
           ],
           "doc":"Transducer ratio from primary voltage to control voltage\nSet the transducer ratio from primary voltage to control voltage",
-          "library_function_name":"CapControlsF",
-          "name":"PTRatio"
-        },
-        {
-          "args":[
-            [
-              3,
-              0
-            ]
-          ],
-          "doc":"Set the transducer ratio from primary voltage to control voltage",
           "library_function_name":"CapControlsF",
           "name":"PTRatio"
         },
@@ -1101,17 +936,6 @@
         {
           "args":[
             [
-              5,
-              0
-            ]
-          ],
-          "doc":"Set the threshold to arm or switch on a step; see Mode for units",
-          "library_function_name":"CapControlsF",
-          "name":"ONSetting"
-        },
-        {
-          "args":[
-            [
               6,
               0
             ],
@@ -1121,17 +945,6 @@
             ]
           ],
           "doc":"Threshold to switch off a step; see the particular CapControlModes option for units\nSet the threshold to switch off a step; see the particular CapControlModes option for units",
-          "library_function_name":"CapControlsF",
-          "name":"OFFSetting"
-        },
-        {
-          "args":[
-            [
-              7,
-              0
-            ]
-          ],
-          "doc":"Set the threshold to switch off a step; see the particular CapControlModes option for units",
           "library_function_name":"CapControlsF",
           "name":"OFFSetting"
         },
@@ -1153,17 +966,6 @@
         {
           "args":[
             [
-              9,
-              0
-            ]
-          ],
-          "doc":"Set Vmax; with VoltOverride, switch off whenever PT voltage exceeds this level",
-          "library_function_name":"CapControlsF",
-          "name":"Vmax"
-        },
-        {
-          "args":[
-            [
               10,
               0
             ],
@@ -1173,17 +975,6 @@
             ]
           ],
           "doc":"With VoltOverride, switch on whenever PT voltage drops below this level\nSet Vmin; with VoltOverride, switch on whenever PT voltage drops below this level",
-          "library_function_name":"CapControlsF",
-          "name":"Vmin"
-        },
-        {
-          "args":[
-            [
-              11,
-              0
-            ]
-          ],
-          "doc":"Set Vmin; with VoltOverride, switch on whenever PT voltage drops below this level",
           "library_function_name":"CapControlsF",
           "name":"Vmin"
         },
@@ -1205,17 +996,6 @@
         {
           "args":[
             [
-              13,
-              0
-            ]
-          ],
-          "doc":"Set the time delay [s] to switch on after arming; control may reset before actuallyswitching",
-          "library_function_name":"CapControlsF",
-          "name":"Delay"
-        },
-        {
-          "args":[
-            [
               14,
               0
             ],
@@ -1225,17 +1005,6 @@
             ]
           ],
           "doc":"Time delay [s] before switching off a step; control may reset before actuallyswitching\nSet the time delay [s] before switching off a step; control may reset before actually switching",
-          "library_function_name":"CapControlsF",
-          "name":"DelayOff"
-        },
-        {
-          "args":[
-            [
-              15,
-              0
-            ]
-          ],
-          "doc":"Set the time delay [s] before switching off a step; control may reset before actually switching",
           "library_function_name":"CapControlsF",
           "name":"DelayOff"
         },
@@ -1257,17 +1026,6 @@
         {
           "args":[
             [
-              1,
-              ""
-            ]
-          ],
-          "doc":"Set the active CapControl by name",
-          "library_function_name":"CapControlsS",
-          "name":"Name"
-        },
-        {
-          "args":[
-            [
               2,
               ""
             ],
@@ -1283,17 +1041,6 @@
         {
           "args":[
             [
-              3,
-              ""
-            ]
-          ],
-          "doc":"Set the Capacitor (by name) that is controlled",
-          "library_function_name":"CapControlsS",
-          "name":"Capacitor"
-        },
-        {
-          "args":[
-            [
               4,
               ""
             ],
@@ -1303,17 +1050,6 @@
             ]
           ],
           "doc":"Full name of the element that PT and CT are connected to\nSet the element (by full name) that PT and CT are connected to",
-          "library_function_name":"CapControlsS",
-          "name":"MonitoredObj"
-        },
-        {
-          "args":[
-            [
-              5,
-              ""
-            ]
-          ],
-          "doc":"Set the element (by full name) that PT and CT are connected to",
           "library_function_name":"CapControlsS",
           "name":"MonitoredObj"
         },
@@ -1917,17 +1653,6 @@
         {
           "args":[
             [
-              13,
-              0
-            ]
-          ],
-          "doc":"Enable the active circuit element",
-          "library_function_name":"CktElementI",
-          "name":"Enabled"
-        },
-        {
-          "args":[
-            [
               0,
               0
             ],
@@ -1943,17 +1668,6 @@
         {
           "args":[
             [
-              1,
-              0
-            ]
-          ],
-          "doc":"Set the normal ampere rating for PD Elements",
-          "library_function_name":"CktElementF",
-          "name":"NormalAmps"
-        },
-        {
-          "args":[
-            [
               2,
               0
             ],
@@ -1963,17 +1677,6 @@
             ]
           ],
           "doc":"Emergency Ampere Rating for PD elements\nSet the emergency Ampere Rating for PD elements",
-          "library_function_name":"CktElementF",
-          "name":"EmergAmps"
-        },
-        {
-          "args":[
-            [
-              3,
-              0
-            ]
-          ],
-          "doc":"Set the emergency Ampere Rating for PD elements",
           "library_function_name":"CktElementF",
           "name":"EmergAmps"
         },
@@ -2011,17 +1714,6 @@
             ]
           ],
           "doc":"Display name of the object (not necessarily unique)\nSet the display name of the object (not necessarily unique)",
-          "library_function_name":"CktElementS",
-          "name":"DisplayName"
-        },
-        {
-          "args":[
-            [
-              2,
-              ""
-            ]
-          ],
-          "doc":"Set the display name of the object (not necessarily unique)",
           "library_function_name":"CktElementS",
           "name":"DisplayName"
         },
@@ -2443,17 +2135,6 @@
         {
           "args":[
             [
-              4,
-              0
-            ]
-          ],
-          "doc":"Set the terminal number to which the fuse is connected.",
-          "library_function_name":"FusesI",
-          "name":"MonitoredTerm"
-        },
-        {
-          "args":[
-            [
               5,
               0
             ]
@@ -2502,17 +2183,6 @@
         {
           "args":[
             [
-              9,
-              0
-            ]
-          ],
-          "doc":"Set Fuse active by index into the list of fuses. 1..count",
-          "library_function_name":"FusesI",
-          "name":" Idx"
-        },
-        {
-          "args":[
-            [
               10,
               0
             ]
@@ -2539,17 +2209,6 @@
         {
           "args":[
             [
-              1,
-              0
-            ]
-          ],
-          "doc":"Set the multiplier or actual amps for the TCCcurve object. Defaults to 1.0. Multipliy current values of TCC curve by this to get actual amps.",
-          "library_function_name":"FusesF",
-          "name":"RatedCurrent"
-        },
-        {
-          "args":[
-            [
               0,
               ""
             ],
@@ -2559,17 +2218,6 @@
             ]
           ],
           "doc":"Get the name of the active Fuse element\nSet the name of the active Fuse element",
-          "library_function_name":"FusesS",
-          "name":"Name"
-        },
-        {
-          "args":[
-            [
-              1,
-              ""
-            ]
-          ],
-          "doc":"Set the name of the active Fuse element",
           "library_function_name":"FusesS",
           "name":"Name"
         },
@@ -2591,17 +2239,6 @@
         {
           "args":[
             [
-              3,
-              ""
-            ]
-          ],
-          "doc":"Set the full name of the circuit element to which the fuse is connected.",
-          "library_function_name":"FusesS",
-          "name":"MonitoredObj"
-        },
-        {
-          "args":[
-            [
               4,
               ""
             ],
@@ -2617,17 +2254,6 @@
         {
           "args":[
             [
-              5,
-              ""
-            ]
-          ],
-          "doc":"Set the full name of the circuit element switch that the fuse controls. Defaults to the MonitoredObj.",
-          "library_function_name":"FusesS",
-          "name":"SwitchedObj"
-        },
-        {
-          "args":[
-            [
               6,
               ""
             ],
@@ -2637,17 +2263,6 @@
             ]
           ],
           "doc":"Name of the TCCcurve object that determines fuse blowing.\nSet the name of the TCCcurve object that determines fuse blowing.",
-          "library_function_name":"FusesS",
-          "name":"TCCCurve"
-        },
-        {
-          "args":[
-            [
-              7,
-              ""
-            ]
-          ],
-          "doc":"Set the name of the TCCcurve object that determines fuse blowing.",
           "library_function_name":"FusesS",
           "name":"TCCCurve"
         },
@@ -2707,17 +2322,6 @@
         {
           "args":[
             [
-              3,
-              0
-            ]
-          ],
-          "doc":"Sets indication whether the generator is forced ON regardles of other dispatch criteria.",
-          "library_function_name":"GeneratorsI",
-          "name":"ForcedON"
-        },
-        {
-          "args":[
-            [
               4,
               0
             ],
@@ -2727,17 +2331,6 @@
             ]
           ],
           "doc":"Number of phases\nSet the number of phases",
-          "library_function_name":"GeneratorsI",
-          "name":"Phases"
-        },
-        {
-          "args":[
-            [
-              5,
-              0
-            ]
-          ],
-          "doc":"Set the number of phases",
           "library_function_name":"GeneratorsI",
           "name":"Phases"
         },
@@ -2770,17 +2363,6 @@
         {
           "args":[
             [
-              8,
-              0
-            ]
-          ],
-          "doc":"Set active Generator by index into generators list.  1..Count",
-          "library_function_name":"GeneratorsI",
-          "name":"Idx"
-        },
-        {
-          "args":[
-            [
               9,
               0
             ],
@@ -2790,17 +2372,6 @@
             ]
           ],
           "doc":"Generator model\nSet the Generator model",
-          "library_function_name":"GeneratorsI",
-          "name":"Model"
-        },
-        {
-          "args":[
-            [
-              10,
-              0
-            ]
-          ],
-          "doc":"Set the Generator model",
           "library_function_name":"GeneratorsI",
           "name":"Model"
         },
@@ -2822,17 +2393,6 @@
         {
           "args":[
             [
-              1,
-              0
-            ]
-          ],
-          "doc":"Set the voltage base for the active generator, kV",
-          "library_function_name":"GeneratorsF",
-          "name":"kV"
-        },
-        {
-          "args":[
-            [
               2,
               0
             ],
@@ -2842,17 +2402,6 @@
             ]
           ],
           "doc":"kW output for the active generator. kvar is updated for current power factor.\nSet the kW output for the active generator. kvar is updated for current power factor.",
-          "library_function_name":"GeneratorsF",
-          "name":"kW"
-        },
-        {
-          "args":[
-            [
-              3,
-              0
-            ]
-          ],
-          "doc":"Set the kW output for the active generator. kvar is updated for current power factor.",
           "library_function_name":"GeneratorsF",
           "name":"kW"
         },
@@ -2874,17 +2423,6 @@
         {
           "args":[
             [
-              5,
-              0
-            ]
-          ],
-          "doc":"Set the kvar output for the active generator. Updates power factor based on present kW value.",
-          "library_function_name":"GeneratorsF",
-          "name":"kvar"
-        },
-        {
-          "args":[
-            [
               6,
               0
             ],
@@ -2894,17 +2432,6 @@
             ]
           ],
           "doc":"Power factor (pos. = producing vars)\nSet the power factor (pos. = producing vars)",
-          "library_function_name":"GeneratorsF",
-          "name":"PF"
-        },
-        {
-          "args":[
-            [
-              7,
-              0
-            ]
-          ],
-          "doc":"Set the power factor (pos. = producing vars)",
           "library_function_name":"GeneratorsF",
           "name":"PF"
         },
@@ -2926,17 +2453,6 @@
         {
           "args":[
             [
-              9,
-              0
-            ]
-          ],
-          "doc":"Set the KVA rating of the generator.",
-          "library_function_name":"GeneratorsF",
-          "name":"kVARated"
-        },
-        {
-          "args":[
-            [
               10,
               0
             ],
@@ -2946,17 +2462,6 @@
             ]
           ],
           "doc":"Get the Vmaxpu for Generator Model.\nSet the Vmaxpu for Generator Model.",
-          "library_function_name":"GeneratorsF",
-          "name":"Vmaxpu"
-        },
-        {
-          "args":[
-            [
-              11,
-              0
-            ]
-          ],
-          "doc":"Set the Vmaxpu for Generator Model.",
           "library_function_name":"GeneratorsF",
           "name":"Vmaxpu"
         },
@@ -2978,17 +2483,6 @@
         {
           "args":[
             [
-              13,
-              0
-            ]
-          ],
-          "doc":"Set the Vminpu for Generator Model.",
-          "library_function_name":"GeneratorsF",
-          "name":"Vminpu"
-        },
-        {
-          "args":[
-            [
               0,
               ""
             ],
@@ -2998,17 +2492,6 @@
             ]
           ],
           "doc":"Active generator name.\nSets a generator active by name.",
-          "library_function_name":"GeneratorsS",
-          "name":"Name"
-        },
-        {
-          "args":[
-            [
-              1,
-              ""
-            ]
-          ],
-          "doc":"Sets a generator active by name.",
           "library_function_name":"GeneratorsS",
           "name":"Name"
         },
@@ -3086,17 +2569,6 @@
           "doc":"The value of the active property.\nSet the value of the active property. The new value must be specified in `arg` as a string.",
           "library_function_name":"DSSProperties",
           "name":"Value"
-        },
-        {
-          "args":[
-            [
-              3,
-              null
-            ]
-          ],
-          "doc":"Set the value of the active property. The new value must be specified in `arg` as a string.",
-          "library_function_name":"DSSProperties",
-          "name":"Value"
         }
       ],
       "name":"Properties"
@@ -3154,17 +2626,6 @@
         {
           "args":[
             [
-              1,
-              0
-            ]
-          ],
-          "doc":"Set the magnitude of the Isource in Amps.",
-          "library_function_name":"IsourceF",
-          "name":"Amps"
-        },
-        {
-          "args":[
-            [
               2,
               0
             ],
@@ -3174,17 +2635,6 @@
             ]
           ],
           "doc":"Get the phase angle of the Isource in degrees.\nSet the phase angle of the Isource in degrees.",
-          "library_function_name":"IsourceF",
-          "name":"AngleDeg"
-        },
-        {
-          "args":[
-            [
-              3,
-              0
-            ]
-          ],
-          "doc":"Set the phase angle of the Isource in degrees.",
           "library_function_name":"IsourceF",
           "name":"AngleDeg"
         },
@@ -3206,17 +2656,6 @@
         {
           "args":[
             [
-              5,
-              0
-            ]
-          ],
-          "doc":"Set the frequency of the Isource in Hz.",
-          "library_function_name":"IsourceF",
-          "name":"Frequency"
-        },
-        {
-          "args":[
-            [
               0,
               ""
             ],
@@ -3226,17 +2665,6 @@
             ]
           ],
           "doc":"Get the name of the active Isource object.\nSet the name of the active Isource object.",
-          "library_function_name":"IsourceS",
-          "name":"Name"
-        },
-        {
-          "args":[
-            [
-              1,
-              ""
-            ]
-          ],
-          "doc":"Set the name of the active Isource object.",
           "library_function_name":"IsourceS",
           "name":"Name"
         },
@@ -3296,17 +2724,6 @@
         {
           "args":[
             [
-              3,
-              0
-            ]
-          ],
-          "doc":"Set the number of phases of the active line object.",
-          "library_function_name":"LinesI",
-          "name":"Phases"
-        },
-        {
-          "args":[
-            [
               4,
               0
             ]
@@ -3355,17 +2772,6 @@
         {
           "args":[
             [
-              8,
-              0
-            ]
-          ],
-          "doc":"Set the units of the line (distance, check manual for details).",
-          "library_function_name":"LinesI",
-          "name":"Units"
-        },
-        {
-          "args":[
-            [
               0,
               0
             ],
@@ -3375,17 +2781,6 @@
             ]
           ],
           "doc":"Get the length of line section in units compatible with the LineCode definition.\nSet the length of line section in units compatible with the LineCode definition.",
-          "library_function_name":"LinesF",
-          "name":"Length"
-        },
-        {
-          "args":[
-            [
-              1,
-              0
-            ]
-          ],
-          "doc":"Set the length of line section in units compatible with the LineCode definition.",
           "library_function_name":"LinesF",
           "name":"Length"
         },
@@ -3407,17 +2802,6 @@
         {
           "args":[
             [
-              3,
-              0
-            ]
-          ],
-          "doc":"Set the positive sequence resistance, ohm per unit length.",
-          "library_function_name":"LinesF",
-          "name":"R1"
-        },
-        {
-          "args":[
-            [
               4,
               0
             ],
@@ -3427,17 +2811,6 @@
             ]
           ],
           "doc":"Get the positive sequence reactance, ohm per unit length.\nSet the positive sequence reactance, ohm per unit length.",
-          "library_function_name":"LinesF",
-          "name":"X1"
-        },
-        {
-          "args":[
-            [
-              5,
-              0
-            ]
-          ],
-          "doc":"Set the positive sequence reactance, ohm per unit length.",
           "library_function_name":"LinesF",
           "name":"X1"
         },
@@ -3459,17 +2832,6 @@
         {
           "args":[
             [
-              7,
-              0
-            ]
-          ],
-          "doc":"Set the zero sequence resistance, ohm per unit length.",
-          "library_function_name":"LinesF",
-          "name":"R0"
-        },
-        {
-          "args":[
-            [
               8,
               0
             ],
@@ -3479,17 +2841,6 @@
             ]
           ],
           "doc":"Get the zero sequence reactance, ohm per unit length.\nSet the zero sequence reactance, ohm per unit length.",
-          "library_function_name":"LinesF",
-          "name":"X0"
-        },
-        {
-          "args":[
-            [
-              9,
-              0
-            ]
-          ],
-          "doc":"Set the zero sequence reactance, ohm per unit length.",
           "library_function_name":"LinesF",
           "name":"X0"
         },
@@ -3511,17 +2862,6 @@
         {
           "args":[
             [
-              11,
-              0
-            ]
-          ],
-          "doc":"Set the positive sequence capacitance, nanofarads per unit length.",
-          "library_function_name":"LinesF",
-          "name":"C1"
-        },
-        {
-          "args":[
-            [
               12,
               0
             ],
@@ -3531,17 +2871,6 @@
             ]
           ],
           "doc":"Get the zero sequence capacitance, nanofarads per unit length.\nSet the zero sequence capacitance, nanofarads per unit length.",
-          "library_function_name":"LinesF",
-          "name":"C0"
-        },
-        {
-          "args":[
-            [
-              13,
-              0
-            ]
-          ],
-          "doc":"Set the zero sequence capacitance, nanofarads per unit length.",
           "library_function_name":"LinesF",
           "name":"C0"
         },
@@ -3563,17 +2892,6 @@
         {
           "args":[
             [
-              15,
-              0
-            ]
-          ],
-          "doc":"Set the normal ampere rating of Line.",
-          "library_function_name":"LinesF",
-          "name":"NormAmps"
-        },
-        {
-          "args":[
-            [
               16,
               0
             ],
@@ -3583,17 +2901,6 @@
             ]
           ],
           "doc":"Get the emergency (maximum) ampere rating of Line.\nSet the emergency (maximum) ampere rating of Line.",
-          "library_function_name":"LinesF",
-          "name":"EmergAmps"
-        },
-        {
-          "args":[
-            [
-              17,
-              0
-            ]
-          ],
-          "doc":"Set the emergency (maximum) ampere rating of Line.",
           "library_function_name":"LinesF",
           "name":"EmergAmps"
         },
@@ -3615,17 +2922,6 @@
         {
           "args":[
             [
-              19,
-              0
-            ]
-          ],
-          "doc":"Set the earth return value used to compute line impedances at power frequency.",
-          "library_function_name":"LinesF",
-          "name":"Rg"
-        },
-        {
-          "args":[
-            [
               20,
               0
             ],
@@ -3635,17 +2931,6 @@
             ]
           ],
           "doc":"Get the earth return reactance value used to compute line impedances at power frequency.\nSet the earth return reactance value used to compute line impedances at power frequency.",
-          "library_function_name":"LinesF",
-          "name":"Xg"
-        },
-        {
-          "args":[
-            [
-              21,
-              0
-            ]
-          ],
-          "doc":"Set the earth return reactance value used to compute line impedances at power frequency.",
           "library_function_name":"LinesF",
           "name":"Xg"
         },
@@ -3667,17 +2952,6 @@
         {
           "args":[
             [
-              23,
-              0
-            ]
-          ],
-          "doc":"Set the earth resistivity, m-ohms.",
-          "library_function_name":"LinesF",
-          "name":"Rho"
-        },
-        {
-          "args":[
-            [
               0,
               ""
             ],
@@ -3687,17 +2961,6 @@
             ]
           ],
           "doc":"Get the name of the active Line element.\nSet the name of the Line element to set it active.",
-          "library_function_name":"LinesS",
-          "name":"Name"
-        },
-        {
-          "args":[
-            [
-              1,
-              ""
-            ]
-          ],
-          "doc":"Set the name of the Line element to set it active.",
           "library_function_name":"LinesS",
           "name":"Name"
         },
@@ -3719,17 +2982,6 @@
         {
           "args":[
             [
-              3,
-              ""
-            ]
-          ],
-          "doc":"Set the name of bus for terminal 1.",
-          "library_function_name":"LinesS",
-          "name":"Bus1"
-        },
-        {
-          "args":[
-            [
               4,
               ""
             ],
@@ -3739,17 +2991,6 @@
             ]
           ],
           "doc":"Get the name of bus for terminal 2.\nSet the name of bus for terminal 2.",
-          "library_function_name":"LinesS",
-          "name":"Bus2"
-        },
-        {
-          "args":[
-            [
-              5,
-              ""
-            ]
-          ],
-          "doc":"Set the name of bus for terminal 2.",
           "library_function_name":"LinesS",
           "name":"Bus2"
         },
@@ -3771,17 +3012,6 @@
         {
           "args":[
             [
-              7,
-              ""
-            ]
-          ],
-          "doc":"Set the name of LineCode object that defines the impedances.",
-          "library_function_name":"LinesS",
-          "name":"LineCode"
-        },
-        {
-          "args":[
-            [
               8,
               ""
             ],
@@ -3797,17 +3027,6 @@
         {
           "args":[
             [
-              9,
-              ""
-            ]
-          ],
-          "doc":"Set the name of the Line geometry code.",
-          "library_function_name":"LinesS",
-          "name":"Geometry"
-        },
-        {
-          "args":[
-            [
               10,
               ""
             ],
@@ -3817,17 +3036,6 @@
             ]
           ],
           "doc":"Get the name of the Line spacing code.\nSet the name of the Line spacing code.",
-          "library_function_name":"LinesS",
-          "name":"Spacing"
-        },
-        {
-          "args":[
-            [
-              11,
-              ""
-            ]
-          ],
-          "doc":"Set the name of the Line spacing code.",
           "library_function_name":"LinesS",
           "name":"Spacing"
         },
@@ -3931,17 +3139,6 @@
         {
           "args":[
             [
-              3,
-              null
-            ]
-          ],
-          "doc":"Set the index of the active load. The parameter argument must contain the index of the desired active load. The return value will be equal to 0.",
-          "library_function_name":"DSSLoads",
-          "name":"Idx"
-        },
-        {
-          "args":[
-            [
               4,
               null
             ]
@@ -3968,17 +3165,6 @@
         {
           "args":[
             [
-              6,
-              null
-            ]
-          ],
-          "doc":"The code number used to separate loads by class or group. The parameter argument can be filled with a 0.",
-          "library_function_name":"DSSLoads",
-          "name":"Class"
-        },
-        {
-          "args":[
-            [
               7,
               null
             ],
@@ -3988,17 +3174,6 @@
             ]
           ],
           "doc":"The model of the active load. The parameter argument can be filled with a 0.\nSet the model of the active load using the parameter argument. return a 0.",
-          "library_function_name":"DSSLoads",
-          "name":"Model"
-        },
-        {
-          "args":[
-            [
-              8,
-              null
-            ]
-          ],
-          "doc":"Set the model of the active load using the parameter argument. return a 0.",
           "library_function_name":"DSSLoads",
           "name":"Model"
         },
@@ -4020,17 +3195,6 @@
         {
           "args":[
             [
-              10,
-              null
-            ]
-          ],
-          "doc":"Set the number of customers of the active load using the parameter argument. return a 0.",
-          "library_function_name":"DSSLoads",
-          "name":"NumCust"
-        },
-        {
-          "args":[
-            [
               11,
               null
             ],
@@ -4040,17 +3204,6 @@
             ]
           ],
           "doc":"\n",
-          "library_function_name":"DSSLoads",
-          "name":"Status"
-        },
-        {
-          "args":[
-            [
-              12,
-              null
-            ]
-          ],
-          "doc":"",
           "library_function_name":"DSSLoads",
           "name":"Status"
         },
@@ -4072,17 +3225,6 @@
         {
           "args":[
             [
-              14,
-              null
-            ]
-          ],
-          "doc":"Set whether loads are delta (line to line).",
-          "library_function_name":"DSSLoads",
-          "name":"IsDelta"
-        },
-        {
-          "args":[
-            [
               0,
               null
             ],
@@ -4092,17 +3234,6 @@
             ]
           ],
           "doc":"The kW property of the active load. The parameter argument can be filled with a 0.\nSet the kW property of the active load. The parameter argument must contain the new value in kW for the desired active load. The return value will be equal to 0.",
-          "library_function_name":"DSSLoadsF",
-          "name":"kW"
-        },
-        {
-          "args":[
-            [
-              1,
-              null
-            ]
-          ],
-          "doc":"Set the kW property of the active load. The parameter argument must contain the new value in kW for the desired active load. The return value will be equal to 0.",
           "library_function_name":"DSSLoadsF",
           "name":"kW"
         },
@@ -4124,17 +3255,6 @@
         {
           "args":[
             [
-              3,
-              null
-            ]
-          ],
-          "doc":"Set the kV property of the active load. The parameter argument must contain the new value in kV for the desired active load. The return value will be equal to 0.",
-          "library_function_name":"DSSLoadsF",
-          "name":"kV"
-        },
-        {
-          "args":[
-            [
               4,
               null
             ],
@@ -4144,17 +3264,6 @@
             ]
           ],
           "doc":"The kvar property of the active load. The parameter argument can be filled with a 0.\nSet the kvar property of the active load. The parameter argument must contain the new value in kvar for the desired active load. The return value will be equal to 0.",
-          "library_function_name":"DSSLoadsF",
-          "name":"kvar"
-        },
-        {
-          "args":[
-            [
-              5,
-              null
-            ]
-          ],
-          "doc":"Set the kvar property of the active load. The parameter argument must contain the new value in kvar for the desired active load. The return value will be equal to 0.",
           "library_function_name":"DSSLoadsF",
           "name":"kvar"
         },
@@ -4176,17 +3285,6 @@
         {
           "args":[
             [
-              7,
-              null
-            ]
-          ],
-          "doc":"Set the pf property of the active load. The parameter argument must contain the new value in pf for the desired active load. The return value will be equal to 0.",
-          "library_function_name":"DSSLoadsF",
-          "name":"PF"
-        },
-        {
-          "args":[
-            [
               8,
               null
             ],
@@ -4196,17 +3294,6 @@
             ]
           ],
           "doc":"The PctMean property of the active load. The parameter argument can be filled with a 0.\nSet the PctMean property of the active load. The parameter argument must contain the new value in PctMean for the desired active load. The return value will be equal to 0.",
-          "library_function_name":"DSSLoadsF",
-          "name":"PctMean"
-        },
-        {
-          "args":[
-            [
-              9,
-              null
-            ]
-          ],
-          "doc":"Set the PctMean property of the active load. The parameter argument must contain the new value in PctMean for the desired active load. The return value will be equal to 0.",
           "library_function_name":"DSSLoadsF",
           "name":"PctMean"
         },
@@ -4228,17 +3315,6 @@
         {
           "args":[
             [
-              11,
-              null
-            ]
-          ],
-          "doc":"Set the PctStdDev property of the active load. The parameter argument must contain the new value in PctStdDev for the desired active load. The return value will be equal to 0.",
-          "library_function_name":"DSSLoadsF",
-          "name":"PctStdDev"
-        },
-        {
-          "args":[
-            [
               12,
               null
             ],
@@ -4248,17 +3324,6 @@
             ]
           ],
           "doc":"The AllocationFactor property of the active load. The parameter argument can be filled with a 0.\nSet the AllocationFactor property of the active load. The parameter argument must contain the new value in AllocationFactor for the desired active load. The return value will be equal to 0.",
-          "library_function_name":"DSSLoadsF",
-          "name":"AllocationFactor"
-        },
-        {
-          "args":[
-            [
-              13,
-              null
-            ]
-          ],
-          "doc":"Set the AllocationFactor property of the active load. The parameter argument must contain the new value in AllocationFactor for the desired active load. The return value will be equal to 0.",
           "library_function_name":"DSSLoadsF",
           "name":"AllocationFactor"
         },
@@ -4280,17 +3345,6 @@
         {
           "args":[
             [
-              15,
-              null
-            ]
-          ],
-          "doc":"Set the CFactor property of the active load. The parameter argument must contain the new value in CFactor for the desired active load. The return value will be equal to 0.",
-          "library_function_name":"DSSLoadsF",
-          "name":"CFactor"
-        },
-        {
-          "args":[
-            [
               16,
               null
             ],
@@ -4300,17 +3354,6 @@
             ]
           ],
           "doc":"The CVRWatts property of the active load. The parameter argument can be filled with a 0.\nSet the CVRWatts property of the active load. The parameter argument must contain the new value in CVRWatts for the desired active load. The return value will be equal to 0.",
-          "library_function_name":"DSSLoadsF",
-          "name":"CVRwatts"
-        },
-        {
-          "args":[
-            [
-              17,
-              null
-            ]
-          ],
-          "doc":"Set the CVRWatts property of the active load. The parameter argument must contain the new value in CVRWatts for the desired active load. The return value will be equal to 0.",
           "library_function_name":"DSSLoadsF",
           "name":"CVRwatts"
         },
@@ -4332,17 +3375,6 @@
         {
           "args":[
             [
-              19,
-              null
-            ]
-          ],
-          "doc":"Set the CVRvars property of the active load. The parameter argument must contain the new value in CVRvars for the desired active load. The return value will be equal to 0.",
-          "library_function_name":"DSSLoadsF",
-          "name":"CVRvars"
-        },
-        {
-          "args":[
-            [
               20,
               null
             ],
@@ -4352,17 +3384,6 @@
             ]
           ],
           "doc":"The kva property of the active load. The parameter argument can be filled with a 0.\nSet the kva property of the active load. The parameter argument must contain the new value in kva for the desired active load. The return value will be equal to 0.",
-          "library_function_name":"DSSLoadsF",
-          "name":"kVABase"
-        },
-        {
-          "args":[
-            [
-              21,
-              null
-            ]
-          ],
-          "doc":"Set the kva property of the active load. The parameter argument must contain the new value in kva for the desired active load. The return value will be equal to 0.",
           "library_function_name":"DSSLoadsF",
           "name":"kVABase"
         },
@@ -4384,17 +3405,6 @@
         {
           "args":[
             [
-              23,
-              null
-            ]
-          ],
-          "doc":"Set the kWh property of the active load. The parameter argument must contain the new value in kWh for the desired active load. The return value will be equal to 0.",
-          "library_function_name":"DSSLoadsF",
-          "name":"kWh"
-        },
-        {
-          "args":[
-            [
               24,
               null
             ],
@@ -4404,17 +3414,6 @@
             ]
           ],
           "doc":"The kWhdays property of the active load. The parameter argument can be filled with a 0.\nSet the kWhdays property of the active load. The parameter argument must contain the new value in kWhdays for the desired active load. The return value will be equal to 0.",
-          "library_function_name":"DSSLoadsF",
-          "name":"kWhDays"
-        },
-        {
-          "args":[
-            [
-              25,
-              null
-            ]
-          ],
-          "doc":"Set the kWhdays property of the active load. The parameter argument must contain the new value in kWhdays for the desired active load. The return value will be equal to 0.",
           "library_function_name":"DSSLoadsF",
           "name":"kWhDays"
         },
@@ -4436,17 +3435,6 @@
         {
           "args":[
             [
-              27,
-              null
-            ]
-          ],
-          "doc":"Set the RNeut (neutral resistance for wye connected loads) property of the active load. The parameter argument must contain the new value in RNeut for the desired active load. The return value will be equal to 0.",
-          "library_function_name":"DSSLoadsF",
-          "name":"Rneut"
-        },
-        {
-          "args":[
-            [
               28,
               null
             ],
@@ -4456,17 +3444,6 @@
             ]
           ],
           "doc":"The VMaxpu property of the active load. The parameter argument can be filled with a 0.\nSet the VMaxpu property of the active load. The parameter argument must contain the new value in VMaxpu for the desired active load. The return value will be equal to 0.",
-          "library_function_name":"DSSLoadsF",
-          "name":"Vmaxpu"
-        },
-        {
-          "args":[
-            [
-              29,
-              null
-            ]
-          ],
-          "doc":"Set the VMaxpu property of the active load. The parameter argument must contain the new value in VMaxpu for the desired active load. The return value will be equal to 0.",
           "library_function_name":"DSSLoadsF",
           "name":"Vmaxpu"
         },
@@ -4488,17 +3465,6 @@
         {
           "args":[
             [
-              31,
-              null
-            ]
-          ],
-          "doc":"Set the VMinemerg property of the active load. The parameter argument must contain the new value in VMinemerg for the desired active load. The return value will be equal to 0.",
-          "library_function_name":"DSSLoadsF",
-          "name":"VminEmerg"
-        },
-        {
-          "args":[
-            [
               32,
               null
             ],
@@ -4508,17 +3474,6 @@
             ]
           ],
           "doc":"The VMinnorm property of the active load. The parameter argument can be filled with a 0.\nSet the VMinnorm property of the active load. The parameter argument must contain the new value in VMinnorm for the desired active load. The return value will be equal to 0.",
-          "library_function_name":"DSSLoadsF",
-          "name":"VminNorm"
-        },
-        {
-          "args":[
-            [
-              33,
-              null
-            ]
-          ],
-          "doc":"Set the VMinnorm property of the active load. The parameter argument must contain the new value in VMinnorm for the desired active load. The return value will be equal to 0.",
           "library_function_name":"DSSLoadsF",
           "name":"VminNorm"
         },
@@ -4540,17 +3495,6 @@
         {
           "args":[
             [
-              35,
-              null
-            ]
-          ],
-          "doc":"Set the VMinpu property of the active load. The parameter argument must contain the new value in VMinpu for the desired active load. The return value will be equal to 0.",
-          "library_function_name":"DSSLoadsF",
-          "name":"Vminpu"
-        },
-        {
-          "args":[
-            [
               36,
               null
             ],
@@ -4560,17 +3504,6 @@
             ]
           ],
           "doc":"The xfKVA (Rated service transformer KVA for load allocation, using Allocationfactor. Affects kW, kvar and pf.) property of the active load. The parameter argument can be filled with a 0.\nSet the xfKVA (Rated service transformer KVA for load allocation, using Allocationfactor. Affects kW, kvar and pf.) property of the active load. The parameter argument must contain the new value in xfKVA for the desired active load. The return value will be equal to 0.",
-          "library_function_name":"DSSLoadsF",
-          "name":"XfkVA"
-        },
-        {
-          "args":[
-            [
-              37,
-              null
-            ]
-          ],
-          "doc":"Set the xfKVA (Rated service transformer KVA for load allocation, using Allocationfactor. Affects kW, kvar and pf.) property of the active load. The parameter argument must contain the new value in xfKVA for the desired active load. The return value will be equal to 0.",
           "library_function_name":"DSSLoadsF",
           "name":"XfkVA"
         },
@@ -4592,17 +3525,6 @@
         {
           "args":[
             [
-              39,
-              null
-            ]
-          ],
-          "doc":"Set the Xneut property of the active load. The parameter argument must contain the new value in Xneut for the desired active load. The return value will be equal to 0.",
-          "library_function_name":"DSSLoadsF",
-          "name":"Xneut"
-        },
-        {
-          "args":[
-            [
               40,
               null
             ],
@@ -4612,17 +3534,6 @@
             ]
           ],
           "doc":"The PctSeriesRL (Percent of Load that is modeled as series R-L for harmonic studies) property of the active load. The parameter argument can be filled with a 0.\nSet the PctSeriesRL (Percent of Load that is modeled as series R-L for harmonic studies) property of the active load. The parameter argument must contain the new value in PctSeriesRL for the desired active load. The return value will be equal to 0.",
-          "library_function_name":"DSSLoadsF",
-          "name":"puSeriesRL"
-        },
-        {
-          "args":[
-            [
-              41,
-              null
-            ]
-          ],
-          "doc":"Set the PctSeriesRL (Percent of Load that is modeled as series R-L for harmonic studies) property of the active load. The parameter argument must contain the new value in PctSeriesRL for the desired active load. The return value will be equal to 0.",
           "library_function_name":"DSSLoadsF",
           "name":"puSeriesRL"
         },
@@ -4644,17 +3555,6 @@
         {
           "args":[
             [
-              43,
-              null
-            ]
-          ],
-          "doc":"Set the RelWeight (relative weighting factor) property of the active load. The parameter argument must contain the new value in RelWeight for the desired active load. The return value will be equal to 0.",
-          "library_function_name":"DSSLoadsF",
-          "name":"RelWeighting"
-        },
-        {
-          "args":[
-            [
               0,
               ""
             ],
@@ -4664,17 +3564,6 @@
             ]
           ],
           "doc":"The Name property of the active load. The parameter argument can be filled with an empty string.\nSet the active load by specifying the Name load. The parameter argument must contain the Name of the load to activate. The return value will be equal to empty.",
-          "library_function_name":"DSSLoadsS",
-          "name":"Name"
-        },
-        {
-          "args":[
-            [
-              1,
-              ""
-            ]
-          ],
-          "doc":"Set the active load by specifying the Name load. The parameter argument must contain the Name of the load to activate. The return value will be equal to empty.",
           "library_function_name":"DSSLoadsS",
           "name":"Name"
         },
@@ -4696,17 +3585,6 @@
         {
           "args":[
             [
-              3,
-              ""
-            ]
-          ],
-          "doc":"Set the CVRCurve property for the active load. The parameter argument must contain the Name of the new CVRCurve to be linked to the active load. The return value will be equal to empty.",
-          "library_function_name":"DSSLoadsS",
-          "name":"CVRCurve"
-        },
-        {
-          "args":[
-            [
               4,
               ""
             ],
@@ -4716,17 +3594,6 @@
             ]
           ],
           "doc":"The daily property of the active load. The parameter argument can be filled with an empty string.\nSet the daily property for the active load. The parameter argument must contain the Name of the new daily to be linked to the active load. The return value will be equal to empty.",
-          "library_function_name":"DSSLoadsS",
-          "name":"Daily"
-        },
-        {
-          "args":[
-            [
-              5,
-              ""
-            ]
-          ],
-          "doc":"Set the daily property for the active load. The parameter argument must contain the Name of the new daily to be linked to the active load. The return value will be equal to empty.",
           "library_function_name":"DSSLoadsS",
           "name":"Daily"
         },
@@ -4748,17 +3615,6 @@
         {
           "args":[
             [
-              7,
-              ""
-            ]
-          ],
-          "doc":"Set the duty property for the active load. The parameter argument must contain the Name of the new duty to be linked to the active load. The return value will be equal to empty.",
-          "library_function_name":"DSSLoadsS",
-          "name":"Duty"
-        },
-        {
-          "args":[
-            [
               8,
               ""
             ],
@@ -4768,17 +3624,6 @@
             ]
           ],
           "doc":"The Spectrum property of the active load. The parameter argument can be filled with an empty string.\nSet the Spectrum property for the active load. The parameter argument must contain the Name of the new Spectrum to be linked to the active load. The return value will be equal to empty.",
-          "library_function_name":"DSSLoadsS",
-          "name":"Spectrum"
-        },
-        {
-          "args":[
-            [
-              9,
-              ""
-            ]
-          ],
-          "doc":"Set the Spectrum property for the active load. The parameter argument must contain the Name of the new Spectrum to be linked to the active load. The return value will be equal to empty.",
           "library_function_name":"DSSLoadsS",
           "name":"Spectrum"
         },
@@ -4800,17 +3645,6 @@
         {
           "args":[
             [
-              11,
-              ""
-            ]
-          ],
-          "doc":"Set the Yearly property for the active load. The parameter argument must contain the Name of the new Yearly to be linked to the active load. The return value will be equal to empty.",
-          "library_function_name":"DSSLoadsS",
-          "name":"Yearly"
-        },
-        {
-          "args":[
-            [
               12,
               ""
             ],
@@ -4820,17 +3654,6 @@
             ]
           ],
           "doc":"The Growth property of the active load. The parameter argument can be filled with an empty string.\nSet the Growth property for the active load. The parameter argument must contain the Name of the new Growth to be linked to the active load. The return value will be equal to empty.",
-          "library_function_name":"DSSLoadsS",
-          "name":"Growth"
-        },
-        {
-          "args":[
-            [
-              13,
-              ""
-            ]
-          ],
-          "doc":"Set the Growth property for the active load. The parameter argument must contain the Name of the new Growth to be linked to the active load. The return value will be equal to empty.",
           "library_function_name":"DSSLoadsS",
           "name":"Growth"
         },
@@ -4912,17 +3735,6 @@
         {
           "args":[
             [
-              4,
-              0
-            ]
-          ],
-          "doc":"Set the number of points in active LoadShape.",
-          "library_function_name":"LoadShapeI",
-          "name":"Npts"
-        },
-        {
-          "args":[
-            [
               5,
               0
             ]
@@ -4949,17 +3761,6 @@
         {
           "args":[
             [
-              7,
-              0
-            ]
-          ],
-          "doc":"Set a TRUE/FALSE (1/0 - Argument) to let Loads know to use the actual value in the curve rather than use the value as a multiplier.",
-          "library_function_name":"LoadShapeI",
-          "name":"UseActual"
-        },
-        {
-          "args":[
-            [
               0,
               0
             ],
@@ -4969,17 +3770,6 @@
             ]
           ],
           "doc":"Get the fixed interval time value, hours.\nSet the fixed interval time value, hours.",
-          "library_function_name":"LoadShapeF",
-          "name":"HrInterval"
-        },
-        {
-          "args":[
-            [
-              1,
-              0
-            ]
-          ],
-          "doc":"Set the fixed interval time value, hours.",
           "library_function_name":"LoadShapeF",
           "name":"HrInterval"
         },
@@ -5001,17 +3791,6 @@
         {
           "args":[
             [
-              3,
-              0
-            ]
-          ],
-          "doc":"Set the fixed interval time value, in minutes.",
-          "library_function_name":"LoadShapeF",
-          "name":"MinInterval"
-        },
-        {
-          "args":[
-            [
               4,
               0
             ],
@@ -5021,17 +3800,6 @@
             ]
           ],
           "doc":"Get the base for normalizing P curve. If left at zero, the peak value is used.\nSet the base for normalizing P curve. If left at zero, the peak value is used.",
-          "library_function_name":"LoadShapeF",
-          "name":"PBase"
-        },
-        {
-          "args":[
-            [
-              5,
-              0
-            ]
-          ],
-          "doc":"Set the base for normalizing P curve. If left at zero, the peak value is used.",
           "library_function_name":"LoadShapeF",
           "name":"PBase"
         },
@@ -5053,17 +3821,6 @@
         {
           "args":[
             [
-              7,
-              0
-            ]
-          ],
-          "doc":"Set the base for normalizing Q curve. If left at zero, the peak value is used.",
-          "library_function_name":"LoadShapeF",
-          "name":"QBase"
-        },
-        {
-          "args":[
-            [
               8,
               0
             ],
@@ -5079,17 +3836,6 @@
         {
           "args":[
             [
-              9,
-              0
-            ]
-          ],
-          "doc":"Set the fixed interval data time interval, seconds.",
-          "library_function_name":"LoadShapeF",
-          "name":"SInterval"
-        },
-        {
-          "args":[
-            [
               0,
               ""
             ],
@@ -5099,17 +3845,6 @@
             ]
           ],
           "doc":"Get the name of the active LoadShape object.\nSet the name of the active LoadShape object.",
-          "library_function_name":"LoadShapeS",
-          "name":"Name"
-        },
-        {
-          "args":[
-            [
-              1,
-              ""
-            ]
-          ],
-          "doc":"Set the name of the active LoadShape object.",
           "library_function_name":"LoadShapeS",
           "name":"Name"
         },
@@ -5246,17 +3981,6 @@
         {
           "args":[
             [
-              7,
-              0
-            ]
-          ],
-          "doc":"Set the number of metered terminal by the active Energy Meter.",
-          "library_function_name":"MetersI",
-          "name":"MeteredTerminal"
-        },
-        {
-          "args":[
-            [
               8,
               0
             ]
@@ -5354,17 +4078,6 @@
             ]
           ],
           "doc":"The index into meter's SequenceList that contains branch pointers in lexical order. Earlier index guaranteed to be up line from later index. Sets PDElement active.\nSet the index into meter's SequenceList that contains branch pointers in lexical order. Earlier index guaranteed to be up line from later index. Sets PDElement active.",
-          "library_function_name":"MetersI",
-          "name":"SequenceList"
-        },
-        {
-          "args":[
-            [
-              17,
-              0
-            ]
-          ],
-          "doc":"Set the index into meter's SequenceList that contains branch pointers in lexical order. Earlier index guaranteed to be up line from later index. Sets PDElement active.",
           "library_function_name":"MetersI",
           "name":"SequenceList"
         },
@@ -5573,17 +4286,6 @@
         {
           "args":[
             [
-              1,
-              ""
-            ]
-          ],
-          "doc":"Set the active Energy Meter's name.",
-          "library_function_name":"MetersS",
-          "name":"Name"
-        },
-        {
-          "args":[
-            [
               2,
               ""
             ],
@@ -5593,17 +4295,6 @@
             ]
           ],
           "doc":"The name of the metered element (considering the active Energy Meter).\nSet the name of the metered element (considering the active Energy Meter).",
-          "library_function_name":"MetersS",
-          "name":"MeteredElement"
-        },
-        {
-          "args":[
-            [
-              3,
-              ""
-            ]
-          ],
-          "doc":"Set the name of the metered element (considering the active Energy Meter).",
           "library_function_name":"MetersS",
           "name":"MeteredElement"
         },
@@ -5806,17 +4497,6 @@
         {
           "args":[
             [
-              8,
-              0
-            ]
-          ],
-          "doc":"Set the monitor mode (bitmask integer - see DSS Help).",
-          "library_function_name":"MonitorsI",
-          "name":"Mode"
-        },
-        {
-          "args":[
-            [
               9,
               0
             ]
@@ -5931,17 +4611,6 @@
         {
           "args":[
             [
-              19,
-              0
-            ]
-          ],
-          "doc":"Set the terminal number of element being monitored.",
-          "library_function_name":"MonitorsI",
-          "name":"Terminal"
-        },
-        {
-          "args":[
-            [
               0,
               ""
             ]
@@ -5968,17 +4637,6 @@
         {
           "args":[
             [
-              2,
-              ""
-            ]
-          ],
-          "doc":"Set the active Monitor object by name.",
-          "library_function_name":"MonitorsS",
-          "name":"Name"
-        },
-        {
-          "args":[
-            [
               3,
               ""
             ],
@@ -5988,17 +4646,6 @@
             ]
           ],
           "doc":"The full name of element being monitored by the active Monitor.\nSet the full name of element being monitored by the active Monitor.",
-          "library_function_name":"MonitorsS",
-          "name":"Element"
-        },
-        {
-          "args":[
-            [
-              4,
-              ""
-            ]
-          ],
-          "doc":"Set the full name of element being monitored by the active Monitor.",
           "library_function_name":"MonitorsS",
           "name":"Element"
         },
@@ -6113,17 +4760,6 @@
         {
           "args":[
             [
-              3,
-              0
-            ]
-          ],
-          "doc":"In the default is false (0). If true (1) Parser automatically advances to next token after DblValue, IntValue, or StrValue. Simpler when you don't need to check for parameter names.",
-          "library_function_name":"ParserI",
-          "name":"AutoIncrement"
-        },
-        {
-          "args":[
-            [
               0,
               0
             ]
@@ -6144,17 +4780,6 @@
             ]
           ],
           "doc":"Get a string to be parsed. Loading this string resets the Parser to the beginning of the line. Then parse off the tokens in sequence.\nSet a string to be parsed. Loading this string resets the Parser to the beginning of the line. Then parse off the tokens in sequence.",
-          "library_function_name":"ParserS",
-          "name":"CmdString"
-        },
-        {
-          "args":[
-            [
-              1,
-              ""
-            ]
-          ],
-          "doc":"Set a string to be parsed. Loading this string resets the Parser to the beginning of the line. Then parse off the tokens in sequence.",
           "library_function_name":"ParserS",
           "name":"CmdString"
         },
@@ -6198,17 +4823,6 @@
         {
           "args":[
             [
-              5,
-              ""
-            ]
-          ],
-          "doc":"Set the characters used for White space in the command string. Default in blank and Tab.",
-          "library_function_name":"ParserS",
-          "name":"WhiteSpace"
-        },
-        {
-          "args":[
-            [
               6,
               ""
             ],
@@ -6218,17 +4832,6 @@
             ]
           ],
           "doc":"Get the string containing the characters for quoting in OpenDSS scripts. Matching pairs defined in EndQuote. Default is \"([{.\nSet the string containing the characters for quoting in OpenDSS scripts. Matching pairs defined in EndQuote. Default is \"([{.",
-          "library_function_name":"ParserS",
-          "name":"BeginQuote"
-        },
-        {
-          "args":[
-            [
-              7,
-              ""
-            ]
-          ],
-          "doc":"Set the string containing the characters for quoting in OpenDSS scripts. Matching pairs defined in EndQuote. Default is \"([{.",
           "library_function_name":"ParserS",
           "name":"BeginQuote"
         },
@@ -6250,17 +4853,6 @@
         {
           "args":[
             [
-              9,
-              ""
-            ]
-          ],
-          "doc":"Set the string containing the characters, in order, that match the beginning quote characters in BeginQuote. Default is \")]}.",
-          "library_function_name":"ParserS",
-          "name":"EndQuote"
-        },
-        {
-          "args":[
-            [
               10,
               ""
             ],
@@ -6270,17 +4862,6 @@
             ]
           ],
           "doc":"Get the string defining hard delimiters used to separate token on the command string. Default is , and =. The = separates token name from token value. These override whitespace to separate tokens.\nSet the string defining hard delimiters used to separate token on the command string. Default is , and =. The = separates token name from token value. These override whitespace to separate tokens.",
-          "library_function_name":"ParserS",
-          "name":"Delimiters"
-        },
-        {
-          "args":[
-            [
-              11,
-              ""
-            ]
-          ],
-          "doc":"Set the string defining hard delimiters used to separate token on the command string. Default is , and =. The = separates token name from token value. These override whitespace to separate tokens.",
           "library_function_name":"ParserS",
           "name":"Delimiters"
         },
@@ -6439,17 +5020,6 @@
         {
           "args":[
             [
-              1,
-              0
-            ]
-          ],
-          "doc":"Set the number of failures per year. For LINE elements: Number of failures per unit length per year.",
-          "library_function_name":"PDElementsF",
-          "name":"FaultRate"
-        },
-        {
-          "args":[
-            [
               2,
               0
             ],
@@ -6459,17 +5029,6 @@
             ]
           ],
           "doc":"Get the percent of faults that are permanent (require repair). Otherwise, fault is assumed to be transient/temporary.\nSet the percent of faults that are permanent (require repair). Otherwise, fault is assumed to be transient/temporary.",
-          "library_function_name":"PDElementsF",
-          "name":"PctPermanent"
-        },
-        {
-          "args":[
-            [
-              3,
-              0
-            ]
-          ],
-          "doc":"Set the percent of faults that are permanent (require repair). Otherwise, fault is assumed to be transient/temporary.",
           "library_function_name":"PDElementsF",
           "name":"PctPermanent"
         },
@@ -6531,17 +5090,6 @@
           "doc":"Get the name of the active PDElement, returns null string if active element id not PDElement.\nSet the name of the active PDElement, returns null string if active element id not PDElement.",
           "library_function_name":"PDElementsS",
           "name":"Name"
-        },
-        {
-          "args":[
-            [
-              1,
-              ""
-            ]
-          ],
-          "doc":"Set the name of the active PDElement, returns null string if active element id not PDElement.",
-          "library_function_name":"PDElementsS",
-          "name":"Name"
         }
       ],
       "name":"PDElements"
@@ -6599,17 +5147,6 @@
         {
           "args":[
             [
-              4,
-              0
-            ]
-          ],
-          "doc":"Set the active PVSystem by index; 1..Count.",
-          "library_function_name":"PVsystemsI",
-          "name":"Idx"
-        },
-        {
-          "args":[
-            [
               0,
               0
             ],
@@ -6619,17 +5156,6 @@
             ]
           ],
           "doc":"Get the present value of the Irradiance property in W/sq-m.\nSet the present value of the Irradiance property in W/sq-m.",
-          "library_function_name":"PVsystemsF",
-          "name":"Irradiance"
-        },
-        {
-          "args":[
-            [
-              1,
-              0
-            ]
-          ],
-          "doc":"Set the present value of the Irradiance property in W/sq-m.",
           "library_function_name":"PVsystemsF",
           "name":"Irradiance"
         },
@@ -6662,17 +5188,6 @@
         {
           "args":[
             [
-              4,
-              0
-            ]
-          ],
-          "doc":"Set the kvar value.",
-          "library_function_name":"PVsystemsF",
-          "name":"kvar"
-        },
-        {
-          "args":[
-            [
               5,
               0
             ],
@@ -6688,17 +5203,6 @@
         {
           "args":[
             [
-              6,
-              0
-            ]
-          ],
-          "doc":"Set the power factor value.",
-          "library_function_name":"PVsystemsF",
-          "name":"pf"
-        },
-        {
-          "args":[
-            [
               7,
               0
             ],
@@ -6708,17 +5212,6 @@
             ]
           ],
           "doc":"Get the rated kVA.\nSet the rated kVA.",
-          "library_function_name":"PVsystemsF",
-          "name":"kVARated"
-        },
-        {
-          "args":[
-            [
-              8,
-              0
-            ]
-          ],
-          "doc":"Set the rated kVA.",
           "library_function_name":"PVsystemsF",
           "name":"kVARated"
         }
@@ -6778,17 +5271,6 @@
         {
           "args":[
             [
-              4,
-              0
-            ]
-          ],
-          "doc":"Set the terminal number of Monitored Object for the Recloser.",
-          "library_function_name":"ReclosersI",
-          "name":"MonitoredTerm"
-        },
-        {
-          "args":[
-            [
               5,
               0
             ],
@@ -6798,17 +5280,6 @@
             ]
           ],
           "doc":"Get the terminal of the controlled device being switched by the Recloser.\nSet the terminal of the controlled device being switched by the Recloser.",
-          "library_function_name":"ReclosersI",
-          "name":"SwitchedTerm"
-        },
-        {
-          "args":[
-            [
-              6,
-              0
-            ]
-          ],
-          "doc":"Set the terminal of the controlled device being switched by the Recloser.",
           "library_function_name":"ReclosersI",
           "name":"SwitchedTerm"
         },
@@ -6830,17 +5301,6 @@
         {
           "args":[
             [
-              8,
-              0
-            ]
-          ],
-          "doc":"Set the number of fast shots.",
-          "library_function_name":"ReclosersI",
-          "name":"NumFast"
-        },
-        {
-          "args":[
-            [
               9,
               0
             ],
@@ -6850,17 +5310,6 @@
             ]
           ],
           "doc":"Get the number of shots to lockout (fast + delayed).\nSet the number of shots to lockout (fast + delayed).",
-          "library_function_name":"ReclosersI",
-          "name":"Shots"
-        },
-        {
-          "args":[
-            [
-              10,
-              0
-            ]
-          ],
-          "doc":"Set the number of shots to lockout (fast + delayed).",
           "library_function_name":"ReclosersI",
           "name":"Shots"
         },
@@ -6904,17 +5353,6 @@
         {
           "args":[
             [
-              14,
-              0
-            ]
-          ],
-          "doc":"Set the active recloser by index into the recloser list. 1..Count.",
-          "library_function_name":"ReclosersI",
-          "name":"Idx"
-        },
-        {
-          "args":[
-            [
               0,
               0
             ],
@@ -6924,17 +5362,6 @@
             ]
           ],
           "doc":"Get the phase trip curve multiplier or actual amps.\nSet the phase trip curve multiplier or actual amps.",
-          "library_function_name":"ReclosersF",
-          "name":"PhaseTrip"
-        },
-        {
-          "args":[
-            [
-              1,
-              0
-            ]
-          ],
-          "doc":"Set the phase trip curve multiplier or actual amps.",
           "library_function_name":"ReclosersF",
           "name":"PhaseTrip"
         },
@@ -6956,17 +5383,6 @@
         {
           "args":[
             [
-              3,
-              0
-            ]
-          ],
-          "doc":"Set the phase instantaneous curve multiplier or actual amps.",
-          "library_function_name":"ReclosersF",
-          "name":"PhaseInst"
-        },
-        {
-          "args":[
-            [
               4,
               0
             ],
@@ -6976,17 +5392,6 @@
             ]
           ],
           "doc":"Get the ground (3I0) trip multiplier or actual amps.\nSet the ground (3I0) trip multiplier or actual amps.",
-          "library_function_name":"ReclosersF",
-          "name":"GroundTrip"
-        },
-        {
-          "args":[
-            [
-              5,
-              0
-            ]
-          ],
-          "doc":"Set the ground (3I0) trip multiplier or actual amps.",
           "library_function_name":"ReclosersF",
           "name":"GroundTrip"
         },
@@ -7008,17 +5413,6 @@
         {
           "args":[
             [
-              7,
-              0
-            ]
-          ],
-          "doc":"Set the ground (3I0) instantaneous trip setting - curve multiplier or actual amps.",
-          "library_function_name":"ReclosersF",
-          "name":"GroundInst"
-        },
-        {
-          "args":[
-            [
               0,
               ""
             ],
@@ -7028,17 +5422,6 @@
             ]
           ],
           "doc":"Get the name of the active Recloser Object.\nSet the name of the active Recloser Object.",
-          "library_function_name":"ReclosersS",
-          "name":"Name"
-        },
-        {
-          "args":[
-            [
-              1,
-              ""
-            ]
-          ],
-          "doc":"Set the name of the active Recloser Object.",
           "library_function_name":"ReclosersS",
           "name":"Name"
         },
@@ -7060,17 +5443,6 @@
         {
           "args":[
             [
-              3,
-              ""
-            ]
-          ],
-          "doc":"Set the full name of object this Recloser is monitoring.",
-          "library_function_name":"ReclosersS",
-          "name":"MonitoredObj"
-        },
-        {
-          "args":[
-            [
               4,
               ""
             ],
@@ -7080,17 +5452,6 @@
             ]
           ],
           "doc":"Get the full name of the circuit element that is being switched by this Recloser.\nSet the full name of the circuit element that is being switched by this Recloser.",
-          "library_function_name":"ReclosersS",
-          "name":"SwitchedObj"
-        },
-        {
-          "args":[
-            [
-              5,
-              ""
-            ]
-          ],
-          "doc":"Set the full name of the circuit element that is being switched by this Recloser.",
           "library_function_name":"ReclosersS",
           "name":"SwitchedObj"
         },
@@ -7161,17 +5522,6 @@
         {
           "args":[
             [
-              3,
-              0
-            ]
-          ],
-          "doc":"Set the tapped winding number.",
-          "library_function_name":"RegControlsI",
-          "name":"TapWinding"
-        },
-        {
-          "args":[
-            [
               4,
               0
             ],
@@ -7181,17 +5531,6 @@
             ]
           ],
           "doc":"Get the winding number for PT and CT connections.\nSet the winding number for PT and CT connections.",
-          "library_function_name":"RegControlsI",
-          "name":"Winding"
-        },
-        {
-          "args":[
-            [
-              5,
-              0
-            ]
-          ],
-          "doc":"Set the winding number for PT and CT connections.",
           "library_function_name":"RegControlsI",
           "name":"Winding"
         },
@@ -7213,17 +5552,6 @@
         {
           "args":[
             [
-              7,
-              0
-            ]
-          ],
-          "doc":"Set the different settings for the reverse direction (see Manual for details), usually not applicable to substation Transformers.",
-          "library_function_name":"RegControlsI",
-          "name":"IsReversible"
-        },
-        {
-          "args":[
-            [
               8,
               0
             ],
@@ -7239,17 +5567,6 @@
         {
           "args":[
             [
-              9,
-              0
-            ]
-          ],
-          "doc":"Set the inverse time feature. Time delay is inversely adjusted, proportional to the amount of voltage outside the regulator band.",
-          "library_function_name":"RegControlsI",
-          "name":"IsInverseTime"
-        },
-        {
-          "args":[
-            [
               10,
               0
             ],
@@ -7259,17 +5576,6 @@
             ]
           ],
           "doc":"Get the maximum tap change per iteration in STATIC solution mode. 1 is more realistic, 16 is the default for faster solution.\nSet the maximum tap change per iteration in STATIC solution mode. 1 is more realistic, 16 is the default for faster solution.",
-          "library_function_name":"RegControlsI",
-          "name":"MaxTapChange"
-        },
-        {
-          "args":[
-            [
-              11,
-              0
-            ]
-          ],
-          "doc":"Set the maximum tap change per iteration in STATIC solution mode. 1 is more realistic, 16 is the default for faster solution.",
           "library_function_name":"RegControlsI",
           "name":"MaxTapChange"
         },
@@ -7302,17 +5608,6 @@
         {
           "args":[
             [
-              14,
-              0
-            ]
-          ],
-          "doc":"Set the tap number.",
-          "library_function_name":"RegControlsI",
-          "name":"TapNumber"
-        },
-        {
-          "args":[
-            [
               0,
               0
             ],
@@ -7322,17 +5617,6 @@
             ]
           ],
           "doc":"Get the CT primary ampere rating (secondary is 0.2 amperes).\nSet the CT primary ampere rating (secondary is 0.2 amperes).",
-          "library_function_name":"RegControlsF",
-          "name":"CTPrimary"
-        },
-        {
-          "args":[
-            [
-              1,
-              0
-            ]
-          ],
-          "doc":"Set the CT primary ampere rating (secondary is 0.2 amperes).",
           "library_function_name":"RegControlsF",
           "name":"CTPrimary"
         },
@@ -7354,17 +5638,6 @@
         {
           "args":[
             [
-              3,
-              0
-            ]
-          ],
-          "doc":"Set the PT ratio for voltage control settings.",
-          "library_function_name":"RegControlsF",
-          "name":"PTRatio"
-        },
-        {
-          "args":[
-            [
               4,
               0
             ],
@@ -7374,17 +5647,6 @@
             ]
           ],
           "doc":"Get the LDC R settings in Volts.\nSet the LDC R settings in Volts.",
-          "library_function_name":"RegControlsF",
-          "name":"ForwardR"
-        },
-        {
-          "args":[
-            [
-              5,
-              0
-            ]
-          ],
-          "doc":"Set the LDC R settings in Volts.",
           "library_function_name":"RegControlsF",
           "name":"ForwardR"
         },
@@ -7406,17 +5668,6 @@
         {
           "args":[
             [
-              7,
-              0
-            ]
-          ],
-          "doc":"Set the LDC X settings in Volts.",
-          "library_function_name":"RegControlsF",
-          "name":"ForwardX"
-        },
-        {
-          "args":[
-            [
               8,
               0
             ],
@@ -7426,17 +5677,6 @@
             ]
           ],
           "doc":"Get the reverse LDC R settings in Volts.\nSet the reverse LDC R settings in Volts.",
-          "library_function_name":"RegControlsF",
-          "name":"ReverseR"
-        },
-        {
-          "args":[
-            [
-              9,
-              0
-            ]
-          ],
-          "doc":"Set the reverse LDC R settings in Volts.",
           "library_function_name":"RegControlsF",
           "name":"ReverseR"
         },
@@ -7458,17 +5698,6 @@
         {
           "args":[
             [
-              11,
-              0
-            ]
-          ],
-          "doc":"Set the reverse LDC X settings in Volts.",
-          "library_function_name":"RegControlsF",
-          "name":"ReverseX"
-        },
-        {
-          "args":[
-            [
               12,
               0
             ],
@@ -7478,17 +5707,6 @@
             ]
           ],
           "doc":"Get the time delay [s] after arming before the first tap change. Control may reset before actually changing taps.\nSet the time delay [s] after arming before the first tap change. Control may reset before actually changing taps.",
-          "library_function_name":"RegControlsF",
-          "name":"Delay"
-        },
-        {
-          "args":[
-            [
-              13,
-              0
-            ]
-          ],
-          "doc":"Set the time delay [s] after arming before the first tap change. Control may reset before actually changing taps.",
           "library_function_name":"RegControlsF",
           "name":"Delay"
         },
@@ -7510,17 +5728,6 @@
         {
           "args":[
             [
-              15,
-              0
-            ]
-          ],
-          "doc":"Set the time delay [s] for subsequent tap changes in a set. Control may reset before actually changing taps.",
-          "library_function_name":"RegControlsF",
-          "name":"TapDelay"
-        },
-        {
-          "args":[
-            [
               16,
               0
             ],
@@ -7530,17 +5737,6 @@
             ]
           ],
           "doc":"Get the first house voltage limit on PT secondary base. Setting to 0 disables this function.\nSet the first house voltage limit on PT secondary base. Setting to 0 disables this function.",
-          "library_function_name":"RegControlsF",
-          "name":"VoltageLimit"
-        },
-        {
-          "args":[
-            [
-              17,
-              0
-            ]
-          ],
-          "doc":"Set the first house voltage limit on PT secondary base. Setting to 0 disables this function.",
           "library_function_name":"RegControlsF",
           "name":"VoltageLimit"
         },
@@ -7562,17 +5758,6 @@
         {
           "args":[
             [
-              19,
-              0
-            ]
-          ],
-          "doc":"Set the regulation bandwidth in forward direction, centered on Vreg.",
-          "library_function_name":"RegControlsF",
-          "name":"ForwardBand"
-        },
-        {
-          "args":[
-            [
               20,
               0
             ],
@@ -7582,17 +5767,6 @@
             ]
           ],
           "doc":"Get the target voltage in the forward direction, on PT secondary base.\nSet the target voltage in the forward direction, on PT secondary base.",
-          "library_function_name":"RegControlsF",
-          "name":"ForwardVreg"
-        },
-        {
-          "args":[
-            [
-              21,
-              0
-            ]
-          ],
-          "doc":"Set the target voltage in the forward direction, on PT secondary base.",
           "library_function_name":"RegControlsF",
           "name":"ForwardVreg"
         },
@@ -7614,17 +5788,6 @@
         {
           "args":[
             [
-              23,
-              0
-            ]
-          ],
-          "doc":"Set the bandwidth in reverse direction, centered on reverse Vreg.",
-          "library_function_name":"RegControlsF",
-          "name":"ReverseBand"
-        },
-        {
-          "args":[
-            [
               24,
               0
             ],
@@ -7634,17 +5797,6 @@
             ]
           ],
           "doc":"Get the target voltage in the reverse direction, on PT secondary base.\nSet the target voltage in the reverse direction, on PT secondary base.",
-          "library_function_name":"RegControlsF",
-          "name":"ReverseVreg"
-        },
-        {
-          "args":[
-            [
-              25,
-              0
-            ]
-          ],
-          "doc":"Set the target voltage in the reverse direction, on PT secondary base.",
           "library_function_name":"RegControlsF",
           "name":"ReverseVreg"
         },
@@ -7666,17 +5818,6 @@
         {
           "args":[
             [
-              1,
-              ""
-            ]
-          ],
-          "doc":"Set the active RegControl name.",
-          "library_function_name":"RegControlsS",
-          "name":"Name"
-        },
-        {
-          "args":[
-            [
               2,
               ""
             ],
@@ -7692,17 +5833,6 @@
         {
           "args":[
             [
-              3,
-              ""
-            ]
-          ],
-          "doc":"Set the name of the remote regulated bus, in lieu of LDC settings.",
-          "library_function_name":"RegControlsS",
-          "name":"MonitoredBus"
-        },
-        {
-          "args":[
-            [
               4,
               ""
             ],
@@ -7712,17 +5842,6 @@
             ]
           ],
           "doc":"Get the name of the transformer this regulator controls.\nSet the name of the transformer this regulator controls.",
-          "library_function_name":"RegControlsS",
-          "name":"Transformer"
-        },
-        {
-          "args":[
-            [
-              5,
-              ""
-            ]
-          ],
-          "doc":"Set the name of the transformer this regulator controls.",
           "library_function_name":"RegControlsS",
           "name":"Transformer"
         },
@@ -7793,17 +5912,6 @@
         {
           "args":[
             [
-              4,
-              0
-            ]
-          ],
-          "doc":"Set the number of terminal of monitored element that this relay is monitoring.",
-          "library_function_name":"RelaysI",
-          "name":"MonitoredTerm"
-        },
-        {
-          "args":[
-            [
               5,
               0
             ],
@@ -7813,17 +5921,6 @@
             ]
           ],
           "doc":"Get the number of terminal of the switched object that will be opened when the relay trips.\nSet the number of terminal of the switched object that will be opened when the relay trips.",
-          "library_function_name":"RelaysI",
-          "name":"SwitchedTerm"
-        },
-        {
-          "args":[
-            [
-              6,
-              0
-            ]
-          ],
-          "doc":"Set the number of terminal of the switched object that will be opened when the relay trips.",
           "library_function_name":"RelaysI",
           "name":"SwitchedTerm"
         },
@@ -7845,17 +5942,6 @@
         {
           "args":[
             [
-              8,
-              0
-            ]
-          ],
-          "doc":"Set the active relay by index into the Relay list. 1..Count.",
-          "library_function_name":"RelaysI",
-          "name":"Idx"
-        },
-        {
-          "args":[
-            [
               0,
               ""
             ],
@@ -7865,17 +5951,6 @@
             ]
           ],
           "doc":"Get the name of the active Relay.\nSet the name of the active Relay.",
-          "library_function_name":"RelaysS",
-          "name":"Name"
-        },
-        {
-          "args":[
-            [
-              1,
-              ""
-            ]
-          ],
-          "doc":"Set the name of the active Relay.",
           "library_function_name":"RelaysS",
           "name":"Name"
         },
@@ -7897,17 +5972,6 @@
         {
           "args":[
             [
-              3,
-              ""
-            ]
-          ],
-          "doc":"Set the full name of the object this relay is monitoring.",
-          "library_function_name":"RelaysS",
-          "name":"MonitoredObj"
-        },
-        {
-          "args":[
-            [
               4,
               ""
             ],
@@ -7917,17 +5981,6 @@
             ]
           ],
           "doc":"Get the full name of element that will switched when relay trips.\nSet the full name of element that will switched when relay trips.",
-          "library_function_name":"RelaysS",
-          "name":"SwitchedObj"
-        },
-        {
-          "args":[
-            [
-              5,
-              ""
-            ]
-          ],
-          "doc":"Set the full name of element that will switched when relay trips.",
           "library_function_name":"RelaysS",
           "name":"SwitchedObj"
         },
@@ -7998,17 +6051,6 @@
         {
           "args":[
             [
-              4,
-              0
-            ]
-          ],
-          "doc":"Allows to set 1 if the sensor is connected in delta; otherwise, set 0 (argument).",
-          "library_function_name":"SensorsI",
-          "name":"IsDelta"
-        },
-        {
-          "args":[
-            [
               5,
               0
             ],
@@ -8024,17 +6066,6 @@
         {
           "args":[
             [
-              6,
-              0
-            ]
-          ],
-          "doc":"Allows to set 1 if voltage measurements are 1-3, 3-2, 2-1; otherwise 0.",
-          "library_function_name":"SensorsI",
-          "name":"ReverseDelta"
-        },
-        {
-          "args":[
-            [
               7,
               0
             ],
@@ -8044,17 +6075,6 @@
             ]
           ],
           "doc":"Get the number of the measured terminal in the measured element.\nSet the number of the measured terminal in the measured element.",
-          "library_function_name":"SensorsI",
-          "name":"MeteredTerminal"
-        },
-        {
-          "args":[
-            [
-              8,
-              0
-            ]
-          ],
-          "doc":"Set the number of the measured terminal in the measured element.",
           "library_function_name":"SensorsI",
           "name":"MeteredTerminal"
         },
@@ -8098,17 +6118,6 @@
         {
           "args":[
             [
-              1,
-              0
-            ]
-          ],
-          "doc":"Set the assumed percent error in the Sensor measurement. Default is 1.",
-          "library_function_name":"SensorsF",
-          "name":"PctError"
-        },
-        {
-          "args":[
-            [
               2,
               0
             ],
@@ -8118,17 +6127,6 @@
             ]
           ],
           "doc":"Get the weighting factor for this sensor measurement with respect to the other Sensors. Default is 1.\nSet the weighting factor for this sensor measurement with respect to the other Sensors. Default is 1.",
-          "library_function_name":"SensorsF",
-          "name":"Weight"
-        },
-        {
-          "args":[
-            [
-              3,
-              0
-            ]
-          ],
-          "doc":"Set the weighting factor for this sensor measurement with respect to the other Sensors. Default is 1.",
           "library_function_name":"SensorsF",
           "name":"Weight"
         },
@@ -8150,17 +6148,6 @@
         {
           "args":[
             [
-              5,
-              0
-            ]
-          ],
-          "doc":"Set the voltage base for the sensor measurements. LL for 2 and 3 - phase Sensors, LN for 1-phase Sensors.",
-          "library_function_name":"SensorsF",
-          "name":"kVBase"
-        },
-        {
-          "args":[
-            [
               0,
               ""
             ],
@@ -8176,17 +6163,6 @@
         {
           "args":[
             [
-              1,
-              ""
-            ]
-          ],
-          "doc":"Set the name of the active sensor object.",
-          "library_function_name":"SensorsS",
-          "name":"Name"
-        },
-        {
-          "args":[
-            [
               2,
               ""
             ],
@@ -8196,17 +6172,6 @@
             ]
           ],
           "doc":"Get the full name of the measured element.\nSet the full name of the measured element.",
-          "library_function_name":"SensorsS",
-          "name":"MeteredElement"
-        },
-        {
-          "args":[
-            [
-              3,
-              ""
-            ]
-          ],
-          "doc":"Set the full name of the measured element.",
           "library_function_name":"SensorsS",
           "name":"MeteredElement"
         },
@@ -8277,17 +6242,6 @@
         {
           "args":[
             [
-              1,
-              0
-            ]
-          ],
-          "doc":"Set if OpenDSS allows duplicate names of objects: {1 allow, 0 not allow}.",
-          "library_function_name":"SettingsI",
-          "name":"AllowDuplicates"
-        },
-        {
-          "args":[
-            [
               2,
               0
             ],
@@ -8297,17 +6251,6 @@
             ]
           ],
           "doc":"Get the status of Lock zones on energy Meters to prevent rebuilding if a circuit change occurs: {1= true, 0= False}.\nSet the status of Lock zones on energy Meters to prevent rebuilding if a circuit change occurs: {1= true, 0= False}.",
-          "library_function_name":"SettingsI",
-          "name":"ZoneLock"
-        },
-        {
-          "args":[
-            [
-              3,
-              0
-            ]
-          ],
-          "doc":"Set the status of Lock zones on energy Meters to prevent rebuilding if a circuit change occurs: {1= true, 0= False}.",
           "library_function_name":"SettingsI",
           "name":"ZoneLock"
         },
@@ -8329,17 +6272,6 @@
         {
           "args":[
             [
-              5,
-              0
-            ]
-          ],
-          "doc":"Set {dssMultiphase* | dssPositiveSeq} Indicate if the circuit model is positive sequence.",
-          "library_function_name":"SettingsI",
-          "name":"CktModel"
-        },
-        {
-          "args":[
-            [
               6,
               0
             ],
@@ -8349,17 +6281,6 @@
             ]
           ],
           "doc":"Get {True (1) | False (0)} value of trapezoidal integration flag in Energy Meters.\nSet {True (1) | False (0)} value of trapezoidal integration flag in Energy Meters.",
-          "library_function_name":"SettingsI",
-          "name":"Trapezoidal"
-        },
-        {
-          "args":[
-            [
-              7,
-              0
-            ]
-          ],
-          "doc":"Set {True (1) | False (0)} value of trapezoidal integration flag in Energy Meters.",
           "library_function_name":"SettingsI",
           "name":"Trapezoidal"
         },
@@ -8392,17 +6313,6 @@
         {
           "args":[
             [
-              2,
-              0
-            ]
-          ],
-          "doc":"Set the per unit minimum voltage for Normal conditions.",
-          "library_function_name":"SettingsF",
-          "name":"NormVminpu"
-        },
-        {
-          "args":[
-            [
               3,
               0
             ],
@@ -8412,17 +6322,6 @@
             ]
           ],
           "doc":"Get the per unit maximum voltage for Normal conditions.\nSet the per unit maximum voltage for Normal conditions.",
-          "library_function_name":"SettingsF",
-          "name":"NormVmaxpu"
-        },
-        {
-          "args":[
-            [
-              4,
-              0
-            ]
-          ],
-          "doc":"Set the per unit maximum voltage for Normal conditions.",
           "library_function_name":"SettingsF",
           "name":"NormVmaxpu"
         },
@@ -8444,17 +6343,6 @@
         {
           "args":[
             [
-              6,
-              0
-            ]
-          ],
-          "doc":"Set the per unit minimum voltage for Emergency conditions.",
-          "library_function_name":"SettingsF",
-          "name":"EmergVminpu"
-        },
-        {
-          "args":[
-            [
               7,
               0
             ],
@@ -8464,17 +6352,6 @@
             ]
           ],
           "doc":"Get the per unit maximum voltage for Emergency conditions.\nSet the per unit maximum voltage for Emergency conditions.",
-          "library_function_name":"SettingsF",
-          "name":"EmergVmaxpu"
-        },
-        {
-          "args":[
-            [
-              8,
-              0
-            ]
-          ],
-          "doc":"Set the per unit maximum voltage for Emergency conditions.",
           "library_function_name":"SettingsF",
           "name":"EmergVmaxpu"
         },
@@ -8496,17 +6373,6 @@
         {
           "args":[
             [
-              10,
-              0
-            ]
-          ],
-          "doc":"Set the weighting factor applied to UE register values.",
-          "library_function_name":"SettingsF",
-          "name":"UEWeight"
-        },
-        {
-          "args":[
-            [
               11,
               0
             ],
@@ -8516,17 +6382,6 @@
             ]
           ],
           "doc":"Get the weighting factor applied to Loss register values.\nSet the weighting factor applied to Loss register values.",
-          "library_function_name":"SettingsF",
-          "name":"LossWeight"
-        },
-        {
-          "args":[
-            [
-              12,
-              0
-            ]
-          ],
-          "doc":"Set the weighting factor applied to Loss register values.",
           "library_function_name":"SettingsF",
           "name":"LossWeight"
         },
@@ -8548,17 +6403,6 @@
         {
           "args":[
             [
-              14,
-              0
-            ]
-          ],
-          "doc":"Set the price signal for the circuit.",
-          "library_function_name":"SettingsF",
-          "name":"PriceSignal"
-        },
-        {
-          "args":[
-            [
               0,
               ""
             ],
@@ -8574,17 +6418,6 @@
         {
           "args":[
             [
-              1,
-              ""
-            ]
-          ],
-          "doc":"Set the list of Buses or (File=xxxxx) syntax for the AutoAdd solution mode.",
-          "library_function_name":"SettingsS",
-          "name":"AutoBusList"
-        },
-        {
-          "args":[
-            [
               2,
               ""
             ],
@@ -8594,17 +6427,6 @@
             ]
           ],
           "doc":"Get the name of LoadShape object that serves as the source of price signal data for yearly simulations, etc.\nSet the name of LoadShape object that serves as the source of price signal data for yearly simulations, etc.",
-          "library_function_name":"SettingsS",
-          "name":"PriceCurve"
-        },
-        {
-          "args":[
-            [
-              3,
-              ""
-            ]
-          ],
-          "doc":"Set the name of LoadShape object that serves as the source of price signal data for yearly simulations, etc.",
           "library_function_name":"SettingsS",
           "name":"PriceCurve"
         },
@@ -8675,17 +6497,6 @@
         {
           "args":[
             [
-              2,
-              0
-            ]
-          ],
-          "doc":"Modifies the present solution mode (See DSS help).",
-          "library_function_name":"SolutionI",
-          "name":"Mode"
-        },
-        {
-          "args":[
-            [
               3,
               0
             ],
@@ -8701,17 +6512,6 @@
         {
           "args":[
             [
-              4,
-              0
-            ]
-          ],
-          "doc":"Modifies the present hour (See DSS help).",
-          "library_function_name":"SolutionI",
-          "name":"Hour"
-        },
-        {
-          "args":[
-            [
               5,
               0
             ],
@@ -8721,17 +6521,6 @@
             ]
           ],
           "doc":"The present Year (See DSS help).\nModifies the present Year (See DSS help).",
-          "library_function_name":"SolutionI",
-          "name":"Year"
-        },
-        {
-          "args":[
-            [
-              6,
-              0
-            ]
-          ],
-          "doc":"Modifies the present Year (See DSS help).",
           "library_function_name":"SolutionI",
           "name":"Year"
         },
@@ -8764,17 +6553,6 @@
         {
           "args":[
             [
-              9,
-              0
-            ]
-          ],
-          "doc":"Modifies the Maximum number of iterations used to solve the circuit.",
-          "library_function_name":"SolutionI",
-          "name":"MaxIterations"
-        },
-        {
-          "args":[
-            [
               10,
               0
             ],
@@ -8784,17 +6562,6 @@
             ]
           ],
           "doc":"The number of solutions to perform for MonteCarlo and time series simulations.\nModifies the number of solutions to perform for MonteCarlo and time series simulations.",
-          "library_function_name":"SolutionI",
-          "name":"Number"
-        },
-        {
-          "args":[
-            [
-              11,
-              0
-            ]
-          ],
-          "doc":"Modifies the number of solutions to perform for MonteCarlo and time series simulations.",
           "library_function_name":"SolutionI",
           "name":"Number"
         },
@@ -8816,17 +6583,6 @@
         {
           "args":[
             [
-              13,
-              0
-            ]
-          ],
-          "doc":"Modifies the randomization mode for random variables 'Gaussian' or 'Uniform'.",
-          "library_function_name":"SolutionI",
-          "name":"Random"
-        },
-        {
-          "args":[
-            [
               14,
               0
             ],
@@ -8836,17 +6592,6 @@
             ]
           ],
           "doc":"The Load Model: {dssPowerFlow (default)|dssAdmittance}.\nModifies the Load Model: {dssPowerFlow (default)|dssAdmittance}.",
-          "library_function_name":"SolutionI",
-          "name":"LoadModel"
-        },
-        {
-          "args":[
-            [
-              15,
-              0
-            ]
-          ],
-          "doc":"Modifies the Load Model: {dssPowerFlow (default)|dssAdmittance}.",
           "library_function_name":"SolutionI",
           "name":"LoadModel"
         },
@@ -8868,17 +6613,6 @@
         {
           "args":[
             [
-              17,
-              0
-            ]
-          ],
-          "doc":"Modifies the type of device to add in AutoAdd Mode: {dssGen (default)|dssCap}.",
-          "library_function_name":"SolutionI",
-          "name":"AddType"
-        },
-        {
-          "args":[
-            [
               18,
               0
             ],
@@ -8888,17 +6622,6 @@
             ]
           ],
           "doc":"The base solution algorithm: {dssNormalSolve | dssNewtonSolve}.\nModifies the base solution algorithm: {dssNormalSolve | dssNewtonSolve}.",
-          "library_function_name":"SolutionI",
-          "name":"Algorithm"
-        },
-        {
-          "args":[
-            [
-              19,
-              0
-            ]
-          ],
-          "doc":"Modifies the base solution algorithm: {dssNormalSolve | dssNewtonSolve}.",
           "library_function_name":"SolutionI",
           "name":"Algorithm"
         },
@@ -8920,17 +6643,6 @@
         {
           "args":[
             [
-              21,
-              0
-            ]
-          ],
-          "doc":"Modifies the mode for control devices: {dssStatic (default) | dssEvent | dssTime}.",
-          "library_function_name":"SolutionI",
-          "name":"ControlMode"
-        },
-        {
-          "args":[
-            [
               22,
               0
             ],
@@ -8946,17 +6658,6 @@
         {
           "args":[
             [
-              23,
-              0
-            ]
-          ],
-          "doc":"Modifies the current value of the control iteration counter.",
-          "library_function_name":"SolutionI",
-          "name":"ControlIterations"
-        },
-        {
-          "args":[
-            [
               24,
               0
             ],
@@ -8966,17 +6667,6 @@
             ]
           ],
           "doc":"The maximum allowable control iterations.\nModifies the maximum allowable control iterations.",
-          "library_function_name":"SolutionI",
-          "name":"MaxControlIterations"
-        },
-        {
-          "args":[
-            [
-              25,
-              0
-            ]
-          ],
-          "doc":"Modifies the maximum allowable control iterations.",
           "library_function_name":"SolutionI",
           "name":"MaxControlIterations"
         },
@@ -9130,17 +6820,6 @@
         {
           "args":[
             [
-              39,
-              0
-            ]
-          ],
-          "doc":"Modifies the converged flag (1 converged | 0 not converged).",
-          "library_function_name":"SolutionI",
-          "name":"Converged"
-        },
-        {
-          "args":[
-            [
               40,
               0
             ]
@@ -9172,17 +6851,6 @@
             ]
           ],
           "doc":"Indicates that the control actions are done: {1 done, 0 not done}.\nModifies the flag to indicate that the control actions are done: {1 done, 0 not done}.",
-          "library_function_name":"SolutionI",
-          "name":"ControlActionsDone"
-        },
-        {
-          "args":[
-            [
-              43,
-              0
-            ]
-          ],
-          "doc":"Modifies the flag to indicate that the control actions are done: {1 done, 0 not done}.",
           "library_function_name":"SolutionI",
           "name":"ControlActionsDone"
         },
@@ -9226,17 +6894,6 @@
         {
           "args":[
             [
-              1,
-              0
-            ]
-          ],
-          "doc":"Set the frequency for the next solution.",
-          "library_function_name":"SolutionF",
-          "name":"Frequency"
-        },
-        {
-          "args":[
-            [
               2,
               0
             ],
@@ -9246,17 +6903,6 @@
             ]
           ],
           "doc":"The seconds from top of the hour.\nSet the seconds from top of the hour.",
-          "library_function_name":"SolutionF",
-          "name":"Seconds"
-        },
-        {
-          "args":[
-            [
-              3,
-              0
-            ]
-          ],
-          "doc":"Set the seconds from top of the hour.",
           "library_function_name":"SolutionF",
           "name":"Seconds"
         },
@@ -9278,17 +6924,6 @@
         {
           "args":[
             [
-              5,
-              0
-            ]
-          ],
-          "doc":"Set the step size for the next solution.",
-          "library_function_name":"SolutionF",
-          "name":"StepSize"
-        },
-        {
-          "args":[
-            [
               6,
               0
             ],
@@ -9298,17 +6933,6 @@
             ]
           ],
           "doc":"The default load multiplier applied to all non-fixed loads.\nSet the default load multiplier applied to all non-fixed loads.",
-          "library_function_name":"SolutionF",
-          "name":"LoadMult"
-        },
-        {
-          "args":[
-            [
-              7,
-              0
-            ]
-          ],
-          "doc":"Set the default load multiplier applied to all non-fixed loads.",
           "library_function_name":"SolutionF",
           "name":"LoadMult"
         },
@@ -9330,17 +6954,6 @@
         {
           "args":[
             [
-              9,
-              0
-            ]
-          ],
-          "doc":"Set the solution convergence tolerance.",
-          "library_function_name":"SolutionF",
-          "name":"Convergence"
-        },
-        {
-          "args":[
-            [
               10,
               0
             ],
@@ -9350,17 +6963,6 @@
             ]
           ],
           "doc":"The percent default annual load growth rate.\nSet the percent default annual load growth rate.",
-          "library_function_name":"SolutionF",
-          "name":"PctGrowth"
-        },
-        {
-          "args":[
-            [
-              11,
-              0
-            ]
-          ],
-          "doc":"Set the percent default annual load growth rate.",
           "library_function_name":"SolutionF",
           "name":"PctGrowth"
         },
@@ -9382,17 +6984,6 @@
         {
           "args":[
             [
-              13,
-              0
-            ]
-          ],
-          "doc":"Set the generator kW for AutoAdd mode.",
-          "library_function_name":"SolutionF",
-          "name":"GenkW"
-        },
-        {
-          "args":[
-            [
               14,
               0
             ],
@@ -9402,17 +6993,6 @@
             ]
           ],
           "doc":"The pf for generators in AutoAdd mode.\nSet the pf for generators in AutoAdd mode.",
-          "library_function_name":"SolutionF",
-          "name":"GenPF"
-        },
-        {
-          "args":[
-            [
-              15,
-              0
-            ]
-          ],
-          "doc":"Set the pf for generators in AutoAdd mode.",
           "library_function_name":"SolutionF",
           "name":"GenPF"
         },
@@ -9434,17 +7014,6 @@
         {
           "args":[
             [
-              17,
-              0
-            ]
-          ],
-          "doc":"Set the capacitor kvar for adding in AutoAdd mode.",
-          "library_function_name":"SolutionF",
-          "name":"Capkvar"
-        },
-        {
-          "args":[
-            [
               18,
               0
             ],
@@ -9460,17 +7029,6 @@
         {
           "args":[
             [
-              19,
-              0
-            ]
-          ],
-          "doc":"Set the default multiplier applied to generators (like LoadMult).",
-          "library_function_name":"SolutionF",
-          "name":"GenMult"
-        },
-        {
-          "args":[
-            [
               20,
               0
             ],
@@ -9480,17 +7038,6 @@
             ]
           ],
           "doc":"The hour as a double, including fractional part.\nSet the hour as a double, including fractional part.",
-          "library_function_name":"SolutionF",
-          "name":"DblHour"
-        },
-        {
-          "args":[
-            [
-              21,
-              0
-            ]
-          ],
-          "doc":"Set the hour as a double, including fractional part.",
           "library_function_name":"SolutionF",
           "name":"DblHour"
         },
@@ -9545,17 +7092,6 @@
         {
           "args":[
             [
-              26,
-              0
-            ]
-          ],
-          "doc":"Set the accumulated time required (microseconds) to perform the simulation.",
-          "library_function_name":"SolutionF",
-          "name":"TotalTime"
-        },
-        {
-          "args":[
-            [
               27,
               0
             ]
@@ -9593,17 +7129,6 @@
         {
           "args":[
             [
-              2,
-              ""
-            ]
-          ],
-          "doc":"Set the Load-Duration Curve name for LD modes.",
-          "library_function_name":"SolutionS",
-          "name":"LDCurve"
-        },
-        {
-          "args":[
-            [
               3,
               ""
             ],
@@ -9619,17 +7144,6 @@
         {
           "args":[
             [
-              4,
-              ""
-            ]
-          ],
-          "doc":"Set the default daily load shape (defaults to 'Default').",
-          "library_function_name":"SolutionS",
-          "name":"DefaultDaily"
-        },
-        {
-          "args":[
-            [
               5,
               ""
             ],
@@ -9639,17 +7153,6 @@
             ]
           ],
           "doc":"The default yearly load shape (defaults to 'Default').\nSet the default yearly load shape (defaults to 'Default').",
-          "library_function_name":"SolutionS",
-          "name":"DefaultYearly"
-        },
-        {
-          "args":[
-            [
-              6,
-              ""
-            ]
-          ],
-          "doc":"Set the default yearly load shape (defaults to 'Default').",
           "library_function_name":"SolutionS",
           "name":"DefaultYearly"
         },
@@ -9709,17 +7212,6 @@
         {
           "args":[
             [
-              3,
-              0
-            ]
-          ],
-          "doc":"Set open (1) or close (2) the switch. No effect if switch is locked. However, reset removes any lock and then closes the switch (shelf state). 0 = none action (see manual for details).",
-          "library_function_name":"SwtControlsI",
-          "name":"Action"
-        },
-        {
-          "args":[
-            [
               4,
               0
             ],
@@ -9735,17 +7227,6 @@
         {
           "args":[
             [
-              5,
-              0
-            ]
-          ],
-          "doc":"Set the lock to prevent both manual and automatic switch operation.",
-          "library_function_name":"SwtControlsI",
-          "name":"IsLocked"
-        },
-        {
-          "args":[
-            [
               6,
               0
             ],
@@ -9755,17 +7236,6 @@
             ]
           ],
           "doc":"Get the terminal number where the switch is located on the SwitchedObj.\nSet the terminal number where the switch is located on the SwitchedObj.",
-          "library_function_name":"SwtControlsI",
-          "name":"SwitchedTerm"
-        },
-        {
-          "args":[
-            [
-              7,
-              0
-            ]
-          ],
-          "doc":"Set the terminal number where the switch is located on the SwitchedObj.",
           "library_function_name":"SwtControlsI",
           "name":"SwitchedTerm"
         },
@@ -9798,17 +7268,6 @@
         {
           "args":[
             [
-              1,
-              0
-            ]
-          ],
-          "doc":"Set the time delay [s] between arming and opening or closing the switch. Control may reset before actually operating the switch.",
-          "library_function_name":"SwtControlsF",
-          "name":"Delay"
-        },
-        {
-          "args":[
-            [
               0,
               ""
             ],
@@ -9824,17 +7283,6 @@
         {
           "args":[
             [
-              1,
-              ""
-            ]
-          ],
-          "doc":"Set a SwtControl active by name.",
-          "library_function_name":"SwtControlsS",
-          "name":"Name"
-        },
-        {
-          "args":[
-            [
               2,
               ""
             ],
@@ -9844,17 +7292,6 @@
             ]
           ],
           "doc":"Get the name of the switched object by the active SwtControl.\nSet the switched object by name.",
-          "library_function_name":"SwtControlsS",
-          "name":"SwitchedObj"
-        },
-        {
-          "args":[
-            [
-              3,
-              ""
-            ]
-          ],
-          "doc":"Set the switched object by name.",
           "library_function_name":"SwtControlsS",
           "name":"SwitchedObj"
         },
@@ -10035,17 +7472,6 @@
         {
           "args":[
             [
-              1,
-              ""
-            ]
-          ],
-          "doc":"Set the name of the active branch.",
-          "library_function_name":"TopologyS",
-          "name":"BranchName"
-        },
-        {
-          "args":[
-            [
               2,
               ""
             ],
@@ -10055,17 +7481,6 @@
             ]
           ],
           "doc":"Get the name of the active Bus.\nSet the Bus active by name.",
-          "library_function_name":"TopologyS",
-          "name":"BusName"
-        },
-        {
-          "args":[
-            [
-              3,
-              ""
-            ]
-          ],
-          "doc":"Set the Bus active by name.",
           "library_function_name":"TopologyS",
           "name":"BusName"
         },
@@ -10125,17 +7540,6 @@
         {
           "args":[
             [
-              1,
-              0
-            ]
-          ],
-          "doc":"Set the number of windings on this transformer. Allocates memory; set or change this property first.",
-          "library_function_name":"TransformersI",
-          "name":"NumWindings"
-        },
-        {
-          "args":[
-            [
               2,
               0
             ],
@@ -10145,17 +7549,6 @@
             ]
           ],
           "doc":"Get the active winding number from 1..NumWindings. Update this before reading or setting a sequence of winding properties (R, Tap, kV, kVA, etc.).\nSet the active winding number from 1..NumWindings. Update this before reading or setting a sequence of winding properties (R, Tap, kV, kVA, etc.).",
-          "library_function_name":"TransformersI",
-          "name":"Wdg"
-        },
-        {
-          "args":[
-            [
-              3,
-              0
-            ]
-          ],
-          "doc":"Set the active winding number from 1..NumWindings. Update this before reading or setting a sequence of winding properties (R, Tap, kV, kVA, etc.).",
           "library_function_name":"TransformersI",
           "name":"Wdg"
         },
@@ -10177,17 +7570,6 @@
         {
           "args":[
             [
-              5,
-              0
-            ]
-          ],
-          "doc":"Set the active winding number of tap steps between MinTap and MaxTap",
-          "library_function_name":"TransformersI",
-          "name":"NumTaps"
-        },
-        {
-          "args":[
-            [
               6,
               0
             ],
@@ -10197,17 +7579,6 @@
             ]
           ],
           "doc":"Get the information about if the active winding is delta (1) or wye (0) connection.\nSet the information about if the active winding is delta (1) or wye (0) connection.",
-          "library_function_name":"TransformersI",
-          "name":"IsDelta"
-        },
-        {
-          "args":[
-            [
-              7,
-              0
-            ]
-          ],
-          "doc":"Set the information about if the active winding is delta (1) or wye (0) connection.",
           "library_function_name":"TransformersI",
           "name":"IsDelta"
         },
@@ -10262,17 +7633,6 @@
         {
           "args":[
             [
-              1,
-              0
-            ]
-          ],
-          "doc":"Set the active winding resistance in %.",
-          "library_function_name":"TransformersF",
-          "name":"R"
-        },
-        {
-          "args":[
-            [
               2,
               0
             ],
@@ -10282,17 +7642,6 @@
             ]
           ],
           "doc":"Get the active winding tap in per-unit.\nSet the active winding tap in per-unit.",
-          "library_function_name":"TransformersF",
-          "name":"Tap"
-        },
-        {
-          "args":[
-            [
-              3,
-              0
-            ]
-          ],
-          "doc":"Set the active winding tap in per-unit.",
           "library_function_name":"TransformersF",
           "name":"Tap"
         },
@@ -10314,17 +7663,6 @@
         {
           "args":[
             [
-              5,
-              0
-            ]
-          ],
-          "doc":"Set the active winding minimum tap in per-unit.",
-          "library_function_name":"TransformersF",
-          "name":"MinTap"
-        },
-        {
-          "args":[
-            [
               6,
               0
             ],
@@ -10334,17 +7672,6 @@
             ]
           ],
           "doc":"Get the active winding maximum tap in per-unit.\nSet the active winding maximum tap in per-unit.",
-          "library_function_name":"TransformersF",
-          "name":"MaxTap"
-        },
-        {
-          "args":[
-            [
-              7,
-              0
-            ]
-          ],
-          "doc":"Set the active winding maximum tap in per-unit.",
           "library_function_name":"TransformersF",
           "name":"MaxTap"
         },
@@ -10366,17 +7693,6 @@
         {
           "args":[
             [
-              9,
-              0
-            ]
-          ],
-          "doc":"Set the active winding kV rating. Phase-phase for 2 or 3 phases, actual winding kV 1 phase transformer.",
-          "library_function_name":"TransformersF",
-          "name":"kV"
-        },
-        {
-          "args":[
-            [
               10,
               0
             ],
@@ -10386,17 +7702,6 @@
             ]
           ],
           "doc":"Get the active winding kVA rating. On winding 1, this also determines normal and emergency current ratings for all windings.\nSet the active winding kVA rating. On winding 1, this also determines normal and emergency current ratings for all windings.",
-          "library_function_name":"TransformersF",
-          "name":"kVA"
-        },
-        {
-          "args":[
-            [
-              11,
-              0
-            ]
-          ],
-          "doc":"Set the active winding kVA rating. On winding 1, this also determines normal and emergency current ratings for all windings.",
           "library_function_name":"TransformersF",
           "name":"kVA"
         },
@@ -10418,17 +7723,6 @@
         {
           "args":[
             [
-              13,
-              0
-            ]
-          ],
-          "doc":"Set the active winding neutral reactance [ohms] for wye connections.",
-          "library_function_name":"TransformersF",
-          "name":"Xneut"
-        },
-        {
-          "args":[
-            [
               14,
               0
             ],
@@ -10438,17 +7732,6 @@
             ]
           ],
           "doc":"Get the active winding neutral resistance [ohms] for wye connections. Set less than zero ungrounded wye.\nSet the active winding neutral resistance [ohms] for wye connections. Set less than zero ungrounded wye.",
-          "library_function_name":"TransformersF",
-          "name":"Rneut"
-        },
-        {
-          "args":[
-            [
-              15,
-              0
-            ]
-          ],
-          "doc":"Set the active winding neutral resistance [ohms] for wye connections. Set less than zero ungrounded wye.",
           "library_function_name":"TransformersF",
           "name":"Rneut"
         },
@@ -10470,17 +7753,6 @@
         {
           "args":[
             [
-              17,
-              0
-            ]
-          ],
-          "doc":"Set the percent reactance between windings 1 and 2, on winding 1 kVA base. Use for 2 winding or 3 winding Transformers.",
-          "library_function_name":"TransformersF",
-          "name":"Xhl"
-        },
-        {
-          "args":[
-            [
               18,
               0
             ],
@@ -10490,17 +7762,6 @@
             ]
           ],
           "doc":"Get the percent reactance between windings 1 and 3, on winding 1 kVA base. Use for 3 winding Transformers only.\nSet the percent reactance between windings 1 and 3, on winding 1 kVA base. Use for 3 winding Transformers only.",
-          "library_function_name":"TransformersF",
-          "name":"Xht"
-        },
-        {
-          "args":[
-            [
-              19,
-              0
-            ]
-          ],
-          "doc":"Set the percent reactance between windings 1 and 3, on winding 1 kVA base. Use for 3 winding Transformers only.",
           "library_function_name":"TransformersF",
           "name":"Xht"
         },
@@ -10522,17 +7783,6 @@
         {
           "args":[
             [
-              21,
-              0
-            ]
-          ],
-          "doc":"Set the percent reactance between windings 2 and 3, on winding 1 kVA base. Use for 3 winding Transformers only.",
-          "library_function_name":"TransformersF",
-          "name":"Xlt"
-        },
-        {
-          "args":[
-            [
               0,
               ""
             ],
@@ -10548,17 +7798,6 @@
         {
           "args":[
             [
-              1,
-              ""
-            ]
-          ],
-          "doc":"Set the name of an XfrmCode that supplies electrical paraMeters for this transformer.",
-          "library_function_name":"TransformersS",
-          "name":"XfmrCode"
-        },
-        {
-          "args":[
-            [
               2,
               ""
             ],
@@ -10568,17 +7807,6 @@
             ]
           ],
           "doc":"Get the active transformer name and 3, on winding_1_kVA base. Use for 3 winding transformer only.\nSet the active transformer name and 3, on winding_1_kVA base. Use for 3 winding transformer only.",
-          "library_function_name":"TransformersS",
-          "name":"Name"
-        },
-        {
-          "args":[
-            [
-              3,
-              ""
-            ]
-          ],
-          "doc":"Set the active transformer name and 3, on winding_1_kVA base. Use for 3 winding transformer only.",
           "library_function_name":"TransformersS",
           "name":"Name"
         },
@@ -10649,17 +7877,6 @@
         {
           "args":[
             [
-              4,
-              0
-            ]
-          ],
-          "doc":"Set the number of phases of the active VSource.",
-          "library_function_name":"VsourcesI",
-          "name":"Phases"
-        },
-        {
-          "args":[
-            [
               0,
               0
             ],
@@ -10669,17 +7886,6 @@
             ]
           ],
           "doc":"Get the source voltage in kV.\nSet the source voltage in kV.",
-          "library_function_name":"VsourcesF",
-          "name":"BasekV"
-        },
-        {
-          "args":[
-            [
-              1,
-              0
-            ]
-          ],
-          "doc":"Set the source voltage in kV.",
           "library_function_name":"VsourcesF",
           "name":"BasekV"
         },
@@ -10701,17 +7907,6 @@
         {
           "args":[
             [
-              3,
-              0
-            ]
-          ],
-          "doc":"Set the source voltage in pu.",
-          "library_function_name":"VsourcesF",
-          "name":"PU"
-        },
-        {
-          "args":[
-            [
               4,
               0
             ],
@@ -10721,17 +7916,6 @@
             ]
           ],
           "doc":"Get the source phase angle of first phase in degrees.\nSet the source phase angle of first phase in degrees.",
-          "library_function_name":"VsourcesF",
-          "name":"AngleDeg"
-        },
-        {
-          "args":[
-            [
-              5,
-              0
-            ]
-          ],
-          "doc":"Set the source phase angle of first phase in degrees.",
           "library_function_name":"VsourcesF",
           "name":"AngleDeg"
         },
@@ -10753,17 +7937,6 @@
         {
           "args":[
             [
-              7,
-              0
-            ]
-          ],
-          "doc":"Set the source frequency in Hz.",
-          "library_function_name":"VsourcesF",
-          "name":"Frequency"
-        },
-        {
-          "args":[
-            [
               0,
               ""
             ],
@@ -10773,17 +7946,6 @@
             ]
           ],
           "doc":"Get the name of the active VSource.\nSet the name of the active VSource.",
-          "library_function_name":"VsourcesS",
-          "name":"Name"
-        },
-        {
-          "args":[
-            [
-              1,
-              ""
-            ]
-          ],
-          "doc":"Set the name of the active VSource.",
           "library_function_name":"VsourcesS",
           "name":"Name"
         },
@@ -10854,17 +8016,6 @@
         {
           "args":[
             [
-              4,
-              0
-            ]
-          ],
-          "doc":"Set the number of points in X-Y curve.",
-          "library_function_name":"XYCurvesI",
-          "name":"Npts"
-        },
-        {
-          "args":[
-            [
               0,
               0
             ],
@@ -10874,17 +8025,6 @@
             ]
           ],
           "doc":"Get the interpolated value after setting Y.\nSet the X value.",
-          "library_function_name":"XYCurvesF",
-          "name":"X"
-        },
-        {
-          "args":[
-            [
-              1,
-              0
-            ]
-          ],
-          "doc":"Set the X value.",
           "library_function_name":"XYCurvesF",
           "name":"X"
         },
@@ -10906,17 +8046,6 @@
         {
           "args":[
             [
-              3,
-              0
-            ]
-          ],
-          "doc":"Set the Y value.",
-          "library_function_name":"XYCurvesF",
-          "name":"Y"
-        },
-        {
-          "args":[
-            [
               4,
               0
             ],
@@ -10926,17 +8055,6 @@
             ]
           ],
           "doc":"Get the amount to shift X value from original curve.\nSet the amount to shift X value from original curve.",
-          "library_function_name":"XYCurvesF",
-          "name":"XShift"
-        },
-        {
-          "args":[
-            [
-              5,
-              0
-            ]
-          ],
-          "doc":"Set the amount to shift X value from original curve.",
           "library_function_name":"XYCurvesF",
           "name":"XShift"
         },
@@ -10958,17 +8076,6 @@
         {
           "args":[
             [
-              7,
-              0
-            ]
-          ],
-          "doc":"Set the amount to shift Y value from original curve.",
-          "library_function_name":"XYCurvesF",
-          "name":"YShift"
-        },
-        {
-          "args":[
-            [
               8,
               0
             ],
@@ -10978,17 +8085,6 @@
             ]
           ],
           "doc":"Get the factor to scale X values from original curve.\nSet the factor to scale X values from original curve.",
-          "library_function_name":"XYCurvesF",
-          "name":"XScale"
-        },
-        {
-          "args":[
-            [
-              9,
-              0
-            ]
-          ],
-          "doc":"Set the factor to scale X values from original curve.",
           "library_function_name":"XYCurvesF",
           "name":"XScale"
         },
@@ -11010,17 +8106,6 @@
         {
           "args":[
             [
-              11,
-              0
-            ]
-          ],
-          "doc":"Set the factor to scale Y values from original curve.",
-          "library_function_name":"XYCurvesF",
-          "name":"YScale"
-        },
-        {
-          "args":[
-            [
               0,
               ""
             ],
@@ -11030,17 +8115,6 @@
             ]
           ],
           "doc":"Get the name of the active XYCurve Object.\nSet the name of the active XYCurve Object.",
-          "library_function_name":"XYCurvesS",
-          "name":"Name"
-        },
-        {
-          "args":[
-            [
-              1,
-              ""
-            ]
-          ],
-          "doc":"Set the name of the active XYCurve Object.",
           "library_function_name":"XYCurvesS",
           "name":"Name"
         },
