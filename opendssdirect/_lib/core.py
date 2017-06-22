@@ -3,7 +3,10 @@ import ctypes
 import sys
 import struct
 import json
+import logging
 
+
+logger = logging.getLogger('opendssdirect.core')
 
 dir_path = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
 
@@ -143,9 +146,10 @@ def setup_library(library):
         if f['args']:
             getattr(library, f['name']).argtypes = tuple(mapping[arg.lower()] for arg in f['args'])
 
-    directory = os.path.abspath(os.path.expanduser(os.getenv('OPENDSSDIRECTPY_DATAPATH', '~/.opendss')))
+    directory = os.path.abspath(os.path.expanduser(os.getenv('OPENDSSDIRECTPY_DATAPATH', '.')))
     if not os.path.exists(directory):
         os.makedirs(directory)
+    logger.debug("Setting datapath for OpenDSS to {}".format(directory))
     library.DSSS(3, directory)
 
 

@@ -113,7 +113,12 @@ def CtypesFunction(arg=None, f=None, modes=None, args=None, name=None):
 
     logger.debug("Calling function {} with arguments {}".format(name, (mode, arg)))
 
-    return f(mode, arg)
+    r = f(mode, arg)
+
+    if isinstance(r, bytes):
+        r = r.decode('ascii')
+
+    return r
 
 
 def VarArrayFunction(f, mode, name):
@@ -129,17 +134,38 @@ def VarArrayFunction(f, mode, name):
 
     l = list()
 
-    if varg.dtype == 0x2008:
+    if varg.dtype == 0x2008:  # CString
 
         data = ctypes.cast(var_arr.data, ctypes.POINTER(POINTER * var_arr.length))
 
         for s in data.contents:
 
-            length = ctypes.cast(s - HEADER_SIZE, ctypes.POINTER(ctypes.c_uint8)).contents.value
+            if s == 0:
+                continue
+            else:
+                length = ctypes.cast(s - HEADER_SIZE, ctypes.POINTER(ctypes.c_uint8)).contents.value
 
-            s = ctypes.cast(s, ctypes.POINTER(ctypes.c_int16 * length))
+                s = ctypes.cast(s, ctypes.POINTER(ctypes.c_int16 * length))
 
-            l.append(''.join([chr(x).decode('ascii') for x in s.contents[:]]))
+                l.append(''.join([chr(x).decode('ascii') for x in s.contents[:]]))
+
+    elif varg.dtype == 0x2005:  # Float64
+
+        data = ctypes.cast(var_arr.data, ctypes.POINTER(ctypes.c_float * var_arr.length))
+
+        # Converting CFloat to Python float, more effciency could be gained by using NumPy
+        # TODO: Consider making numpy/pandas a dependency?
+        for i in data.contents:
+            l.append(i)
+
+    elif varg.dtype == 0x2003:  # Int32
+
+        data = ctypes.cast(var_arr.data, ctypes.POINTER(ctypes.c_int32 * var_arr.length))
+
+        # Converting CInt32 to Python float, more effciency could be gained by using NumPy
+        # TODO: Consider making numpy/pandas a dependency?
+        for i in data.contents:
+            l.append(i)
 
     else:
 
