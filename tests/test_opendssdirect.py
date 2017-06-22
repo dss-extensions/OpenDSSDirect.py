@@ -41,3 +41,8 @@ def test_ActiveClass():
 
     assert dss.ActiveClass.NumElements() == 12
 
+def test_configuration():
+
+    import opendssdirect as dss
+
+    assert dss.Basic.AllowForms() == 1, "Allow forms should be disabled"
