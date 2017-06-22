@@ -330,11 +330,415 @@ def test_13Node():
 
     assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
-
+    assert dss.Loads.AllNames() == [u'671', u'634a', u'634b', u'634c', u'645', u'646', u'692', u'675a', u'675b', u'675c', u'611', u'652', u'670a', u'670b', u'670c']
+    assert dss.Loads.AllocationFactor() == 0.5
+    assert dss.Loads.CFactor() == 4.0
+    assert dss.Loads.CVRCurve() == u''
+    assert dss.Loads.CVRvars() == 2.0
+    assert dss.Loads.CVRwatts() == 1.0
+    assert dss.Loads.Class() == 1
+    assert dss.Loads.Count() == 15
+    assert dss.Loads.Daily() == u''
+    assert dss.Loads.Duty() == u''
+    assert dss.Loads.First() == 1
+    assert dss.Loads.Growth() == u''
+    assert dss.Loads.Idx() == 1
+    assert dss.Loads.IsDelta() == 1
+    assert dss.Loads.Model() == 1
+    assert dss.Loads.Name() == u'671'
+    assert dss.Loads.Next() == 2
+    assert dss.Loads.NumCust() == 1
+    assert dss.Loads.PF() == 0.8240419241993675
+    assert dss.Loads.PctMean() == 50.0
+    assert dss.Loads.PctStdDev() == 10.0
+    assert dss.Loads.RelWeighting() == 1.0
+    assert dss.Loads.Rneut() == -1.0
+    assert dss.Loads.Spectrum() == u'defaultload'
+    assert dss.Loads.Status() == 0
+    assert dss.Loads.Vmaxpu() == 1.05
+    assert dss.Loads.VminEmerg() == 0.0
+    assert dss.Loads.VminNorm() == 0.0
+    assert dss.Loads.Vminpu() == 0.95
+    assert dss.Loads.XfkVA() == 0.0
+    assert dss.Loads.Xneut() == 0.0
+    assert dss.Loads.Yearly() == u''
+    assert dss.Loads.ZipV() == []
+    assert dss.Loads.kV() == 0.277
+    assert dss.Loads.kVABase() == 194.164878389476
+    assert dss.Loads.kW() == 160.0
+    assert dss.Loads.kWh() == 0.0
+    assert dss.Loads.kWhDays() == 30.0
+    assert dss.Loads.kvar() == 110.0
+    assert dss.Loads.puSeriesRL() == 50.0
 
     assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
+    assert dss.LoadShape.AllNames() == [u'default']
+    assert dss.LoadShape.Count() == 1
+    assert dss.LoadShape.First() == 1
+    assert dss.LoadShape.HrInterval() == 1.0
+    assert dss.LoadShape.MinInterval() == 60.0
+    assert dss.LoadShape.Name() == u'default'
+    assert dss.LoadShape.Next() == 0
+    assert dss.LoadShape.Normalize() == 0
+    assert dss.LoadShape.Npts() == 24
+    assert dss.LoadShape.PBase() == 0.0
+    assert dss.LoadShape.PMult() == [-1.1170474872998765e+24, 1.7942498922348022, 4590246.5, 1.7813999652862549, 7.853491734369164e+26, 1.777174949645996, -124.10880279541016, 1.770824909210205, 4.700230445726433e+17, 1.77006995677948, 1.2666203376237269e-26, 1.7756249904632568, -7.885983267432694e+17, 1.7892498970031738, -3.559340470561047e-31, 1.811924934387207, 2.0353803153142307e+33, 1.8329999446868896, -71.68000030517578, 1.84499990940094, -2.302153575956459e+20, 1.8599998950958252, 2128654499840.0, 1.872249960899353]
+    assert dss.LoadShape.QBase() == 0.0
+    assert dss.LoadShape.QMult() == [0.0]
+    assert dss.LoadShape.SInterval() == 3600.0
+    assert dss.LoadShape.TimeArray() == [0.0]
+    assert dss.LoadShape.UseActual() == 0
+
     assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
+    assert dss.Meters.AllBranchesInZone() == []
+    assert dss.Meters.AllEndElements() == []
+    assert dss.Meters.AllNames() == [u'NONE']
+    assert dss.Meters.AllocFactors() == [0.0]
+    assert dss.Meters.AvgRepairTime() == 0.0
+    assert dss.Meters.CalcCurrent() == [0.0]
+    assert dss.Meters.CloseAllDIFiles() == 0
+    assert dss.Meters.Count() == 0
+    assert dss.Meters.CountBranches() == 0
+    assert dss.Meters.CountEndElements() == 0
+    assert dss.Meters.CustInterrupts() == 0.0
+    assert dss.Meters.DIFilesAreOpen() == 0
+    assert dss.Meters.DoReliabilityCalc() == 0
+    assert dss.Meters.FaultRateXRepairHrs() == 0.0
+    assert dss.Meters.First() == 0
+    assert dss.Meters.MeteredElement() == u''
+    assert dss.Meters.MeteredTerminal() == 0
+    assert dss.Meters.Name() == u'0'
+    assert dss.Meters.Next() == 0
+    assert dss.Meters.NumSectionBranches() == 0
+    assert dss.Meters.NumSectionCustomers() == 0
+    assert dss.Meters.NumSections() == 0
+    assert dss.Meters.OCPDeviceType() == 0
+    assert dss.Meters.OpenAllDIFiles() == 0
+    assert dss.Meters.PeakCurrent() == [0.0]
+    assert dss.Meters.RegisterNames() == []
+    assert dss.Meters.RegisterValues() == [0.0]
+    assert dss.Meters.Reset() == 0
+    assert dss.Meters.ResetAll() == 0
+    assert dss.Meters.SAIDI() == 0.0
+    assert dss.Meters.SAIFI() == 0.0
+    assert dss.Meters.SAIFIkW() == 0.0
+    assert dss.Meters.Sample() == 0
+    assert dss.Meters.SampleAll() == 0
+    assert dss.Meters.Save() == 0
+    assert dss.Meters.SaveAll() == 0
+    assert dss.Meters.SectSeqidx() == 0
+    assert dss.Meters.SectTotalCust() == 0
+    assert dss.Meters.SeqListSize() == 0
+    assert dss.Meters.SequenceList() == 0
+    assert dss.Meters.SetActiveSection() == 0
+    assert dss.Meters.SumBranchFltRates() == 0.0
+    assert dss.Meters.TotalCustomers() == 0
+    assert dss.Meters.Totals() == [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 
+    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
+
+    assert dss.Monitors.AllNames() == [u'NONE']
+    assert dss.Monitors.ByteStream() == []
+    assert dss.Monitors.Count() == 0
+    assert dss.Monitors.Element() == u'0'
+    assert dss.Monitors.FileName() == u''
+    assert dss.Monitors.FileVersion() == 1
+    assert dss.Monitors.First() == 0
+    assert dss.Monitors.Mode() == 0
+    assert dss.Monitors.Name() == u''
+    assert dss.Monitors.Next() == 0
+    assert dss.Monitors.Process() == 0
+    assert dss.Monitors.ProcessAll() == 0
+    assert dss.Monitors.Reset() == 0
+    assert dss.Monitors.ResetAll() == 0
+    assert dss.Monitors.Sample() == 0
+    assert dss.Monitors.SampleAll() == 0
+    assert dss.Monitors.Save() == 0
+    assert dss.Monitors.SaveAll() == 0
+    assert dss.Monitors.Show() == 0
+    assert dss.Monitors.Terminal() == 0
+
+    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
+
+    assert dss.PDElements.AccumulatedL() == 0.0
+    assert dss.PDElements.Count() == 19
+    assert dss.PDElements.FaultRate() == 0.1
+    assert dss.PDElements.First() == 1
+    assert dss.PDElements.FromTerminal() == 1
+    assert dss.PDElements.IsShunt() == 0
+    assert dss.PDElements.Lambda() == 0.0
+    assert dss.PDElements.Name() == u'Transformer.sub'
+    assert dss.PDElements.Next() == 1
+    assert dss.PDElements.NumCustomers() == 0
+    assert dss.PDElements.ParentPDElement() == 0
+    assert dss.PDElements.PctPermanent() == 0.0
+    assert dss.PDElements.RepairTime() == 0.0
+    assert dss.PDElements.SectionID() == 0
+    assert dss.PDElements.TotalCustomers() == 0
+    assert dss.PDElements.TotalMiles() == 0.0
+
+    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
+
+    assert dss.Properties.Description() == u''
+    assert dss.Properties.Name() == u''
+
+    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
+
+    assert dss.PVsystems.Count() == 0
+    assert dss.PVsystems.First() == 0
+    assert dss.PVsystems.Idx() == 0
+    assert dss.PVsystems.Irradiance() == -1.0
+    assert dss.PVsystems.Next() == 0
+    assert dss.PVsystems.kVARated() == -1.0
+    assert dss.PVsystems.kW() == 0.0
+    assert dss.PVsystems.kvar() == 0.0
+    assert dss.PVsystems.pf() == 0.0
+
+    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
+
+    assert dss.Reclosers.AllNames() == [u'NONE']
+    assert dss.Reclosers.Close() == 0
+    assert dss.Reclosers.Count() == 0
+    assert dss.Reclosers.First() == 0
+    assert dss.Reclosers.GroundInst() == 0.0
+    assert dss.Reclosers.GroundTrip() == 0.0
+    assert dss.Reclosers.Idx() == 0
+    assert dss.Reclosers.MonitoredObj() == u''
+    assert dss.Reclosers.MonitoredTerm() == 0
+    assert dss.Reclosers.Name() == u''
+    assert dss.Reclosers.Next() == 0
+    assert dss.Reclosers.NumFast() == 0
+    assert dss.Reclosers.Open() == 0
+    assert dss.Reclosers.PhaseInst() == 0.0
+    assert dss.Reclosers.PhaseTrip() == 0.0
+    assert dss.Reclosers.RecloseIntervals() == [0.0]
+    assert dss.Reclosers.Shots() == 0
+    assert dss.Reclosers.SwitchedObj() == u''
+    assert dss.Reclosers.SwitchedTerm() == 0
+
+    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
+
+    assert dss.RegControls.AllNames() == [u'reg1', u'reg2', u'reg3']
+    assert dss.RegControls.CTPrimary() == 700.0
+    assert dss.RegControls.Count() == 3
+    assert dss.RegControls.Delay() == 15.0
+    assert dss.RegControls.First() == 1
+    assert dss.RegControls.ForwardBand() == 2.0
+    assert dss.RegControls.ForwardR() == 3.0
+    assert dss.RegControls.ForwardVreg() == 122.0
+    assert dss.RegControls.ForwardX() == 9.0
+    assert dss.RegControls.IsInverseTime() == 0
+    assert dss.RegControls.IsReversible() == 0
+    assert dss.RegControls.MaxTapChange() == 16
+    assert dss.RegControls.MonitoredBus() == u''
+    assert dss.RegControls.Name() == u'reg1'
+    assert dss.RegControls.Next() == 2
+    assert dss.RegControls.PTRatio() == 20.0
+    assert dss.RegControls.ReverseBand() == 3.0
+    assert dss.RegControls.ReverseR() == 0.0
+    assert dss.RegControls.ReverseVreg() == 120.0
+    assert dss.RegControls.ReverseX() == 0.0
+    assert dss.RegControls.TapDelay() == 2.0
+    assert dss.RegControls.TapNumber() == 6
+    assert dss.RegControls.TapWinding() == 2
+    assert dss.RegControls.Transformer() == u'reg2'
+    assert dss.RegControls.VoltageLimit() == 0.0
+    assert dss.RegControls.Winding() == 2
+
+    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
+
+    assert dss.Relays.AllNames() == [u'NONE']
+    assert dss.Relays.Count() == 0
+    assert dss.Relays.First() == 0
+    assert dss.Relays.Idx() == 0
+    assert dss.Relays.MonitoredObj() == u''
+    assert dss.Relays.MonitoredTerm() == 0
+    assert dss.Relays.Name() == u''
+    assert dss.Relays.Next() == 0
+    assert dss.Relays.SwitchedObj() == u''
+    assert dss.Relays.SwitchedTerm() == 0
+
+    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
+
+    assert dss.Sensors.AllNames() == [u'NONE']
+    assert dss.Sensors.Count() == 0
+    assert dss.Sensors.Currents() == [0.0]
+    assert dss.Sensors.First() == 0
+    assert dss.Sensors.IsDelta() == 0
+    assert dss.Sensors.MeteredElement() == u''
+    assert dss.Sensors.MeteredTerminal() == 0
+    assert dss.Sensors.Name() == u''
+    assert dss.Sensors.Next() == 0
+    assert dss.Sensors.PctError() == 0.0
+    assert dss.Sensors.Reset() == 0
+    assert dss.Sensors.ResetAll() == 0
+    assert dss.Sensors.ReverseDelta() == 0
+    assert dss.Sensors.Weight() == 0.0
+    assert dss.Sensors.kVBase() == 0.0
+    assert dss.Sensors.kW() == [0.0]
+    assert dss.Sensors.kvar() == [0.0]
+
+    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
+
+    assert dss.Settings.AllocationFactors() == 0.0
+    assert dss.Settings.AllowDuplicates() == 0
+    assert dss.Settings.AutoBusList() == u'Allocation Factor must be greater than zero.'
+    assert dss.Settings.CktModel() == 1
+    assert dss.Settings.EmergVmaxpu() == 1.08
+    assert dss.Settings.EmergVminpu() == 0.9
+    assert dss.Settings.LossRegs() == [13]
+    assert dss.Settings.LossWeight() == 1.0
+    assert dss.Settings.NormVmaxpu() == 1.05
+    assert dss.Settings.NormVminpu() == 0.95
+    assert dss.Settings.PriceCurve() == u''
+    assert dss.Settings.PriceSignal() == 25.0
+    assert dss.Settings.Trapezoidal() == 0
+    assert dss.Settings.UERegs() == [10]
+    assert dss.Settings.UEWeight() == 1.0
+    assert dss.Settings.VoltageBases() == [0.0, 3.44921875, 9.121204334167384e-33]
+    assert dss.Settings.ZoneLock() == 0
+
+    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
+
+    assert dss.Solution.AddType() == 1
+    assert dss.Solution.Algorithm() == 0
+    assert dss.Solution.BuildYMatrix() == 0
+    assert dss.Solution.Capkvar() == 600.0
+    assert dss.Solution.CheckControls() == 0
+    assert dss.Solution.CheckFaultStatus() == 0
+    assert dss.Solution.Cleanup() == 0
+    assert dss.Solution.ControlActionsDone() == 1
+    assert dss.Solution.ControlIterations() == 3
+    assert dss.Solution.ControlMode() == 0
+    assert dss.Solution.Converged() == 1
+    assert dss.Solution.Convergence() == 0.0001
+    assert dss.Solution.DblHour() == 0.0
+    assert dss.Solution.DefaultDaily() == u'default'
+    assert dss.Solution.DefaultYearly() == u'default'
+    assert dss.Solution.DoControlActions() == 0
+    assert dss.Solution.EventLog() == [u'Hour=0, Sec=0, ControlIter=1, Element=Regulator.reg3, Action= CHANGED 7 TAPS TO 1.04375.', u'Hour=0, Sec=0, ControlIter=1, Element=Regulator.reg2, Action= CHANGED 5 TAPS TO 1.03125.', u'Hour=0, Sec=0, ControlIter=1, Element=Regulator.reg1, Action= CHANGED 7 TAPS TO 1.04375.', u'Hour=0, Sec=0, ControlIter=2, Element=Regulator.reg3, Action= CHANGED 2 TAPS TO 1.05625.', u'Hour=0, Sec=0, ControlIter=2, Element=Regulator.reg2, Action= CHANGED 1 TAPS TO 1.0375.', u'Hour=0, Sec=0, ControlIter=2, Element=Regulator.reg1, Action= CHANGED 2 TAPS TO 1.05625.']
+    assert dss.Solution.FinishTimeStep() == 0
+    assert dss.Solution.Frequency() == 60.0
+    assert dss.Solution.GenMult() == 1.0
+    assert dss.Solution.GenPF() == 1.0
+    assert dss.Solution.GenkW() == 1000.0
+    assert dss.Solution.Hour() == 0
+    assert dss.Solution.InitSnap() == 0
+    assert dss.Solution.Iterations() == 11
+    assert dss.Solution.LDCurve() == u''
+    assert dss.Solution.LoadModel() == 1
+    assert dss.Solution.LoadMult() == 1.0
+    assert dss.Solution.MaxControlIterations() == 10
+    assert dss.Solution.MaxIterations() == 15
+    assert dss.Solution.Mode() == 0
+    assert dss.Solution.ModeID() == u'Snap'
+    assert dss.Solution.MostIterationsDone() == 0
+    assert dss.Solution.Number() == 100
+    assert dss.Solution.PctGrowth() == 2.499999999999991
+    assert dss.Solution.ProcessTime() == 0.0
+    assert dss.Solution.Random() == 1
+    assert dss.Solution.SampleControlDevices() == 0
+    assert dss.Solution.SampleDoControlActions() == 0
+    assert dss.Solution.Seconds() == 0.001
+    assert dss.Solution.Solve() == 0
+    assert dss.Solution.SolveDirect() == 0
+    assert dss.Solution.SolveNoControl() == 0
+    assert dss.Solution.SolvePFlow() == 0
+    assert dss.Solution.SolvePlusControl() == 0
+    assert dss.Solution.StepSize() == 0.001
+    assert dss.Solution.StepSizeHr() == 0.0
+    assert dss.Solution.StepSizeMin() == 0.0
+    assert dss.Solution.SystemYChanged() == 0
+    assert dss.Solution.TimeTimeStep() == 0.0
+    assert dss.Solution.TotalIterations() == 2
+    assert dss.Solution.TotalTime() == 0.0
+    assert dss.Solution.Year() == 0
+
+    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
+
+    assert dss.SwtControls.Action() == 0
+    assert dss.SwtControls.AllNames() == [u'NONE']
+    assert dss.SwtControls.Count() == 0
+    assert dss.SwtControls.Delay() == 0.0
+    assert dss.SwtControls.First() == 0
+    assert dss.SwtControls.IsLocked() == 0
+    assert dss.SwtControls.Name() == u''
+    assert dss.SwtControls.Next() == 0
+    assert dss.SwtControls.SwitchedObj() == u''
+    assert dss.SwtControls.SwitchedTerm() == 0
+
+    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
+
+    assert dss.Topology.ActiveBranch() == 0
+    assert dss.Topology.ActiveLevel() == 0
+    assert dss.Topology.AllIsolatedBranches() == [u'NONE']
+    assert dss.Topology.AllIsolatedLoads() == [u'NONE']
+    assert dss.Topology.AllLoopedPairs() == [u'Transformer.reg3', u'Transformer.reg2', u'Transformer.reg2', u'Line.650632', u'Transformer.reg1', u'Line.650632']
+    assert dss.Topology.BranchName() == u''
+    assert dss.Topology.BusName() == u''
+    assert dss.Topology.First() == 1
+    assert dss.Topology.FirstLoad() == 0
+    assert dss.Topology.ForwardBranch() == 1
+    assert dss.Topology.LoopedBranch() == 0
+    assert dss.Topology.Next() == 1
+    assert dss.Topology.NextLoad() == 0
+    assert dss.Topology.NumIsolatedBranches() == 0
+    assert dss.Topology.NumIsolatedLoads() == 0
+    assert dss.Topology.NumLoops() == 1
+    assert dss.Topology.ParallelBranch() == 0
+
+    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
+
+    assert dss.Transformers.AllNames() == [u'sub', u'reg1', u'reg2', u'reg3', u'xfm1']
+    assert dss.Transformers.Count() == 5
+    assert dss.Transformers.First() == 1
+    assert dss.Transformers.IsDelta() == 0
+    assert dss.Transformers.MaxTap() == 1.1
+    assert dss.Transformers.MinTap() == 0.9
+    assert dss.Transformers.Name() == u'sub'
+    assert dss.Transformers.Next() == 2
+    assert dss.Transformers.NumTaps() == 32
+    assert dss.Transformers.NumWindings() == 2
+    assert dss.Transformers.R() == 5e-05
+    assert dss.Transformers.Rneut() == -1.0
+    assert dss.Transformers.Tap() == 1.05625
+    assert dss.Transformers.Wdg() == 2
+    assert dss.Transformers.XfmrCode() == u''
+    assert dss.Transformers.Xhl() == 0.0001
+    assert dss.Transformers.Xht() == 0.35
+    assert dss.Transformers.Xlt() == 0.3
+    assert dss.Transformers.Xneut() == 0.0
+    assert dss.Transformers.kV() == 2.4
+    assert dss.Transformers.kVA() == 1666.0
+
+    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
+
+    assert dss.Vsources.AllNames() == [u'source']
+    assert dss.Vsources.AngleDeg() == 30.0
+    assert dss.Vsources.BasekV() == 115.0
+    assert dss.Vsources.Count() == 1
+    assert dss.Vsources.First() == 1
+    assert dss.Vsources.Frequency() == 60.0
+    assert dss.Vsources.Name() == u'source'
+    assert dss.Vsources.Next() == 0
+    assert dss.Vsources.PU() == 1.0001
+    assert dss.Vsources.Phases() == 3
+
+    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
+
+    assert dss.XYCurves.Count() == 0
+    assert dss.XYCurves.First() == 0
+    assert dss.XYCurves.Name() == u''
+    assert dss.XYCurves.Next() == 0
+    assert dss.XYCurves.Npts() == 0
+    assert dss.XYCurves.X() == 0.0
+    assert dss.XYCurves.XArray() == [0.0]
+    assert dss.XYCurves.XScale() == 0.0
+    assert dss.XYCurves.XShift() == 0.0
+    assert dss.XYCurves.Y() == 0.0
+    assert dss.XYCurves.YArray() == [0.0]
+    assert dss.XYCurves.YScale() == 0.0
+    assert dss.XYCurves.YShift() == 0.0
 

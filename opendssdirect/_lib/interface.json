@@ -2762,7 +2762,7 @@
           "args":[
             [
               0,
-              null
+              "1"
             ]
           ],
           "doc":"The name of the active property.",
@@ -2774,7 +2774,7 @@
           "args":[
             [
               1,
-              null
+              "1"
             ]
           ],
           "doc":"The description of the active property.",
@@ -2786,15 +2786,15 @@
           "args":[
             [
               2,
-              null
+              "1"
             ],
             [
               3,
-              null
+              "1"
             ]
           ],
           "doc":"The value of the active property.\nSet the value of the active property. The new value must be specified in `arg` as a string.",
-          "enabled":true,
+          "enabled":false,
           "library_function_name":"DSSProperties",
           "name":"Value"
         }
@@ -4876,7 +4876,7 @@
             ]
           ],
           "doc":"Returns number of samples in Monitor at present.",
-          "enabled":true,
+          "enabled":false,
           "library_function_name":"MonitorsI",
           "name":"SampleCount"
         },
@@ -4960,7 +4960,7 @@
             ]
           ],
           "doc":"The size of each record in ByteStream.",
-          "enabled":true,
+          "enabled":false,
           "library_function_name":"MonitorsI",
           "name":"RecordSize"
         },
@@ -4972,7 +4972,7 @@
             ]
           ],
           "doc":"The number of Channels on the active Monitor.",
-          "enabled":true,
+          "enabled":false,
           "library_function_name":"MonitorsI",
           "name":"NumChannels"
         },
@@ -5068,7 +5068,7 @@
             ]
           ],
           "doc":"The header string; vector of strings containing Channel Names.",
-          "enabled":true,
+          "enabled":false,
           "library_function_name":"MonitorsV",
           "name":"DblHourS"
         },
@@ -5080,7 +5080,7 @@
             ]
           ],
           "doc":"A vector of doubles containing time value in hours for the time-sampled monitor values; empty if frequency-sampled values for harmonics solution (see dblFreq).",
-          "enabled":true,
+          "enabled":false,
           "library_function_name":"MonitorsV",
           "name":"DblHour"
         },
@@ -5092,7 +5092,7 @@
             ]
           ],
           "doc":"A vector of doubles containing time values for harmonics mode solutions; empty for time mode solutions (use dblHour).",
-          "enabled":true,
+          "enabled":false,
           "library_function_name":"MonitorsV",
           "name":"DblFreqS"
         },
@@ -5104,7 +5104,7 @@
             ]
           ],
           "doc":"A vector of doubles for the specified channel (usage: MyArray = DSSmonitor.Channel(i)) A save or SaveAll should be executed first. Done automatically by most standard solution modes.",
-          "enabled":true,
+          "enabled":false,
           "library_function_name":"MonitorsV",
           "name":"DblFreq"
         }
@@ -5121,7 +5121,7 @@
             ]
           ],
           "doc":"Return next parameter as a long integer.",
-          "enabled":true,
+          "enabled":false,
           "library_function_name":"ParserI",
           "name":"IntValue"
         },
@@ -5133,7 +5133,7 @@
             ]
           ],
           "doc":"Reset delimiters to their default values.",
-          "enabled":true,
+          "enabled":false,
           "library_function_name":"ParserI",
           "name":"ResetDelimiters"
         },
@@ -5149,7 +5149,7 @@
             ]
           ],
           "doc":"In the default is false (0). If true (1) Parser automatically advances to next token after DblValue, IntValue, or StrValue. Simpler when you don't need to check for parameter names.\nIn the default is false (0). If true (1) Parser automatically advances to next token after DblValue, IntValue, or StrValue. Simpler when you don't need to check for parameter names.",
-          "enabled":true,
+          "enabled":false,
           "library_function_name":"ParserI",
           "name":"AutoIncrement"
         },
@@ -5161,7 +5161,7 @@
             ]
           ],
           "doc":"Returns next parameter as a double.",
-          "enabled":true,
+          "enabled":false,
           "library_function_name":"ParserF",
           "name":"DblValue"
         },
@@ -5177,7 +5177,7 @@
             ]
           ],
           "doc":"Get a string to be parsed. Loading this string resets the Parser to the beginning of the line. Then parse off the tokens in sequence.\nSet a string to be parsed. Loading this string resets the Parser to the beginning of the line. Then parse off the tokens in sequence.",
-          "enabled":true,
+          "enabled":false,
           "library_function_name":"ParserS",
           "name":"CmdString"
         },
@@ -5189,7 +5189,7 @@
             ]
           ],
           "doc":"Get next token and return tag name (before = sign) if any. See Autoincrement.",
-          "enabled":true,
+          "enabled":false,
           "library_function_name":"ParserS",
           "name":"NextParam"
         },
@@ -5201,7 +5201,7 @@
             ]
           ],
           "doc":"Return next parameter as a string.",
-          "enabled":true,
+          "enabled":false,
           "library_function_name":"ParserS",
           "name":"StrValue"
         },
@@ -5217,7 +5217,7 @@
             ]
           ],
           "doc":"Get the characters used for White space in the command string. Default in blank and Tab.\nSet the characters used for White space in the command string. Default in blank and Tab.",
-          "enabled":true,
+          "enabled":false,
           "library_function_name":"ParserS",
           "name":"WhiteSpace"
         },
@@ -5233,7 +5233,7 @@
             ]
           ],
           "doc":"Get the string containing the characters for quoting in OpenDSS scripts. Matching pairs defined in EndQuote. Default is \"([{.\nSet the string containing the characters for quoting in OpenDSS scripts. Matching pairs defined in EndQuote. Default is \"([{.",
-          "enabled":true,
+          "enabled":false,
           "library_function_name":"ParserS",
           "name":"BeginQuote"
         },
@@ -5249,7 +5249,7 @@
             ]
           ],
           "doc":"Get the string containing the characters, in order, that match the beginning quote characters in BeginQuote. Default is \")]}.\nSet the string containing the characters, in order, that match the beginning quote characters in BeginQuote. Default is \")]}.",
-          "enabled":true,
+          "enabled":false,
           "library_function_name":"ParserS",
           "name":"EndQuote"
         },
@@ -5265,7 +5265,7 @@
             ]
           ],
           "doc":"Get the string defining hard delimiters used to separate token on the command string. Default is , and =. The = separates token name from token value. These override whitespace to separate tokens.\nSet the string defining hard delimiters used to separate token on the command string. Default is , and =. The = separates token name from token value. These override whitespace to separate tokens.",
-          "enabled":true,
+          "enabled":false,
           "library_function_name":"ParserS",
           "name":"Delimiters"
         },
@@ -5277,7 +5277,7 @@
             ]
           ],
           "doc":"Returns token as vector of doubles. For parsing quoted array syntax.",
-          "enabled":true,
+          "enabled":false,
           "library_function_name":"ParserV",
           "name":"Vector"
         },
@@ -5289,7 +5289,7 @@
             ]
           ],
           "doc":"Use this property to parse a Matrix token in OpenDSS format. Returns square matrix of order specified. Order same as default fortran order: column by column.",
-          "enabled":true,
+          "enabled":false,
           "library_function_name":"ParserV",
           "name":"Matrix"
         },
@@ -5301,7 +5301,7 @@
             ]
           ],
           "doc":"Use this property to parse a Matrix token in lower triangular form. Symmetry is forced.",
-          "enabled":true,
+          "enabled":false,
           "library_function_name":"ParserV",
           "name":"SymMatrix"
         }
@@ -7987,7 +7987,7 @@
             ]
           ],
           "doc":"Move back toward the source, return index of new active branch or 0 if no more.",
-          "enabled":true,
+          "enabled":false,
           "library_function_name":"TopologyI",
           "name":"BackwardBranch"
         },
