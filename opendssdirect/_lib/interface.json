@@ -3369,7 +3369,7 @@
           "args":[
             [
               0,
-              null
+              0
             ]
           ],
           "doc":"Allows to set the active load into the first load registered in the active circuit. As a result, this property will return the number 1. The parameter argument can be filled with a 0.",
@@ -3381,7 +3381,7 @@
           "args":[
             [
               1,
-              null
+              0
             ]
           ],
           "doc":"Set the active load into the next load registered in the active circuit. As a result, this property will set the index of the active load. The parameter argument can be filled with a 0.",
@@ -3393,11 +3393,11 @@
           "args":[
             [
               2,
-              null
+              0
             ],
             [
               3,
-              null
+              0
             ]
           ],
           "doc":"The index of the active load. The parameter argument can be filled with a 0.\nSet the index of the active load. The parameter argument must contain the index of the desired active load. The return value will be equal to 0.",
@@ -3409,7 +3409,7 @@
           "args":[
             [
               4,
-              null
+              0
             ]
           ],
           "doc":"Returns the number of load elements within the active circuit. The parameter argument can be filled with a 0.",
@@ -3421,11 +3421,11 @@
           "args":[
             [
               5,
-              null
+              0
             ],
             [
               6,
-              null
+              0
             ]
           ],
           "doc":"The code number used to separate Loads by class or group. The parameter argument can be filled with a 0.\nThe code number used to separate loads by class or group. The parameter argument can be filled with a 0.",
@@ -3437,11 +3437,11 @@
           "args":[
             [
               7,
-              null
+              0
             ],
             [
               8,
-              null
+              0
             ]
           ],
           "doc":"The model of the active load. The parameter argument can be filled with a 0.\nSet the model of the active load using the parameter argument. return a 0.",
@@ -3453,11 +3453,11 @@
           "args":[
             [
               9,
-              null
+              0
             ],
             [
               10,
-              null
+              0
             ]
           ],
           "doc":"The number of customer of the active load. The parameter argument can be filled with a 0.\nSet the number of customers of the active load using the parameter argument. return a 0.",
@@ -3469,11 +3469,11 @@
           "args":[
             [
               11,
-              null
+              0
             ],
             [
               12,
-              null
+              0
             ]
           ],
           "doc":"\n",
@@ -3485,11 +3485,11 @@
           "args":[
             [
               13,
-              null
+              0
             ],
             [
               14,
-              null
+              0
             ]
           ],
           "doc":"If true, loads are line to line.\nSet whether loads are delta (line to line).",
@@ -3501,11 +3501,11 @@
           "args":[
             [
               0,
-              null
+              0
             ],
             [
               1,
-              null
+              0
             ]
           ],
           "doc":"The kW property of the active load. The parameter argument can be filled with a 0.\nSet the kW property of the active load. The parameter argument must contain the new value in kW for the desired active load. The return value will be equal to 0.",
@@ -3517,11 +3517,11 @@
           "args":[
             [
               2,
-              null
+              0
             ],
             [
               3,
-              null
+              0
             ]
           ],
           "doc":"The kV property of the active load. The parameter argument can be filled with a 0.\nSet the kV property of the active load. The parameter argument must contain the new value in kV for the desired active load. The return value will be equal to 0.",
@@ -3533,11 +3533,11 @@
           "args":[
             [
               4,
-              null
+              0
             ],
             [
               5,
-              null
+              0
             ]
           ],
           "doc":"The kvar property of the active load. The parameter argument can be filled with a 0.\nSet the kvar property of the active load. The parameter argument must contain the new value in kvar for the desired active load. The return value will be equal to 0.",
@@ -3549,11 +3549,11 @@
           "args":[
             [
               6,
-              null
+              0
             ],
             [
               7,
-              null
+              0
             ]
           ],
           "doc":"The pf property of the active load. The parameter argument can be filled with a 0.\nSet the pf property of the active load. The parameter argument must contain the new value in pf for the desired active load. The return value will be equal to 0.",
@@ -3565,11 +3565,11 @@
           "args":[
             [
               8,
-              null
+              0
             ],
             [
               9,
-              null
+              0
             ]
           ],
           "doc":"The PctMean property of the active load. The parameter argument can be filled with a 0.\nSet the PctMean property of the active load. The parameter argument must contain the new value in PctMean for the desired active load. The return value will be equal to 0.",
@@ -3581,11 +3581,11 @@
           "args":[
             [
               10,
-              null
+              0
             ],
             [
               11,
-              null
+              0
             ]
           ],
           "doc":"The PctStdDev property of the active load. The parameter argument can be filled with a 0.\nSet the PctStdDev property of the active load. The parameter argument must contain the new value in PctStdDev for the desired active load. The return value will be equal to 0.",
@@ -3597,11 +3597,11 @@
           "args":[
             [
               12,
-              null
+              0
             ],
             [
               13,
-              null
+              0
             ]
           ],
           "doc":"The AllocationFactor property of the active load. The parameter argument can be filled with a 0.\nSet the AllocationFactor property of the active load. The parameter argument must contain the new value in AllocationFactor for the desired active load. The return value will be equal to 0.",
@@ -3613,11 +3613,11 @@
           "args":[
             [
               14,
-              null
+              0
             ],
             [
               15,
-              null
+              0
             ]
           ],
           "doc":"The CFactor property of the active load. The parameter argument can be filled with a 0.\nSet the CFactor property of the active load. The parameter argument must contain the new value in CFactor for the desired active load. The return value will be equal to 0.",
@@ -3629,11 +3629,11 @@
           "args":[
             [
               16,
-              null
+              0
             ],
             [
               17,
-              null
+              0
             ]
           ],
           "doc":"The CVRWatts property of the active load. The parameter argument can be filled with a 0.\nSet the CVRWatts property of the active load. The parameter argument must contain the new value in CVRWatts for the desired active load. The return value will be equal to 0.",
@@ -3645,11 +3645,11 @@
           "args":[
             [
               18,
-              null
+              0
             ],
             [
               19,
-              null
+              0
             ]
           ],
           "doc":"The CVRvars property of the active load. The parameter argument can be filled with a 0.\nSet the CVRvars property of the active load. The parameter argument must contain the new value in CVRvars for the desired active load. The return value will be equal to 0.",
@@ -3661,11 +3661,11 @@
           "args":[
             [
               20,
-              null
+              0
             ],
             [
               21,
-              null
+              0
             ]
           ],
           "doc":"The kva property of the active load. The parameter argument can be filled with a 0.\nSet the kva property of the active load. The parameter argument must contain the new value in kva for the desired active load. The return value will be equal to 0.",
@@ -3677,11 +3677,11 @@
           "args":[
             [
               22,
-              null
+              0
             ],
             [
               23,
-              null
+              0
             ]
           ],
           "doc":"The kWh property of the active load. The parameter argument can be filled with a 0.\nSet the kWh property of the active load. The parameter argument must contain the new value in kWh for the desired active load. The return value will be equal to 0.",
@@ -3693,11 +3693,11 @@
           "args":[
             [
               24,
-              null
+              0
             ],
             [
               25,
-              null
+              0
             ]
           ],
           "doc":"The kWhdays property of the active load. The parameter argument can be filled with a 0.\nSet the kWhdays property of the active load. The parameter argument must contain the new value in kWhdays for the desired active load. The return value will be equal to 0.",
@@ -3709,11 +3709,11 @@
           "args":[
             [
               26,
-              null
+              0
             ],
             [
               27,
-              null
+              0
             ]
           ],
           "doc":"The RNeut (neutral resistance for wye connected loads) property of the active load. The parameter argument can be filled with a 0.\nSet the RNeut (neutral resistance for wye connected loads) property of the active load. The parameter argument must contain the new value in RNeut for the desired active load. The return value will be equal to 0.",
@@ -3725,11 +3725,11 @@
           "args":[
             [
               28,
-              null
+              0
             ],
             [
               29,
-              null
+              0
             ]
           ],
           "doc":"The VMaxpu property of the active load. The parameter argument can be filled with a 0.\nSet the VMaxpu property of the active load. The parameter argument must contain the new value in VMaxpu for the desired active load. The return value will be equal to 0.",
@@ -3741,11 +3741,11 @@
           "args":[
             [
               30,
-              null
+              0
             ],
             [
               31,
-              null
+              0
             ]
           ],
           "doc":"The VMinemerg property of the active load. The parameter argument can be filled with a 0.\nSet the VMinemerg property of the active load. The parameter argument must contain the new value in VMinemerg for the desired active load. The return value will be equal to 0.",
@@ -3757,11 +3757,11 @@
           "args":[
             [
               32,
-              null
+              0
             ],
             [
               33,
-              null
+              0
             ]
           ],
           "doc":"The VMinnorm property of the active load. The parameter argument can be filled with a 0.\nSet the VMinnorm property of the active load. The parameter argument must contain the new value in VMinnorm for the desired active load. The return value will be equal to 0.",
@@ -3773,11 +3773,11 @@
           "args":[
             [
               34,
-              null
+              0
             ],
             [
               35,
-              null
+              0
             ]
           ],
           "doc":"The VMinpu property of the active load. The parameter argument can be filled with a 0.\nSet the VMinpu property of the active load. The parameter argument must contain the new value in VMinpu for the desired active load. The return value will be equal to 0.",
@@ -3789,11 +3789,11 @@
           "args":[
             [
               36,
-              null
+              0
             ],
             [
               37,
-              null
+              0
             ]
           ],
           "doc":"The xfKVA (Rated service transformer KVA for load allocation, using Allocationfactor. Affects kW, kvar and pf.) property of the active load. The parameter argument can be filled with a 0.\nSet the xfKVA (Rated service transformer KVA for load allocation, using Allocationfactor. Affects kW, kvar and pf.) property of the active load. The parameter argument must contain the new value in xfKVA for the desired active load. The return value will be equal to 0.",
@@ -3805,11 +3805,11 @@
           "args":[
             [
               38,
-              null
+              0
             ],
             [
               39,
-              null
+              0
             ]
           ],
           "doc":"The Xneut property of the active load. The parameter argument can be filled with a 0.\nSet the Xneut property of the active load. The parameter argument must contain the new value in Xneut for the desired active load. The return value will be equal to 0.",
@@ -3821,11 +3821,11 @@
           "args":[
             [
               40,
-              null
+              0
             ],
             [
               41,
-              null
+              0
             ]
           ],
           "doc":"The PctSeriesRL (Percent of Load that is modeled as series R-L for harmonic studies) property of the active load. The parameter argument can be filled with a 0.\nSet the PctSeriesRL (Percent of Load that is modeled as series R-L for harmonic studies) property of the active load. The parameter argument must contain the new value in PctSeriesRL for the desired active load. The return value will be equal to 0.",
@@ -3837,11 +3837,11 @@
           "args":[
             [
               42,
-              null
+              0
             ],
             [
               43,
-              null
+              0
             ]
           ],
           "doc":"The RelWeight (relative weighting factor) property of the active load. The parameter argument can be filled with a 0.\nSet the RelWeight (relative weighting factor) property of the active load. The parameter argument must contain the new value in RelWeight for the desired active load. The return value will be equal to 0.",
