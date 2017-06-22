@@ -45,6 +45,8 @@ setup(
             '_lib/windows/x64/OpenDSSDirect.dll',
             '_lib/windows/x86/KLUSolve.dll',
             '_lib/windows/x86/OpenDSSDirect.dll',
+            '_lib/schema.json',
+            '_lib/interface.json',
         ],
     },
 
