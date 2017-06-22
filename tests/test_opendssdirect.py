@@ -12,7 +12,6 @@ def test_ActiveClass():
     assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.ActiveClass.ActiveClassName() == 'Line'
-
     assert dss.ActiveClass.AllNames() == [u'650632',
      u'632670',
      u'670671',
@@ -25,20 +24,13 @@ def test_ActiveClass():
      u'684611',
      u'684652',
      u'671692']
-
     assert dss.ActiveClass.Count() == 12
-
     assert dss.ActiveClass.First() == 1
-
     assert dss.ActiveClass.Name() == '650632'
-
     assert dss.ActiveClass.Next() == 2
     assert dss.ActiveClass.Next() == 3
-
     assert dss.ActiveClass.Name('650632') == '0'
-
     assert dss.ActiveClass.Name() == '650632'
-
     assert dss.ActiveClass.NumElements() == 12
 
     assert dss.Basic.Classes() == [u'Solution',
@@ -86,6 +78,17 @@ def test_ActiveClass():
      u'Monitor',
      u'EnergyMeter',
      u'Sensor']
+    assert os.path.abspath(dss.Basic.DataPath()) == os.path.abspath('.')
+    assert dss.Basic.AllowForms() == 1
+    assert dss.Basic.NumCircuits() == 1
+    assert dss.Basic.NumClasses() == 45
+    assert dss.Basic.NumUserClasses() == 0
+    assert dss.Basic.ShowPanel() == -1
+    assert dss.Basic.Start() == 1
+    assert dss.Basic.UserClasses() == []
+    assert dss.Basic.Version()
+
+    assert dss.Bus.Coorddefined() == 1
 
 
 def test_configuration():
