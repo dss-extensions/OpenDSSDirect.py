@@ -143,6 +143,11 @@ def setup_library(library):
         if f['args']:
             getattr(library, f['name']).argtypes = tuple(mapping[arg.lower()] for arg in f['args'])
 
+    directory = os.path.abspath(os.path.expanduser(os.getenv('OPENDSSDIRECTPY_DATAPATH', '~/.opendss')))
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    library.DSSS(3, directory)
+
 
 def is_x64():
     return 8 * struct.calcsize("P") == 64
