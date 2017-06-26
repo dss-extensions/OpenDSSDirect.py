@@ -119,6 +119,9 @@ def CtypesFunction(arg=None, f=None, modes=None, args=None, name=None):
 
     logger.debug("Calling function {} with arguments {}".format(name, (mode, arg)))
 
+    if isinstance(arg, str):
+        arg = arg.encode('ascii')
+
     r = f(mode, arg)
 
     if isinstance(r, bytes):
@@ -159,7 +162,7 @@ def VarArrayFunction(f, mode, name, optional):
 
                 s = ctypes.cast(s, ctypes.POINTER(ctypes.c_int16 * length))
 
-                l.append(''.join([chr(x).decode('ascii') for x in s.contents[:]]))
+                l.append(u''.join([chr(x) for x in s.contents[:]]))
 
     elif varg.dtype == 0x2005 and var_arr.length != 0:  # Float64
 

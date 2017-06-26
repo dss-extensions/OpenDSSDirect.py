@@ -10,6 +10,9 @@ logger = logging.getLogger('opendssdirect.core')
 
 dir_path = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
 
+with open(os.path.join(dir_path, 'schema.json')) as f:
+    schema = json.loads(f.read())
+
 
 class SAFEARRAYBOUND(ctypes.Structure):
     _fields_ = [
@@ -61,9 +64,6 @@ mapping = {
     u'pnodevarray': ctypes.POINTER(ctypes.POINTER(ctypes.c_double * 2)),
     u'variant': ctypes.POINTER(VArg),
 }
-
-with open(os.path.join(dir_path, 'schema.json')) as f:
-    schema = json.loads(f.read())
 
 
 def is_delphi():
@@ -150,7 +150,7 @@ def setup_library(library):
     if not os.path.exists(directory):
         os.makedirs(directory)
     logger.debug("Setting datapath for OpenDSS to {}".format(directory))
-    library.DSSS(3, directory)
+    library.DSSS(3, directory.encode('ascii'))
 
 
 def is_x64():
