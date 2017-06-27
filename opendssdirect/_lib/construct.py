@@ -166,7 +166,7 @@ def VarArrayFunction(f, mode, name, optional):
 
     elif varg.dtype == 0x2005 and var_arr.length != 0:  # Float64
 
-        data = ctypes.cast(var_arr.data, ctypes.POINTER(ctypes.c_float * var_arr.length))
+        data = ctypes.cast(var_arr.data, ctypes.POINTER(ctypes.c_double * var_arr.length))
 
         # Converting CFloat to Python float, more effciency could be gained by using NumPy
         # TODO: Consider making numpy/pandas a dependency?
