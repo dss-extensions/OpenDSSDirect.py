@@ -8,7 +8,7 @@ from functools import partial
 import ctypes
 import logging
 
-from ..compat import ModuleType
+from .._compat import ModuleType
 
 from .core import load_library
 from .core import VArg, VarArray, is_x64, is_delphi
