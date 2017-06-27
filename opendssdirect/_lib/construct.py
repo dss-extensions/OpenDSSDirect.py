@@ -168,7 +168,7 @@ def VarArrayFunction(f, mode, name, optional):
 
         data = ctypes.cast(var_arr.data, ctypes.POINTER(ctypes.c_double * var_arr.length))
 
-        # Converting CFloat to Python float, more effciency could be gained by using NumPy
+        # Converting CFloat to Python float, more efficiency could be gained by using NumPy
         # TODO: Consider making numpy/pandas a dependency?
         for i in data.contents:
             l.append(i)
@@ -177,7 +177,7 @@ def VarArrayFunction(f, mode, name, optional):
 
         data = ctypes.cast(var_arr.data, ctypes.POINTER(ctypes.c_int32 * var_arr.length))
 
-        # Converting CInt32 to Python float, more effciency could be gained by using NumPy
+        # Converting CInt32 to Python float, more efficiency could be gained by using NumPy
         # TODO: Consider making numpy/pandas a dependency?
         for i in data.contents:
             l.append(i)
