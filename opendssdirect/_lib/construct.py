@@ -185,6 +185,6 @@ def VarArrayFunction(f, mode, name, optional):
     else:
 
         import warnings
-        warnings.warn("Unsupported dtype. Contact developer")
+        warnings.warn("Unsupported dtype returned for {}. Please contact developer".format(name))
 
     return l
