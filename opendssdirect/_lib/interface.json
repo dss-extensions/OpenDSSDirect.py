@@ -5646,6 +5646,18 @@
           "enabled":true,
           "library_function_name":"PVsystemsF",
           "name":"kVARated"
+        },
+        {
+          "args":[
+            [
+              0,
+              null
+            ]
+          ],
+          "doc":"Get a vector of strings with names of all PVSystems in active circuit.",
+          "enabled":true,
+          "library_function_name":"PVsystemsV",
+          "name":"AllNames"
         }
       ],
       "name":"PVsystems"
