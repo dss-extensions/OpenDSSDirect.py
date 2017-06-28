@@ -5523,6 +5523,22 @@
           "args":[
             [
               0,
+              "1"
+            ],
+            [
+              1,
+              "1"
+            ]
+          ],
+          "doc":"Get the name of the active PVSystem Object.\nSet the name of the active PVSystem Object.",
+          "enabled":true,
+          "library_function_name":"PVsystemsS",
+          "name":"Name"
+        },
+        {
+          "args":[
+            [
+              0,
               0
             ]
           ],
