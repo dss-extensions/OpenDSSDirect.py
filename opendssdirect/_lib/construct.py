@@ -182,9 +182,13 @@ def VarArrayFunction(f, mode, name, optional):
         for i in data.contents:
             l.append(i)
 
+    elif var_arr.length == 0:
+
+        logger.debug("Empty var_arr found")
+
     else:
 
         import warnings
-        warnings.warn("Unsupported dtype returned for {}. Please contact developer".format(name))
+        warnings.warn("Unsupported dtype {} returned for {}. Please contact developer".format(varg.dtype, name))
 
     return l
