@@ -2794,7 +2794,7 @@
             ]
           ],
           "doc":"The value of the active property.\nSet the value of the active property. The new value must be specified in `arg` as a string.",
-          "enabled":false,
+          "enabled":true,
           "library_function_name":"DSSProperties",
           "name":"Value"
         }
