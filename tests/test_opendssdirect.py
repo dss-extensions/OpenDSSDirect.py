@@ -553,8 +553,8 @@ def test_13Node_Properties():
 
     assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
 
-    assert dss.Properties.Description() == u''
-    assert dss.Properties.Name() == u''
+    assert dss.Properties.Description() == u'Name of bus to which first terminal is connected.\r\nExample:\r\nbus1=busname   (assumes all terminals connected in normal phase order)\r\nbus1=busname.3.1.2.0 (specify terminal to node connections explicitly)'
+    assert dss.Properties.Name() == u'bus1'
 
 def test_13Node_PVsystems():
 
