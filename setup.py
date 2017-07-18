@@ -9,11 +9,15 @@ here = os.path.abspath(os.path.dirname(__file__))
 with open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
+with open(os.path.join(here, 'opendssdirect', '_version.py'), encoding='utf-8') as f:
+    version = f.read()
+version = version.split()[2].strip('"').strip("'")
+
 
 setup(
     name='OpenDSSDirect.py',
 
-    version='0.1.0',
+    version=version,
 
     description='Python direct-mode interface to OpenDSS',
     long_description=long_description,
