@@ -46,3 +46,5 @@ from .dss import Vsources
 from .dss import XYCurves
 
 from .dss import dss_lib
+
+from ._version import __version__
