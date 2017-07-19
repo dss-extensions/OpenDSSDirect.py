@@ -1,5 +1,6 @@
-opendssdirect package
-=====================
+API Reference
+=============
+
 
 .. automodule:: opendssdirect.ActiveClass
     :members:

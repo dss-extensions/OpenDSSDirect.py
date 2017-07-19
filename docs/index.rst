@@ -10,6 +10,8 @@ Welcome to OpenDSSDirect.py's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   opendssdirect
+
 
 
 Indices and tables
