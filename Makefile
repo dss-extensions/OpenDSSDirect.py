@@ -9,4 +9,5 @@ clean:
 test:
 	@cd tests; PYTHONPATH=.. py.test --tb=short
 
-
+html:
+	@cd docs; make html
