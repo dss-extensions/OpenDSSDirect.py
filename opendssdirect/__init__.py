@@ -1,38 +1,48 @@
-from ._lib.construct import construct as __c
+from .dss import ActiveClass
 
-__m, __l = __c()
+from .dss import Basic
+from .dss import Bus
 
-ActiveClass = __m['opendssdirect.ActiveClass']
-Basic = __m['opendssdirect.Basic']
-Bus = __m['opendssdirect.Bus']
-Capacitors = __m['opendssdirect.Capacitors']
-CapControls = __m['opendssdirect.CapControls']
-Circuit = __m['opendssdirect.Circuit']
-CktElement = __m['opendssdirect.CktElement']
-Element = __m['opendssdirect.Element']
-Executive = __m['opendssdirect.Executive']
-Fuses = __m['opendssdirect.Fuses']
-Generators = __m['opendssdirect.Generators']
-Properties = __m['opendssdirect.Properties']
-Isource = __m['opendssdirect.Isource']
-Lines = __m['opendssdirect.Lines']
-Loads = __m['opendssdirect.Loads']
-LoadShape = __m['opendssdirect.LoadShape']
-Meters = __m['opendssdirect.Meters']
-Monitors = __m['opendssdirect.Monitors']
-Parser = __m['opendssdirect.Parser']
-PDElements = __m['opendssdirect.PDElements']
-PVsystems = __m['opendssdirect.PVsystems']
-Reclosers = __m['opendssdirect.Reclosers']
-RegControls = __m['opendssdirect.RegControls']
-Relays = __m['opendssdirect.Relays']
-Sensors = __m['opendssdirect.Sensors']
-Settings = __m['opendssdirect.Settings']
-Solution = __m['opendssdirect.Solution']
-SwtControls = __m['opendssdirect.SwtControls']
-Topology = __m['opendssdirect.Topology']
-Transformers = __m['opendssdirect.Transformers']
-Vsources = __m['opendssdirect.Vsources']
-XYCurves = __m['opendssdirect.XYCurves']
+from .dss import Capacitors
+from .dss import CapControls
+from .dss import Circuit
+from .dss import CktElement
 
-dss_lib = __l
+from .dss import Element
+from .dss import Executive
+
+from .dss import Fuses
+
+from .dss import Generators
+
+from .dss import Isource
+
+from .dss import Lines
+from .dss import Loads
+from .dss import LoadShape
+
+from .dss import Meters
+from .dss import Monitors
+
+from .dss import Parser
+from .dss import PDElements
+from .dss import Properties
+from .dss import PVsystems
+
+from .dss import Reclosers
+from .dss import RegControls
+from .dss import Relays
+
+from .dss import Sensors
+from .dss import Settings
+from .dss import Solution
+from .dss import SwtControls
+
+from .dss import Topology
+from .dss import Transformers
+
+from .dss import Vsources
+
+from .dss import XYCurves
+
+from .dss import dss_lib
