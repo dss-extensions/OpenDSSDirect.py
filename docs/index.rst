@@ -7,10 +7,12 @@ Welcome to OpenDSSDirect.py's documentation!
 ============================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
    opendssdirect
+   notebooks/Example-OpenDSSDirect.py
+
 
 
 
