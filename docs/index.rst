@@ -10,8 +10,8 @@ Welcome to OpenDSSDirect.py's documentation!
    :maxdepth: 1
    :caption: Contents:
 
-   opendssdirect
    notebooks/Example-OpenDSSDirect.py
+   opendssdirect
 
 
 
