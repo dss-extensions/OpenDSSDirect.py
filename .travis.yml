@@ -3,6 +3,9 @@ python:
         - "2.7"
         - "3.5"
         - "3.6"
+os:
+  - linux
+  - osx
 install: python setup.py install
 script:
         - make
