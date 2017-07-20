@@ -16,3 +16,11 @@ class Iterator(object):
 
             if not self.module.Next() > 0:
                 break
+
+
+def run_command(text, dss=None):
+    '''Use Text interface of OpenDSS'''
+    if dss is None:
+        from . import dss
+
+    return dss.dss_lib.DSSPut_Command(text.encode('ascii')).decode('ascii')
