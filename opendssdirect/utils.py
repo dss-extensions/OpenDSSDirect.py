@@ -55,3 +55,71 @@ def getmembers(module):
 
         if n != 'AllNames' and n != 'Next' and n != 'First' and not (n.startswith('__') and n.endswith('__')):
             yield n, f
+
+
+def capacitors_to_dataframe(dss=None):
+    return to_dataframe(dss.Capacitors, dss=dss)
+
+
+def fuses_to_dataframe(dss=None):
+    return to_dataframe(dss.Fuses, dss=dss)
+
+
+def generators_to_dataframe(dss=None):
+    return to_dataframe(dss.Generators, dss=dss)
+
+
+def isource_to_dataframe(dss=None):
+    return to_dataframe(dss.Isource, dss=dss)
+
+
+def lines_to_dataframe(dss=None):
+    return to_dataframe(dss.Lines, dss=dss)
+
+
+def loadshape_to_dataframe(dss=None):
+    return to_dataframe(dss.LoadShape, dss=dss)
+
+
+def loads_to_dataframe(dss=None):
+    return to_dataframe(dss.Loads, dss=dss)
+
+
+def meters_to_dataframe(dss=None):
+    return to_dataframe(dss.Meters, dss=dss)
+
+
+def monitors_to_dataframe(dss=None):
+    return to_dataframe(dss.Monitors, dss=dss)
+
+
+def pvsystems_to_dataframe(dss=None):
+    return to_dataframe(dss.PVsystems, dss=dss)
+
+
+def regcontrols_to_dataframe(dss=None):
+    return to_dataframe(dss.RegControls, dss=dss)
+
+
+def reclosers_to_dataframe(dss=None):
+    return to_dataframe(dss.Reclosers, dss=dss)
+
+
+def relays_to_dataframe(dss=None):
+    return to_dataframe(dss.Relays, dss=dss)
+
+
+def sensors_to_dataframe(dss=None):
+    return to_dataframe(dss.Sensors, dss=dss)
+
+
+def transformers_to_dataframe(dss=None):
+    return to_dataframe(dss.Transformers, dss=dss)
+
+
+def vsources_to_dataframe(dss=None):
+    return to_dataframe(dss.Vsources, dss=dss)
+
+
+def xycurves_to_dataframe(dss=None):
+    return to_dataframe(dss.XYCurves, dss=dss)
