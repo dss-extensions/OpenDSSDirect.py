@@ -161,8 +161,9 @@ def VarArrayFunction(f, mode, name, optional):
                 length = ctypes.cast(s - HEADER_SIZE, ctypes.POINTER(ctypes.c_uint8)).contents.value
 
                 s = ctypes.cast(s, ctypes.POINTER(ctypes.c_int16 * length))
-
-                l.append(u''.join([chr(x) for x in s.contents[:]]))
+                s = u''.join([chr(x) for x in s.contents[:]])
+                if s.lower() != 'none':
+                    l.append(s)
 
     elif varg.dtype == 0x2005 and var_arr.length != 0:  # Float64
 

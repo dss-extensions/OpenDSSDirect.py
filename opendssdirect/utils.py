@@ -1,5 +1,6 @@
 import inspect
 import pandas as pd
+import warnings
 
 
 class Iterator(object):
@@ -36,9 +37,14 @@ def to_dataframe(module, dss=None):
     for e in module.AllNames():
         data[e] = dict()
 
-    for i in dss.iterator(module, 'Name'):
-        element_name = i()
-        data[element_name] = {n: getattr(module, n)() for n, f in getmembers(module)}
+    if len(data) != 0:
+
+        for i in dss.iterator(module, 'Name'):
+            element_name = i()
+            data[element_name] = {n: getattr(module, n)() for n, f in getmembers(module)}
+    else:
+        class_name = module.__name__
+        warnings.warn("Empty element type ({class_name})".format(class_name=class_name))
 
     return pd.DataFrame(data).T
 
