@@ -10,6 +10,7 @@ Welcome to OpenDSSDirect.py's documentation!
    :maxdepth: 1
    :caption: Contents:
 
+   notebooks/Installation
    notebooks/GettingStarted
    notebooks/Example-OpenDSSDirect.py
    opendssdirect
