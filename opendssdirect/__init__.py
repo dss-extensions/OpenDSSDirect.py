@@ -49,5 +49,5 @@ from .dss import dss_lib
 
 from ._version import __version__
 
-import utils
+from . import utils
 from .utils import run_command
