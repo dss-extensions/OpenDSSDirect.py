@@ -235,7 +235,7 @@ def test_13Node_CapControls():
 
     assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
 
-    assert dss.CapControls.AllNames() == [u'NONE']
+    assert dss.CapControls.AllNames() == []
     assert dss.CapControls.CTRatio() == 0.0
     assert dss.CapControls.Capacitor() == u''
     assert dss.CapControls.Count() == 0
@@ -284,7 +284,7 @@ def test_13Node_Fuses():
 
     assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
 
-    assert dss.Fuses.AllNames() == [u'NONE']
+    assert dss.Fuses.AllNames() == []
     assert dss.Fuses.Close() == 0
     assert dss.Fuses.Count() == 0
     assert dss.Fuses.First() == 0
@@ -306,7 +306,7 @@ def test_13Node_Generators():
 
     assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
 
-    assert dss.Generators.AllNames() == [u'NONE']
+    assert dss.Generators.AllNames() == []
     assert dss.Generators.Count() == 0
     assert dss.Generators.First() == 0
     assert dss.Generators.ForcedON() == 0
@@ -331,7 +331,7 @@ def test_13Node_Isource():
 
     assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
 
-    assert dss.Isource.AllNames() == [u'NONE']
+    assert dss.Isource.AllNames() == []
     assert dss.Isource.Amps() == 0.0
     assert dss.Isource.AngleDeg() == 0.0
     assert dss.Isource.Count() == 0
@@ -455,7 +455,7 @@ def test_13Node_Meters():
 
     assert dss.Meters.AllBranchesInZone() == []
     assert dss.Meters.AllEndElements() == []
-    assert dss.Meters.AllNames() == [u'NONE']
+    assert dss.Meters.AllNames() == []
     assert dss.Meters.AllocFactors() == [0.0]
     assert dss.Meters.AvgRepairTime() == 0.0
     assert dss.Meters.CalcCurrent() == [0.0]
@@ -504,7 +504,7 @@ def test_13Node_Monitors():
 
     assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
 
-    assert dss.Monitors.AllNames() == [u'NONE']
+    assert dss.Monitors.AllNames() == []
     assert dss.Monitors.ByteStream() == []
     assert dss.Monitors.Count() == 0
     assert dss.Monitors.Element() == u'0'
@@ -581,7 +581,7 @@ def test_13Node_Reclosers():
 
     assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
 
-    assert dss.Reclosers.AllNames() == [u'NONE']
+    assert dss.Reclosers.AllNames() == []
     assert dss.Reclosers.Close() == 0
     assert dss.Reclosers.Count() == 0
     assert dss.Reclosers.First() == 0
@@ -640,7 +640,7 @@ def test_13Node_Relays():
 
     assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
 
-    assert dss.Relays.AllNames() == [u'NONE']
+    assert dss.Relays.AllNames() == []
     assert dss.Relays.Count() == 0
     assert dss.Relays.First() == 0
     assert dss.Relays.Idx() == 0
@@ -657,7 +657,7 @@ def test_13Node_Sensors():
 
     assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
 
-    assert dss.Sensors.AllNames() == [u'NONE']
+    assert dss.Sensors.AllNames() == []
     assert dss.Sensors.Count() == 0
     assert dss.Sensors.Currents() == [0.0]
     assert dss.Sensors.First() == 0
@@ -766,7 +766,7 @@ def test_13Node_SwtControls():
     assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
 
     assert dss.SwtControls.Action() == 0
-    assert dss.SwtControls.AllNames() == [u'NONE']
+    assert dss.SwtControls.AllNames() == []
     assert dss.SwtControls.Count() == 0
     assert dss.SwtControls.Delay() == 0.0
     assert dss.SwtControls.First() == 0
@@ -784,8 +784,8 @@ def test_13Node_Topology():
 
     assert dss.Topology.ActiveBranch() == 0
     assert dss.Topology.ActiveLevel() == 0
-    assert dss.Topology.AllIsolatedBranches() == [u'NONE']
-    assert dss.Topology.AllIsolatedLoads() == [u'NONE']
+    assert dss.Topology.AllIsolatedBranches() == []
+    assert dss.Topology.AllIsolatedLoads() == []
     assert dss.Topology.AllLoopedPairs() == [u'Transformer.reg3', u'Transformer.reg2', u'Transformer.reg2', u'Line.650632', u'Transformer.reg1', u'Line.650632']
     assert dss.Topology.BranchName() == u''
     assert dss.Topology.BusName() == u''
