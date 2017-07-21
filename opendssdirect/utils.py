@@ -33,13 +33,20 @@ def to_dataframe(module, dss=None):
 
     data = dict()
 
-    for e in module.AllNames():
-        data[e] = dict()
-
     class_name = module.__name__.replace('opendssdirect.', '').strip('s')
     dss.Circuit.SetActiveClass(class_name)
 
-    for i in dss.iterator(module, 'Name'):
+    for e in dss.ActiveClass.AllNames():
+        data[e] = dict()
+
+    for i in dss.iterator(dss.Loads, 'Name'):
+        element_name = i()
+        dss.Circuit.SetActiveElement(
+            '{class_name}.{element_name}'.format(
+                class_name=class_name,
+                element_name=element_name
+            )
+        )
         data[i()] = {n: getattr(module, n)() for n, f in getmembers(module)}
 
     return pd.DataFrame(data)
