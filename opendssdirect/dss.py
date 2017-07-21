@@ -36,4 +36,3 @@ Vsources = __m['opendssdirect.Vsources']
 XYCurves = __m['opendssdirect.XYCurves']
 
 dss_lib = __l
-

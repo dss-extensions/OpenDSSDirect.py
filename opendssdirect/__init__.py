@@ -52,3 +52,11 @@ from ._version import __version__
 from .utils import run_command
 from .utils import to_dataframe
 from .utils import Iterator as iterator
+
+from functools import partial as __p
+
+def loads_to_dataframe(dss=None):
+    return to_dataframe(Loads, dss=dss)
+
+def capacitors_to_dataframe(dss=None):
+    return to_dataframe(Capacitors, dss=dss)
