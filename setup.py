@@ -32,7 +32,11 @@ setup(
     license='MIT',
 
     packages=find_packages(),
-    install_requires=["future", "six"],
+    install_requires=[
+        "future",
+        "six",
+        "pandas",
+    ],
 
     keywords=['OpenDSS', 'ctypes'],
 

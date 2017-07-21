@@ -48,3 +48,7 @@ from .dss import XYCurves
 from .dss import dss_lib
 
 from ._version import __version__
+
+from .utils import run_command
+from .utils import to_dataframe
+from .utils import Iterator as iterator
