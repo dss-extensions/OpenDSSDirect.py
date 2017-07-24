@@ -21,5 +21,7 @@ pip install OpenDSSDirect.py
 
 ### Thanks
 
-Thanks to @tshort, Davis and @temcdrm for their input. And thanks to @GordStephen for helping debug issues.
+Thanks to @tshort, Davis, @temcdrm, @GordStephen and @Muxelmann for their input and comments.
+
+See @Muxelmann's repo [here](https://github.com/Muxelmann/OpenDSSDirect.make) on how to build OpenDSS for Linux.
 
