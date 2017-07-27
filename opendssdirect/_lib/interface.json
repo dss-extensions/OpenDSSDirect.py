@@ -2787,16 +2787,24 @@
             [
               2,
               "1"
-            ],
+            ]
+          ],
+          "doc":"Read value of a property",
+          "enabled":true,
+          "library_function_name":"DSSProperties",
+          "name":"ReadValue"
+        },
+        {
+          "args":[
             [
               3,
               "1"
             ]
           ],
-          "doc":"The value of the active property.\nSet the value of the active property. The new value must be specified in `arg` as a string.",
+          "doc":"Write value of a property",
           "enabled":true,
           "library_function_name":"DSSProperties",
-          "name":"Value"
+          "name":"WriteValue"
         }
       ],
       "name":"Properties"
