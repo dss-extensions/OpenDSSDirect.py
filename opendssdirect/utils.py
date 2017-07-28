@@ -50,6 +50,10 @@ def class_to_dataframe(class_name, dss=None):
     if dss is None:
         import opendssdirect as dss
     dss.Circuit.SetActiveClass('{class_name}'.format(class_name=class_name))
+    if class_name.lower() != dss.ActiveClass.ActiveClassName().lower():
+        raise NotImplementedError("`{class_name}` is not supported by the `class_to_dataframe` interface, please contact the developer for more information.".format(
+            class_name=class_name,
+        ))
     import pandas as pd
     data = dict()
 
