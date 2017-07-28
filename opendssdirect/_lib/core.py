@@ -112,7 +112,9 @@ def load_library():
     libopendssdirect = os.path.abspath(os.path.join(dir_path, platform, architecture, libopendssdirect))
     f = tempfile.NamedTemporaryFile()
     f.close()
-    libopendssdirect = copyfile(libopendssdirect, f.name)
+    copyfile(libopendssdirect, f.name)
+    libopendssdirect = f.name
+
     library = DLL(libopendssdirect)
 
     os.chdir(curdir)
