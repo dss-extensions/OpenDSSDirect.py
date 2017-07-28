@@ -13,6 +13,7 @@ Welcome to OpenDSSDirect.py's documentation!
    notebooks/Installation
    notebooks/GettingStarted
    notebooks/Example-OpenDSSDirect.py
+   notebooks/ActiveClass
    opendssdirect
 
 
