@@ -46,6 +46,24 @@ def to_dataframe(module):
     return pd.DataFrame(data).T
 
 
+def class_to_dataframe(class_name, dss=None):
+    if dss is None:
+        import opendssdirect as dss
+    dss.Circuit.SetActiveClass('{class_name}'.format(class_name=class_name))
+    import pandas as pd
+    data = dict()
+
+    for element in dss.ActiveClass.AllNames():
+        name = '{class_name}.{element}'.format(class_name=class_name, element=element)
+        dss.Circuit.SetActiveElement(name)
+
+        data[name] = dict()
+        for i, n in enumerate(dss.CktElement.AllPropertyNames()):
+            data[name][n] = dss.Properties.ReadValue(str(i + 1))
+
+    return pd.DataFrame(data).T
+
+
 def getmembers(module):
 
     for n, f in inspect.getmembers(module):
