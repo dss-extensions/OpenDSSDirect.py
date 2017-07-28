@@ -18,8 +18,8 @@ logger = logging.getLogger('opendssdirect.core')
 
 
 # Global modules and classes that can be populated by functions
-modules = OrderedDict()
-functions = OrderedDict()
+g_modules = OrderedDict()
+g_functions = OrderedDict()
 
 
 # Use dir_path to locate interface.json
@@ -42,37 +42,63 @@ else:
     POINTER = ctypes.c_int32
 
 
-def construct():
+def construct(modules=None, functions=None):
+    if modules is None:
+        modules = g_modules
+    if functions is None:
+        functions = g_functions
 
     library = load_library()
 
-    create_modules()
+    create_modules(modules)
 
-    create_functions(library)
+    create_functions(library, functions)
 
+    module = populate_modules(modules, functions)
+
+    module.dss_lib = library
+
+    return module, modules
+
+
+def populate_modules(modules, functions):
     for name, f in functions.items():
         module_name = '.'.join(name.split('.')[:-1])
         function_name = name.split('.')[-1]
+        logger.debug(
+            "Populating {module_name} with {function_name}".format(
+                module_name=module_name,
+                function_name=function_name
+            )
+        )
         setattr(modules[module_name], function_name, f)
 
+    module = modules['opendssdirect.dss'] = ModuleType('opendssdirect.dss')
+
+    for name, m in modules.items():
+        module_name = name.split('.')[-1]
+        setattr(module, module_name, m)
+
+    return module
+
+
+def update_sys_modules(modules):
     for name, m in modules.items():
         sys.modules[name] = m
 
-    return modules, library
 
-
-def create_modules():
+def create_modules(modules):
 
     for m in interface['modules']:
-        name = 'opendssdirect.' + (m['name'])
+        name = 'opendssdirect.dss.' + (m['name'])
         modules[name] = ModuleType(name)
 
 
-def create_functions(library):
+def create_functions(library, functions):
 
     for m in interface['modules']:
 
-        module_name = 'opendssdirect.' + (m['name'])
+        module_name = 'opendssdirect.dss.' + (m['name'])
         for function in m['functions']:
 
             if function['enabled'] is True:

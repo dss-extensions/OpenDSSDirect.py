@@ -1,38 +1,41 @@
 from ._lib.construct import construct as __c
+from ._lib.construct import update_sys_modules as __usm
 
-__m, __l = __c()
+__m, __d = __c()
+__usm(__d)
 
-ActiveClass = __m['opendssdirect.ActiveClass']
-Basic = __m['opendssdirect.Basic']
-Bus = __m['opendssdirect.Bus']
-Capacitors = __m['opendssdirect.Capacitors']
-CapControls = __m['opendssdirect.CapControls']
-Circuit = __m['opendssdirect.Circuit']
-CktElement = __m['opendssdirect.CktElement']
-Element = __m['opendssdirect.Element']
-Executive = __m['opendssdirect.Executive']
-Fuses = __m['opendssdirect.Fuses']
-Generators = __m['opendssdirect.Generators']
-Properties = __m['opendssdirect.Properties']
-Isource = __m['opendssdirect.Isource']
-Lines = __m['opendssdirect.Lines']
-Loads = __m['opendssdirect.Loads']
-LoadShape = __m['opendssdirect.LoadShape']
-Meters = __m['opendssdirect.Meters']
-Monitors = __m['opendssdirect.Monitors']
-Parser = __m['opendssdirect.Parser']
-PDElements = __m['opendssdirect.PDElements']
-PVsystems = __m['opendssdirect.PVsystems']
-Reclosers = __m['opendssdirect.Reclosers']
-RegControls = __m['opendssdirect.RegControls']
-Relays = __m['opendssdirect.Relays']
-Sensors = __m['opendssdirect.Sensors']
-Settings = __m['opendssdirect.Settings']
-Solution = __m['opendssdirect.Solution']
-SwtControls = __m['opendssdirect.SwtControls']
-Topology = __m['opendssdirect.Topology']
-Transformers = __m['opendssdirect.Transformers']
-Vsources = __m['opendssdirect.Vsources']
-XYCurves = __m['opendssdirect.XYCurves']
+ActiveClass = __m.ActiveClass
+Basic = __m.Basic
+Bus = __m.Bus
+Capacitors = __m.Capacitors
+CapControls = __m.CapControls
+Circuit = __m.Circuit
+CktElement = __m.CktElement
+Element = __m.Element
+Executive = __m.Executive
+Fuses = __m.Fuses
+Generators = __m.Generators
+Properties = __m.Properties
+Isource = __m.Isource
+Lines = __m.Lines
+Loads = __m.Loads
+LoadShape = __m.LoadShape
+Meters = __m.Meters
+Monitors = __m.Monitors
+Parser = __m.Parser
+PDElements = __m.PDElements
+PVsystems = __m.PVsystems
+Reclosers = __m.Reclosers
+RegControls = __m.RegControls
+Relays = __m.Relays
+Sensors = __m.Sensors
+Settings = __m.Settings
+Solution = __m.Solution
+SwtControls = __m.SwtControls
+Topology = __m.Topology
+Transformers = __m.Transformers
+Vsources = __m.Vsources
+XYCurves = __m.XYCurves
 
-dss_lib = __l
+dss_lib = __m.dss_lib
+

@@ -1,15 +1,116 @@
 import os
 
-def test_import():
+def test_package_import():
 
     import opendssdirect
 
+def test_module_import():
+
+    import inspect
+
+    from opendssdirect import ActiveClass as m
+    inspect.ismodule(m)
+
+    from opendssdirect import Basic as m
+    inspect.ismodule(m)
+
+    from opendssdirect import Bus as m
+    inspect.ismodule(m)
+
+    from opendssdirect import Capacitors as m
+    inspect.ismodule(m)
+
+    from opendssdirect import CapControls as m
+    inspect.ismodule(m)
+
+    from opendssdirect import Circuit as m
+    inspect.ismodule(m)
+
+    from opendssdirect import CktElement as m
+    inspect.ismodule(m)
+
+    from opendssdirect import Element as m
+    inspect.ismodule(m)
+
+    from opendssdirect import Executive as m
+    inspect.ismodule(m)
+
+    from opendssdirect import Fuses as m
+    inspect.ismodule(m)
+
+    from opendssdirect import Generators as m
+    inspect.ismodule(m)
+
+    from opendssdirect import Isource as m
+    inspect.ismodule(m)
+
+    from opendssdirect import Lines as m
+    inspect.ismodule(m)
+
+    from opendssdirect import Loads as m
+    inspect.ismodule(m)
+
+    from opendssdirect import LoadShape as m
+    inspect.ismodule(m)
+
+    from opendssdirect import Meters as m
+    inspect.ismodule(m)
+
+    from opendssdirect import Monitors as m
+    inspect.ismodule(m)
+
+    from opendssdirect import Parser as m
+    inspect.ismodule(m)
+
+    from opendssdirect import PDElements as m
+    inspect.ismodule(m)
+
+    from opendssdirect import Properties as m
+    inspect.ismodule(m)
+
+    from opendssdirect import PVsystems as m
+    inspect.ismodule(m)
+
+    from opendssdirect import Reclosers as m
+    inspect.ismodule(m)
+
+    from opendssdirect import RegControls as m
+    inspect.ismodule(m)
+
+    from opendssdirect import Relays as m
+    inspect.ismodule(m)
+
+    from opendssdirect import Sensors as m
+    inspect.ismodule(m)
+
+    from opendssdirect import Settings as m
+    inspect.ismodule(m)
+
+    from opendssdirect import Solution as m
+    inspect.ismodule(m)
+
+    from opendssdirect import SwtControls as m
+    inspect.ismodule(m)
+
+    from opendssdirect import Topology as m
+    inspect.ismodule(m)
+    from opendssdirect import Transformers as m
+    inspect.ismodule(m)
+
+    from opendssdirect import Vsources as m
+    inspect.ismodule(m)
+
+    from opendssdirect import XYCurves as m
+    inspect.ismodule(m)
+
+    from opendssdirect import dss_lib as m
+    inspect.ismodule(m)
 
 def test_ActiveClass():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('utf-8')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.ActiveClass.ActiveClassName() == u'Line'
     assert dss.ActiveClass.AllNames() == [u'650632',
@@ -45,7 +146,8 @@ def test_13Node():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
+
 
     assert dss.ActiveClass.ActiveClassName() == u'Line'
     assert dss.ActiveClass.AllNames() == [u'650632', u'632670', u'670671', u'671680', u'632633', u'632645', u'645646', u'692675', u'671684', u'684611', u'684652', u'671692']
@@ -59,7 +161,7 @@ def test_13Node_Basic():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.Basic.AllowForms() == 1
     assert dss.Basic.Classes() == [u'Solution', u'LineCode', u'LoadShape', u'TShape', u'PriceShape', u'XYcurve', u'GrowthShape', u'TCC_Curve', u'Spectrum', u'WireData', u'CNData', u'TSData', u'LineGeometry', u'LineSpacing', u'XfmrCode', u'Line', u'Vsource', u'Isource', u'VCCS', u'Load', u'Transformer', u'RegControl', u'Capacitor', u'Reactor', u'CapControl', u'Fault', u'Generator', u'GenDispatcher', u'Storage', u'StorageController', u'Relay', u'Recloser', u'Fuse', u'SwtControl', u'PVSystem', u'UPFC', u'UPFCControl', u'InvControl', u'ExpControl', u'GICLine', u'GICTransformer', u'VSConverter', u'Monitor', u'EnergyMeter', u'Sensor']
@@ -80,7 +182,7 @@ def test_13Node_Bus():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.Bus.Coorddefined() == 1
     assert dss.Bus.CplxSeqVoltages() == [7.275957614183426e-12, 4.31951048085466e-06, 57503.46213437529, 33187.98898326319, -0.7758574371237046, 1.4866859858011594]
@@ -119,7 +221,7 @@ def test_13Node_Circuit():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.Circuit.AllBusDistances() == [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     assert dss.Circuit.AllBusMagPu() == [0.9999735600909612, 0.9999938047400851, 0.9999500974911693, 0.9999107734075059, 0.9999708382014062, 0.9999310912254219, 1.0560331208541838, 1.0373856699381676, 1.0560496734277571, 1.011300431272264, 1.0270174666164649, 1.0015359172418576, 0.9871584562161683, 1.0084198145936507, 0.9824418963411172, 0.9827959271001375, 1.0402765227909403, 0.964869605360475, 1.019729240260045, 1.0022697678941448, 1.0180132408663718, 1.0002355078501333, 0.9648695979124887, 0.9827959177333715, 1.040276521652259, 0.9762713001854915, 1.0426333240830927, 0.9629347471054315, 0.9608229488014672, 0.9753328230988354, 1.004024331469046, 1.0318708269152446, 0.9897380852516064, 1.0143428459400463, 1.0289449404033275, 1.0041840427671582, 0.9827959396392048, 1.0402765376331038, 0.9648696191496499, 0.9808725592235161, 0.9628392247223574]
@@ -164,7 +266,7 @@ def test_13Node_CktElement():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.CktElement.AllPropertyNames() == [u'bus1', u'bus2', u'linecode', u'length', u'phases', u'r1', u'x1', u'r0', u'x0', u'C1', u'C0', u'rmatrix', u'xmatrix', u'cmatrix', u'Switch', u'Rg', u'Xg', u'rho', u'geometry', u'units', u'spacing', u'wires', u'EarthModel', u'cncables', u'tscables', u'B1', u'B0', u'normamps', u'emergamps', u'faultrate', u'pctperm', u'repair', u'basefreq', u'enabled', u'like']
     assert dss.CktElement.AllVariableNames() == []
@@ -211,7 +313,7 @@ def test_13Node_Capacitors():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.Capacitors.AddStep() == 0
     assert dss.Capacitors.AllNames() == [u'cap1', u'cap2']
@@ -233,7 +335,7 @@ def test_13Node_CapControls():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.CapControls.AllNames() == []
     assert dss.CapControls.CTRatio() == 0.0
@@ -258,7 +360,7 @@ def test_13Node_Element():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.Element.AllPropertyNames() == [u'bus1', u'bus2', u'linecode', u'length', u'phases', u'r1', u'x1', u'r0', u'x0', u'C1', u'C0', u'rmatrix', u'xmatrix', u'cmatrix', u'Switch', u'Rg', u'Xg', u'rho', u'geometry', u'units', u'spacing', u'wires', u'EarthModel', u'cncables', u'tscables', u'B1', u'B0', u'normamps', u'emergamps', u'faultrate', u'pctperm', u'repair', u'basefreq', u'enabled', u'like']
     assert dss.Element.Name() == u'Line.671692'
@@ -268,7 +370,7 @@ def test_13Node_Executive():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.Executive.Command() == u'New'
     assert dss.Executive.CommandHelp() == u'Create a new object within the DSS. Object becomes the active object\r\nExample: New Line.line1 ...'
@@ -282,7 +384,7 @@ def test_13Node_Fuses():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.Fuses.AllNames() == []
     assert dss.Fuses.Close() == 0
@@ -304,7 +406,7 @@ def test_13Node_Generators():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.Generators.AllNames() == []
     assert dss.Generators.Count() == 0
@@ -329,7 +431,7 @@ def test_13Node_Isource():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.Isource.AllNames() == []
     assert dss.Isource.Amps() == 0.0
@@ -344,7 +446,7 @@ def test_13Node_Lines():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.Lines.AllNames() == [u'650632', u'632670', u'670671', u'671680', u'632633', u'632645', u'645646', u'692675', u'671684', u'684611', u'684652', u'671692']
     assert dss.Lines.Bus1() == u'671'
@@ -381,7 +483,7 @@ def test_13Node_Loads():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.Loads.AllNames() == [u'671', u'634a', u'634b', u'634c', u'645', u'646', u'692', u'675a', u'675b', u'675c', u'611', u'652', u'670a', u'670b', u'670c']
     assert dss.Loads.AllocationFactor() == 0.5
@@ -428,7 +530,7 @@ def test_13Node_LoadShape():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.LoadShape.AllNames() == [u'default']
     assert dss.LoadShape.Count() == 1
@@ -451,7 +553,7 @@ def test_13Node_Meters():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.Meters.AllBranchesInZone() == []
     assert dss.Meters.AllEndElements() == []
@@ -502,7 +604,7 @@ def test_13Node_Monitors():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.Monitors.AllNames() == []
     assert dss.Monitors.ByteStream() == []
@@ -529,7 +631,7 @@ def test_13Node_PDElements():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.PDElements.AccumulatedL() == 0.0
     assert dss.PDElements.Count() == 19
@@ -552,7 +654,7 @@ def test_13Node_Properties():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     # Does not work on Linux
 
@@ -563,7 +665,7 @@ def test_13Node_PVsystems():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.PVsystems.Count() == 0
     assert dss.PVsystems.First() == 0
@@ -579,7 +681,7 @@ def test_13Node_Reclosers():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.Reclosers.AllNames() == []
     assert dss.Reclosers.Close() == 0
@@ -605,7 +707,7 @@ def test_13Node_RegControls():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.RegControls.AllNames() == [u'reg1', u'reg2', u'reg3']
     assert dss.RegControls.CTPrimary() == 700.0
@@ -638,7 +740,7 @@ def test_13Node_Relays():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.Relays.AllNames() == []
     assert dss.Relays.Count() == 0
@@ -655,7 +757,7 @@ def test_13Node_Sensors():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.Sensors.AllNames() == []
     assert dss.Sensors.Count() == 0
@@ -679,7 +781,7 @@ def test_13Node_Settings():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.Settings.AllocationFactors() == 0.0
     assert dss.Settings.AllowDuplicates() == 0
@@ -703,7 +805,7 @@ def test_13Node_Solution():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.Solution.AddType() == 1
     assert dss.Solution.Algorithm() == 0
@@ -763,7 +865,7 @@ def test_13Node_SwtControls():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.SwtControls.Action() == 0
     assert dss.SwtControls.AllNames() == []
@@ -780,7 +882,7 @@ def test_13Node_Topology():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.Topology.ActiveBranch() == 0
     assert dss.Topology.ActiveLevel() == 0
@@ -804,7 +906,7 @@ def test_13Node_Transformers():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.Transformers.AllNames() == [u'sub', u'reg1', u'reg2', u'reg3', u'xfm1']
     assert dss.Transformers.Count() == 5
@@ -832,7 +934,7 @@ def test_13Node_Vsources():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.Vsources.AllNames() == [u'source']
     assert dss.Vsources.AngleDeg() == 30.0
@@ -849,7 +951,7 @@ def test_13Node_XYCurves():
 
     import opendssdirect as dss
 
-    assert dss.dss_lib.DSSPut_Command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss'))).encode('ascii')) == b"", "Unable to find test data"
+    assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     assert dss.XYCurves.Count() == 0
     assert dss.XYCurves.First() == 0
