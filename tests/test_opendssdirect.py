@@ -1,6 +1,5 @@
 import pytest as pt
 import os
-from opendssdirect._lib.core import DSSException
 
 def test_package_import():
 
@@ -663,6 +662,7 @@ def test_13Node_Properties():
     if sys.platform.lower() == 'windows'.lower() or sys.platform.lower() == 'darwin':
 
         assert dss.Properties.Description() == u'Name of bus to which first terminal is connected.\r\nExample:\r\nbus1=busname   (assumes all terminals connected in normal phase order)\r\nbus1=busname.3.1.2.0 (specify terminal to node connections explicitly)'
+        from opendssdirect._lib.core import DSSException
         with pt.raises(DSSException):
             assert dss.Properties.Name() == u'bus1'
 

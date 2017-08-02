@@ -8,7 +8,7 @@ from functools import partial
 import ctypes
 import logging
 
-from .._compat import ModuleType
+from .._compat import ModuleType, is_py2
 from .core import DSSException
 
 from .core import load_library
@@ -59,7 +59,7 @@ def construct(modules=None, functions=None):
 
     module.dss_lib = library
 
-    return module, modules
+    return(module, modules)
 
 
 def populate_modules(modules, functions):
@@ -85,7 +85,8 @@ def populate_modules(modules, functions):
 
 def update_sys_modules(modules):
     for name, m in modules.items():
-        sys.modules[name] = m
+        if not is_py2:
+            sys.modules[name] = m
 
 
 def create_modules(modules):
@@ -115,8 +116,13 @@ def create_functions(library, functions):
 
 def generate_function(library, function, module_name):
 
+    if is_py2:
+        name = function['name'].encode('ascii')
+    else:
+        name = function['name']
+
     klass = type(
-        function['name'],
+        name,
         (FunctionMocker, ),
         {
             '__module__': module_name,

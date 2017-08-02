@@ -1,7 +1,7 @@
-from ._lib.construct import construct as __c
+from ._lib.construct import construct as c
 from ._lib.construct import update_sys_modules as __usm
 
-__m, __d = __c()
+__m, __d = c()
 __usm(__d)
 
 ActiveClass = __m.ActiveClass
