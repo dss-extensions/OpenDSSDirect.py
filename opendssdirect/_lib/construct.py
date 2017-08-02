@@ -9,6 +9,7 @@ import ctypes
 import logging
 
 from .._compat import ModuleType
+from .core import DSSException
 
 from .core import load_library
 from .core import VArg, VarArray, is_x64, is_delphi
@@ -103,9 +104,7 @@ def create_functions(library, functions):
 
             if function['enabled'] is True:
 
-                f = getattr(library, function['library_function_name'])
-
-                f = generate_function(f, function)
+                f = generate_function(library, function, module_name)
 
                 f.__name__ = function['name']
                 f.__module__ = module_name
@@ -114,41 +113,104 @@ def create_functions(library, functions):
                 functions[f.__module__ + '.' + f.__name__] = f
 
 
-def generate_function(f, function):
+def generate_function(library, function, module_name):
 
-    if len(function['args']) == 1 and function['args'][0][1] is None:
-        args = function['args'][0]
-        assert args[1] is None, "Expected second argument to be None"
-        mode = args[0]
-        if len(args) == 3:
-            optional = args[2]
+    klass = type(
+        function['name'],
+        (FunctionMocker, ),
+        {
+            '__module__': module_name,
+            '__doc__': function['doc'],
+            '__name__': function['name'],
+        }
+    )
+
+    c = klass(library, function)
+
+    return c
+
+
+class FunctionMocker(object):
+
+    def __init__(self, library, function):
+
+        self.__function = function
+        self.__handle = getattr(library, function['library_function_name'])
+        self.__args = function['args']
+
+        self.__setup_callback()
+
+    def __setup_callback(self):
+
+        if self.__function['function_type'] == 'VarArrayFunction':
+            mode = 0
+            self.__callback = partial(
+                VarArrayFunction,
+                f=self.__handle,
+                mode=self.__function['args'][mode]['dss_args'][0],
+                optional=self.__function['args'][mode]['dss_args'][-1],  # Use last element, since it can be null or 0, for those optional 3 argument functions
+                name=self.__function['library_function_name']
+            )
+
         else:
-            optional = None
-        f = partial(VarArrayFunction, f=f, mode=mode, optional=optional, name=function['library_function_name'])
-    else:
-        modes = tuple(mode for mode, arg in function['args'])
-        args = tuple(arg for mode, arg in function['args'])
-        f = partial(CtypesFunction, f=f, modes=modes, args=args, name=function['library_function_name'])
-    return f
+            modes = [a['dss_args'][0] for a in self.__function['args']]
+            args = [a['dss_args'][1] for a in self.__function['args']]
+            self.__callback = partial(
+                CtypesFunction,
+                f=self.__handle,
+                modes=modes,
+                args=args,
+                name=self.__function['library_function_name'],
+            )
+
+        self.__max_user_args = max([x['user_args'] for x in self.__function['args']])
+        self.__min_user_args = min([x['user_args'] for x in self.__function['args']])
+
+    def __repr__(self):
+
+        return '<function {module_name}.{function_name}>'.format(
+            module_name=self.__class__.__module__,
+            function_name=self.__name__
+        )
+
+    def __call__(self, *args, **kwargs):
+        if len(args) > self.__max_user_args or len(args) < self.__min_user_args:
+            if self.__max_user_args == self.__min_user_args:
+                error_msg = 'Expected {user_args} number of arguments'.format(
+                    user_args=self.__max_user_args,
+                )
+            else:
+                error_msg = 'Expected {min_user_args} <= number of arguments <= {max_user_args}'.format(
+                    min_user_args=self.__min_user_args,
+                    max_user_args=self.__max_user_args,
+                )
+            raise DSSException("Incorrect calling signature. {error_msg} but received {length} (args={args}).".format(
+                error_msg=error_msg,
+                length=len(args),
+                args=args,
+            ))
+
+        r = self.__callback(*args)
+
+        return r
 
 
-def CtypesFunction(arg=None, f=None, modes=None, args=None, name=None):
+def CtypesFunction(dss_arg=None, f=None, modes=None, args=None, name=None, user_args=0):
 
-    if arg is None:
+    if dss_arg is None:
         # First mode should be used
-        arg = args[0]
+        dss_arg = args[0]
         mode = modes[0]
     else:
         # Second mode should be used
-        arg = arg  # Ignore the args
         mode = modes[-1]
 
-    logger.debug("Calling function {} with arguments {}".format(name, (mode, arg)))
+    logger.debug("Calling function {} with arguments {}".format(name, (mode, dss_arg)))
 
-    if isinstance(arg, str):
-        arg = arg.encode('ascii')
+    if isinstance(dss_arg, str):
+        dss_arg = dss_arg.encode('ascii')
 
-    r = f(mode, arg)
+    r = f(mode, dss_arg)
 
     if isinstance(r, bytes):
         r = r.decode('ascii')
@@ -163,7 +225,6 @@ def VarArrayFunction(f, mode, name, optional):
     p = ctypes.POINTER(VArg)(varg)
 
     if optional is not None:
-        logger.debug("Calling function {} with arguments {}".format(name, (mode, p, optional)))
         f(mode, p, optional)
     else:
         logger.debug("Calling function {} with arguments {}".format(name, (mode, p)))

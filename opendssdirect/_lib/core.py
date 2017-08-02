@@ -162,3 +162,7 @@ def setup_library(library):
 
 def is_x64():
     return 8 * struct.calcsize("P") == 64
+
+
+class DSSException(RuntimeError):
+    pass

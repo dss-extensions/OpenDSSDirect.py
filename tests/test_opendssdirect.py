@@ -1,4 +1,6 @@
+import pytest as pt
 import os
+from opendssdirect._lib.core import DSSException
 
 def test_package_import():
 
@@ -657,9 +659,15 @@ def test_13Node_Properties():
     assert dss.utils.run_command('Redirect {}'.format(os.path.abspath(os.path.join('.', './data/13Bus/IEEE13Nodeckt.dss')))) == "", "Unable to find test data"
 
     # Does not work on Linux
+    import sys
+    if sys.platform.lower() == 'windows'.lower() or sys.platform.lower() == 'darwin':
 
-    # assert dss.Properties.Description() == u'Name of bus to which first terminal is connected.\r\nExample:\r\nbus1=busname   (assumes all terminals connected in normal phase order)\r\nbus1=busname.3.1.2.0 (specify terminal to node connections explicitly)'
-    # assert dss.Properties.Name() == u'bus1'
+        assert dss.Properties.Description() == u'Name of bus to which first terminal is connected.\r\nExample:\r\nbus1=busname   (assumes all terminals connected in normal phase order)\r\nbus1=busname.3.1.2.0 (specify terminal to node connections explicitly)'
+        with pt.raises(DSSException):
+            assert dss.Properties.Name() == u'bus1'
+
+        assert dss.Properties.Name('1') == u'bus1'
+        assert dss.Properties.Value('1') == u'671'
 
 def test_13Node_PVsystems():
 
