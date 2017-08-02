@@ -2982,7 +2982,7 @@
                 0,
                 "1"
               ],
-              "user_args":0
+              "user_args":1
             }
           ],
           "doc":"Get i\u2010th command (with i as a string)",
@@ -2998,7 +2998,7 @@
                 1,
                 "1"
               ],
-              "user_args":0
+              "user_args":1
             }
           ],
           "doc":"Get i\u2010th option (with i as a string)",
@@ -3014,7 +3014,7 @@
                 2,
                 "1"
               ],
-              "user_args":0
+              "user_args":1
             }
           ],
           "doc":"Get help string for i\u2010th command (with i as a string)",
@@ -3030,7 +3030,7 @@
                 3,
                 "1"
               ],
-              "user_args":0
+              "user_args":1
             }
           ],
           "doc":"Get help string for i\u2010th option (with i as a string)",
@@ -3046,7 +3046,7 @@
                 4,
                 "1"
               ],
-              "user_args":0
+              "user_args":1
             }
           ],
           "doc":"Get present value of i\u2010th option (with i as a string)",
@@ -3754,7 +3754,7 @@
                 1,
                 "1"
               ],
-              "user_args":0
+              "user_args":1
             }
           ],
           "doc":"The description of the active property.",
@@ -6828,7 +6828,7 @@
             {
               "dss_args":[
                 0,
-                "1"
+                "0"
               ],
               "user_args":0
             }
@@ -7085,7 +7085,7 @@
             {
               "dss_args":[
                 2,
-                "1"
+                "0"
               ],
               "user_args":0
             }
@@ -7101,7 +7101,7 @@
             {
               "dss_args":[
                 3,
-                "1"
+                "0"
               ],
               "user_args":0
             }
@@ -10593,7 +10593,7 @@
             {
               "dss_args":[
                 0,
-                "1"
+                "0"
               ],
               "user_args":0
             }
