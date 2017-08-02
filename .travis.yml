@@ -2,10 +2,12 @@ sudo: False
 language: python
 matrix:
   include:
-    - python: 2.7
-    - python: 3.3
-    - python: 3.4
+    - python: 3.6
     - python: 3.5
+    - python: 3.4
+    - python: 3.3
+    - python: 2.7
+    - python: 2.6
 install:
 install:
   # Install conda
@@ -16,8 +18,8 @@ install:
   - conda update conda
 
   # Install dependencies
-  - conda create -n castra python=$TRAVIS_PYTHON_VERSION pytest pandas
-  - source activate castra
+  - conda create -n test-env python=$TRAVIS_PYTHON_VERSION pytest pandas
+  - source activate test-env
   - pip install -e .
 script:
   - make
