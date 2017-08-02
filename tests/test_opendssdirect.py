@@ -169,7 +169,7 @@ def test_13Node_Basic():
     assert dss.Basic.ClearAll() == 0
     assert os.path.abspath(dss.Basic.DataPath()) == os.path.abspath('.')
     # assert dss.Basic.DefaultEditor() == u'open -t'
-    assert dss.Basic.NewCircuit() == u'New Circuit'
+    assert dss.Basic.NewCircuit('Circuit') == u'New Circuit'
     assert dss.Basic.NumCircuits() == 1
     assert dss.Basic.NumClasses() == 45
     assert dss.Basic.NumUserClasses() == 0
@@ -234,8 +234,8 @@ def test_13Node_Circuit():
     assert dss.Circuit.AllNodeDistances() == [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     assert dss.Circuit.AllNodeNames() == [u'sourcebus.1', u'sourcebus.2', u'sourcebus.3', u'650.1', u'650.2', u'650.3', u'rg60.1', u'rg60.2', u'rg60.3', u'633.1', u'633.2', u'633.3', u'634.1', u'634.2', u'634.3', u'671.1', u'671.2', u'671.3', u'645.2', u'645.3', u'646.2', u'646.3', u'692.3', u'692.1', u'692.2', u'675.1', u'675.2', u'675.3', u'611.3', u'652.1', u'670.1', u'670.2', u'670.3', u'632.1', u'632.2', u'632.3', u'680.1', u'680.2', u'680.3', u'684.1', u'684.3']
     assert dss.Circuit.Capacity() == 0.0
-    assert dss.Circuit.Disable() == u''
-    assert dss.Circuit.Enable() == u''
+    assert dss.Circuit.Disable('632') == u''
+    assert dss.Circuit.Enable('632') == u''
     assert dss.Circuit.EndOfTimeStepUpdate() == 0
     assert dss.Circuit.FirstElement() == 1
     assert dss.Circuit.FirstPCElement() == 1
@@ -663,8 +663,8 @@ def test_13Node_Properties():
 
         assert dss.Properties.Description() == u'Name of bus to which first terminal is connected.\r\nExample:\r\nbus1=busname   (assumes all terminals connected in normal phase order)\r\nbus1=busname.3.1.2.0 (specify terminal to node connections explicitly)'
         from opendssdirect._lib.core import DSSException
-        with pt.raises(DSSException):
-            assert dss.Properties.Name() == u'bus1'
+
+        assert dss.Properties.Name() == u'bus1'
 
         assert dss.Properties.Name('1') == u'bus1'
         assert dss.Properties.Value('1') == u'671'

@@ -9,7 +9,6 @@ import ctypes
 import logging
 
 from .._compat import ModuleType, is_py2
-from .core import DSSException
 
 from .core import load_library
 from .core import VArg, VarArray, is_x64, is_delphi
@@ -190,7 +189,7 @@ class FunctionMocker(object):
                     min_user_args=self.__min_user_args,
                     max_user_args=self.__max_user_args,
                 )
-            raise DSSException("Incorrect calling signature. {error_msg} but received {length} (args={args}).".format(
+            logger.warn("Incorrect calling signature. {error_msg} but received {length} (args={args}).".format(
                 error_msg=error_msg,
                 length=len(args),
                 args=args,

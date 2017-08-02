@@ -94,7 +94,7 @@
             {
               "dss_args":[
                 2,
-                "1"
+                "0"
               ],
               "user_args":0
             }
@@ -268,7 +268,7 @@
                 0,
                 "1"
               ],
-              "user_args":0
+              "user_args":1
             }
           ],
           "doc":"Make a new circuit",
@@ -282,7 +282,7 @@
             {
               "dss_args":[
                 1,
-                "1"
+                "0"
               ],
               "user_args":0
             }
@@ -321,7 +321,7 @@
             {
               "dss_args":[
                 4,
-                "1"
+                "0"
               ],
               "user_args":0
             }
@@ -644,7 +644,7 @@
             {
               "dss_args":[
                 0,
-                "1"
+                "0"
               ],
               "user_args":0
             }
@@ -1832,7 +1832,7 @@
             {
               "dss_args":[
                 0,
-                "1"
+                "0"
               ],
               "user_args":0
             }
@@ -1850,7 +1850,7 @@
                 1,
                 "1"
               ],
-              "user_args":0
+              "user_args":1
             }
           ],
           "doc":"Disable a circuit element by name (full name).",
@@ -1866,7 +1866,7 @@
                 2,
                 "1"
               ],
-              "user_args":0
+              "user_args":1
             }
           ],
           "doc":"Enable a circuit element by name (full name).",
@@ -1882,7 +1882,7 @@
                 3,
                 "1"
               ],
-              "user_args":0
+              "user_args":1
             }
           ],
           "doc":"Activate an element of the active circuit by name. Returns a string with the index of the active element.",
@@ -1898,7 +1898,7 @@
                 4,
                 "1"
               ],
-              "user_args":0
+              "user_args":1
             }
           ],
           "doc":"Sets the active bus by name. Returns a 0 based index of the bus to use for future direct indexing of bus values returned in arrays. Returns -1 if an error occurs.",
@@ -1914,7 +1914,7 @@
                 5,
                 "1"
               ],
-              "user_args":0
+              "user_args":1
             }
           ],
           "doc":"Sets the active class by name.  Use FirstElement, NextElement to iterate through the class. Returns \u20101 if fails.",
@@ -2499,7 +2499,7 @@
             {
               "dss_args":[
                 0,
-                "1"
+                "0"
               ],
               "user_args":0
             }
@@ -2515,7 +2515,7 @@
             {
               "dss_args":[
                 1,
-                "1"
+                "0"
               ],
               "user_args":0
             },
@@ -2538,7 +2538,7 @@
             {
               "dss_args":[
                 3,
-                "1"
+                "0"
               ],
               "user_args":0
             }
@@ -2554,7 +2554,7 @@
             {
               "dss_args":[
                 4,
-                "1"
+                "0"
               ],
               "user_args":0
             }
@@ -2572,7 +2572,7 @@
                 5,
                 "1"
               ],
-              "user_args":0
+              "user_args":1
             }
           ],
           "doc":"Full name of the i\u2010th controller attached to this element. Ex: str = Controller",
@@ -2911,7 +2911,7 @@
             {
               "dss_args":[
                 0,
-                "1"
+                "0"
               ],
               "user_args":0
             }
