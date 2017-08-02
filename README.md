@@ -19,6 +19,8 @@ Open a command line interface and type the following.
 pip install OpenDSSDirect.py
 ```
 
+See [installation] instructions for more information.
+
 ### Thanks
 
 Thanks to @tshort, Davis, @temcdrm, @GordStephen and @Muxelmann for their input and comments.
