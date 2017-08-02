@@ -1,0 +1,13 @@
+---
+machine:
+  python:
+    version: 3.5
+checkout:
+  post:
+    - make
+dependencies:
+  override:
+    - pip install -e .
+test:
+  pre:
+    - pep8 opendssdirect
