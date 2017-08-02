@@ -110,10 +110,13 @@ def load_library():
         DLL(libklusolve)
 
     libopendssdirect = os.path.abspath(os.path.join(dir_path, platform, architecture, libopendssdirect))
-    f = tempfile.NamedTemporaryFile()
-    f.close()
-    copyfile(libopendssdirect, f.name)
-    libopendssdirect = f.name
+
+    if 'win' not in sys.platform:
+        # Creating temporary file on windows causes recursionerror
+        f = tempfile.NamedTemporaryFile()
+        f.close()
+        copyfile(libopendssdirect, f.name)
+        libopendssdirect = f.name
 
     library = DLL(libopendssdirect)
 
