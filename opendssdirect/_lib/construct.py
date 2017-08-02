@@ -3,7 +3,10 @@ from builtins import open
 import os
 import sys
 import json
-from collections import OrderedDict
+try:
+    from collections import OrderedDict
+except ImportError:
+    OrderedDict = dict
 from functools import partial
 import ctypes
 import logging
