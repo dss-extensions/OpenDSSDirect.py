@@ -8,6 +8,7 @@ clean:
 
 test:
 	@cd tests; PYTHONPATH=.. py.test --tb=short
+	@cd tests; PYTHONPATH=.. py.test --cov=opendssdirect
 
 html:
 	@cd docs; make html
