@@ -251,7 +251,8 @@ def VarArrayFunction(f, mode, name, optional):
                 continue
             else:
                 length = ctypes.cast(s - HEADER_SIZE, ctypes.POINTER(ctypes.c_uint8)).contents.value
-
+                if is_delphi():
+                    length = int(length / 2)
                 s = ctypes.cast(s, ctypes.POINTER(ctypes.c_int16 * length))
                 s = u''.join([chr(x) for x in s.contents[:]])
                 if s.lower() != 'none':
