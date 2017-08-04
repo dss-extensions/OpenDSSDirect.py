@@ -1039,11 +1039,21 @@ def test_capacitors_to_dataframe(dss):
     assert_dict_equal(actual_dict, expected_dict)
 
 
-@pt.mark.skip(reason="Test not implemented")
 def test_fuses_to_dataframe(dss):
 
     expected_dict = pd.DataFrame(
-        {}
+        {'Close': {'': 0},
+         'Count': {'': 0},
+         'Idx': {'': 0},
+         'IsBlown': {'': 0},
+         'MonitoredObj': {'': ''},
+         'MonitoredTerm': {'': 0},
+         'Name': {'': ''},
+         'NumPhases': {'': 0},
+         'Open': {'': 0},
+         'RatedCurrent': {'': -1.0},
+         'SwitchedObj': {'': ''},
+         'TCCCurve': {'': 'No Fuse Active!'}}
     ).to_dict()
 
     actual_dict = dss.utils.fuses_to_dataframe().to_dict()
@@ -1051,11 +1061,24 @@ def test_fuses_to_dataframe(dss):
     assert_dict_equal(actual_dict, expected_dict)
 
 
-@pt.mark.skip(reason="Test not implemented")
 def test_generators_to_dataframe(dss):
 
     expected_dict = pd.DataFrame(
-        {}
+        {'Count': {'': 0},
+         'ForcedON': {'': 0},
+         'Idx': {'': 0},
+         'Model': {'': -1},
+         'Name': {'': ''},
+         'PF': {'': 0.0},
+         'Phases': {'': 0},
+         'RegisterNames': {'': ['kWh', 'kvarh', 'Max kW', 'Max kVA', 'Hours', '$']},
+         'RegisterValues': {'': [0.0]},
+         'Vmaxpu': {'': -1.0},
+         'Vminpu': {'': -1.0},
+         'kV': {'': -1.0},
+         'kVARated': {'': -1.0},
+         'kW': {'': 0.0},
+         'kvar': {'': 0.0}}
     ).to_dict()
 
     actual_dict = dss.utils.generators_to_dataframe().to_dict()
@@ -1064,11 +1087,14 @@ def test_generators_to_dataframe(dss):
 
 
 
-@pt.mark.skip(reason="Test not implemented")
 def test_isource_to_dataframe(dss):
 
     expected_dict = pd.DataFrame(
-        {}
+        {'Amps': {'671692': 0.0},
+         'AngleDeg': {'671692': 0.0},
+         'Count': {'671692': 0},
+         'Frequency': {'671692': 0.0},
+         'Name': {'671692': '671692'}}
     ).to_dict()
 
     actual_dict = dss.utils.isource_to_dataframe().to_dict()
@@ -1112,12 +1138,116 @@ def test_loadshape_to_dataframe(dss):
     assert_dict_equal(actual_dict, expected_dict)
 
 
-
-@pt.mark.skip(reason="Test not implemented")
 def test_meters_to_dataframe(dss):
 
     expected_dict = pd.DataFrame(
-        {}
+        {'AllBranchesInZone': {'0': []},
+         'AllEndElements': {'0': []},
+         'AllocFactors': {'0': [0.0]},
+         'AvgRepairTime': {'0': 0.0},
+         'CalcCurrent': {'0': [0.0]},
+         'CloseAllDIFiles': {'0': 0},
+         'Count': {'0': 0},
+         'CountBranches': {'0': 0},
+         'CountEndElements': {'0': 0},
+         'CustInterrupts': {'0': 0.0},
+         'DIFilesAreOpen': {'0': 0},
+         'DoReliabilityCalc': {'0': 0},
+         'FaultRateXRepairHrs': {'0': 0.0},
+         'MeteredElement': {'0': ''},
+         'MeteredTerminal': {'0': 0},
+         'Name': {'0': '0'},
+         'NumSectionBranches': {'0': 0},
+         'NumSectionCustomers': {'0': 0},
+         'NumSections': {'0': 0},
+         'OCPDeviceType': {'0': 0},
+         'OpenAllDIFiles': {'0': 0},
+         'PeakCurrent': {'0': [0.0]},
+         'RegisterNames': {'0': []},
+         'RegisterValues': {'0': [0.0]},
+         'Reset': {'0': 0},
+         'ResetAll': {'0': 0},
+         'SAIDI': {'0': 0.0},
+         'SAIFI': {'0': 0.0},
+         'SAIFIkW': {'0': 0.0},
+         'Sample': {'0': 0},
+         'SampleAll': {'0': 0},
+         'Save': {'0': 0},
+         'SaveAll': {'0': 0},
+         'SectSeqidx': {'0': 0},
+         'SectTotalCust': {'0': 0},
+         'SeqListSize': {'0': 0},
+         'SequenceList': {'0': 0},
+         'SetActiveSection': {'0': 0},
+         'SumBranchFltRates': {'0': 0.0},
+         'TotalCustomers': {'0': 0},
+         'Totals': {'0': [0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0,
+           0.0]}}
     ).to_dict()
 
     actual_dict = dss.utils.meters_to_dataframe().to_dict()
@@ -1125,12 +1255,26 @@ def test_meters_to_dataframe(dss):
     assert_dict_equal(actual_dict, expected_dict)
 
 
-
-@pt.mark.skip(reason="Test not implemented")
 def test_monitors_to_dataframe(dss):
 
     expected_dict = pd.DataFrame(
-        {}
+        {'ByteStream': {'': []},
+         'Count': {'': 0},
+         'Element': {'': '0'},
+         'FileName': {'': ''},
+         'FileVersion': {'': 0},
+         'Mode': {'': 0},
+         'Name': {'': ''},
+         'Process': {'': 0},
+         'ProcessAll': {'': 0},
+         'Reset': {'': 0},
+         'ResetAll': {'': 0},
+         'Sample': {'': 0},
+         'SampleAll': {'': 0},
+         'Save': {'': 0},
+         'SaveAll': {'': 0},
+         'Show': {'': 0},
+         'Terminal': {'': 0}}
     ).to_dict()
 
     actual_dict = dss.utils.monitors_to_dataframe().to_dict()
@@ -1158,12 +1302,25 @@ def test_pvsystems_to_dataframe(dss):
     assert_dict_equal(actual_dict, expected_dict)
 
 
-
-@pt.mark.skip(reason="Test not implemented")
 def test_reclosers_to_dataframe(dss):
 
     expected_dict = pd.DataFrame(
-        {}
+        {'Close': {'': 0},
+         'Count': {'': 0},
+         'GroundInst': {'': 0.0},
+         'GroundTrip': {'': 0.0},
+         'Idx': {'': 0},
+         'MonitoredObj': {'': ''},
+         'MonitoredTerm': {'': 0},
+         'Name': {'': ''},
+         'NumFast': {'': 0},
+         'Open': {'': 0},
+         'PhaseInst': {'': 0.0},
+         'PhaseTrip': {'': 0.0},
+         'RecloseIntervals': {'': [-1.0]},
+         'Shots': {'': 0},
+         'SwitchedObj': {'': ''},
+         'SwitchedTerm': {'': 0}}
     ).to_dict()
 
     actual_dict = dss.utils.reclosers_to_dataframe().to_dict()
@@ -1184,11 +1341,16 @@ def test_regcontrols_to_dataframe(dss):
 
 
 
-@pt.mark.skip(reason="Test not implemented")
 def test_relays_to_dataframe(dss):
 
     expected_dict = pd.DataFrame(
-        {}
+        {'Count': {'': 0},
+         'Idx': {'': 0},
+         'MonitoredObj': {'': ''},
+         'MonitoredTerm': {'': 0},
+         'Name': {'': ''},
+         'SwitchedObj': {'': ''},
+         'SwitchedTerm': {'': 0}}
     ).to_dict()
 
     actual_dict = dss.utils.relays_to_dataframe().to_dict()
@@ -1197,11 +1359,23 @@ def test_relays_to_dataframe(dss):
 
 
 
-@pt.mark.skip(reason="Test not implemented")
 def test_sensors_to_dataframe(dss):
 
     expected_dict = pd.DataFrame(
-        {}
+        {'Count': {'': 0},
+         'Currents': {'': [0.0]},
+         'IsDelta': {'': 0},
+         'MeteredElement': {'': ''},
+         'MeteredTerminal': {'': 0},
+         'Name': {'': ''},
+         'PctError': {'': 0.0},
+         'Reset': {'': 0},
+         'ResetAll': {'': 0},
+         'ReverseDelta': {'': 0},
+         'Weight': {'': 0.0},
+         'kVBase': {'': 0.0},
+         'kW': {'': [0.0]},
+         'kvar': {'': [0.0]}}
     ).to_dict()
 
     actual_dict = dss.utils.sensors_to_dataframe().to_dict()
