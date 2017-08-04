@@ -435,7 +435,7 @@ def test_13Node_Executive(dss):
     ) == u'Create a new object within the DSS. Object becomes the active object\r\nExample: New Line.line1 ...'
     assert dss.Executive.NumCommands() == 104
     if is_windows():
-        assert dss.Executive.NumOptions() == 109
+        assert dss.Executive.NumOptions() == 110
     else:
         assert dss.Executive.NumOptions() == 108
     assert dss.Executive.Option() == u'type'
