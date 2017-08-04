@@ -111,13 +111,6 @@ def load_library():
 
     libopendssdirect = os.path.abspath(os.path.join(dir_path, platform, architecture, libopendssdirect))
 
-    if 'win' not in sys.platform:
-        # Creating temporary file on windows causes recursionerror
-        f = tempfile.NamedTemporaryFile()
-        f.close()
-        copyfile(libopendssdirect, f.name)
-        libopendssdirect = f.name
-
     library = DLL(libopendssdirect)
 
     os.chdir(curdir)
