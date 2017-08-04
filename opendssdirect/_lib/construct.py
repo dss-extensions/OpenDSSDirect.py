@@ -189,7 +189,8 @@ class FunctionMocker(object):
                     min_user_args=self.__min_user_args,
                     max_user_args=self.__max_user_args,
                 )
-            logger.warn("Incorrect calling signature. {error_msg} but received {length} (args={args}).".format(
+            logger.warn("Incorrect calling signature for {name}. {error_msg} but received {length} (args={args}).".format(
+                name=self.__name__,
                 error_msg=error_msg,
                 length=len(args),
                 args=args,
