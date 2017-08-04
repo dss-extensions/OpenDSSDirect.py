@@ -6,6 +6,7 @@ checkout:
     - make
 dependencies:
   override:
+    - pip install pytest
     - pip install -e .
 test:
   override:
