@@ -31,8 +31,8 @@ def run_command(text, dss=None):
 def to_dataframe(module):
     data = dict()
 
-    for e in module.AllNames():
-        data[e] = dict()
+    for e in Iterator(module, 'Name'):
+        data[e()] = dict()
 
     if len(data) != 0:
 
