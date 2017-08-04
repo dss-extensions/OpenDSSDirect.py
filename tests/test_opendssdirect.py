@@ -1138,11 +1138,19 @@ def test_monitors_to_dataframe(dss):
     assert_dict_equal(actual_dict, expected_dict)
 
 
-@pt.mark.skip(reason="Test not implemented")
 def test_pvsystems_to_dataframe(dss):
 
+    dss.run_command('New PVSystem.631')
+
     expected_dict = pd.DataFrame(
-        {}
+        {'Count': {'631': 1},
+         'Idx': {'631': 1},
+         'Irradiance': {'631': 1.0},
+         'Name': {'631': '631'},
+         'kVARated': {'631': 500.0},
+         'kW': {'631': 499.99999999999994},
+         'kvar': {'631': 0.0},
+         'pf': {'631': 1.0}}
     ).to_dict()
 
     actual_dict = dss.utils.pvsystems_to_dataframe().to_dict()
