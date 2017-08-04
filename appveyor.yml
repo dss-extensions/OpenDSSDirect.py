@@ -35,9 +35,6 @@ environment:
       TARGET_ARCH: "x86"
       MINICONDA: C:\Miniconda
 
-init:
-  - "ECHO %PYTHON_VERSION% %MINICONDA%"
-
 install:
   - "set PATH=%MINICONDA%;%MINICONDA%\\Scripts;%PATH%"
   - conda config --set always_yes yes --set changeps1 no
@@ -51,6 +48,7 @@ test_script:
   - py.test
 
 init:
+  - "ECHO %PYTHON_VERSION% %MINICONDA%"
   - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 on_finish:
