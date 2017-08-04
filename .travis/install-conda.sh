@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-
+export MINICONDA_DIR="$HOME/miniconda"
 # the miniconda directory may exist if it has been restored from cache
 if [ -d "$MINICONDA_DIR" ] && [ -e "$MINICONDA_DIR/bin/conda" ]; then
     echo "Miniconda install already present from cache: $MINICONDA_DIR"
