@@ -8,7 +8,7 @@ current_directory = os.path.dirname(os.path.realpath(__file__))
 PATH_TO_DSS = os.path.abspath(os.path.join(current_directory, './data/13Bus/IEEE13Nodeckt.dss'))
 
 def is_windows():
-    return 'win' in sys.platform.lower()
+    return sys.platform.lower().startswith('win')
 
 def test_package_import():
 

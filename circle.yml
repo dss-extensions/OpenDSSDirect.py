@@ -1,4 +1,3 @@
----
 machine:
   python:
     version: 3.5
@@ -9,5 +8,5 @@ dependencies:
   override:
     - pip install -e .
 test:
-  pre:
-    - pep8 opendssdirect
+  override:
+    - pytest -vv
