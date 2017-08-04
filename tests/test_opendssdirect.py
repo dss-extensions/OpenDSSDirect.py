@@ -2,6 +2,7 @@ import pytest as pt
 import os
 import sys
 import numpy as np
+import six
 
 current_directory = os.path.dirname(os.path.realpath(__file__))
 PATH_TO_DSS = os.path.abspath(os.path.join(current_directory, './data/13Bus/IEEE13Nodeckt.dss'))
@@ -190,7 +191,8 @@ def test_13Node_Basic():
     assert dss.Basic.Reset() == 0
     assert dss.Basic.Start() == 1
     assert dss.Basic.UserClasses() == []
-    assert isinstance(dss.Basic.Version(), str) #  u'Version xxxx (64-bit build); License Status: Open '
+    from six import string_types
+    assert isinstance(dss.Basic.Version(), string_types) #  u'Version xxxx (64-bit build); License Status: Open '
 
 
 def test_13Node_Bus():
