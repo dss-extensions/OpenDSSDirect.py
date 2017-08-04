@@ -1,17 +1,29 @@
 sudo: False
-os:
-  - linux
-  - osx
-language: python
+language: generic
 matrix:
   allow_failures:
     - os: osx
   include:
-    - python: 3.6
-    - python: 3.5
-    - python: 3.4
-    - python: 3.3
-    - python: 2.7
+    - os: linux
+      env: TRAVIS_PYTHON_VERSION="3.6"
+    - os: linux
+      env: TRAVIS_PYTHON_VERSION="3.5"
+    - os: linux
+      env: TRAVIS_PYTHON_VERSION="3.4"
+    - os: linux
+      env: TRAVIS_PYTHON_VERSION="3.3"
+    - os: linux
+      env: TRAVIS_PYTHON_VERSION="2.7"
+    - os: osx
+      env: TRAVIS_PYTHON_VERSION="3.6"
+    - os: osx
+      env: TRAVIS_PYTHON_VERSION="3.5"
+    - os: osx
+      env: TRAVIS_PYTHON_VERSION="3.4"
+    - os: osx
+      env: TRAVIS_PYTHON_VERSION="3.3"
+    - os: osx
+      env: TRAVIS_PYTHON_VERSION="2.7"
 install:
   # Install conda
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
