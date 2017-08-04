@@ -1255,33 +1255,6 @@ def test_meters_to_dataframe(dss):
     assert_dict_equal(actual_dict, expected_dict)
 
 
-def test_monitors_to_dataframe(dss):
-
-    expected_dict = pd.DataFrame(
-        {'ByteStream': {'': []},
-         'Count': {'': 0},
-         'Element': {'': '0'},
-         'FileName': {'': ''},
-         'FileVersion': {'': 0},
-         'Mode': {'': 0},
-         'Name': {'': ''},
-         'Process': {'': 0},
-         'ProcessAll': {'': 0},
-         'Reset': {'': 0},
-         'ResetAll': {'': 0},
-         'Sample': {'': 0},
-         'SampleAll': {'': 0},
-         'Save': {'': 0},
-         'SaveAll': {'': 0},
-         'Show': {'': 0},
-         'Terminal': {'': 0}}
-    ).to_dict()
-
-    actual_dict = dss.utils.monitors_to_dataframe().to_dict()
-
-    assert_dict_equal(actual_dict, expected_dict)
-
-
 def test_pvsystems_to_dataframe(dss):
 
     dss.run_command('New PVSystem.631')
