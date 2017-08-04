@@ -63,7 +63,7 @@ def class_to_dataframe(class_name, dss=None):
 
         data[name] = dict()
         for i, n in enumerate(dss.CktElement.AllPropertyNames()):
-            data[name][n] = dss.Properties.ReadValue(str(i + 1))
+            data[name][n] = dss.Properties.Value(str(i + 1))
 
     return pd.DataFrame(data).T
 
