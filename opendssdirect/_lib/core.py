@@ -82,7 +82,7 @@ def load_library():
     if is_x64():
         architecture = 'x64'
     else:
-        architecture = 'x32'
+        architecture = 'x86'
 
     if 'darwin' in sys.platform:
         platform = 'darwin'
@@ -100,7 +100,7 @@ def load_library():
         platform = 'windows'
         libklusolve = 'KLUSolve.dll'
         libopendssdirect = 'OpenDSSDirect.dll'
-        DLL = ctypes.WinDLL
+        DLL = ctypes.CDLL
 
     else:
         raise ImportError("Unsupported platform: {}".format(sys.platform))
