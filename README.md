@@ -19,7 +19,7 @@ Open a command line interface and type the following.
 pip install OpenDSSDirect.py
 ```
 
-See [installation] instructions for more information.
+See [installation](https://nrel.github.io/OpenDSSDirect.py/notebooks/Installation.html) instructions for more information.
 
 ### Thanks
 
