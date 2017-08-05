@@ -21,6 +21,14 @@ pip install OpenDSSDirect.py
 
 See [installation](https://nrel.github.io/OpenDSSDirect.py/notebooks/Installation.html) instructions for more information.
 
+### Troubleshooting
+
+It is recommended to use `conda` to install pandas, which is currently a dependency of this package.
+This package interfaces with OpenDSS using the "direct" library interface, so a good understanding of OpenDSS will help troubleshooting.
+There are plenty of useful resources located [here](https://sourceforge.net/p/electricdss/code/HEAD/tree/trunk/Doc/).
+
+If you are having issues using this Python interface, feel free to open an Issue on GitHub [here](https://github.com/NREL/OpenDSSDirect.py/issues/new).
+
 ### Thanks
 
 Thanks to @tshort, Davis, @temcdrm, @GordStephen and @Muxelmann for their input and comments.
