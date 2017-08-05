@@ -46,7 +46,7 @@ install:
   - pip install -e .
 
 test_script:
-  - py.test
+  - py.test -vv
 
 init:
   - "ECHO %PYTHON_VERSION% %MINICONDA%"
