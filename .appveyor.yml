@@ -1,6 +1,5 @@
 
 shallow_clone: true # download the zip instead of the whole history
-skip_non_tags: true
 
 build: false
 
