@@ -6,6 +6,8 @@
 Welcome to OpenDSSDirect.py's documentation!
 ============================================
 
+.. include:: readme.rst
+
 .. toctree::
    :maxdepth: 1
    :caption: Contents:

@@ -11,7 +11,7 @@ test:
 	@cd tests; PYTHONPATH=.. py.test -vv --cov=opendssdirect
 
 html:
-	@cd docs; make html
+	@cd docs; pandoc ../README.md -o readme.rst; make html
 
 github: html
 	-git branch -D gh-pages
