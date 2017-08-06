@@ -47,6 +47,8 @@ setup(
         "dev": [
             "pytest",
             "pytest-cov",
+            "sphinx-rtd-theme",
+            "nbsphinx",
         ]
     },
 
