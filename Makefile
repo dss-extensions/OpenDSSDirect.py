@@ -7,8 +7,7 @@ clean:
 	find . | grep -E "\(__pycache__|\.pyc|\.pyo$\)" | xargs rm -rf
 
 test:
-	@cd tests; PYTHONPATH=.. py.test -vv --tb=short
-	@cd tests; PYTHONPATH=.. py.test -vv --cov=opendssdirect
+	PYTHONPATH=. py.test -vv --cov=opendssdirect tests
 
 html:
 	@cd docs; pandoc ../README.md -o readme.rst; make html
