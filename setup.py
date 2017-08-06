@@ -36,8 +36,19 @@ setup(
     install_requires=[
         "future",
         "six",
-        "pandas",
     ],
+
+    extras_require={
+        "extras": [
+            "pandas",
+            "matplotlib",
+            "networkx",
+        ],
+        "dev": [
+            "pytest",
+            "pytest-cov",
+        ]
+    },
 
     keywords=['OpenDSS', 'ctypes'],
 

@@ -1,6 +1,12 @@
 import inspect
-import pandas as pd
 import warnings
+
+is_pandas_installed = True
+
+try:
+    import pandas as pd
+except ImportError:
+    is_pandas_installed = False
 
 
 class Iterator(object):
@@ -43,29 +49,49 @@ def to_dataframe(module):
         class_name = module.__name__
         warnings.warn("Empty element type ({class_name})".format(class_name=class_name))
 
-    return pd.DataFrame(data).T
+    if is_pandas_installed:
+        return pd.DataFrame(data).T
+    else:
+        warnings.warn("Pandas cannot be installed. Please see documentation for how to install extra dependencies.")
+        return data
 
 
 def class_to_dataframe(class_name, dss=None):
+
     if dss is None:
         import opendssdirect as dss
-    dss.Circuit.SetActiveClass('{class_name}'.format(class_name=class_name))
+
+    dss.Circuit.SetActiveClass(
+        '{class_name}'.format(
+            class_name=class_name
+        )
+    )
     if class_name.lower() != dss.ActiveClass.ActiveClassName().lower():
-        raise NotImplementedError("`{class_name}` is not supported by the `class_to_dataframe` interface, please contact the developer for more information.".format(
-            class_name=class_name,
-        ))
-    import pandas as pd
+        raise NotImplementedError(
+            "`{class_name}` is not supported by the `class_to_dataframe` interface, please contact the developer for more information.".format(
+                class_name=class_name,
+            )
+        )
     data = dict()
 
     for element in dss.ActiveClass.AllNames():
-        name = '{class_name}.{element}'.format(class_name=class_name, element=element)
+        name = '{class_name}.{element}'.format(
+            class_name=class_name,
+            element=element
+        )
         dss.Circuit.SetActiveElement(name)
 
         data[name] = dict()
         for i, n in enumerate(dss.CktElement.AllPropertyNames()):
             data[name][n] = dss.Properties.Value(str(i + 1))
 
-    return pd.DataFrame(data).T
+    if is_pandas_installed:
+        return pd.DataFrame(data).T
+    else:
+        warnings.warn(
+            "Pandas cannot be installed. Please see documentation for how to install extra dependencies."
+        )
+        return data
 
 
 def getmembers(module):
