@@ -99,12 +99,12 @@ def class_to_dataframe(class_name, dss=None):
 def _evaluate_expression(string):
 
     if '[' in string and ']' in string:
-        e = [_evaluate_expression(x.strip()) for x in string.replace('[', '').replace(']', '').split(',')]
+        e = [_evaluate_expression(x.strip()) for x in string.replace('[', '').replace(']', '').split(',') if x.strip() != '']
 
         return e
 
     elif '(' in string and ')' in string:
-        e = tuple(_evaluate_expression(x.strip()) for x in string.replace('(', '').replace(')', '').split(','))
+        e = tuple(_evaluate_expression(x.strip()) for x in string.replace('(', '').replace(')', '').split(',') if x.strip() != '')
         return e
 
     elif string.lower() == 'true':

@@ -9,6 +9,8 @@ def test_ee():
     assert ee('a') == 'a'
     assert ee('[a]') == ['a']
     assert ee('(a)') == ('a', )
+    assert ee('(a, , )') == ('a', )
+    assert ee('[a, , ]') == ['a', ]
     assert ee('true') == True
     assert ee('[true]') == [True]
     assert ee('[true, false]') == [True, False]
