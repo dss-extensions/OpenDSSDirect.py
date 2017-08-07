@@ -83,7 +83,10 @@ def class_to_dataframe(class_name, dss=None):
 
         data[name] = dict()
         for i, n in enumerate(dss.CktElement.AllPropertyNames()):
-            data[name][n] = dss.Properties.Value(str(i + 1))
+            try:
+                data[name][n] = eval(dss.Properties.Value(str(i + 1)))
+            except NameError:
+                data[name][n] = dss.Properties.Value(str(i + 1))
 
     if is_pandas_installed:
         return pd.DataFrame(data).T
