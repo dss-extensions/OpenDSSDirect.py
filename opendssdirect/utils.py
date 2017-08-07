@@ -84,14 +84,8 @@ def class_to_dataframe(class_name, dss=None):
         data[name] = dict()
         for i, n in enumerate(dss.CktElement.AllPropertyNames()):
             string = dss.Properties.Value(str(i + 1))
-            if '_' in string:
-                data[name][n] = string
-            else:
-                try:
-                    eval_string = string[0].upper() + string[1:]
-                    data[name][n] = eval(eval_string)
-                except Exception:
-                    data[name][n] = string
+
+            data[name][n] = _evaluate_expression(string)
 
     if is_pandas_installed:
         return pd.DataFrame(data).T
@@ -100,6 +94,27 @@ def class_to_dataframe(class_name, dss=None):
             "Pandas cannot be installed. Please see documentation for how to install extra dependencies."
         )
         return data
+
+
+def _evaluate_expression(string):
+
+    if '[' in string and ']' in string:
+        e = [_evaluate_expression(x.strip()) for x in string.replace('[', '').replace(']', '').split(',')]
+
+        return e
+
+    elif '(' in string and ')' in string:
+        e = tuple(_evaluate_expression(x.strip()) for x in string.replace('(', '').replace(')', '').split(','))
+        return e
+
+    elif string.lower() == 'true':
+        return True
+
+    elif string.lower() == 'false':
+        return False
+
+    else:
+        return string
 
 
 def getmembers(module):
