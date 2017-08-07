@@ -83,10 +83,15 @@ def class_to_dataframe(class_name, dss=None):
 
         data[name] = dict()
         for i, n in enumerate(dss.CktElement.AllPropertyNames()):
-            try:
-                data[name][n] = eval(dss.Properties.Value(str(i + 1)))
-            except NameError:
-                data[name][n] = dss.Properties.Value(str(i + 1))
+            string = dss.Properties.Value(str(i + 1))
+            if '_' in string:
+                data[name][n] = string
+            else:
+                try:
+                    eval_string = string[0].upper() + string[1:]
+                    data[name][n] = eval(eval_string)
+                except Exception:
+                    data[name][n] = string
 
     if is_pandas_installed:
         return pd.DataFrame(data).T
