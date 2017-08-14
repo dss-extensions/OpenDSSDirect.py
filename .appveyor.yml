@@ -31,7 +31,7 @@ install:
   - conda info -a
   - "conda create -q -n test-environment python=%PYTHON_VERSION% pandas matplotlib pytest"
   - activate test-environment
-  - pip install -e '.[extras,dev]'
+  - pip install -e .[extras,dev]
 
 test_script:
   - py.test -vv
