@@ -21,7 +21,7 @@ The documentation for this package can be found [here](http://nrel.github.io/Ope
 Open a command line interface and type the following.
 
 ```bash
-pip install OpenDSSDirect.py[extras]
+pip install 'OpenDSSDirect.py[extras]'
 ```
 
 See [installation](https://nrel.github.io/OpenDSSDirect.py/notebooks/Installation.html) instructions for more information.
