@@ -306,15 +306,22 @@ def VarArrayFunction(f, mode, name, optional):
             header = ctypes.cast(a_ptr, ctypes.POINTER(ctypes.c_char * 256)).contents.value
             header = [i.strip() for i in header.decode('ascii').split(',')]
 
-            length_of_channel = 16
-            data = ctypes.cast(a_ptr, ctypes.POINTER(ctypes.c_float * length_of_channel))
+            a_ptr.value = a_ptr.value + 256 * ctypes.sizeof(p._type_)
+            data = ctypes.cast(a_ptr, ctypes.POINTER(ctypes.c_float * (size + 2)))
+
+            # TODO: Is there a better way to get the count of the number of Monitors?
+            import opendssdirect as dss
+            count = dss.Monitors.Count()
+
+            data = ctypes.cast(a_ptr, ctypes.POINTER(ctypes.c_float * (size + 2) * count))
 
             l = dict()
             for i in header:
                 l[i] = []
 
-            for i, v in enumerate(data.contents):
-                l[header[i]].append(v)
+            for row in data.contents[:]:
+                for i, v in enumerate(row[:]):
+                    l[header[i]].append(v)
 
     elif var_arr.length == 0:
 
