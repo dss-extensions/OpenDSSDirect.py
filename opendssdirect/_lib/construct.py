@@ -277,6 +277,45 @@ def VarArrayFunction(f, mode, name, optional):
         for i in data.contents:
             l.append(i)
 
+    elif varg.dtype == 0x2011 and var_arr.length != 0:
+
+        signature = ctypes.cast(var_arr.data, ctypes.POINTER(ctypes.c_int32)).contents.value
+
+        if signature != 43756:
+            logger.warning("ByteStream did not contain expected signature. Found {} but expected 43756".format(signature))
+        else:
+            # data = ctypes.cast(var_arr.data, ctypes.POINTER(ctypes.c_int32 * 4))
+            # signature, version, size, mode = data.contents
+
+            p = ctypes.cast(var_arr.data, ctypes.POINTER(ctypes.c_int32))
+
+            a_ptr = ctypes.cast(p, ctypes.c_void_p)
+
+            a_ptr.value += ctypes.sizeof(p._type_)
+            version = ctypes.cast(a_ptr, ctypes.POINTER(ctypes.c_int32)).contents.value
+
+            a_ptr.value += ctypes.sizeof(p._type_)
+            size = ctypes.cast(a_ptr, ctypes.POINTER(ctypes.c_int32)).contents.value
+
+            a_ptr.value += ctypes.sizeof(p._type_)
+            mode = ctypes.cast(a_ptr, ctypes.POINTER(ctypes.c_int32)).contents.value
+
+            logger.debug("version={version}, size={size}, mode={mode}".format(version=version, size=size, mode=mode))
+
+            a_ptr.value += ctypes.sizeof(p._type_)
+            header = ctypes.cast(a_ptr, ctypes.POINTER(ctypes.c_char * 256)).contents.value
+            header = [i.strip() for i in header.decode('ascii').split(',')]
+
+            length_of_channel = 16
+            data = ctypes.cast(a_ptr, ctypes.POINTER(ctypes.c_float * length_of_channel))
+
+            l = dict()
+            for i in header:
+                l[i] = []
+
+            for i, v in enumerate(data.contents):
+                l[header[i]].append(v)
+
     elif var_arr.length == 0:
 
         logger.debug("Empty var_arr found")
