@@ -310,12 +310,19 @@ def VarArrayFunction(f, mode, name, optional):
 
             a_ptr.value += ctypes.sizeof(p._type_)
             header = ctypes.cast(a_ptr, ctypes.POINTER(ctypes.c_char * 256)).contents.value
-            header = [i.strip() for i in header.decode('ascii').split(',')]
+            header = [i.strip() for i in header.decode('ascii').strip().rstrip(',').split(',')]
 
             a_ptr.value = a_ptr.value + 256 * ctypes.sizeof(p._type_)
-            data = ctypes.cast(a_ptr, ctypes.POINTER(ctypes.c_float * (size + 2)))
+            count = (var_arr.length - 272) / 4 / (size + 2)
 
-            count = int((var_arr.length - 272) / 4 / (size + 2))
+            if int(count) != count:
+                logger.error(
+                    "Expected count to be integer but found count={count}".format(
+                        count=count,
+                    )
+                )
+            else:
+                count = int(count)
 
             data = ctypes.cast(a_ptr, ctypes.POINTER(ctypes.c_float * (size + 2) * count))
 
