@@ -6,9 +6,7 @@ import json
 from collections import OrderedDict
 from functools import partial
 import ctypes
-import struct
 import logging
-
 
 from .._compat import ModuleType, is_py2
 
@@ -19,9 +17,10 @@ from .core import VArg, VarArray, is_x64, is_delphi
 logger = logging.getLogger('opendssdirect.core')
 
 try:
+    import pandas as pd
     import numpy as np
 except ImportError:
-    logger.warning("Unable to import numpy. Monitors.ByteStream may not work as expected")
+    logger.warning("Unable to import pandas and numpy. Monitors.ByteStream may not work as expected")
 
 
 # Global modules and classes that can be populated by functions
@@ -286,38 +285,56 @@ def VarArrayFunction(f, mode, name, optional):
 
     elif varg.dtype == 0x2011 and var_arr.length != 0:
 
-        bs = [i for i in ctypes.cast(var_arr.data, ctypes.POINTER(ctypes.c_int8 * var_arr.length)).contents]
+        signature = ctypes.cast(var_arr.data, ctypes.POINTER(ctypes.c_int32)).contents.value
 
-        signature = int.from_bytes(bs[0:3], byteorder='little', signed=True)
         if signature != 43756:
-            logger.warning(
-                'Monitor byte stream did not contain expected signature. Expected 43756 but found {signature} instead.'.format(
-                    signature=signature,
-                )
-            )
+            logger.warning("ByteStream did not contain expected signature. Found {} but expected 43756".format(signature))
         else:
-            version = int.from_bytes(bs[4:7], byteorder='little', signed=True)
-            size = int.from_bytes(bs[8:11], byteorder='little', signed=True)
-            mode = int.from_bytes(bs[12:15], byteorder='little', signed=True)
-            logger.debug("version={version}, size={size}, mode={mode}".format(version=version, size=size, mode=mode))
-            header = bytes(bs[16:271]).decode('ascii').rstrip('\0')
-            data_cols = header.count(',') + 1
+            # data = ctypes.cast(var_arr.data, ctypes.POINTER(ctypes.c_int32 * 4))
+            # signature, version, size, mode = data.contents
 
-            data = []
-            for i in range(272, len(bs), 4):
-                byte_str = bytes(bs[i:i + 4])
-                val = struct.unpack('<f', byte_str)[0]
-                data.append(val)
-            data = np.array(data).reshape([-1, data_cols])
-            l = data
+            p = ctypes.cast(var_arr.data, ctypes.POINTER(ctypes.c_int32))
+
+            a_ptr = ctypes.cast(p, ctypes.c_void_p)
+
+            a_ptr.value += ctypes.sizeof(p._type_)
+            version = ctypes.cast(a_ptr, ctypes.POINTER(ctypes.c_int32)).contents.value
+
+            a_ptr.value += ctypes.sizeof(p._type_)
+            size = ctypes.cast(a_ptr, ctypes.POINTER(ctypes.c_int32)).contents.value
+
+            a_ptr.value += ctypes.sizeof(p._type_)
+            mode = ctypes.cast(a_ptr, ctypes.POINTER(ctypes.c_int32)).contents.value
+
+            logger.debug("version={version}, size={size}, mode={mode}".format(version=version, size=size, mode=mode))
+
+            a_ptr.value += ctypes.sizeof(p._type_)
+            header = ctypes.cast(a_ptr, ctypes.POINTER(ctypes.c_char * 256)).contents.value
+            header = [i.strip() for i in header.decode('ascii').split(',')]
+
+            a_ptr.value = a_ptr.value + 256 * ctypes.sizeof(p._type_)
+            data = ctypes.cast(a_ptr, ctypes.POINTER(ctypes.c_float * (size + 2)))
+
+            count = int((var_arr.length - 272) / 4 / (size + 2))
+
+            data = ctypes.cast(a_ptr, ctypes.POINTER(ctypes.c_float * (size + 2) * count))
+
+            for row in data.contents[:]:
+                for i, v in enumerate(row[:]):
+                    l.append(v)
+
+            try:
+                l = np.array(l).reshape([-1, len(header)])
+                l = pd.DataFrame(l, columns=header)
+            except NameError:
+                l = [l, header]
 
     elif var_arr.length == 0:
 
-        logger.debug("Empty var_arr found")
+        logger.warning("Empty var_arr found")
 
     else:
 
-        import warnings
-        warnings.warn("Unsupported dtype {} returned for {}. Please contact developer".format(varg.dtype, name))
+        logger.warning("Unsupported dtype {} returned for {}. Please contact developer".format(varg.dtype, name))
 
     return l
