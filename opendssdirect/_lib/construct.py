@@ -312,7 +312,7 @@ def VarArrayFunction(f, mode, name, optional):
             header = ctypes.cast(a_ptr, ctypes.POINTER(ctypes.c_char * 256)).contents.value
             header = [i.strip() for i in header.decode('ascii').strip().rstrip(',').split(',')]
 
-            a_ptr.value = a_ptr.value + 256 * ctypes.sizeof(p._type_)
+            a_ptr.value = a_ptr.value + 256 * ctypes.sizeof(ctypes.c_char)
             count = (var_arr.length - 272) / 4 / (size + 2)
 
             if int(count) != count:
