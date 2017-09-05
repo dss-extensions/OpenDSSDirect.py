@@ -1,10 +1,6 @@
 
 shallow_clone: true # download the zip instead of the whole history
 
-cache:
-    - C:\Miniconda3 -> .appveyor.yml
-    - C:\Miniconda -> .appveyor.yml
-
 build: false
 
 environment:
