@@ -10508,7 +10508,7 @@
                 22,
                 0
               ],
-              "user_args":0
+              "user_args":1
             }
           ],
           "doc":"Set the step size in minutes.",
@@ -10524,7 +10524,7 @@
                 23,
                 0
               ],
-              "user_args":0
+              "user_args":1
             }
           ],
           "doc":"Set the step size in Hours.",
