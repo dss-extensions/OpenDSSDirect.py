@@ -31,7 +31,11 @@ def run_command(text, dss=None):
     if dss is None:
         from . import dss
 
-    return dss.dss_lib.DSSPut_Command(text.encode('ascii')).decode('ascii')
+    r = []
+    for l in text.splitlines():
+        r.append(dss.dss_lib.DSSPut_Command(l.encode('ascii')).decode('ascii'))
+
+    return '\n'.join(r)
 
 
 def to_dataframe(module):
