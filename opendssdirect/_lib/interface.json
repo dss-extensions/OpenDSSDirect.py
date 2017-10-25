@@ -2122,7 +2122,7 @@
             }
           ],
           "doc":"Return the System Y matrix as a complex (dense) matrix",
-          "enabled":false,
+          "enabled": true,
           "function_type":"VarArrayFunction",
           "library_function_name":"CircuitV",
           "name":"SystemY"
