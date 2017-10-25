@@ -16,6 +16,10 @@ with open(os.path.join(dir_path, 'schema.json')) as f:
     schema = json.loads(f.read())
 
 
+def is_x64():
+    return 8 * struct.calcsize("P") == 64
+
+
 class SAFEARRAYBOUND(ctypes.Structure):
     _fields_ = [
         ('cElements', ctypes.c_uint32),
@@ -56,7 +60,7 @@ class VarArray(ctypes.Structure):
 
 
 mapping = {
-    u'nativeuint': ctypes.c_uint64,
+    u'nativeuint': ctypes.c_uint64 if is_x64() else ctypes.c_uint32,
     u'longint': ctypes.c_int32,
     u'longword': ctypes.c_uint32,
     u'pansichar': ctypes.c_char_p,
@@ -156,9 +160,6 @@ def setup_library(library):
     logger.debug("Setting datapath for OpenDSS to {}".format(directory))
     library.DSSS(3, directory.encode('ascii'))
 
-
-def is_x64():
-    return 8 * struct.calcsize("P") == 64
 
 
 class DSSException(RuntimeError):
