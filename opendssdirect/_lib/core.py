@@ -56,6 +56,7 @@ class VarArray(ctypes.Structure):
 
 
 mapping = {
+    u'nativeuint': ctypes.c_uint64,
     u'longint': ctypes.c_int32,
     u'longword': ctypes.c_uint32,
     u'pansichar': ctypes.c_char_p,

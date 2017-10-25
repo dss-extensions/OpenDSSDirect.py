@@ -443,7 +443,7 @@
         },
         {
             "args":[
-                "LongWord",
+                "NativeUInt",
                 "LongWord",
                 "LongWord"
             ],
