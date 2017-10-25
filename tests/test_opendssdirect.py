@@ -204,7 +204,7 @@ def test_13Node_Basic(dss):
         assert dss.Basic.Classes() == [u'Solution', u'LineCode', u'LoadShape', u'TShape', u'PriceShape', u'XYcurve', u'GrowthShape', u'TCC_Curve', u'Spectrum', u'WireData', u'CNData', u'TSData', u'LineGeometry', u'LineSpacing', u'XfmrCode', u'Line', u'Vsource', u'Isource', u'VCCS', u'Load', u'Transformer', u'RegControl',
                                        u'Capacitor', u'Reactor', u'CapControl', u'Fault', u'Generator', u'GenDispatcher', u'Storage', u'StorageController', u'Relay', u'Recloser', u'Fuse', u'SwtControl', u'PVSystem', u'UPFC', u'UPFCControl', u'InvControl', u'ExpControl', u'GICLine', u'GICTransformer', u'VSConverter', u'Monitor', u'EnergyMeter', u'Sensor']
         assert dss.Basic.NumClasses() == 45
-        assert dss.Basic.ShowPanel() == -1
+        assert dss.Basic.ShowPanel() == 0
     assert dss.Basic.ClearAll() == 0
     assert os.path.abspath(dss.Basic.DataPath()) == os.path.abspath('.')
     # assert dss.Basic.DefaultEditor() == u'open -t'
