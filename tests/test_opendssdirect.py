@@ -195,16 +195,10 @@ def test_13Node(dss):
 def test_13Node_Basic(dss):
 
     assert dss.Basic.AllowForms() == 1
-    if is_windows():
-        assert dss.Basic.Classes() == [u'Solution', u'LineCode', u'LoadShape', u'TShape', u'PriceShape', u'XYcurve', u'GrowthShape', u'TCC_Curve', u'Spectrum', u'WireData', u'CNData', u'TSData', u'LineGeometry', u'LineSpacing', u'XfmrCode', u'Line', u'Vsource', u'Isource', u'VCCS', u'Load', u'Transformer', u'RegControl', u'Capacitor', u'Reactor',
-                                       u'CapControl', u'Fault', u'Generator', u'GenDispatcher', u'Storage', u'StorageController', u'Relay', u'Recloser', u'Fuse', u'SwtControl', u'PVSystem', u'UPFC', u'UPFCControl', u'ESPVLControl', u'IndMach012', u'InvControl', u'ExpControl', u'GICLine', u'GICTransformer', u'VSConverter', u'Monitor', u'EnergyMeter', u'Sensor']
-        assert dss.Basic.NumClasses() == 47
-        assert dss.Basic.ShowPanel() == 0
-    else:
-        assert dss.Basic.Classes() == [u'Solution', u'LineCode', u'LoadShape', u'TShape', u'PriceShape', u'XYcurve', u'GrowthShape', u'TCC_Curve', u'Spectrum', u'WireData', u'CNData', u'TSData', u'LineGeometry', u'LineSpacing', u'XfmrCode', u'Line', u'Vsource', u'Isource', u'VCCS', u'Load', u'Transformer', u'RegControl',
-                                       u'Capacitor', u'Reactor', u'CapControl', u'Fault', u'Generator', u'GenDispatcher', u'Storage', u'StorageController', u'Relay', u'Recloser', u'Fuse', u'SwtControl', u'PVSystem', u'UPFC', u'UPFCControl', u'InvControl', u'ExpControl', u'GICLine', u'GICTransformer', u'VSConverter', u'Monitor', u'EnergyMeter', u'Sensor']
-        assert dss.Basic.NumClasses() == 45
-        assert dss.Basic.ShowPanel() == 0
+    assert dss.Basic.Classes() == [u'Solution', u'LineCode', u'LoadShape', u'TShape', u'PriceShape', u'XYcurve', u'GrowthShape', u'TCC_Curve', u'Spectrum', u'WireData', u'CNData', u'TSData', u'LineGeometry', u'LineSpacing', u'XfmrCode', u'Line', u'Vsource', u'Isource', u'VCCS', u'Load', u'Transformer', u'RegControl', u'Capacitor', u'Reactor',
+                                   u'CapControl', u'Fault', u'Generator', u'GenDispatcher', u'Storage', u'StorageController', u'Relay', u'Recloser', u'Fuse', u'SwtControl', u'PVSystem', u'UPFC', u'UPFCControl', u'ESPVLControl', u'IndMach012', u'InvControl', u'ExpControl', u'GICLine', u'GICTransformer', u'VSConverter', u'Monitor', u'EnergyMeter', u'Sensor']
+    assert dss.Basic.NumClasses() == 47
+    assert dss.Basic.ShowPanel() == 0
     assert dss.Basic.ClearAll() == 0
     assert os.path.abspath(dss.Basic.DataPath()) == os.path.abspath('.')
     # assert dss.Basic.DefaultEditor() == u'open -t'
@@ -434,10 +428,7 @@ def test_13Node_Executive(dss):
     assert dss.Executive.CommandHelp(
     ) == u'Create a new object within the DSS. Object becomes the active object\r\nExample: New Line.line1 ...'
     assert dss.Executive.NumCommands() == 104
-    if is_windows():
-        assert dss.Executive.NumOptions() == 110
-    else:
-        assert dss.Executive.NumOptions() == 108
+    assert dss.Executive.NumOptions() == 110
     assert dss.Executive.Option() == u'type'
     assert dss.Executive.OptionHelp() == u'Sets the active DSS class type.  Same as Class=...'
     assert dss.Executive.OptionValue() == u'Line'
