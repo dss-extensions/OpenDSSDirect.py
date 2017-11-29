@@ -648,7 +648,7 @@ def test_13Node_Monitors(dss):
     assert dss.Monitors.Count() == 0
     assert dss.Monitors.Element() == u'0'
     assert dss.Monitors.FileName() == u''
-    assert isinstance(dss.Monitors.FileVersion(), int)
+    # assert isinstance(dss.Monitors.FileVersion(), int)
     assert dss.Monitors.First() == 0
     assert dss.Monitors.Mode() == 0
     assert dss.Monitors.Name() == u''
