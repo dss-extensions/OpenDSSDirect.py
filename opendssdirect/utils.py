@@ -2,6 +2,10 @@ import inspect
 import warnings
 import os
 
+from . import dss
+
+GLOBAL_DSS = dss
+
 is_pandas_installed = True
 
 try:
@@ -17,7 +21,21 @@ def _isLoaded():
     return (ret == 0)
 
 
-def dss_close(dss):
+def dss_reload():
+
+    from ._lib.construct import construct
+
+    dss, _ = construct()
+
+    dss.run_command = run_command
+
+    global GLOBAL_DSS
+    GLOBAL_DSS = dss
+
+    return dss
+
+
+def dss_unload(dss):
 
     library = dss.dss_lib
 
@@ -29,6 +47,46 @@ def dss_close(dss):
             import _ctypes
             _ctypes.dlclose(library._handle)
 
+    _dss_delete(dss)
+
+
+def _dss_delete(dss):
+
+    del dss.dss.dss_lib
+    del dss.dss.ActiveClass
+    del dss.dss.Basic
+    del dss.dss.Bus
+    del dss.dss.Capacitors
+    del dss.dss.CapControls
+    del dss.dss.Circuit
+    del dss.dss.CktElement
+    del dss.dss.Element
+    del dss.dss.Executive
+    del dss.dss.Fuses
+    del dss.dss.Generators
+    del dss.dss.Properties
+    del dss.dss.Isource
+    del dss.dss.Lines
+    del dss.dss.Loads
+    del dss.dss.LoadShape
+    del dss.dss.Meters
+    del dss.dss.Monitors
+    del dss.dss.Parser
+    del dss.dss.PDElements
+    del dss.dss.PVsystems
+    del dss.dss.Reclosers
+    del dss.dss.RegControls
+    del dss.dss.Relays
+    del dss.dss.Sensors
+    del dss.dss.Settings
+    del dss.dss.Solution
+    del dss.dss.SwtControls
+    del dss.dss.Topology
+    del dss.dss.Transformers
+    del dss.dss.Vsources
+    del dss.dss.XYCurves
+
+    del dss.dss
     del dss.dss_lib
     del dss.ActiveClass
     del dss.Basic
@@ -85,7 +143,7 @@ class Iterator(object):
 def run_command(text, dss=None):
     '''Use Text interface of OpenDSS'''
     if dss is None:
-        from . import dss
+        dss = GLOBAL_DSS
 
     r = []
     for l in text.splitlines():
