@@ -19,11 +19,11 @@ def _isLoaded():
 
 def dss_close(library):
 
-    while _isLoaded():
-        if os.name == "nt":
-            from ctypes import windll
-            windll.kernel32.FreeLibrary(library._handle)
-        else:
+    if os.name == "nt":
+        from ctypes import windll
+        windll.kernel32.FreeLibrary(library._handle)
+    else:
+        while _isLoaded():
             import _ctypes
             _ctypes.dlclose(library._handle)
 
