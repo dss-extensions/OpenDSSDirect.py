@@ -21,7 +21,7 @@ def _isLoaded():
     return (ret == 0)
 
 
-def dss_reload():
+def reload():
 
     from ._lib.construct import construct
 
@@ -35,7 +35,7 @@ def dss_reload():
     return dss
 
 
-def dss_unload(dss):
+def unload(dss):
 
     library = dss.dss_lib
 
