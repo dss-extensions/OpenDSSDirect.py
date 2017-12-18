@@ -17,7 +17,9 @@ def _isLoaded():
     return (ret == 0)
 
 
-def dss_close(library):
+def dss_close(dss):
+
+    library = dss.dss_lib
 
     if os.name == "nt":
         from ctypes import windll
@@ -26,6 +28,41 @@ def dss_close(library):
         while _isLoaded():
             import _ctypes
             _ctypes.dlclose(library._handle)
+
+    del dss.dss_lib
+    del dss.ActiveClass
+    del dss.Basic
+    del dss.Bus
+    del dss.Capacitors
+    del dss.CapControls
+    del dss.Circuit
+    del dss.CktElement
+    del dss.Element
+    del dss.Executive
+    del dss.Fuses
+    del dss.Generators
+    del dss.Properties
+    del dss.Isource
+    del dss.Lines
+    del dss.Loads
+    del dss.LoadShape
+    del dss.Meters
+    del dss.Monitors
+    del dss.Parser
+    del dss.PDElements
+    del dss.PVsystems
+    del dss.Reclosers
+    del dss.RegControls
+    del dss.Relays
+    del dss.Sensors
+    del dss.Settings
+    del dss.Solution
+    del dss.SwtControls
+    del dss.Topology
+    del dss.Transformers
+    del dss.Vsources
+    del dss.XYCurves
+
 
 class Iterator(object):
 
