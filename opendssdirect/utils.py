@@ -1,5 +1,6 @@
 import inspect
 import warnings
+import os
 
 is_pandas_installed = True
 
@@ -8,6 +9,23 @@ try:
 except ImportError:
     is_pandas_installed = False
 
+
+def _isLoaded():
+    from ._lib.core import find_library
+    libp, _, _ = find_library()
+    ret = os.system("lsof -p %d | grep %s > /dev/null" % (os.getpid(), libp))
+    return (ret == 0)
+
+
+def dss_close(library):
+
+    while _isLoaded():
+        if os.name == "nt":
+            from ctypes import windll
+            windll.kernel32.FreeLibrary(library._handle)
+        else:
+            import _ctypes
+            _ctypes.dlclose(library._handle)
 
 class Iterator(object):
 
@@ -67,7 +85,9 @@ def class_to_dataframe(class_name, dss=None, transform_string=None):
         transform_string = _evaluate_expression
 
     if not callable(transform_string):
-        raise TypeError("The `transform_string` must be a callable. Please check the documentation or contact the developer.")
+        raise TypeError(
+            "The `transform_string` must be a callable. Please check the documentation or contact the developer."
+        )
 
     if dss is None:
         import opendssdirect as dss
