@@ -61,7 +61,13 @@ def to_dataframe(module):
         return data
 
 
-def class_to_dataframe(class_name, dss=None):
+def class_to_dataframe(class_name, dss=None, transform_string=None):
+
+    if transform_string is None:
+        transform_string = _evaluate_expression
+
+    if not callable(transform_string):
+        raise TypeError("The `transform_string` must be a callable. Please check the documentation or contact the developer.")
 
     if dss is None:
         import opendssdirect as dss
@@ -84,7 +90,7 @@ def class_to_dataframe(class_name, dss=None):
         for i, n in enumerate(dss.CktElement.AllPropertyNames()):
             string = dss.Properties.Value(str(i + 1))
 
-            data[name][n] = _evaluate_expression(string)
+            data[name][n] = transform_string(string)
 
     if is_pandas_installed:
         return pd.DataFrame(data).T
