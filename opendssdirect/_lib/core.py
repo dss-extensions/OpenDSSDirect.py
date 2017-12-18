@@ -80,10 +80,7 @@ def is_delphi():
         return True
 
 
-def load_library():
-
-    curdir = os.path.abspath(os.curdir)
-
+def find_library():
     if is_x64():
         architecture = 'x64'
     else:
@@ -110,11 +107,21 @@ def load_library():
     else:
         raise ImportError("Unsupported platform: {}".format(sys.platform))
 
+    libopendssdirect = os.path.abspath(os.path.join(dir_path, platform, architecture, libopendssdirect))
+
     if libklusolve is not None:
         libklusolve = os.path.abspath(os.path.join(dir_path, platform, architecture, libklusolve))
-        DLL(libklusolve)
 
-    libopendssdirect = os.path.abspath(os.path.join(dir_path, platform, architecture, libopendssdirect))
+    return libopendssdirect, libklusolve, DLL
+
+
+def load_library():
+
+    curdir = os.path.abspath(os.curdir)
+
+    libopendssdirect, libklusolve, DLL = find_library()
+
+    DLL(libklusolve)
 
     library = DLL(libopendssdirect)
 
