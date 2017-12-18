@@ -103,7 +103,7 @@ def _evaluate_expression(string):
 
         return e
 
-    elif "():" not in string and '(' in string and ')' in string:
+    elif string.startswith("(") and string.endswith(")"):
         e = tuple(
             _evaluate_expression(x.strip()) for x in string.replace('(', '').replace(')', '').split(',')
             if x.strip() != ''
