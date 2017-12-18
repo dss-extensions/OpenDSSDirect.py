@@ -10,6 +10,7 @@ except ImportError:
 
 
 class Iterator(object):
+
     def __init__(self, module, function):
         assert inspect.ismodule(module), '{module} must be of type module'.format(module=module)
         self.module = module
@@ -65,24 +66,18 @@ def class_to_dataframe(class_name, dss=None):
     if dss is None:
         import opendssdirect as dss
 
-    dss.Circuit.SetActiveClass(
-        '{class_name}'.format(
-            class_name=class_name
-        )
-    )
+    dss.Circuit.SetActiveClass('{class_name}'.format(class_name=class_name))
     if class_name.lower() != dss.ActiveClass.ActiveClassName().lower():
         raise NotImplementedError(
-            "`{class_name}` is not supported by the `class_to_dataframe` interface, please contact the developer for more information.".format(
+            "`{class_name}` is not supported by the `class_to_dataframe` interface, please contact the developer for more information.".
+            format(
                 class_name=class_name,
             )
         )
     data = dict()
 
     for element in dss.ActiveClass.AllNames():
-        name = '{class_name}.{element}'.format(
-            class_name=class_name,
-            element=element
-        )
+        name = '{class_name}.{element}'.format(class_name=class_name, element=element)
         dss.Circuit.SetActiveElement(name)
 
         data[name] = dict()
@@ -94,21 +89,25 @@ def class_to_dataframe(class_name, dss=None):
     if is_pandas_installed:
         return pd.DataFrame(data).T
     else:
-        warnings.warn(
-            "Pandas cannot be installed. Please see documentation for how to install extra dependencies."
-        )
+        warnings.warn("Pandas cannot be installed. Please see documentation for how to install extra dependencies.")
         return data
 
 
 def _evaluate_expression(string):
 
     if '[' in string and ']' in string:
-        e = [_evaluate_expression(x.strip()) for x in string.replace('[', '').replace(']', '').split(',') if x.strip() != '']
+        e = [
+            _evaluate_expression(x.strip()) for x in string.replace('[', '').replace(']', '').split(',')
+            if x.strip() != ''
+        ]
 
         return e
 
-    elif '(' in string and ')' in string:
-        e = tuple(_evaluate_expression(x.strip()) for x in string.replace('(', '').replace(')', '').split(',') if x.strip() != '')
+    elif "():" not in string and '(' in string and ')' in string:
+        e = tuple(
+            _evaluate_expression(x.strip()) for x in string.replace('(', '').replace(')', '').split(',')
+            if x.strip() != ''
+        )
         return e
 
     elif string.lower() == 'true':
