@@ -52,39 +52,44 @@ def unload(dss):
 
 def _dss_delete(dss):
 
-    del dss.dss.dss_lib
-    del dss.dss.ActiveClass
-    del dss.dss.Basic
-    del dss.dss.Bus
-    del dss.dss.Capacitors
-    del dss.dss.CapControls
-    del dss.dss.Circuit
-    del dss.dss.CktElement
-    del dss.dss.Element
-    del dss.dss.Executive
-    del dss.dss.Fuses
-    del dss.dss.Generators
-    del dss.dss.Properties
-    del dss.dss.Isource
-    del dss.dss.Lines
-    del dss.dss.Loads
-    del dss.dss.LoadShape
-    del dss.dss.Meters
-    del dss.dss.Monitors
-    del dss.dss.Parser
-    del dss.dss.PDElements
-    del dss.dss.PVsystems
-    del dss.dss.Reclosers
-    del dss.dss.RegControls
-    del dss.dss.Relays
-    del dss.dss.Sensors
-    del dss.dss.Settings
-    del dss.dss.Solution
-    del dss.dss.SwtControls
-    del dss.dss.Topology
-    del dss.dss.Transformers
-    del dss.dss.Vsources
-    del dss.dss.XYCurves
+    try:
+        del dss.dss.dss_lib
+        del dss.dss.ActiveClass
+        del dss.dss.Basic
+        del dss.dss.Bus
+        del dss.dss.Capacitors
+        del dss.dss.CapControls
+        del dss.dss.Circuit
+        del dss.dss.CktElement
+        del dss.dss.Element
+        del dss.dss.Executive
+        del dss.dss.Fuses
+        del dss.dss.Generators
+        del dss.dss.Properties
+        del dss.dss.Isource
+        del dss.dss.Lines
+        del dss.dss.Loads
+        del dss.dss.LoadShape
+        del dss.dss.Meters
+        del dss.dss.Monitors
+        del dss.dss.Parser
+        del dss.dss.PDElements
+        del dss.dss.PVsystems
+        del dss.dss.Reclosers
+        del dss.dss.RegControls
+        del dss.dss.Relays
+        del dss.dss.Sensors
+        del dss.dss.Settings
+        del dss.dss.Solution
+        del dss.dss.SwtControls
+        del dss.dss.Topology
+        del dss.dss.Transformers
+        del dss.dss.Vsources
+        del dss.dss.XYCurves
+    except:
+        warnings.warn(
+            "Unable to delete dss.dss.*. This warning can be ignored if user is attempting to unload and reload dss multiple times."
+        )
 
     del dss.dss
     del dss.dss_lib
