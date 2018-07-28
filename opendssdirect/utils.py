@@ -3,10 +3,7 @@ import inspect
 import warnings
 import os
 
-from . import dss
 from ._utils import get_string
-
-GLOBAL_DSS = dss
 
 is_pandas_installed = True
 
@@ -15,7 +12,7 @@ try:
 except ImportError:
     is_pandas_installed = False
 
-    
+   
 class Iterator(object):
 
     def __init__(self, module, function):
@@ -37,7 +34,7 @@ class Iterator(object):
 def run_command(text, dss=None):
     '''Use Text interface of OpenDSS'''
     if dss is None:
-        dss = GLOBAL_DSS
+        import opendssdirect as dss
 
     r = []
     for l in text.splitlines():
