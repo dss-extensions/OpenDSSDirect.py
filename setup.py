@@ -36,6 +36,7 @@ setup(
     install_requires=[
         "future",
         "six",
+        "dss_python"
     ],
 
     extras_require={
