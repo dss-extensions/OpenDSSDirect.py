@@ -1,17 +1,20 @@
 from __future__ import absolute_import
 
-# Exposing only v7 while v8 is still considered experimental
-from dss._dss_capi_v7 import ffi, lib
-
+# Import dss_python, exposing only OpenDSS v7 while v8 is still considered 
+# experimental (at least with Free Pascal)
+import dss as dss_py
 from dss._cffi_api_util import *
 import numpy as np
 import warnings
 
 # Bind to the FFI module instance
-# Currently, we prefer list to keep higher compatibility with previous 
-# versions of OpenDSSDirect.py. 
-
+lib = dss_py._dss_capi_v7.lib
+ffi = dss_py._dss_capi_v7.ffi
 api_util = CffiApiUtil(ffi, lib)
+
+# Currently, we prefer the functions that return lists (suffix 2)
+# to keep higher compatibility with previous versions of OpenDSSDirect.py.
+
 get_string = api_util.get_string
 get_float64_array = api_util.get_float64_array2
 get_int32_array = api_util.get_int32_array2
