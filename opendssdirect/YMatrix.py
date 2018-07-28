@@ -1,7 +1,7 @@
 from ._utils import *
 from .Circuit import NumNodes
 
-def CompressedYMatrix(factor=True):
+def getYsparse(factor=True):
     '''Return as (data, indices, indptr) that can fed into scipy.sparse.csc_matrix'''
     nBus = ffi.new('uint32_t*')
     nBus[0] = 0
@@ -56,14 +56,17 @@ def VVector():
     VvectorPtr = ffi.new('double**')
     lib.YMatrix_getVpointer(VvectorPtr)
     return VvectorPtr[0]
-    
-def getV():
-    VvectorPtr = VVector()
-    return ffi.unpack(VvectorPtr, NumNodes() + 1)
-    
+
 def getI():
+    '''Get the data from the internal Current pointer'''
     IvectorPtr = IVector()
     return ffi.unpack(IvectorPtr, NumNodes() + 1)
+    
+def getV():
+    '''Get the data from the internal Voltage pointer'''
+    VvectorPtr = VVector()
+    return ffi.unpack(VvectorPtr, NumNodes() + 1)
+   
     
 def SolveSystem(NodeV):
     if type(NodeV) is not np.ndarray:
@@ -95,5 +98,5 @@ def UseAuxCurrents(*args):
 
 
 _columns = []
-__all__ = ['CompressedYMatrix', 'ZeroInjCurr', 'GetSourceInjCurrents', 'GetPCInjCurr', 'BuildYMatrixD', 'AddInAuxCurrents', 'IVector', 'VVector', 'SolveSystem', 'SystemYChanged', 'UseAuxCurrents']
+__all__ = ['getYsparse', 'getV', 'getI', 'ZeroInjCurr', 'GetSourceInjCurrents', 'GetPCInjCurr', 'BuildYMatrixD', 'AddInAuxCurrents', 'IVector', 'VVector', 'SolveSystem', 'SystemYChanged', 'UseAuxCurrents']
 
