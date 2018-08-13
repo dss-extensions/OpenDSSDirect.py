@@ -1,10 +1,9 @@
+from __future__ import absolute_import
 import inspect
 import warnings
 import os
 
-from . import dss
-
-GLOBAL_DSS = dss
+from ._utils import get_string
 
 is_pandas_installed = True
 
@@ -13,120 +12,7 @@ try:
 except ImportError:
     is_pandas_installed = False
 
-
-def _isLoaded():
-    from ._lib.core import find_library
-    libp, _, _ = find_library()
-    ret = os.system("lsof -p %d | grep %s > /dev/null" % (os.getpid(), libp))
-    return (ret == 0)
-
-
-def reload():
-
-    from ._lib.construct import construct
-
-    dss, _ = construct()
-
-    dss.run_command = run_command
-
-    global GLOBAL_DSS
-    GLOBAL_DSS = dss
-
-    return dss
-
-
-def unload(dss):
-
-    library = dss.dss_lib
-
-    if os.name == "nt":
-        from ctypes import windll
-        windll.kernel32.FreeLibrary(library._handle)
-    else:
-        while _isLoaded():
-            import _ctypes
-            _ctypes.dlclose(library._handle)
-
-    _dss_delete(dss)
-
-
-def _dss_delete(dss):
-
-    try:
-        del dss.dss.dss_lib
-        del dss.dss.ActiveClass
-        del dss.dss.Basic
-        del dss.dss.Bus
-        del dss.dss.Capacitors
-        del dss.dss.CapControls
-        del dss.dss.Circuit
-        del dss.dss.CktElement
-        del dss.dss.Element
-        del dss.dss.Executive
-        del dss.dss.Fuses
-        del dss.dss.Generators
-        del dss.dss.Properties
-        del dss.dss.Isource
-        del dss.dss.Lines
-        del dss.dss.Loads
-        del dss.dss.LoadShape
-        del dss.dss.Meters
-        del dss.dss.Monitors
-        del dss.dss.Parser
-        del dss.dss.PDElements
-        del dss.dss.PVsystems
-        del dss.dss.Reclosers
-        del dss.dss.RegControls
-        del dss.dss.Relays
-        del dss.dss.Sensors
-        del dss.dss.Settings
-        del dss.dss.Solution
-        del dss.dss.SwtControls
-        del dss.dss.Topology
-        del dss.dss.Transformers
-        del dss.dss.Vsources
-        del dss.dss.XYCurves
-    except:
-        warnings.warn(
-            "Unable to delete dss.dss.*. This warning can be ignored if user is attempting to unload and reload dss multiple times."
-        )
-
-    del dss.dss
-    del dss.dss_lib
-    del dss.ActiveClass
-    del dss.Basic
-    del dss.Bus
-    del dss.Capacitors
-    del dss.CapControls
-    del dss.Circuit
-    del dss.CktElement
-    del dss.Element
-    del dss.Executive
-    del dss.Fuses
-    del dss.Generators
-    del dss.Properties
-    del dss.Isource
-    del dss.Lines
-    del dss.Loads
-    del dss.LoadShape
-    del dss.Meters
-    del dss.Monitors
-    del dss.Parser
-    del dss.PDElements
-    del dss.PVsystems
-    del dss.Reclosers
-    del dss.RegControls
-    del dss.Relays
-    del dss.Sensors
-    del dss.Settings
-    del dss.Solution
-    del dss.SwtControls
-    del dss.Topology
-    del dss.Transformers
-    del dss.Vsources
-    del dss.XYCurves
-
-
+   
 class Iterator(object):
 
     def __init__(self, module, function):
@@ -148,11 +34,12 @@ class Iterator(object):
 def run_command(text, dss=None):
     '''Use Text interface of OpenDSS'''
     if dss is None:
-        dss = GLOBAL_DSS
+        import opendssdirect as dss
 
     r = []
     for l in text.splitlines():
-        r.append(dss.dss_lib.DSSPut_Command(l.encode('ascii')).decode('ascii'))
+        dss.dss_lib.Text_Set_Command(l.encode('ascii'))
+        r.append(get_string(dss.dss_lib.Text_Get_Result()))
 
     return '\n'.join(r)
 
@@ -207,15 +94,16 @@ def class_to_dataframe(class_name, dss=None, transform_string=None):
         dss.Circuit.SetActiveElement(name)
 
         data[name] = dict()
-        for i, n in enumerate(dss.CktElement.AllPropertyNames()):
+        for i, n in enumerate(dss.Element.AllPropertyNames()):
+            # use 1-based index for compatibility with previous versions
             string = dss.Properties.Value(str(i + 1))
-
+            
             data[name][n] = transform_string(string)
 
     if is_pandas_installed:
         return pd.DataFrame(data).T
     else:
-        warnings.warn("Pandas cannot be installed. Please see documentation for how to install extra dependencies.")
+        warnings.warn("Pandas is not installed. Please see documentation for how to install extra dependencies.")
         return data
 
 
@@ -247,11 +135,9 @@ def _evaluate_expression(string):
 
 
 def getmembers(module):
-
-    for n, f in inspect.getmembers(module):
-
-        if n != 'AllNames' and n != 'Next' and n != 'First' and not (n.startswith('__') and n.endswith('__')):
-            yield n, f
+    for n in module._columns:
+        if n not in ('AllNames', 'Next', 'First'):
+            yield n, getattr(module, n)
 
 
 def capacitors_to_dataframe(dss=None):

@@ -36,6 +36,7 @@ setup(
     install_requires=[
         "future",
         "six",
+        "dss_python"
     ],
 
     extras_require={
@@ -52,25 +53,7 @@ setup(
         ]
     },
 
-    keywords=['OpenDSS', 'ctypes'],
-
-    # If there are data files included in your packages that need to be
-    # installed, specify them here.  If using Python 2.6 or less, then these
-    # have to be included in MANIFEST.in as well.
-    package_data={
-        'opendssdirect': [
-            '_lib/darwin/libklusolve.dylib',
-            '_lib/darwin/x64/libopendssdirect.dylib',
-            '_lib/darwin/x86/libopendssdirect.dylib',
-            '_lib/linux/x64/libopendssdirect.so',
-            '_lib/windows/x64/KLUSolve.dll',
-            '_lib/windows/x64/OpenDSSDirect.dll',
-            '_lib/windows/x86/KLUSolve.dll',
-            '_lib/windows/x86/OpenDSSDirect.dll',
-            '_lib/schema.json',
-            '_lib/interface.json',
-        ],
-    },
+    keywords=['OpenDSS', 'cffi'],
 
     zip_safe=False,
 
