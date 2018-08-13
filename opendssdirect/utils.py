@@ -94,7 +94,7 @@ def class_to_dataframe(class_name, dss=None, transform_string=None):
         dss.Circuit.SetActiveElement(name)
 
         data[name] = dict()
-        for i, n in enumerate(dss.CktElement.AllPropertyNames()):
+        for i, n in enumerate(dss.Element.AllPropertyNames()):
             # use 1-based index for compatibility with previous versions
             string = dss.Properties.Value(str(i + 1))
             
