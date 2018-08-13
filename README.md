@@ -5,7 +5,7 @@
 [![PyPI](https://img.shields.io/pypi/v/OpenDSSDirect.py.svg)](https://pypi.python.org/pypi/OpenDSSDirect.py/)
 [![Documentation](https://img.shields.io/badge/docs-ready-blue.svg)](http://nrel.github.io/OpenDSSDirect.py)
 
-OpenDSSDirect.py is a Python package implements a "direct" library interface to [OpenDSS](http://smartgrid.epri.com/SimulationTool.aspx) using [dss_python](https://github.com/PMeira/dss_python/).
+OpenDSSDirect.py is a cross-platform Python package implements a "direct" library interface to [OpenDSS](http://smartgrid.epri.com/SimulationTool.aspx) using [dss_python](https://github.com/PMeira/dss_python/).
 OpenDSS is an open-source distribution system simulator. See [OpenDSSDirect.jl](https://github.com/tshort/OpenDSSDirect.jl) for a similar package in Julia.
 
 **This package is available for Windows, Mac and Linux.**
