@@ -57,7 +57,7 @@ def Element(*args):
             return '0'
 
         return result
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -86,7 +86,7 @@ def Mode(*args):
     # Getter
     if len(args) == 0:
         return lib.Monitors_Get_Mode()
-    
+
     # Setter
     Value, = args
     lib.Monitors_Set_Mode(Value)
@@ -96,7 +96,7 @@ def Name(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Monitors_Get_Name())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -125,7 +125,7 @@ def Terminal(*args):
     # Getter
     if len(args) == 0:
         return lib.Monitors_Get_Terminal()
-    
+
     # Setter
     Value, = args
     lib.Monitors_Set_Terminal(Value)

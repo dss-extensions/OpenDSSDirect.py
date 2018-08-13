@@ -48,7 +48,7 @@ def AllocFactors(*args):
     # Getter
     if len(args) == 0:
         return get_float64_array(lib.Meters_Get_AllocFactors)
-    
+
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
@@ -63,7 +63,7 @@ def CalcCurrent(*args):
     # Getter
     if len(args) == 0:
         return get_float64_array(lib.Meters_Get_CalcCurrent)
-    
+
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
@@ -102,7 +102,7 @@ def MeteredElement(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Meters_Get_MeteredElement())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -115,7 +115,7 @@ def MeteredTerminal(*args):
     # Getter
     if len(args) == 0:
         return lib.Meters_Get_MeteredTerminal()
-    
+
     # Setter
     Value, = args
     lib.Meters_Set_MeteredTerminal(Value)
@@ -132,7 +132,7 @@ def Name(*args):
             return '0'
 
         return result
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -165,7 +165,7 @@ def PeakCurrent(*args):
     # Getter
     if len(args) == 0:
         return get_float64_array(lib.Meters_Get_Peakcurrent)
-    
+
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
@@ -208,7 +208,7 @@ def SequenceList(*args):
     # Getter
     if len(args) == 0:
         return lib.Meters_Get_SequenceIndex()
-    
+
     # Setter
     Value, = args
     lib.Meters_Set_SequenceIndex(Value)

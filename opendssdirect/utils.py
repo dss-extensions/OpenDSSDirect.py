@@ -12,7 +12,7 @@ try:
 except ImportError:
     is_pandas_installed = False
 
-   
+
 class Iterator(object):
 
     def __init__(self, module, function):
@@ -97,7 +97,7 @@ def class_to_dataframe(class_name, dss=None, transform_string=None):
         for i, n in enumerate(dss.Element.AllPropertyNames()):
             # use 1-based index for compatibility with previous versions
             string = dss.Properties.Value(str(i + 1))
-            
+
             data[name][n] = transform_string(string)
 
     if is_pandas_installed:

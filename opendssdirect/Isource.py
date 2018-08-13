@@ -10,7 +10,7 @@ def Amps(*args):
     # Getter
     if len(args) == 0:
         return lib.ISources_Get_Amps()
-    
+
     # Setter
     Value, = args
     lib.ISources_Set_Amps(Value)
@@ -20,7 +20,7 @@ def AngleDeg(*args):
     # Getter
     if len(args) == 0:
         return lib.ISources_Get_AngleDeg()
-    
+
     # Setter
     Value, = args
     lib.ISources_Set_AngleDeg(Value)
@@ -38,7 +38,7 @@ def Frequency(*args):
     # Getter
     if len(args) == 0:
         return lib.ISources_Get_Frequency()
-    
+
     # Setter
     Value, = args
     lib.ISources_Set_Frequency(Value)
@@ -51,7 +51,7 @@ def Name(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.ISources_Get_Name())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:

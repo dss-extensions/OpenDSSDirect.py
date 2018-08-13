@@ -26,7 +26,7 @@ def Delay(*args):
     # Getter
     if len(args) == 0:
         return lib.Fuses_Get_Delay()
-    
+
     # Setter
     Value, = args
     lib.Fuses_Set_Delay(Value)
@@ -40,7 +40,7 @@ def MonitoredObj(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Fuses_Get_MonitoredObj())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -56,7 +56,7 @@ def MonitoredTerm(*args):
     # Getter
     if len(args) == 0:
         return lib.Fuses_Get_MonitoredTerm()
-    
+
     # Setter
     Value, = args
     lib.Fuses_Set_MonitoredTerm(Value)
@@ -69,7 +69,7 @@ def Name(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Fuses_Get_Name())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -93,7 +93,7 @@ def RatedCurrent(*args):
     # Getter
     if len(args) == 0:
         return lib.Fuses_Get_RatedCurrent()
-    
+
     # Setter
     Value, = args
     lib.Fuses_Set_RatedCurrent(Value)
@@ -106,7 +106,7 @@ def SwitchedObj(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Fuses_Get_SwitchedObj())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -122,7 +122,7 @@ def SwitchedTerm(*args):
     # Getter
     if len(args) == 0:
         return lib.Fuses_Get_SwitchedTerm()
-    
+
     # Setter
     Value, = args
     lib.Fuses_Set_SwitchedTerm(Value)
@@ -132,7 +132,7 @@ def TCCCurve(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Fuses_Get_TCCcurve())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -148,7 +148,7 @@ def Idx(*args):
     # Getter
     if len(args) == 0:
         return lib.Fuses_Get_idx()
-    
+
     # Setter
     Value, = args
     lib.Fuses_Set_idx(Value)

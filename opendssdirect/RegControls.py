@@ -13,7 +13,7 @@ def CTPrimary(*args):
     # Getter
     if len(args) == 0:
         return lib.RegControls_Get_CTPrimary()
-    
+
     # Setter
     Value, = args
     lib.RegControls_Set_CTPrimary(Value)
@@ -27,7 +27,7 @@ def Delay(*args):
     # Getter
     if len(args) == 0:
         return lib.RegControls_Get_Delay()
-    
+
     # Setter
     Value, = args
     lib.RegControls_Set_Delay(Value)
@@ -41,7 +41,7 @@ def ForwardBand(*args):
     # Getter
     if len(args) == 0:
         return lib.RegControls_Get_ForwardBand()
-    
+
     # Setter
     Value, = args
     lib.RegControls_Set_ForwardBand(Value)
@@ -51,7 +51,7 @@ def ForwardR(*args):
     # Getter
     if len(args) == 0:
         return lib.RegControls_Get_ForwardR()
-    
+
     # Setter
     Value, = args
     lib.RegControls_Set_ForwardR(Value)
@@ -61,7 +61,7 @@ def ForwardVreg(*args):
     # Getter
     if len(args) == 0:
         return lib.RegControls_Get_ForwardVreg()
-    
+
     # Setter
     Value, = args
     lib.RegControls_Set_ForwardVreg(Value)
@@ -71,7 +71,7 @@ def ForwardX(*args):
     # Getter
     if len(args) == 0:
         return lib.RegControls_Get_ForwardX()
-    
+
     # Setter
     Value, = args
     lib.RegControls_Set_ForwardX(Value)
@@ -81,7 +81,7 @@ def IsInverseTime(*args):
     # Getter
     if len(args) == 0:
         return lib.RegControls_Get_IsInverseTime() != 0
-    
+
     # Setter
     Value, = args
     lib.RegControls_Set_IsInverseTime(Value)
@@ -91,7 +91,7 @@ def IsReversible(*args):
     # Getter
     if len(args) == 0:
         return lib.RegControls_Get_IsReversible() != 0
-    
+
     # Setter
     Value, = args
     lib.RegControls_Set_IsReversible(Value)
@@ -101,7 +101,7 @@ def MaxTapChange(*args):
     # Getter
     if len(args) == 0:
         return lib.RegControls_Get_MaxTapChange()
-    
+
     # Setter
     Value, = args
     lib.RegControls_Set_MaxTapChange(Value)
@@ -111,7 +111,7 @@ def MonitoredBus(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.RegControls_Get_MonitoredBus())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -127,7 +127,7 @@ def Name(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.RegControls_Get_Name())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -144,7 +144,7 @@ def PTRatio(*args):
     # Getter
     if len(args) == 0:
         return lib.RegControls_Get_PTratio()
-    
+
     # Setter
     Value, = args
     lib.RegControls_Set_PTratio(Value)
@@ -154,7 +154,7 @@ def ReverseBand(*args):
     # Getter
     if len(args) == 0:
         return lib.RegControls_Get_ReverseBand()
-    
+
     # Setter
     Value, = args
     lib.RegControls_Set_ReverseBand(Value)
@@ -164,7 +164,7 @@ def ReverseR(*args):
     # Getter
     if len(args) == 0:
         return lib.RegControls_Get_ReverseR()
-    
+
     # Setter
     Value, = args
     lib.RegControls_Set_ReverseR(Value)
@@ -174,7 +174,7 @@ def ReverseVreg(*args):
     # Getter
     if len(args) == 0:
         return lib.RegControls_Get_ReverseVreg()
-    
+
     # Setter
     Value, = args
     lib.RegControls_Set_ReverseVreg(Value)
@@ -184,7 +184,7 @@ def ReverseX(*args):
     # Getter
     if len(args) == 0:
         return lib.RegControls_Get_ReverseX()
-    
+
     # Setter
     Value, = args
     lib.RegControls_Set_ReverseX(Value)
@@ -194,7 +194,7 @@ def TapDelay(*args):
     # Getter
     if len(args) == 0:
         return lib.RegControls_Get_TapDelay()
-    
+
     # Setter
     Value, = args
     lib.RegControls_Set_TapDelay(Value)
@@ -204,7 +204,7 @@ def TapNumber(*args):
     # Getter
     if len(args) == 0:
         return lib.RegControls_Get_TapNumber()
-    
+
     # Setter
     Value, = args
     lib.RegControls_Set_TapNumber(Value)
@@ -214,7 +214,7 @@ def TapWinding(*args):
     # Getter
     if len(args) == 0:
         return lib.RegControls_Get_TapWinding()
-    
+
     # Setter
     Value, = args
     lib.RegControls_Set_TapWinding(Value)
@@ -224,7 +224,7 @@ def Transformer(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.RegControls_Get_Transformer())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -237,7 +237,7 @@ def VoltageLimit(*args):
     # Getter
     if len(args) == 0:
         return lib.RegControls_Get_VoltageLimit()
-    
+
     # Setter
     Value, = args
     lib.RegControls_Set_VoltageLimit(Value)
@@ -247,7 +247,7 @@ def Winding(*args):
     # Getter
     if len(args) == 0:
         return lib.RegControls_Get_Winding()
-    
+
     # Setter
     Value, = args
     lib.RegControls_Set_Winding(Value)

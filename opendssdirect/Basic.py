@@ -25,7 +25,7 @@ def DataPath(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.DSS_Get_DataPath())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -60,11 +60,11 @@ def Version():
 def AllowForms(value=None):
     # warnings.warn('AllowForms is not implemented.')
     return 1
-    
+
 def ShowPanel():
     # warnings.warn('ShowPanel is not implemented.')
     return 0
-    
+
 def NewCircuit(name):
     if type(name) is not bytes:
         name = name.encode(codec)
@@ -75,7 +75,7 @@ def NewCircuit(name):
         raise RuntimeError('[ERROR {}] {}'.format(error_num, get_string(lib.Error_Get_Description())))
 
     return 'New Circuit'
-    
+
 
 
 _columns = ['Classes', 'DataPath', 'DefaultEditor', 'NumCircuits', 'NumClasses', 'NumUserClasses', 'UserClasses', 'Version']

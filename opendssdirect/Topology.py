@@ -30,7 +30,7 @@ def BranchName(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Topology_Get_BranchName())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -43,7 +43,7 @@ def BusName(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Topology_Get_BusName())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:

@@ -14,7 +14,7 @@ def FaultRate(*args):
     # Getter
     if len(args) == 0:
         return lib.PDElements_Get_FaultRate()
-    
+
     # Setter
     Value, = args
     lib.PDElements_Set_FaultRate(Value)
@@ -40,7 +40,7 @@ def Name(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.PDElements_Get_Name())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -65,7 +65,7 @@ def RepairTime(*args):
     # Getter
     if len(args) == 0:
         return lib.PDElements_Get_RepairTime()
-    
+
     # Setter
     Value, = args
     lib.PDElements_Set_RepairTime(Value)
@@ -87,7 +87,7 @@ def PctPermanent(*args):
     # Getter
     if len(args) == 0:
         return lib.PDElements_Get_pctPermanent()
-    
+
     # Setter
     Value, = args
     lib.PDElements_Set_pctPermanent(Value)

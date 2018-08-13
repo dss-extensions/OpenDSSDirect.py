@@ -22,7 +22,7 @@ def Name(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.ActiveClass_Get_Name())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:

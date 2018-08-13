@@ -21,7 +21,7 @@ def Irradiance(*args):
     # Getter
     if len(args) == 0:
         return lib.PVSystems_Get_Irradiance()
-    
+
     # Setter
     Value, = args
     lib.PVSystems_Set_Irradiance(Value)
@@ -34,7 +34,7 @@ def Name(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.PVSystems_Get_Name())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -48,13 +48,13 @@ def Next():
 
 def pf(*args):
     '''
-    (read) Get Power factor 
-    (write) Set PF 
+    (read) Get Power factor
+    (write) Set PF
     '''
     # Getter
     if len(args) == 0:
         return lib.PVSystems_Get_PF()
-    
+
     # Setter
     Value, = args
     lib.PVSystems_Set_PF(Value)
@@ -75,7 +75,7 @@ def Idx(*args):
     # Getter
     if len(args) == 0:
         return lib.PVSystems_Get_idx()
-    
+
     # Setter
     Value, = args
     lib.PVSystems_Set_idx(Value)
@@ -88,7 +88,7 @@ def kVARated(*args):
     # Getter
     if len(args) == 0:
         return lib.PVSystems_Get_kVArated()
-    
+
     # Setter
     Value, = args
     lib.PVSystems_Set_kVArated(Value)
@@ -105,7 +105,7 @@ def kvar(*args):
     # Getter
     if len(args) == 0:
         return lib.PVSystems_Get_kvar()
-    
+
     # Setter
     Value, = args
     lib.PVSystems_Set_kvar(Value)

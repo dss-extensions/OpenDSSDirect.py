@@ -27,7 +27,7 @@ def HrInterval(*args):
     # Getter
     if len(args) == 0:
         return lib.LoadShapes_Get_HrInterval()
-    
+
     # Setter
     Value, = args
     lib.LoadShapes_Set_HrInterval(Value)
@@ -37,7 +37,7 @@ def MinInterval(*args):
     # Getter
     if len(args) == 0:
         return lib.LoadShapes_Get_MinInterval()
-    
+
     # Setter
     Value, = args
     lib.LoadShapes_Set_MinInterval(Value)
@@ -50,7 +50,7 @@ def Name(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.LoadShapes_Get_Name())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -70,7 +70,7 @@ def Npts(*args):
     # Getter
     if len(args) == 0:
         return lib.LoadShapes_Get_Npts()
-    
+
     # Setter
     Value, = args
     lib.LoadShapes_Set_Npts(Value)
@@ -79,7 +79,7 @@ def PBase(*args):
     # Getter
     if len(args) == 0:
         return lib.LoadShapes_Get_PBase()
-    
+
     # Setter
     Value, = args
     lib.LoadShapes_Set_PBase(Value)
@@ -92,7 +92,7 @@ def PMult(*args):
     # Getter
     if len(args) == 0:
         return get_float64_array(lib.LoadShapes_Get_Pmult)
-    
+
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
@@ -103,7 +103,7 @@ def QBase(*args):
     # Getter
     if len(args) == 0:
         return lib.LoadShapes_Get_Qbase()
-    
+
     # Setter
     Value, = args
     lib.LoadShapes_Set_Qbase(Value)
@@ -113,7 +113,7 @@ def QMult(*args):
     # Getter
     if len(args) == 0:
         return get_float64_array(lib.LoadShapes_Get_Qmult)
-    
+
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
@@ -124,7 +124,7 @@ def TimeArray(*args):
     # Getter
     if len(args) == 0:
         return get_float64_array(lib.LoadShapes_Get_TimeArray)
-    
+
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
@@ -135,7 +135,7 @@ def UseActual(*args):
     # Getter
     if len(args) == 0:
         return lib.LoadShapes_Get_UseActual() != 0
-    
+
     # Setter
     Value, = args
     lib.LoadShapes_Set_UseActual(Value)
@@ -144,7 +144,7 @@ def SInterval(*args):
     # Getter
     if len(args) == 0:
         return lib.LoadShapes_Get_sInterval()
-    
+
     # Setter
     Value, = args
     lib.LoadShapes_Set_Sinterval(Value)

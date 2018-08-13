@@ -124,7 +124,7 @@ def X(*args):
     # Getter
     if len(args) == 0:
         return lib.Bus_Get_x()
-    
+
     # Setter
     Value, = args
     lib.Bus_Set_x(Value)
@@ -134,7 +134,7 @@ def Y(*args):
     # Getter
     if len(args) == 0:
         return lib.Bus_Get_y()
-    
+
     # Setter
     Value, = args
     lib.Bus_Set_y(Value)

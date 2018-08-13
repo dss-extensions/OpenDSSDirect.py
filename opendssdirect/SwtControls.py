@@ -9,7 +9,7 @@ def Action(*args):
     # Getter
     if len(args) == 0:
         return lib.SwtControls_Get_Action()
-    
+
     # Setter
     Value, = args
     lib.SwtControls_Set_Action(Value)
@@ -26,7 +26,7 @@ def Delay(*args):
     # Getter
     if len(args) == 0:
         return lib.SwtControls_Get_Delay()
-    
+
     # Setter
     Value, = args
     lib.SwtControls_Set_Delay(Value)
@@ -40,7 +40,7 @@ def IsLocked(*args):
     # Getter
     if len(args) == 0:
         return lib.SwtControls_Get_IsLocked() != 0
-    
+
     # Setter
     Value, = args
     lib.SwtControls_Set_IsLocked(Value)
@@ -50,7 +50,7 @@ def Name(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.SwtControls_Get_Name())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -70,7 +70,7 @@ def NormalState(*args):
     # Getter
     if len(args) == 0:
         return lib.SwtControls_Get_NormalState()
-    
+
     # Setter
     Value, = args
     lib.SwtControls_Set_NormalState(Value)
@@ -83,7 +83,7 @@ def State(*args):
     # Getter
     if len(args) == 0:
         return lib.SwtControls_Get_State()
-    
+
     # Setter
     Value, = args
     lib.SwtControls_Set_State(Value)
@@ -93,7 +93,7 @@ def SwitchedObj(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.SwtControls_Get_SwitchedObj())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -106,7 +106,7 @@ def SwitchedTerm(*args):
     # Getter
     if len(args) == 0:
         return lib.SwtControls_Get_SwitchedTerm()
-    
+
     # Setter
     Value, = args
     lib.SwtControls_Set_SwitchedTerm(Value)

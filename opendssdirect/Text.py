@@ -6,7 +6,7 @@ def Command(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Text_Get_Command())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:

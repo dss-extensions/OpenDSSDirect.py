@@ -10,7 +10,7 @@ def AllocationFactor(*args):
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_AllocationFactor()
-    
+
     # Setter
     Value, = args
     lib.Loads_Set_AllocationFactor(Value)
@@ -20,7 +20,7 @@ def CVRCurve(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Loads_Get_CVRcurve())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -33,7 +33,7 @@ def CVRvars(*args):
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_CVRvars()
-    
+
     # Setter
     Value, = args
     lib.Loads_Set_CVRvars(Value)
@@ -43,7 +43,7 @@ def CVRwatts(*args):
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_CVRwatts()
-    
+
     # Setter
     Value, = args
     lib.Loads_Set_CVRwatts(Value)
@@ -53,7 +53,7 @@ def CFactor(*args):
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_Cfactor()
-    
+
     # Setter
     Value, = args
     lib.Loads_Set_Cfactor(Value)
@@ -62,7 +62,7 @@ def Class(*args):
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_Class_()
-    
+
     # Setter
     Value, = args
     lib.Loads_Set_Class_(Value)
@@ -80,7 +80,7 @@ def Growth(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Loads_Get_Growth())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -93,7 +93,7 @@ def IsDelta(*args):
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_IsDelta() != 0
-    
+
     # Setter
     Value, = args
     lib.Loads_Set_IsDelta(Value)
@@ -103,7 +103,7 @@ def Model(*args):
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_Model()
-    
+
     # Setter
     Value, = args
     lib.Loads_Set_Model(Value)
@@ -113,7 +113,7 @@ def Name(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Loads_Get_Name())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -130,7 +130,7 @@ def NumCust(*args):
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_NumCust()
-    
+
     # Setter
     Value, = args
     lib.Loads_Set_NumCust(Value)
@@ -143,7 +143,7 @@ def PF(*args):
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_PF()
-    
+
     # Setter
     Value, = args
     lib.Loads_Set_PF(Value)
@@ -153,7 +153,7 @@ def PctMean(*args):
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_PctMean()
-    
+
     # Setter
     Value, = args
     lib.Loads_Set_PctMean(Value)
@@ -163,7 +163,7 @@ def PctStdDev(*args):
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_PctStdDev()
-    
+
     # Setter
     Value, = args
     lib.Loads_Set_PctStdDev(Value)
@@ -173,7 +173,7 @@ def RelWeighting(*args):
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_RelWeight()
-    
+
     # Setter
     Value, = args
     lib.Loads_Set_RelWeight(Value)
@@ -183,7 +183,7 @@ def Rneut(*args):
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_Rneut()
-    
+
     # Setter
     Value, = args
     lib.Loads_Set_Rneut(Value)
@@ -193,7 +193,7 @@ def Spectrum(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Loads_Get_Spectrum())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -206,7 +206,7 @@ def Status(*args):
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_Status()
-    
+
     # Setter
     Value, = args
     lib.Loads_Set_Status(Value)
@@ -216,7 +216,7 @@ def Vmaxpu(*args):
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_Vmaxpu()
-    
+
     # Setter
     Value, = args
     lib.Loads_Set_Vmaxpu(Value)
@@ -226,7 +226,7 @@ def VminEmerg(*args):
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_Vminemerg()
-    
+
     # Setter
     Value, = args
     lib.Loads_Set_Vminemerg(Value)
@@ -236,7 +236,7 @@ def VminNorm(*args):
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_Vminnorm()
-    
+
     # Setter
     Value, = args
     lib.Loads_Set_Vminnorm(Value)
@@ -246,7 +246,7 @@ def Vminpu(*args):
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_Vminpu()
-    
+
     # Setter
     Value, = args
     lib.Loads_Set_Vminpu(Value)
@@ -256,7 +256,7 @@ def Xneut(*args):
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_Xneut()
-    
+
     # Setter
     Value, = args
     lib.Loads_Set_Xneut(Value)
@@ -266,7 +266,7 @@ def Yearly(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Loads_Get_Yearly())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -283,7 +283,7 @@ def ZipV(*args):
             return []
 
         return result
-    
+
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
@@ -294,7 +294,7 @@ def Daily(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Loads_Get_daily())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -307,7 +307,7 @@ def Duty(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Loads_Get_duty())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -319,7 +319,7 @@ def Idx(*args):
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_idx()
-    
+
     # Setter
     Value, = args
     lib.Loads_Set_idx(Value)
@@ -329,7 +329,7 @@ def kV(*args):
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_kV()
-    
+
     # Setter
     Value, = args
     lib.Loads_Set_kV(Value)
@@ -339,7 +339,7 @@ def kW(*args):
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_kW()
-    
+
     # Setter
     Value, = args
     lib.Loads_Set_kW(Value)
@@ -349,7 +349,7 @@ def kVABase(*args):
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_kva()
-    
+
     # Setter
     Value, = args
     lib.Loads_Set_kva(Value)
@@ -359,7 +359,7 @@ def kvar(*args):
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_kvar()
-    
+
     # Setter
     Value, = args
     lib.Loads_Set_kvar(Value)
@@ -369,7 +369,7 @@ def kWh(*args):
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_kwh()
-    
+
     # Setter
     Value, = args
     lib.Loads_Set_kwh(Value)
@@ -379,7 +379,7 @@ def kWhDays(*args):
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_kwhdays()
-    
+
     # Setter
     Value, = args
     lib.Loads_Set_kwhdays(Value)
@@ -389,7 +389,7 @@ def puSeriesRL(*args):
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_pctSeriesRL()
-    
+
     # Setter
     Value, = args
     lib.Loads_Set_pctSeriesRL(Value)
@@ -399,7 +399,7 @@ def XfkVA(*args):
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_xfkVA()
-    
+
     # Setter
     Value, = args
     lib.Loads_Set_xfkVA(Value)

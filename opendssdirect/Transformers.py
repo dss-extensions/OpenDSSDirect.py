@@ -17,7 +17,7 @@ def IsDelta(*args):
     # Getter
     if len(args) == 0:
         return lib.Transformers_Get_IsDelta() != 0
-    
+
     # Setter
     Value, = args
     lib.Transformers_Set_IsDelta(Value)
@@ -27,7 +27,7 @@ def MaxTap(*args):
     # Getter
     if len(args) == 0:
         return lib.Transformers_Get_MaxTap()
-    
+
     # Setter
     Value, = args
     lib.Transformers_Set_MaxTap(Value)
@@ -37,7 +37,7 @@ def MinTap(*args):
     # Getter
     if len(args) == 0:
         return lib.Transformers_Get_MinTap()
-    
+
     # Setter
     Value, = args
     lib.Transformers_Set_MinTap(Value)
@@ -47,7 +47,7 @@ def Name(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Transformers_Get_Name())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -64,7 +64,7 @@ def NumTaps(*args):
     # Getter
     if len(args) == 0:
         return lib.Transformers_Get_NumTaps()
-    
+
     # Setter
     Value, = args
     lib.Transformers_Set_NumTaps(Value)
@@ -74,7 +74,7 @@ def NumWindings(*args):
     # Getter
     if len(args) == 0:
         return lib.Transformers_Get_NumWindings()
-    
+
     # Setter
     Value, = args
     lib.Transformers_Set_NumWindings(Value)
@@ -84,7 +84,7 @@ def R(*args):
     # Getter
     if len(args) == 0:
         return lib.Transformers_Get_R()
-    
+
     # Setter
     Value, = args
     lib.Transformers_Set_R(Value)
@@ -94,7 +94,7 @@ def Rneut(*args):
     # Getter
     if len(args) == 0:
         return lib.Transformers_Get_Rneut()
-    
+
     # Setter
     Value, = args
     lib.Transformers_Set_Rneut(Value)
@@ -104,7 +104,7 @@ def Tap(*args):
     # Getter
     if len(args) == 0:
         return lib.Transformers_Get_Tap()
-    
+
     # Setter
     Value, = args
     lib.Transformers_Set_Tap(Value)
@@ -114,7 +114,7 @@ def Wdg(*args):
     # Getter
     if len(args) == 0:
         return lib.Transformers_Get_Wdg()
-    
+
     # Setter
     Value, = args
     lib.Transformers_Set_Wdg(Value)
@@ -124,7 +124,7 @@ def XfmrCode(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Transformers_Get_XfmrCode())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -137,7 +137,7 @@ def Xhl(*args):
     # Getter
     if len(args) == 0:
         return lib.Transformers_Get_Xhl()
-    
+
     # Setter
     Value, = args
     lib.Transformers_Set_Xhl(Value)
@@ -147,7 +147,7 @@ def Xht(*args):
     # Getter
     if len(args) == 0:
         return lib.Transformers_Get_Xht()
-    
+
     # Setter
     Value, = args
     lib.Transformers_Set_Xht(Value)
@@ -157,7 +157,7 @@ def Xlt(*args):
     # Getter
     if len(args) == 0:
         return lib.Transformers_Get_Xlt()
-    
+
     # Setter
     Value, = args
     lib.Transformers_Set_Xlt(Value)
@@ -167,7 +167,7 @@ def Xneut(*args):
     # Getter
     if len(args) == 0:
         return lib.Transformers_Get_Xneut()
-    
+
     # Setter
     Value, = args
     lib.Transformers_Set_Xneut(Value)
@@ -177,7 +177,7 @@ def kV(*args):
     # Getter
     if len(args) == 0:
         return lib.Transformers_Get_kV()
-    
+
     # Setter
     Value, = args
     lib.Transformers_Set_kV(Value)
@@ -187,7 +187,7 @@ def kVA(*args):
     # Getter
     if len(args) == 0:
         return lib.Transformers_Get_kVA()
-    
+
     # Setter
     Value, = args
     lib.Transformers_Set_kVA(Value)

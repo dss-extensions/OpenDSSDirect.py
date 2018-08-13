@@ -13,7 +13,7 @@ def AngleDeg(*args):
     # Getter
     if len(args) == 0:
         return lib.Vsources_Get_AngleDeg()
-    
+
     # Setter
     Value, = args
     lib.Vsources_Set_AngleDeg(Value)
@@ -23,7 +23,7 @@ def BasekV(*args):
     # Getter
     if len(args) == 0:
         return lib.Vsources_Get_BasekV()
-    
+
     # Setter
     Value, = args
     lib.Vsources_Set_BasekV(Value)
@@ -41,7 +41,7 @@ def Frequency(*args):
     # Getter
     if len(args) == 0:
         return lib.Vsources_Get_Frequency()
-    
+
     # Setter
     Value, = args
     lib.Vsources_Set_Frequency(Value)
@@ -54,7 +54,7 @@ def Name(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Vsources_Get_Name())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -71,7 +71,7 @@ def Phases(*args):
     # Getter
     if len(args) == 0:
         return lib.Vsources_Get_Phases()
-    
+
     # Setter
     Value, = args
     lib.Vsources_Set_Phases(Value)
@@ -84,7 +84,7 @@ def PU(*args):
     # Getter
     if len(args) == 0:
         return lib.Vsources_Get_pu()
-    
+
     # Setter
     Value, = args
     lib.Vsources_Set_pu(Value)

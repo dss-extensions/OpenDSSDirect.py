@@ -45,7 +45,7 @@ def BusNames(*args):
     # Getter
     if len(args) == 0:
         return get_string_array(lib.CktElement_Get_BusNames)
-    
+
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_string_array(Value)
@@ -72,7 +72,7 @@ def DisplayName(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.CktElement_Get_DisplayName())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -88,7 +88,7 @@ def EmergAmps(*args):
     # Getter
     if len(args) == 0:
         return lib.CktElement_Get_EmergAmps()
-    
+
     # Setter
     Value, = args
     lib.CktElement_Set_EmergAmps(Value)
@@ -98,7 +98,7 @@ def Enabled(*args):
     # Getter
     if len(args) == 0:
         return lib.CktElement_Get_Enabled() != 0
-    
+
     # Setter
     Value, = args
     lib.CktElement_Set_Enabled(Value)
@@ -147,7 +147,7 @@ def NormalAmps(*args):
     # Getter
     if len(args) == 0:
         return lib.CktElement_Get_NormalAmps()
-    
+
     # Setter
     Value, = args
     lib.CktElement_Set_NormalAmps(Value)

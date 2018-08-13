@@ -17,7 +17,7 @@ def Name(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.XYCurves_Get_Name())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -34,7 +34,7 @@ def Npts(*args):
     # Getter
     if len(args) == 0:
         return lib.XYCurves_Get_Npts()
-    
+
     # Setter
     Value, = args
     lib.XYCurves_Set_Npts(Value)
@@ -44,7 +44,7 @@ def XArray(*args):
     # Getter
     if len(args) == 0:
         return get_float64_array(lib.XYCurves_Get_Xarray)
-    
+
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
@@ -55,7 +55,7 @@ def XScale(*args):
     # Getter
     if len(args) == 0:
         return lib.XYCurves_Get_Xscale()
-    
+
     # Setter
     Value, = args
     lib.XYCurves_Set_Xscale(Value)
@@ -65,7 +65,7 @@ def XShift(*args):
     # Getter
     if len(args) == 0:
         return lib.XYCurves_Get_Xshift()
-    
+
     # Setter
     Value, = args
     lib.XYCurves_Set_Xshift(Value)
@@ -75,7 +75,7 @@ def YArray(*args):
     # Getter
     if len(args) == 0:
         return get_float64_array(lib.XYCurves_Get_Yarray)
-    
+
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
@@ -89,7 +89,7 @@ def YScale(*args):
     # Getter
     if len(args) == 0:
         return lib.XYCurves_Get_Yscale()
-    
+
     # Setter
     Value, = args
     lib.XYCurves_Set_Yscale(Value)
@@ -99,7 +99,7 @@ def YShift(*args):
     # Getter
     if len(args) == 0:
         return lib.XYCurves_Get_Yshift()
-    
+
     # Setter
     Value, = args
     lib.XYCurves_Set_Yshift(Value)
@@ -109,7 +109,7 @@ def X(*args):
     # Getter
     if len(args) == 0:
         return lib.XYCurves_Get_x()
-    
+
     # Setter
     Value, = args
     lib.XYCurves_Set_x(Value)
@@ -122,7 +122,7 @@ def Y(*args):
     # Getter
     if len(args) == 0:
         return lib.XYCurves_Get_y()
-    
+
     # Setter
     Value, = args
     lib.XYCurves_Set_y(Value)

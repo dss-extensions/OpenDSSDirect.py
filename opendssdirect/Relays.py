@@ -18,7 +18,7 @@ def MonitoredObj(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Relays_Get_MonitoredObj())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -31,7 +31,7 @@ def MonitoredTerm(*args):
     # Getter
     if len(args) == 0:
         return lib.Relays_Get_MonitoredTerm()
-    
+
     # Setter
     Value, = args
     lib.Relays_Set_MonitoredTerm(Value)
@@ -44,7 +44,7 @@ def Name(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Relays_Get_Name())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -61,7 +61,7 @@ def SwitchedObj(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Relays_Get_SwitchedObj())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -74,7 +74,7 @@ def SwitchedTerm(*args):
     # Getter
     if len(args) == 0:
         return lib.Relays_Get_SwitchedTerm()
-    
+
     # Setter
     Value, = args
     lib.Relays_Set_SwitchedTerm(Value)
@@ -87,7 +87,7 @@ def Idx(*args):
     # Getter
     if len(args) == 0:
         return lib.Relays_Get_idx()
-    
+
     # Setter
     Value, = args
     lib.Relays_Set_idx(Value)

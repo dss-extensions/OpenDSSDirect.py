@@ -27,7 +27,7 @@ def GroundInst(*args):
     # Getter
     if len(args) == 0:
         return lib.Reclosers_Get_GroundInst()
-    
+
     # Setter
     Value, = args
     lib.Reclosers_Set_GroundInst(Value)
@@ -37,7 +37,7 @@ def GroundTrip(*args):
     # Getter
     if len(args) == 0:
         return lib.Reclosers_Get_GroundTrip()
-    
+
     # Setter
     Value, = args
     lib.Reclosers_Set_GroundTrip(Value)
@@ -50,7 +50,7 @@ def MonitoredObj(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Reclosers_Get_MonitoredObj())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -63,7 +63,7 @@ def MonitoredTerm(*args):
     # Getter
     if len(args) == 0:
         return lib.Reclosers_Get_MonitoredTerm()
-    
+
     # Setter
     Value, = args
     lib.Reclosers_Set_MonitoredTerm(Value)
@@ -73,7 +73,7 @@ def Name(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Reclosers_Get_Name())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -90,7 +90,7 @@ def NumFast(*args):
     # Getter
     if len(args) == 0:
         return lib.Reclosers_Get_NumFast()
-    
+
     # Setter
     Value, = args
     lib.Reclosers_Set_NumFast(Value)
@@ -100,7 +100,7 @@ def PhaseInst(*args):
     # Getter
     if len(args) == 0:
         return lib.Reclosers_Get_PhaseInst()
-    
+
     # Setter
     Value, = args
     lib.Reclosers_Set_PhaseInst(Value)
@@ -113,7 +113,7 @@ def PhaseTrip(*args):
     # Getter
     if len(args) == 0:
         return lib.Reclosers_Get_PhaseTrip()
-    
+
     # Setter
     Value, = args
     lib.Reclosers_Set_PhaseTrip(Value)
@@ -127,7 +127,7 @@ def Shots(*args):
     # Getter
     if len(args) == 0:
         return lib.Reclosers_Get_Shots()
-    
+
     # Setter
     Value, = args
     lib.Reclosers_Set_Shots(Value)
@@ -137,7 +137,7 @@ def SwitchedObj(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Reclosers_Get_SwitchedObj())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -150,7 +150,7 @@ def SwitchedTerm(*args):
     # Getter
     if len(args) == 0:
         return lib.Reclosers_Get_SwitchedTerm()
-    
+
     # Setter
     Value, = args
     lib.Reclosers_Set_SwitchedTerm(Value)
@@ -160,7 +160,7 @@ def Idx(*args):
     # Getter
     if len(args) == 0:
         return lib.Reclosers_Get_idx()
-    
+
     # Setter
     Value, = args
     lib.Reclosers_Set_idx(Value)

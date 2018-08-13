@@ -13,7 +13,7 @@ def CTRatio(*args):
     # Getter
     if len(args) == 0:
         return lib.CapControls_Get_CTratio()
-    
+
     # Setter
     Value, = args
     lib.CapControls_Set_CTratio(Value)
@@ -23,7 +23,7 @@ def Capacitor(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.CapControls_Get_Capacitor())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -39,7 +39,7 @@ def DeadTime(*args):
     # Getter
     if len(args) == 0:
         return lib.CapControls_Get_DeadTime()
-    
+
     # Setter
     Value, = args
     lib.CapControls_Set_DeadTime(Value)
@@ -49,7 +49,7 @@ def Delay(*args):
     # Getter
     if len(args) == 0:
         return lib.CapControls_Get_Delay()
-    
+
     # Setter
     Value, = args
     lib.CapControls_Set_Delay(Value)
@@ -59,7 +59,7 @@ def DelayOff(*args):
     # Getter
     if len(args) == 0:
         return lib.CapControls_Get_DelayOff()
-    
+
     # Setter
     Value, = args
     lib.CapControls_Set_DelayOff(Value)
@@ -73,7 +73,7 @@ def Mode(*args):
     # Getter
     if len(args) == 0:
         return lib.CapControls_Get_Mode()
-    
+
     # Setter
     Value, = args
     lib.CapControls_Set_Mode(Value)
@@ -83,7 +83,7 @@ def MonitoredObj(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.CapControls_Get_MonitoredObj())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -96,7 +96,7 @@ def MonitoredTerm(*args):
     # Getter
     if len(args) == 0:
         return lib.CapControls_Get_MonitoredTerm()
-    
+
     # Setter
     Value, = args
     lib.CapControls_Set_MonitoredTerm(Value)
@@ -106,7 +106,7 @@ def Name(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.CapControls_Get_Name())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -123,7 +123,7 @@ def OFFSetting(*args):
     # Getter
     if len(args) == 0:
         return lib.CapControls_Get_OFFSetting()
-    
+
     # Setter
     Value, = args
     lib.CapControls_Set_OFFSetting(Value)
@@ -133,7 +133,7 @@ def ONSetting(*args):
     # Getter
     if len(args) == 0:
         return lib.CapControls_Get_ONSetting()
-    
+
     # Setter
     Value, = args
     lib.CapControls_Set_ONSetting(Value)
@@ -143,7 +143,7 @@ def PTRatio(*args):
     # Getter
     if len(args) == 0:
         return lib.CapControls_Get_PTratio()
-    
+
     # Setter
     Value, = args
     lib.CapControls_Set_PTratio(Value)
@@ -153,7 +153,7 @@ def UseVoltOverride(*args):
     # Getter
     if len(args) == 0:
         return lib.CapControls_Get_UseVoltOverride() != 0
-    
+
     # Setter
     Value, = args
     lib.CapControls_Set_UseVoltOverride(Value)
@@ -163,7 +163,7 @@ def Vmax(*args):
     # Getter
     if len(args) == 0:
         return lib.CapControls_Get_Vmax()
-    
+
     # Setter
     Value, = args
     lib.CapControls_Set_Vmax(Value)
@@ -173,7 +173,7 @@ def Vmin(*args):
     # Getter
     if len(args) == 0:
         return lib.CapControls_Get_Vmin()
-    
+
     # Setter
     Value, = args
     lib.CapControls_Set_Vmin(Value)

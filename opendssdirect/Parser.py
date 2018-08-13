@@ -21,7 +21,7 @@ def AutoIncrement(*args):
     # Getter
     if len(args) == 0:
         return lib.Parser_Get_AutoIncrement() != 0
-    
+
     # Setter
     Value, = args
     lib.Parser_Set_AutoIncrement(Value)
@@ -34,7 +34,7 @@ def BeginQuote(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Parser_Get_BeginQuote())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -47,7 +47,7 @@ def CmdString(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Parser_Get_CmdString())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -64,7 +64,7 @@ def Delimiters(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Parser_Get_Delimiters())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -77,7 +77,7 @@ def EndQuote(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Parser_Get_EndQuote())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -105,7 +105,7 @@ def WhiteSpace(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Parser_Get_WhiteSpace())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:

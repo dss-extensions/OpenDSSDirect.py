@@ -6,7 +6,7 @@ def AllowDuplicates(*args):
     # Getter
     if len(args) == 0:
         return lib.Settings_Get_AllowDuplicates() != 0
-    
+
     # Setter
     Value, = args
     lib.Settings_Set_AllowDuplicates(Value)
@@ -16,7 +16,7 @@ def AutoBusList(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Settings_Get_AutoBusList())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -29,7 +29,7 @@ def CktModel(*args):
     # Getter
     if len(args) == 0:
         return lib.Settings_Get_CktModel()
-    
+
     # Setter
     Value, = args
     lib.Settings_Set_CktModel(Value)
@@ -39,7 +39,7 @@ def ControlTrace(*args):
     # Getter
     if len(args) == 0:
         return lib.Settings_Get_ControlTrace() != 0
-    
+
     # Setter
     Value, = args
     lib.Settings_Set_ControlTrace(Value)
@@ -49,7 +49,7 @@ def EmergVmaxpu(*args):
     # Getter
     if len(args) == 0:
         return lib.Settings_Get_EmergVmaxpu()
-    
+
     # Setter
     Value, = args
     lib.Settings_Set_EmergVmaxpu(Value)
@@ -59,7 +59,7 @@ def EmergVminpu(*args):
     # Getter
     if len(args) == 0:
         return lib.Settings_Get_EmergVminpu()
-    
+
     # Setter
     Value, = args
     lib.Settings_Set_EmergVminpu(Value)
@@ -69,7 +69,7 @@ def LossRegs(*args):
     # Getter
     if len(args) == 0:
         return get_int32_array(lib.Settings_Get_LossRegs)
-    
+
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_int32_array(Value)
@@ -80,7 +80,7 @@ def LossWeight(*args):
     # Getter
     if len(args) == 0:
         return lib.Settings_Get_LossWeight()
-    
+
     # Setter
     Value, = args
     lib.Settings_Set_LossWeight(Value)
@@ -90,7 +90,7 @@ def NormVmaxpu(*args):
     # Getter
     if len(args) == 0:
         return lib.Settings_Get_NormVmaxpu()
-    
+
     # Setter
     Value, = args
     lib.Settings_Set_NormVmaxpu(Value)
@@ -100,7 +100,7 @@ def NormVminpu(*args):
     # Getter
     if len(args) == 0:
         return lib.Settings_Get_NormVminpu()
-    
+
     # Setter
     Value, = args
     lib.Settings_Set_NormVminpu(Value)
@@ -110,7 +110,7 @@ def PriceCurve(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Settings_Get_PriceCurve())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -123,7 +123,7 @@ def PriceSignal(*args):
     # Getter
     if len(args) == 0:
         return lib.Settings_Get_PriceSignal()
-    
+
     # Setter
     Value, = args
     lib.Settings_Set_PriceSignal(Value)
@@ -133,7 +133,7 @@ def Trapezoidal(*args):
     # Getter
     if len(args) == 0:
         return lib.Settings_Get_Trapezoidal() != 0
-    
+
     # Setter
     Value, = args
     lib.Settings_Set_Trapezoidal(Value)
@@ -143,7 +143,7 @@ def UERegs(*args):
     # Getter
     if len(args) == 0:
         return get_int32_array(lib.Settings_Get_UEregs)
-    
+
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_int32_array(Value)
@@ -154,7 +154,7 @@ def UEWeight(*args):
     # Getter
     if len(args) == 0:
         return lib.Settings_Get_UEweight()
-    
+
     # Setter
     Value, = args
     lib.Settings_Set_UEweight(Value)
@@ -164,7 +164,7 @@ def VoltageBases(*args):
     # Getter
     if len(args) == 0:
         return get_float64_array(lib.Settings_Get_VoltageBases)
-    
+
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
@@ -175,7 +175,7 @@ def ZoneLock(*args):
     # Getter
     if len(args) == 0:
         return lib.Settings_Get_ZoneLock() != 0
-    
+
     # Setter
     Value, = args
     lib.Settings_Set_ZoneLock(Value)

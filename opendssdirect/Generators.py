@@ -18,7 +18,7 @@ def ForcedON(*args):
     # Getter
     if len(args) == 0:
         return lib.Generators_Get_ForcedON() != 0
-    
+
     # Setter
     Value, = args
     lib.Generators_Set_ForcedON(Value)
@@ -28,7 +28,7 @@ def Model(*args):
     # Getter
     if len(args) == 0:
         return lib.Generators_Get_Model()
-    
+
     # Setter
     Value, = args
     lib.Generators_Set_Model(Value)
@@ -38,7 +38,7 @@ def Name(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Generators_Get_Name())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -55,7 +55,7 @@ def PF(*args):
     # Getter
     if len(args) == 0:
         return lib.Generators_Get_PF()
-    
+
     # Setter
     Value, = args
     lib.Generators_Set_PF(Value)
@@ -65,7 +65,7 @@ def Phases(*args):
     # Getter
     if len(args) == 0:
         return lib.Generators_Get_Phases()
-    
+
     # Setter
     Value, = args
     lib.Generators_Set_Phases(Value)
@@ -83,7 +83,7 @@ def Vmaxpu(*args):
     # Getter
     if len(args) == 0:
         return lib.Generators_Get_Vmaxpu()
-    
+
     # Setter
     Value, = args
     lib.Generators_Set_Vmaxpu(Value)
@@ -93,7 +93,7 @@ def Vminpu(*args):
     # Getter
     if len(args) == 0:
         return lib.Generators_Get_Vminpu()
-    
+
     # Setter
     Value, = args
     lib.Generators_Set_Vminpu(Value)
@@ -103,7 +103,7 @@ def Idx(*args):
     # Getter
     if len(args) == 0:
         return lib.Generators_Get_idx()
-    
+
     # Setter
     Value, = args
     lib.Generators_Set_idx(Value)
@@ -113,7 +113,7 @@ def kV(*args):
     # Getter
     if len(args) == 0:
         return lib.Generators_Get_kV()
-    
+
     # Setter
     Value, = args
     lib.Generators_Set_kV(Value)
@@ -123,7 +123,7 @@ def kVARated(*args):
     # Getter
     if len(args) == 0:
         return lib.Generators_Get_kVArated()
-    
+
     # Setter
     Value, = args
     lib.Generators_Set_kVArated(Value)
@@ -133,7 +133,7 @@ def kW(*args):
     # Getter
     if len(args) == 0:
         return lib.Generators_Get_kW()
-    
+
     # Setter
     Value, = args
     lib.Generators_Set_kW(Value)
@@ -143,7 +143,7 @@ def kvar(*args):
     # Getter
     if len(args) == 0:
         return lib.Generators_Get_kvar()
-    
+
     # Setter
     Value, = args
     lib.Generators_Set_kvar(Value)

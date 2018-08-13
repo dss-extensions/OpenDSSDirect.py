@@ -20,7 +20,7 @@ def Currents(*args):
     # Getter
     if len(args) == 0:
         return get_float64_array(lib.Sensors_Get_Currents)
-    
+
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
@@ -35,7 +35,7 @@ def IsDelta(*args):
     # Getter
     if len(args) == 0:
         return lib.Sensors_Get_IsDelta() != 0
-    
+
     # Setter
     Value, = args
     lib.Sensors_Set_IsDelta(Value)
@@ -45,7 +45,7 @@ def MeteredElement(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Sensors_Get_MeteredElement())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -58,7 +58,7 @@ def MeteredTerminal(*args):
     # Getter
     if len(args) == 0:
         return lib.Sensors_Get_MeteredTerminal()
-    
+
     # Setter
     Value, = args
     lib.Sensors_Set_MeteredTerminal(Value)
@@ -71,7 +71,7 @@ def Name(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Sensors_Get_Name())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -88,7 +88,7 @@ def PctError(*args):
     # Getter
     if len(args) == 0:
         return lib.Sensors_Get_PctError()
-    
+
     # Setter
     Value, = args
     lib.Sensors_Set_PctError(Value)
@@ -98,7 +98,7 @@ def ReverseDelta(*args):
     # Getter
     if len(args) == 0:
         return lib.Sensors_Get_ReverseDelta() != 0
-    
+
     # Setter
     Value, = args
     lib.Sensors_Set_ReverseDelta(Value)
@@ -108,7 +108,7 @@ def Weight(*args):
     # Getter
     if len(args) == 0:
         return lib.Sensors_Get_Weight()
-    
+
     # Setter
     Value, = args
     lib.Sensors_Set_Weight(Value)
@@ -118,7 +118,7 @@ def kvar(*args):
     # Getter
     if len(args) == 0:
         return get_float64_array(lib.Sensors_Get_kVARS)
-    
+
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
@@ -129,7 +129,7 @@ def kVS(*args):
     # Getter
     if len(args) == 0:
         return get_float64_array(lib.Sensors_Get_kVS)
-    
+
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
@@ -140,7 +140,7 @@ def kVBase(*args):
     # Getter
     if len(args) == 0:
         return lib.Sensors_Get_kVbase()
-    
+
     # Setter
     Value, = args
     lib.Sensors_Set_kVbase(Value)
@@ -150,7 +150,7 @@ def kW(*args):
     # Getter
     if len(args) == 0:
         return get_float64_array(lib.Sensors_Get_kWS)
-    
+
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)

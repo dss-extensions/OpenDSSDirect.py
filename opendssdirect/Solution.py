@@ -51,7 +51,7 @@ def AddType(*args):
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_AddType()
-    
+
     # Setter
     Value, = args
     lib.Solution_Set_AddType(Value)
@@ -61,7 +61,7 @@ def Algorithm(*args):
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_Algorithm()
-    
+
     # Setter
     Value, = args
     lib.Solution_Set_Algorithm(Value)
@@ -71,7 +71,7 @@ def Capkvar(*args):
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_Capkvar()
-    
+
     # Setter
     Value, = args
     lib.Solution_Set_Capkvar(Value)
@@ -81,7 +81,7 @@ def ControlActionsDone(*args):
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_ControlActionsDone() != 0
-    
+
     # Setter
     Value, = args
     lib.Solution_Set_ControlActionsDone(Value)
@@ -91,7 +91,7 @@ def ControlIterations(*args):
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_ControlIterations()
-    
+
     # Setter
     Value, = args
     lib.Solution_Set_ControlIterations(Value)
@@ -101,7 +101,7 @@ def ControlMode(*args):
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_ControlMode()
-    
+
     # Setter
     Value, = args
     lib.Solution_Set_ControlMode(Value)
@@ -111,7 +111,7 @@ def Converged(*args):
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_Converged() != 0
-    
+
     # Setter
     Value, = args
     lib.Solution_Set_Converged(Value)
@@ -121,7 +121,7 @@ def DefaultDaily(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Solution_Get_DefaultDaily())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -134,7 +134,7 @@ def DefaultYearly(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Solution_Get_DefaultYearly())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -151,7 +151,7 @@ def Frequency(*args):
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_Frequency()
-    
+
     # Setter
     Value, = args
     lib.Solution_Set_Frequency(Value)
@@ -161,7 +161,7 @@ def GenMult(*args):
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_GenMult()
-    
+
     # Setter
     Value, = args
     lib.Solution_Set_GenMult(Value)
@@ -171,7 +171,7 @@ def GenPF(*args):
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_GenPF()
-    
+
     # Setter
     Value, = args
     lib.Solution_Set_GenPF(Value)
@@ -181,7 +181,7 @@ def GenkW(*args):
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_GenkW()
-    
+
     # Setter
     Value, = args
     lib.Solution_Set_GenkW(Value)
@@ -191,7 +191,7 @@ def Hour(*args):
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_Hour()
-    
+
     # Setter
     Value, = args
     lib.Solution_Set_Hour(Value)
@@ -204,7 +204,7 @@ def IntervalHrs(*args):
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_IntervalHrs()
-    
+
     # Setter
     Value, = args
     lib.Solution_Set_IntervalHrs(Value)
@@ -218,7 +218,7 @@ def LDCurve(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Solution_Get_LDCurve())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -231,7 +231,7 @@ def LoadModel(*args):
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_LoadModel()
-    
+
     # Setter
     Value, = args
     lib.Solution_Set_LoadModel(Value)
@@ -241,7 +241,7 @@ def LoadMult(*args):
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_LoadMult()
-    
+
     # Setter
     Value, = args
     lib.Solution_Set_LoadMult(Value)
@@ -251,7 +251,7 @@ def MaxControlIterations(*args):
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_MaxControlIterations()
-    
+
     # Setter
     Value, = args
     lib.Solution_Set_MaxControlIterations(Value)
@@ -261,7 +261,7 @@ def MaxIterations(*args):
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_MaxIterations()
-    
+
     # Setter
     Value, = args
     lib.Solution_Set_MaxIterations(Value)
@@ -274,7 +274,7 @@ def MinIterations(*args):
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_MinIterations()
-    
+
     # Setter
     Value, = args
     lib.Solution_Set_MinIterations(Value)
@@ -284,7 +284,7 @@ def Mode(*args):
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_Mode()
-    
+
     # Setter
     Mode, = args
     lib.Solution_Set_Mode(Mode)
@@ -302,7 +302,7 @@ def Number(*args):
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_Number()
-    
+
     # Setter
     Value, = args
     lib.Solution_Set_Number(Value)
@@ -316,7 +316,7 @@ def Random(*args):
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_Random()
-    
+
     # Setter
     Random, = args
     lib.Solution_Set_Random(Random)
@@ -326,7 +326,7 @@ def Seconds(*args):
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_Seconds()
-    
+
     # Setter
     Value, = args
     lib.Solution_Set_Seconds(Value)
@@ -336,7 +336,7 @@ def StepSize(*args):
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_StepSize()
-    
+
     # Setter
     Value, = args
     lib.Solution_Set_StepSize(Value)
@@ -354,7 +354,7 @@ def Convergence(*args):
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_Tolerance()
-    
+
     # Setter
     Value, = args
     lib.Solution_Set_Tolerance(Value)
@@ -367,7 +367,7 @@ def TotalTime(*args):
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_Total_Time()
-    
+
     # Setter
     Value, = args
     lib.Solution_Set_Total_Time(Value)
@@ -381,7 +381,7 @@ def Year(*args):
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_Year()
-    
+
     # Setter
     Value, = args
     lib.Solution_Set_Year(Value)
@@ -391,7 +391,7 @@ def DblHour(*args):
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_dblHour()
-    
+
     # Setter
     Value, = args
     lib.Solution_Set_dblHour(Value)
@@ -401,7 +401,7 @@ def PctGrowth(*args):
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_pctGrowth()
-    
+
     # Setter
     Value, = args
     lib.Solution_Set_pctGrowth(Value)

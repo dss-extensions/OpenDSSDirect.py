@@ -34,7 +34,7 @@ def IsDelta(*args):
     # Getter
     if len(args) == 0:
         return lib.Capacitors_Get_IsDelta() != 0
-    
+
     # Setter
     Value, = args
     lib.Capacitors_Set_IsDelta(Value)
@@ -44,7 +44,7 @@ def Name(*args):
     # Getter
     if len(args) == 0:
         return get_string(lib.Capacitors_Get_Name())
-    
+
     # Setter
     Value, = args
     if type(Value) is not bytes:
@@ -61,7 +61,7 @@ def NumSteps(*args):
     # Getter
     if len(args) == 0:
         return lib.Capacitors_Get_NumSteps()
-    
+
     # Setter
     Value, = args
     lib.Capacitors_Set_NumSteps(Value)
@@ -74,7 +74,7 @@ def States(*args):
     # Getter
     if len(args) == 0:
         return get_int32_array(lib.Capacitors_Get_States)
-    
+
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_int32_array(Value)
@@ -85,7 +85,7 @@ def kV(*args):
     # Getter
     if len(args) == 0:
         return lib.Capacitors_Get_kV()
-    
+
     # Setter
     Value, = args
     lib.Capacitors_Set_kV(Value)
@@ -95,7 +95,7 @@ def kvar(*args):
     # Getter
     if len(args) == 0:
         return lib.Capacitors_Get_kvar()
-    
+
     # Setter
     Value, = args
     lib.Capacitors_Set_kvar(Value)
