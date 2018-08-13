@@ -1,19 +1,23 @@
+# -*- coding: utf-8 -*-
 from __future__ import absolute_import
 from ._utils import *
 
+
 def Description():
-    '''(read-only) Description of the property.'''
+    """(read-only) Description of the property."""
     return get_string(lib.DSSProperty_Get_Description())
 
+
 def Name():
-    '''(read-only) Name of Property'''
+    """(read-only) Name of Property"""
     return get_string(lib.DSSProperty_Get_Name())
 
+
 def _setCurrentProperty(argIndex_or_Name):
-    '''
+    """
     Sets the current DSS property based on a 1-based integer (or integer as
     a string) as an property index, or a string as a property name.
-    '''
+    """
     try:
         if not isinstance(argIndex_or_Name, int):
             argIndex_or_Name = int(argIndex_or_Name)
@@ -27,6 +31,7 @@ def _setCurrentProperty(argIndex_or_Name):
             argIndex_or_Name = argIndex_or_Name.encode(codec)
 
         lib.DSSProperty_Set_Name(argIndex_or_Name)
+
 
 def Value(*args):
     if len(args) == 0:
@@ -48,6 +53,5 @@ def Value(*args):
     lib.DSSProperty_Set_Val(Value)
 
 
-_columns = ['Description', 'Name', 'Value']
-__all__ = ['Description', 'Name', 'Value']
-
+_columns = ["Description", "Name", "Value"]
+__all__ = ["Description", "Name", "Value"]

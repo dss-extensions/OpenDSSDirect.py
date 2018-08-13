@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
 from __future__ import absolute_import
 from ._utils import *
 
+
 def AllowDuplicates(*args):
-    '''{True | False*} Designates whether to allow duplicate names of objects'''
+    """{True | False*} Designates whether to allow duplicate names of objects"""
     # Getter
     if len(args) == 0:
         return lib.Settings_Get_AllowDuplicates() != 0
@@ -11,8 +13,9 @@ def AllowDuplicates(*args):
     Value, = args
     lib.Settings_Set_AllowDuplicates(Value)
 
+
 def AutoBusList(*args):
-    '''List of Buses or (File=xxxx) syntax for the AutoAdd solution mode.'''
+    """List of Buses or (File=xxxx) syntax for the AutoAdd solution mode."""
     # Getter
     if len(args) == 0:
         return get_string(lib.Settings_Get_AutoBusList())
@@ -24,8 +27,9 @@ def AutoBusList(*args):
 
     lib.Settings_Set_AutoBusList(Value)
 
+
 def CktModel(*args):
-    '''{dssMultiphase * | dssPositiveSeq} IIndicate if the circuit model is positive sequence.'''
+    """{dssMultiphase * | dssPositiveSeq} IIndicate if the circuit model is positive sequence."""
     # Getter
     if len(args) == 0:
         return lib.Settings_Get_CktModel()
@@ -34,8 +38,9 @@ def CktModel(*args):
     Value, = args
     lib.Settings_Set_CktModel(Value)
 
+
 def ControlTrace(*args):
-    '''{True | False*} Denotes whether to trace the control actions to a file.'''
+    """{True | False*} Denotes whether to trace the control actions to a file."""
     # Getter
     if len(args) == 0:
         return lib.Settings_Get_ControlTrace() != 0
@@ -44,8 +49,9 @@ def ControlTrace(*args):
     Value, = args
     lib.Settings_Set_ControlTrace(Value)
 
+
 def EmergVmaxpu(*args):
-    '''Per Unit maximum voltage for Emergency conditions.'''
+    """Per Unit maximum voltage for Emergency conditions."""
     # Getter
     if len(args) == 0:
         return lib.Settings_Get_EmergVmaxpu()
@@ -54,8 +60,9 @@ def EmergVmaxpu(*args):
     Value, = args
     lib.Settings_Set_EmergVmaxpu(Value)
 
+
 def EmergVminpu(*args):
-    '''Per Unit minimum voltage for Emergency conditions.'''
+    """Per Unit minimum voltage for Emergency conditions."""
     # Getter
     if len(args) == 0:
         return lib.Settings_Get_EmergVminpu()
@@ -64,8 +71,9 @@ def EmergVminpu(*args):
     Value, = args
     lib.Settings_Set_EmergVminpu(Value)
 
+
 def LossRegs(*args):
-    '''Integer array defining which energy meter registers to use for computing losses'''
+    """Integer array defining which energy meter registers to use for computing losses"""
     # Getter
     if len(args) == 0:
         return get_int32_array(lib.Settings_Get_LossRegs)
@@ -75,8 +83,9 @@ def LossRegs(*args):
     Value, ValuePtr, ValueCount = prepare_int32_array(Value)
     lib.Settings_Set_LossRegs(ValuePtr, ValueCount)
 
+
 def LossWeight(*args):
-    '''Weighting factor applied to Loss register values.'''
+    """Weighting factor applied to Loss register values."""
     # Getter
     if len(args) == 0:
         return lib.Settings_Get_LossWeight()
@@ -85,8 +94,9 @@ def LossWeight(*args):
     Value, = args
     lib.Settings_Set_LossWeight(Value)
 
+
 def NormVmaxpu(*args):
-    '''Per Unit maximum voltage for Normal conditions.'''
+    """Per Unit maximum voltage for Normal conditions."""
     # Getter
     if len(args) == 0:
         return lib.Settings_Get_NormVmaxpu()
@@ -95,8 +105,9 @@ def NormVmaxpu(*args):
     Value, = args
     lib.Settings_Set_NormVmaxpu(Value)
 
+
 def NormVminpu(*args):
-    '''Per Unit minimum voltage for Normal conditions.'''
+    """Per Unit minimum voltage for Normal conditions."""
     # Getter
     if len(args) == 0:
         return lib.Settings_Get_NormVminpu()
@@ -105,8 +116,9 @@ def NormVminpu(*args):
     Value, = args
     lib.Settings_Set_NormVminpu(Value)
 
+
 def PriceCurve(*args):
-    '''Name of LoadShape object that serves as the source of price signal data for yearly simulations, etc.'''
+    """Name of LoadShape object that serves as the source of price signal data for yearly simulations, etc."""
     # Getter
     if len(args) == 0:
         return get_string(lib.Settings_Get_PriceCurve())
@@ -118,8 +130,9 @@ def PriceCurve(*args):
 
     lib.Settings_Set_PriceCurve(Value)
 
+
 def PriceSignal(*args):
-    '''Price Signal for the Circuit'''
+    """Price Signal for the Circuit"""
     # Getter
     if len(args) == 0:
         return lib.Settings_Get_PriceSignal()
@@ -128,8 +141,9 @@ def PriceSignal(*args):
     Value, = args
     lib.Settings_Set_PriceSignal(Value)
 
+
 def Trapezoidal(*args):
-    '''{True | False *} Gets value of trapezoidal integration flag in energy meters.'''
+    """{True | False *} Gets value of trapezoidal integration flag in energy meters."""
     # Getter
     if len(args) == 0:
         return lib.Settings_Get_Trapezoidal() != 0
@@ -138,8 +152,9 @@ def Trapezoidal(*args):
     Value, = args
     lib.Settings_Set_Trapezoidal(Value)
 
+
 def UERegs(*args):
-    '''Array of Integers defining energy meter registers to use for computing UE'''
+    """Array of Integers defining energy meter registers to use for computing UE"""
     # Getter
     if len(args) == 0:
         return get_int32_array(lib.Settings_Get_UEregs)
@@ -149,8 +164,9 @@ def UERegs(*args):
     Value, ValuePtr, ValueCount = prepare_int32_array(Value)
     lib.Settings_Set_UEregs(ValuePtr, ValueCount)
 
+
 def UEWeight(*args):
-    '''Weighting factor applied to UE register values.'''
+    """Weighting factor applied to UE register values."""
     # Getter
     if len(args) == 0:
         return lib.Settings_Get_UEweight()
@@ -159,8 +175,9 @@ def UEWeight(*args):
     Value, = args
     lib.Settings_Set_UEweight(Value)
 
+
 def VoltageBases(*args):
-    '''Array of doubles defining the legal voltage bases in kV L-L'''
+    """Array of doubles defining the legal voltage bases in kV L-L"""
     # Getter
     if len(args) == 0:
         return get_float64_array(lib.Settings_Get_VoltageBases)
@@ -170,8 +187,9 @@ def VoltageBases(*args):
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
     lib.Settings_Set_VoltageBases(ValuePtr, ValueCount)
 
+
 def ZoneLock(*args):
-    '''{True | False*}  Locks Zones on energy meters to prevent rebuilding if a circuit change occurs.'''
+    """{True | False*}  Locks Zones on energy meters to prevent rebuilding if a circuit change occurs."""
     # Getter
     if len(args) == 0:
         return lib.Settings_Get_ZoneLock() != 0
@@ -180,12 +198,48 @@ def ZoneLock(*args):
     Value, = args
     lib.Settings_Set_ZoneLock(Value)
 
+
 def AllocationFactors(Value):
-    '''(write-only) Sets all load allocation factors for all loads defined by XFKVA property to this value.'''
+    """(write-only) Sets all load allocation factors for all loads defined by XFKVA property to this value."""
     lib.Settings_Set_AllocationFactors(Value)
 
 
-
-_columns = ['AllowDuplicates', 'AutoBusList', 'CktModel', 'ControlTrace', 'EmergVmaxpu', 'EmergVminpu', 'LossRegs', 'LossWeight', 'NormVmaxpu', 'NormVminpu', 'PriceCurve', 'PriceSignal', 'Trapezoidal', 'UERegs', 'UEWeight', 'VoltageBases', 'ZoneLock']
-__all__ = ['AllowDuplicates', 'AutoBusList', 'CktModel', 'ControlTrace', 'EmergVmaxpu', 'EmergVminpu', 'LossRegs', 'LossWeight', 'NormVmaxpu', 'NormVminpu', 'PriceCurve', 'PriceSignal', 'Trapezoidal', 'UERegs', 'UEWeight', 'VoltageBases', 'ZoneLock', 'AllocationFactors']
-
+_columns = [
+    "AllowDuplicates",
+    "AutoBusList",
+    "CktModel",
+    "ControlTrace",
+    "EmergVmaxpu",
+    "EmergVminpu",
+    "LossRegs",
+    "LossWeight",
+    "NormVmaxpu",
+    "NormVminpu",
+    "PriceCurve",
+    "PriceSignal",
+    "Trapezoidal",
+    "UERegs",
+    "UEWeight",
+    "VoltageBases",
+    "ZoneLock",
+]
+__all__ = [
+    "AllowDuplicates",
+    "AutoBusList",
+    "CktModel",
+    "ControlTrace",
+    "EmergVmaxpu",
+    "EmergVminpu",
+    "LossRegs",
+    "LossWeight",
+    "NormVmaxpu",
+    "NormVminpu",
+    "PriceCurve",
+    "PriceSignal",
+    "Trapezoidal",
+    "UERegs",
+    "UEWeight",
+    "VoltageBases",
+    "ZoneLock",
+    "AllocationFactors",
+]

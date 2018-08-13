@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from __future__ import absolute_import
 
 # Import dss_python, exposing only OpenDSS v7 while v8 is still considered
