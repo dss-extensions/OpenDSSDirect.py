@@ -36,134 +36,135 @@ def test_module_import():
 
     from opendssdirect import ActiveClass as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import Basic as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import Bus as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import Capacitors as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import CapControls as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import Circuit as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import CktElement as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import Element as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import Executive as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import Fuses as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import Generators as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import Isource as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import Lines as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import Loads as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import LoadShape as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import Meters as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import Monitors as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import Parser as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import PDElements as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import Properties as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import PVsystems as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import Reclosers as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import RegControls as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import Relays as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import Sensors as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import Settings as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import Solution as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import SwtControls as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import Topology as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
+
     from opendssdirect import Transformers as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import Vsources as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import XYCurves as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
     from opendssdirect import dss_lib as m
 
-    inspect.ismodule(m)
+    assert inspect.ismodule(m)
 
 
 def test_ActiveClass(dss):
