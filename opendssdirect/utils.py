@@ -81,24 +81,16 @@ def _clean_data(data, class_name):
         dss.Circuit.SetActiveElement(name)
 
         if "nconds" in dss.Element.AllPropertyNames():
-
             nconds = int(data[name]["nconds"])
             x = []
+            h = []
+            units = []
+
             for cond in range(nconds):
                 dss.run_command("{name}.cond={cond}".format(name=name, cond=cond))
                 x.append(float(dss.run_command("? {name}.x".format(name=name))))
-
-            data[name]["x"] = x
-
-            units = []
-            for cond in range(nconds):
-                dss.run_command("{name}.cond={cond}".format(name=name, cond=cond))
-                units.append(dss.run_command("? {name}.units".format(name=name)))
-
-            h = []
-            for cond in range(nconds):
-                dss.run_command("{name}.cond={cond}".format(name=name, cond=cond))
                 h.append(float(dss.run_command("? {name}.h".format(name=name))))
+                units.append(dss.run_command("? {name}.units".format(name=name)))
 
             data[name]["x"] = x
             data[name]["h"] = h
