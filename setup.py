@@ -12,7 +12,7 @@ with open(os.path.join(here, './README.md'), encoding='utf-8') as f:
 with open(os.path.join(here, 'opendssdirect', '_version.py'), encoding='utf-8') as f:
     version = f.read()
 
-version = version.split()[2].strip('"').strip("'")
+version = version.splitlines()[1].split()[2].strip('"').strip("'")
 
 
 setup(
