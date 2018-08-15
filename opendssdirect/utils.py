@@ -90,6 +90,20 @@ def _clean_data(data, class_name):
 
             data[name]["x"] = x
 
+            units = []
+            for cond in range(nconds):
+                dss.run_command("{name}.cond={cond}".format(name=name, cond=cond))
+                units.append(dss.run_command("? {name}.units".format(name=name)))
+
+            h = []
+            for cond in range(nconds):
+                dss.run_command("{name}.cond={cond}".format(name=name, cond=cond))
+                h.append(float(dss.run_command("? {name}.h".format(name=name))))
+
+            data[name]["x"] = x
+            data[name]["h"] = h
+            data[name]["units"] = units
+
     return data
 
 
