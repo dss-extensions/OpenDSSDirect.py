@@ -1732,9 +1732,8 @@ def test_13Node_Lines(dss):
         0.00019599020692226434,
     ]
 
-
-#    assert dss.Lines.R1() == 0.058 # DISABLED (BUG IN OPENDSS)
-#    assert dss.Lines.X1() == 0.1206 # DISABLED (BUG IN OPENDSS)
+    assert dss.Lines.R1() == 1.0985148822469399e-05
+    assert dss.Lines.X1() == 2.2841533586031195e-05
 
 
 def test_13Node_Loads(dss):
