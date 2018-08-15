@@ -1,5 +1,5 @@
 from __future__ import absolute_import
-from ._utils import *
+from ._utils import lib, get_string_array
 
 def ClearActions():
     lib.CtrlQueue_ClearActions()

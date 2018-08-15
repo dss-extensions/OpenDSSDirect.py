@@ -1,5 +1,5 @@
 from __future__ import absolute_import
-from ._utils import *
+from ._utils import lib, get_string, get_string_array
 
 def AllPropertyNames():
     '''(read-only) Array of strings containing the names of all properties for the active DSS object.'''

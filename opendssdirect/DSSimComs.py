@@ -1,5 +1,5 @@
 from __future__ import absolute_import
-from ._utils import *
+from ._utils import lib, get_float64_array
 
 def BusVoltage(Index):
     return get_float64_array(lib.DSSimComs_BusVoltage, Index)

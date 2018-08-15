@@ -1,5 +1,6 @@
 from __future__ import absolute_import
-from ._utils import *
+from ._utils import lib, get_string, get_string_array, get_float64_array
+from ._utils import codec
 
 def cabs(realpart, imagpart):
     '''(read-only) Return abs value of complex number given in real and imag doubles'''

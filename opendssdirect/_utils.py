@@ -4,7 +4,7 @@ from __future__ import absolute_import
 # Import dss_python, exposing only OpenDSS v7 while v8 is still considered
 # experimental (at least with Free Pascal)
 import dss as dss_py
-from dss._cffi_api_util import *
+from dss._cffi_api_util import CffiApiUtil, codec
 import numpy as np
 import warnings
 

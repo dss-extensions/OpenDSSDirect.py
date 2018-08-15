@@ -1,5 +1,6 @@
 from __future__ import absolute_import
-from ._utils import *
+from ._utils import lib, get_string
+from ._utils import codec
 
 def Description():
     '''(read-only) Description of error for last operation'''
