@@ -1410,6 +1410,51 @@ def test_storage_to_dataframe(dss):
     actual_dict = dss.utils.class_to_dataframe('Storage').to_dict()
     assert_dict_equal(actual_dict, expected_dict)
 
+def test_linegeometry_class_to_dataframe():
+    string = """Clear
+
+    New Circuit.test_circuit
+
+    New Wiredata.ACSR336 GMR=0.0255000 DIAM=0.7410000 RAC=0.3060000 NormAmps=530.0000 Runits=mi radunits=in gmrunits=ft
+    New Wiredata.ACSR1/0 GMR=0.0044600 DIAM=0.3980000 RAC=1.120000 NormAmps=230.0000 Runits=mi radunits=in gmrunits=ft
+
+
+    New Linegeometry.HC2_336_1neut_0Mess nconds=4 nphases=3
+    ~ cond=1 Wire=acsr336 x=-1.2909 h=13.716 units=m
+    ~ cond=2 Wire=acsr336 x=-0.1530096 h=4.1806368 units=ft
+    ~ cond=3 Wire=acsr336 x=0.5737 h=13.716 units=m
+    ~ cond=4 Wire= ACSR1/0 x=0 h=14.648 ! units=m ! neutral
+
+    New Line.Line1 Bus1=bus1.1.2.3 Bus2=bus2.1.2.3
+    ~ Geometry= HC2_336_1neut_0Mess
+    ~ Length=300 units=ft
+
+    Set Voltagebases=[4.8,34.5,115.0]
+    Calcvoltagebases
+    Solve"""
+
+    import opendssdirect as dss
+    dss.run_command(string).strip()
+    dss.utils.is_pandas_installed = False
+    data = dss.utils.class_to_dataframe("linegeometry")
+    assert data == {'linegeometry.hc2_336_1neut_0mess': {'nconds': '4',
+  'nphases': '3',
+  'cond': '4',
+  'wire': 'ACSR1/0',
+  'x': [0.0, -1.2909, -0.1530096, 0.5737],
+  'h': '14.648',
+  'units': 'm',
+  'normamps': '0',
+  'emergamps': '0',
+  'reduce': '',
+  'spacing': '',
+  'wires': ['acsr336 acsr336 acsr336 ACSR1/0'],
+  'cncable': 'ACSR1/0',
+  'tscable': 'ACSR1/0',
+  'cncables': ['acsr336 acsr336 acsr336 ACSR1/0'],
+  'tscables': ['acsr336 acsr336 acsr336 ACSR1/0'],
+  'like': ''}}
+
 
 def test_ymatrix(dss):
     expected_Y_data = (

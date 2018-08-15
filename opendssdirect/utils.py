@@ -44,7 +44,7 @@ def run_command(text, dss=None):
         dss.dss_lib.Text_Set_Command(l.encode("ascii"))
         r.append(get_string(dss.dss_lib.Text_Get_Result()))
 
-    return "\n".join(r)
+    return "\n".join(r).strip()
 
 
 def to_dataframe(module):
@@ -105,6 +105,17 @@ def class_to_dataframe(class_name, dss=None, transform_string=None):
             string = dss.Properties.Value(str(i + 1))
 
             data[name][n] = transform_string(string)
+
+    if "nconds" in dss.Element.AllPropertyNames():
+
+        nconds = int(data[name]["nconds"])
+        x = []
+        for cond in range(nconds):
+            dss.run_command('{name}.cond={cond}'.format(name=name, cond=cond))
+            x.append(float(dss.run_command('? {name}.x'.format(name=name))))
+
+        data[name]["x"] = x
+
 
     if is_pandas_installed:
         return pd.DataFrame(data).T
