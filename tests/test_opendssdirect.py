@@ -27,7 +27,7 @@ def test_package_import():
 
     import opendssdirect
 
-    assert opendssdirect.__version__ == "0.3.1"
+    assert opendssdirect.__version__ == "0.3.2"
 
 
 def test_module_import():
