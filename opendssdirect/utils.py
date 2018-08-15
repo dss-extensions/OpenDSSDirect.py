@@ -73,10 +73,33 @@ def to_dataframe(module):
         return data
 
 
-def class_to_dataframe(class_name, dss=None, transform_string=None):
+def _clean_data(data, class_name):
+    import opendssdirect as dss
+
+    for element in dss.ActiveClass.AllNames():
+        name = "{class_name}.{element}".format(class_name=class_name, element=element)
+        dss.Circuit.SetActiveElement(name)
+
+        if "nconds" in dss.Element.AllPropertyNames():
+
+            nconds = int(data[name]["nconds"])
+            x = []
+            for cond in range(nconds):
+                dss.run_command("{name}.cond={cond}".format(name=name, cond=cond))
+                x.append(float(dss.run_command("? {name}.x".format(name=name))))
+
+            data[name]["x"] = x
+
+    return data
+
+
+def class_to_dataframe(class_name, dss=None, transform_string=None, clean_data=None):
 
     if transform_string is None:
         transform_string = _evaluate_expression
+
+    if clean_data is None:
+        clean_data = _clean_data
 
     if not callable(transform_string):
         raise TypeError(
@@ -106,15 +129,7 @@ def class_to_dataframe(class_name, dss=None, transform_string=None):
 
             data[name][n] = transform_string(string)
 
-    if "nconds" in dss.Element.AllPropertyNames():
-
-        nconds = int(data[name]["nconds"])
-        x = []
-        for cond in range(nconds):
-            dss.run_command("{name}.cond={cond}".format(name=name, cond=cond))
-            x.append(float(dss.run_command("? {name}.x".format(name=name))))
-
-        data[name]["x"] = x
+    data = clean_data(data, class_name)
 
     if is_pandas_installed:
         return pd.DataFrame(data).T
