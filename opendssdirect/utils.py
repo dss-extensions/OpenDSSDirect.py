@@ -86,7 +86,7 @@ def _clean_data(data, class_name):
             h = []
             units = []
 
-            for cond in range(nconds):
+            for cond in range(1, nconds + 1):
                 dss.run_command("{name}.cond={cond}".format(name=name, cond=cond))
                 x.append(float(dss.run_command("? {name}.x".format(name=name))))
                 h.append(float(dss.run_command("? {name}.h".format(name=name))))
