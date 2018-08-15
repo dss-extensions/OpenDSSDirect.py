@@ -111,11 +111,10 @@ def class_to_dataframe(class_name, dss=None, transform_string=None):
         nconds = int(data[name]["nconds"])
         x = []
         for cond in range(nconds):
-            dss.run_command('{name}.cond={cond}'.format(name=name, cond=cond))
-            x.append(float(dss.run_command('? {name}.x'.format(name=name))))
+            dss.run_command("{name}.cond={cond}".format(name=name, cond=cond))
+            x.append(float(dss.run_command("? {name}.x".format(name=name))))
 
         data[name]["x"] = x
-
 
     if is_pandas_installed:
         return pd.DataFrame(data).T
