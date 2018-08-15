@@ -44,7 +44,7 @@ def run_command(text, dss=None):
         dss.dss_lib.Text_Set_Command(l.encode("ascii"))
         r.append(get_string(dss.dss_lib.Text_Get_Result()))
 
-    return "\n".join(r)
+    return "\n".join(r).strip()
 
 
 def to_dataframe(module):
@@ -73,10 +73,39 @@ def to_dataframe(module):
         return data
 
 
-def class_to_dataframe(class_name, dss=None, transform_string=None):
+def _clean_data(data, class_name):
+    import opendssdirect as dss
+
+    for element in dss.ActiveClass.AllNames():
+        name = "{class_name}.{element}".format(class_name=class_name, element=element)
+        dss.Circuit.SetActiveElement(name)
+
+        if "nconds" in dss.Element.AllPropertyNames():
+            nconds = int(data[name]["nconds"])
+            x = []
+            h = []
+            units = []
+
+            for cond in range(1, nconds + 1):
+                dss.run_command("{name}.cond={cond}".format(name=name, cond=cond))
+                x.append(float(dss.run_command("? {name}.x".format(name=name))))
+                h.append(float(dss.run_command("? {name}.h".format(name=name))))
+                units.append(dss.run_command("? {name}.units".format(name=name)))
+
+            data[name]["x"] = x
+            data[name]["h"] = h
+            data[name]["units"] = units
+
+    return data
+
+
+def class_to_dataframe(class_name, dss=None, transform_string=None, clean_data=None):
 
     if transform_string is None:
         transform_string = _evaluate_expression
+
+    if clean_data is None:
+        clean_data = _clean_data
 
     if not callable(transform_string):
         raise TypeError(
@@ -105,6 +134,8 @@ def class_to_dataframe(class_name, dss=None, transform_string=None):
             string = dss.Properties.Value(str(i + 1))
 
             data[name][n] = transform_string(string)
+
+    data = clean_data(data, class_name)
 
     if is_pandas_installed:
         return pd.DataFrame(data).T
