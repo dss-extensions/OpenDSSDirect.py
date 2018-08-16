@@ -4,6 +4,8 @@ from setuptools.command.develop import develop
 from subprocess import check_call
 import shlex
 
+import logging
+
 import os
 from codecs import open
 
@@ -17,6 +19,8 @@ with open(os.path.join(here, "opendssdirect", "_version.py"), encoding="utf-8") 
     version = f.read()
 
 version = version.splitlines()[1].split()[2].strip('"').strip("'")
+
+logger = logging.getLogger(__name__)
 
 
 class PostDevelopCommand(develop):
