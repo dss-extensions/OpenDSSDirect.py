@@ -5401,3 +5401,61 @@ def test_ymatrix(dss):
     )
     np.testing.assert_array_almost_equal(expected_V, dss.YMatrix.getV(), decimal=4)
     np.testing.assert_array_almost_equal(expected_I, dss.YMatrix.getI(), decimal=4)
+
+
+def test_wiredata_class_to_dataframe():
+    commands = """Clear
+
+    New Circuit.test_circuit
+
+    New Wiredata.ACSR336 GMR=0.0255000 DIAM=0.7410000 RAC=0.3060000 NormAmps=530.0000 Runits=mi radunits=in gmrunits=ft
+    New Wiredata.ACSR1/0 GMR=0.0044600 DIAM=0.3980000 RAC=1.120000 NormAmps=230.0000 Runits=mi radunits=in gmrunits=ft
+
+
+    New Linegeometry.HC2_336_1neut_0Mess nconds=4 nphases=3
+    ~ cond=1 Wire=acsr336 x=-1.2909 h=13.716 units=m
+    ~ cond=2 Wire=acsr336 x=-0.1530096 h=4.1806368 units=ft
+    ~ cond=3 Wire=acsr336 x=0.5737 h=13.716 units=m
+    ~ cond=4 Wire= ACSR1/0 x=0 h=14.648 ! units=m ! neutral
+
+    New Line.Line1 Bus1=bus1.1.2.3 Bus2=bus2.1.2.3
+    ~ Geometry= HC2_336_1neut_0Mess
+    ~ Length=300 units=ft
+
+    Set Voltagebases=[4.8,34.5,115.0]
+    Calcvoltagebases
+    Solve"""
+
+    import opendssdirect as dss
+
+    dss.run_command(commands)
+    dss.utils.is_pandas_installed = False
+    data = dss.utils.class_to_dataframe("wiredata")
+    assert data == {
+        'wiredata.acsr1/0': {
+            'GMRac': '0.0044600',
+            'GMRunits': 'ft',
+            'Rac': '1.120000',
+            'Rdc': '-1',
+            'Runits': 'mi',
+            'diam': '0.3980000',
+            'emergamps': '-1',
+            'like': '',
+            'normamps': '230.0000',
+            'radius': '-1',
+            'radunits': 'in'
+        },
+        'wiredata.acsr336': {
+            'GMRac': '0.0255000',
+            'GMRunits': 'ft',
+            'Rac': '0.3060000',
+            'Rdc': '-1',
+            'Runits': 'mi',
+            'diam': '0.7410000',
+            'emergamps': '-1',
+            'like': '',
+            'normamps': '530.0000',
+            'radius': '-1',
+            'radunits': 'in'
+        }
+    }
