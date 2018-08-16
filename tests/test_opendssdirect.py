@@ -868,8 +868,16 @@ def test_13Node_Circuit(dss):
     assert dss.Circuit.Sample() is None
     assert dss.Circuit.SaveSample() is None
     assert dss.Circuit.SetActiveBus("") == -1  # returns integer
-    #    assert dss.Circuit.SetActiveBusi() == 0 --- needs params
+
+    assert dss.Circuit.SetActiveBus("650") == 1
+    assert dss.Bus.Name() == "650"
+
+    assert dss.Circuit.SetActiveBusi(0) == 0
+    assert dss.Bus.Name() == "sourcebus"
+
     assert dss.Circuit.SetActiveClass("") == 0
+    assert dss.Circuit.SetActiveClass("Load") == 20
+
     assert dss.Circuit.SetActiveElement("") == -1
     assert dss.Circuit.SubstationLosses() == [0.0, 0.0]
     np.testing.assert_array_almost_equal(
