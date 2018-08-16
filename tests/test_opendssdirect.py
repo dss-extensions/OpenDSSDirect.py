@@ -5431,31 +5431,32 @@ def test_wiredata_class_to_dataframe():
     dss.run_command(commands)
     dss.utils.is_pandas_installed = False
     data = dss.utils.class_to_dataframe("wiredata")
+
     assert data == {
-        'wiredata.acsr1/0': {
-            'GMRac': '0.0044600',
-            'GMRunits': 'ft',
-            'Rac': '1.120000',
-            'Rdc': '-1',
-            'Runits': 'mi',
-            'diam': '0.3980000',
-            'emergamps': '-1',
-            'like': '',
-            'normamps': '230.0000',
-            'radius': '-1',
-            'radunits': 'in'
+        "wiredata.acsr1/0": {
+            "GMRac": "0.0044600",
+            "GMRunits": "ft",
+            "Rac": "1.120000",
+            "Rdc": "-1",
+            "Runits": "mi",
+            "diam": "0.3980000",
+            "emergamps": "-1",
+            "like": "",
+            "normamps": "230.0000",
+            "radius": "-1",
+            "radunits": "in",
         },
-        'wiredata.acsr336': {
-            'GMRac': '0.0255000',
-            'GMRunits': 'ft',
-            'Rac': '0.3060000',
-            'Rdc': '-1',
-            'Runits': 'mi',
-            'diam': '0.7410000',
-            'emergamps': '-1',
-            'like': '',
-            'normamps': '530.0000',
-            'radius': '-1',
-            'radunits': 'in'
-        }
+        "wiredata.acsr336": {
+            "GMRac": "0.0255000",
+            "GMRunits": "ft",
+            "Rac": "0.3060000",
+            "Rdc": "-1",
+            "Runits": "mi",
+            "diam": "0.7410000",
+            "emergamps": "-1",
+            "like": "",
+            "normamps": "530.0000",
+            "radius": "-1",
+            "radunits": "in",
+        },
     }
