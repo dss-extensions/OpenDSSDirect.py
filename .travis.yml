@@ -33,7 +33,7 @@ install:
   - source activate test-env
   - pip install pytest-cov
   - pip install codecov
-  - pip install -e '.[extras,dev]'
+  - pip install -e '.[extras]'
 script:
   - make
 after_success:
