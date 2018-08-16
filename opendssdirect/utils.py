@@ -78,7 +78,7 @@ def _clean_data(data, class_name):
 
     for element in dss.ActiveClass.AllNames():
         name = "{class_name}.{element}".format(class_name=class_name, element=element)
-        dss.Circuit.SetActiveElement(name)
+        dss.ActiveClass.Name(element)
 
         if "nconds" in dss.Element.AllPropertyNames():
             nconds = int(data[name]["nconds"])
@@ -126,7 +126,7 @@ def class_to_dataframe(class_name, dss=None, transform_string=None, clean_data=N
 
     for element in dss.ActiveClass.AllNames():
         name = "{class_name}.{element}".format(class_name=class_name, element=element)
-        dss.Circuit.SetActiveElement(name)
+        dss.ActiveClass.Name(element)
 
         data[name] = dict()
         for i, n in enumerate(dss.Element.AllPropertyNames()):
