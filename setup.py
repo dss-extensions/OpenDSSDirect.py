@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 from setuptools import setup, find_packages
+from setuptools.command.develop import develop
+from subprocess import check_call
+import shlex
 
 import os
 from codecs import open
@@ -14,6 +17,16 @@ with open(os.path.join(here, "opendssdirect", "_version.py"), encoding="utf-8") 
     version = f.read()
 
 version = version.splitlines()[1].split()[2].strip('"').strip("'")
+
+
+class PostDevelopCommand(develop):
+
+    def run(self):
+        try:
+            check_call(shlex.split("pre-commit install"))
+        except Exception as e:
+            logger.warning("Unable to run 'pre-commit install'")
+        develop.run(self)
 
 
 setup(
@@ -31,7 +44,14 @@ setup(
     install_requires=["future", "six", "dss_python"],
     extras_require={
         "extras": ["pandas", "matplotlib", "networkx"],
-        "dev": ["pytest", "pytest-cov", "sphinx-rtd-theme", "nbsphinx"],
+        "dev": [
+            "pytest",
+            "pytest-cov",
+            "sphinx-rtd-theme",
+            "nbsphinx",
+            "black",
+            "pre-commit",
+        ],
     },
     keywords=["OpenDSS", "cffi"],
     zip_safe=False,
@@ -55,4 +75,5 @@ setup(
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
     ],
+    cmdclass={"develop": PostDevelopCommand},
 )
