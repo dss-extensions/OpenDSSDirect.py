@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
 import numpy as np
-from ._utils import lib, get_string, get_string_array, ffi, get_float64_array
-from ._utils import codec
+from ._utils import lib, ffi
 from .Circuit import NumNodes
 
 

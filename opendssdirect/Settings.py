@@ -3,9 +3,10 @@ from __future__ import absolute_import
 from ._utils import (
     lib,
     get_string,
-    get_string_array,
     get_int32_array,
     get_float64_array,
+    prepare_int32_array,
+    prepare_float64_array,
 )
 from ._utils import codec
 

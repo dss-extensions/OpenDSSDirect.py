@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
-from ._utils import lib, get_string, get_string_array
+from ._utils import lib, get_string, CheckForError
 from ._utils import codec
 
 
