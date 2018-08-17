@@ -2,7 +2,6 @@
 from __future__ import absolute_import
 import inspect
 import warnings
-import os
 
 from ._utils import get_string
 
@@ -15,7 +14,6 @@ except ImportError:
 
 
 class Iterator(object):
-
     def __init__(self, module, function):
         assert inspect.ismodule(module), "{module} must be of type module".format(
             module=module

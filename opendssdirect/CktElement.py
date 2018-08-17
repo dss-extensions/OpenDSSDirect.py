@@ -6,6 +6,7 @@ from ._utils import (
     get_string_array,
     get_float64_array,
     get_int32_array,
+    prepare_string_array,
 )
 from ._utils import codec
 

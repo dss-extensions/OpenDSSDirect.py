@@ -5,6 +5,7 @@ from __future__ import absolute_import
 # experimental (at least with Free Pascal)
 import dss as dss_py
 from dss._cffi_api_util import CffiApiUtil, codec
+from dss.v7.dss_capi import CheckForError
 import numpy as np
 import warnings
 
