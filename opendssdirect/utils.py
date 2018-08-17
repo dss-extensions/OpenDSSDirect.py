@@ -14,7 +14,6 @@ except ImportError:
 
 
 class Iterator(object):
-
     def __init__(self, module, function):
         assert inspect.ismodule(module), "{module} must be of type module".format(
             module=module
