@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
-from ._utils import lib, get_string, get_string_array, get_int8_array
-from ._utils import codec
-
+from ._utils import (
+    lib,
+    get_string,
+    get_string_array,
+    get_float64_array,
+    get_int8_array,
+    codec,
+)
 
 def Channel(Index):
     """(read-only) Array of doubles for the specified channel  (usage: MyArray = DSSMonitor.Channel(i)) A Save or SaveAll  should be executed first. Done automatically by most standard solution modes."""
