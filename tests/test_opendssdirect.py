@@ -397,6 +397,12 @@ def test_13Node_Bus(dss):
     )
     assert dss.Bus.X() == 200.0
     assert dss.Bus.Y() == 400.0
+    assert dss.Bus.X(100) is None
+    assert dss.Bus.Y(200) is None
+    assert dss.Bus.X() == 100.0
+    assert dss.Bus.Y() == 200.0
+    assert dss.Bus.X(200) is None
+    assert dss.Bus.Y(400) is None
     assert dss.Bus.YscMatrix() == [0.0]
     assert dss.Bus.Zsc0() == [0.0, 0.0]
     assert dss.Bus.Zsc1() == [0.0, 0.0]
