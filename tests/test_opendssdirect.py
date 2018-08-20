@@ -1483,6 +1483,8 @@ def test_13Node_Capacitors(dss):
 
 
 def test_13Node_CapControls(dss):
+    # TODO: Add CapControls to feeder
+    assert dss.CapControls.Reset() is None
     assert dss.CapControls.AllNames() == []
     assert dss.CapControls.CTRatio() == 0.0
     assert dss.CapControls.Capacitor() == u""
