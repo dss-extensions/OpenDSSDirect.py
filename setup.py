@@ -45,7 +45,7 @@ setup(
     author_email="dheepak.krishnamurthy@nrel.gov",
     license="BSD-compatible",
     packages=find_packages(),
-    install_requires=["future", "six", "dss_python"],
+    install_requires=["future", "six", "dss_python>=0.9.8"],
     extras_require={
         "extras": ["pandas", "matplotlib", "networkx"],
         "dev": [
