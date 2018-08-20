@@ -277,10 +277,16 @@ def test_13Node_Basic(dss):
         u"EnergyMeter",
         u"Sensor",
     ]
+    current_directory = os.path.abspath(dss.Basic.DataPath())
     assert dss.Basic.NumClasses() == 47
     assert dss.Basic.ShowPanel() == 0
     assert dss.Basic.ClearAll() is None
-    assert os.path.abspath(dss.Basic.DataPath()) == os.path.abspath(".")
+    assert dss.Basic.DataPath(os.path.abspath("..")) is None
+    assert os.path.abspath(dss.Basic.DataPath()) == os.path.abspath(
+        os.path.join(current_directory, "..")
+    )
+    assert dss.Basic.DataPath(os.path.abspath(current_directory)) is None
+    assert os.path.abspath(dss.Basic.DataPath()) == os.path.abspath(current_directory)
     # assert dss.Basic.DefaultEditor() == u'open -t'
     assert dss.Basic.NewCircuit("Circuit") == u"New Circuit"
     assert dss.Basic.NumCircuits() == 1
