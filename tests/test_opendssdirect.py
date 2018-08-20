@@ -313,6 +313,7 @@ def test_13Node_Basic(dss):
 
 def test_13Node_Bus(dss):
 
+    assert dss.Bus.GetUniqueNodeNumber(0) == 0
     assert dss.Bus.Coorddefined() == 1
     np.testing.assert_array_almost_equal(
         dss.Bus.CplxSeqVoltages(),
