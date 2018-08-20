@@ -2,6 +2,7 @@
 import pytest as pt
 import os
 import sys
+import platform
 import pandas as pd
 from pandas.util.testing import assert_dict_equal
 import numpy as np
@@ -287,7 +288,13 @@ def test_13Node_Basic(dss):
     )
     assert dss.Basic.DataPath(os.path.abspath(current_directory)) is None
     assert os.path.abspath(dss.Basic.DataPath()) == os.path.abspath(current_directory)
-    # assert dss.Basic.DefaultEditor() == u'open -t'
+    if platform.system() == "Darwin":
+        assert dss.Basic.DefaultEditor() == "open -t"
+    elif platform.system() == "Windows":
+        assert dss.Basic.DefaultEditor() == "Notepad.exe"
+    elif platform.system() == "Linux":
+        assert dss.Basic.DefaultEditor() == "xdg-open"
+
     assert dss.Basic.NewCircuit("Circuit") == u"New Circuit"
     assert dss.Basic.NumCircuits() == 1
     assert dss.Basic.NumUserClasses() == 0
