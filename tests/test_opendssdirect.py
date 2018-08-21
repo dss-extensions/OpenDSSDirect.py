@@ -2,6 +2,7 @@
 import pytest as pt
 import os
 import sys
+import platform
 import pandas as pd
 from pandas.util.testing import assert_dict_equal
 import numpy as np
@@ -277,11 +278,23 @@ def test_13Node_Basic(dss):
         u"EnergyMeter",
         u"Sensor",
     ]
+    current_directory = os.path.abspath(dss.Basic.DataPath())
     assert dss.Basic.NumClasses() == 47
     assert dss.Basic.ShowPanel() == 0
     assert dss.Basic.ClearAll() is None
-    assert os.path.abspath(dss.Basic.DataPath()) == os.path.abspath(".")
-    # assert dss.Basic.DefaultEditor() == u'open -t'
+    assert dss.Basic.DataPath(os.path.abspath("..")) is None
+    assert os.path.abspath(dss.Basic.DataPath()) == os.path.abspath(
+        os.path.join(current_directory, "..")
+    )
+    assert dss.Basic.DataPath(os.path.abspath(current_directory)) is None
+    assert os.path.abspath(dss.Basic.DataPath()) == os.path.abspath(current_directory)
+    if platform.system() == "Darwin":
+        assert dss.Basic.DefaultEditor() == "open -t"
+    elif platform.system() == "Windows":
+        assert dss.Basic.DefaultEditor() == "NotePad.exe"
+    elif platform.system() == "Linux":
+        assert dss.Basic.DefaultEditor() == "xdg-open"
+
     assert dss.Basic.NewCircuit("Circuit") == u"New Circuit"
     assert dss.Basic.NumCircuits() == 1
     assert dss.Basic.NumUserClasses() == 0
@@ -294,9 +307,13 @@ def test_13Node_Basic(dss):
     # u'Version xxxx (64-bit build); License Status: Open '
     assert isinstance(dss.Basic.Version(), string_types)
 
+    dss.Basic.SetActiveClass(b"Load")
+    assert dss.ActiveClass.ActiveClassName() == "Load"
+
 
 def test_13Node_Bus(dss):
 
+    assert dss.Bus.GetUniqueNodeNumber(0) == 0
     assert dss.Bus.Coorddefined() == 1
     np.testing.assert_array_almost_equal(
         dss.Bus.CplxSeqVoltages(),
@@ -380,6 +397,12 @@ def test_13Node_Bus(dss):
     )
     assert dss.Bus.X() == 200.0
     assert dss.Bus.Y() == 400.0
+    assert dss.Bus.X(100) is None
+    assert dss.Bus.Y(200) is None
+    assert dss.Bus.X() == 100.0
+    assert dss.Bus.Y() == 200.0
+    assert dss.Bus.X(200) is None
+    assert dss.Bus.Y(400) is None
     assert dss.Bus.YscMatrix() == [0.0]
     assert dss.Bus.Zsc0() == [0.0, 0.0]
     assert dss.Bus.Zsc1() == [0.0, 0.0]
@@ -1460,6 +1483,8 @@ def test_13Node_Capacitors(dss):
 
 
 def test_13Node_CapControls(dss):
+    # TODO: Add CapControls to feeder
+    assert dss.CapControls.Reset() is None
     assert dss.CapControls.AllNames() == []
     assert dss.CapControls.CTRatio() == 0.0
     assert dss.CapControls.Capacitor() == u""
