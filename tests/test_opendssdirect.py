@@ -291,7 +291,7 @@ def test_13Node_Basic(dss):
     if platform.system() == "Darwin":
         assert dss.Basic.DefaultEditor() == "open -t"
     elif platform.system() == "Windows":
-        assert dss.Basic.DefaultEditor() == "Notepad.exe"
+        assert dss.Basic.DefaultEditor() == "NotePad.exe"
     elif platform.system() == "Linux":
         assert dss.Basic.DefaultEditor() == "xdg-open"
 
