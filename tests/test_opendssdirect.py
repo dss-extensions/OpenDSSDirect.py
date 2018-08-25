@@ -198,8 +198,19 @@ def test_configuration():
 
     import opendssdirect as dss
 
-    assert dss.Basic.AllowForms() == 1, "Allow forms should be disabled"
+    # Test toggling the console output using AllowForms.
+    # Note COM's AllowForms can only be disabled and it ignores
+    # the user's command to reallow forms if they were previously
+    # disabled.
+    assert dss.Basic.AllowForms() == False, "Allow forms should be disabled by default"
+    
+    dss.Basic.AllowForms(True)
+    assert dss.Basic.AllowForms() == True
 
+    dss.Basic.AllowForms(False)
+    assert dss.Basic.AllowForms() == False
+
+    
 
 def test_13Node(dss):
 
@@ -227,7 +238,7 @@ def test_13Node(dss):
 
 def test_13Node_Basic(dss):
 
-    assert dss.Basic.AllowForms() == 1
+    assert dss.Basic.AllowForms() == False
     assert dss.Basic.Classes() == [
         u"Solution",
         u"LineCode",
