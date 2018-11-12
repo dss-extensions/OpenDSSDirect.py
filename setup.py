@@ -45,7 +45,7 @@ setup(
     author_email="dheepak.krishnamurthy@nrel.gov",
     license="BSD-compatible",
     packages=find_packages(),
-    install_requires=["future", "six", "dss_python>=0.9.8"],
+    install_requires=["future", "six", "dss_python>=0.10.0"],
     extras_require={
         "extras": ["pandas", "matplotlib", "networkx"],
         "dev": [
@@ -78,6 +78,7 @@ setup(
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
     ],
     cmdclass={"develop": PostDevelopCommand},
 )
