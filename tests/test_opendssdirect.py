@@ -279,6 +279,8 @@ def test_13Node_Basic(dss):
         u"UPFCControl",
         u"ESPVLControl",
         u"IndMach012",
+        u"GICsource",
+        u"AutoTrans",
         u"InvControl",
         u"ExpControl",
         u"GICLine",
@@ -288,7 +290,7 @@ def test_13Node_Basic(dss):
         u"EnergyMeter",
         u"Sensor",
     ]
-    assert dss.Basic.NumClasses() == 47
+    assert dss.Basic.NumClasses() == 49
     assert dss.Basic.ShowPanel() == 0
     assert dss.Basic.ClearAll() is None
     assert os.path.abspath(dss.Basic.DataPath()) == os.path.abspath(".")
