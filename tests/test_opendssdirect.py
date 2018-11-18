@@ -293,7 +293,7 @@ def test_13Node_Basic(dss):
     assert dss.Basic.NumClasses() == 49
     assert dss.Basic.ShowPanel() == 0
     assert dss.Basic.ClearAll() is None
-    assert os.path.abspath(dss.Basic.DataPath()) == os.path.abspath(".")
+    assert os.path.abspath(dss.Basic.DataPath()) == os.path.abspath("." + os.sep)
     # assert dss.Basic.DefaultEditor() == u'open -t'
     assert dss.Basic.NewCircuit("Circuit") == u"New Circuit"
     assert dss.Basic.NumCircuits() == 1
