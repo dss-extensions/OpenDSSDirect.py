@@ -198,8 +198,19 @@ def test_configuration():
 
     import opendssdirect as dss
 
-    assert dss.Basic.AllowForms() == 1, "Allow forms should be disabled"
+    # Test toggling the console output using AllowForms.
+    # Note COM's AllowForms can only be disabled and it ignores
+    # the user's command to reallow forms if they were previously
+    # disabled.
+    assert dss.Basic.AllowForms() == False, "Allow forms should be disabled by default"
+    
+    dss.Basic.AllowForms(True)
+    assert dss.Basic.AllowForms() == True
 
+    dss.Basic.AllowForms(False)
+    assert dss.Basic.AllowForms() == False
+
+    
 
 def test_13Node(dss):
 
@@ -227,7 +238,7 @@ def test_13Node(dss):
 
 def test_13Node_Basic(dss):
 
-    assert dss.Basic.AllowForms() == 1
+    assert dss.Basic.AllowForms() == False
     assert dss.Basic.Classes() == [
         u"Solution",
         u"LineCode",
@@ -268,6 +279,8 @@ def test_13Node_Basic(dss):
         u"UPFCControl",
         u"ESPVLControl",
         u"IndMach012",
+        u"GICsource",
+        u"AutoTrans",
         u"InvControl",
         u"ExpControl",
         u"GICLine",
@@ -277,10 +290,10 @@ def test_13Node_Basic(dss):
         u"EnergyMeter",
         u"Sensor",
     ]
-    assert dss.Basic.NumClasses() == 47
+    assert dss.Basic.NumClasses() == 49
     assert dss.Basic.ShowPanel() == 0
     assert dss.Basic.ClearAll() is None
-    assert os.path.abspath(dss.Basic.DataPath()) == os.path.abspath(".")
+    assert os.path.abspath(dss.Basic.DataPath()) == os.path.abspath("." + os.sep)
     # assert dss.Basic.DefaultEditor() == u'open -t'
     assert dss.Basic.NewCircuit("Circuit") == u"New Circuit"
     assert dss.Basic.NumCircuits() == 1

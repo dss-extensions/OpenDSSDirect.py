@@ -72,9 +72,16 @@ def Version():
     return get_string(lib.DSS_Get_Version())
 
 
-def AllowForms(value=None):
-    # warnings.warn('AllowForms is not implemented.')
-    return 1
+def AllowForms(*args):
+    """Gets/sets whether text output is allowed"""
+    
+    # Getter
+    if len(args) == 0:
+        return lib.DSS_Get_AllowForms() != 0
+
+    # Setter
+    Value, = args
+    lib.DSS_Set_AllowForms(Value)
 
 
 def ShowPanel():

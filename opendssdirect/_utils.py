@@ -4,15 +4,15 @@ from __future__ import absolute_import
 # Import dss_python, exposing only OpenDSS v7 while v8 is still considered
 # experimental (at least with Free Pascal)
 import dss as dss_py
-from dss._cffi_api_util import CffiApiUtil, codec
-from dss.v7.dss_capi import CheckForError
 import numpy as np
 import warnings
 
 # Bind to the FFI module instance
-lib = dss_py._dss_capi_v7.lib
-ffi = dss_py._dss_capi_v7.ffi
-api_util = CffiApiUtil(ffi, lib)
+lib = dss_py.v7.api_util.lib
+ffi = dss_py.v7.api_util.ffi
+api_util = dss_py.v7.api_util
+codec = api_util.codec
+CheckForError = dss_py.v7.DSS.CheckForError
 
 # Currently, we prefer the functions that return lists (suffix 2)
 # to keep higher compatibility with previous versions of OpenDSSDirect.py.
