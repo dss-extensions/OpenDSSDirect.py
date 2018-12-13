@@ -420,7 +420,7 @@ def test_13Node_Bus(dss):
         ],
         decimal=4,
     )
-    # assert dss.YMatrix.getV()[2:] == dss.Circuit.AllBusVolts()
+    assert dss.YMatrix.getV()[2:] == dss.Circuit.AllBusVolts()
 
 
 def test_13Node_Circuit(dss):
