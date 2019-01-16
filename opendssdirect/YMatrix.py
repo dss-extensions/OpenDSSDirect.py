@@ -76,13 +76,13 @@ def VVector():
 def getI():
     """Get the data from the internal Current pointer"""
     IvectorPtr = IVector()
-    return ffi.unpack(IvectorPtr, NumNodes() + 1)
+    return ffi.unpack(IvectorPtr, (NumNodes() + 1) * 2)
 
 
 def getV():
     """Get the data from the internal Voltage pointer"""
     VvectorPtr = VVector()
-    return ffi.unpack(VvectorPtr, NumNodes() + 1)
+    return ffi.unpack(VvectorPtr, (NumNodes() + 1) * 2)
 
 
 def SolveSystem(NodeV):
