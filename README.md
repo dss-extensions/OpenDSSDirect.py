@@ -5,8 +5,8 @@
 [![PyPI](https://img.shields.io/pypi/v/OpenDSSDirect.py.svg)](https://pypi.python.org/pypi/OpenDSSDirect.py/)
 [![Documentation](https://img.shields.io/badge/docs-ready-blue.svg)](http://dss-extensions.github.io/OpenDSSDirect.py)
 
-OpenDSSDirect.py is a cross-platform Python package implements a "direct" library interface to [OpenDSS](http://smartgrid.epri.com/SimulationTool.aspx) using [dss_python](https://github.com/PMeira/dss_python/).
-OpenDSS is an open-source distribution system simulator. See [OpenDSSDirect.jl](https://github.com/tshort/OpenDSSDirect.jl) for a similar package in Julia.
+OpenDSSDirect.py is a cross-platform Python package implements a "direct" library interface to [OpenDSS](http://smartgrid.epri.com/SimulationTool.aspx) using [dss_python](https://github.com/dss-extensions/dss_python/).
+OpenDSS is an open-source distribution system simulator. See [OpenDSSDirect.jl](https://github.com/dss-extensions/OpenDSSDirect.jl) for a similar package in Julia.
 
 **This package is available for Windows, Mac and Linux.**
 
@@ -40,6 +40,6 @@ Thanks to @tshort, Davis, @temcdrm, @GordStephen, @Muxelmann and @PMeira for the
 
 See @Muxelmann's repo [here](https://github.com/Muxelmann/OpenDSSDirect.make) on how to build OpenDSS for Linux.
 
-See @PMeira's repo [here](https://github.com/PMeira/dss_python) for the interface used in this package.
+See @PMeira's repo [here](https://github.com/dss-extensions/dss_python) for the interface used in this package.
 
-See @PMeira's repo [here](https://github.com/PMeira/electricdss-src) for changes to OpenDSS for maintaining cross platform compatibility.
+See @PMeira's repo [here](https://github.com/dss-extensions/electricdss-src) for changes to OpenDSS for maintaining cross platform compatibility.
