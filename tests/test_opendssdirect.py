@@ -1726,6 +1726,7 @@ def test_13Node_Lines(dss):
         2.658753201413196,
         -8.847115639537611,
     ]
+    dss.Lines.Yprim(dss.Lines.Yprim())
 
     assert dss.Lines.R0() == 3.378880258497484e-05
     assert dss.Lines.X0() == 7.664982290436836e-05
