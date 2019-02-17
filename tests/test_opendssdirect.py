@@ -1538,8 +1538,8 @@ def test_13Node_Element(dss):
 def test_13Node_Executive(dss):
     assert dss.Executive.Command(1) == u"New"
     assert (
-        dss.Executive.CommandHelp(1)
-        == u"Create a new object within the DSS. Object becomes the active object\r\nExample: New Line.line1 ..."
+        dss.Executive.CommandHelp(1).replace(os.linesep, '\n')
+        == u"Create a new object within the DSS. Object becomes the active object\nExample: New Line.line1 ..."
     )
     assert (
         dss.Executive.NumCommands() == 107
@@ -2021,8 +2021,8 @@ def test_13Node_PDElements(dss):
 def test_13Node_Properties(dss):  # TODO!! rework DSSProperty
     dss.dss_lib.DSSProperty_Set_Index(0)  # TODO?
     assert (
-        dss.Properties.Description()
-        == u"Name of bus to which first terminal is connected.\r\nExample:\r\nbus1=busname   (assumes all terminals connected in normal phase order)\r\nbus1=busname.3.1.2.0 (specify terminal to node connections explicitly)"
+        dss.Properties.Description().replace(os.linesep, '\n')
+        == u"Name of bus to which first terminal is connected.\nExample:\nbus1=busname   (assumes all terminals connected in normal phase order)\nbus1=busname.3.1.2.0 (specify terminal to node connections explicitly)"
     )
     assert dss.Properties.Name() == u"bus1"
 
