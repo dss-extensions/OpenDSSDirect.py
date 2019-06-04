@@ -1147,6 +1147,8 @@ def test_13Node_CktElement(dss):
         u"tscables",
         u"B1",
         u"B0",
+        u"Seasons",
+        u"Ratings",
         u"normamps",
         u"emergamps",
         u"faultrate",
@@ -1253,7 +1255,7 @@ def test_13Node_CktElement(dss):
     assert dss.CktElement.NumConductors() == 3
     assert dss.CktElement.NumControls() == 0
     assert dss.CktElement.NumPhases() == 3
-    assert dss.CktElement.NumProperties() == 35
+    assert dss.CktElement.NumProperties() == 37
     assert dss.CktElement.NumTerminals() == 2
     assert dss.CktElement.OCPDevIndex() == 0
     assert dss.CktElement.OCPDevType() == 0
@@ -1493,7 +1495,6 @@ def test_13Node_CapControls(dss):
 
 
 def test_13Node_Element(dss):
-
     assert dss.Element.AllPropertyNames() == [
         u"bus1",
         u"bus2",
@@ -1522,6 +1523,8 @@ def test_13Node_Element(dss):
         u"tscables",
         u"B1",
         u"B0",
+        u"Seasons",
+        u"Ratings",
         u"normamps",
         u"emergamps",
         u"faultrate",
@@ -1532,7 +1535,7 @@ def test_13Node_Element(dss):
         u"like",
     ]
     assert dss.Element.Name() == u"Line.671692"
-    assert dss.Element.NumProperties() == 35
+    assert dss.Element.NumProperties() == 37
 
 
 def test_13Node_Executive(dss):
@@ -1542,11 +1545,11 @@ def test_13Node_Executive(dss):
         == u"Create a new object within the DSS. Object becomes the active object\nExample: New Line.line1 ..."
     )
     assert (
-        dss.Executive.NumCommands() == 107
-    )  # adjusted to the latest version on 2018-07-13
+        dss.Executive.NumCommands() == 111
+    )  # adjusted to the latest version on 2019-05-22
     assert (
-        dss.Executive.NumOptions() == 111
-    )  # adjusted to the latest version on 2018-07-13
+        dss.Executive.NumOptions() == 115
+    )  # adjusted to the latest version on 2019-05-22
     assert dss.Executive.Option(1) == u"type"
     assert (
         dss.Executive.OptionHelp(1)
@@ -4709,6 +4712,8 @@ def test_linegeometry_class_to_dataframe():
     data = dss.utils.class_to_dataframe("linegeometry")
     assert data == {
         "linegeometry.hc2_336_1neut_0mess": {
+            "Seasons": "1",
+            "Ratings": ["0"],
             "nconds": "4",
             "nphases": "3",
             "cond": "4",
@@ -5541,6 +5546,8 @@ def test_wiredata_class_to_dataframe():
 
     assert data == {
         "wiredata.acsr1/0": {
+            "Seasons": "",
+            "Ratings": ["-1"],
             "GMRac": "0.0044600",
             "GMRunits": "ft",
             "Rac": "1.120000",
@@ -5554,6 +5561,8 @@ def test_wiredata_class_to_dataframe():
             "radunits": "in",
         },
         "wiredata.acsr336": {
+            "Seasons": "",
+            "Ratings": ["-1"],
             "GMRac": "0.0255000",
             "GMRunits": "ft",
             "Rac": "0.3060000",

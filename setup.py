@@ -45,7 +45,7 @@ setup(
     author_email="me@kdheepak.com",
     license="BSD-compatible",
     packages=find_packages(),
-    install_requires=["future", "six", "dss_python==0.10.1"],
+    install_requires=["future", "six", "dss_python>=0.10.3,<=0.10.3.post1"],
     extras_require={
         "extras": ["pandas", "matplotlib", "networkx"],
         "dev": [
