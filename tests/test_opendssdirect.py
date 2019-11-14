@@ -2136,7 +2136,11 @@ def test_13Node_Settings(dss):
     assert dss.Settings.AllocationFactors(0) is None
     assert dss.Settings.AllowDuplicates() == 0
     assert dss.Settings.CktModel() == 0
-    assert dss.Settings.AutoBusList() == u"Allocation Factor must be greater than zero."
+
+    # Fixed in DSS C-API 0.10.4, previously it was an uninitialized value
+    # (COM still had the bug when this comment was written)
+    assert dss.Settings.AutoBusList() == u"" 
+
     assert dss.Settings.EmergVmaxpu() == 1.08
     assert dss.Settings.EmergVminpu() == 0.9
     assert dss.Settings.LossRegs() == [13]
@@ -5576,3 +5580,36 @@ def test_wiredata_class_to_dataframe():
             "radunits": "in",
         },
     }
+
+
+def test_long_path():
+    
+    import opendssdirect as dss
+    import tempfile, shutil
+    import warnings
+
+    long_name = "-".join(["40242748-21fd-4a61-8ad9-cefdd3ff6a05"] * 6)
+    original_working_dir = os.getcwd()
+    try:
+        #TODO: use tempfile.TemporaryDirectory when Python 2.7 is dropped
+        tmp_dir_path = tempfile.mkdtemp()
+        inner_dir_path = os.path.join(tmp_dir_path, long_name)
+        os.mkdir(inner_dir_path)
+        long_file_path = os.path.join(inner_dir_path, long_name + ".dss")
+
+        with open(long_file_path, "w") as f:
+            f.write("clear\nnew circuit.test\n")
+
+        # Try running with the full path
+        dss.run_command("redirect '{}'".format(long_file_path))
+
+        # Then try going to the folder and using only the filename
+        os.chdir(inner_dir_path)
+        dss.run_command("redirect '{}'".format(long_name + ".dss"))
+    except (IOError, OSError): # FileNotFoundError:
+        warnings.warn("Could not create a file with a long path in Python. Skipping test.")
+    finally:
+        os.chdir(original_working_dir)
+        if os.path.exists(tmp_dir_path):
+            shutil.rmtree(tmp_dir_path)
+

@@ -45,7 +45,7 @@ setup(
     author_email="me@kdheepak.com",
     license="BSD-compatible",
     packages=find_packages(),
-    install_requires=["future", "six", "dss_python>=0.10.3,<=0.10.3.post1"],
+    install_requires=["future", "six", "dss_python>=0.10.4,<0.11"],
     extras_require={
         "extras": ["pandas", "matplotlib", "networkx"],
         "dev": [
@@ -79,6 +79,7 @@ setup(
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
     ],
     cmdclass={"develop": PostDevelopCommand},
 )
