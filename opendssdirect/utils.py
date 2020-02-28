@@ -117,7 +117,7 @@ def to_namedtuples(module):
             print(reg_control.Name)
 
     """
-    members = [(name, func) for name, func in getmembers(module)]
+    members = list(getmembers(module))
     name = module.__name__
     index = name.find(".")
     if index != -1:
