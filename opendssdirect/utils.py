@@ -279,3 +279,47 @@ def xycurves_to_dataframe(dss=None):
     if dss is None:
         import opendssdirect as dss
     return to_dataframe(dss.XYCurves)
+
+
+def iter_elements(element_class, element_func):
+    """Yield the return of element_func for each element of type element_class.
+
+    Parameters
+    ----------
+    element_class : class
+        Subclass of opendssdirect.CktElement
+    element_func : function
+        Function to run on each element
+
+    Yields
+    ------
+    Return of element_func
+
+    Examples
+    --------
+    >>> import opendssdirect as dss
+    >>> def get_reg_control():
+        return {
+            "name": dss.RegControls.Name(),
+            "enabled": dss.CktElement.Enabled(),
+            "transformer": dss.RegControls.Transformer(),
+        }
+
+    # Iterate over each RegControl.
+    >>> for reg_control in iter_elements(dss.RegControls, get_reg_control):
+        print(reg_control["name"])
+
+    >>> def get_reg_controls():
+        return list(iter_elements(dss.RegControls, get_reg_control))
+
+    # Create a list of RegControl dictionaries.
+    >>> reg_controls = get_reg_controls()
+        
+    """
+    element_class.First()
+    result = 0
+    for _ in range(element_class.Count()):
+        yield element_func()
+        result = element_class.Next()
+
+    assert result == 0

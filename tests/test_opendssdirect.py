@@ -5613,3 +5613,17 @@ def test_long_path():
         if os.path.exists(tmp_dir_path):
             shutil.rmtree(tmp_dir_path)
 
+
+def test_iter_elements(dss):
+
+    import opendssdirect as dss
+    from opendssdirect.utils import iter_elements
+
+    def get_reg_control():
+        return {
+            "name": dss.RegControls.Name().lower(),
+        }
+
+    reg_controls = list(iter_elements(dss.RegControls, get_reg_control))
+    assert len(reg_controls) == 3
+    assert [x["name"] for x in reg_controls] == ["reg1", "reg2", "reg3"]
