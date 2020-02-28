@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
+from collections import namedtuple
 import inspect
 import warnings
 
@@ -88,6 +89,42 @@ def to_dataframe(module):
             "Pandas cannot be installed. Please see documentation for how to install extra dependencies."
         )
         return data
+
+
+def to_namedtuples(module):
+    """Return a list of namedtuple objects for each element.
+
+    Parameters
+    ----------
+    module : module
+        Element class type, such as opendssdirect.RegControls
+
+    Returns
+    -------
+    list
+        list of namedtuples where the fields are all members of the module
+
+    Examples
+    --------
+    >>> import opendssdirect as dss
+    >>> from opendssdirect.utils import to_namedtuples
+    >>> for reg_control in to_namedtuples(dss.RegControls):
+            print(reg_control.Name)
+
+    """
+    members = [(name, func) for name, func in getmembers(module)]
+    name = module.__name__
+    index = name.find(".")
+    if index != -1:
+        # Just in case 'opendssdirect.' is passed.
+        name = name[index + 1:]
+    module_type = namedtuple(name, ", ".join([x[0] for x in members]))
+
+    data = []
+    for element in ElementIterator(module):
+        data.append(module_type(*[x[1]() for x in members]))
+
+    return data
 
 
 def _clean_data(data, class_name):
