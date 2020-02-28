@@ -281,7 +281,7 @@ def xycurves_to_dataframe(dss=None):
     return to_dataframe(dss.XYCurves)
 
 
-def iter_elements(element_class, element_func):
+def iter_elements(element_class, element_func, *args, **kwargs):
     """Yield the return of element_func for each element of type element_class.
 
     Parameters
@@ -290,6 +290,10 @@ def iter_elements(element_class, element_func):
         Subclass of opendssdirect.CktElement
     element_func : function
         Function to run on each element
+    *args
+        Variable length argument list forwarded to element_func
+    **kwargs
+        Arbitrary keyword arguments forwarded to element_func
 
     Yields
     ------
@@ -319,7 +323,7 @@ def iter_elements(element_class, element_func):
     element_class.First()
     result = 0
     for _ in range(element_class.Count()):
-        yield element_func()
+        yield element_func(*args, **kwargs)
         result = element_class.Next()
 
     assert result == 0
