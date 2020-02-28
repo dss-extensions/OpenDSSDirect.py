@@ -5617,16 +5617,13 @@ def test_long_path():
 def test_iter_elements(dss):
 
     import opendssdirect as dss
-    from opendssdirect.utils import iter_elements
+    from opendssdirect.utils import ElementIterator
 
-    val = 5
-    def get_reg_control(*args, **kwargs):
-        assert args[0] == val
-        assert kwargs["param"] == val
+    def get_reg_control():
         return {
             "name": dss.RegControls.Name().lower(),
         }
 
-    reg_controls = list(iter_elements(dss.RegControls, get_reg_control, val, param=val))
-    assert len(reg_controls) == 3
-    assert [x["name"] for x in reg_controls] == ["reg1", "reg2", "reg3"]
+    regs = [get_reg_control() for _ in ElementIterator(dss.RegControls)]
+    assert len(regs) == 3
+    assert [x["name"] for x in regs] == ["reg1", "reg2", "reg3"]

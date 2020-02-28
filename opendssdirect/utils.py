@@ -281,49 +281,31 @@ def xycurves_to_dataframe(dss=None):
     return to_dataframe(dss.XYCurves)
 
 
-def iter_elements(element_class, element_func, *args, **kwargs):
-    """Yield the return of element_func for each element of type element_class.
-
-    Parameters
-    ----------
-    element_class : class
-        Subclass of opendssdirect.CktElement
-    element_func : function
-        Function to run on each element
-    *args
-        Variable length argument list forwarded to element_func
-    **kwargs
-        Arbitrary keyword arguments forwarded to element_func
-
-    Yields
-    ------
-    Return of element_func
+class ElementIterator:
+    """Provides iteration over subtypes of opendssdirect.CktElement.
 
     Examples
     --------
     >>> import opendssdirect as dss
-    >>> def get_reg_control():
-        return {
-            "name": dss.RegControls.Name(),
-            "enabled": dss.CktElement.Enabled(),
-            "transformer": dss.RegControls.Transformer(),
-        }
+    >>> for _ in ElementIterator(dss.RegControls):
+            print(dss.RegControls.Name())
 
-    # Iterate over each RegControl.
-    >>> for reg_control in iter_elements(dss.RegControls, get_reg_control):
-        print(reg_control["name"])
-
-    >>> def get_reg_controls():
-        return list(iter_elements(dss.RegControls, get_reg_control))
-
-    # Create a list of RegControl dictionaries.
-    >>> reg_controls = get_reg_controls()
-        
     """
-    element_class.First()
-    result = 0
-    for _ in range(element_class.Count()):
-        yield element_func(*args, **kwargs)
-        result = element_class.Next()
+    def __init__(self, element_class):
+        self.element_class = element_class
 
-    assert result == 0
+    def __iter__(self):
+        return _ElementIterator(self)
+
+
+class _ElementIterator:
+    def __init__(self, elements):
+        self._elements = elements
+        self._index = 0
+
+    def __next__(self):
+        if self._index == 0:
+            self._elements.element_class.First()
+        elif self._elements.element_class.Next() == 0:
+            raise StopIteration
+        self._index += 1
