@@ -5619,7 +5619,7 @@ def test_to_namedtuples(dss):
     import opendssdirect as dss
     from opendssdirect.utils import to_namedtuples
 
-    regs = to_namedtuples(dss.RegControls)
+    regs = list(to_namedtuples(dss.RegControls))
     assert len(regs) == 3
     assert [x.Name for x in regs] == ["reg1", "reg2", "reg3"]
 

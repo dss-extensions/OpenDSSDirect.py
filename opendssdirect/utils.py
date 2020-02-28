@@ -97,17 +97,17 @@ def to_dataframe(module):
 
 
 def to_namedtuples(module):
-    """Return a list of namedtuple objects for each element.
+    """Return namedtuple objects for each element.
 
     Parameters
     ----------
     module : module
         Element class type, such as opendssdirect.RegControls
 
-    Returns
-    -------
-    list
-        list of namedtuples where the fields are all members of the module
+    Yields
+    ------
+    namedtuple
+        Fields are all members of the module.
 
     Examples
     --------
@@ -125,11 +125,8 @@ def to_namedtuples(module):
         name = name[index + 1:]
     module_type = namedtuple(name, ", ".join([x[0] for x in members]))
 
-    data = []
     for element in ElementIterator(module):
-        data.append(module_type(*[x[1]() for x in members]))
-
-    return data
+        yield module_type(*[x[1]() for x in members])
 
 
 def _clean_data(data, class_name):
