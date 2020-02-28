@@ -13,23 +13,42 @@ except ImportError:
     is_pandas_installed = False
 
 
-class Iterator(object):
-    def __init__(self, module, function):
+def Iterator(module, function):
+    for elem in ElementIterator(module):
+        yield getattr(module, function)
+
+
+class ElementIterator:
+    """Provides iteration over subtypes of opendssdirect.CktElement.
+
+    Examples
+    --------
+    >>> import opendssdirect as dss
+    >>> for _ in ElementIterator(dss.RegControls):
+            print(dss.RegControls.Name())
+
+    """
+    def __init__(self, module):
         assert inspect.ismodule(module), "{module} must be of type module".format(
             module=module
         )
         self.module = module
-        self.function = function
 
     def __iter__(self):
-        self.module.First()
+        return _ElementIterator(self)
 
-        while True:
 
-            yield getattr(self.module, self.function)
+class _ElementIterator:
+    def __init__(self, elements):
+        self._elements = elements
+        self._index = 0
 
-            if not self.module.Next() > 0:
-                break
+    def __next__(self):
+        if self._index == 0:
+            self._elements.module.First()
+        elif self._elements.module.Next() == 0:
+            raise StopIteration
+        self._index += 1
 
 
 def run_command(text, dss=None):
@@ -279,33 +298,3 @@ def xycurves_to_dataframe(dss=None):
     if dss is None:
         import opendssdirect as dss
     return to_dataframe(dss.XYCurves)
-
-
-class ElementIterator:
-    """Provides iteration over subtypes of opendssdirect.CktElement.
-
-    Examples
-    --------
-    >>> import opendssdirect as dss
-    >>> for _ in ElementIterator(dss.RegControls):
-            print(dss.RegControls.Name())
-
-    """
-    def __init__(self, element_class):
-        self.element_class = element_class
-
-    def __iter__(self):
-        return _ElementIterator(self)
-
-
-class _ElementIterator:
-    def __init__(self, elements):
-        self._elements = elements
-        self._index = 0
-
-    def __next__(self):
-        if self._index == 0:
-            self._elements.element_class.First()
-        elif self._elements.element_class.Next() == 0:
-            raise StopIteration
-        self._index += 1
