@@ -14,9 +14,14 @@ except ImportError:
     is_pandas_installed = False
 
 
-def Iterator(module, function):
+def iterator(module, function):
     for elem in ElementIterator(module):
         yield getattr(module, function)
+
+
+# The iterator function used to be a class called Iterator. This allows legacy
+# code to continue to work.
+Iterator = iterator
 
 
 class ElementIterator:
