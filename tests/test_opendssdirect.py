@@ -236,7 +236,7 @@ def test_13Node(dss):
 def test_13Node_Basic(dss):
 
     assert dss.Basic.AllowForms() is False
-    assert dss.Basic.Classes() == [
+    dss_classes = [
         u"Solution",
         u"LineCode",
         u"LoadShape",
@@ -266,12 +266,15 @@ def test_13Node_Basic(dss):
         u"Generator",
         u"GenDispatcher",
         u"Storage",
+        u"Storage2",
         u"StorageController",
+        u"StorageController2",
         u"Relay",
         u"Recloser",
         u"Fuse",
         u"SwtControl",
         u"PVSystem",
+        u"PVSystem2",
         u"UPFC",
         u"UPFCControl",
         u"ESPVLControl",
@@ -279,6 +282,7 @@ def test_13Node_Basic(dss):
         u"GICsource",
         u"AutoTrans",
         u"InvControl",
+        u"InvControl2",
         u"ExpControl",
         u"GICLine",
         u"GICTransformer",
@@ -287,7 +291,8 @@ def test_13Node_Basic(dss):
         u"EnergyMeter",
         u"Sensor",
     ]
-    assert dss.Basic.NumClasses() == 49
+    assert dss.Basic.Classes() == dss_classes
+    assert dss.Basic.NumClasses() == len(dss_classes)
     assert dss.Basic.ShowPanel() == 0
     assert dss.Basic.ClearAll() is None
     assert os.path.abspath(dss.Basic.DataPath()) == os.path.abspath("." + os.sep)
@@ -1545,11 +1550,11 @@ def test_13Node_Executive(dss):
         == u"Create a new object within the DSS. Object becomes the active object\nExample: New Line.line1 ..."
     )
     assert (
-        dss.Executive.NumCommands() == 111
-    )  # adjusted to the latest version on 2019-05-22
+        dss.Executive.NumCommands() == 114
+    )  # adjusted to the latest version on 2020-03-01
     assert (
-        dss.Executive.NumOptions() == 115
-    )  # adjusted to the latest version on 2019-05-22
+        dss.Executive.NumOptions() == 117
+    )  # adjusted to the latest version on 2020-03-01
     assert dss.Executive.Option(1) == u"type"
     assert (
         dss.Executive.OptionHelp(1)
@@ -5550,7 +5555,8 @@ def test_wiredata_class_to_dataframe():
 
     assert data == {
         "wiredata.acsr1/0": {
-            "Seasons": "",
+            "Capradius": "-1",
+            "Seasons": "1",
             "Ratings": ["-1"],
             "GMRac": "0.0044600",
             "GMRunits": "ft",
@@ -5565,7 +5571,8 @@ def test_wiredata_class_to_dataframe():
             "radunits": "in",
         },
         "wiredata.acsr336": {
-            "Seasons": "",
+            "Capradius": "-1",
+            "Seasons": "1",
             "Ratings": ["-1"],
             "GMRac": "0.0255000",
             "GMRunits": "ft",
