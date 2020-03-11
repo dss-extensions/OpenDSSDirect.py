@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
-from ._utils import lib, get_string, get_string_array
-from ._utils import codec
+from ._utils import lib, codec, CheckForError, get_string, get_string_array
 
 
 def Close():
@@ -17,19 +16,19 @@ def Open():
 
 
 def AllNames():
-    """(read-only) Array of strings containing names of all Fuses in the circuit"""
+    """(read-only) List of strings with all Fuse names"""
     return get_string_array(lib.Fuses_Get_AllNames)
 
 
 def Count():
-    """(read-only) Number of Fuse elements in the circuit"""
+    """(read-only) Number of Fuses"""
     return lib.Fuses_Get_Count()
 
 
 def Delay(*args):
     """
-    (read) A fixed delay time in seconds added to the fuse blowing time determined by the TCC curve. Default is 0.
-    (write) Fixed delay time in seconds added to the fuse blowing time to represent fuse clear or other delay.
+    A fixed delay time in seconds added to the fuse blowing time determined by the TCC curve. Default is 0.
+    This represents a fuse clear or other delay.
     """
     # Getter
     if len(args) == 0:
@@ -38,10 +37,11 @@ def Delay(*args):
     # Setter
     Value, = args
     lib.Fuses_Set_Delay(Value)
+    CheckForError()
 
 
 def First():
-    """(read-only) Set the first Fuse to be the active fuse. Returns 0 if none."""
+    """Set first Fuse active; returns 0 if none."""
     return lib.Fuses_Get_First()
 
 
@@ -55,15 +55,12 @@ def MonitoredObj(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Fuses_Set_MonitoredObj(Value)
+    CheckForError()
 
 
 def MonitoredTerm(*args):
-    """
-    (read) Terminal number to which the fuse is connected.
-    (write) Number of the terminal to which the fuse is connected
-    """
+    """Terminal number to which the fuse is connected."""
     # Getter
     if len(args) == 0:
         return lib.Fuses_Get_MonitoredTerm()
@@ -71,12 +68,12 @@ def MonitoredTerm(*args):
     # Setter
     Value, = args
     lib.Fuses_Set_MonitoredTerm(Value)
+    CheckForError()
 
 
 def Name(*args):
     """
-    (read) Get the name of the active Fuse element
-    (write) Set the active Fuse element by name.
+    Get/set the name of the active Fuse
     """
     # Getter
     if len(args) == 0:
@@ -86,24 +83,23 @@ def Name(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
-    lib.Fuses_Set_Name(Value)
+    CheckForError(lib.Fuses_Set_Name(Value))
 
 
 def Next():
-    """(read-only) Advance the active Fuse element pointer to the next fuse. Returns 0 if no more fuses."""
+    """Sets next Fuse active; returns 0 if no more."""
     return lib.Fuses_Get_Next()
 
 
 def NumPhases():
-    """(read-only) Number of phases, this fuse. """
+    """(read-only) Number of phases, this fuse."""
     return lib.Fuses_Get_NumPhases()
 
 
 def RatedCurrent(*args):
     """
-    (read) Multiplier or actual amps for the TCCcurve object. Defaults to 1.0.  Multipliy current values of TCC curve by this to get actual amps.
-    (write) Multiplier or actual fuse amps for the TCC curve. Defaults to 1.0. Has to correspond to the Current axis of TCCcurve object.
+    Multiplier or actual amps for the TCCcurve object. Defaults to 1.0. 
+    Multiply current values of TCC curve by this to get actual amps.
     """
     # Getter
     if len(args) == 0:
@@ -112,12 +108,13 @@ def RatedCurrent(*args):
     # Setter
     Value, = args
     lib.Fuses_Set_RatedCurrent(Value)
+    CheckForError()
 
 
 def SwitchedObj(*args):
     """
-    (read) Full name of the circuit element switch that the fuse controls. Defaults to the MonitoredObj.
-    (write) Full name of the circuit element switch that the fuse controls. Defaults to MonitoredObj.
+    Full name of the circuit element switch that the fuse controls. 
+    Defaults to the MonitoredObj.
     """
     # Getter
     if len(args) == 0:
@@ -127,14 +124,13 @@ def SwitchedObj(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Fuses_Set_SwitchedObj(Value)
+    CheckForError()
 
 
 def SwitchedTerm(*args):
     """
-    (read) Number of the terminal containing the switch controlled by the fuse.
-    (write) Number of the terminal of the controlled element containing the switch controlled by the fuse.
+    Number of the terminal of the controlled element containing the switch controlled by the fuse.
     """
     # Getter
     if len(args) == 0:
@@ -143,6 +139,7 @@ def SwitchedTerm(*args):
     # Setter
     Value, = args
     lib.Fuses_Set_SwitchedTerm(Value)
+    CheckForError()
 
 
 def TCCCurve(*args):
@@ -155,14 +152,13 @@ def TCCCurve(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Fuses_Set_TCCcurve(Value)
+    CheckForError()
 
 
 def Idx(*args):
     """
-    (read) Get/set active fuse by index into the list of fuses. 1 based: 1..count
-    (write) Set Fuse active by index into the list of fuses. 1..count
+    Get/set active Fuse by index;  1..Count
     """
     # Getter
     if len(args) == 0:
@@ -170,7 +166,7 @@ def Idx(*args):
 
     # Setter
     Value, = args
-    lib.Fuses_Set_idx(Value)
+    CheckForError(lib.Fuses_Set_idx(Value))
 
 
 _columns = [

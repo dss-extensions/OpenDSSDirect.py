@@ -2,16 +2,17 @@
 from __future__ import absolute_import
 from ._utils import (
     lib,
+    codec,
+    CheckForError,
     get_string,
-    get_string_array,
     get_float64_array,
+    get_string_array,
     prepare_float64_array,
 )
-from ._utils import codec
 
 
 def AllNames():
-    """(read-only) Array of strings with names of all devices"""
+    """(read-only) List of strings with all LineCode names"""
     return get_string_array(lib.LineCodes_Get_AllNames)
 
 
@@ -24,6 +25,7 @@ def C0(*args):
     # Setter
     Value, = args
     lib.LineCodes_Set_C0(Value)
+    CheckForError()
 
 
 def C1(*args):
@@ -35,6 +37,7 @@ def C1(*args):
     # Setter
     Value, = args
     lib.LineCodes_Set_C1(Value)
+    CheckForError()
 
 
 def Cmatrix(*args):
@@ -47,6 +50,7 @@ def Cmatrix(*args):
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
     lib.LineCodes_Set_Cmatrix(ValuePtr, ValueCount)
+    CheckForError()
 
 
 def Count():
@@ -63,9 +67,11 @@ def EmergAmps(*args):
     # Setter
     Value, = args
     lib.LineCodes_Set_EmergAmps(Value)
+    CheckForError()
 
 
 def First():
+    """Set first LineCode active; returns 0 if none."""
     return lib.LineCodes_Get_First()
 
 
@@ -75,7 +81,9 @@ def IsZ1Z0():
 
 
 def Name(*args):
-    """Name of active LineCode"""
+    """
+    Get/set the name of the active LineCode
+    """
     # Getter
     if len(args) == 0:
         return get_string(lib.LineCodes_Get_Name())
@@ -84,11 +92,11 @@ def Name(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
-    lib.LineCodes_Set_Name(Value)
+    CheckForError(lib.LineCodes_Set_Name(Value))
 
 
 def Next():
+    """Sets next LineCode active; returns 0 if no more."""
     return lib.LineCodes_Get_Next()
 
 
@@ -101,6 +109,7 @@ def NormAmps(*args):
     # Setter
     Value, = args
     lib.LineCodes_Set_NormAmps(Value)
+    CheckForError()
 
 
 def Phases(*args):
@@ -112,6 +121,7 @@ def Phases(*args):
     # Setter
     Value, = args
     lib.LineCodes_Set_Phases(Value)
+    CheckForError()
 
 
 def R0(*args):
@@ -123,6 +133,7 @@ def R0(*args):
     # Setter
     Value, = args
     lib.LineCodes_Set_R0(Value)
+    CheckForError()
 
 
 def R1(*args):
@@ -134,6 +145,7 @@ def R1(*args):
     # Setter
     Value, = args
     lib.LineCodes_Set_R1(Value)
+    CheckForError()
 
 
 def Rmatrix(*args):
@@ -146,6 +158,7 @@ def Rmatrix(*args):
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
     lib.LineCodes_Set_Rmatrix(ValuePtr, ValueCount)
+    CheckForError()
 
 
 def Units(*args):
@@ -156,6 +169,7 @@ def Units(*args):
     # Setter
     Value, = args
     lib.LineCodes_Set_Units(Value)
+    CheckForError()
 
 
 def X0(*args):
@@ -167,6 +181,7 @@ def X0(*args):
     # Setter
     Value, = args
     lib.LineCodes_Set_X0(Value)
+    CheckForError()
 
 
 def X1(*args):
@@ -178,6 +193,7 @@ def X1(*args):
     # Setter
     Value, = args
     lib.LineCodes_Set_X1(Value)
+    CheckForError()
 
 
 def Xmatrix(*args):
@@ -190,6 +206,20 @@ def Xmatrix(*args):
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
     lib.LineCodes_Set_Xmatrix(ValuePtr, ValueCount)
+    CheckForError()
+
+
+def Idx(*args):
+    """
+    Get/set active LineCode by index;  1..Count
+    """
+    # Getter
+    if len(args) == 0:
+        return lib.LineCodes_Get_idx()
+
+    # Setter
+    Value, = args
+    CheckForError(lib.LineCodes_Set_idx(Value))
 
 
 _columns = [
@@ -208,6 +238,7 @@ _columns = [
     "X0",
     "X1",
     "Xmatrix",
+    "Idx",
 ]
 __all__ = [
     "AllNames",
@@ -229,4 +260,5 @@ __all__ = [
     "X0",
     "X1",
     "Xmatrix",
+    "Idx",
 ]

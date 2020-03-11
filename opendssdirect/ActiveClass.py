@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
-from ._utils import lib, get_string, get_string_array
-from ._utils import codec
+from ._utils import lib, codec, CheckForError, get_string, get_string_array
 
 
 def ActiveClassName():
@@ -34,8 +33,8 @@ def Name(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.ActiveClass_Set_Name(Value)
+    CheckForError()
 
 
 def Next():
@@ -48,7 +47,12 @@ def NumElements():
     return lib.ActiveClass_Get_NumElements()
 
 
-_columns = ["ActiveClassName", "Name", "NumElements"]
+def ActiveClassParent():
+    """Get the name of the parent class of the active class"""
+    return get_string(lib.ActiveClass_Get_ActiveClassParent())
+
+
+_columns = ["ActiveClassName", "Name", "NumElements", "ActiveClassParent"]
 __all__ = [
     "ActiveClassName",
     "AllNames",
@@ -57,4 +61,5 @@ __all__ = [
     "Name",
     "Next",
     "NumElements",
+    "ActiveClassParent",
 ]

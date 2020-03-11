@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
-from ._utils import lib, get_string_array
+from ._utils import lib, CheckForError, get_string_array
 
 
 def ClearActions():
@@ -56,6 +56,12 @@ def QueueSize():
 def Action(Param1):
     """(write-only) Set the active action by index"""
     lib.CtrlQueue_Set_Action(Param1)
+    CheckForError()
+
+
+def Push(Hour, Seconds, ActionCode, DeviceHandle):
+    """Push a control action onto the DSS control queue by time, action code, and device handle (user defined). Returns Control Queue handle."""
+    return CheckForError(lib.CtrlQueue_Push(Hour, Seconds, ActionCode, DeviceHandle))
 
 
 _columns = ["ActionCode", "DeviceHandle", "NumActions", "Queue", "QueueSize"]
@@ -72,4 +78,5 @@ __all__ = [
     "Queue",
     "QueueSize",
     "Action",
+    "Push",
 ]

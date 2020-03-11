@@ -1,7 +1,13 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
-from ._utils import lib, get_string, get_string_array, get_float64_array
-from ._utils import codec
+from ._utils import (
+    lib,
+    codec,
+    CheckForError,
+    get_string,
+    get_float64_array,
+    get_string_array,
+)
 
 
 def Close():
@@ -13,25 +19,22 @@ def Open():
 
 
 def AllNames():
-    """(read-only) Array of strings with names of all Reclosers in Active Circuit"""
+    """(read-only) List of strings with all Recloser names"""
     return get_string_array(lib.Reclosers_Get_AllNames)
 
 
 def Count():
-    """(read-only) Number of Reclosers in active circuit."""
+    """(read-only) Number of Reclosers"""
     return lib.Reclosers_Get_Count()
 
 
 def First():
-    """(read-only) Set First Recloser to be Active Ckt Element. Returns 0 if none."""
+    """Set first Recloser active; returns 0 if none."""
     return lib.Reclosers_Get_First()
 
 
 def GroundInst(*args):
-    """
-    (read) Ground (3I0) instantaneous trip setting - curve multipler or actual amps.
-    (write) Ground (3I0) trip instantaneous multiplier or actual amps
-    """
+    """Ground (3I0) instantaneous trip setting - curve multipler or actual amps."""
     # Getter
     if len(args) == 0:
         return lib.Reclosers_Get_GroundInst()
@@ -39,6 +42,7 @@ def GroundInst(*args):
     # Setter
     Value, = args
     lib.Reclosers_Set_GroundInst(Value)
+    CheckForError()
 
 
 def GroundTrip(*args):
@@ -50,13 +54,11 @@ def GroundTrip(*args):
     # Setter
     Value, = args
     lib.Reclosers_Set_GroundTrip(Value)
+    CheckForError()
 
 
 def MonitoredObj(*args):
-    """
-    (read) Full name of object this Recloser is monitoring.
-    (write) Set monitored object by full name.
-    """
+    """Full name of object this Recloser to be monitored."""
     # Getter
     if len(args) == 0:
         return get_string(lib.Reclosers_Get_MonitoredObj())
@@ -65,12 +67,12 @@ def MonitoredObj(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Reclosers_Set_MonitoredObj(Value)
+    CheckForError()
 
 
 def MonitoredTerm(*args):
-    """Terminal number of Monitored object for the Recloser """
+    """Terminal number of Monitored object for the Recloser"""
     # Getter
     if len(args) == 0:
         return lib.Reclosers_Get_MonitoredTerm()
@@ -78,10 +80,13 @@ def MonitoredTerm(*args):
     # Setter
     Value, = args
     lib.Reclosers_Set_MonitoredTerm(Value)
+    CheckForError()
 
 
 def Name(*args):
-    """Get Name of active Recloser or set the active Recloser by name."""
+    """
+    Get/set the name of the active Recloser
+    """
     # Getter
     if len(args) == 0:
         return get_string(lib.Reclosers_Get_Name())
@@ -90,12 +95,11 @@ def Name(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
-    lib.Reclosers_Set_Name(Value)
+    CheckForError(lib.Reclosers_Set_Name(Value))
 
 
 def Next():
-    """(read-only) Iterate to the next recloser in the circuit. Returns zero if no more."""
+    """Sets next Recloser active; returns 0 if no more."""
     return lib.Reclosers_Get_Next()
 
 
@@ -108,6 +112,7 @@ def NumFast(*args):
     # Setter
     Value, = args
     lib.Reclosers_Set_NumFast(Value)
+    CheckForError()
 
 
 def PhaseInst(*args):
@@ -119,13 +124,11 @@ def PhaseInst(*args):
     # Setter
     Value, = args
     lib.Reclosers_Set_PhaseInst(Value)
+    CheckForError()
 
 
 def PhaseTrip(*args):
-    """
-    (read) Phase trip curve multiplier or actual amps
-    (write) Phase Trip multiplier or actual amps
-    """
+    """Phase trip curve multiplier or actual amps"""
     # Getter
     if len(args) == 0:
         return lib.Reclosers_Get_PhaseTrip()
@@ -133,10 +136,11 @@ def PhaseTrip(*args):
     # Setter
     Value, = args
     lib.Reclosers_Set_PhaseTrip(Value)
+    CheckForError()
 
 
 def RecloseIntervals():
-    """(read-only) Variant Array of Doubles: reclose intervals, s, between shots."""
+    """(read-only) Array of Doubles: reclose intervals, s, between shots."""
     return get_float64_array(lib.Reclosers_Get_RecloseIntervals)
 
 
@@ -149,6 +153,7 @@ def Shots(*args):
     # Setter
     Value, = args
     lib.Reclosers_Set_Shots(Value)
+    CheckForError()
 
 
 def SwitchedObj(*args):
@@ -161,8 +166,8 @@ def SwitchedObj(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Reclosers_Set_SwitchedObj(Value)
+    CheckForError()
 
 
 def SwitchedTerm(*args):
@@ -174,17 +179,20 @@ def SwitchedTerm(*args):
     # Setter
     Value, = args
     lib.Reclosers_Set_SwitchedTerm(Value)
+    CheckForError()
 
 
 def Idx(*args):
-    """Get/Set the active Recloser by index into the recloser list.  1..Count"""
+    """
+    Get/set active Recloser by index;  1..Count
+    """
     # Getter
     if len(args) == 0:
         return lib.Reclosers_Get_idx()
 
     # Setter
     Value, = args
-    lib.Reclosers_Set_idx(Value)
+    CheckForError(lib.Reclosers_Set_idx(Value))
 
 
 _columns = [

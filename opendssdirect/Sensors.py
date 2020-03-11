@@ -2,12 +2,13 @@
 from __future__ import absolute_import
 from ._utils import (
     lib,
+    codec,
+    CheckForError,
     get_string,
-    get_string_array,
     get_float64_array,
+    get_string_array,
     prepare_float64_array,
 )
-from ._utils import codec
 
 
 def Reset():
@@ -19,12 +20,12 @@ def ResetAll():
 
 
 def AllNames():
-    """(read-only) Array of Sensor names."""
+    """(read-only) List of strings with all Sensor names"""
     return get_string_array(lib.Sensors_Get_AllNames)
 
 
 def Count():
-    """(read-only) Number of Sensors in Active Circuit."""
+    """(read-only) Number of Sensors"""
     return lib.Sensors_Get_Count()
 
 
@@ -38,10 +39,11 @@ def Currents(*args):
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
     lib.Sensors_Set_Currents(ValuePtr, ValueCount)
+    CheckForError()
 
 
 def First():
-    """(read-only) Sets the first sensor active. Returns 0 if none."""
+    """Set first Sensor active; returns 0 if none."""
     return lib.Sensors_Get_First()
 
 
@@ -54,6 +56,7 @@ def IsDelta(*args):
     # Setter
     Value, = args
     lib.Sensors_Set_IsDelta(Value)
+    CheckForError()
 
 
 def MeteredElement(*args):
@@ -66,8 +69,8 @@ def MeteredElement(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Sensors_Set_MeteredElement(Value)
+    CheckForError()
 
 
 def MeteredTerminal(*args):
@@ -79,12 +82,12 @@ def MeteredTerminal(*args):
     # Setter
     Value, = args
     lib.Sensors_Set_MeteredTerminal(Value)
+    CheckForError()
 
 
 def Name(*args):
     """
-    (read) Name of the active sensor.
-    (write) Set the active Sensor by name.
+    Get/set the name of the active Sensor
     """
     # Getter
     if len(args) == 0:
@@ -94,12 +97,11 @@ def Name(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
-    lib.Sensors_Set_Name(Value)
+    CheckForError(lib.Sensors_Set_Name(Value))
 
 
 def Next():
-    """(read-only) Sets the next Sensor active. Returns 0 if no more."""
+    """Sets next Sensor active; returns 0 if no more."""
     return lib.Sensors_Get_Next()
 
 
@@ -112,6 +114,7 @@ def PctError(*args):
     # Setter
     Value, = args
     lib.Sensors_Set_PctError(Value)
+    CheckForError()
 
 
 def ReverseDelta(*args):
@@ -123,6 +126,7 @@ def ReverseDelta(*args):
     # Setter
     Value, = args
     lib.Sensors_Set_ReverseDelta(Value)
+    CheckForError()
 
 
 def Weight(*args):
@@ -134,6 +138,7 @@ def Weight(*args):
     # Setter
     Value, = args
     lib.Sensors_Set_Weight(Value)
+    CheckForError()
 
 
 def kvar(*args):
@@ -146,6 +151,7 @@ def kvar(*args):
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
     lib.Sensors_Set_kVARS(ValuePtr, ValueCount)
+    CheckForError()
 
 
 def kVS(*args):
@@ -158,6 +164,7 @@ def kVS(*args):
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
     lib.Sensors_Set_kVS(ValuePtr, ValueCount)
+    CheckForError()
 
 
 def kVBase(*args):
@@ -169,6 +176,7 @@ def kVBase(*args):
     # Setter
     Value, = args
     lib.Sensors_Set_kVbase(Value)
+    CheckForError()
 
 
 def kW(*args):
@@ -181,6 +189,20 @@ def kW(*args):
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
     lib.Sensors_Set_kWS(ValuePtr, ValueCount)
+    CheckForError()
+
+
+def Idx(*args):
+    """
+    Get/set active Sensor by index;  1..Count
+    """
+    # Getter
+    if len(args) == 0:
+        return lib.Sensors_Get_idx()
+
+    # Setter
+    Value, = args
+    CheckForError(lib.Sensors_Set_idx(Value))
 
 
 _columns = [
@@ -196,6 +218,7 @@ _columns = [
     "kVS",
     "kVBase",
     "kW",
+    "Idx",
 ]
 __all__ = [
     "Reset",
@@ -216,4 +239,5 @@ __all__ = [
     "kVS",
     "kVBase",
     "kW",
+    "Idx",
 ]

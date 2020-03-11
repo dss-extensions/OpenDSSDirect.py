@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
-from ._utils import lib, get_string, get_string_array
-from ._utils import codec
+from ._utils import lib, codec, CheckForError, get_string, get_string_array
 
 
 def Reset():
@@ -9,7 +8,7 @@ def Reset():
 
 
 def AllNames():
-    """(read-only) Array of strings with all CapControl names."""
+    """(read-only) List of strings with all CapControl names"""
     return get_string_array(lib.CapControls_Get_AllNames)
 
 
@@ -22,6 +21,7 @@ def CTRatio(*args):
     # Setter
     Value, = args
     lib.CapControls_Set_CTratio(Value)
+    CheckForError()
 
 
 def Capacitor(*args):
@@ -34,12 +34,12 @@ def Capacitor(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.CapControls_Set_Capacitor(Value)
+    CheckForError()
 
 
 def Count():
-    """(read-only) Number of CapControls in Active Circuit"""
+    """(read-only) Number of CapControls"""
     return lib.CapControls_Get_Count()
 
 
@@ -51,6 +51,7 @@ def DeadTime(*args):
     # Setter
     Value, = args
     lib.CapControls_Set_DeadTime(Value)
+    CheckForError()
 
 
 def Delay(*args):
@@ -62,6 +63,7 @@ def Delay(*args):
     # Setter
     Value, = args
     lib.CapControls_Set_Delay(Value)
+    CheckForError()
 
 
 def DelayOff(*args):
@@ -73,10 +75,11 @@ def DelayOff(*args):
     # Setter
     Value, = args
     lib.CapControls_Set_DelayOff(Value)
+    CheckForError()
 
 
 def First():
-    """(read-only) Sets the first CapControl as active. Return 0 if none."""
+    """Set first CapControl active; returns 0 if none."""
     return lib.CapControls_Get_First()
 
 
@@ -89,6 +92,7 @@ def Mode(*args):
     # Setter
     Value, = args
     lib.CapControls_Set_Mode(Value)
+    CheckForError()
 
 
 def MonitoredObj(*args):
@@ -101,8 +105,8 @@ def MonitoredObj(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.CapControls_Set_MonitoredObj(Value)
+    CheckForError()
 
 
 def MonitoredTerm(*args):
@@ -114,10 +118,13 @@ def MonitoredTerm(*args):
     # Setter
     Value, = args
     lib.CapControls_Set_MonitoredTerm(Value)
+    CheckForError()
 
 
 def Name(*args):
-    """Sets a CapControl active by name."""
+    """
+    Get/set the name of the active CapControl
+    """
     # Getter
     if len(args) == 0:
         return get_string(lib.CapControls_Get_Name())
@@ -126,12 +133,11 @@ def Name(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
-    lib.CapControls_Set_Name(Value)
+    CheckForError(lib.CapControls_Set_Name(Value))
 
 
 def Next():
-    """(read-only) Gets the next CapControl in the circut. Returns 0 if none."""
+    """Sets next CapControl active; returns 0 if no more."""
     return lib.CapControls_Get_Next()
 
 
@@ -144,6 +150,7 @@ def OFFSetting(*args):
     # Setter
     Value, = args
     lib.CapControls_Set_OFFSetting(Value)
+    CheckForError()
 
 
 def ONSetting(*args):
@@ -155,6 +162,7 @@ def ONSetting(*args):
     # Setter
     Value, = args
     lib.CapControls_Set_ONSetting(Value)
+    CheckForError()
 
 
 def PTRatio(*args):
@@ -166,6 +174,7 @@ def PTRatio(*args):
     # Setter
     Value, = args
     lib.CapControls_Set_PTratio(Value)
+    CheckForError()
 
 
 def UseVoltOverride(*args):
@@ -177,6 +186,7 @@ def UseVoltOverride(*args):
     # Setter
     Value, = args
     lib.CapControls_Set_UseVoltOverride(Value)
+    CheckForError()
 
 
 def Vmax(*args):
@@ -188,6 +198,7 @@ def Vmax(*args):
     # Setter
     Value, = args
     lib.CapControls_Set_Vmax(Value)
+    CheckForError()
 
 
 def Vmin(*args):
@@ -199,6 +210,20 @@ def Vmin(*args):
     # Setter
     Value, = args
     lib.CapControls_Set_Vmin(Value)
+    CheckForError()
+
+
+def Idx(*args):
+    """
+    Get/set active CapControl by index;  1..Count
+    """
+    # Getter
+    if len(args) == 0:
+        return lib.CapControls_Get_idx()
+
+    # Setter
+    Value, = args
+    CheckForError(lib.CapControls_Set_idx(Value))
 
 
 _columns = [
@@ -217,6 +242,7 @@ _columns = [
     "UseVoltOverride",
     "Vmax",
     "Vmin",
+    "Idx",
 ]
 __all__ = [
     "Reset",
@@ -239,4 +265,5 @@ __all__ = [
     "UseVoltOverride",
     "Vmax",
     "Vmin",
+    "Idx",
 ]

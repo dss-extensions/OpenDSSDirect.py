@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
-from ._utils import lib, get_string, get_float64_array, get_int32_array
+from ._utils import lib, CheckForError, get_string, get_float64_array, get_int32_array
 
 
 def GetUniqueNodeNumber(StartNumber):
@@ -97,7 +97,7 @@ def VLL():
 
 
 def VMagAngle():
-    """(read-only) Variant Array of doubles containing voltages in Magnitude (VLN), angle (deg) """
+    """(read-only) Array of doubles containing voltages in Magnitude (VLN), angle (deg)"""
     return get_float64_array(lib.Bus_Get_VMagAngle)
 
 
@@ -160,6 +160,7 @@ def X(*args):
     # Setter
     Value, = args
     lib.Bus_Set_x(Value)
+    CheckForError()
 
 
 def Y(*args):
@@ -171,10 +172,10 @@ def Y(*args):
     # Setter
     Value, = args
     lib.Bus_Set_y(Value)
+    CheckForError()
 
 
 _columns = [
-    "ZscRefresh",
     "Coorddefined",
     "CplxSeqVoltages",
     "Cust_Duration",

@@ -1,20 +1,27 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
-from ._utils import lib, get_string, get_string_array
-from ._utils import codec
+from ._utils import (
+    lib,
+    codec,
+    CheckForError,
+    get_string,
+    get_float64_array,
+    get_string_array,
+)
 
 
 def AllNames():
-    """(read-only) Array of strings with all Transformer names in the active circuit."""
+    """(read-only) List of strings with all Transformer names"""
     return get_string_array(lib.Transformers_Get_AllNames)
 
 
 def Count():
+    """(read-only) Number of Transformers"""
     return lib.Transformers_Get_Count()
 
 
 def First():
-    """(read-only) Sets the first Transformer active. Returns 0 if no more."""
+    """Set first Transformer active; returns 0 if none."""
     return lib.Transformers_Get_First()
 
 
@@ -27,6 +34,7 @@ def IsDelta(*args):
     # Setter
     Value, = args
     lib.Transformers_Set_IsDelta(Value)
+    CheckForError()
 
 
 def MaxTap(*args):
@@ -38,6 +46,7 @@ def MaxTap(*args):
     # Setter
     Value, = args
     lib.Transformers_Set_MaxTap(Value)
+    CheckForError()
 
 
 def MinTap(*args):
@@ -49,10 +58,13 @@ def MinTap(*args):
     # Setter
     Value, = args
     lib.Transformers_Set_MinTap(Value)
+    CheckForError()
 
 
 def Name(*args):
-    """Sets a Transformer active by Name."""
+    """
+    Get/set the name of the active Transformer
+    """
     # Getter
     if len(args) == 0:
         return get_string(lib.Transformers_Get_Name())
@@ -61,12 +73,11 @@ def Name(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
-    lib.Transformers_Set_Name(Value)
+    CheckForError(lib.Transformers_Set_Name(Value))
 
 
 def Next():
-    """(read-only) Sets the next Transformer active. Returns 0 if no more."""
+    """Sets next Transformer active; returns 0 if no more."""
     return lib.Transformers_Get_Next()
 
 
@@ -79,6 +90,7 @@ def NumTaps(*args):
     # Setter
     Value, = args
     lib.Transformers_Set_NumTaps(Value)
+    CheckForError()
 
 
 def NumWindings(*args):
@@ -90,6 +102,7 @@ def NumWindings(*args):
     # Setter
     Value, = args
     lib.Transformers_Set_NumWindings(Value)
+    CheckForError()
 
 
 def R(*args):
@@ -101,6 +114,7 @@ def R(*args):
     # Setter
     Value, = args
     lib.Transformers_Set_R(Value)
+    CheckForError()
 
 
 def Rneut(*args):
@@ -112,6 +126,7 @@ def Rneut(*args):
     # Setter
     Value, = args
     lib.Transformers_Set_Rneut(Value)
+    CheckForError()
 
 
 def Tap(*args):
@@ -123,6 +138,7 @@ def Tap(*args):
     # Setter
     Value, = args
     lib.Transformers_Set_Tap(Value)
+    CheckForError()
 
 
 def Wdg(*args):
@@ -134,6 +150,7 @@ def Wdg(*args):
     # Setter
     Value, = args
     lib.Transformers_Set_Wdg(Value)
+    CheckForError()
 
 
 def XfmrCode(*args):
@@ -146,8 +163,8 @@ def XfmrCode(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Transformers_Set_XfmrCode(Value)
+    CheckForError()
 
 
 def Xhl(*args):
@@ -159,6 +176,7 @@ def Xhl(*args):
     # Setter
     Value, = args
     lib.Transformers_Set_Xhl(Value)
+    CheckForError()
 
 
 def Xht(*args):
@@ -170,6 +188,7 @@ def Xht(*args):
     # Setter
     Value, = args
     lib.Transformers_Set_Xht(Value)
+    CheckForError()
 
 
 def Xlt(*args):
@@ -181,6 +200,7 @@ def Xlt(*args):
     # Setter
     Value, = args
     lib.Transformers_Set_Xlt(Value)
+    CheckForError()
 
 
 def Xneut(*args):
@@ -192,6 +212,7 @@ def Xneut(*args):
     # Setter
     Value, = args
     lib.Transformers_Set_Xneut(Value)
+    CheckForError()
 
 
 def kV(*args):
@@ -203,6 +224,7 @@ def kV(*args):
     # Setter
     Value, = args
     lib.Transformers_Set_kV(Value)
+    CheckForError()
 
 
 def kVA(*args):
@@ -214,6 +236,69 @@ def kVA(*args):
     # Setter
     Value, = args
     lib.Transformers_Set_kVA(Value)
+    CheckForError()
+
+
+def Idx(*args):
+    """
+    Get/set active Transformer by index;  1..Count
+    """
+    # Getter
+    if len(args) == 0:
+        return lib.Transformers_Get_idx()
+
+    # Setter
+    Value, = args
+    CheckForError(lib.Transformers_Set_idx(Value))
+
+
+def WdgVoltages():
+    """(read-only) Complex array of voltages for active winding"""
+    return get_float64_array(lib.Transformers_Get_WdgVoltages)
+
+
+def WdgCurrents():
+    """(read-only) All Winding currents (ph1, wdg1, wdg2,... ph2, wdg1, wdg2 ...)"""
+    return get_float64_array(lib.Transformers_Get_WdgCurrents)
+
+
+def strWdgCurrents():
+    """(read-only) All winding currents in CSV string form like the WdgCurrents property"""
+    return get_string(lib.Transformers_Get_strWdgCurrents())
+
+
+def CoreType(*args):
+    """Transformer Core Type: 0=shell;1 = 1-phase; 3= 3-leg; 5= 5-leg"""
+    # Getter
+    if len(args) == 0:
+        return lib.Transformers_Get_CoreType()
+
+    # Setter
+    Value, = args
+    lib.Transformers_Set_CoreType(Value)
+    CheckForError()
+
+
+def RdcOhms(*args):
+    """dc Resistance of active winding in ohms for GIC analysis"""
+    # Getter
+    if len(args) == 0:
+        return lib.Transformers_Get_RdcOhms()
+
+    # Setter
+    Value, = args
+    lib.Transformers_Set_RdcOhms(Value)
+    CheckForError()
+
+
+def LossesByType():
+    """Complex array with the losses by type (total losses, load losses, no-load losses), in VA"""
+    return get_float64_array(lib.Transformers_Get_LossesByType)
+
+
+def AllLossesByType():
+    """Complex array with the losses by type (total losses, load losses, no-load losses), in VA, concatenated for ALL transformers"""
+    return get_float64_array(lib.Transformers_Get_AllLossesByType)
 
 
 _columns = [
@@ -234,6 +319,12 @@ _columns = [
     "Xneut",
     "kV",
     "kVA",
+    "Idx",
+    "CoreType",
+    "RdcOhms",
+    "WdgCurrents",
+    "WdgVoltages",
+    "LossesByType",
 ]
 __all__ = [
     "AllNames",
@@ -257,4 +348,12 @@ __all__ = [
     "Xneut",
     "kV",
     "kVA",
+    "WdgVoltages",
+    "WdgCurrents",
+    "strWdgCurrents",
+    "CoreType",
+    "RdcOhms",
+    "LossesByType",
+    "AllLossesByType",
+    "Idx",
 ]

@@ -1,23 +1,29 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
-from ._utils import lib, get_string, get_float64_array, prepare_float64_array
-from ._utils import codec
+from ._utils import (
+    lib,
+    codec,
+    CheckForError,
+    get_string,
+    get_float64_array,
+    get_string_array,
+    prepare_float64_array,
+)
 
 
 def Count():
-    """(read-only) Number of XYCurve Objects"""
+    """(read-only) Number of XYCurves"""
     return lib.XYCurves_Get_Count()
 
 
 def First():
-    """(read-only) Sets first XYcurve object active; returns 0 if none."""
+    """Set first XYCurve active; returns 0 if none."""
     return lib.XYCurves_Get_First()
 
 
 def Name(*args):
     """
-    (read) Name of active XYCurve Object
-    (write) Get Name of active XYCurve Object
+    Get/set the name of the active XYCurve
     """
     # Getter
     if len(args) == 0:
@@ -27,12 +33,11 @@ def Name(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
-    lib.XYCurves_Set_Name(Value)
+    CheckForError(lib.XYCurves_Set_Name(Value))
 
 
 def Next():
-    """(read-only) Advances to next XYCurve object; returns 0 if no more objects of this class"""
+    """Sets next XYCurve active; returns 0 if no more."""
     return lib.XYCurves_Get_Next()
 
 
@@ -45,10 +50,11 @@ def Npts(*args):
     # Setter
     Value, = args
     lib.XYCurves_Set_Npts(Value)
+    CheckForError()
 
 
 def XArray(*args):
-    """Get/Set X values as a Array of doubles. Set Npts to max number expected if setting"""
+    """Get/set X values as a Array of doubles. Set Npts to max number expected if setting"""
     # Getter
     if len(args) == 0:
         return get_float64_array(lib.XYCurves_Get_Xarray)
@@ -57,6 +63,7 @@ def XArray(*args):
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
     lib.XYCurves_Set_Xarray(ValuePtr, ValueCount)
+    CheckForError()
 
 
 def XScale(*args):
@@ -68,6 +75,7 @@ def XScale(*args):
     # Setter
     Value, = args
     lib.XYCurves_Set_Xscale(Value)
+    CheckForError()
 
 
 def XShift(*args):
@@ -79,6 +87,7 @@ def XShift(*args):
     # Setter
     Value, = args
     lib.XYCurves_Set_Xshift(Value)
+    CheckForError()
 
 
 def YArray(*args):
@@ -91,13 +100,11 @@ def YArray(*args):
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
     lib.XYCurves_Set_Yarray(ValuePtr, ValueCount)
+    CheckForError()
 
 
 def YScale(*args):
-    """
-    (read) Factor to scale Y values from original curve
-    (write) Amount to scale Y values from original curve. Represents a curve shift.
-    """
+    """Factor to scale Y values from original curve"""
     # Getter
     if len(args) == 0:
         return lib.XYCurves_Get_Yscale()
@@ -105,10 +112,11 @@ def YScale(*args):
     # Setter
     Value, = args
     lib.XYCurves_Set_Yscale(Value)
+    CheckForError()
 
 
 def YShift(*args):
-    """amount to shift Y valiue from original curve"""
+    """Amount to shift Y valiue from original curve"""
     # Getter
     if len(args) == 0:
         return lib.XYCurves_Get_Yshift()
@@ -116,6 +124,7 @@ def YShift(*args):
     # Setter
     Value, = args
     lib.XYCurves_Set_Yshift(Value)
+    CheckForError()
 
 
 def X(*args):
@@ -127,13 +136,11 @@ def X(*args):
     # Setter
     Value, = args
     lib.XYCurves_Set_x(Value)
+    CheckForError()
 
 
 def Y(*args):
-    """
-    (read) Y value for present X or set this value then get corresponding X
-    (write) Set Y value or get interpolated Y value after setting X
-    """
+    """Set Y value or get interpolated Y value after setting X"""
     # Getter
     if len(args) == 0:
         return lib.XYCurves_Get_y()
@@ -141,6 +148,25 @@ def Y(*args):
     # Setter
     Value, = args
     lib.XYCurves_Set_y(Value)
+    CheckForError()
+
+
+def AllNames():
+    """(read-only) List of strings with all XYCurve names"""
+    return get_string_array(lib.XYCurves_Get_AllNames)
+
+
+def Idx(*args):
+    """
+    Get/set active XYCurve by index;  1..Count
+    """
+    # Getter
+    if len(args) == 0:
+        return lib.XYCurves_Get_idx()
+
+    # Setter
+    Value, = args
+    CheckForError(lib.XYCurves_Set_idx(Value))
 
 
 _columns = [
@@ -154,6 +180,7 @@ _columns = [
     "YShift",
     "X",
     "Y",
+    "Idx",
 ]
 __all__ = [
     "Count",
@@ -169,4 +196,6 @@ __all__ = [
     "YShift",
     "X",
     "Y",
+    "Idx",
+    "AllNames",
 ]

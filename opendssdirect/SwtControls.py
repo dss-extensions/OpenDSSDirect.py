@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
-from ._utils import lib, get_string, get_string_array
-from ._utils import codec
+from ._utils import lib, codec, CheckForError, get_string, get_string_array
 
 
 def Reset():
@@ -17,14 +16,16 @@ def Action(*args):
     # Setter
     Value, = args
     lib.SwtControls_Set_Action(Value)
+    CheckForError()
 
 
 def AllNames():
-    """(read-only) Array of strings with all SwtControl names in the active circuit."""
+    """(read-only) List of strings with all SwtControl names"""
     return get_string_array(lib.SwtControls_Get_AllNames)
 
 
 def Count():
+    """(read-only) Number of SwtControls"""
     return lib.SwtControls_Get_Count()
 
 
@@ -37,10 +38,11 @@ def Delay(*args):
     # Setter
     Value, = args
     lib.SwtControls_Set_Delay(Value)
+    CheckForError()
 
 
 def First():
-    """(read-only) Sets the first SwtControl active. Returns 0 if no more."""
+    """Set first SwtControl active; returns 0 if none."""
     return lib.SwtControls_Get_First()
 
 
@@ -53,10 +55,13 @@ def IsLocked(*args):
     # Setter
     Value, = args
     lib.SwtControls_Set_IsLocked(Value)
+    CheckForError()
 
 
 def Name(*args):
-    """Sets a SwtControl active by Name."""
+    """
+    Get/set the name of the active SwtControl
+    """
     # Getter
     if len(args) == 0:
         return get_string(lib.SwtControls_Get_Name())
@@ -65,19 +70,17 @@ def Name(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
-    lib.SwtControls_Set_Name(Value)
+    CheckForError(lib.SwtControls_Set_Name(Value))
 
 
 def Next():
-    """(read-only) Sets the next SwtControl active. Returns 0 if no more."""
+    """Sets next SwtControl active; returns 0 if no more."""
     return lib.SwtControls_Get_Next()
 
 
 def NormalState(*args):
     """
-    (read) Get Normal state of switch
-    (write) set Normal state of switch  (see actioncodes) dssActionOpen or dssActionClose
+    Get/set Normal state of switch (see actioncodes) dssActionOpen or dssActionClose
     """
     # Getter
     if len(args) == 0:
@@ -86,13 +89,11 @@ def NormalState(*args):
     # Setter
     Value, = args
     lib.SwtControls_Set_NormalState(Value)
+    CheckForError()
 
 
 def State(*args):
-    """
-    (read) Force switch to specified state
-    (write) Get Present state of switch
-    """
+    """Set it to force the switch to a specified state, otherwise read its present state."""
     # Getter
     if len(args) == 0:
         return lib.SwtControls_Get_State()
@@ -100,6 +101,7 @@ def State(*args):
     # Setter
     Value, = args
     lib.SwtControls_Set_State(Value)
+    CheckForError()
 
 
 def SwitchedObj(*args):
@@ -112,8 +114,8 @@ def SwitchedObj(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.SwtControls_Set_SwitchedObj(Value)
+    CheckForError()
 
 
 def SwitchedTerm(*args):
@@ -125,6 +127,20 @@ def SwitchedTerm(*args):
     # Setter
     Value, = args
     lib.SwtControls_Set_SwitchedTerm(Value)
+    CheckForError()
+
+
+def Idx(*args):
+    """
+    Get/set active SwtControl by index;  1..Count
+    """
+    # Getter
+    if len(args) == 0:
+        return lib.SwtControls_Get_idx()
+
+    # Setter
+    Value, = args
+    CheckForError(lib.SwtControls_Set_idx(Value))
 
 
 _columns = [
@@ -136,6 +152,7 @@ _columns = [
     "State",
     "SwitchedObj",
     "SwitchedTerm",
+    "Idx",
 ]
 __all__ = [
     "Reset",
@@ -151,4 +168,5 @@ __all__ = [
     "State",
     "SwitchedObj",
     "SwitchedTerm",
+    "Idx",
 ]

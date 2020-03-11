@@ -2,23 +2,23 @@
 from __future__ import absolute_import
 from ._utils import (
     lib,
+    codec,
+    CheckForError,
     get_string,
-    get_string_array,
     get_float64_array,
+    get_string_array,
     prepare_float64_array,
 )
-from ._utils import codec
 
 
 def New(Name):
     if type(Name) is not bytes:
         Name = Name.encode(codec)
-
     return lib.Lines_New(Name)
 
 
 def AllNames():
-    """(read-only) Names of all Line Objects"""
+    """(read-only) List of strings with all Line names"""
     return get_string_array(lib.Lines_Get_AllNames)
 
 
@@ -32,8 +32,8 @@ def Bus1(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Lines_Set_Bus1(Value)
+    CheckForError()
 
 
 def Bus2(*args):
@@ -46,8 +46,8 @@ def Bus2(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Lines_Set_Bus2(Value)
+    CheckForError()
 
 
 def C0(*args):
@@ -59,6 +59,7 @@ def C0(*args):
     # Setter
     Value, = args
     lib.Lines_Set_C0(Value)
+    CheckForError()
 
 
 def C1(*args):
@@ -70,6 +71,7 @@ def C1(*args):
     # Setter
     Value, = args
     lib.Lines_Set_C1(Value)
+    CheckForError()
 
 
 def CMatrix(*args):
@@ -81,10 +83,11 @@ def CMatrix(*args):
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
     lib.Lines_Set_Cmatrix(ValuePtr, ValueCount)
+    CheckForError()
 
 
 def Count():
-    """(read-only) Number of Line objects in Active Circuit."""
+    """(read-only) Number of Lines"""
     return lib.Lines_Get_Count()
 
 
@@ -97,10 +100,11 @@ def EmergAmps(*args):
     # Setter
     Value, = args
     lib.Lines_Set_EmergAmps(Value)
+    CheckForError()
 
 
 def First():
-    """(read-only) Invoking this property sets the first element active.  Returns 0 if no lines.  Otherwise, index of the line element."""
+    """Set first Line active; returns 0 if none."""
     return lib.Lines_Get_First()
 
 
@@ -114,8 +118,8 @@ def Geometry(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Lines_Set_Geometry(Value)
+    CheckForError()
 
 
 def Length(*args):
@@ -127,6 +131,7 @@ def Length(*args):
     # Setter
     Value, = args
     lib.Lines_Set_Length(Value)
+    CheckForError()
 
 
 def LineCode(*args):
@@ -139,12 +144,14 @@ def LineCode(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Lines_Set_LineCode(Value)
+    CheckForError()
 
 
 def Name(*args):
-    """Specify the name of the Line element to set it active."""
+    """
+    Get/set the name of the active Line
+    """
     # Getter
     if len(args) == 0:
         return get_string(lib.Lines_Get_Name())
@@ -153,12 +160,11 @@ def Name(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
-    lib.Lines_Set_Name(Value)
+    CheckForError(lib.Lines_Set_Name(Value))
 
 
 def Next():
-    """(read-only) Invoking this property advances to the next Line element active.  Returns 0 if no more lines.  Otherwise, index of the line element."""
+    """Sets next Line active; returns 0 if no more."""
     return lib.Lines_Get_Next()
 
 
@@ -171,6 +177,7 @@ def NormAmps(*args):
     # Setter
     Value, = args
     lib.Lines_Set_NormAmps(Value)
+    CheckForError()
 
 
 def NumCust():
@@ -192,6 +199,7 @@ def Phases(*args):
     # Setter
     Value, = args
     lib.Lines_Set_Phases(Value)
+    CheckForError()
 
 
 def R0(*args):
@@ -203,6 +211,7 @@ def R0(*args):
     # Setter
     Value, = args
     lib.Lines_Set_R0(Value)
+    CheckForError()
 
 
 def R1(*args):
@@ -214,6 +223,7 @@ def R1(*args):
     # Setter
     Value, = args
     lib.Lines_Set_R1(Value)
+    CheckForError()
 
 
 def Rg(*args):
@@ -225,6 +235,7 @@ def Rg(*args):
     # Setter
     Value, = args
     lib.Lines_Set_Rg(Value)
+    CheckForError()
 
 
 def Rho(*args):
@@ -236,6 +247,7 @@ def Rho(*args):
     # Setter
     Value, = args
     lib.Lines_Set_Rho(Value)
+    CheckForError()
 
 
 def RMatrix(*args):
@@ -248,6 +260,7 @@ def RMatrix(*args):
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
     lib.Lines_Set_Rmatrix(ValuePtr, ValueCount)
+    CheckForError()
 
 
 def Spacing(*args):
@@ -260,8 +273,8 @@ def Spacing(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Lines_Set_Spacing(Value)
+    CheckForError()
 
 
 def TotalCust():
@@ -277,6 +290,7 @@ def Units(*args):
     # Setter
     Value, = args
     lib.Lines_Set_Units(Value)
+    CheckForError()
 
 
 def X0(*args):
@@ -288,6 +302,7 @@ def X0(*args):
     # Setter
     Value, = args
     lib.Lines_Set_X0(Value)
+    CheckForError()
 
 
 def X1(*args):
@@ -299,6 +314,7 @@ def X1(*args):
     # Setter
     Value, = args
     lib.Lines_Set_X1(Value)
+    CheckForError()
 
 
 def Xg(*args):
@@ -310,6 +326,7 @@ def Xg(*args):
     # Setter
     Value, = args
     lib.Lines_Set_Xg(Value)
+    CheckForError()
 
 
 def XMatrix(*args):
@@ -321,6 +338,7 @@ def XMatrix(*args):
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
     lib.Lines_Set_Xmatrix(ValuePtr, ValueCount)
+    CheckForError()
 
 
 def Yprim(*args):
@@ -333,6 +351,36 @@ def Yprim(*args):
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
     lib.Lines_Set_Yprim(ValuePtr, ValueCount)
+    CheckForError()
+
+
+def Idx(*args):
+    """
+    Get/set active Line by index;  1..Count
+    """
+    # Getter
+    if len(args) == 0:
+        return lib.Lines_Get_idx()
+
+    # Setter
+    Value, = args
+    CheckForError(lib.Lines_Set_idx(Value))
+
+
+def SeasonRating():
+    """Delivers the rating for the current season (in Amps)  if the "SeasonalRatings" option is active"""
+    return lib.Lines_Get_SeasonRating()
+
+
+def IsSwitch(*args):
+    """Sets/gets the Line element switch status. Setting it has side-effects to the line parameters."""
+    # Getter
+    if len(args) == 0:
+        return lib.Lines_Get_IsSwitch() != 0
+
+    # Setter
+    Value, = args
+    lib.Lines_Set_IsSwitch(Value)
 
 
 _columns = [
@@ -363,6 +411,9 @@ _columns = [
     "Xg",
     "XMatrix",
     "Yprim",
+    "Idx",
+    "IsSwitch",
+    "SeasonRating",
 ]
 __all__ = [
     "New",
@@ -397,4 +448,7 @@ __all__ = [
     "Xg",
     "XMatrix",
     "Yprim",
+    "SeasonRating",
+    "IsSwitch",
+    "Idx",
 ]

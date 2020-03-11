@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
-from ._utils import lib, get_string, get_string_array
-from ._utils import codec
+from ._utils import lib, codec, CheckForError, get_string, get_string_array
 
 
 def AllNames():
-    """(read-only) Array of strings containing names of all ISOURCE elements."""
+    """(read-only) List of strings with all ISource names"""
     return get_string_array(lib.ISources_Get_AllNames)
 
 
 def Amps(*args):
-    """Magnitude of the ISOURCE in amps"""
+    """Magnitude of the ISource in amps"""
     # Getter
     if len(args) == 0:
         return lib.ISources_Get_Amps()
@@ -18,10 +17,11 @@ def Amps(*args):
     # Setter
     Value, = args
     lib.ISources_Set_Amps(Value)
+    CheckForError()
 
 
 def AngleDeg(*args):
-    """Phase angle for ISOURCE, degrees"""
+    """Phase angle for ISource, degrees"""
     # Getter
     if len(args) == 0:
         return lib.ISources_Get_AngleDeg()
@@ -29,20 +29,21 @@ def AngleDeg(*args):
     # Setter
     Value, = args
     lib.ISources_Set_AngleDeg(Value)
+    CheckForError()
 
 
 def Count():
-    """(read-only) Count: Number of ISOURCE elements."""
+    """(read-only) Number of ISources"""
     return lib.ISources_Get_Count()
 
 
 def First():
-    """(read-only) Set the First ISOURCE to be active; returns Zero if none."""
+    """Set first ISource active; returns 0 if none."""
     return lib.ISources_Get_First()
 
 
 def Frequency(*args):
-    """The present frequency of the ISOURCE, Hz"""
+    """The present frequency of the ISource, Hz"""
     # Getter
     if len(args) == 0:
         return lib.ISources_Get_Frequency()
@@ -50,12 +51,12 @@ def Frequency(*args):
     # Setter
     Value, = args
     lib.ISources_Set_Frequency(Value)
+    CheckForError()
 
 
 def Name(*args):
     """
-    (read) Get name of active ISOURCE
-    (write) Set Active ISOURCE by name
+    Get/set the name of the active ISource
     """
     # Getter
     if len(args) == 0:
@@ -65,16 +66,28 @@ def Name(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
-    lib.ISources_Set_Name(Value)
+    CheckForError(lib.ISources_Set_Name(Value))
 
 
 def Next():
-    """(read-only) Sets the next ISOURCE element to be the active one. Returns Zero if no more."""
+    """Sets next ISource active; returns 0 if no more."""
     return lib.ISources_Get_Next()
 
 
-_columns = ["Amps", "AngleDeg", "Frequency", "Name"]
+def Idx(*args):
+    """
+    Get/set active ISource by index;  1..Count
+    """
+    # Getter
+    if len(args) == 0:
+        return lib.ISources_Get_idx()
+
+    # Setter
+    Value, = args
+    CheckForError(lib.ISources_Set_idx(Value))
+
+
+_columns = ["Amps", "AngleDeg", "Frequency", "Name", "Idx"]
 __all__ = [
     "AllNames",
     "Amps",
@@ -84,4 +97,5 @@ __all__ = [
     "Frequency",
     "Name",
     "Next",
+    "Idx",
 ]

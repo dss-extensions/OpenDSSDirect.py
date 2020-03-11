@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
-from ._utils import lib, get_string, get_string_array
-from ._utils import codec
+from ._utils import lib, codec, CheckForError, get_string, get_string_array
 
 
 def ActiveBranch():
@@ -44,8 +43,8 @@ def BranchName(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Topology_Set_BranchName(Value)
+    CheckForError()
 
 
 def BusName(*args):
@@ -58,8 +57,8 @@ def BusName(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Topology_Set_BusName(Value)
+    CheckForError()
 
 
 def First():
@@ -118,15 +117,10 @@ _columns = [
     "AllIsolatedBranches",
     "AllIsolatedLoads",
     "AllLoopedPairs",
-    "BackwardBranch",
     "BranchName",
-    "BusName",
-    "ForwardBranch",
-    "LoopedBranch",
     "NumIsolatedBranches",
     "NumIsolatedLoads",
     "NumLoops",
-    "ParallelBranch",
 ]
 __all__ = [
     "ActiveBranch",
