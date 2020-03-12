@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
+import warnings
 from ._utils import (
     lib,
     ffi,
@@ -10,6 +11,7 @@ from ._utils import (
     get_int32_array,
     get_string_array,
     prepare_string_array,
+    DSSException,
 )
 
 
@@ -22,20 +24,38 @@ def Controller(idx):
     return get_string(lib.CktElement_Get_Controller(idx))
 
 
-def Variable(MyVarName):
-    """(read-only) Returns (value, Code). For PCElement, get the value of a variable by name. If Code>0 Then no variable by this name or not a PCelement."""
+def Variable(MyVarName, Code=None):
+    """
+    If the active element is a PCElement, get the value of a variable by name.
+    Otherwise, an exception is raised.
+    """
+    if Code is not None:
+        warnings.warn("The Code parameter is deprecated and unused. It will be removed in a future version.")
+
     if type(MyVarName) is not bytes:
         MyVarName = MyVarName.encode(codec)
     Code = ffi.new("int32_t*")
     result = lib.CktElement_Get_Variable(MyVarName, Code)
-    return result, Code[0]
+    if Code[0] != 0:
+        raise DSSException(Code[0], 'No variable by this name or not a PCelement.')
+
+    return result
 
 
-def Variablei(Idx):
-    """(read-only) Returns (value, Code). For PCElement, get the value of a variable by integer index. If Code>0 Then no variable by this index or not a PCelement."""
+def Variablei(Idx, Code=None):
+    """
+    If the active element is a PCElement, get the value of a variable by its integer index.
+    Otherwise, an exception is raised.
+    """
+    if Code is not None:
+        warnings.warn("The Code parameter is deprecated and unused. It will be removed in a future version.")
+
     Code = ffi.new("int32_t*")
     result = lib.CktElement_Get_Variablei(Idx, Code)
-    return result, Code[0]
+    if Code[0] != 0:
+        raise DSSException(Code[0], "No variable by this index or not a PCelement.")
+
+    return result
 
 
 def IsOpen(Term, Phs):
