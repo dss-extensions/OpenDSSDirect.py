@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
-from ._utils import lib, get_string, get_string_array
-from ._utils import codec
+from ._utils import lib, codec, CheckForError, get_string, get_string_array
 
 
 def ClearAll():
@@ -15,7 +14,6 @@ def Reset():
 def SetActiveClass(ClassName):
     if type(ClassName) is not bytes:
         ClassName = ClassName.encode(codec)
-
     return lib.DSS_SetActiveClass(ClassName)
 
 
@@ -38,8 +36,8 @@ def DataPath(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.DSS_Set_DataPath(Value)
+    CheckForError()
 
 
 def DefaultEditor():
@@ -74,7 +72,6 @@ def Version():
 
 def AllowForms(*args):
     """Gets/sets whether text output is allowed"""
-    
     # Getter
     if len(args) == 0:
         return lib.DSS_Get_AllowForms() != 0
@@ -82,6 +79,7 @@ def AllowForms(*args):
     # Setter
     Value, = args
     lib.DSS_Set_AllowForms(Value)
+    CheckForError()
 
 
 def ShowPanel():
@@ -101,6 +99,23 @@ def NewCircuit(name):
         )
 
     return "New Circuit"
+
+def AllowEditor(*args):
+    """
+    Gets/sets whether running the external editor for "Show" is allowed
+
+    AllowEditor controls whether the external editor is used in commands like "Show".
+    If you set to 0 (false), the editor is not executed. Note that other side effects,
+    such as the creation of files, are not affected.
+    """
+    # Getter
+    if len(args) == 0:
+        return lib.DSS_Get_AllowEditor() != 0
+
+    # Setter
+    value, = args
+    lib.DSS_Set_AllowEditor(value)
+    CheckForError()
 
 
 _columns = [
@@ -129,4 +144,5 @@ __all__ = [
     "AllowForms",
     "ShowPanel",
     "NewCircuit",
+    "AllowEditor",
 ]

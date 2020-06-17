@@ -2,13 +2,14 @@
 from __future__ import absolute_import
 from ._utils import (
     lib,
+    codec,
+    CheckForError,
     get_string,
-    get_int32_array,
     get_float64_array,
-    prepare_int32_array,
+    get_int32_array,
     prepare_float64_array,
+    prepare_int32_array,
 )
-from ._utils import codec
 
 
 def AllowDuplicates(*args):
@@ -20,6 +21,7 @@ def AllowDuplicates(*args):
     # Setter
     Value, = args
     lib.Settings_Set_AllowDuplicates(Value)
+    CheckForError()
 
 
 def AutoBusList(*args):
@@ -32,8 +34,8 @@ def AutoBusList(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Settings_Set_AutoBusList(Value)
+    CheckForError()
 
 
 def CktModel(*args):
@@ -45,6 +47,7 @@ def CktModel(*args):
     # Setter
     Value, = args
     lib.Settings_Set_CktModel(Value)
+    CheckForError()
 
 
 def ControlTrace(*args):
@@ -56,6 +59,7 @@ def ControlTrace(*args):
     # Setter
     Value, = args
     lib.Settings_Set_ControlTrace(Value)
+    CheckForError()
 
 
 def EmergVmaxpu(*args):
@@ -67,6 +71,7 @@ def EmergVmaxpu(*args):
     # Setter
     Value, = args
     lib.Settings_Set_EmergVmaxpu(Value)
+    CheckForError()
 
 
 def EmergVminpu(*args):
@@ -78,6 +83,7 @@ def EmergVminpu(*args):
     # Setter
     Value, = args
     lib.Settings_Set_EmergVminpu(Value)
+    CheckForError()
 
 
 def LossRegs(*args):
@@ -90,6 +96,7 @@ def LossRegs(*args):
     Value, = args
     Value, ValuePtr, ValueCount = prepare_int32_array(Value)
     lib.Settings_Set_LossRegs(ValuePtr, ValueCount)
+    CheckForError()
 
 
 def LossWeight(*args):
@@ -101,6 +108,7 @@ def LossWeight(*args):
     # Setter
     Value, = args
     lib.Settings_Set_LossWeight(Value)
+    CheckForError()
 
 
 def NormVmaxpu(*args):
@@ -112,6 +120,7 @@ def NormVmaxpu(*args):
     # Setter
     Value, = args
     lib.Settings_Set_NormVmaxpu(Value)
+    CheckForError()
 
 
 def NormVminpu(*args):
@@ -123,6 +132,7 @@ def NormVminpu(*args):
     # Setter
     Value, = args
     lib.Settings_Set_NormVminpu(Value)
+    CheckForError()
 
 
 def PriceCurve(*args):
@@ -135,8 +145,8 @@ def PriceCurve(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Settings_Set_PriceCurve(Value)
+    CheckForError()
 
 
 def PriceSignal(*args):
@@ -148,6 +158,7 @@ def PriceSignal(*args):
     # Setter
     Value, = args
     lib.Settings_Set_PriceSignal(Value)
+    CheckForError()
 
 
 def Trapezoidal(*args):
@@ -159,6 +170,7 @@ def Trapezoidal(*args):
     # Setter
     Value, = args
     lib.Settings_Set_Trapezoidal(Value)
+    CheckForError()
 
 
 def UERegs(*args):
@@ -171,6 +183,7 @@ def UERegs(*args):
     Value, = args
     Value, ValuePtr, ValueCount = prepare_int32_array(Value)
     lib.Settings_Set_UEregs(ValuePtr, ValueCount)
+    CheckForError()
 
 
 def UEWeight(*args):
@@ -182,6 +195,7 @@ def UEWeight(*args):
     # Setter
     Value, = args
     lib.Settings_Set_UEweight(Value)
+    CheckForError()
 
 
 def VoltageBases(*args):
@@ -194,6 +208,7 @@ def VoltageBases(*args):
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
     lib.Settings_Set_VoltageBases(ValuePtr, ValueCount)
+    CheckForError()
 
 
 def ZoneLock(*args):
@@ -205,11 +220,27 @@ def ZoneLock(*args):
     # Setter
     Value, = args
     lib.Settings_Set_ZoneLock(Value)
+    CheckForError()
 
 
 def AllocationFactors(Value):
     """(write-only) Sets all load allocation factors for all loads defined by XFKVA property to this value."""
     lib.Settings_Set_AllocationFactors(Value)
+    CheckForError()
+
+
+def LoadsTerminalCheck(*args):
+    """
+    Controls whether the terminals are checked when updating the currents in Load component. Defaults to True.
+    If the loads are guaranteed to have their terminals closed throughout the simulation, this can be set to False to save some time.
+    """
+    # Getter
+    if len(args) == 0:
+        return lib.Settings_Get_LoadsTerminalCheck() != 0
+
+    # Setter
+    Value, = args
+    return lib.Settings_Set_LoadsTerminalCheck(Value)
 
 
 _columns = [
@@ -250,4 +281,5 @@ __all__ = [
     "VoltageBases",
     "ZoneLock",
     "AllocationFactors",
+    "LoadsTerminalCheck",
 ]

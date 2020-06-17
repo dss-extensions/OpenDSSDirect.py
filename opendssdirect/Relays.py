@@ -1,21 +1,20 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
-from ._utils import lib, get_string, get_string_array
-from ._utils import codec
+from ._utils import lib, codec, CheckForError, get_string, get_string_array
 
 
 def AllNames():
-    """(read-only) Array of strings containing names of all Relay elements"""
+    """(read-only) List of strings with all Relay names"""
     return get_string_array(lib.Relays_Get_AllNames)
 
 
 def Count():
-    """(read-only) Number of Relays in circuit"""
+    """(read-only) Number of Relays"""
     return lib.Relays_Get_Count()
 
 
 def First():
-    """(read-only) Set First Relay active. If none, returns 0."""
+    """Set first Relay active; returns 0 if none."""
     return lib.Relays_Get_First()
 
 
@@ -29,8 +28,8 @@ def MonitoredObj(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Relays_Set_MonitoredObj(Value)
+    CheckForError()
 
 
 def MonitoredTerm(*args):
@@ -42,12 +41,12 @@ def MonitoredTerm(*args):
     # Setter
     Value, = args
     lib.Relays_Set_MonitoredTerm(Value)
+    CheckForError()
 
 
 def Name(*args):
     """
-    (read) Get name of active relay.
-    (write) Set Relay active by name
+    Get/set the name of the active Relay
     """
     # Getter
     if len(args) == 0:
@@ -57,12 +56,11 @@ def Name(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
-    lib.Relays_Set_Name(Value)
+    CheckForError(lib.Relays_Set_Name(Value))
 
 
 def Next():
-    """(read-only) Advance to next Relay object. Returns 0 when no more relays."""
+    """Sets next Relay active; returns 0 if no more."""
     return lib.Relays_Get_Next()
 
 
@@ -76,8 +74,8 @@ def SwitchedObj(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Relays_Set_SwitchedObj(Value)
+    CheckForError()
 
 
 def SwitchedTerm(*args):
@@ -89,12 +87,12 @@ def SwitchedTerm(*args):
     # Setter
     Value, = args
     lib.Relays_Set_SwitchedTerm(Value)
+    CheckForError()
 
 
 def Idx(*args):
     """
-    (read) Get/Set active Relay by index into the Relay list. 1..Count
-    (write) Get/Set Relay active by index into relay list. 1..Count
+    Get/set active Relay by index;  1..Count
     """
     # Getter
     if len(args) == 0:
@@ -102,7 +100,7 @@ def Idx(*args):
 
     # Setter
     Value, = args
-    lib.Relays_Set_idx(Value)
+    CheckForError(lib.Relays_Set_idx(Value))
 
 
 _columns = [

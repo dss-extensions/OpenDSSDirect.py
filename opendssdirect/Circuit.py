@@ -1,7 +1,13 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
-from ._utils import lib, get_string, get_string_array, get_float64_array
-from ._utils import codec
+from ._utils import (
+    lib,
+    codec,
+    CheckForError,
+    get_string,
+    get_float64_array,
+    get_string_array,
+)
 
 
 def Capacity(Start, Increment):
@@ -11,14 +17,12 @@ def Capacity(Start, Increment):
 def Disable(Name):
     if type(Name) is not bytes:
         Name = Name.encode(codec)
-
     lib.Circuit_Disable(Name)
 
 
 def Enable(Name):
     if type(Name) is not bytes:
         Name = Name.encode(codec)
-
     lib.Circuit_Enable(Name)
 
 
@@ -81,8 +85,7 @@ def SaveSample():
 def SetActiveBus(BusName):
     if type(BusName) is not bytes:
         BusName = BusName.encode(codec)
-
-    return lib.Circuit_SetActiveBus(BusName)
+    return CheckForError(lib.Circuit_SetActiveBus(BusName))
 
 
 def SetActiveBusi(BusIndex):
@@ -92,15 +95,13 @@ def SetActiveBusi(BusIndex):
 def SetActiveClass(ClassName):
     if type(ClassName) is not bytes:
         ClassName = ClassName.encode(codec)
-
-    return lib.Circuit_SetActiveClass(ClassName)
+    return CheckForError(lib.Circuit_SetActiveClass(ClassName))
 
 
 def SetActiveElement(FullName):
     if type(FullName) is not bytes:
         FullName = FullName.encode(codec)
-
-    return lib.Circuit_SetActiveElement(FullName)
+    return CheckForError(lib.Circuit_SetActiveElement(FullName))
 
 
 def UpdateStorage():
@@ -193,7 +194,11 @@ def SubstationLosses():
 
 
 def SystemY():
-    """(read-only) System Y matrix (after a solution has been performed)"""
+    """
+    (read-only) System Y matrix (after a solution has been performed). 
+    This is deprecated as it returns a dense matrix. Only use it for small systems.
+    For large scale systems, prefer YMatrix.GetCompressedYMatrix.
+    """
     return get_float64_array(lib.Circuit_Get_SystemY)
 
 
@@ -234,7 +239,6 @@ _columns = [
     "NumCktElements",
     "NumNodes",
     "SubstationLosses",
-    "SystemY",
     "TotalPower",
     "YCurrents",
     "YNodeOrder",

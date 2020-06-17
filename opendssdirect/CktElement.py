@@ -1,14 +1,18 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
+import warnings
 from ._utils import (
     lib,
+    ffi,
+    codec,
+    CheckForError,
     get_string,
-    get_string_array,
     get_float64_array,
     get_int32_array,
+    get_string_array,
     prepare_string_array,
+    DSSException,
 )
-from ._utils import codec
 
 
 def Close(Term, Phs):
@@ -20,17 +24,38 @@ def Controller(idx):
     return get_string(lib.CktElement_Get_Controller(idx))
 
 
-def Variable(MyVarName, Code):
-    """(read-only) For PCElement, get the value of a variable by name. If Code>0 Then no variable by this name or not a PCelement."""
+def Variable(MyVarName, Code=None):
+    """
+    If the active element is a PCElement, get the value of a variable by name.
+    Otherwise, an exception is raised.
+    """
+    if Code is not None:
+        warnings.warn("The Code parameter is deprecated and unused. It will be removed in a future version.")
+
     if type(MyVarName) is not bytes:
         MyVarName = MyVarName.encode(codec)
+    Code = ffi.new("int32_t*")
+    result = lib.CktElement_Get_Variable(MyVarName, Code)
+    if Code[0] != 0:
+        raise DSSException(Code[0], 'No variable by this name or not a PCelement.')
 
-    return lib.CktElement_Get_Variable(MyVarName, Code)
+    return result
 
 
-def Variablei(Idx, Code):
-    """(read-only) For PCElement, get the value of a variable by integer index."""
-    return lib.CktElement_Get_Variablei(Idx, Code)
+def Variablei(Idx, Code=None):
+    """
+    If the active element is a PCElement, get the value of a variable by its integer index.
+    Otherwise, an exception is raised.
+    """
+    if Code is not None:
+        warnings.warn("The Code parameter is deprecated and unused. It will be removed in a future version.")
+
+    Code = ffi.new("int32_t*")
+    result = lib.CktElement_Get_Variablei(Idx, Code)
+    if Code[0] != 0:
+        raise DSSException(Code[0], "No variable by this index or not a PCelement.")
+
+    return result
 
 
 def IsOpen(Term, Phs):
@@ -69,6 +94,7 @@ def BusNames(*args):
     Value, = args
     Value, ValuePtr, ValueCount = prepare_string_array(Value)
     lib.CktElement_Set_BusNames(ValuePtr, ValueCount)
+    CheckForError()
 
 
 def CplxSeqCurrents():
@@ -101,8 +127,8 @@ def DisplayName(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.CktElement_Set_DisplayName(Value)
+    CheckForError()
 
 
 def EmergAmps(*args):
@@ -117,6 +143,7 @@ def EmergAmps(*args):
     # Setter
     Value, = args
     lib.CktElement_Set_EmergAmps(Value)
+    CheckForError()
 
 
 def Enabled(*args):
@@ -128,6 +155,7 @@ def Enabled(*args):
     # Setter
     Value, = args
     lib.CktElement_Set_Enabled(Value)
+    CheckForError()
 
 
 def EnergyMeter():
@@ -146,7 +174,7 @@ def Handle():
 
 
 def HasOCPDevice():
-    """(read-only) True if a recloser, relay, or fuse controlling this ckt element. OCP = Overcurrent Protection """
+    """(read-only) True if a recloser, relay, or fuse controlling this ckt element. OCP = Overcurrent Protection"""
     return lib.CktElement_Get_HasOCPDevice() != 0
 
 
@@ -171,8 +199,10 @@ def Name():
 
 
 def NodeOrder():
-    """(read-only) Array of integer containing the node numbers (representing phases, for example) for each conductor of each terminal. """
-    return get_int32_array(lib.CktElement_Get_NodeOrder)
+    """(read-only) Array of integer containing the node numbers (representing phases, for example) for each conductor of each terminal."""
+    result = get_int32_array(lib.CktElement_Get_NodeOrder)
+    CheckForError()
+    return result
 
 
 def NormalAmps(*args):
@@ -187,6 +217,7 @@ def NormalAmps(*args):
     # Setter
     Value, = args
     lib.CktElement_Set_NormalAmps(Value)
+    CheckForError()
 
 
 def NumConductors():
@@ -269,6 +300,14 @@ def YPrim():
     return get_float64_array(lib.CktElement_Get_Yprim)
 
 
+def IsIsolated():
+    """
+    Returns true if the current active element is isolated.
+    Note that this only fetches the current value. See also the Topology interface.
+    """
+    return lib.CktElement_Get_IsIsolated() != 0
+
+
 _columns = [
     "AllPropertyNames",
     "AllVariableNames",
@@ -307,6 +346,7 @@ _columns = [
     "Voltages",
     "VoltagesMagAng",
     "YPrim",
+    "IsIsolated",
 ]
 __all__ = [
     "Close",
@@ -352,4 +392,5 @@ __all__ = [
     "Voltages",
     "VoltagesMagAng",
     "YPrim",
+    "IsIsolated",
 ]

@@ -2,16 +2,17 @@
 from __future__ import absolute_import
 from ._utils import (
     lib,
+    codec,
+    CheckForError,
     get_string,
-    get_string_array,
     get_float64_array,
+    get_string_array,
     prepare_float64_array,
 )
-from ._utils import codec
 
 
 def AllNames():
-    """(read-only) Array of strings containing all Load names"""
+    """(read-only) List of strings with all Load names"""
     return get_string_array(lib.Loads_Get_AllNames)
 
 
@@ -36,8 +37,8 @@ def CVRCurve(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Loads_Set_CVRcurve(Value)
+    CheckForError()
 
 
 def CVRvars(*args):
@@ -49,6 +50,7 @@ def CVRvars(*args):
     # Setter
     Value, = args
     lib.Loads_Set_CVRvars(Value)
+    CheckForError()
 
 
 def CVRwatts(*args):
@@ -60,10 +62,11 @@ def CVRwatts(*args):
     # Setter
     Value, = args
     lib.Loads_Set_CVRwatts(Value)
+    CheckForError()
 
 
 def CFactor(*args):
-    """Factor relates average to peak kw.  Used for allocation with kwh and kwhdays/"""
+    """Factor relates average to peak kw.  Used for allocation with kwh and kwhdays"""
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_Cfactor()
@@ -71,6 +74,7 @@ def CFactor(*args):
     # Setter
     Value, = args
     lib.Loads_Set_Cfactor(Value)
+    CheckForError()
 
 
 def Class(*args):
@@ -81,15 +85,16 @@ def Class(*args):
     # Setter
     Value, = args
     lib.Loads_Set_Class_(Value)
+    CheckForError()
 
 
 def Count():
-    """(read-only) Number of Load objects in active circuit."""
+    """(read-only) Number of Loads"""
     return lib.Loads_Get_Count()
 
 
 def First():
-    """(read-only) Set first Load element to be active; returns 0 if none."""
+    """Set first Load active; returns 0 if none."""
     return lib.Loads_Get_First()
 
 
@@ -103,8 +108,8 @@ def Growth(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Loads_Set_Growth(Value)
+    CheckForError()
 
 
 def IsDelta(*args):
@@ -116,6 +121,7 @@ def IsDelta(*args):
     # Setter
     Value, = args
     lib.Loads_Set_IsDelta(Value)
+    CheckForError()
 
 
 def Model(*args):
@@ -127,10 +133,13 @@ def Model(*args):
     # Setter
     Value, = args
     lib.Loads_Set_Model(Value)
+    CheckForError()
 
 
 def Name(*args):
-    """Set active load by name."""
+    """
+    Get/set the name of the active Load
+    """
     # Getter
     if len(args) == 0:
         return get_string(lib.Loads_Get_Name())
@@ -139,12 +148,11 @@ def Name(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
-    lib.Loads_Set_Name(Value)
+    CheckForError(lib.Loads_Set_Name(Value))
 
 
 def Next():
-    """(read-only) Sets next Load element to be active; returns 0 of none else index of active load."""
+    """Sets next Load active; returns 0 if no more."""
     return lib.Loads_Get_Next()
 
 
@@ -157,13 +165,11 @@ def NumCust(*args):
     # Setter
     Value, = args
     lib.Loads_Set_NumCust(Value)
+    CheckForError()
 
 
 def PF(*args):
-    """
-    (read) Set Power Factor for Active Load. Specify leading PF as negative. Updates kvar based on kW value
-    (write) Set Power Factor for Active Load. Specify leading PF as negative. Updates kvar based on present value of kW.
-    """
+    """Get or set Power Factor for Active Load. Specify leading PF as negative. Updates kvar based on present value of kW"""
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_PF()
@@ -171,6 +177,7 @@ def PF(*args):
     # Setter
     Value, = args
     lib.Loads_Set_PF(Value)
+    CheckForError()
 
 
 def PctMean(*args):
@@ -182,6 +189,7 @@ def PctMean(*args):
     # Setter
     Value, = args
     lib.Loads_Set_PctMean(Value)
+    CheckForError()
 
 
 def PctStdDev(*args):
@@ -193,6 +201,7 @@ def PctStdDev(*args):
     # Setter
     Value, = args
     lib.Loads_Set_PctStdDev(Value)
+    CheckForError()
 
 
 def RelWeighting(*args):
@@ -204,6 +213,7 @@ def RelWeighting(*args):
     # Setter
     Value, = args
     lib.Loads_Set_RelWeight(Value)
+    CheckForError()
 
 
 def Rneut(*args):
@@ -215,6 +225,7 @@ def Rneut(*args):
     # Setter
     Value, = args
     lib.Loads_Set_Rneut(Value)
+    CheckForError()
 
 
 def Spectrum(*args):
@@ -227,8 +238,8 @@ def Spectrum(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Loads_Set_Spectrum(Value)
+    CheckForError()
 
 
 def Status(*args):
@@ -240,6 +251,7 @@ def Status(*args):
     # Setter
     Value, = args
     lib.Loads_Set_Status(Value)
+    CheckForError()
 
 
 def Vmaxpu(*args):
@@ -251,6 +263,7 @@ def Vmaxpu(*args):
     # Setter
     Value, = args
     lib.Loads_Set_Vmaxpu(Value)
+    CheckForError()
 
 
 def VminEmerg(*args):
@@ -262,6 +275,7 @@ def VminEmerg(*args):
     # Setter
     Value, = args
     lib.Loads_Set_Vminemerg(Value)
+    CheckForError()
 
 
 def VminNorm(*args):
@@ -273,6 +287,7 @@ def VminNorm(*args):
     # Setter
     Value, = args
     lib.Loads_Set_Vminnorm(Value)
+    CheckForError()
 
 
 def Vminpu(*args):
@@ -284,6 +299,7 @@ def Vminpu(*args):
     # Setter
     Value, = args
     lib.Loads_Set_Vminpu(Value)
+    CheckForError()
 
 
 def Xneut(*args):
@@ -295,6 +311,7 @@ def Xneut(*args):
     # Setter
     Value, = args
     lib.Loads_Set_Xneut(Value)
+    CheckForError()
 
 
 def Yearly(*args):
@@ -307,12 +324,12 @@ def Yearly(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Loads_Set_Yearly(Value)
+    CheckForError()
 
 
 def ZipV(*args):
-    """Array of 7  doubles with values for ZIPV property of the LOAD object"""
+    """Array of 7 doubles with values for ZIPV property of the load object"""
     # Getter
     if len(args) == 0:
         result = get_float64_array(lib.Loads_Get_ZIPV)
@@ -325,6 +342,7 @@ def ZipV(*args):
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
     lib.Loads_Set_ZIPV(ValuePtr, ValueCount)
+    CheckForError()
 
 
 def Daily(*args):
@@ -337,8 +355,8 @@ def Daily(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Loads_Set_daily(Value)
+    CheckForError()
 
 
 def Duty(*args):
@@ -351,18 +369,21 @@ def Duty(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Loads_Set_duty(Value)
+    CheckForError()
 
 
 def Idx(*args):
+    """
+    Get/set active Load by index;  1..Count
+    """
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_idx()
 
     # Setter
     Value, = args
-    lib.Loads_Set_idx(Value)
+    CheckForError(lib.Loads_Set_idx(Value))
 
 
 def kV(*args):
@@ -374,6 +395,7 @@ def kV(*args):
     # Setter
     Value, = args
     lib.Loads_Set_kV(Value)
+    CheckForError()
 
 
 def kW(*args):
@@ -385,6 +407,7 @@ def kW(*args):
     # Setter
     Value, = args
     lib.Loads_Set_kW(Value)
+    CheckForError()
 
 
 def kVABase(*args):
@@ -396,10 +419,11 @@ def kVABase(*args):
     # Setter
     Value, = args
     lib.Loads_Set_kva(Value)
+    CheckForError()
 
 
 def kvar(*args):
-    """Set kvar for active Load. Updates PF based on present kW."""
+    """Get/set kvar for active Load. If set, updates PF based on present kW."""
     # Getter
     if len(args) == 0:
         return lib.Loads_Get_kvar()
@@ -407,6 +431,7 @@ def kvar(*args):
     # Setter
     Value, = args
     lib.Loads_Set_kvar(Value)
+    CheckForError()
 
 
 def kWh(*args):
@@ -418,6 +443,7 @@ def kWh(*args):
     # Setter
     Value, = args
     lib.Loads_Set_kwh(Value)
+    CheckForError()
 
 
 def kWhDays(*args):
@@ -429,6 +455,7 @@ def kWhDays(*args):
     # Setter
     Value, = args
     lib.Loads_Set_kwhdays(Value)
+    CheckForError()
 
 
 def puSeriesRL(*args):
@@ -440,6 +467,7 @@ def puSeriesRL(*args):
     # Setter
     Value, = args
     lib.Loads_Set_pctSeriesRL(Value)
+    CheckForError()
 
 
 def XfkVA(*args):
@@ -451,6 +479,19 @@ def XfkVA(*args):
     # Setter
     Value, = args
     lib.Loads_Set_xfkVA(Value)
+    CheckForError()
+
+
+def Phases(*args):
+    """Number of phases"""
+    # Getter
+    if len(args) == 0:
+        return lib.Loads_Get_Phases()
+
+    # Setter
+    Value, = args
+    lib.Loads_Set_Phases(Value)
+    CheckForError()
 
 
 _columns = [
@@ -490,6 +531,7 @@ _columns = [
     "kWhDays",
     "puSeriesRL",
     "XfkVA",
+    "Phases",
 ]
 __all__ = [
     "AllNames",
@@ -532,4 +574,5 @@ __all__ = [
     "kWhDays",
     "puSeriesRL",
     "XfkVA",
+    "Phases",
 ]

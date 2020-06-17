@@ -1,17 +1,24 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
+import numpy as np
 from ._utils import (
     lib,
+    codec,
+    CheckForError,
     get_string,
-    get_string_array,
     get_float64_array,
     get_int8_array,
-    codec,
+    get_string_array,
 )
 
+
 def Channel(Index):
-    """(read-only) Array of doubles for the specified channel  (usage: MyArray = DSSMonitor.Channel(i)) A Save or SaveAll  should be executed first. Done automatically by most standard solution modes."""
-    return get_float64_array(lib.Monitors_Get_Channel, Index)
+    """
+    (read-only) Array of float32 for the specified channel (usage: MyArray = DSSMonitor.Channel(i)).
+    A Save or SaveAll should be executed first. Done automatically by most standard solution modes.
+    Channels start at index 1.
+    """
+    return CheckForError(get_float64_array(lib.Monitors_Get_Channel, Index))
 
 
 def Process():
@@ -51,7 +58,7 @@ def Show():
 
 
 def AllNames():
-    """(read-only) Array of all Monitor Names"""
+    """(read-only) List of strings with all Monitor names"""
     return get_string_array(lib.Monitors_Get_AllNames)
 
 
@@ -83,8 +90,8 @@ def Element(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Monitors_Set_Element(Value)
+    CheckForError()
 
 
 def FileName():
@@ -98,7 +105,7 @@ def FileVersion():
 
 
 def First():
-    """(read-only) Sets the first Monitor active.  Returns 0 if no monitors."""
+    """Set first Monitor active; returns 0 if none."""
     return lib.Monitors_Get_First()
 
 
@@ -116,10 +123,13 @@ def Mode(*args):
     # Setter
     Value, = args
     lib.Monitors_Set_Mode(Value)
+    CheckForError()
 
 
 def Name(*args):
-    """Sets the active Monitor object by name"""
+    """
+    Get/set the name of the active Monitor
+    """
     # Getter
     if len(args) == 0:
         return get_string(lib.Monitors_Get_Name())
@@ -128,12 +138,11 @@ def Name(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
-    lib.Monitors_Set_Name(Value)
+    CheckForError(lib.Monitors_Set_Name(Value))
 
 
 def Next():
-    """(read-only) Sets next monitor active.  Returns 0 if no more."""
+    """Sets next Monitor active; returns 0 if no more."""
     return lib.Monitors_Get_Next()
 
 
@@ -161,6 +170,7 @@ def Terminal(*args):
     # Setter
     Value, = args
     lib.Monitors_Set_Terminal(Value)
+    CheckForError()
 
 
 def dblFreq():
@@ -169,8 +179,35 @@ def dblFreq():
 
 
 def dblHour():
-    """(read-only) Array of doubles containgin time value in hours for time-sampled monitor values; Empty if frequency-sampled values for harmonics solution  (see dblFreq)"""
+    """(read-only) Array of doubles containing time value in hours for time-sampled monitor values; Empty if frequency-sampled values for harmonics solution (see dblFreq)"""
     return get_float64_array(lib.Monitors_Get_dblHour)
+
+
+def Idx(*args):
+    """
+    Get/set active Monitor by index;  1..Count
+    """
+    # Getter
+    if len(args) == 0:
+        return lib.Monitors_Get_idx()
+
+    # Setter
+    Value, = args
+    CheckForError(lib.Monitors_Set_idx(Value))
+
+
+def AsMatrix():
+    """
+    Matrix of the active monitor, containing the hour vector, seconds vector, and all channels (index 2 = channel 1).
+    If you need multiple channels, prefer using this function as it processes the monitor byte-stream once.
+    """
+    buffer = get_int8_array(lib.Monitors_Get_ByteStream)
+    if len(buffer) <= 1:
+        return None
+    record_size = buffer.view(dtype=np.int32)[2] + 2
+    data = buffer[272:].view(dtype=np.float32)
+    data = data.reshape((len(data) // record_size, record_size)).copy()
+    return data
 
 
 _columns = [
@@ -215,4 +252,6 @@ __all__ = [
     "Terminal",
     "dblFreq",
     "dblHour",
+    "AsMatrix",
+    "Idx",
 ]

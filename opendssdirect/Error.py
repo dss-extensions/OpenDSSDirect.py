@@ -9,9 +9,22 @@ def Description():
 
 
 def Number():
-    """(read-only) Error Number"""
+    """(read-only) Error Number (returns current value and then resets to zero)"""
     return lib.Error_Get_Number()
 
 
-_columns = ["Description", "Number"]
-__all__ = ["Description", "Number"]
+def EarlyAbort(*args):
+    """
+    EarlyAbort controls whether all errors halts the DSS script processing (Compile/Redirect), defaults to True.
+    """
+    # Getter
+    if len(args) == 0:
+        return lib.Error_Get_EarlyAbort() != 0
+
+    # Setter
+    Value, = args
+    lib.Error_Set_EarlyAbort(Value)
+
+
+_columns = ["Description", "Number", "EarlyAbort"]
+__all__ = ["Description", "Number", "EarlyAbort"]

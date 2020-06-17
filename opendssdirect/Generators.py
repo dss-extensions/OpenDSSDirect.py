@@ -1,21 +1,27 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
-from ._utils import lib, get_string, get_string_array, get_float64_array
-from ._utils import codec
+from ._utils import (
+    lib,
+    codec,
+    CheckForError,
+    get_string,
+    get_float64_array,
+    get_string_array,
+)
 
 
 def AllNames():
-    """(read-only) Array of names of all Generator objects."""
+    """(read-only) List of strings with all Generator names"""
     return get_string_array(lib.Generators_Get_AllNames)
 
 
 def Count():
-    """(read-only) Number of Generator Objects in Active Circuit"""
+    """(read-only) Number of Generators"""
     return lib.Generators_Get_Count()
 
 
 def First():
-    """(read-only) Sets first Generator to be active.  Returns 0 if none."""
+    """Set first Generator active; returns 0 if none."""
     return lib.Generators_Get_First()
 
 
@@ -28,6 +34,7 @@ def ForcedON(*args):
     # Setter
     Value, = args
     lib.Generators_Set_ForcedON(Value)
+    CheckForError()
 
 
 def Model(*args):
@@ -39,10 +46,13 @@ def Model(*args):
     # Setter
     Value, = args
     lib.Generators_Set_Model(Value)
+    CheckForError()
 
 
 def Name(*args):
-    """Sets a generator active by name."""
+    """
+    Get/set the name of the active Generator
+    """
     # Getter
     if len(args) == 0:
         return get_string(lib.Generators_Get_Name())
@@ -51,12 +61,11 @@ def Name(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
-    lib.Generators_Set_Name(Value)
+    CheckForError(lib.Generators_Set_Name(Value))
 
 
 def Next():
-    """(read-only) Sets next Generator to be active.  Returns 0 if no more."""
+    """Sets next Generator active; returns 0 if no more."""
     return lib.Generators_Get_Next()
 
 
@@ -69,6 +78,7 @@ def PF(*args):
     # Setter
     Value, = args
     lib.Generators_Set_PF(Value)
+    CheckForError()
 
 
 def Phases(*args):
@@ -80,6 +90,7 @@ def Phases(*args):
     # Setter
     Value, = args
     lib.Generators_Set_Phases(Value)
+    CheckForError()
 
 
 def RegisterNames():
@@ -101,6 +112,7 @@ def Vmaxpu(*args):
     # Setter
     Value, = args
     lib.Generators_Set_Vmaxpu(Value)
+    CheckForError()
 
 
 def Vminpu(*args):
@@ -112,17 +124,20 @@ def Vminpu(*args):
     # Setter
     Value, = args
     lib.Generators_Set_Vminpu(Value)
+    CheckForError()
 
 
 def Idx(*args):
-    """Get/Set active Generator by index into generators list.  1..Count"""
+    """
+    Get/set active Generator by index;  1..Count
+    """
     # Getter
     if len(args) == 0:
         return lib.Generators_Get_idx()
 
     # Setter
     Value, = args
-    lib.Generators_Set_idx(Value)
+    CheckForError(lib.Generators_Set_idx(Value))
 
 
 def kV(*args):
@@ -134,6 +149,7 @@ def kV(*args):
     # Setter
     Value, = args
     lib.Generators_Set_kV(Value)
+    CheckForError()
 
 
 def kVARated(*args):
@@ -145,6 +161,7 @@ def kVARated(*args):
     # Setter
     Value, = args
     lib.Generators_Set_kVArated(Value)
+    CheckForError()
 
 
 def kW(*args):
@@ -156,6 +173,7 @@ def kW(*args):
     # Setter
     Value, = args
     lib.Generators_Set_kW(Value)
+    CheckForError()
 
 
 def kvar(*args):
@@ -167,6 +185,7 @@ def kvar(*args):
     # Setter
     Value, = args
     lib.Generators_Set_kvar(Value)
+    CheckForError()
 
 
 _columns = [

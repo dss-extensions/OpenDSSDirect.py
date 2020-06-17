@@ -2,66 +2,77 @@
 from __future__ import absolute_import
 from ._utils import (
     lib,
+    codec,
+    CheckForError,
     get_string,
-    get_string_array,
     get_float64_array,
+    get_string_array,
     prepare_float64_array,
 )
-from ._utils import codec
 
 
 def CloseAllDIFiles():
     lib.Meters_CloseAllDIFiles()
+    CheckForError()
 
 
 def DoReliabilityCalc(AssumeRestoration):
     lib.Meters_DoReliabilityCalc(AssumeRestoration)
+    CheckForError()
 
 
 def OpenAllDIFiles():
     lib.Meters_OpenAllDIFiles()
+    CheckForError()
 
 
 def Reset():
     lib.Meters_Reset()
+    CheckForError()
 
 
 def ResetAll():
     lib.Meters_ResetAll()
+    CheckForError()
 
 
 def Sample():
     lib.Meters_Sample()
+    CheckForError()
 
 
 def SampleAll():
     lib.Meters_SampleAll()
+    CheckForError()
 
 
 def Save():
     lib.Meters_Save()
+    CheckForError()
 
 
 def SaveAll():
     lib.Meters_SaveAll()
+    CheckForError()
 
 
 def SetActiveSection(SectIdx):
     lib.Meters_SetActiveSection(SectIdx)
+    CheckForError()
 
 
 def AllBranchesInZone():
     """(read-only) Wide string list of all branches in zone of the active energymeter object."""
-    return get_string_array(lib.Meters_Get_AllBranchesInZone)
+    return get_string_array(CheckForError(lib.Meters_Get_AllBranchesInZone))
 
 
 def AllEndElements():
     """(read-only) Array of names of all zone end elements."""
-    return get_string_array(lib.Meters_Get_AllEndElements)
+    return get_string_array(CheckForError(lib.Meters_Get_AllEndElements))
 
 
 def AllNames():
-    """(read-only) Array of all energy Meter names"""
+    """(read-only) List of strings with all Meter names"""
     return get_string_array(lib.Meters_Get_AllNames)
 
 
@@ -75,11 +86,12 @@ def AllocFactors(*args):
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
     lib.Meters_Set_AllocFactors(ValuePtr, ValueCount)
+    CheckForError()
 
 
 def AvgRepairTime():
     """(read-only) Average Repair time in this section of the meter zone"""
-    return lib.Meters_Get_AvgRepairTime()
+    return CheckForError(lib.Meters_Get_AvgRepairTime())
 
 
 def CalcCurrent(*args):
@@ -92,10 +104,11 @@ def CalcCurrent(*args):
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
     lib.Meters_Set_CalcCurrent(ValuePtr, ValueCount)
+    CheckForError()
 
 
 def Count():
-    """(read-only) Number of Energy Meters in the Active Circuit"""
+    """(read-only) Number of Meters"""
     return lib.Meters_Get_Count()
 
 
@@ -125,7 +138,7 @@ def FaultRateXRepairHrs():
 
 
 def First():
-    """(read-only) Set the first energy Meter active. Returns 0 if none."""
+    """Set first Meter active; returns 0 if none."""
     return lib.Meters_Get_First()
 
 
@@ -139,8 +152,8 @@ def MeteredElement(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Meters_Set_MeteredElement(Value)
+    CheckForError()
 
 
 def MeteredTerminal(*args):
@@ -152,12 +165,12 @@ def MeteredTerminal(*args):
     # Setter
     Value, = args
     lib.Meters_Set_MeteredTerminal(Value)
+    CheckForError()
 
 
 def Name(*args):
     """
-    (read) Get/Set the active meter  name.
-    (write) Set a meter to be active by name.
+    Get/set the name of the active Meter
     """
     # Getter
     if len(args) == 0:
@@ -171,18 +184,17 @@ def Name(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
-    lib.Meters_Set_Name(Value)
+    CheckForError(lib.Meters_Set_Name(Value))
 
 
 def Next():
-    """(read-only) Sets the next energy Meter active.  Returns 0 if no more."""
+    """Sets next Meter active; returns 0 if no more."""
     return lib.Meters_Get_Next()
 
 
 def NumSectionBranches():
     """(read-only) Number of branches (lines) in this section"""
-    return lib.Meters_Get_NumSectionBranches()
+    return CheckForError(lib.Meters_Get_NumSectionBranches())
 
 
 def NumSectionCustomers():
@@ -197,7 +209,7 @@ def NumSections():
 
 def OCPDeviceType():
     """(read-only) Type of OCP device. 1=Fuse; 2=Recloser; 3=Relay"""
-    return lib.Meters_Get_OCPDeviceType()
+    return CheckForError(lib.Meters_Get_OCPDeviceType())
 
 
 def PeakCurrent(*args):
@@ -210,6 +222,7 @@ def PeakCurrent(*args):
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
     lib.Meters_Set_Peakcurrent(ValuePtr, ValueCount)
+    CheckForError()
 
 
 def RegisterNames():
@@ -261,6 +274,7 @@ def SequenceList(*args):
     # Setter
     Value, = args
     lib.Meters_Set_SequenceIndex(Value)
+    CheckForError()
 
 
 def SumBranchFltRates():
@@ -276,6 +290,19 @@ def TotalCustomers():
 def Totals():
     """(read-only) Totals of all registers of all meters"""
     return get_float64_array(lib.Meters_Get_Totals)
+
+
+def Idx(*args):
+    """
+    Get/set active Meter by index;  1..Count
+    """
+    # Getter
+    if len(args) == 0:
+        return lib.Meters_Get_idx()
+
+    # Setter
+    Value, = args
+    CheckForError(lib.Meters_Set_idx(Value))
 
 
 _columns = [
@@ -354,4 +381,5 @@ __all__ = [
     "SumBranchFltRates",
     "TotalCustomers",
     "Totals",
+    "Idx",
 ]

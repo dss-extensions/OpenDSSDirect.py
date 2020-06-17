@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
-from ._utils import lib, get_string
-from ._utils import codec
+from ._utils import lib, codec, CheckForError, get_string
 
 
 def AccumulatedL():
@@ -15,7 +14,7 @@ def Count():
 
 
 def FaultRate(*args):
-    """Get/Set Number of failures per year. For LINE elements: Number of failures per unit length per year. """
+    """Get/Set Number of failures per year. For LINE elements: Number of failures per unit length per year."""
     # Getter
     if len(args) == 0:
         return lib.PDElements_Get_FaultRate()
@@ -23,6 +22,7 @@ def FaultRate(*args):
     # Setter
     Value, = args
     lib.PDElements_Set_FaultRate(Value)
+    CheckForError()
 
 
 def First():
@@ -36,7 +36,7 @@ def FromTerminal():
 
 
 def IsShunt():
-    """(read-only) Variant boolean indicating of PD element should be treated as a shunt element rather than a series element. Applies to Capacitor and Reactor elements in particular."""
+    """(read-only) Boolean indicating of PD element should be treated as a shunt element rather than a series element. Applies to Capacitor and Reactor elements in particular."""
     return lib.PDElements_Get_IsShunt() != 0
 
 
@@ -55,8 +55,8 @@ def Name(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.PDElements_Set_Name(Value)
+    CheckForError()
 
 
 def Next():
@@ -83,6 +83,7 @@ def RepairTime(*args):
     # Setter
     Value, = args
     lib.PDElements_Set_RepairTime(Value)
+    CheckForError()
 
 
 def SectionID():
@@ -109,6 +110,7 @@ def PctPermanent(*args):
     # Setter
     Value, = args
     lib.PDElements_Set_pctPermanent(Value)
+    CheckForError()
 
 
 _columns = [

@@ -51,6 +51,7 @@ from .dss import (
     XYCurves,
     YMatrix,
     dss_lib,
+    DSSException,
 )
 
 dss.dss = dss

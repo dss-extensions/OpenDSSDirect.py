@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
-from ._utils import lib, get_string, get_string_array
-from ._utils import codec
+from ._utils import lib, codec, CheckForError, get_string, get_string_array
 
 
 def Reset():
@@ -9,7 +8,7 @@ def Reset():
 
 
 def AllNames():
-    """(read-only) Array of strings containing all RegControl names"""
+    """(read-only) List of strings with all RegControl names"""
     return get_string_array(lib.RegControls_Get_AllNames)
 
 
@@ -22,10 +21,11 @@ def CTPrimary(*args):
     # Setter
     Value, = args
     lib.RegControls_Set_CTPrimary(Value)
+    CheckForError()
 
 
 def Count():
-    """(read-only) Number of RegControl objects in Active Circuit"""
+    """(read-only) Number of RegControls"""
     return lib.RegControls_Get_Count()
 
 
@@ -38,10 +38,11 @@ def Delay(*args):
     # Setter
     Value, = args
     lib.RegControls_Set_Delay(Value)
+    CheckForError()
 
 
 def First():
-    """(read-only) Sets the first RegControl active. Returns 0 if none."""
+    """Set first RegControl active; returns 0 if none."""
     return lib.RegControls_Get_First()
 
 
@@ -54,6 +55,7 @@ def ForwardBand(*args):
     # Setter
     Value, = args
     lib.RegControls_Set_ForwardBand(Value)
+    CheckForError()
 
 
 def ForwardR(*args):
@@ -65,6 +67,7 @@ def ForwardR(*args):
     # Setter
     Value, = args
     lib.RegControls_Set_ForwardR(Value)
+    CheckForError()
 
 
 def ForwardVreg(*args):
@@ -76,6 +79,7 @@ def ForwardVreg(*args):
     # Setter
     Value, = args
     lib.RegControls_Set_ForwardVreg(Value)
+    CheckForError()
 
 
 def ForwardX(*args):
@@ -87,6 +91,7 @@ def ForwardX(*args):
     # Setter
     Value, = args
     lib.RegControls_Set_ForwardX(Value)
+    CheckForError()
 
 
 def IsInverseTime(*args):
@@ -98,6 +103,7 @@ def IsInverseTime(*args):
     # Setter
     Value, = args
     lib.RegControls_Set_IsInverseTime(Value)
+    CheckForError()
 
 
 def IsReversible(*args):
@@ -109,6 +115,7 @@ def IsReversible(*args):
     # Setter
     Value, = args
     lib.RegControls_Set_IsReversible(Value)
+    CheckForError()
 
 
 def MaxTapChange(*args):
@@ -120,6 +127,7 @@ def MaxTapChange(*args):
     # Setter
     Value, = args
     lib.RegControls_Set_MaxTapChange(Value)
+    CheckForError()
 
 
 def MonitoredBus(*args):
@@ -132,14 +140,13 @@ def MonitoredBus(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.RegControls_Set_MonitoredBus(Value)
+    CheckForError()
 
 
 def Name(*args):
     """
-    (read) Get/set Active RegControl  name
-    (write) Sets a RegControl active by name
+    Get/set the name of the active RegControl
     """
     # Getter
     if len(args) == 0:
@@ -149,12 +156,11 @@ def Name(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
-    lib.RegControls_Set_Name(Value)
+    CheckForError(lib.RegControls_Set_Name(Value))
 
 
 def Next():
-    """(read-only) Sets the next RegControl active. Returns 0 if none."""
+    """Sets next RegControl active; returns 0 if no more."""
     return lib.RegControls_Get_Next()
 
 
@@ -167,6 +173,7 @@ def PTRatio(*args):
     # Setter
     Value, = args
     lib.RegControls_Set_PTratio(Value)
+    CheckForError()
 
 
 def ReverseBand(*args):
@@ -178,6 +185,7 @@ def ReverseBand(*args):
     # Setter
     Value, = args
     lib.RegControls_Set_ReverseBand(Value)
+    CheckForError()
 
 
 def ReverseR(*args):
@@ -189,6 +197,7 @@ def ReverseR(*args):
     # Setter
     Value, = args
     lib.RegControls_Set_ReverseR(Value)
+    CheckForError()
 
 
 def ReverseVreg(*args):
@@ -200,6 +209,7 @@ def ReverseVreg(*args):
     # Setter
     Value, = args
     lib.RegControls_Set_ReverseVreg(Value)
+    CheckForError()
 
 
 def ReverseX(*args):
@@ -211,6 +221,7 @@ def ReverseX(*args):
     # Setter
     Value, = args
     lib.RegControls_Set_ReverseX(Value)
+    CheckForError()
 
 
 def TapDelay(*args):
@@ -222,6 +233,7 @@ def TapDelay(*args):
     # Setter
     Value, = args
     lib.RegControls_Set_TapDelay(Value)
+    CheckForError()
 
 
 def TapNumber(*args):
@@ -233,6 +245,7 @@ def TapNumber(*args):
     # Setter
     Value, = args
     lib.RegControls_Set_TapNumber(Value)
+    CheckForError()
 
 
 def TapWinding(*args):
@@ -244,6 +257,7 @@ def TapWinding(*args):
     # Setter
     Value, = args
     lib.RegControls_Set_TapWinding(Value)
+    CheckForError()
 
 
 def Transformer(*args):
@@ -256,8 +270,8 @@ def Transformer(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.RegControls_Set_Transformer(Value)
+    CheckForError()
 
 
 def VoltageLimit(*args):
@@ -269,6 +283,7 @@ def VoltageLimit(*args):
     # Setter
     Value, = args
     lib.RegControls_Set_VoltageLimit(Value)
+    CheckForError()
 
 
 def Winding(*args):
@@ -280,6 +295,20 @@ def Winding(*args):
     # Setter
     Value, = args
     lib.RegControls_Set_Winding(Value)
+    CheckForError()
+
+
+def Idx(*args):
+    """
+    Get/set active RegControl by index;  1..Count
+    """
+    # Getter
+    if len(args) == 0:
+        return lib.RegControls_Get_idx()
+
+    # Setter
+    Value, = args
+    CheckForError(lib.RegControls_Set_idx(Value))
 
 
 _columns = [
@@ -305,6 +334,7 @@ _columns = [
     "Transformer",
     "VoltageLimit",
     "Winding",
+    "Idx",
 ]
 __all__ = [
     "Reset",
@@ -334,4 +364,5 @@ __all__ = [
     "Transformer",
     "VoltageLimit",
     "Winding",
+    "Idx",
 ]

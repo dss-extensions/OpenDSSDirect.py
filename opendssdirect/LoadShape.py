@@ -2,18 +2,18 @@
 from __future__ import absolute_import
 from ._utils import (
     lib,
+    codec,
+    CheckForError,
     get_string,
-    get_string_array,
     get_float64_array,
+    get_string_array,
     prepare_float64_array,
 )
-from ._utils import codec
 
 
 def New(Name):
     if type(Name) is not bytes:
         Name = Name.encode(codec)
-
     return lib.LoadShapes_New(Name)
 
 
@@ -22,17 +22,17 @@ def Normalize():
 
 
 def AllNames():
-    """(read-only) Array of strings containing names of all Loadshape objects currently defined."""
+    """(read-only) List of strings with all LoadShape names"""
     return get_string_array(lib.LoadShapes_Get_AllNames)
 
 
 def Count():
-    """(read-only) Number of Loadshape objects currently defined in Loadshape collection"""
+    """(read-only) Number of LoadShapes"""
     return lib.LoadShapes_Get_Count()
 
 
 def First():
-    """(read-only) Set the first loadshape active and return integer index of the loadshape. Returns 0 if none."""
+    """Set first LoadShape active; returns 0 if none."""
     return lib.LoadShapes_Get_First()
 
 
@@ -45,6 +45,7 @@ def HrInterval(*args):
     # Setter
     Value, = args
     lib.LoadShapes_Set_HrInterval(Value)
+    CheckForError()
 
 
 def MinInterval(*args):
@@ -56,12 +57,12 @@ def MinInterval(*args):
     # Setter
     Value, = args
     lib.LoadShapes_Set_MinInterval(Value)
+    CheckForError()
 
 
 def Name(*args):
     """
-    (read) Get the Name of the active Loadshape
-    (write) Set the active Loadshape by name
+    Get/set the name of the active LoadShape
     """
     # Getter
     if len(args) == 0:
@@ -71,20 +72,16 @@ def Name(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
-    lib.LoadShapes_Set_Name(Value)
+    CheckForError(lib.LoadShapes_Set_Name(Value))
 
 
 def Next():
-    """(read-only) Advance active Loadshape to the next on in the collection. Returns 0 if no more loadshapes."""
+    """Sets next LoadShape active; returns 0 if no more."""
     return lib.LoadShapes_Get_Next()
 
 
 def Npts(*args):
-    """
-    (read) Get Number of points in active Loadshape.
-    (write) Set number of points to allocate for active Loadshape.
-    """
+    """Get/set Number of points in active Loadshape."""
     # Getter
     if len(args) == 0:
         return lib.LoadShapes_Get_Npts()
@@ -92,6 +89,7 @@ def Npts(*args):
     # Setter
     Value, = args
     lib.LoadShapes_Set_Npts(Value)
+    CheckForError()
 
 
 def PBase(*args):
@@ -102,13 +100,11 @@ def PBase(*args):
     # Setter
     Value, = args
     lib.LoadShapes_Set_PBase(Value)
+    CheckForError()
 
 
 def PMult(*args):
-    """
-    (read) Array of Doubles for the P multiplier in the Loadshape.
-    (write) Array of doubles containing the P array for the Loadshape.
-    """
+    """Array of doubles for the P multiplier in the Loadshape."""
     # Getter
     if len(args) == 0:
         return get_float64_array(lib.LoadShapes_Get_Pmult)
@@ -117,6 +113,7 @@ def PMult(*args):
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
     lib.LoadShapes_Set_Pmult(ValuePtr, ValueCount)
+    CheckForError()
 
 
 def QBase(*args):
@@ -128,6 +125,7 @@ def QBase(*args):
     # Setter
     Value, = args
     lib.LoadShapes_Set_Qbase(Value)
+    CheckForError()
 
 
 def QMult(*args):
@@ -140,6 +138,7 @@ def QMult(*args):
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
     lib.LoadShapes_Set_Qmult(ValuePtr, ValueCount)
+    CheckForError()
 
 
 def TimeArray(*args):
@@ -152,10 +151,11 @@ def TimeArray(*args):
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
     lib.LoadShapes_Set_TimeArray(ValuePtr, ValueCount)
+    CheckForError()
 
 
 def UseActual(*args):
-    """T/F flag to let Loads know to use the actual value in the curve rather than use the value as a multiplier."""
+    """Boolean flag to let Loads know to use the actual value in the curve rather than use the value as a multiplier."""
     # Getter
     if len(args) == 0:
         return lib.LoadShapes_Get_UseActual() != 0
@@ -163,6 +163,7 @@ def UseActual(*args):
     # Setter
     Value, = args
     lib.LoadShapes_Set_UseActual(Value)
+    CheckForError()
 
 
 def SInterval(*args):
@@ -173,6 +174,20 @@ def SInterval(*args):
     # Setter
     Value, = args
     lib.LoadShapes_Set_Sinterval(Value)
+    CheckForError()
+
+
+def Idx(*args):
+    """
+    Get/set active LoadShape by index;  1..Count
+    """
+    # Getter
+    if len(args) == 0:
+        return lib.LoadShapes_Get_idx()
+
+    # Setter
+    Value, = args
+    CheckForError(lib.LoadShapes_Set_idx(Value))
 
 
 _columns = [
@@ -187,6 +202,7 @@ _columns = [
     "TimeArray",
     "UseActual",
     "SInterval",
+    "Idx",
 ]
 __all__ = [
     "New",
@@ -206,4 +222,5 @@ __all__ = [
     "TimeArray",
     "UseActual",
     "SInterval",
+    "Idx",
 ]

@@ -1,67 +1,88 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
-from ._utils import lib, get_string, get_string_array
-from ._utils import codec
+from ._utils import (
+    lib,
+    codec,
+    CheckForError,
+    get_string,
+    get_int32_array,
+    get_string_array,
+)
 
 
 def BuildYMatrix(BuildOption, AllocateVI):
     lib.Solution_BuildYMatrix(BuildOption, AllocateVI)
+    CheckForError()
 
 
 def CheckControls():
     lib.Solution_CheckControls()
+    CheckForError()
 
 
 def CheckFaultStatus():
     lib.Solution_CheckFaultStatus()
+    CheckForError()
 
 
 def Cleanup():
     lib.Solution_Cleanup()
+    CheckForError()
 
 
 def DoControlActions():
     lib.Solution_DoControlActions()
+    CheckForError()
 
 
 def FinishTimeStep():
     lib.Solution_FinishTimeStep()
+    CheckForError()
 
 
 def InitSnap():
     lib.Solution_InitSnap()
+    CheckForError()
 
 
 def SampleControlDevices():
     lib.Solution_SampleControlDevices()
+    CheckForError()
 
 
 def SampleDoControlActions():
     lib.Solution_Sample_DoControlActions()
+    CheckForError()
 
 
 def Solve():
     lib.Solution_Solve()
+    CheckForError()
 
 
 def SolveDirect():
     lib.Solution_SolveDirect()
+    CheckForError()
 
 
 def SolveNoControl():
     lib.Solution_SolveNoControl()
+    CheckForError()
 
 
 def SolvePFlow():
     lib.Solution_SolvePflow()
+    CheckForError()
 
 
 def SolvePlusControl():
     lib.Solution_SolvePlusControl()
+    CheckForError()
 
 
 def SolveSnap():
     lib.Solution_SolveSnap()
+    CheckForError()
 
 
 def AddType(*args):
@@ -73,6 +94,7 @@ def AddType(*args):
     # Setter
     Value, = args
     lib.Solution_Set_AddType(Value)
+    CheckForError()
 
 
 def Algorithm(*args):
@@ -84,6 +106,7 @@ def Algorithm(*args):
     # Setter
     Value, = args
     lib.Solution_Set_Algorithm(Value)
+    CheckForError()
 
 
 def Capkvar(*args):
@@ -95,6 +118,7 @@ def Capkvar(*args):
     # Setter
     Value, = args
     lib.Solution_Set_Capkvar(Value)
+    CheckForError()
 
 
 def ControlActionsDone(*args):
@@ -106,6 +130,7 @@ def ControlActionsDone(*args):
     # Setter
     Value, = args
     lib.Solution_Set_ControlActionsDone(Value)
+    CheckForError()
 
 
 def ControlIterations(*args):
@@ -117,6 +142,7 @@ def ControlIterations(*args):
     # Setter
     Value, = args
     lib.Solution_Set_ControlIterations(Value)
+    CheckForError()
 
 
 def ControlMode(*args):
@@ -128,6 +154,7 @@ def ControlMode(*args):
     # Setter
     Value, = args
     lib.Solution_Set_ControlMode(Value)
+    CheckForError()
 
 
 def Converged(*args):
@@ -139,6 +166,7 @@ def Converged(*args):
     # Setter
     Value, = args
     lib.Solution_Set_Converged(Value)
+    CheckForError()
 
 
 def DefaultDaily(*args):
@@ -151,8 +179,8 @@ def DefaultDaily(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Solution_Set_DefaultDaily(Value)
+    CheckForError()
 
 
 def DefaultYearly(*args):
@@ -165,8 +193,8 @@ def DefaultYearly(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Solution_Set_DefaultYearly(Value)
+    CheckForError()
 
 
 def EventLog():
@@ -183,6 +211,7 @@ def Frequency(*args):
     # Setter
     Value, = args
     lib.Solution_Set_Frequency(Value)
+    CheckForError()
 
 
 def GenMult(*args):
@@ -194,6 +223,7 @@ def GenMult(*args):
     # Setter
     Value, = args
     lib.Solution_Set_GenMult(Value)
+    CheckForError()
 
 
 def GenPF(*args):
@@ -205,6 +235,7 @@ def GenPF(*args):
     # Setter
     Value, = args
     lib.Solution_Set_GenPF(Value)
+    CheckForError()
 
 
 def GenkW(*args):
@@ -216,6 +247,7 @@ def GenkW(*args):
     # Setter
     Value, = args
     lib.Solution_Set_GenkW(Value)
+    CheckForError()
 
 
 def Hour(*args):
@@ -227,6 +259,7 @@ def Hour(*args):
     # Setter
     Value, = args
     lib.Solution_Set_Hour(Value)
+    CheckForError()
 
 
 def IntervalHrs(*args):
@@ -241,6 +274,7 @@ def IntervalHrs(*args):
     # Setter
     Value, = args
     lib.Solution_Set_IntervalHrs(Value)
+    CheckForError()
 
 
 def Iterations():
@@ -258,8 +292,8 @@ def LDCurve(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Solution_Set_LDCurve(Value)
+    CheckForError()
 
 
 def LoadModel(*args):
@@ -271,6 +305,7 @@ def LoadModel(*args):
     # Setter
     Value, = args
     lib.Solution_Set_LoadModel(Value)
+    CheckForError()
 
 
 def LoadMult(*args):
@@ -282,6 +317,7 @@ def LoadMult(*args):
     # Setter
     Value, = args
     lib.Solution_Set_LoadMult(Value)
+    CheckForError()
 
 
 def MaxControlIterations(*args):
@@ -293,6 +329,7 @@ def MaxControlIterations(*args):
     # Setter
     Value, = args
     lib.Solution_Set_MaxControlIterations(Value)
+    CheckForError()
 
 
 def MaxIterations(*args):
@@ -304,13 +341,11 @@ def MaxIterations(*args):
     # Setter
     Value, = args
     lib.Solution_Set_MaxIterations(Value)
+    CheckForError()
 
 
 def MinIterations(*args):
-    """
-    (read) Minimum number of iterations required for a power flow solution.
-    (write) Mininum number of iterations required for a power flow solution.
-    """
+    """Minimum number of iterations required for a power flow solution."""
     # Getter
     if len(args) == 0:
         return lib.Solution_Get_MinIterations()
@@ -318,6 +353,7 @@ def MinIterations(*args):
     # Setter
     Value, = args
     lib.Solution_Set_MinIterations(Value)
+    CheckForError()
 
 
 def Mode(*args):
@@ -329,6 +365,7 @@ def Mode(*args):
     # Setter
     Mode, = args
     lib.Solution_Set_Mode(Mode)
+    CheckForError()
 
 
 def ModeID():
@@ -350,6 +387,7 @@ def Number(*args):
     # Setter
     Value, = args
     lib.Solution_Set_Number(Value)
+    CheckForError()
 
 
 def ProcessTime():
@@ -366,6 +404,7 @@ def Random(*args):
     # Setter
     Random, = args
     lib.Solution_Set_Random(Random)
+    CheckForError()
 
 
 def Seconds(*args):
@@ -377,6 +416,7 @@ def Seconds(*args):
     # Setter
     Value, = args
     lib.Solution_Set_Seconds(Value)
+    CheckForError()
 
 
 def StepSize(*args):
@@ -388,6 +428,7 @@ def StepSize(*args):
     # Setter
     Value, = args
     lib.Solution_Set_StepSize(Value)
+    CheckForError()
 
 
 def SystemYChanged():
@@ -409,6 +450,7 @@ def Convergence(*args):
     # Setter
     Value, = args
     lib.Solution_Set_Tolerance(Value)
+    CheckForError()
 
 
 def TotalTime(*args):
@@ -423,6 +465,7 @@ def TotalTime(*args):
     # Setter
     Value, = args
     lib.Solution_Set_Total_Time(Value)
+    CheckForError()
 
 
 def TotalIterations():
@@ -439,6 +482,7 @@ def Year(*args):
     # Setter
     Value, = args
     lib.Solution_Set_Year(Value)
+    CheckForError()
 
 
 def DblHour(*args):
@@ -450,6 +494,7 @@ def DblHour(*args):
     # Setter
     Value, = args
     lib.Solution_Set_dblHour(Value)
+    CheckForError()
 
 
 def PctGrowth(*args):
@@ -461,16 +506,39 @@ def PctGrowth(*args):
     # Setter
     Value, = args
     lib.Solution_Set_pctGrowth(Value)
+    CheckForError()
 
 
 def StepSizeHr(Value):
     """(write-only) Set Stepsize in Hr"""
     lib.Solution_Set_StepsizeHr(Value)
+    CheckForError()
 
 
 def StepSizeMin(Value):
     """(write-only) Set Stepsize in minutes"""
     lib.Solution_Set_StepsizeMin(Value)
+    CheckForError()
+
+
+def BusLevels():
+    return get_int32_array(lib.Solution_Get_BusLevels)
+
+
+def IncMatrix():
+    return get_int32_array(lib.Solution_Get_IncMatrix)
+
+
+def IncMatrixCols():
+    return get_string_array(lib.Solution_Get_IncMatrixCols)
+
+
+def IncMatrixRows():
+    return get_string_array(lib.Solution_Get_IncMatrixRows)
+
+
+def Laplacian():
+    return get_int32_array(lib.Solution_Get_Laplacian)
 
 
 _columns = [
@@ -571,4 +639,9 @@ __all__ = [
     "PctGrowth",
     "StepSizeHr",
     "StepSizeMin",
+    "BusLevels",
+    "IncMatrix",
+    "IncMatrixCols",
+    "IncMatrixRows",
+    "Laplacian",
 ]

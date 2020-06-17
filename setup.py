@@ -38,6 +38,7 @@ setup(
     version=version,
     description="Python direct-mode interface to OpenDSS",
     long_description=long_description,
+    long_description_content_type='text/markdown',
     url="https://github.com/dss-extensions/OpenDSSDirect.py",
     download_url="https://github.com/dss-extensions/OpenDSSDirect.py",
     # Author details
@@ -45,7 +46,7 @@ setup(
     author_email="me@kdheepak.com",
     license="BSD-compatible",
     packages=find_packages(),
-    install_requires=["future", "six", "dss_python>=0.10.4,<0.11"],
+    install_requires=["future", "six", "dss_python>=0.10.5,<0.11"],
     extras_require={
         "extras": ["pandas", "matplotlib", "networkx"],
         "dev": [

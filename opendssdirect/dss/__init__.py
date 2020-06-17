@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 from .._utils import lib as dss_lib
 from .._utils import ffi as dss_ffi
+from .._utils import DSSException
 from ..utils import run_command
 from .. import ActiveClass
 from .. import Basic
@@ -44,4 +45,11 @@ from .. import Transformers
 from .. import Vsources
 from .. import XYCurves
 from .. import YMatrix
+from .. import CNData
+from .. import LineGeometries
+from .. import LineSpacings
+from .. import Reactors
+from .. import ReduceCkt
+from .. import TSData
+from .. import WireData
 

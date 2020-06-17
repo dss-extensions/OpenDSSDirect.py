@@ -4,8 +4,8 @@ matrix:
   allow_failures:
     - os: osx
   include:
-#    - os: linux
-#      env: TRAVIS_PYTHON_VERSION="3.8"
+    - os: linux
+      env: TRAVIS_PYTHON_VERSION="3.8"
     - os: linux
       env: TRAVIS_PYTHON_VERSION="3.7"
     - os: linux
@@ -14,8 +14,8 @@ matrix:
       env: TRAVIS_PYTHON_VERSION="3.5"
     - os: linux
       env: TRAVIS_PYTHON_VERSION="2.7"
-#    - os: osx
-#      env: TRAVIS_PYTHON_VERSION="3.8"
+    - os: osx
+      env: TRAVIS_PYTHON_VERSION="3.8"
     - os: osx
       env: TRAVIS_PYTHON_VERSION="3.7"
     - os: osx
@@ -41,8 +41,8 @@ install:
   - source activate test-env
   - pip install pytest-cov
   - pip install codecov
-  # - pip install cffi
-  # - pip install --index-url https://test.pypi.org/simple/ dss-python
+  - pip install cffi
+  - pip install --pre dss-python
   - pip install -e '.[extras]'
 script:
   - make

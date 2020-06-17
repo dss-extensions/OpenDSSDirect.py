@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
-from ._utils import lib, get_string
-from ._utils import codec
+from ._utils import lib, codec, CheckForError, get_string
 
 
 def Description():
@@ -52,6 +51,7 @@ def Value(*args):
 
     _setCurrentProperty(argIndex_or_Name)
     lib.DSSProperty_Set_Val(Value)
+    CheckForError()
 
 
 _columns = ["Description", "Name", "Value"]

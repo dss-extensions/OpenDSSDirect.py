@@ -236,7 +236,7 @@ def test_13Node(dss):
 def test_13Node_Basic(dss):
 
     assert dss.Basic.AllowForms() is False
-    assert dss.Basic.Classes() == [
+    dss_classes = [
         u"Solution",
         u"LineCode",
         u"LoadShape",
@@ -266,12 +266,15 @@ def test_13Node_Basic(dss):
         u"Generator",
         u"GenDispatcher",
         u"Storage",
+        u"Storage2",
         u"StorageController",
+        u"StorageController2",
         u"Relay",
         u"Recloser",
         u"Fuse",
         u"SwtControl",
         u"PVSystem",
+        u"PVSystem2",
         u"UPFC",
         u"UPFCControl",
         u"ESPVLControl",
@@ -279,6 +282,7 @@ def test_13Node_Basic(dss):
         u"GICsource",
         u"AutoTrans",
         u"InvControl",
+        u"InvControl2",
         u"ExpControl",
         u"GICLine",
         u"GICTransformer",
@@ -287,7 +291,8 @@ def test_13Node_Basic(dss):
         u"EnergyMeter",
         u"Sensor",
     ]
-    assert dss.Basic.NumClasses() == 49
+    assert dss.Basic.Classes() == dss_classes
+    assert dss.Basic.NumClasses() == len(dss_classes)
     assert dss.Basic.ShowPanel() == 0
     assert dss.Basic.ClearAll() is None
     assert os.path.abspath(dss.Basic.DataPath()) == os.path.abspath("." + os.sep)
@@ -296,8 +301,7 @@ def test_13Node_Basic(dss):
     assert dss.Basic.NumCircuits() == 1
     assert dss.Basic.NumUserClasses() == 0
     assert dss.Basic.Reset() is None
-    # assert dss.Basic.Start(1) == 1 --- needs param
-    dss.Basic.Start(1)
+    assert dss.Basic.Start(1) == 1
     assert dss.Basic.UserClasses() == []
     from six import string_types
 
@@ -323,7 +327,6 @@ def test_13Node_Bus(dss):
     assert dss.Bus.Cust_Duration() == 0.0
     assert dss.Bus.Cust_Interrupts() == 0.0
     assert dss.Bus.Distance() == 0.0
-    #    assert dss.Bus.GetUniqueNodeNumber() == 0 --- NEEDS PARAM
     assert dss.Bus.Int_Duration() == 0.0
     assert dss.Bus.Isc() == [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     assert dss.Bus.Lambda() == 0.0
@@ -420,6 +423,9 @@ def test_13Node_Bus(dss):
         ],
         decimal=4,
     )
+
+    assert dss.Bus.GetUniqueNodeNumber(6) == 6
+
     # TODO: this should not be sorted, we should define the order of the results
     assert sorted(dss.YMatrix.getV()[2:]) == sorted(dss.Circuit.AllBusVolts())
 
@@ -887,7 +893,9 @@ def test_13Node_Circuit(dss):
     assert dss.Circuit.SetActiveBusi(0) == 0
     assert dss.Bus.Name() == "sourcebus"
 
-    assert dss.Circuit.SetActiveClass("") == 0
+    with pt.raises(dss.DSSException):
+        dss.Circuit.SetActiveClass("")
+
     assert dss.Circuit.SetActiveClass("Load") == 20
 
     assert dss.Circuit.SetActiveElement("") == -1
@@ -1161,7 +1169,10 @@ def test_13Node_CktElement(dss):
     assert dss.CktElement.AllVariableNames() == []
     assert dss.CktElement.AllVariableValues() == [0.0]
     assert dss.CktElement.BusNames() == [u"671", u"692"]
-    #    assert dss.CktElement.Close() == 0 --- NEEDS PARAMS
+    assert dss.CktElement.Open(1, 0) is None
+    assert dss.CktElement.IsOpen(1, 0)
+    assert dss.CktElement.Close(1, 0) is None
+    assert not dss.CktElement.IsOpen(1, 0)
     np.testing.assert_array_almost_equal(
         dss.CktElement.CplxSeqCurrents(),
         [
@@ -1243,7 +1254,6 @@ def test_13Node_CktElement(dss):
     assert isinstance(dss.CktElement.GUID(), string_types)
     assert dss.CktElement.HasSwitchControl() == 0
     assert dss.CktElement.HasVoltControl() == 0
-    #    assert dss.CktElement.IsOpen() == 0 --- needs params
     np.testing.assert_almost_equal(
         dss.CktElement.Losses(),
         [0.00905452249571681, -1.4551915228366852e-11],
@@ -1259,7 +1269,6 @@ def test_13Node_CktElement(dss):
     assert dss.CktElement.NumTerminals() == 2
     assert dss.CktElement.OCPDevIndex() == 0
     assert dss.CktElement.OCPDevType() == 0
-    #    assert dss.CktElement.Open() == 0 -- needs params
     np.testing.assert_array_almost_equal(
         dss.CktElement.PhaseLosses(),
         [
@@ -1337,7 +1346,19 @@ def test_13Node_CktElement(dss):
         ],
         decimal=4,
     )
-    #    assert dss.CktElement.Variablei() == 0.0 --- needs params
+
+    with pt.raises(dss.DSSException):
+        dss.CktElement.Variablei(1)
+
+    with pt.raises(dss.DSSException):
+        dss.CktElement.Variablei(1, 10)
+
+    with pt.raises(dss.DSSException):
+        dss.CktElement.Variable("some invalid name")
+
+    with pt.raises(dss.DSSException):
+        dss.CktElement.Variable("some invalid name", 10)
+
     np.testing.assert_array_almost_equal(
         dss.CktElement.Voltages(),
         [
@@ -1454,6 +1475,20 @@ def test_13Node_CktElement(dss):
         decimal=4,
     )
 
+    # Create an element with "variables" available to test
+    dss.run_command("New PVSystem.631")
+    dss.Circuit.SetActiveElement("PVSystem.631")
+    assert dss.CktElement.AllVariableNames() == [
+        u"Irradiance",
+        u"PanelkW",
+        u"P_TFactor",
+        u"Efficiency",
+        u"Vreg",
+    ]
+    assert dss.CktElement.AllVariableValues() == [1.0, 500.0, 1.0, 1.0, 1.0]
+    assert dss.CktElement.Variablei(2) == 500.0
+    assert dss.CktElement.Variable(u"PanelkW") == 500.0
+
 
 def test_13Node_Capacitors(dss):
     assert dss.Capacitors.AddStep() == 0
@@ -1541,15 +1576,15 @@ def test_13Node_Element(dss):
 def test_13Node_Executive(dss):
     assert dss.Executive.Command(1) == u"New"
     assert (
-        dss.Executive.CommandHelp(1).replace(os.linesep, '\n')
+        dss.Executive.CommandHelp(1).replace(os.linesep, "\n")
         == u"Create a new object within the DSS. Object becomes the active object\nExample: New Line.line1 ..."
     )
     assert (
-        dss.Executive.NumCommands() == 111
-    )  # adjusted to the latest version on 2019-05-22
+        dss.Executive.NumCommands() == 114
+    )  # adjusted to the latest version on 2020-03-01
     assert (
-        dss.Executive.NumOptions() == 115
-    )  # adjusted to the latest version on 2019-05-22
+        dss.Executive.NumOptions() == 117
+    )  # adjusted to the latest version on 2020-03-01
     assert dss.Executive.Option(1) == u"type"
     assert (
         dss.Executive.OptionHelp(1)
@@ -2024,7 +2059,7 @@ def test_13Node_PDElements(dss):
 def test_13Node_Properties(dss):  # TODO!! rework DSSProperty
     dss.dss_lib.DSSProperty_Set_Index(0)  # TODO?
     assert (
-        dss.Properties.Description().replace(os.linesep, '\n')
+        dss.Properties.Description().replace(os.linesep, "\n")
         == u"Name of bus to which first terminal is connected.\nExample:\nbus1=busname   (assumes all terminals connected in normal phase order)\nbus1=busname.3.1.2.0 (specify terminal to node connections explicitly)"
     )
     assert dss.Properties.Name() == u"bus1"
@@ -2133,13 +2168,16 @@ def test_13Node_Sensors(dss):
 
 
 def test_13Node_Settings(dss):
-    assert dss.Settings.AllocationFactors(0) is None
+    with pt.raises(dss.DSSException):
+        dss.Settings.AllocationFactors(0)
+
+    assert dss.Settings.AllocationFactors(1) is None
     assert dss.Settings.AllowDuplicates() == 0
     assert dss.Settings.CktModel() == 0
 
     # Fixed in DSS C-API 0.10.4, previously it was an uninitialized value
     # (COM still had the bug when this comment was written)
-    assert dss.Settings.AutoBusList() == u"" 
+    assert dss.Settings.AutoBusList() == u""
 
     assert dss.Settings.EmergVmaxpu() == 1.08
     assert dss.Settings.EmergVminpu() == 0.9
@@ -2319,6 +2357,7 @@ def test_capacitors_to_dataframe(dss):
             "States": {"cap1": [1], "cap2": [1]},
             "kV": {"cap1": 4.16, "cap2": 2.4},
             "kvar": {"cap1": 600.0, "cap2": 100.0},
+            "Idx": {"cap1": 1, "cap2": 2},
         }
     ).to_dict()
 
@@ -2378,6 +2417,7 @@ def test_isource_to_dataframe(dss):
             "Amps": {"671692": 0.0},
             "AngleDeg": {"671692": 0.0},
             "Frequency": {"671692": 0.0},
+            "Idx": {"671692": 0},
             "Name": {"671692": "671692"},
         }
     ).to_dict()
@@ -3620,6 +3660,48 @@ def test_lines_to_dataframe(dss):
                     -7.83634673867052,
                 ],
             },
+            "Idx": {
+                "650632": 1,
+                "632670": 2,
+                "670671": 3,
+                "671680": 4,
+                "632633": 5,
+                "632645": 6,
+                "645646": 7,
+                "692675": 8,
+                "671684": 9,
+                "684611": 10,
+                "684652": 11,
+                "671692": 12,
+            },
+            "IsSwitch": {
+                "650632": False,
+                "632670": False,
+                "670671": False,
+                "671680": False,
+                "632633": False,
+                "632645": False,
+                "645646": False,
+                "692675": False,
+                "671684": False,
+                "684611": False,
+                "684652": False,
+                "671692": True,
+            },
+            "SeasonRating": {
+                "650632": 0.0,
+                "632670": 0.0,
+                "670671": 0.0,
+                "671680": 0.0,
+                "632633": 0.0,
+                "632645": 0.0,
+                "645646": 0.0,
+                "692675": 0.0,
+                "671684": 0.0,
+                "684611": 0.0,
+                "684652": 0.0,
+                "671692": 0.0,
+            },
         }
     ).to_dict()
 
@@ -4242,6 +4324,23 @@ def test_loads_to_dataframe(dss):
                 "675c": 50.0,
                 "692": 50.0,
             },
+            "Phases": {
+                "671": 3,
+                "634a": 1,
+                "634b": 1,
+                "634c": 1,
+                "645": 1,
+                "646": 1,
+                "692": 1,
+                "675a": 1,
+                "675b": 1,
+                "675c": 1,
+                "611": 1,
+                "652": 1,
+                "670a": 1,
+                "670b": 1,
+                "670c": 1,
+            },
         }
     ).to_dict()
 
@@ -4253,6 +4352,7 @@ def test_loadshape_to_dataframe(dss):
     expected_dict = pd.DataFrame(
         {
             "HrInterval": {"default": 1.0},
+            "Idx": {"default": 1},
             "MinInterval": {"default": 60.0},
             "Name": {"default": "default"},
             "Npts": {"default": 24},
@@ -4413,20 +4513,27 @@ def test_pvsystems_to_dataframe(dss):
         {
             "Idx": {"631": 1},
             "Irradiance": {"631": 1.0},
+            "IrradianceNow": {"631": 1.0},
             "Name": {"631": "631"},
+            "Pmpp": {"631": 500.0},
             "kVARated": {"631": 500.0},
             "kW": {"631": 499.99999999999994},
             "kvar": {"631": 0.0},
+            "pf": {"631": 1.0},
             "RegisterNames": {
                 "631": ["kWh", "kvarh", "Max kW", "Max kVA", "Hours", "Price($)"]
             },
             "RegisterValues": {"631": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]},
-            "pf": {"631": 1.0},
+            "Tdaily": {"631": ""},
+            "Tduty": {"631": ""},
+            "Tyearly": {"631": ""},
+            "daily": {"631": ""},
+            "duty": {"631": ""},
+            "yearly": {"631": ""},
         }
     ).to_dict()
 
     actual_dict = dss.utils.pvsystems_to_dataframe().to_dict()
-
     assert_dict_equal(actual_dict, expected_dict)
 
 
@@ -4463,6 +4570,7 @@ def test_regcontrols_to_dataframe(dss):
             "ForwardR": {"reg1": 3.0, "reg2": 3.0, "reg3": 3.0},
             "ForwardVreg": {"reg1": 122.0, "reg2": 122.0, "reg3": 122.0},
             "ForwardX": {"reg1": 9.0, "reg2": 9.0, "reg3": 9.0},
+            "Idx": {"reg1": 1, "reg2": 2, "reg3": 3},
             "IsInverseTime": {"reg1": 0, "reg2": 0, "reg3": 0},
             "IsReversible": {"reg1": 0, "reg2": 0, "reg3": 0},
             "MaxTapChange": {"reg1": 16, "reg2": 16, "reg3": 16},
@@ -4483,7 +4591,6 @@ def test_regcontrols_to_dataframe(dss):
     ).to_dict()
 
     actual_dict = dss.utils.regcontrols_to_dataframe().to_dict()
-
     assert_dict_equal(actual_dict, expected_dict)
 
 
@@ -4507,6 +4614,7 @@ def test_sensors_to_dataframe(dss):
     expected_dict = pd.DataFrame(
         {
             "Currents": {"": [0.0]},
+            "Idx": {"": 0},
             "IsDelta": {"": 0},
             "MeteredElement": {"": ""},
             "MeteredTerminal": {"": 0},
@@ -4587,6 +4695,162 @@ def test_transformers_to_dataframe(dss):
                 "sub": 5000.0,
                 "xfm1": 500.0,
             },
+            "Idx": {"sub": 1, "reg1": 2, "reg2": 3, "reg3": 4, "xfm1": 5},
+            "CoreType": {"sub": 0, "reg1": 0, "reg2": 0, "reg3": 0, "xfm1": 0},
+            "RdcOhms": {
+                "sub": 4.903253333333334e-06,
+                "reg1": 0.0001469387755102041,
+                "reg2": 0.0001469387755102041,
+                "reg3": 0.0001469387755102041,
+                "xfm1": 0.0007180800000000002,
+            },
+            "WdgCurrents": {
+                "sub": [
+                    10.886841976909636,
+                    -5.959137749538058,
+                    -10.886837793241284,
+                    5.9591377488395665,
+                    -521.2750911256298,
+                    285.33021885715425,
+                    521.2750910583418,
+                    -285.33056578971446,
+                    -7.0864411112852395,
+                    -5.676524012698792,
+                    7.08643901895266,
+                    5.6765203900286,
+                    339.3068900331855,
+                    271.79902453906834,
+                    -339.30719047319144,
+                    -271.79885100666434,
+                    -0.7712923191138543,
+                    13.032080353223137,
+                    0.7712902277708054,
+                    -13.032076729854452,
+                    36.93081190716475,
+                    -623.9914583135396,
+                    -36.93051140662283,
+                    623.9916317127645,
+                ],
+                "reg1": [
+                    521.2750911260955,
+                    -285.3302188576199,
+                    -521.2750911936164,
+                    285.3298715483397,
+                    -493.5148793202825,
+                    270.13442282844335,
+                    493.51487923646346,
+                    -270.13478963123634,
+                ],
+                "reg2": [
+                    -339.3068900331855,
+                    -271.799024539534,
+                    339.30658926814795,
+                    271.79919826006517,
+                    327.04218366835266,
+                    261.9753110844176,
+                    -327.0424956800416,
+                    -261.9751308527775,
+                ],
+                "reg3": [
+                    -36.93081190693192,
+                    623.9914583163336,
+                    36.93111273297109,
+                    -623.9912847299129,
+                    34.96468480094336,
+                    -590.7607963085175,
+                    -34.96436708443798,
+                    590.7609796244651,
+                ],
+                "xfm1": [
+                    64.72170952697047,
+                    -50.183159858127965,
+                    -64.72171111559783,
+                    50.183124805561874,
+                    -560.921513320438,
+                    434.92011862689833,
+                    560.9214963351824,
+                    -434.9204149815341,
+                    -57.872547335262425,
+                    -22.049313062480678,
+                    57.87251705193739,
+                    22.049331842808215,
+                    501.56155806127936,
+                    191.0943712195276,
+                    -501.5618144501241,
+                    -191.0942093043377,
+                    10.60458044937559,
+                    62.68522749032809,
+                    -10.604549699178278,
+                    -62.68521130450972,
+                    -91.90583479822817,
+                    -543.2716959558966,
+                    91.90609739287902,
+                    543.2718313057558,
+                ],
+            },
+            "WdgVoltages": {
+                "sub": [
+                    2401.5627723087614,
+                    -0.4669003619615109,
+                    -1201.2376783493826,
+                    -2079.7175117533034,
+                    -1200.31160042552,
+                    2080.141938589097,
+                ],
+                "reg1": [2536.3561173511703, -0.5793274158645817],
+                "reg2": [-1246.25987615131, -2157.487712670567],
+                "reg3": [-1267.5877682936239, 2196.935536435069],
+                "xfm1": [
+                    273.12043190753747,
+                    -15.653612485262295,
+                    -149.22103967628902,
+                    -236.2879586961411,
+                    -124.73842715841117,
+                    242.00723011013307,
+                ],
+            },
+            "LossesByType": {
+                "sub": [
+                    32.287911165039986,
+                    262.46956554229837,
+                    32.287911165039986,
+                    262.46956554229837,
+                    0.0,
+                    0.0,
+                ],
+                "reg1": [
+                    122.09431781526655,
+                    123.85874612047337,
+                    122.09431781526655,
+                    123.85874612047337,
+                    0.0,
+                    0.0,
+                ],
+                "reg2": [
+                    65.34584129205905,
+                    67.07780241721775,
+                    65.34584129205905,
+                    67.07780241721775,
+                    0.0,
+                    0.0,
+                ],
+                "reg3": [
+                    135.0899914202746,
+                    136.85448114364408,
+                    135.0899914202746,
+                    136.85448114364408,
+                    0.0,
+                    0.0,
+                ],
+                "xfm1": [
+                    5552.672495756749,
+                    10096.271270538462,
+                    5552.672495756749,
+                    10096.271270538462,
+                    0.0,
+                    0.0,
+                ],
+            },
         }
     ).to_dict()
 
@@ -4597,6 +4861,7 @@ def test_transformers_to_dataframe(dss):
 def test_vsources_to_dataframe(dss):
     expected_dict = pd.DataFrame(
         {
+            "Idx": {"source": 1},
             "AngleDeg": {"source": 30.0},
             "BasekV": {"source": 115.0},
             "Frequency": {"source": 60.0},
@@ -4613,6 +4878,7 @@ def test_vsources_to_dataframe(dss):
 def test_xycurves_to_dataframe(dss):
     expected_dict = pd.DataFrame(
         {
+            "Idx": {"": 0},
             "Name": {"": ""},
             "Npts": {"": 0},
             "X": {"": 0.0},
@@ -5550,7 +5816,8 @@ def test_wiredata_class_to_dataframe():
 
     assert data == {
         "wiredata.acsr1/0": {
-            "Seasons": "",
+            "Capradius": "-1",
+            "Seasons": "1",
             "Ratings": ["-1"],
             "GMRac": "0.0044600",
             "GMRunits": "ft",
@@ -5565,7 +5832,8 @@ def test_wiredata_class_to_dataframe():
             "radunits": "in",
         },
         "wiredata.acsr336": {
-            "Seasons": "",
+            "Capradius": "-1",
+            "Seasons": "1",
             "Ratings": ["-1"],
             "GMRac": "0.0255000",
             "GMRunits": "ft",
@@ -5583,7 +5851,7 @@ def test_wiredata_class_to_dataframe():
 
 
 def test_long_path():
-    
+
     import opendssdirect as dss
     import tempfile, shutil
     import warnings
@@ -5591,7 +5859,7 @@ def test_long_path():
     long_name = "-".join(["40242748-21fd-4a61-8ad9-cefdd3ff6a05"] * 6)
     original_working_dir = os.getcwd()
     try:
-        #TODO: use tempfile.TemporaryDirectory when Python 2.7 is dropped
+        # TODO: use tempfile.TemporaryDirectory when Python 2.7 is dropped
         tmp_dir_path = tempfile.mkdtemp()
         inner_dir_path = os.path.join(tmp_dir_path, long_name)
         os.mkdir(inner_dir_path)
@@ -5606,10 +5874,11 @@ def test_long_path():
         # Then try going to the folder and using only the filename
         os.chdir(inner_dir_path)
         dss.run_command("redirect '{}'".format(long_name + ".dss"))
-    except (IOError, OSError): # FileNotFoundError:
-        warnings.warn("Could not create a file with a long path in Python. Skipping test.")
+    except (IOError, OSError):  # FileNotFoundError:
+        warnings.warn(
+            "Could not create a file with a long path in Python. Skipping test."
+        )
     finally:
         os.chdir(original_working_dir)
         if os.path.exists(tmp_dir_path):
             shutil.rmtree(tmp_dir_path)
-

@@ -2,12 +2,13 @@
 from __future__ import absolute_import
 from ._utils import (
     lib,
+    codec,
+    CheckForError,
     get_string,
-    get_string_array,
     get_int32_array,
+    get_string_array,
     prepare_int32_array,
 )
-from ._utils import codec
 
 
 def AddStep():
@@ -27,7 +28,7 @@ def SubtractStep():
 
 
 def AllNames():
-    """(read-only) Array of strings with all Capacitor names in the circuit."""
+    """(read-only) List of strings with all Capacitor names"""
     return get_string_array(lib.Capacitors_Get_AllNames)
 
 
@@ -37,12 +38,12 @@ def AvailableSteps():
 
 
 def Count():
-    """(read-only) Number of Capacitor objects in active circuit."""
+    """(read-only) Number of Capacitors"""
     return lib.Capacitors_Get_Count()
 
 
 def First():
-    """(read-only) Sets the first Capacitor active. Returns 0 if no more."""
+    """Set first Capacitor active; returns 0 if none."""
     return lib.Capacitors_Get_First()
 
 
@@ -55,10 +56,13 @@ def IsDelta(*args):
     # Setter
     Value, = args
     lib.Capacitors_Set_IsDelta(Value)
+    CheckForError()
 
 
 def Name(*args):
-    """Sets the active Capacitor by Name."""
+    """
+    Get/set the name of the active Capacitor
+    """
     # Getter
     if len(args) == 0:
         return get_string(lib.Capacitors_Get_Name())
@@ -67,12 +71,11 @@ def Name(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
-    lib.Capacitors_Set_Name(Value)
+    CheckForError(lib.Capacitors_Set_Name(Value))
 
 
 def Next():
-    """(read-only) Sets the next Capacitor active. Returns 0 if no more."""
+    """Sets next Capacitor active; returns 0 if no more."""
     return lib.Capacitors_Get_Next()
 
 
@@ -85,13 +88,11 @@ def NumSteps(*args):
     # Setter
     Value, = args
     lib.Capacitors_Set_NumSteps(Value)
+    CheckForError()
 
 
 def States(*args):
-    """
-    (read) A array of  integer [0..numsteps-1] indicating state of each step. If value is -1 an error has occurred.
-    (write) Array of integer [0 ..numSteps-1] indicating the state of each step
-    """
+    """A array of  integer [0..numsteps-1] indicating state of each step. If the read value is -1 an error has occurred."""
     # Getter
     if len(args) == 0:
         return get_int32_array(lib.Capacitors_Get_States)
@@ -100,6 +101,7 @@ def States(*args):
     Value, = args
     Value, ValuePtr, ValueCount = prepare_int32_array(Value)
     lib.Capacitors_Set_States(ValuePtr, ValueCount)
+    CheckForError()
 
 
 def kV(*args):
@@ -111,6 +113,7 @@ def kV(*args):
     # Setter
     Value, = args
     lib.Capacitors_Set_kV(Value)
+    CheckForError()
 
 
 def kvar(*args):
@@ -122,9 +125,32 @@ def kvar(*args):
     # Setter
     Value, = args
     lib.Capacitors_Set_kvar(Value)
+    CheckForError()
 
 
-_columns = ["AvailableSteps", "IsDelta", "Name", "NumSteps", "States", "kV", "kvar"]
+def Idx(*args):
+    """
+    Get/set active Capacitor by index;  1..Count
+    """
+    # Getter
+    if len(args) == 0:
+        return lib.Capacitors_Get_idx()
+
+    # Setter
+    Value, = args
+    CheckForError(lib.Capacitors_Set_idx(Value))
+
+
+_columns = [
+    "AvailableSteps",
+    "IsDelta",
+    "Name",
+    "NumSteps",
+    "States",
+    "kV",
+    "kvar",
+    "Idx",
+]
 __all__ = [
     "AddStep",
     "Close",
@@ -141,4 +167,5 @@ __all__ = [
     "States",
     "kV",
     "kvar",
+    "Idx",
 ]

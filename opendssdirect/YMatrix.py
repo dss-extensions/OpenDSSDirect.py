@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
 import numpy as np
-from ._utils import lib, ffi
 from .Circuit import NumNodes
+from ._utils import lib, ffi, CheckForError
 
 
 def getYsparse(factor=True):
@@ -104,6 +104,7 @@ def SystemYChanged(*args):
     # Setter
     value, = args
     lib.YMatrix_Set_SystemYChanged(value)
+    CheckForError()
 
 
 def UseAuxCurrents(*args):
@@ -114,6 +115,7 @@ def UseAuxCurrents(*args):
     # Setter
     value, = args
     lib.YMatrix_Set_UseAuxCurrents(value)
+    CheckForError()
 
 
 _columns = []

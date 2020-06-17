@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
-from ._utils import lib, get_string, get_float64_array
-from ._utils import codec
+from ._utils import lib, codec, CheckForError, get_string, get_float64_array
 
 
 def Matrix(ExpectedOrder):
@@ -32,6 +31,7 @@ def AutoIncrement(*args):
     # Setter
     Value, = args
     lib.Parser_Set_AutoIncrement(Value)
+    CheckForError()
 
 
 def BeginQuote(*args):
@@ -47,8 +47,8 @@ def BeginQuote(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Parser_Set_BeginQuote(Value)
+    CheckForError()
 
 
 def CmdString(*args):
@@ -61,8 +61,8 @@ def CmdString(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Parser_Set_CmdString(Value)
+    CheckForError()
 
 
 def DblValue():
@@ -80,8 +80,8 @@ def Delimiters(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Parser_Set_Delimiters(Value)
+    CheckForError()
 
 
 def EndQuote(*args):
@@ -94,8 +94,8 @@ def EndQuote(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Parser_Set_EndQuote(Value)
+    CheckForError()
 
 
 def IntValue():
@@ -126,8 +126,8 @@ def WhiteSpace(*args):
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     lib.Parser_Set_WhiteSpace(Value)
+    CheckForError()
 
 
 _columns = [
