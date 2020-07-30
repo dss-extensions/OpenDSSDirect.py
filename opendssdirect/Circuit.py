@@ -11,75 +11,77 @@ from ._utils import (
 
 
 def Capacity(Start, Increment):
-    return lib.Circuit_Capacity(Start, Increment)
+    return CheckForError(lib.Circuit_Capacity(Start, Increment))
 
 
 def Disable(Name):
     if type(Name) is not bytes:
         Name = Name.encode(codec)
-    lib.Circuit_Disable(Name)
+    CheckForError(lib.Circuit_Disable(Name))
 
 
 def Enable(Name):
     if type(Name) is not bytes:
         Name = Name.encode(codec)
-    lib.Circuit_Enable(Name)
+    CheckForError(lib.Circuit_Enable(Name))
 
 
 def EndOfTimeStepUpdate():
-    lib.Circuit_EndOfTimeStepUpdate()
+    CheckForError(lib.Circuit_EndOfTimeStepUpdate())
 
 
 def FirstElement():
-    return lib.Circuit_FirstElement()
+    return CheckForError(lib.Circuit_FirstElement())
 
 
 def FirstPCElement():
-    return lib.Circuit_FirstPCElement()
+    return CheckForError(lib.Circuit_FirstPCElement())
 
 
 def FirstPDElement():
-    return lib.Circuit_FirstPDElement()
+    return CheckForError(lib.Circuit_FirstPDElement())
 
 
 def AllNodeDistancesByPhase(Phase):
     """(read-only) Returns an array of doubles representing the distances to parent EnergyMeter. Sequence of array corresponds to other node ByPhase properties."""
-    return get_float64_array(lib.Circuit_Get_AllNodeDistancesByPhase, Phase)
+    return CheckForError(
+        get_float64_array(lib.Circuit_Get_AllNodeDistancesByPhase, Phase)
+    )
 
 
 def AllNodeNamesByPhase(Phase):
     """(read-only) Return array of strings of the node names for the By Phase criteria. Sequence corresponds to other ByPhase properties."""
-    return get_string_array(lib.Circuit_Get_AllNodeNamesByPhase, Phase)
+    return CheckForError(get_string_array(lib.Circuit_Get_AllNodeNamesByPhase, Phase))
 
 
 def AllNodeVmagByPhase(Phase):
     """(read-only) Returns Array of doubles represent voltage magnitudes for nodes on the specified phase."""
-    return get_float64_array(lib.Circuit_Get_AllNodeVmagByPhase, Phase)
+    return CheckForError(get_float64_array(lib.Circuit_Get_AllNodeVmagByPhase, Phase))
 
 
 def AllNodeVmagPUByPhase(Phase):
     """(read-only) Returns array of per unit voltage magnitudes for each node by phase"""
-    return get_float64_array(lib.Circuit_Get_AllNodeVmagPUByPhase, Phase)
+    return CheckForError(get_float64_array(lib.Circuit_Get_AllNodeVmagPUByPhase, Phase))
 
 
 def NextElement():
-    return lib.Circuit_NextElement()
+    return CheckForError(lib.Circuit_NextElement())
 
 
 def NextPCElement():
-    return lib.Circuit_NextPCElement()
+    return CheckForError(lib.Circuit_NextPCElement())
 
 
 def NextPDElement():
-    return lib.Circuit_NextPDElement()
+    return CheckForError(lib.Circuit_NextPDElement())
 
 
 def Sample():
-    lib.Circuit_Sample()
+    CheckForError(lib.Circuit_Sample())
 
 
 def SaveSample():
-    lib.Circuit_SaveSample()
+    CheckForError(lib.Circuit_SaveSample())
 
 
 def SetActiveBus(BusName):
@@ -89,7 +91,7 @@ def SetActiveBus(BusName):
 
 
 def SetActiveBusi(BusIndex):
-    return lib.Circuit_SetActiveBusi(BusIndex)
+    return CheckForError(lib.Circuit_SetActiveBusi(BusIndex))
 
 
 def SetActiveClass(ClassName):
@@ -105,7 +107,7 @@ def SetActiveElement(FullName):
 
 
 def UpdateStorage():
-    lib.Circuit_UpdateStorage()
+    CheckForError(lib.Circuit_UpdateStorage())
 
 
 def AllBusDistances():
@@ -115,7 +117,7 @@ def AllBusDistances():
 
 def AllBusNames():
     """(read-only) Array of strings containing names of all buses in circuit (see AllNodeNames)."""
-    return get_string_array(lib.Circuit_Get_AllBusNames)
+    return CheckForError(get_string_array(lib.Circuit_Get_AllBusNames))
 
 
 def AllBusVMag():
@@ -140,7 +142,7 @@ def AllElementLosses():
 
 def AllElementNames():
     """(read-only) Array of strings containing Full Name of all elements."""
-    return get_string_array(lib.Circuit_Get_AllElementNames)
+    return CheckForError(get_string_array(lib.Circuit_Get_AllElementNames))
 
 
 def AllNodeDistances():
@@ -150,7 +152,7 @@ def AllNodeDistances():
 
 def AllNodeNames():
     """(read-only) Array of strings containing full name of each node in system in same order as returned by AllBusVolts, etc."""
-    return get_string_array(lib.Circuit_Get_AllNodeNames)
+    return CheckForError(get_string_array(lib.Circuit_Get_AllNodeNames))
 
 
 def LineLosses():
@@ -165,27 +167,27 @@ def Losses():
 
 def Name():
     """(read-only) Name of the active circuit."""
-    return get_string(lib.Circuit_Get_Name())
+    return get_string(CheckForError(lib.Circuit_Get_Name()))
 
 
 def NumBuses():
     """(read-only) Total number of Buses in the circuit."""
-    return lib.Circuit_Get_NumBuses()
+    return CheckForError(lib.Circuit_Get_NumBuses())
 
 
 def NumCktElements():
     """(read-only) Number of CktElements in the circuit."""
-    return lib.Circuit_Get_NumCktElements()
+    return CheckForError(lib.Circuit_Get_NumCktElements())
 
 
 def NumNodes():
     """(read-only) Total number of nodes in the circuit."""
-    return lib.Circuit_Get_NumNodes()
+    return CheckForError(lib.Circuit_Get_NumNodes())
 
 
 def ParentPDElement():
     """(read-only) Sets Parent PD element, if any, to be the active circuit element and returns index>0; Returns 0 if it fails or not applicable."""
-    return lib.Circuit_Get_ParentPDElement()
+    return CheckForError(lib.Circuit_Get_ParentPDElement())
 
 
 def SubstationLosses():
@@ -214,7 +216,7 @@ def YCurrents():
 
 def YNodeOrder():
     """(read-only) Array of strings containing the names of the nodes in the same order as the Y matrix"""
-    return get_string_array(lib.Circuit_Get_YNodeOrder)
+    return CheckForError(get_string_array(lib.Circuit_Get_YNodeOrder))
 
 
 def YNodeVArray():
@@ -223,15 +225,6 @@ def YNodeVArray():
 
 
 _columns = [
-    "AllBusDistances",
-    "AllBusNames",
-    "AllBusVMag",
-    "AllBusMagPu",
-    "AllBusVolts",
-    "AllElementLosses",
-    "AllElementNames",
-    "AllNodeDistances",
-    "AllNodeNames",
     "LineLosses",
     "Losses",
     "Name",
@@ -243,6 +236,15 @@ _columns = [
     "YCurrents",
     "YNodeOrder",
     "YNodeVArray",
+    "AllBusDistances",
+    "AllBusNames",
+    "AllBusVMag",
+    "AllBusMagPu",
+    "AllBusVolts",
+    "AllNodeNames",
+    "AllNodeDistances",
+    "AllElementNames",
+    "AllElementLosses",
 ]
 __all__ = [
     "Capacity",

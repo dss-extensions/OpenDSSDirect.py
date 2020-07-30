@@ -5,9 +5,9 @@ build: false
 
 environment:
   matrix:
-#    - PYTHON_VERSION: 3.8
-#      TARGET_ARCH: "x64"
-#      MINICONDA: C:\Miniconda3-x64
+    - PYTHON_VERSION: 3.8
+      TARGET_ARCH: "x64"
+      MINICONDA: C:\Miniconda3-x64
     - PYTHON_VERSION: 3.7
       TARGET_ARCH: "x64"
       MINICONDA: C:\Miniconda3-x64
@@ -49,6 +49,7 @@ install:
 
 test_script:
   - py.test -vv
+  - set DSS_EXTENSIONS_DEBUG=1 && py.test -vv
 
 init:
   - "ECHO %PYTHON_VERSION% %MINICONDA%"

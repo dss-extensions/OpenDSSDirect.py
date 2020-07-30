@@ -8,6 +8,8 @@ clean:
 
 test:
 	PYTHONPATH=. py.test -vv --cov=opendssdirect tests
+	export DSS_EXTENSIONS_DEBUG=1
+	PYTHONPATH=. py.test -vv tests
 
 html:
 	@cd docs; pandoc ../README.md -o readme.rst; make html

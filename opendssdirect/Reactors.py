@@ -13,12 +13,12 @@ from ._utils import (
 
 def AllNames():
     """(read-only) List of strings with all Reactor names"""
-    return get_string_array(lib.Reactors_Get_AllNames)
+    return CheckForError(get_string_array(lib.Reactors_Get_AllNames))
 
 
 def Count():
     """(read-only) Number of Reactors"""
-    return lib.Reactors_Get_Count()
+    return CheckForError(lib.Reactors_Get_Count())
 
 
 def Idx(*args):
@@ -27,7 +27,7 @@ def Idx(*args):
     """
     # Getter
     if len(args) == 0:
-        return lib.Reactors_Get_idx()
+        return CheckForError(lib.Reactors_Get_idx())
 
     # Setter
     Value, = args
@@ -36,12 +36,12 @@ def Idx(*args):
 
 def First():
     """Set first Reactor active; returns 0 if none."""
-    return lib.Reactors_Get_First()
+    return CheckForError(lib.Reactors_Get_First())
 
 
 def Next():
     """Sets next Reactor active; returns 0 if no more."""
-    return lib.Reactors_Get_Next()
+    return CheckForError(lib.Reactors_Get_Next())
 
 
 def Name(*args):
@@ -50,13 +50,12 @@ def Name(*args):
     """
     # Getter
     if len(args) == 0:
-        return get_string(lib.Reactors_Get_Name())
+        return CheckForError(get_string(lib.Reactors_Get_Name()))
 
     # Setter
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     CheckForError(lib.Reactors_Set_Name(Value))
 
 
@@ -65,79 +64,73 @@ def SpecType():
     How the reactor data was provided: 1=kvar, 2=R+jX, 3=R and X matrices, 4=sym components.
     Depending on this value, only some properties are filled or make sense in the context.
     """
-    return lib.Reactors_Get_SpecType()
+    return CheckForError(lib.Reactors_Get_SpecType())
 
 
 def IsDelta(*args):
     """Delta connection or wye?"""
     # Getter
     if len(args) == 0:
-        return lib.Reactors_Get_IsDelta() != 0
+        return CheckForError(lib.Reactors_Get_IsDelta()) != 0
 
     # Setter
     Value, = args
-    lib.Reactors_Set_IsDelta(Value)
-    CheckForError()
+    CheckForError(lib.Reactors_Set_IsDelta(Value))
 
 
 def Parallel(*args):
     """Indicates whether Rmatrix and Xmatrix are to be considered in parallel."""
     # Getter
     if len(args) == 0:
-        return lib.Reactors_Get_Parallel() != 0
+        return CheckForError(lib.Reactors_Get_Parallel()) != 0
 
     # Setter
     Value, = args
-    lib.Reactors_Set_Parallel(Value)
-    CheckForError()
+    CheckForError(lib.Reactors_Set_Parallel(Value))
 
 
 def LmH(*args):
     """Inductance, mH. Alternate way to define the reactance, X, property."""
     # Getter
     if len(args) == 0:
-        return lib.Reactors_Get_LmH()
+        return CheckForError(lib.Reactors_Get_LmH())
 
     # Setter
     Value, = args
-    lib.Reactors_Set_LmH(Value)
-    CheckForError()
+    CheckForError(lib.Reactors_Set_LmH(Value))
 
 
 def kV(*args):
     """For 2, 3-phase, kV phase-phase. Otherwise specify actual coil rating."""
     # Getter
     if len(args) == 0:
-        return lib.Reactors_Get_kV()
+        return CheckForError(lib.Reactors_Get_kV())
 
     # Setter
     Value, = args
-    lib.Reactors_Set_kV(Value)
-    CheckForError()
+    CheckForError(lib.Reactors_Set_kV(Value))
 
 
 def kvar(*args):
     """Total kvar, all phases.  Evenly divided among phases. Only determines X. Specify R separately"""
     # Getter
     if len(args) == 0:
-        return lib.Reactors_Get_kvar()
+        return CheckForError(lib.Reactors_Get_kvar())
 
     # Setter
     Value, = args
-    lib.Reactors_Set_kvar(Value)
-    CheckForError()
+    CheckForError(lib.Reactors_Set_kvar(Value))
 
 
 def Phases(*args):
     """Number of phases."""
     # Getter
     if len(args) == 0:
-        return lib.Reactors_Get_Phases()
+        return CheckForError(lib.Reactors_Get_Phases())
 
     # Setter
     Value, = args
-    lib.Reactors_Set_Phases(Value)
-    CheckForError()
+    CheckForError(lib.Reactors_Set_Phases(Value))
 
 
 def Bus1(*args):
@@ -148,14 +141,13 @@ def Bus1(*args):
     """
     # Getter
     if len(args) == 0:
-        return get_string(lib.Reactors_Get_Bus1())
+        return get_string(CheckForError(lib.Reactors_Get_Bus1()))
 
     # Setter
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-    lib.Reactors_Set_Bus1(Value)
-    CheckForError()
+    CheckForError(lib.Reactors_Set_Bus1(Value))
 
 
 def Bus2(*args):
@@ -165,78 +157,72 @@ def Bus2(*args):
     """
     # Getter
     if len(args) == 0:
-        return get_string(lib.Reactors_Get_Bus2())
+        return get_string(CheckForError(lib.Reactors_Get_Bus2()))
 
     # Setter
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-    lib.Reactors_Set_Bus2(Value)
-    CheckForError()
+    CheckForError(lib.Reactors_Set_Bus2(Value))
 
 
 def LCurve(*args):
     """Name of XYCurve object, previously defined, describing per-unit variation of phase inductance, L=X/w, vs. frequency. Applies to reactance specified by X, LmH, Z, or kvar property. L generally decreases somewhat with frequency above the base frequency, approaching a limit at a few kHz."""
     # Getter
     if len(args) == 0:
-        return get_string(lib.Reactors_Get_LCurve())
+        return get_string(CheckForError(lib.Reactors_Get_LCurve()))
 
     # Setter
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-    lib.Reactors_Set_LCurve(Value)
-    CheckForError()
+    CheckForError(lib.Reactors_Set_LCurve(Value))
 
 
 def RCurve(*args):
     """Name of XYCurve object, previously defined, describing per-unit variation of phase resistance, R, vs. frequency. Applies to resistance specified by R or Z property. If actual values are not known, R often increases by approximately the square root of frequency."""
     # Getter
     if len(args) == 0:
-        return get_string(lib.Reactors_Get_RCurve())
+        return get_string(CheckForError(lib.Reactors_Get_RCurve()))
 
     # Setter
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-    lib.Reactors_Set_RCurve(Value)
-    CheckForError()
+    CheckForError(lib.Reactors_Set_RCurve(Value))
 
 
 def R(*args):
     """Resistance (in series with reactance), each phase, ohms. This property applies to REACTOR specified by either kvar or X. See also help on Z."""
     # Getter
     if len(args) == 0:
-        return lib.Reactors_Get_R()
+        return CheckForError(lib.Reactors_Get_R())
 
     # Setter
     Value, = args
-    lib.Reactors_Set_R(Value)
-    CheckForError()
+    CheckForError(lib.Reactors_Set_R(Value))
 
 
 def X(*args):
     """Reactance, each phase, ohms at base frequency. See also help on Z and LmH properties."""
     # Getter
     if len(args) == 0:
-        return lib.Reactors_Get_X()
+        return CheckForError(lib.Reactors_Get_X())
 
     # Setter
     Value, = args
-    lib.Reactors_Set_X(Value)
-    CheckForError()
+    CheckForError(lib.Reactors_Set_X(Value))
 
 
 def Rp(*args):
     """Resistance in parallel with R and X (the entire branch). Assumed infinite if not specified."""
     # Getter
     if len(args) == 0:
-        return lib.Reactors_Get_Rp()
+        return CheckForError(lib.Reactors_Get_Rp())
 
     # Setter
     Value, = args
-    lib.Reactors_Set_Rp(Value)
-    CheckForError()
+    CheckForError(lib.Reactors_Set_Rp(Value))
 
 
 def Rmatrix(*args):
@@ -248,8 +234,7 @@ def Rmatrix(*args):
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
-    lib.Reactors_Set_Rmatrix(ValuePtr, ValueCount)
-    CheckForError()
+    CheckForError(lib.Reactors_Set_Rmatrix(ValuePtr, ValueCount))
 
 
 def Xmatrix(*args):
@@ -261,8 +246,7 @@ def Xmatrix(*args):
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
-    lib.Reactors_Set_Xmatrix(ValuePtr, ValueCount)
-    CheckForError()
+    CheckForError(lib.Reactors_Set_Xmatrix(ValuePtr, ValueCount))
 
 
 def Z(*args):
@@ -274,8 +258,7 @@ def Z(*args):
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
-    lib.Reactors_Set_Z(ValuePtr, ValueCount)
-    CheckForError()
+    CheckForError(lib.Reactors_Set_Z(ValuePtr, ValueCount))
 
 
 def Z1(*args):
@@ -295,8 +278,7 @@ def Z1(*args):
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
-    lib.Reactors_Set_Z1(ValuePtr, ValueCount)
-    CheckForError()
+    CheckForError(lib.Reactors_Set_Z1(ValuePtr, ValueCount))
 
 
 def Z2(*args):
@@ -314,8 +296,7 @@ def Z2(*args):
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
-    lib.Reactors_Set_Z2(ValuePtr, ValueCount)
-    CheckForError()
+    CheckForError(lib.Reactors_Set_Z2(ValuePtr, ValueCount))
 
 
 def Z0(*args):
@@ -333,8 +314,7 @@ def Z0(*args):
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
-    lib.Reactors_Set_Z0(ValuePtr, ValueCount)
-    CheckForError()
+    CheckForError(lib.Reactors_Set_Z0(ValuePtr, ValueCount))
 
 
 _columns = [

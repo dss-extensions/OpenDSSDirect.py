@@ -59,7 +59,7 @@ def Show():
 
 def AllNames():
     """(read-only) List of strings with all Monitor names"""
-    return get_string_array(lib.Monitors_Get_AllNames)
+    return CheckForError(get_string_array(lib.Monitors_Get_AllNames))
 
 
 def ByteStream():
@@ -73,7 +73,7 @@ def ByteStream():
 
 def Count():
     """(read-only) Number of Monitors"""
-    return lib.Monitors_Get_Count()
+    return CheckForError(lib.Monitors_Get_Count())
 
 
 def Element(*args):
@@ -106,7 +106,7 @@ def FileVersion():
 
 def First():
     """Set first Monitor active; returns 0 if none."""
-    return lib.Monitors_Get_First()
+    return CheckForError(lib.Monitors_Get_First())
 
 
 def Header():
@@ -132,7 +132,7 @@ def Name(*args):
     """
     # Getter
     if len(args) == 0:
-        return get_string(lib.Monitors_Get_Name())
+        return CheckForError(get_string(lib.Monitors_Get_Name()))
 
     # Setter
     Value, = args
@@ -143,7 +143,7 @@ def Name(*args):
 
 def Next():
     """Sets next Monitor active; returns 0 if no more."""
-    return lib.Monitors_Get_Next()
+    return CheckForError(lib.Monitors_Get_Next())
 
 
 def NumChannels():
@@ -189,7 +189,7 @@ def Idx(*args):
     """
     # Getter
     if len(args) == 0:
-        return lib.Monitors_Get_idx()
+        return CheckForError(lib.Monitors_Get_idx())
 
     # Setter
     Value, = args
@@ -202,6 +202,7 @@ def AsMatrix():
     If you need multiple channels, prefer using this function as it processes the monitor byte-stream once.
     """
     buffer = get_int8_array(lib.Monitors_Get_ByteStream)
+    CheckForError()
     if len(buffer) <= 1:
         return None
     record_size = buffer.view(dtype=np.int32)[2] + 2

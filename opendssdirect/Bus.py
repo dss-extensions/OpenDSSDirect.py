@@ -1,19 +1,26 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
-from ._utils import lib, CheckForError, get_string, get_float64_array, get_int32_array
+from ._utils import (
+    lib,
+    CheckForError,
+    get_string,
+    get_float64_array,
+    get_int32_array,
+    get_string_array,
+)
 
 
 def GetUniqueNodeNumber(StartNumber):
-    return lib.Bus_GetUniqueNodeNumber(StartNumber)
+    return CheckForError(lib.Bus_GetUniqueNodeNumber(StartNumber))
 
 
 def ZscRefresh():
-    return lib.Bus_ZscRefresh() != 0
+    return CheckForError(lib.Bus_ZscRefresh()) != 0
 
 
 def Coorddefined():
     """(read-only) False=0 else True. Indicates whether a coordinate has been defined for this bus"""
-    return lib.Bus_Get_Coorddefined() != 0
+    return CheckForError(lib.Bus_Get_Coorddefined()) != 0
 
 
 def CplxSeqVoltages():
@@ -23,22 +30,22 @@ def CplxSeqVoltages():
 
 def Cust_Duration():
     """(read-only) Accumulated customer outage durations"""
-    return lib.Bus_Get_Cust_Duration()
+    return CheckForError(lib.Bus_Get_Cust_Duration())
 
 
 def Cust_Interrupts():
     """(read-only) Annual number of customer-interruptions from this bus"""
-    return lib.Bus_Get_Cust_Interrupts()
+    return CheckForError(lib.Bus_Get_Cust_Interrupts())
 
 
 def Distance():
     """(read-only) Distance from energymeter (if non-zero)"""
-    return lib.Bus_Get_Distance()
+    return CheckForError(lib.Bus_Get_Distance())
 
 
 def Int_Duration():
     """(read-only) Average interruption duration, hr."""
-    return lib.Bus_Get_Int_Duration()
+    return CheckForError(lib.Bus_Get_Int_Duration())
 
 
 def Isc():
@@ -48,22 +55,22 @@ def Isc():
 
 def Lambda():
     """(read-only) Accumulated failure rate downstream from this bus; faults per year"""
-    return lib.Bus_Get_Lambda()
+    return CheckForError(lib.Bus_Get_Lambda())
 
 
 def N_Customers():
     """(read-only) Total numbers of customers served downline from this bus"""
-    return lib.Bus_Get_N_Customers()
+    return CheckForError(lib.Bus_Get_N_Customers())
 
 
 def N_interrupts():
     """(read-only) Number of interruptions this bus per year"""
-    return lib.Bus_Get_N_interrupts()
+    return CheckForError(lib.Bus_Get_N_interrupts())
 
 
 def Name():
     """(read-only) Name of Bus"""
-    return get_string(lib.Bus_Get_Name())
+    return get_string(CheckForError(lib.Bus_Get_Name()))
 
 
 def Nodes():
@@ -73,12 +80,12 @@ def Nodes():
 
 def NumNodes():
     """(read-only) Number of Nodes this bus."""
-    return lib.Bus_Get_NumNodes()
+    return CheckForError(lib.Bus_Get_NumNodes())
 
 
 def SectionID():
     """(read-only) Integer ID of the feeder section in which this bus is located."""
-    return lib.Bus_Get_SectionID()
+    return CheckForError(lib.Bus_Get_SectionID())
 
 
 def SeqVoltages():
@@ -88,7 +95,7 @@ def SeqVoltages():
 
 def TotalMiles():
     """(read-only) Total length of line downline from this bus, in miles. For recloser siting algorithm."""
-    return lib.Bus_Get_TotalMiles()
+    return CheckForError(lib.Bus_Get_TotalMiles())
 
 
 def VLL():
@@ -133,7 +140,7 @@ def ZscMatrix():
 
 def kVBase():
     """(read-only) Base voltage at bus in kV"""
-    return lib.Bus_Get_kVBase()
+    return CheckForError(lib.Bus_Get_kVBase())
 
 
 def puVLL():
@@ -155,24 +162,32 @@ def X(*args):
     """X Coordinate for bus (double)"""
     # Getter
     if len(args) == 0:
-        return lib.Bus_Get_x()
+        return CheckForError(lib.Bus_Get_x())
 
     # Setter
     Value, = args
-    lib.Bus_Set_x(Value)
-    CheckForError()
+    CheckForError(lib.Bus_Set_x(Value))
 
 
 def Y(*args):
     """Y coordinate for bus(double)"""
     # Getter
     if len(args) == 0:
-        return lib.Bus_Get_y()
+        return CheckForError(lib.Bus_Get_y())
 
     # Setter
     Value, = args
-    lib.Bus_Set_y(Value)
-    CheckForError()
+    CheckForError(lib.Bus_Set_y(Value))
+
+
+def LoadList():
+    """List of strings: Full Names of LOAD elements connected to the active bus."""
+    return CheckForError(get_string_array(lib.Bus_Get_LoadList))
+
+
+def LineList():
+    """List of strings: Full Names of LINE elements connected to the active bus."""
+    return CheckForError(get_string_array(lib.Bus_Get_LineList))
 
 
 _columns = [
@@ -240,4 +255,6 @@ __all__ = [
     "PuVoltage",
     "X",
     "Y",
+    "LoadList",
+    "LineList",
 ]

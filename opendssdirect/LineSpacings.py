@@ -13,12 +13,12 @@ from ._utils import (
 
 def AllNames():
     """(read-only) List of strings with all LineSpacing names"""
-    return get_string_array(lib.LineSpacings_Get_AllNames)
+    return CheckForError(get_string_array(lib.LineSpacings_Get_AllNames))
 
 
 def Count():
     """(read-only) Number of LineSpacings"""
-    return lib.LineSpacings_Get_Count()
+    return CheckForError(lib.LineSpacings_Get_Count())
 
 
 def Idx(*args):
@@ -27,7 +27,7 @@ def Idx(*args):
     """
     # Getter
     if len(args) == 0:
-        return lib.LineSpacings_Get_idx()
+        return CheckForError(lib.LineSpacings_Get_idx())
 
     # Setter
     Value, = args
@@ -36,12 +36,12 @@ def Idx(*args):
 
 def First():
     """Set first LineSpacing active; returns 0 if none."""
-    return lib.LineSpacings_Get_First()
+    return CheckForError(lib.LineSpacings_Get_First())
 
 
 def Next():
     """Sets next LineSpacing active; returns 0 if no more."""
-    return lib.LineSpacings_Get_Next()
+    return CheckForError(lib.LineSpacings_Get_Next())
 
 
 def Name(*args):
@@ -50,13 +50,12 @@ def Name(*args):
     """
     # Getter
     if len(args) == 0:
-        return get_string(lib.LineSpacings_Get_Name())
+        return CheckForError(get_string(lib.LineSpacings_Get_Name()))
 
     # Setter
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     CheckForError(lib.LineSpacings_Set_Name(Value))
 
 
@@ -64,34 +63,31 @@ def Phases(*args):
     """Number of Phases"""
     # Getter
     if len(args) == 0:
-        return lib.LineSpacings_Get_Phases()
+        return CheckForError(lib.LineSpacings_Get_Phases())
 
     # Setter
     Value, = args
-    lib.LineSpacings_Set_Phases(Value)
-    CheckForError()
+    CheckForError(lib.LineSpacings_Set_Phases(Value))
 
 
 def Nconds(*args):
     # Getter
     if len(args) == 0:
-        return lib.LineSpacings_Get_Nconds()
+        return CheckForError(lib.LineSpacings_Get_Nconds())
 
     # Setter
     Value, = args
-    lib.LineSpacings_Set_Nconds(Value)
-    CheckForError()
+    CheckForError(lib.LineSpacings_Set_Nconds(Value))
 
 
 def Units(*args):
     # Getter
     if len(args) == 0:
-        return lib.LineSpacings_Get_Units()
+        return CheckForError(lib.LineSpacings_Get_Units())
 
     # Setter
     Value, = args
-    lib.LineSpacings_Set_Units(Value)
-    CheckForError()
+    CheckForError(lib.LineSpacings_Set_Units(Value))
 
 
 def Xcoords(*args):
@@ -103,8 +99,7 @@ def Xcoords(*args):
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
-    lib.LineSpacings_Set_Xcoords(ValuePtr, ValueCount)
-    CheckForError()
+    CheckForError(lib.LineSpacings_Set_Xcoords(ValuePtr, ValueCount))
 
 
 def Ycoords(*args):
@@ -116,8 +111,7 @@ def Ycoords(*args):
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
-    lib.LineSpacings_Set_Ycoords(ValuePtr, ValueCount)
-    CheckForError()
+    CheckForError(lib.LineSpacings_Set_Ycoords(ValuePtr, ValueCount))
 
 
 _columns = ["Name", "Idx", "Nconds", "Phases", "Units", "Xcoords", "Ycoords"]

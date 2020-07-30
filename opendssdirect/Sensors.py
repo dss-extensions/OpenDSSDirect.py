@@ -12,21 +12,21 @@ from ._utils import (
 
 
 def Reset():
-    lib.Sensors_Reset()
+    CheckForError(lib.Sensors_Reset())
 
 
 def ResetAll():
-    lib.Sensors_ResetAll()
+    CheckForError(lib.Sensors_ResetAll())
 
 
 def AllNames():
     """(read-only) List of strings with all Sensor names"""
-    return get_string_array(lib.Sensors_Get_AllNames)
+    return CheckForError(get_string_array(lib.Sensors_Get_AllNames))
 
 
 def Count():
     """(read-only) Number of Sensors"""
-    return lib.Sensors_Get_Count()
+    return CheckForError(lib.Sensors_Get_Count())
 
 
 def Currents(*args):
@@ -38,51 +38,47 @@ def Currents(*args):
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
-    lib.Sensors_Set_Currents(ValuePtr, ValueCount)
-    CheckForError()
+    CheckForError(lib.Sensors_Set_Currents(ValuePtr, ValueCount))
 
 
 def First():
     """Set first Sensor active; returns 0 if none."""
-    return lib.Sensors_Get_First()
+    return CheckForError(lib.Sensors_Get_First())
 
 
 def IsDelta(*args):
     """True if measured voltages are line-line. Currents are always line currents."""
     # Getter
     if len(args) == 0:
-        return lib.Sensors_Get_IsDelta() != 0
+        return CheckForError(lib.Sensors_Get_IsDelta()) != 0
 
     # Setter
     Value, = args
-    lib.Sensors_Set_IsDelta(Value)
-    CheckForError()
+    CheckForError(lib.Sensors_Set_IsDelta(Value))
 
 
 def MeteredElement(*args):
     """Full Name of the measured element"""
     # Getter
     if len(args) == 0:
-        return get_string(lib.Sensors_Get_MeteredElement())
+        return get_string(CheckForError(lib.Sensors_Get_MeteredElement()))
 
     # Setter
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-    lib.Sensors_Set_MeteredElement(Value)
-    CheckForError()
+    CheckForError(lib.Sensors_Set_MeteredElement(Value))
 
 
 def MeteredTerminal(*args):
     """Number of the measured terminal in the measured element."""
     # Getter
     if len(args) == 0:
-        return lib.Sensors_Get_MeteredTerminal()
+        return CheckForError(lib.Sensors_Get_MeteredTerminal())
 
     # Setter
     Value, = args
-    lib.Sensors_Set_MeteredTerminal(Value)
-    CheckForError()
+    CheckForError(lib.Sensors_Set_MeteredTerminal(Value))
 
 
 def Name(*args):
@@ -91,7 +87,7 @@ def Name(*args):
     """
     # Getter
     if len(args) == 0:
-        return get_string(lib.Sensors_Get_Name())
+        return CheckForError(get_string(lib.Sensors_Get_Name()))
 
     # Setter
     Value, = args
@@ -102,43 +98,40 @@ def Name(*args):
 
 def Next():
     """Sets next Sensor active; returns 0 if no more."""
-    return lib.Sensors_Get_Next()
+    return CheckForError(lib.Sensors_Get_Next())
 
 
 def PctError(*args):
     """Assumed percent error in the Sensor measurement. Default is 1."""
     # Getter
     if len(args) == 0:
-        return lib.Sensors_Get_PctError()
+        return CheckForError(lib.Sensors_Get_PctError())
 
     # Setter
     Value, = args
-    lib.Sensors_Set_PctError(Value)
-    CheckForError()
+    CheckForError(lib.Sensors_Set_PctError(Value))
 
 
 def ReverseDelta(*args):
     """True if voltage measurements are 1-3, 3-2, 2-1."""
     # Getter
     if len(args) == 0:
-        return lib.Sensors_Get_ReverseDelta() != 0
+        return CheckForError(lib.Sensors_Get_ReverseDelta()) != 0
 
     # Setter
     Value, = args
-    lib.Sensors_Set_ReverseDelta(Value)
-    CheckForError()
+    CheckForError(lib.Sensors_Set_ReverseDelta(Value))
 
 
 def Weight(*args):
     """Weighting factor for this Sensor measurement with respect to other Sensors. Default is 1."""
     # Getter
     if len(args) == 0:
-        return lib.Sensors_Get_Weight()
+        return CheckForError(lib.Sensors_Get_Weight())
 
     # Setter
     Value, = args
-    lib.Sensors_Set_Weight(Value)
-    CheckForError()
+    CheckForError(lib.Sensors_Set_Weight(Value))
 
 
 def kvar(*args):
@@ -150,8 +143,7 @@ def kvar(*args):
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
-    lib.Sensors_Set_kVARS(ValuePtr, ValueCount)
-    CheckForError()
+    CheckForError(lib.Sensors_Set_kVARS(ValuePtr, ValueCount))
 
 
 def kVS(*args):
@@ -163,20 +155,18 @@ def kVS(*args):
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
-    lib.Sensors_Set_kVS(ValuePtr, ValueCount)
-    CheckForError()
+    CheckForError(lib.Sensors_Set_kVS(ValuePtr, ValueCount))
 
 
 def kVBase(*args):
     """Voltage base for the sensor measurements. LL for 2 and 3-phase sensors, LN for 1-phase sensors."""
     # Getter
     if len(args) == 0:
-        return lib.Sensors_Get_kVbase()
+        return CheckForError(lib.Sensors_Get_kVbase())
 
     # Setter
     Value, = args
-    lib.Sensors_Set_kVbase(Value)
-    CheckForError()
+    CheckForError(lib.Sensors_Set_kVbase(Value))
 
 
 def kW(*args):
@@ -188,8 +178,7 @@ def kW(*args):
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
-    lib.Sensors_Set_kWS(ValuePtr, ValueCount)
-    CheckForError()
+    CheckForError(lib.Sensors_Set_kWS(ValuePtr, ValueCount))
 
 
 def Idx(*args):
@@ -198,7 +187,7 @@ def Idx(*args):
     """
     # Getter
     if len(args) == 0:
-        return lib.Sensors_Get_idx()
+        return CheckForError(lib.Sensors_Get_idx())
 
     # Setter
     Value, = args

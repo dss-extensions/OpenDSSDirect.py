@@ -4,25 +4,23 @@ from ._utils import lib, codec, CheckForError
 
 
 def Close():
-    lib.DSSProgress_Close()
+    CheckForError(lib.DSSProgress_Close())
 
 
 def Show():
-    lib.DSSProgress_Show()
+    CheckForError(lib.DSSProgress_Show())
 
 
 def Caption(Value):
     """(write-only) Caption to appear on the bottom of the DSS Progress form."""
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-    lib.DSSProgress_Set_Caption(Value)
-    CheckForError()
+    CheckForError(lib.DSSProgress_Set_Caption(Value))
 
 
 def PctProgress(Value):
     """(write-only) Percent progress to indicate [0..100]"""
-    lib.DSSProgress_Set_PctProgress(Value)
-    CheckForError()
+    CheckForError(lib.DSSProgress_Set_PctProgress(Value))
 
 
 _columns = []

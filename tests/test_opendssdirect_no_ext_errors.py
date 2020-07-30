@@ -15,16 +15,17 @@ PATH_TO_DSS = os.path.abspath(
 def dss():
     import opendssdirect as dss
 
-    dss.Error.ExtendedErrors(True)
+    dss.Error.ExtendedErrors(False)
 
     assert (
         dss.utils.run_command("Redirect {}".format(PATH_TO_DSS)) == ""
     ), "Unable to find test data"
+
     return dss
 
 
 def test_extended_errors(dss):
-    assert dss.Error.ExtendedErrors()
+    assert not dss.Error.ExtendedErrors()
 
 
 def test_package_import():
@@ -1534,23 +1535,23 @@ def test_13Node_Capacitors(dss):
 
 def test_13Node_CapControls(dss):
     assert dss.CapControls.AllNames() == []
-    # assert dss.CapControls.CTRatio() == 0.0
-    # assert dss.CapControls.Capacitor() == u""
+    assert dss.CapControls.CTRatio() == 0.0
+    assert dss.CapControls.Capacitor() == u""
     assert dss.CapControls.Count() == 0
+    assert dss.CapControls.Delay() == 0.0
+    assert dss.CapControls.DelayOff() == 0.0
     assert dss.CapControls.First() == 0
+    assert dss.CapControls.Mode() == 1
+    assert dss.CapControls.MonitoredObj() == u""
+    assert dss.CapControls.MonitoredTerm() == 0
+    assert dss.CapControls.Name() == u""
     assert dss.CapControls.Next() == 0
-    # assert dss.CapControls.Delay() == 0.0
-    # assert dss.CapControls.DelayOff() == 0.0
-    # assert dss.CapControls.Mode() == 1
-    # assert dss.CapControls.MonitoredObj() == u""
-    # assert dss.CapControls.MonitoredTerm() == 0
-    # assert dss.CapControls.Name() == u""
-    # assert dss.CapControls.OFFSetting() == 0.0
-    # assert dss.CapControls.ONSetting() == 0.0
-    # assert dss.CapControls.PTRatio() == 0.0
-    # assert dss.CapControls.UseVoltOverride() == 0
-    # assert dss.CapControls.Vmax() == 0.0
-    # assert dss.CapControls.Vmin() == 0.0
+    assert dss.CapControls.OFFSetting() == 0.0
+    assert dss.CapControls.ONSetting() == 0.0
+    assert dss.CapControls.PTRatio() == 0.0
+    assert dss.CapControls.UseVoltOverride() == 0
+    assert dss.CapControls.Vmax() == 0.0
+    assert dss.CapControls.Vmin() == 0.0
 
 
 def test_13Node_Element(dss):
@@ -1619,20 +1620,20 @@ def test_13Node_Executive(dss):
 
 def test_13Node_Fuses(dss):
     assert dss.Fuses.AllNames() == []
+    assert dss.Fuses.Close() is None
     assert dss.Fuses.Count() == 0
     assert dss.Fuses.First() == 0
     assert dss.Fuses.Idx() == 0
+    assert dss.Fuses.IsBlown() == 0
+    assert dss.Fuses.MonitoredObj() == u""
+    assert dss.Fuses.MonitoredTerm() == 0
+    assert dss.Fuses.Name() == u""
     assert dss.Fuses.Next() == 0
-    # assert dss.Fuses.Close() is None
-    # assert dss.Fuses.IsBlown() == 0
-    # assert dss.Fuses.MonitoredObj() == u""
-    # assert dss.Fuses.MonitoredTerm() == 0
-    # assert dss.Fuses.Name() == u""
-    # assert dss.Fuses.NumPhases() == 0
-    # assert dss.Fuses.Open() is None
-    # assert dss.Fuses.RatedCurrent() == -1.0
-    # assert dss.Fuses.SwitchedObj() == u""
-    # assert dss.Fuses.TCCCurve() == u"No Fuse Active!"
+    assert dss.Fuses.NumPhases() == 0
+    assert dss.Fuses.Open() is None
+    assert dss.Fuses.RatedCurrent() == -1.0
+    assert dss.Fuses.SwitchedObj() == u""
+    assert dss.Fuses.TCCCurve() == u"No Fuse Active!"
 
 
 def test_13Node_Generators(dss):
@@ -1640,13 +1641,13 @@ def test_13Node_Generators(dss):
     assert dss.Generators.AllNames() == []
     assert dss.Generators.Count() == 0
     assert dss.Generators.First() == 0
-    assert dss.Generators.Next() == 0
+    assert dss.Generators.ForcedON() == 0
     assert dss.Generators.Idx() == 0
-    # assert dss.Generators.ForcedON() == 0
-    # assert dss.Generators.Model() == -1
-    # assert dss.Generators.Name() == u""
-    # assert dss.Generators.PF() == 0.0
-    # assert dss.Generators.Phases() == 0
+    assert dss.Generators.Model() == -1
+    assert dss.Generators.Name() == u""
+    assert dss.Generators.Next() == 0
+    assert dss.Generators.PF() == 0.0
+    assert dss.Generators.Phases() == 0
     assert dss.Generators.RegisterNames() == [
         u"kWh",
         u"kvarh",
@@ -1655,25 +1656,30 @@ def test_13Node_Generators(dss):
         u"Hours",
         u"$",
     ]
-    # assert dss.Generators.RegisterValues() == [0.0]
-    # assert dss.Generators.Vmaxpu() == -1.0
-    # assert dss.Generators.Vminpu() == -1.0
-    # assert dss.Generators.kV() == -1.0
-    # assert dss.Generators.kVARated() == -1.0
-    # assert dss.Generators.kW() == 0.0
-    # assert dss.Generators.kvar() == 0.0
+    assert dss.Generators.RegisterValues() == [0.0]
+    assert dss.Generators.Vmaxpu() == -1.0
+    assert dss.Generators.Vminpu() == -1.0
+    assert dss.Generators.kV() == -1.0
+    assert dss.Generators.kVARated() == -1.0
+    assert dss.Generators.kW() == 0.0
+    assert dss.Generators.kvar() == 0.0
 
 
 def test_13Node_Isource(dss):
 
     assert dss.Isource.AllNames() == []
+    assert dss.Isource.Amps() == 0.0
+    assert dss.Isource.AngleDeg() == 0.0
     assert dss.Isource.Count() == 0
     assert dss.Isource.First() == 0
+    assert dss.Isource.Frequency() == 0.0
+
+    # Update in DSS C-API 0.10.6 -- before, the value listed
+    # wasn't really an Isource, it was the name of the latest
+    # active circuit element
+    assert dss.Isource.Name() == u""
+
     assert dss.Isource.Next() == 0
-    # assert dss.Isource.Amps() == 0.0
-    # assert dss.Isource.AngleDeg() == 0.0
-    # assert dss.Isource.Frequency() == 0.0
-    # assert dss.Isource.Name() == u""
 
 
 def test_13Node_Lines(dss):
@@ -1927,27 +1933,140 @@ def test_13Node_LoadShape(dss):
 
 
 def test_13Node_Meters(dss):
-    with pt.raises(dss.DSSException):
-        assert dss.Meters.AllEndElements()
-
-    assert dss.Meters.Count() == 0
-    assert dss.Meters.Next() == 0
-    assert dss.Meters.First() == 0
-    assert dss.Meters.ResetAll() is None
+    assert dss.Meters.AllBranchesInZone() == []
+    assert dss.Meters.AllEndElements() == []
     assert dss.Meters.AllNames() == []
+    assert dss.Meters.AllocFactors() == [0.0]
+    assert dss.Meters.AvgRepairTime() == 0.0
+    assert dss.Meters.CalcCurrent() == [0.0]
+    assert dss.Meters.CloseAllDIFiles() is None
+    assert dss.Meters.Count() == 0
+    assert dss.Meters.CountBranches() == 0
+    assert dss.Meters.CountEndElements() == 0
+    assert dss.Meters.CustInterrupts() == 0.0
+    assert dss.Meters.DIFilesAreOpen() == 0
+    assert dss.Meters.FaultRateXRepairHrs() == 0.0
+    assert dss.Meters.First() == 0
+    assert dss.Meters.MeteredElement() == u""
+    assert dss.Meters.MeteredTerminal() == 0
+    assert dss.Meters.Name() == u""
+    assert dss.Meters.Next() == 0
+    assert dss.Meters.NumSectionBranches() == 0
+    assert dss.Meters.NumSectionCustomers() == 0
+    assert dss.Meters.NumSections() == 0
+    assert dss.Meters.OCPDeviceType() == 0
+    assert dss.Meters.OpenAllDIFiles() is None
+    assert dss.Meters.PeakCurrent() == [0.0]
+    assert dss.Meters.RegisterNames() == []
+    assert dss.Meters.RegisterValues() == [0.0]
+    assert dss.Meters.Reset() is None
+    assert dss.Meters.ResetAll() is None
+    assert dss.Meters.SAIDI() == 0.0
+    assert dss.Meters.SAIFI() == 0.0
+    assert dss.Meters.SAIFIkW() == 0.0
+    assert dss.Meters.Sample() is None
     assert dss.Meters.SampleAll() is None
+    assert dss.Meters.Save() is None
     assert dss.Meters.SaveAll() is None
+    assert dss.Meters.SectSeqidx() == 0
+    assert dss.Meters.SectTotalCust() == 0
+    assert dss.Meters.SeqListSize() == 0
+    assert dss.Meters.SequenceList() == 0
+    assert dss.Meters.SetActiveSection(0) is None
+    assert dss.Meters.SumBranchFltRates() == 0.0
+    assert dss.Meters.TotalCustomers() == 0
+    assert dss.Meters.Totals() == [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+    ]
 
 
 def test_13Node_Monitors(dss):
     assert dss.Monitors.AllNames() == []
+    assert dss.Monitors.ByteStream() == []
     assert dss.Monitors.Count() == 0
+    assert dss.Monitors.Element() == u"0"
+    assert dss.Monitors.FileName() == u""
+    assert isinstance(dss.Monitors.FileVersion(), int)
     assert dss.Monitors.First() == 0
+    assert dss.Monitors.Mode() == 0
+    assert dss.Monitors.Name() == u""
     assert dss.Monitors.Next() == 0
+    assert dss.Monitors.Process() is None
     assert dss.Monitors.ProcessAll() is None
+    assert dss.Monitors.Reset() is None
     assert dss.Monitors.ResetAll() is None
-    assert dss.Monitors.SaveAll() is None
+    assert dss.Monitors.Sample() is None
     assert dss.Monitors.SampleAll() is None
+    assert dss.Monitors.Save() is None
+    assert dss.Monitors.SaveAll() is None
+    assert dss.Monitors.Show() is None
+    assert dss.Monitors.Terminal() == 0
 
 
 def test_13Node_PDElements(dss):
@@ -1969,99 +2088,6 @@ def test_13Node_PDElements(dss):
     assert dss.PDElements.TotalCustomers() == 0
     assert dss.PDElements.TotalMiles() == 0.0
 
-    all_names = dss.PDElements.AllNames()
-    all_max_currents = dss.PDElements.AllMaxCurrents()
-    all_max_currents_all_terms = dss.PDElements.AllMaxCurrents(AllNodes=True)
-    all_pct_norm = dss.PDElements.AllPctNorm()
-    all_pct_emerg = dss.PDElements.AllPctEmerg()
-    all_currents = dss.PDElements.AllCurrents()
-    all_currents_polar = dss.PDElements.AllCurrentsMagAng()
-    all_cplx_seq_currents = dss.PDElements.AllCplxSeqCurrents()
-    all_seq_currents = dss.PDElements.AllSeqCurrents()
-    all_powers = dss.PDElements.AllPowers()
-    all_seq_powers = dss.PDElements.AllSeqPowers()
-    all_num_phases = dss.PDElements.AllNumPhases()
-    all_num_conductors = dss.PDElements.AllNumConductors()
-    all_num_terminals = dss.PDElements.AllNumTerminals()
-
-    ang = np.deg2rad(np.asarray(all_currents_polar[1::2]))
-    np.testing.assert_array_almost_equal(
-        np.asarray(all_currents).view(dtype=complex),
-        np.asarray(all_currents_polar[::2]) * (np.cos(ang) + 1j * np.sin(ang)),
-        decimal=4,
-    )
-
-    np.testing.assert_array_almost_equal(
-        np.abs(np.asarray(all_cplx_seq_currents).view(dtype=complex)),
-        all_seq_currents,
-        decimal=4,
-    )
-
-    all_max_currents2 = []
-    all_max_currents_all_terms_2 = []
-    all_norm_amp2 = []
-    all_emerg_amp2 = []
-    all_currents2 = []
-    all_cplx_seq_currents2 = []
-    all_powers2 = []
-    all_seq_powers2 = []
-    all_num_phases2 = []
-    all_num_conductors2 = []
-    all_num_terminals2 = []
-
-    for name in all_names:
-        # We have to iterate by name to include disabled elements
-        dss.PDElements.Name(name)
-        
-        currents = np.asarray(dss.CktElement.Currents()).view(dtype=complex)
-        
-        all_max_currents2.append(np.max(np.abs(currents[:dss.CktElement.NumPhases()])))
-        all_max_currents_all_terms_2.append(np.max(np.abs(currents)))
-        
-        all_currents2.append(currents)
-        all_norm_amp2.append(dss.CktElement.NormalAmps())
-        all_emerg_amp2.append(dss.CktElement.EmergAmps())
-        all_cplx_seq_currents2.append(dss.CktElement.CplxSeqCurrents())
-        all_powers2.append(dss.CktElement.Powers())
-        all_seq_powers2.append(dss.CktElement.SeqPowers())
-
-        all_num_phases2.append(dss.CktElement.NumPhases())
-        all_num_conductors2.append(dss.CktElement.NumConductors())
-        all_num_terminals2.append(dss.CktElement.NumTerminals())
-
-    np.testing.assert_array_almost_equal(all_max_currents, all_max_currents2, decimal=4)
-    np.testing.assert_array_almost_equal(
-        all_max_currents_all_terms, 
-        all_max_currents_all_terms_2, 
-        decimal=4
-    )
-
-    np.testing.assert_array_almost_equal(
-        all_pct_norm,
-        100 * np.asarray(all_max_currents) / np.asarray(all_norm_amp2),
-        decimal=4,
-    )
-
-    np.testing.assert_array_almost_equal(
-        all_pct_emerg,
-        100 * np.asarray(all_max_currents) / np.asarray(all_emerg_amp2),
-        decimal=4,
-    )
-
-    np.testing.assert_array_almost_equal(
-        np.asarray(all_currents).view(dtype=complex), 
-        np.concatenate(all_currents2), 
-        decimal=4
-    )
-
-    np.testing.assert_array_almost_equal(
-        all_powers, np.concatenate(all_powers2), decimal=4
-    )
-
-    np.testing.assert_array_almost_equal(
-        all_seq_powers, np.concatenate(all_seq_powers2), decimal=4
-    )
-
 
 def test_13Node_Properties(dss):  # TODO!! rework DSSProperty
     dss.dss_lib.DSSProperty_Set_Index(0)  # TODO?
@@ -2080,15 +2106,34 @@ def test_13Node_PVsystems(dss):
     assert dss.PVsystems.Count() == 0
     assert dss.PVsystems.First() == 0
     assert dss.PVsystems.Idx() == 0
+    assert dss.PVsystems.Irradiance() == -1.0
     assert dss.PVsystems.Next() == 0
+    assert dss.PVsystems.kVARated() == -1.0
+    assert dss.PVsystems.kW() == 0.0
+    assert dss.PVsystems.kvar() == 0.0
+    assert dss.PVsystems.pf() == 0.0
 
 
 def test_13Node_Reclosers(dss):
     assert dss.Reclosers.AllNames() == []
+    assert dss.Reclosers.Close() is None
     assert dss.Reclosers.Count() == 0
     assert dss.Reclosers.First() == 0
+    assert dss.Reclosers.GroundInst() == 0.0
+    assert dss.Reclosers.GroundTrip() == 0.0
     assert dss.Reclosers.Idx() == 0
+    assert dss.Reclosers.MonitoredObj() == u""
+    assert dss.Reclosers.MonitoredTerm() == 0
+    assert dss.Reclosers.Name() == u""
     assert dss.Reclosers.Next() == 0
+    assert dss.Reclosers.NumFast() == 0
+    assert dss.Reclosers.Open() is None
+    assert dss.Reclosers.PhaseInst() == 0.0
+    assert dss.Reclosers.PhaseTrip() == 0.0
+    assert dss.Reclosers.RecloseIntervals() == [-1.0]
+    assert dss.Reclosers.Shots() == 0
+    assert dss.Reclosers.SwitchedObj() == u""
+    assert dss.Reclosers.SwitchedTerm() == 0
 
 
 def test_13Node_RegControls(dss):
@@ -2127,17 +2172,32 @@ def test_13Node_Relays(dss):
     assert dss.Relays.Count() == 0
     assert dss.Relays.First() == 0
     assert dss.Relays.Idx() == 0
+    assert dss.Relays.MonitoredObj() == u""
+    assert dss.Relays.MonitoredTerm() == 0
+    assert dss.Relays.Name() == u""
     assert dss.Relays.Next() == 0
+    assert dss.Relays.SwitchedObj() == u""
+    assert dss.Relays.SwitchedTerm() == 0
 
 
 def test_13Node_Sensors(dss):
     assert dss.Sensors.AllNames() == []
     assert dss.Sensors.Count() == 0
-    assert dss.Sensors.First() == 0
-    assert dss.Sensors.Next() == 0
-    assert dss.Sensors.ResetAll() is None
-
     assert dss.Sensors.Currents() == [0.0]
+    assert dss.Sensors.First() == 0
+    assert dss.Sensors.IsDelta() == 0
+    assert dss.Sensors.MeteredElement() == u""
+    assert dss.Sensors.MeteredTerminal() == 0
+    assert dss.Sensors.Name() == u""
+    assert dss.Sensors.Next() == 0
+    assert dss.Sensors.PctError() == 0.0
+    assert dss.Sensors.Reset() is None
+    assert dss.Sensors.ResetAll() is None
+    assert dss.Sensors.ReverseDelta() == 0
+    assert dss.Sensors.Weight() == 0.0
+    assert dss.Sensors.kVBase() == 0.0
+    assert dss.Sensors.kW() == [0.0]
+    assert dss.Sensors.kvar() == [0.0]
 
 
 def test_13Node_Settings(dss):
@@ -2228,10 +2288,16 @@ def test_13Node_Solution(dss):
 
 
 def test_13Node_SwtControls(dss):
+    assert dss.SwtControls.Action() == 0
     assert dss.SwtControls.AllNames() == []
     assert dss.SwtControls.Count() == 0
+    assert dss.SwtControls.Delay() == 0.0
     assert dss.SwtControls.First() == 0
+    assert dss.SwtControls.IsLocked() == 0
+    assert dss.SwtControls.Name() == u""
     assert dss.SwtControls.Next() == 0
+    assert dss.SwtControls.SwitchedObj() == u""
+    assert dss.SwtControls.SwitchedTerm() == 0
 
 
 def test_13Node_Topology(dss):
@@ -2301,7 +2367,19 @@ def test_13Node_Vsources(dss):
 def test_13Node_XYCurves(dss):
     assert dss.XYCurves.Count() == 0
     assert dss.XYCurves.First() == 0
+    assert dss.XYCurves.Name() == u""
     assert dss.XYCurves.Next() == 0
+    with pt.raises(dss.DSSException):
+        dss.XYCurves.Npts()
+
+    with pt.raises(dss.DSSException):
+        dss.XYCurves.X()
+
+    with pt.raises(dss.DSSException):
+        dss.XYCurves.XScale()
+
+    assert dss.XYCurves.XArray() == [0.0]
+    assert dss.XYCurves.YArray() == [0.0]
 
 
 def test_capacitors_to_dataframe(dss):
@@ -2323,19 +2401,62 @@ def test_capacitors_to_dataframe(dss):
 
 
 def test_fuses_to_dataframe(dss):
-    expected_dict = {}
+    expected_dict = pd.DataFrame(
+        {
+            "Delay": {"": -1.0},
+            "SwitchedTerm": {"": 0},
+            "Idx": {"": 0},
+            "IsBlown": {"": 0},
+            "MonitoredObj": {"": ""},
+            "MonitoredTerm": {"": 0},
+            "Name": {"": ""},
+            "NumPhases": {"": 0},
+            "RatedCurrent": {"": -1.0},
+            "SwitchedObj": {"": ""},
+            "TCCCurve": {"": "No Fuse Active!"},
+        }
+    ).to_dict()
+
     actual_dict = dss.utils.fuses_to_dataframe().to_dict()
     assert_dict_equal(actual_dict, expected_dict)
 
 
 def test_generators_to_dataframe(dss):
-    expected_dict = {}
+    expected_dict = pd.DataFrame(
+        {
+            "ForcedON": {"": 0},
+            "Idx": {"": 0},
+            "Model": {"": -1},
+            "Name": {"": ""},
+            "PF": {"": 0.0},
+            "Phases": {"": 0},
+            "RegisterNames": {"": ["kWh", "kvarh", "Max kW", "Max kVA", "Hours", "$"]},
+            "RegisterValues": {"": [0.0]},
+            "Vmaxpu": {"": -1.0},
+            "Vminpu": {"": -1.0},
+            "kV": {"": -1.0},
+            "kVARated": {"": -1.0},
+            "kW": {"": 0.0},
+            "kvar": {"": 0.0},
+        }
+    ).to_dict()
+
     actual_dict = dss.utils.generators_to_dataframe().to_dict()
+
     assert_dict_equal(actual_dict, expected_dict)
 
 
 def test_isource_to_dataframe(dss):
-    expected_dict = {}
+    expected_dict = pd.DataFrame(
+        {
+            "Amps": {"": 0.0},
+            "AngleDeg": {"": 0.0},
+            "Frequency": {"": 0.0},
+            "Idx": {"": 0},
+            "Name": {"": ""},
+        }
+    ).to_dict()
+
     actual_dict = dss.utils.isource_to_dataframe().to_dict()
     assert_dict_equal(actual_dict, expected_dict)
 
@@ -4329,8 +4450,114 @@ def test_loadshape_to_dataframe(dss):
 
 
 def test_meters_to_dataframe(dss):
-    expected_dict = {}
+    expected_dict = pd.DataFrame(
+        {
+            "AllBranchesInZone": {"": []},
+            "AllEndElements": {"": []},
+            "AllocFactors": {"": [0.0]},
+            "AvgRepairTime": {"": 0.0},
+            "CalcCurrent": {"": [0.0]},
+            "CountBranches": {"": 0},
+            "CountEndElements": {"": 0},
+            "CustInterrupts": {"": 0.0},
+            "FaultRateXRepairHrs": {"": 0.0},
+            "MeteredElement": {"": ""},
+            "MeteredTerminal": {"": 0},
+            "Name": {"": ""},
+            "NumSectionBranches": {"": 0},
+            "NumSectionCustomers": {"": 0},
+            "NumSections": {"": 0},
+            "OCPDeviceType": {"": 0},
+            "PeakCurrent": {"": [0.0]},
+            "RegisterNames": {"": []},
+            "RegisterValues": {"": [0.0]},
+            "SAIDI": {"": 0.0},
+            "SAIFI": {"": 0.0},
+            "SAIFIkW": {"": 0.0},
+            "SectSeqidx": {"": 0},
+            "SectTotalCust": {"": 0},
+            "SeqListSize": {"": 0},
+            "SequenceList": {"": 0},
+            "SumBranchFltRates": {"": 0.0},
+            "TotalCustomers": {"": 0},
+            "Totals": {
+                "": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                ]
+            },
+        }
+    ).to_dict()
+
     actual_dict = dss.utils.meters_to_dataframe().to_dict()
+    from pprint import pprint
+
+    pprint(actual_dict)
     assert_dict_equal(actual_dict, expected_dict)
 
 
@@ -4366,7 +4593,24 @@ def test_pvsystems_to_dataframe(dss):
 
 
 def test_reclosers_to_dataframe(dss):
-    expected_dict = {}
+    expected_dict = pd.DataFrame(
+        {
+            "GroundInst": {"": 0.0},
+            "GroundTrip": {"": 0.0},
+            "Idx": {"": 0},
+            "MonitoredObj": {"": ""},
+            "MonitoredTerm": {"": 0},
+            "Name": {"": ""},
+            "NumFast": {"": 0},
+            "PhaseInst": {"": 0.0},
+            "PhaseTrip": {"": 0.0},
+            "RecloseIntervals": {"": [-1.0]},
+            "Shots": {"": 0},
+            "SwitchedObj": {"": ""},
+            "SwitchedTerm": {"": 0},
+        }
+    ).to_dict()
+
     actual_dict = dss.utils.reclosers_to_dataframe().to_dict()
 
     assert_dict_equal(actual_dict, expected_dict)
@@ -4406,13 +4650,40 @@ def test_regcontrols_to_dataframe(dss):
 
 
 def test_relays_to_dataframe(dss):
-    expected_dict = {}
+    expected_dict = pd.DataFrame(
+        {
+            "Idx": {"": 0},
+            "MonitoredObj": {"": ""},
+            "MonitoredTerm": {"": 0},
+            "Name": {"": ""},
+            "SwitchedObj": {"": ""},
+            "SwitchedTerm": {"": 0},
+        }
+    ).to_dict()
+
     actual_dict = dss.utils.relays_to_dataframe().to_dict()
     assert_dict_equal(actual_dict, expected_dict)
 
 
 def test_sensors_to_dataframe(dss):
-    expected_dict = {}
+    expected_dict = pd.DataFrame(
+        {
+            "Currents": {"": [0.0]},
+            "Idx": {"": 0},
+            "IsDelta": {"": 0},
+            "MeteredElement": {"": ""},
+            "MeteredTerminal": {"": 0},
+            "Name": {"": ""},
+            "PctError": {"": 0.0},
+            "ReverseDelta": {"": 0},
+            "Weight": {"": 0.0},
+            "kVBase": {"": 0.0},
+            "kW": {"": [0.0]},
+            "kvar": {"": [0.0]},
+            "kVS": {"": [0.0]},
+        }
+    ).to_dict()
+
     actual_dict = dss.utils.sensors_to_dataframe().to_dict()
     assert_dict_equal(actual_dict, expected_dict)
 
@@ -4660,15 +4931,15 @@ def test_vsources_to_dataframe(dss):
 
 
 def test_xycurves_to_dataframe(dss):
-    expected_dict = {}
-
-    actual_dict = dss.utils.xycurves_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    # XYCurve already set an error before,
+    # but it wasn't handled.
+    with pt.raises(dss.DSSException):
+        dss.utils.xycurves_to_dataframe().to_dict()
 
 
 def test_storage_to_dataframe(dss):
-    dss.dss_lib.DSS_Set_LegacyModels(1)
-    assert dss.dss_lib.DSS_Get_LegacyModels()
+    dss.Basic.LegacyModels(True)
+    assert dss.Basic.LegacyModels()
 
     assert (
         dss.utils.run_command("Redirect {}".format(PATH_TO_DSS)) == ""
@@ -4730,9 +5001,9 @@ def test_storage_to_dataframe(dss):
     assert_dict_equal(actual_dict, expected_dict)
 
     # New version (OpenDSS v9.0+), previsouly Storage2
-    dss.dss_lib.DSS_Set_LegacyModels(0)
+    dss.Basic.LegacyModels(False)
 
-    assert not dss.dss_lib.DSS_Get_LegacyModels()
+    assert not dss.Basic.LegacyModels()
 
     assert (
         dss.utils.run_command("Redirect {}".format(PATH_TO_DSS)) == ""
@@ -4834,6 +5105,7 @@ def test_linegeometry_class_to_dataframe():
     dss.utils.is_pandas_installed = False
     data = dss.utils.class_to_dataframe("linegeometry")
     dss.utils.is_pandas_installed = is_pandas_installed
+
     assert data == {
         "linegeometry.hc2_336_1neut_0mess": {
             "Seasons": "1",
@@ -4863,273 +5135,273 @@ def test_ymatrix(dss):
     expected_Y_data = (
         np.array(
             [
-                (8.178822742754986441e-01 + -4.636999108384913804e+00j),
-                (-1.305502544983652147e-01 + 1.483326906211292595e+00j),
-                (-1.305502544983652424e-01 + 1.483326906211292595e+00j),
-                (-9.283352668986776024e+00 + 7.426682135189420819e+01j),
-                (9.283352668986776024e+00 + -7.426682135189420819e+01j),
-                (-1.305502544983652147e-01 + 1.483326906211292595e+00j),
-                (8.178822742754985331e-01 + -4.636999108384913804e+00j),
-                (-1.305502544983652424e-01 + 1.483326906211292595e+00j),
-                (-9.283352668986776024e+00 + 7.426682135189420819e+01j),
-                (9.283352668986776024e+00 + -7.426682135189420819e+01j),
-                (-1.305502544983652424e-01 + 1.483326906211292595e+00j),
-                (-1.305502544983652424e-01 + 1.483326906211292595e+00j),
-                (8.178822742754985331e-01 + -4.636999108384912915e+00j),
-                (9.283352668986776024e+00 + -7.426682135189420819e+01j),
-                (-9.283352668986776024e+00 + 7.426682135189420819e+01j),
-                (-9.283352668986776024e+00 + 7.426682135189420819e+01j),
-                (9.283352668986776024e+00 + -7.426682135189420819e+01j),
-                (1.890678734891013164e+03 + -5.002165990528294060e+03j),
-                (-1.369165023011177027e+03 + 1.369165023011177027e+03j),
-                (9.283352668986776024e+00 + -7.426682135189420819e+01j),
-                (-9.283352668986776024e+00 + 7.426682135189420819e+01j),
-                (1.890678734891013164e+03 + -5.002165990528294060e+03j),
-                (-1.393908969210174291e+03 + 1.393908969210174291e+03j),
-                (9.283352668986776024e+00 + -7.426682135189420819e+01j),
-                (-9.283352668986776024e+00 + 7.426682135189420819e+01j),
-                (1.890678734891013164e+03 + -5.002165990528294060e+03j),
-                (-1.369165023011177027e+03 + 1.369165023011177027e+03j),
-                (-1.369165023011177027e+03 + 1.369165023011177027e+03j),
-                (1.297396000104054792e+03 + -1.299551419795600850e+03j),
-                (-4.858442625181529362e-01 + 1.220257867465225354e+00j),
+                (8.178822742754986441e-01 + -4.636999108384913804e00j),
+                (-1.305502544983652147e-01 + 1.483326906211292595e00j),
+                (-1.305502544983652424e-01 + 1.483326906211292595e00j),
+                (-9.283352668986776024e00 + 7.426682135189420819e01j),
+                (9.283352668986776024e00 + -7.426682135189420819e01j),
+                (-1.305502544983652147e-01 + 1.483326906211292595e00j),
+                (8.178822742754985331e-01 + -4.636999108384913804e00j),
+                (-1.305502544983652424e-01 + 1.483326906211292595e00j),
+                (-9.283352668986776024e00 + 7.426682135189420819e01j),
+                (9.283352668986776024e00 + -7.426682135189420819e01j),
+                (-1.305502544983652424e-01 + 1.483326906211292595e00j),
+                (-1.305502544983652424e-01 + 1.483326906211292595e00j),
+                (8.178822742754985331e-01 + -4.636999108384912915e00j),
+                (9.283352668986776024e00 + -7.426682135189420819e01j),
+                (-9.283352668986776024e00 + 7.426682135189420819e01j),
+                (-9.283352668986776024e00 + 7.426682135189420819e01j),
+                (9.283352668986776024e00 + -7.426682135189420819e01j),
+                (1.890678734891013164e03 + -5.002165990528294060e03j),
+                (-1.369165023011177027e03 + 1.369165023011177027e03j),
+                (9.283352668986776024e00 + -7.426682135189420819e01j),
+                (-9.283352668986776024e00 + 7.426682135189420819e01j),
+                (1.890678734891013164e03 + -5.002165990528294060e03j),
+                (-1.393908969210174291e03 + 1.393908969210174291e03j),
+                (9.283352668986776024e00 + -7.426682135189420819e01j),
+                (-9.283352668986776024e00 + 7.426682135189420819e01j),
+                (1.890678734891013164e03 + -5.002165990528294060e03j),
+                (-1.369165023011177027e03 + 1.369165023011177027e03j),
+                (-1.369165023011177027e03 + 1.369165023011177027e03j),
+                (1.297396000104054792e03 + -1.299551419795600850e03j),
+                (-4.858442625181529362e-01 + 1.220257867465225354e00j),
                 (-2.660516357083826944e-01 + 9.121918679463129065e-01j),
-                (-1.145090744360685031e+00 + 3.300510491213570319e+00j),
-                (4.858442625181529362e-01 + -1.220257910306296489e+00j),
+                (-1.145090744360685031e00 + 3.300510491213570319e00j),
+                (4.858442625181529362e-01 + -1.220257910306296489e00j),
                 (2.660516357083826944e-01 + -9.121919107873840415e-01j),
-                (-1.393908969210174291e+03 + 1.393908969210174291e+03j),
-                (-4.858442625181529362e-01 + 1.220257867465225354e+00j),
-                (1.344529401077547845e+03 + -1.346654276920105303e+03j),
+                (-1.393908969210174291e03 + 1.393908969210174291e03j),
+                (-4.858442625181529362e-01 + 1.220257867465225354e00j),
+                (1.344529401077547845e03 + -1.346654276920105303e03j),
                 (-1.263013779367583855e-01 + 6.966811885852322028e-01j),
-                (4.858442625181529362e-01 + -1.220257910306296489e+00j),
-                (-1.002683766536306198e+00 + 3.127559664400727968e+00j),
+                (4.858442625181529362e-01 + -1.220257910306296489e00j),
+                (-1.002683766536306198e00 + 3.127559664400727968e00j),
                 (1.263013779367583855e-01 + -6.966812314263033379e-01j),
-                (-1.369165023011177027e+03 + 1.369165023011177027e+03j),
+                (-1.369165023011177027e03 + 1.369165023011177027e03j),
                 (-2.660516357083826944e-01 + 9.121918679463129065e-01j),
                 (-1.263013779367583855e-01 + 6.966811885852322028e-01j),
-                (1.297137603552365363e+03 + -1.299201422392409086e+03j),
+                (1.297137603552365363e03 + -1.299201422392409086e03j),
                 (2.660516357083826944e-01 + -9.121919107873840415e-01j),
                 (1.263013779367583855e-01 + -6.966812314263033379e-01j),
-                (-8.866941926713010069e-01 + 2.950513088021902153e+00j),
-                (6.174482283725819975e+00 + -8.242736155055435887e+00j),
-                (-1.495114717049371045e+00 + 1.505867938221292279e+00j),
-                (-2.139421481120560742e+00 + 1.690070885994096495e+00j),
-                (-5.286769772134452872e+00 + 9.612308676608098068e+00j),
-                (-5.564470386941075652e+00 + 7.133623650981868458e+00j),
-                (1.495114717049371045e+00 + -1.505867948931560063e+00j),
-                (2.139421481120560742e+00 + -1.690070896704364278e+00j),
-                (-1.495114717049371045e+00 + 1.505867938221292279e+00j),
-                (5.518419074829100879e+00 + -8.172341890231122008e+00j),
-                (-1.087994258962287741e+00 + 1.382358902564854608e+00j),
-                (-5.286769772134452872e+00 + 9.612308676608098068e+00j),
-                (1.495114717049371045e+00 + -1.505867948931560063e+00j),
-                (-4.908407178044356556e+00 + 7.063229386157553691e+00j),
-                (1.087994258962287741e+00 + -1.382358913275122392e+00j),
-                (-2.139421481120560742e+00 + 1.690070885994096495e+00j),
-                (-1.087994258962287741e+00 + 1.382358902564854608e+00j),
-                (5.799073706329775924e+00 + -8.194532177879086277e+00j),
-                (-5.286769772134452872e+00 + 9.612308676608098068e+00j),
-                (2.139421481120560742e+00 + -1.690070896704364278e+00j),
-                (1.087994258962287741e+00 + -1.382358913275122392e+00j),
-                (-5.189061809545031601e+00 + 7.085419673805518848e+00j),
-                (-5.286769772134452872e+00 + 9.612308676608098068e+00j),
-                (4.790393247228868745e+01 + -8.474029329807029853e+01j),
-                (-5.286769772134452872e+00 + 9.612308676608098068e+00j),
-                (4.738261719384117043e+01 + -8.447963565884653292e+01j),
-                (-5.286769772134452872e+00 + 9.612308676608098068e+00j),
-                (4.738261719384117043e+01 + -8.447963565884653292e+01j),
-                (1.000001122761358321e+07 + -1.825368951569347686e+01j),
-                (-1.722884289847009143e+00 + 4.284072995171073650e+00j),
-                (-3.361195344943603835e+00 + 4.205041811153174436e+00j),
-                (-1.000000000000000000e+07 + 0.000000000000000000e+00j),
-                (-1.718065632949265398e+00 + 4.952003737754794521e+00j),
-                (7.289486309349635373e-01 + -1.830844576603596119e+00j),
-                (3.991772478745427843e-01 + -1.368630023686997710e+00j),
-                (-2.290181488721370062e+00 + 6.601020982427140638e+00j),
-                (9.716885250363058724e-01 + -2.440515820612592979e+00j),
-                (5.321032714167653888e-01 + -1.824383821574768083e+00j),
-                (-7.174872193248205576e+00 + 6.675239762854815240e+00j),
-                (2.407667691776556040e+00 + -9.993153743626843610e-01j),
-                (-1.722884289847009143e+00 + 4.284072995171073650e+00j),
-                (1.000000355426355079e+07 + -1.097305701620421559e+01j),
-                (-4.643493315148357059e-01 + 2.451358228738929057e+00j),
-                (7.289486309349635373e-01 + -1.830844576603596119e+00j),
-                (-1.504401750242020164e+00 + 4.692512624757282147e+00j),
-                (1.894994417655792851e-01 + -1.045283167931438051e+00j),
-                (9.716885250363058724e-01 + -2.440515820612592979e+00j),
-                (-2.005367533072612396e+00 + 6.255119328801455936e+00j),
-                (2.526027558735167711e-01 + -1.393362462852606676e+00j),
-                (-1.000000000000000000e+07 + 0.000000000000000000e+00j),
-                (-3.361195344943603835e+00 + 4.205041811153174436e+00j),
-                (-4.643493315148357059e-01 + 2.451358228738929057e+00j),
-                (1.000001037299706973e+07 + -1.699808932711195553e+01j),
-                (-1.000000000000000000e+07 + 0.000000000000000000e+00j),
-                (3.991772478745427843e-01 + -1.368630023686997710e+00j),
-                (1.894994417655792851e-01 + -1.045283167931438051e+00j),
-                (-1.330373882477571490e+00 + 4.426876351120633046e+00j),
-                (5.321032714167653888e-01 + -1.824383821574768083e+00j),
-                (2.526027558735167711e-01 + -1.393362462852606676e+00j),
-                (-1.773388385342602014e+00 + 5.901026176043804305e+00j),
-                (2.407667691776556040e+00 + -9.993153743626843610e-01j),
-                (-7.224740534769255262e+00 + 6.644761767290792598e+00j),
-                (1.158909874451969912e+01 + -1.065332013658415633e+01j),
-                (-7.224740534769255262e+00 + 6.644761767290792598e+00j),
-                (2.407667691776556040e+00 + -9.993153743626843610e-01j),
-                (-4.334844320861554579e+00 + 3.986857060374475292e+00j),
-                (1.444600615065933624e+00 + -5.995892246176102169e-01j),
-                (-3.852268306842489665e+00 + 1.598904581843866080e+00j),
-                (-7.224740534769255262e+00 + 6.644761767290792598e+00j),
-                (7.238031030331385729e+00 + -6.652389326059439334e+00j),
-                (-2.420958187338686063e+00 + 1.006942956693920088e+00j),
-                (2.407667691776556040e+00 + -9.993153743626843610e-01j),
-                (2.407667691776556040e+00 + -9.993153743626843610e-01j),
-                (-2.420958187338686063e+00 + 1.006942956693920088e+00j),
-                (7.188162688810336043e+00 + -6.682867321623461976e+00j),
-                (-7.174872193248205576e+00 + 6.675239762854815240e+00j),
-                (-1.000000000000000000e+07 + 0.000000000000000000e+00j),
-                (1.000001042230609432e+07 + -7.845072237930875048e+00j),
-                (-1.090745190943801735e+00 + 2.501251464991074869e+00j),
-                (1.080921781180488095e+00 + -2.492525965730719939e+00j),
-                (2.428535277137064075e+00 + -3.079311097832396094e+00j),
-                (-1.041248268425302825e+01 + 7.836353592313674454e+00j),
-                (-2.428535277137064075e+00 + 3.079311097832396094e+00j),
-                (-1.000000000000000000e+07 + 0.000000000000000000e+00j),
-                (-1.090745190943801735e+00 + 2.501251464991074869e+00j),
-                (1.000001042230609432e+07 + -7.845072237930876824e+00j),
-                (-1.041248268425302648e+01 + 7.836353592313676231e+00j),
-                (2.428535277137063630e+00 + -3.079311097832396982e+00j),
-                (1.080921781180488095e+00 + -2.492525965730719939e+00j),
-                (-2.428535277137063630e+00 + 3.079311097832396982e+00j),
-                (1.080921781180488095e+00 + -2.492525965730719939e+00j),
-                (-1.041248268425302648e+01 + 7.836353592313676231e+00j),
-                (1.049668407314191576e+01 + -7.834661991793467450e+00j),
-                (-2.428535277137063630e+00 + 3.079311097832396982e+00j),
-                (-1.080921781180488095e+00 + 2.492525965730719939e+00j),
-                (2.428535277137063630e+00 + -3.079311097832396982e+00j),
-                (2.428535277137064075e+00 + -3.079311097832396094e+00j),
-                (2.428535277137063630e+00 + -3.079311097832396982e+00j),
-                (-2.428535277137063630e+00 + 3.079311097832396982e+00j),
-                (1.155823502102252576e+01 + -8.172954229715511332e+00j),
-                (-2.428535277137064075e+00 + 3.079311097832396094e+00j),
-                (-1.154642946546696969e+01 + 8.197215274680164754e+00j),
-                (-1.041248268425302825e+01 + 7.836353592313674454e+00j),
-                (1.080921781180488095e+00 + -2.492525965730719939e+00j),
-                (-1.080921781180488095e+00 + 2.492525965730719939e+00j),
-                (-2.428535277137064075e+00 + 3.079311097832396094e+00j),
-                (1.046282990647524969e+01 + -7.838481436237909605e+00j),
-                (2.428535277137064075e+00 + -3.079311097832396094e+00j),
-                (6.559337128485902113e+00 + -6.616251502947750218e+00j),
-                (-6.529823239597012829e+00 + 6.619723755158722689e+00j),
-                (4.313194834445097214e+00 + -1.652684982082156084e+00j),
-                (-4.290972612222875071e+00 + 1.637761166855121964e+00j),
-                (-1.718065632949265398e+00 + 4.952003737754794521e+00j),
-                (7.289486309349635373e-01 + -1.830844576603596119e+00j),
-                (3.991772478745427843e-01 + -1.368630023686997710e+00j),
-                (5.154572477192532531e+00 + -1.485032283099059214e+01j),
-                (-2.185753016296743123e+00 + 5.489788792552021235e+00j),
-                (-1.196933276985134409e+00 + 4.103838109143928214e+00j),
-                (-3.433555455354378338e+00 + 9.896583182049687011e+00j),
-                (1.456804385361779586e+00 + -3.658944258789496473e+00j),
-                (7.977560291105917356e-01 + -2.735208128298001640e+00j),
-                (7.289486309349635373e-01 + -1.830844576603596119e+00j),
-                (-1.504401750242020164e+00 + 4.692512624757282147e+00j),
-                (1.894994417655792851e-01 + -1.045283167931438051e+00j),
-                (-2.185753016296743123e+00 + 5.489788792552021235e+00j),
-                (4.522408109171475843e+00 + -1.407709964525759005e+01j),
-                (-5.682142181876438380e-01 + 3.134282319771936720e+00j),
-                (1.456804385361779586e+00 + -3.658944258789496473e+00j),
-                (-3.006548025596122109e+00 + 9.377989998203085875e+00j),
-                (3.787147764220645252e-01 + -2.088999194681569804e+00j),
-                (3.991772478745427843e-01 + -1.368630023686997710e+00j),
-                (1.894994417655792851e-01 + -1.045283167931438051e+00j),
-                (-1.330373882477571490e+00 + 4.426876351120633046e+00j),
-                (-1.196933276985134409e+00 + 4.103838109143928214e+00j),
-                (-5.682142181876438380e-01 + 3.134282319771936720e+00j),
-                (4.009439583890767267e+00 + -1.328579741296378813e+01j),
-                (7.977560291105917356e-01 + -2.735208128298001640e+00j),
-                (3.787147764220645252e-01 + -2.088999194681569804e+00j),
-                (-2.658753201413195821e+00 + 8.847115706212598241e+00j),
-                (-1.145090744360685031e+00 + 3.300510491213570319e+00j),
-                (4.858442625181529362e-01 + -1.220257910306296489e+00j),
+                (-8.866941926713010069e-01 + 2.950513088021902153e00j),
+                (6.174482283725819975e00 + -8.242736155055435887e00j),
+                (-1.495114717049371045e00 + 1.505867938221292279e00j),
+                (-2.139421481120560742e00 + 1.690070885994096495e00j),
+                (-5.286769772134452872e00 + 9.612308676608098068e00j),
+                (-5.564470386941075652e00 + 7.133623650981868458e00j),
+                (1.495114717049371045e00 + -1.505867948931560063e00j),
+                (2.139421481120560742e00 + -1.690070896704364278e00j),
+                (-1.495114717049371045e00 + 1.505867938221292279e00j),
+                (5.518419074829100879e00 + -8.172341890231122008e00j),
+                (-1.087994258962287741e00 + 1.382358902564854608e00j),
+                (-5.286769772134452872e00 + 9.612308676608098068e00j),
+                (1.495114717049371045e00 + -1.505867948931560063e00j),
+                (-4.908407178044356556e00 + 7.063229386157553691e00j),
+                (1.087994258962287741e00 + -1.382358913275122392e00j),
+                (-2.139421481120560742e00 + 1.690070885994096495e00j),
+                (-1.087994258962287741e00 + 1.382358902564854608e00j),
+                (5.799073706329775924e00 + -8.194532177879086277e00j),
+                (-5.286769772134452872e00 + 9.612308676608098068e00j),
+                (2.139421481120560742e00 + -1.690070896704364278e00j),
+                (1.087994258962287741e00 + -1.382358913275122392e00j),
+                (-5.189061809545031601e00 + 7.085419673805518848e00j),
+                (-5.286769772134452872e00 + 9.612308676608098068e00j),
+                (4.790393247228868745e01 + -8.474029329807029853e01j),
+                (-5.286769772134452872e00 + 9.612308676608098068e00j),
+                (4.738261719384117043e01 + -8.447963565884653292e01j),
+                (-5.286769772134452872e00 + 9.612308676608098068e00j),
+                (4.738261719384117043e01 + -8.447963565884653292e01j),
+                (1.000001122761358321e07 + -1.825368951569347686e01j),
+                (-1.722884289847009143e00 + 4.284072995171073650e00j),
+                (-3.361195344943603835e00 + 4.205041811153174436e00j),
+                (-1.000000000000000000e07 + 0.000000000000000000e00j),
+                (-1.718065632949265398e00 + 4.952003737754794521e00j),
+                (7.289486309349635373e-01 + -1.830844576603596119e00j),
+                (3.991772478745427843e-01 + -1.368630023686997710e00j),
+                (-2.290181488721370062e00 + 6.601020982427140638e00j),
+                (9.716885250363058724e-01 + -2.440515820612592979e00j),
+                (5.321032714167653888e-01 + -1.824383821574768083e00j),
+                (-7.174872193248205576e00 + 6.675239762854815240e00j),
+                (2.407667691776556040e00 + -9.993153743626843610e-01j),
+                (-1.722884289847009143e00 + 4.284072995171073650e00j),
+                (1.000000355426355079e07 + -1.097305701620421559e01j),
+                (-4.643493315148357059e-01 + 2.451358228738929057e00j),
+                (7.289486309349635373e-01 + -1.830844576603596119e00j),
+                (-1.504401750242020164e00 + 4.692512624757282147e00j),
+                (1.894994417655792851e-01 + -1.045283167931438051e00j),
+                (9.716885250363058724e-01 + -2.440515820612592979e00j),
+                (-2.005367533072612396e00 + 6.255119328801455936e00j),
+                (2.526027558735167711e-01 + -1.393362462852606676e00j),
+                (-1.000000000000000000e07 + 0.000000000000000000e00j),
+                (-3.361195344943603835e00 + 4.205041811153174436e00j),
+                (-4.643493315148357059e-01 + 2.451358228738929057e00j),
+                (1.000001037299706973e07 + -1.699808932711195553e01j),
+                (-1.000000000000000000e07 + 0.000000000000000000e00j),
+                (3.991772478745427843e-01 + -1.368630023686997710e00j),
+                (1.894994417655792851e-01 + -1.045283167931438051e00j),
+                (-1.330373882477571490e00 + 4.426876351120633046e00j),
+                (5.321032714167653888e-01 + -1.824383821574768083e00j),
+                (2.526027558735167711e-01 + -1.393362462852606676e00j),
+                (-1.773388385342602014e00 + 5.901026176043804305e00j),
+                (2.407667691776556040e00 + -9.993153743626843610e-01j),
+                (-7.224740534769255262e00 + 6.644761767290792598e00j),
+                (1.158909874451969912e01 + -1.065332013658415633e01j),
+                (-7.224740534769255262e00 + 6.644761767290792598e00j),
+                (2.407667691776556040e00 + -9.993153743626843610e-01j),
+                (-4.334844320861554579e00 + 3.986857060374475292e00j),
+                (1.444600615065933624e00 + -5.995892246176102169e-01j),
+                (-3.852268306842489665e00 + 1.598904581843866080e00j),
+                (-7.224740534769255262e00 + 6.644761767290792598e00j),
+                (7.238031030331385729e00 + -6.652389326059439334e00j),
+                (-2.420958187338686063e00 + 1.006942956693920088e00j),
+                (2.407667691776556040e00 + -9.993153743626843610e-01j),
+                (2.407667691776556040e00 + -9.993153743626843610e-01j),
+                (-2.420958187338686063e00 + 1.006942956693920088e00j),
+                (7.188162688810336043e00 + -6.682867321623461976e00j),
+                (-7.174872193248205576e00 + 6.675239762854815240e00j),
+                (-1.000000000000000000e07 + 0.000000000000000000e00j),
+                (1.000001042230609432e07 + -7.845072237930875048e00j),
+                (-1.090745190943801735e00 + 2.501251464991074869e00j),
+                (1.080921781180488095e00 + -2.492525965730719939e00j),
+                (2.428535277137064075e00 + -3.079311097832396094e00j),
+                (-1.041248268425302825e01 + 7.836353592313674454e00j),
+                (-2.428535277137064075e00 + 3.079311097832396094e00j),
+                (-1.000000000000000000e07 + 0.000000000000000000e00j),
+                (-1.090745190943801735e00 + 2.501251464991074869e00j),
+                (1.000001042230609432e07 + -7.845072237930876824e00j),
+                (-1.041248268425302648e01 + 7.836353592313676231e00j),
+                (2.428535277137063630e00 + -3.079311097832396982e00j),
+                (1.080921781180488095e00 + -2.492525965730719939e00j),
+                (-2.428535277137063630e00 + 3.079311097832396982e00j),
+                (1.080921781180488095e00 + -2.492525965730719939e00j),
+                (-1.041248268425302648e01 + 7.836353592313676231e00j),
+                (1.049668407314191576e01 + -7.834661991793467450e00j),
+                (-2.428535277137063630e00 + 3.079311097832396982e00j),
+                (-1.080921781180488095e00 + 2.492525965730719939e00j),
+                (2.428535277137063630e00 + -3.079311097832396982e00j),
+                (2.428535277137064075e00 + -3.079311097832396094e00j),
+                (2.428535277137063630e00 + -3.079311097832396982e00j),
+                (-2.428535277137063630e00 + 3.079311097832396982e00j),
+                (1.155823502102252576e01 + -8.172954229715511332e00j),
+                (-2.428535277137064075e00 + 3.079311097832396094e00j),
+                (-1.154642946546696969e01 + 8.197215274680164754e00j),
+                (-1.041248268425302825e01 + 7.836353592313674454e00j),
+                (1.080921781180488095e00 + -2.492525965730719939e00j),
+                (-1.080921781180488095e00 + 2.492525965730719939e00j),
+                (-2.428535277137064075e00 + 3.079311097832396094e00j),
+                (1.046282990647524969e01 + -7.838481436237909605e00j),
+                (2.428535277137064075e00 + -3.079311097832396094e00j),
+                (6.559337128485902113e00 + -6.616251502947750218e00j),
+                (-6.529823239597012829e00 + 6.619723755158722689e00j),
+                (4.313194834445097214e00 + -1.652684982082156084e00j),
+                (-4.290972612222875071e00 + 1.637761166855121964e00j),
+                (-1.718065632949265398e00 + 4.952003737754794521e00j),
+                (7.289486309349635373e-01 + -1.830844576603596119e00j),
+                (3.991772478745427843e-01 + -1.368630023686997710e00j),
+                (5.154572477192532531e00 + -1.485032283099059214e01j),
+                (-2.185753016296743123e00 + 5.489788792552021235e00j),
+                (-1.196933276985134409e00 + 4.103838109143928214e00j),
+                (-3.433555455354378338e00 + 9.896583182049687011e00j),
+                (1.456804385361779586e00 + -3.658944258789496473e00j),
+                (7.977560291105917356e-01 + -2.735208128298001640e00j),
+                (7.289486309349635373e-01 + -1.830844576603596119e00j),
+                (-1.504401750242020164e00 + 4.692512624757282147e00j),
+                (1.894994417655792851e-01 + -1.045283167931438051e00j),
+                (-2.185753016296743123e00 + 5.489788792552021235e00j),
+                (4.522408109171475843e00 + -1.407709964525759005e01j),
+                (-5.682142181876438380e-01 + 3.134282319771936720e00j),
+                (1.456804385361779586e00 + -3.658944258789496473e00j),
+                (-3.006548025596122109e00 + 9.377989998203085875e00j),
+                (3.787147764220645252e-01 + -2.088999194681569804e00j),
+                (3.991772478745427843e-01 + -1.368630023686997710e00j),
+                (1.894994417655792851e-01 + -1.045283167931438051e00j),
+                (-1.330373882477571490e00 + 4.426876351120633046e00j),
+                (-1.196933276985134409e00 + 4.103838109143928214e00j),
+                (-5.682142181876438380e-01 + 3.134282319771936720e00j),
+                (4.009439583890767267e00 + -1.328579741296378813e01j),
+                (7.977560291105917356e-01 + -2.735208128298001640e00j),
+                (3.787147764220645252e-01 + -2.088999194681569804e00j),
+                (-2.658753201413195821e00 + 8.847115706212598241e00j),
+                (-1.145090744360685031e00 + 3.300510491213570319e00j),
+                (4.858442625181529362e-01 + -1.220257910306296489e00j),
                 (2.660516357083826944e-01 + -9.121919107873840415e-01j),
-                (-5.564470386941075652e+00 + 7.133623650981868458e+00j),
-                (1.495114717049371045e+00 + -1.505867948931560063e+00j),
-                (2.139421481120560742e+00 + -1.690070896704364278e+00j),
-                (-3.433555455354378338e+00 + 9.896583182049687011e+00j),
-                (1.456804385361779586e+00 + -3.658944258789496473e+00j),
-                (7.977560291105917356e-01 + -2.735208128298001640e+00j),
-                (1.014311658665613791e+01 + -2.033071700766388901e+01j),
-                (-3.437763364929303567e+00 + 6.385070050188516255e+00j),
-                (-3.203229145939535449e+00 + 5.337470867950913522e+00j),
-                (4.858442625181529362e-01 + -1.220257910306296489e+00j),
-                (-1.002683766536306198e+00 + 3.127559664400727968e+00j),
+                (-5.564470386941075652e00 + 7.133623650981868458e00j),
+                (1.495114717049371045e00 + -1.505867948931560063e00j),
+                (2.139421481120560742e00 + -1.690070896704364278e00j),
+                (-3.433555455354378338e00 + 9.896583182049687011e00j),
+                (1.456804385361779586e00 + -3.658944258789496473e00j),
+                (7.977560291105917356e-01 + -2.735208128298001640e00j),
+                (1.014311658665613791e01 + -2.033071700766388901e01j),
+                (-3.437763364929303567e00 + 6.385070050188516255e00j),
+                (-3.203229145939535449e00 + 5.337470867950913522e00j),
+                (4.858442625181529362e-01 + -1.220257910306296489e00j),
+                (-1.002683766536306198e00 + 3.127559664400727968e00j),
                 (1.263013779367583855e-01 + -6.966812314263033379e-01j),
-                (1.495114717049371045e+00 + -1.505867948931560063e+00j),
-                (-4.908407178044356556e+00 + 7.063229386157553691e+00j),
-                (1.087994258962287741e+00 + -1.382358913275122392e+00j),
-                (-4.334844320861554579e+00 + 3.986857060374475292e+00j),
-                (1.456804385361779586e+00 + -3.658944258789496473e+00j),
-                (-3.006548025596122109e+00 + 9.377989998203085875e+00j),
-                (3.787147764220645252e-01 + -2.088999194681569804e+00j),
-                (-3.437763364929303567e+00 + 6.385070050188516255e+00j),
-                (1.325248329103833989e+01 + -2.355563574257336157e+01j),
-                (-3.037611028387044332e+00 + 4.767628485451501419e+00j),
-                (1.444600615065933624e+00 + -5.995892246176102169e-01j),
+                (1.495114717049371045e00 + -1.505867948931560063e00j),
+                (-4.908407178044356556e00 + 7.063229386157553691e00j),
+                (1.087994258962287741e00 + -1.382358913275122392e00j),
+                (-4.334844320861554579e00 + 3.986857060374475292e00j),
+                (1.456804385361779586e00 + -3.658944258789496473e00j),
+                (-3.006548025596122109e00 + 9.377989998203085875e00j),
+                (3.787147764220645252e-01 + -2.088999194681569804e00j),
+                (-3.437763364929303567e00 + 6.385070050188516255e00j),
+                (1.325248329103833989e01 + -2.355563574257336157e01j),
+                (-3.037611028387044332e00 + 4.767628485451501419e00j),
+                (1.444600615065933624e00 + -5.995892246176102169e-01j),
                 (2.660516357083826944e-01 + -9.121919107873840415e-01j),
                 (1.263013779367583855e-01 + -6.966812314263033379e-01j),
-                (-8.866941926713010069e-01 + 2.950513088021902153e+00j),
-                (2.139421481120560742e+00 + -1.690070896704364278e+00j),
-                (1.087994258962287741e+00 + -1.382358913275122392e+00j),
-                (-5.189061809545031601e+00 + 7.085419673805518848e+00j),
-                (1.444600615065933624e+00 + -5.995892246176102169e-01j),
-                (7.977560291105917356e-01 + -2.735208128298001640e+00j),
-                (3.787147764220645252e-01 + -2.088999194681569804e+00j),
-                (-2.658753201413195821e+00 + 8.847115706212598241e+00j),
-                (-3.203229145939535449e+00 + 5.337470867950913522e+00j),
-                (-3.037611028387044332e+00 + 4.767628485451501419e+00j),
-                (1.303943251957845106e+01 + -2.288819195919042215e+01j),
-                (-4.304923315948923523e+00 + 4.005143857712888611e+00j),
-                (-2.290181488721370062e+00 + 6.601020982427140638e+00j),
-                (9.716885250363058724e-01 + -2.440515820612592979e+00j),
-                (5.321032714167653888e-01 + -1.824383821574768083e+00j),
-                (2.290181488721370062e+00 + -6.601020882464641026e+00j),
-                (-9.716885250363058724e-01 + 2.440515799192057411e+00j),
-                (-5.321032714167653888e-01 + 1.824383800154232516e+00j),
-                (9.716885250363058724e-01 + -2.440515820612592979e+00j),
-                (-2.005367533072612396e+00 + 6.255119328801455936e+00j),
-                (2.526027558735167711e-01 + -1.393362462852606676e+00j),
-                (-9.716885250363058724e-01 + 2.440515799192057411e+00j),
-                (2.005367533072612396e+00 + -6.255119228838956325e+00j),
-                (-2.526027558735167711e-01 + 1.393362441432071108e+00j),
-                (5.321032714167653888e-01 + -1.824383821574768083e+00j),
-                (2.526027558735167711e-01 + -1.393362462852606676e+00j),
-                (-1.773388385342602014e+00 + 5.901026176043804305e+00j),
-                (-5.321032714167653888e-01 + 1.824383800154232516e+00j),
-                (-2.526027558735167711e-01 + 1.393362441432071108e+00j),
-                (1.773388385342602014e+00 + -5.901026076081304694e+00j),
-                (-3.852268306842489665e+00 + 1.598904581843866080e+00j),
-                (2.407667691776556040e+00 + -9.993153743626843610e-01j),
-                (-7.174872193248205576e+00 + 6.675239762854815240e+00j),
-                (1.444600615065933624e+00 + -5.995892246176102169e-01j),
-                (-4.304923315948923523e+00 + 4.005143857712888611e+00j),
-                (1.147979550919712821e+01 + -1.068038354059770434e+01j),
-                (-1.000000000000000000e+07 + 0.000000000000000000e+00j),
-                (-2.428535277137064075e+00 + 3.079311097832396094e+00j),
-                (-2.428535277137063630e+00 + 3.079311097832396982e+00j),
-                (2.428535277137063630e+00 + -3.079311097832396982e+00j),
-                (-1.154642946546696969e+01 + 8.197215274680164754e+00j),
-                (2.428535277137064075e+00 + -3.079311097832396094e+00j),
-                (1.000001154642946459e+07 + -8.197208421037009529e+00j),
-                (-7.174872193248205576e+00 + 6.675239762854815240e+00j),
-                (2.407667691776556040e+00 + -9.993153743626843610e-01j),
-                (-4.290972612222875071e+00 + 1.637761166855121964e+00j),
-                (1.146584480547108065e+01 + -8.312994159392665949e+00j),
-                (-2.407667691776556040e+00 + 9.993153679365236464e-01j),
-                (2.407667691776556040e+00 + -9.993153743626843610e-01j),
-                (-7.224740534769255262e+00 + 6.644761767290792598e+00j),
-                (-6.529823239597012829e+00 + 6.619723755158722689e+00j),
-                (-2.407667691776556040e+00 + 9.993153679365236464e-01j),
-                (1.375456377436626809e+01 + -1.326448546247201499e+01j),
+                (-8.866941926713010069e-01 + 2.950513088021902153e00j),
+                (2.139421481120560742e00 + -1.690070896704364278e00j),
+                (1.087994258962287741e00 + -1.382358913275122392e00j),
+                (-5.189061809545031601e00 + 7.085419673805518848e00j),
+                (1.444600615065933624e00 + -5.995892246176102169e-01j),
+                (7.977560291105917356e-01 + -2.735208128298001640e00j),
+                (3.787147764220645252e-01 + -2.088999194681569804e00j),
+                (-2.658753201413195821e00 + 8.847115706212598241e00j),
+                (-3.203229145939535449e00 + 5.337470867950913522e00j),
+                (-3.037611028387044332e00 + 4.767628485451501419e00j),
+                (1.303943251957845106e01 + -2.288819195919042215e01j),
+                (-4.304923315948923523e00 + 4.005143857712888611e00j),
+                (-2.290181488721370062e00 + 6.601020982427140638e00j),
+                (9.716885250363058724e-01 + -2.440515820612592979e00j),
+                (5.321032714167653888e-01 + -1.824383821574768083e00j),
+                (2.290181488721370062e00 + -6.601020882464641026e00j),
+                (-9.716885250363058724e-01 + 2.440515799192057411e00j),
+                (-5.321032714167653888e-01 + 1.824383800154232516e00j),
+                (9.716885250363058724e-01 + -2.440515820612592979e00j),
+                (-2.005367533072612396e00 + 6.255119328801455936e00j),
+                (2.526027558735167711e-01 + -1.393362462852606676e00j),
+                (-9.716885250363058724e-01 + 2.440515799192057411e00j),
+                (2.005367533072612396e00 + -6.255119228838956325e00j),
+                (-2.526027558735167711e-01 + 1.393362441432071108e00j),
+                (5.321032714167653888e-01 + -1.824383821574768083e00j),
+                (2.526027558735167711e-01 + -1.393362462852606676e00j),
+                (-1.773388385342602014e00 + 5.901026176043804305e00j),
+                (-5.321032714167653888e-01 + 1.824383800154232516e00j),
+                (-2.526027558735167711e-01 + 1.393362441432071108e00j),
+                (1.773388385342602014e00 + -5.901026076081304694e00j),
+                (-3.852268306842489665e00 + 1.598904581843866080e00j),
+                (2.407667691776556040e00 + -9.993153743626843610e-01j),
+                (-7.174872193248205576e00 + 6.675239762854815240e00j),
+                (1.444600615065933624e00 + -5.995892246176102169e-01j),
+                (-4.304923315948923523e00 + 4.005143857712888611e00j),
+                (1.147979550919712821e01 + -1.068038354059770434e01j),
+                (-1.000000000000000000e07 + 0.000000000000000000e00j),
+                (-2.428535277137064075e00 + 3.079311097832396094e00j),
+                (-2.428535277137063630e00 + 3.079311097832396982e00j),
+                (2.428535277137063630e00 + -3.079311097832396982e00j),
+                (-1.154642946546696969e01 + 8.197215274680164754e00j),
+                (2.428535277137064075e00 + -3.079311097832396094e00j),
+                (1.000001154642946459e07 + -8.197208421037009529e00j),
+                (-7.174872193248205576e00 + 6.675239762854815240e00j),
+                (2.407667691776556040e00 + -9.993153743626843610e-01j),
+                (-4.290972612222875071e00 + 1.637761166855121964e00j),
+                (1.146584480547108065e01 + -8.312994159392665949e00j),
+                (-2.407667691776556040e00 + 9.993153679365236464e-01j),
+                (2.407667691776556040e00 + -9.993153743626843610e-01j),
+                (-7.224740534769255262e00 + 6.644761767290792598e00j),
+                (-6.529823239597012829e00 + 6.619723755158722689e00j),
+                (-2.407667691776556040e00 + 9.993153679365236464e-01j),
+                (1.375456377436626809e01 + -1.326448546247201499e01j),
             ]
         ),
         np.array(
@@ -5738,15 +6010,3 @@ def test_long_path():
         os.chdir(original_working_dir)
         if os.path.exists(tmp_dir_path):
             shutil.rmtree(tmp_dir_path)
-
-
-def test_dss_extensions_debug():
-    import opendssdirect
-    import dss
-
-    # Check if the loaded version is correct
-    expects_debug = os.environ.get("DSS_EXTENSIONS_DEBUG") == "1"
-    if expects_debug:
-        assert "DEBUG" in opendssdirect.Basic.Version()
-    else:
-        assert "DEBUG" not in opendssdirect.Basic.Version()

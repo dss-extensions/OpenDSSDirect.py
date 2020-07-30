@@ -14,64 +14,60 @@ from ._utils import (
 def New(Name):
     if type(Name) is not bytes:
         Name = Name.encode(codec)
-    return lib.Lines_New(Name)
+    return CheckForError(lib.Lines_New(Name))
 
 
 def AllNames():
     """(read-only) List of strings with all Line names"""
-    return get_string_array(lib.Lines_Get_AllNames)
+    return CheckForError(get_string_array(lib.Lines_Get_AllNames))
 
 
 def Bus1(*args):
     """Name of bus for terminal 1."""
     # Getter
     if len(args) == 0:
-        return get_string(lib.Lines_Get_Bus1())
+        return get_string(CheckForError(lib.Lines_Get_Bus1()))
 
     # Setter
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-    lib.Lines_Set_Bus1(Value)
-    CheckForError()
+    CheckForError(lib.Lines_Set_Bus1(Value))
 
 
 def Bus2(*args):
     """Name of bus for terminal 2."""
     # Getter
     if len(args) == 0:
-        return get_string(lib.Lines_Get_Bus2())
+        return get_string(CheckForError(lib.Lines_Get_Bus2()))
 
     # Setter
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-    lib.Lines_Set_Bus2(Value)
-    CheckForError()
+    CheckForError(lib.Lines_Set_Bus2(Value))
 
 
 def C0(*args):
     """Zero Sequence capacitance, nanofarads per unit length."""
     # Getter
     if len(args) == 0:
-        return lib.Lines_Get_C0()
+        return CheckForError(lib.Lines_Get_C0())
 
     # Setter
     Value, = args
-    lib.Lines_Set_C0(Value)
-    CheckForError()
+    CheckForError(lib.Lines_Set_C0(Value))
 
 
 def C1(*args):
     """Positive Sequence capacitance, nanofarads per unit length."""
     # Getter
     if len(args) == 0:
-        return lib.Lines_Get_C1()
+        return CheckForError(lib.Lines_Get_C1())
 
     # Setter
     Value, = args
-    lib.Lines_Set_C1(Value)
-    CheckForError()
+    CheckForError(lib.Lines_Set_C1(Value))
 
 
 def CMatrix(*args):
@@ -82,70 +78,65 @@ def CMatrix(*args):
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
-    lib.Lines_Set_Cmatrix(ValuePtr, ValueCount)
-    CheckForError()
+    CheckForError(lib.Lines_Set_Cmatrix(ValuePtr, ValueCount))
 
 
 def Count():
     """(read-only) Number of Lines"""
-    return lib.Lines_Get_Count()
+    return CheckForError(lib.Lines_Get_Count())
 
 
 def EmergAmps(*args):
     """Emergency (maximum) ampere rating of Line."""
     # Getter
     if len(args) == 0:
-        return lib.Lines_Get_EmergAmps()
+        return CheckForError(lib.Lines_Get_EmergAmps())
 
     # Setter
     Value, = args
-    lib.Lines_Set_EmergAmps(Value)
-    CheckForError()
+    CheckForError(lib.Lines_Set_EmergAmps(Value))
 
 
 def First():
     """Set first Line active; returns 0 if none."""
-    return lib.Lines_Get_First()
+    return CheckForError(lib.Lines_Get_First())
 
 
 def Geometry(*args):
     """Line geometry code"""
     # Getter
     if len(args) == 0:
-        return get_string(lib.Lines_Get_Geometry())
+        return get_string(CheckForError(lib.Lines_Get_Geometry()))
 
     # Setter
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-    lib.Lines_Set_Geometry(Value)
-    CheckForError()
+    CheckForError(lib.Lines_Set_Geometry(Value))
 
 
 def Length(*args):
     """Length of line section in units compatible with the LineCode definition."""
     # Getter
     if len(args) == 0:
-        return lib.Lines_Get_Length()
+        return CheckForError(lib.Lines_Get_Length())
 
     # Setter
     Value, = args
-    lib.Lines_Set_Length(Value)
-    CheckForError()
+    CheckForError(lib.Lines_Set_Length(Value))
 
 
 def LineCode(*args):
     """Name of LineCode object that defines the impedances."""
     # Getter
     if len(args) == 0:
-        return get_string(lib.Lines_Get_LineCode())
+        return get_string(CheckForError(lib.Lines_Get_LineCode()))
 
     # Setter
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-    lib.Lines_Set_LineCode(Value)
-    CheckForError()
+    CheckForError(lib.Lines_Set_LineCode(Value))
 
 
 def Name(*args):
@@ -154,7 +145,7 @@ def Name(*args):
     """
     # Getter
     if len(args) == 0:
-        return get_string(lib.Lines_Get_Name())
+        return CheckForError(get_string(lib.Lines_Get_Name()))
 
     # Setter
     Value, = args
@@ -165,89 +156,83 @@ def Name(*args):
 
 def Next():
     """Sets next Line active; returns 0 if no more."""
-    return lib.Lines_Get_Next()
+    return CheckForError(lib.Lines_Get_Next())
 
 
 def NormAmps(*args):
     """Normal ampere rating of Line."""
     # Getter
     if len(args) == 0:
-        return lib.Lines_Get_NormAmps()
+        return CheckForError(lib.Lines_Get_NormAmps())
 
     # Setter
     Value, = args
-    lib.Lines_Set_NormAmps(Value)
-    CheckForError()
+    CheckForError(lib.Lines_Set_NormAmps(Value))
 
 
 def NumCust():
     """(read-only) Number of customers on this line section."""
-    return lib.Lines_Get_NumCust()
+    return CheckForError(lib.Lines_Get_NumCust())
 
 
 def Parent():
     """(read-only) Sets Parent of the active Line to be the active line. Returns 0 if no parent or action fails."""
-    return lib.Lines_Get_Parent()
+    return CheckForError(lib.Lines_Get_Parent())
 
 
 def Phases(*args):
     """Number of Phases, this Line element."""
     # Getter
     if len(args) == 0:
-        return lib.Lines_Get_Phases()
+        return CheckForError(lib.Lines_Get_Phases())
 
     # Setter
     Value, = args
-    lib.Lines_Set_Phases(Value)
-    CheckForError()
+    CheckForError(lib.Lines_Set_Phases(Value))
 
 
 def R0(*args):
     """Zero Sequence resistance, ohms per unit length."""
     # Getter
     if len(args) == 0:
-        return lib.Lines_Get_R0()
+        return CheckForError(lib.Lines_Get_R0())
 
     # Setter
     Value, = args
-    lib.Lines_Set_R0(Value)
-    CheckForError()
+    CheckForError(lib.Lines_Set_R0(Value))
 
 
 def R1(*args):
     """Positive Sequence resistance, ohms per unit length."""
     # Getter
     if len(args) == 0:
-        return lib.Lines_Get_R1()
+        return CheckForError(lib.Lines_Get_R1())
 
     # Setter
     Value, = args
-    lib.Lines_Set_R1(Value)
-    CheckForError()
+    CheckForError(lib.Lines_Set_R1(Value))
 
 
 def Rg(*args):
     """Earth return resistance value used to compute line impedances at power frequency"""
     # Getter
     if len(args) == 0:
-        return lib.Lines_Get_Rg()
+        return CheckForError(lib.Lines_Get_Rg())
 
     # Setter
     Value, = args
-    lib.Lines_Set_Rg(Value)
-    CheckForError()
+    CheckForError(lib.Lines_Set_Rg(Value))
 
 
 def Rho(*args):
     """Earth Resistivity, m-ohms"""
     # Getter
     if len(args) == 0:
-        return lib.Lines_Get_Rho()
+        return CheckForError(lib.Lines_Get_Rho())
 
     # Setter
     Value, = args
-    lib.Lines_Set_Rho(Value)
-    CheckForError()
+    CheckForError(lib.Lines_Set_Rho(Value))
 
 
 def RMatrix(*args):
@@ -259,74 +244,68 @@ def RMatrix(*args):
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
-    lib.Lines_Set_Rmatrix(ValuePtr, ValueCount)
-    CheckForError()
+    CheckForError(lib.Lines_Set_Rmatrix(ValuePtr, ValueCount))
 
 
 def Spacing(*args):
     """Line spacing code"""
     # Getter
     if len(args) == 0:
-        return get_string(lib.Lines_Get_Spacing())
+        return get_string(CheckForError(lib.Lines_Get_Spacing()))
 
     # Setter
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-    lib.Lines_Set_Spacing(Value)
-    CheckForError()
+    CheckForError(lib.Lines_Set_Spacing(Value))
 
 
 def TotalCust():
     """(read-only) Total Number of customers served from this line section."""
-    return lib.Lines_Get_TotalCust()
+    return CheckForError(lib.Lines_Get_TotalCust())
 
 
 def Units(*args):
     # Getter
     if len(args) == 0:
-        return lib.Lines_Get_Units()
+        return CheckForError(lib.Lines_Get_Units())
 
     # Setter
     Value, = args
-    lib.Lines_Set_Units(Value)
-    CheckForError()
+    CheckForError(lib.Lines_Set_Units(Value))
 
 
 def X0(*args):
     """Zero Sequence reactance ohms per unit length."""
     # Getter
     if len(args) == 0:
-        return lib.Lines_Get_X0()
+        return CheckForError(lib.Lines_Get_X0())
 
     # Setter
     Value, = args
-    lib.Lines_Set_X0(Value)
-    CheckForError()
+    CheckForError(lib.Lines_Set_X0(Value))
 
 
 def X1(*args):
     """Positive Sequence reactance, ohms per unit length."""
     # Getter
     if len(args) == 0:
-        return lib.Lines_Get_X1()
+        return CheckForError(lib.Lines_Get_X1())
 
     # Setter
     Value, = args
-    lib.Lines_Set_X1(Value)
-    CheckForError()
+    CheckForError(lib.Lines_Set_X1(Value))
 
 
 def Xg(*args):
     """Earth return reactance value used to compute line impedances at power frequency"""
     # Getter
     if len(args) == 0:
-        return lib.Lines_Get_Xg()
+        return CheckForError(lib.Lines_Get_Xg())
 
     # Setter
     Value, = args
-    lib.Lines_Set_Xg(Value)
-    CheckForError()
+    CheckForError(lib.Lines_Set_Xg(Value))
 
 
 def XMatrix(*args):
@@ -337,8 +316,7 @@ def XMatrix(*args):
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
-    lib.Lines_Set_Xmatrix(ValuePtr, ValueCount)
-    CheckForError()
+    CheckForError(lib.Lines_Set_Xmatrix(ValuePtr, ValueCount))
 
 
 def Yprim(*args):
@@ -350,8 +328,7 @@ def Yprim(*args):
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_float64_array(Value)
-    lib.Lines_Set_Yprim(ValuePtr, ValueCount)
-    CheckForError()
+    CheckForError(lib.Lines_Set_Yprim(ValuePtr, ValueCount))
 
 
 def Idx(*args):
@@ -360,7 +337,7 @@ def Idx(*args):
     """
     # Getter
     if len(args) == 0:
-        return lib.Lines_Get_idx()
+        return CheckForError(lib.Lines_Get_idx())
 
     # Setter
     Value, = args
@@ -369,18 +346,18 @@ def Idx(*args):
 
 def SeasonRating():
     """Delivers the rating for the current season (in Amps)  if the "SeasonalRatings" option is active"""
-    return lib.Lines_Get_SeasonRating()
+    return CheckForError(lib.Lines_Get_SeasonRating())
 
 
 def IsSwitch(*args):
     """Sets/gets the Line element switch status. Setting it has side-effects to the line parameters."""
     # Getter
     if len(args) == 0:
-        return lib.Lines_Get_IsSwitch() != 0
+        return CheckForError(lib.Lines_Get_IsSwitch()) != 0
 
     # Setter
     Value, = args
-    lib.Lines_Set_IsSwitch(Value)
+    CheckForError(lib.Lines_Set_IsSwitch(Value))
 
 
 _columns = [

@@ -12,51 +12,50 @@ from ._utils import (
 
 
 def AddStep():
-    return lib.Capacitors_AddStep() != 0
+    return CheckForError(lib.Capacitors_AddStep()) != 0
 
 
 def Close():
-    lib.Capacitors_Close()
+    CheckForError(lib.Capacitors_Close())
 
 
 def Open():
-    lib.Capacitors_Open()
+    CheckForError(lib.Capacitors_Open())
 
 
 def SubtractStep():
-    return lib.Capacitors_SubtractStep() != 0
+    return CheckForError(lib.Capacitors_SubtractStep()) != 0
 
 
 def AllNames():
     """(read-only) List of strings with all Capacitor names"""
-    return get_string_array(lib.Capacitors_Get_AllNames)
+    return CheckForError(get_string_array(lib.Capacitors_Get_AllNames))
 
 
 def AvailableSteps():
     """(read-only) Number of Steps available in cap bank to be switched ON."""
-    return lib.Capacitors_Get_AvailableSteps()
+    return CheckForError(lib.Capacitors_Get_AvailableSteps())
 
 
 def Count():
     """(read-only) Number of Capacitors"""
-    return lib.Capacitors_Get_Count()
+    return CheckForError(lib.Capacitors_Get_Count())
 
 
 def First():
     """Set first Capacitor active; returns 0 if none."""
-    return lib.Capacitors_Get_First()
+    return CheckForError(lib.Capacitors_Get_First())
 
 
 def IsDelta(*args):
     """Delta connection or wye?"""
     # Getter
     if len(args) == 0:
-        return lib.Capacitors_Get_IsDelta() != 0
+        return CheckForError(lib.Capacitors_Get_IsDelta()) != 0
 
     # Setter
     Value, = args
-    lib.Capacitors_Set_IsDelta(Value)
-    CheckForError()
+    CheckForError(lib.Capacitors_Set_IsDelta(Value))
 
 
 def Name(*args):
@@ -65,7 +64,7 @@ def Name(*args):
     """
     # Getter
     if len(args) == 0:
-        return get_string(lib.Capacitors_Get_Name())
+        return CheckForError(get_string(lib.Capacitors_Get_Name()))
 
     # Setter
     Value, = args
@@ -76,19 +75,18 @@ def Name(*args):
 
 def Next():
     """Sets next Capacitor active; returns 0 if no more."""
-    return lib.Capacitors_Get_Next()
+    return CheckForError(lib.Capacitors_Get_Next())
 
 
 def NumSteps(*args):
     """Number of steps (default 1) for distributing and switching the total bank kVAR."""
     # Getter
     if len(args) == 0:
-        return lib.Capacitors_Get_NumSteps()
+        return CheckForError(lib.Capacitors_Get_NumSteps())
 
     # Setter
     Value, = args
-    lib.Capacitors_Set_NumSteps(Value)
-    CheckForError()
+    CheckForError(lib.Capacitors_Set_NumSteps(Value))
 
 
 def States(*args):
@@ -100,32 +98,29 @@ def States(*args):
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_int32_array(Value)
-    lib.Capacitors_Set_States(ValuePtr, ValueCount)
-    CheckForError()
+    CheckForError(lib.Capacitors_Set_States(ValuePtr, ValueCount))
 
 
 def kV(*args):
     """Bank kV rating. Use LL for 2 or 3 phases, or actual can rating for 1 phase."""
     # Getter
     if len(args) == 0:
-        return lib.Capacitors_Get_kV()
+        return CheckForError(lib.Capacitors_Get_kV())
 
     # Setter
     Value, = args
-    lib.Capacitors_Set_kV(Value)
-    CheckForError()
+    CheckForError(lib.Capacitors_Set_kV(Value))
 
 
 def kvar(*args):
     """Total bank KVAR, distributed equally among phases and steps."""
     # Getter
     if len(args) == 0:
-        return lib.Capacitors_Get_kvar()
+        return CheckForError(lib.Capacitors_Get_kvar())
 
     # Setter
     Value, = args
-    lib.Capacitors_Set_kvar(Value)
-    CheckForError()
+    CheckForError(lib.Capacitors_Set_kvar(Value))
 
 
 def Idx(*args):
@@ -134,7 +129,7 @@ def Idx(*args):
     """
     # Getter
     if len(args) == 0:
-        return lib.Capacitors_Get_idx()
+        return CheckForError(lib.Capacitors_Get_idx())
 
     # Setter
     Value, = args

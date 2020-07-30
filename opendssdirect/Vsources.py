@@ -5,53 +5,50 @@ from ._utils import lib, codec, CheckForError, get_string, get_string_array
 
 def AllNames():
     """(read-only) List of strings with all Vsource names"""
-    return get_string_array(lib.Vsources_Get_AllNames)
+    return CheckForError(get_string_array(lib.Vsources_Get_AllNames))
 
 
 def AngleDeg(*args):
     """Phase angle of first phase in degrees"""
     # Getter
     if len(args) == 0:
-        return lib.Vsources_Get_AngleDeg()
+        return CheckForError(lib.Vsources_Get_AngleDeg())
 
     # Setter
     Value, = args
-    lib.Vsources_Set_AngleDeg(Value)
-    CheckForError()
+    CheckForError(lib.Vsources_Set_AngleDeg(Value))
 
 
 def BasekV(*args):
     """Source voltage in kV"""
     # Getter
     if len(args) == 0:
-        return lib.Vsources_Get_BasekV()
+        return CheckForError(lib.Vsources_Get_BasekV())
 
     # Setter
     Value, = args
-    lib.Vsources_Set_BasekV(Value)
-    CheckForError()
+    CheckForError(lib.Vsources_Set_BasekV(Value))
 
 
 def Count():
     """(read-only) Number of Vsources"""
-    return lib.Vsources_Get_Count()
+    return CheckForError(lib.Vsources_Get_Count())
 
 
 def First():
     """Set first Vsource active; returns 0 if none."""
-    return lib.Vsources_Get_First()
+    return CheckForError(lib.Vsources_Get_First())
 
 
 def Frequency(*args):
     """Source frequency in Hz"""
     # Getter
     if len(args) == 0:
-        return lib.Vsources_Get_Frequency()
+        return CheckForError(lib.Vsources_Get_Frequency())
 
     # Setter
     Value, = args
-    lib.Vsources_Set_Frequency(Value)
-    CheckForError()
+    CheckForError(lib.Vsources_Set_Frequency(Value))
 
 
 def Name(*args):
@@ -60,7 +57,7 @@ def Name(*args):
     """
     # Getter
     if len(args) == 0:
-        return get_string(lib.Vsources_Get_Name())
+        return CheckForError(get_string(lib.Vsources_Get_Name()))
 
     # Setter
     Value, = args
@@ -71,34 +68,29 @@ def Name(*args):
 
 def Next():
     """Sets next Vsource active; returns 0 if no more."""
-    return lib.Vsources_Get_Next()
+    return CheckForError(lib.Vsources_Get_Next())
 
 
 def Phases(*args):
     """Number of phases"""
     # Getter
     if len(args) == 0:
-        return lib.Vsources_Get_Phases()
+        return CheckForError(lib.Vsources_Get_Phases())
 
     # Setter
     Value, = args
-    lib.Vsources_Set_Phases(Value)
-    CheckForError()
+    CheckForError(lib.Vsources_Set_Phases(Value))
 
 
 def PU(*args):
-    """
-    (read) Source pu voltage.
-    (write) Per-unit value of source voltage based on kV
-    """
+    """Per-unit value of source voltage"""
     # Getter
     if len(args) == 0:
-        return lib.Vsources_Get_pu()
+        return CheckForError(lib.Vsources_Get_pu())
 
     # Setter
     Value, = args
-    lib.Vsources_Set_pu(Value)
-    CheckForError()
+    CheckForError(lib.Vsources_Set_pu(Value))
 
 
 def Idx(*args):
@@ -107,7 +99,7 @@ def Idx(*args):
     """
     # Getter
     if len(args) == 0:
-        return lib.Vsources_Get_idx()
+        return CheckForError(lib.Vsources_Get_idx())
 
     # Setter
     Value, = args
