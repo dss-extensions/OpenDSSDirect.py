@@ -12,29 +12,28 @@ from ._utils import (
 
 def AllNames():
     """(read-only) List of strings with all PVSystem names"""
-    return get_string_array(lib.PVSystems_Get_AllNames)
+    return CheckForError(get_string_array(lib.PVSystems_Get_AllNames))
 
 
 def Count():
     """(read-only) Number of PVSystems"""
-    return lib.PVSystems_Get_Count()
+    return CheckForError(lib.PVSystems_Get_Count())
 
 
 def First():
     """Set first PVSystem active; returns 0 if none."""
-    return lib.PVSystems_Get_First()
+    return CheckForError(lib.PVSystems_Get_First())
 
 
 def Irradiance(*args):
     """Get/set the present value of the Irradiance property in W/m²"""
     # Getter
     if len(args) == 0:
-        return lib.PVSystems_Get_Irradiance()
+        return CheckForError(lib.PVSystems_Get_Irradiance())
 
     # Setter
     Value, = args
-    lib.PVSystems_Set_Irradiance(Value)
-    CheckForError()
+    CheckForError(lib.PVSystems_Set_Irradiance(Value))
 
 
 def Name(*args):
@@ -43,7 +42,7 @@ def Name(*args):
     """
     # Getter
     if len(args) == 0:
-        return get_string(lib.PVSystems_Get_Name())
+        return CheckForError(get_string(lib.PVSystems_Get_Name()))
 
     # Setter
     Value, = args
@@ -54,24 +53,23 @@ def Name(*args):
 
 def Next():
     """Sets next PVSystem active; returns 0 if no more."""
-    return lib.PVSystems_Get_Next()
+    return CheckForError(lib.PVSystems_Get_Next())
 
 
 def pf(*args):
     """Get/set the power factor for the active PVSystem"""
     # Getter
     if len(args) == 0:
-        return lib.PVSystems_Get_PF()
+        return CheckForError(lib.PVSystems_Get_PF())
 
     # Setter
     Value, = args
-    lib.PVSystems_Set_PF(Value)
-    CheckForError()
+    CheckForError(lib.PVSystems_Set_PF(Value))
 
 
 def RegisterNames():
     """(read-only) Array of PVSYSTEM energy meter register names"""
-    return get_string_array(lib.PVSystems_Get_RegisterNames)
+    return CheckForError(get_string_array(lib.PVSystems_Get_RegisterNames))
 
 
 def RegisterValues():
@@ -85,7 +83,7 @@ def Idx(*args):
     """
     # Getter
     if len(args) == 0:
-        return lib.PVSystems_Get_idx()
+        return CheckForError(lib.PVSystems_Get_idx())
 
     # Setter
     Value, = args
@@ -96,43 +94,40 @@ def kVARated(*args):
     """Get/set Rated kVA of the PVSystem"""
     # Getter
     if len(args) == 0:
-        return lib.PVSystems_Get_kVArated()
+        return CheckForError(lib.PVSystems_Get_kVArated())
 
     # Setter
     Value, = args
-    lib.PVSystems_Set_kVArated(Value)
-    CheckForError()
+    CheckForError(lib.PVSystems_Set_kVArated(Value))
 
 
 def kW():
     """(read-only) get kW output"""
-    return lib.PVSystems_Get_kW()
+    return CheckForError(lib.PVSystems_Get_kW())
 
 
 def kvar(*args):
     """Get/set kvar output value"""
     # Getter
     if len(args) == 0:
-        return lib.PVSystems_Get_kvar()
+        return CheckForError(lib.PVSystems_Get_kvar())
 
     # Setter
     Value, = args
-    lib.PVSystems_Set_kvar(Value)
-    CheckForError()
+    CheckForError(lib.PVSystems_Set_kvar(Value))
 
 
 def daily(*args):
     """Name of the loadshape for a daily PVSystem profile."""
     # Getter
     if len(args) == 0:
-        return get_string(lib.PVSystems_Get_daily())
+        return get_string(CheckForError(lib.PVSystems_Get_daily()))
 
     # Setter
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-    lib.PVSystems_Set_daily(Value)
-    CheckForError()
+    CheckForError(lib.PVSystems_Set_daily(Value))
 
 
 def duty(*args):
@@ -143,14 +138,13 @@ def duty(*args):
     """
     # Getter
     if len(args) == 0:
-        return get_string(lib.PVSystems_Get_duty())
+        return get_string(CheckForError(lib.PVSystems_Get_duty()))
 
     # Setter
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-    lib.PVSystems_Set_duty(Value)
-    CheckForError()
+    CheckForError(lib.PVSystems_Set_duty(Value))
 
 
 def yearly(*args):
@@ -162,14 +156,13 @@ def yearly(*args):
     """
     # Getter
     if len(args) == 0:
-        return get_string(lib.PVSystems_Get_yearly())
+        return get_string(CheckForError(lib.PVSystems_Get_yearly()))
 
     # Setter
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-    lib.PVSystems_Set_yearly(Value)
-    CheckForError()
+    CheckForError(lib.PVSystems_Set_yearly(Value))
 
 
 def Tdaily(*args):
@@ -181,14 +174,13 @@ def Tdaily(*args):
     """
     # Getter
     if len(args) == 0:
-        return get_string(lib.PVSystems_Get_Tdaily())
+        return get_string(CheckForError(lib.PVSystems_Get_Tdaily()))
 
     # Setter
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-    lib.PVSystems_Set_Tdaily(Value)
-    CheckForError()
+    CheckForError(lib.PVSystems_Set_Tdaily(Value))
 
 
 def Tduty(*args):
@@ -203,14 +195,13 @@ def Tduty(*args):
     """
     # Getter
     if len(args) == 0:
-        return get_string(lib.PVSystems_Get_Tduty())
+        return get_string(CheckForError(lib.PVSystems_Get_Tduty()))
 
     # Setter
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-    lib.PVSystems_Set_Tduty(Value)
-    CheckForError()
+    CheckForError(lib.PVSystems_Set_Tduty(Value))
 
 
 def Tyearly(*args):
@@ -223,14 +214,13 @@ def Tyearly(*args):
     """
     # Getter
     if len(args) == 0:
-        return get_string(lib.PVSystems_Get_Tyearly())
+        return get_string(CheckForError(lib.PVSystems_Get_Tyearly()))
 
     # Setter
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-    lib.PVSystems_Set_Tyearly(Value)
-    CheckForError()
+    CheckForError(lib.PVSystems_Set_Tyearly(Value))
 
 
 def IrradianceNow():
@@ -238,7 +228,7 @@ def IrradianceNow():
     Returns the current irradiance value for the active PVSystem. Use it to 
     know what's the current irradiance value for the PV during a simulation.
     """
-    return lib.PVSystems_Get_IrradianceNow()
+    return CheckForError(lib.PVSystems_Get_IrradianceNow())
 
 
 def Pmpp(*args):
@@ -248,12 +238,11 @@ def Pmpp(*args):
     """
     # Getter
     if len(args) == 0:
-        return lib.PVSystems_Get_Pmpp()
+        return CheckForError(lib.PVSystems_Get_Pmpp())
 
     # Setter
     Value, = args
-    lib.PVSystems_Set_Pmpp(Value)
-    CheckForError()
+    CheckForError(lib.PVSystems_Set_Pmpp(Value))
 
 
 _columns = [

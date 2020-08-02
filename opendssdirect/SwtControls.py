@@ -4,58 +4,55 @@ from ._utils import lib, codec, CheckForError, get_string, get_string_array
 
 
 def Reset():
-    lib.SwtControls_Reset()
+    CheckForError(lib.SwtControls_Reset())
 
 
 def Action(*args):
     """Open or Close the switch. No effect if switch is locked.  However, Reset removes any lock and then closes the switch (shelf state)."""
     # Getter
     if len(args) == 0:
-        return lib.SwtControls_Get_Action()
+        return CheckForError(lib.SwtControls_Get_Action())
 
     # Setter
     Value, = args
-    lib.SwtControls_Set_Action(Value)
-    CheckForError()
+    CheckForError(lib.SwtControls_Set_Action(Value))
 
 
 def AllNames():
     """(read-only) List of strings with all SwtControl names"""
-    return get_string_array(lib.SwtControls_Get_AllNames)
+    return CheckForError(get_string_array(lib.SwtControls_Get_AllNames))
 
 
 def Count():
     """(read-only) Number of SwtControls"""
-    return lib.SwtControls_Get_Count()
+    return CheckForError(lib.SwtControls_Get_Count())
 
 
 def Delay(*args):
     """Time delay [s] betwen arming and opening or closing the switch.  Control may reset before actually operating the switch."""
     # Getter
     if len(args) == 0:
-        return lib.SwtControls_Get_Delay()
+        return CheckForError(lib.SwtControls_Get_Delay())
 
     # Setter
     Value, = args
-    lib.SwtControls_Set_Delay(Value)
-    CheckForError()
+    CheckForError(lib.SwtControls_Set_Delay(Value))
 
 
 def First():
     """Set first SwtControl active; returns 0 if none."""
-    return lib.SwtControls_Get_First()
+    return CheckForError(lib.SwtControls_Get_First())
 
 
 def IsLocked(*args):
     """The lock prevents both manual and automatic switch operation."""
     # Getter
     if len(args) == 0:
-        return lib.SwtControls_Get_IsLocked() != 0
+        return CheckForError(lib.SwtControls_Get_IsLocked()) != 0
 
     # Setter
     Value, = args
-    lib.SwtControls_Set_IsLocked(Value)
-    CheckForError()
+    CheckForError(lib.SwtControls_Set_IsLocked(Value))
 
 
 def Name(*args):
@@ -64,7 +61,7 @@ def Name(*args):
     """
     # Getter
     if len(args) == 0:
-        return get_string(lib.SwtControls_Get_Name())
+        return CheckForError(get_string(lib.SwtControls_Get_Name()))
 
     # Setter
     Value, = args
@@ -75,7 +72,7 @@ def Name(*args):
 
 def Next():
     """Sets next SwtControl active; returns 0 if no more."""
-    return lib.SwtControls_Get_Next()
+    return CheckForError(lib.SwtControls_Get_Next())
 
 
 def NormalState(*args):
@@ -84,50 +81,46 @@ def NormalState(*args):
     """
     # Getter
     if len(args) == 0:
-        return lib.SwtControls_Get_NormalState()
+        return CheckForError(lib.SwtControls_Get_NormalState())
 
     # Setter
     Value, = args
-    lib.SwtControls_Set_NormalState(Value)
-    CheckForError()
+    CheckForError(lib.SwtControls_Set_NormalState(Value))
 
 
 def State(*args):
     """Set it to force the switch to a specified state, otherwise read its present state."""
     # Getter
     if len(args) == 0:
-        return lib.SwtControls_Get_State()
+        return CheckForError(lib.SwtControls_Get_State())
 
     # Setter
     Value, = args
-    lib.SwtControls_Set_State(Value)
-    CheckForError()
+    CheckForError(lib.SwtControls_Set_State(Value))
 
 
 def SwitchedObj(*args):
     """Full name of the switched element."""
     # Getter
     if len(args) == 0:
-        return get_string(lib.SwtControls_Get_SwitchedObj())
+        return get_string(CheckForError(lib.SwtControls_Get_SwitchedObj()))
 
     # Setter
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-    lib.SwtControls_Set_SwitchedObj(Value)
-    CheckForError()
+    CheckForError(lib.SwtControls_Set_SwitchedObj(Value))
 
 
 def SwitchedTerm(*args):
     """Terminal number where the switch is located on the SwitchedObj"""
     # Getter
     if len(args) == 0:
-        return lib.SwtControls_Get_SwitchedTerm()
+        return CheckForError(lib.SwtControls_Get_SwitchedTerm())
 
     # Setter
     Value, = args
-    lib.SwtControls_Set_SwitchedTerm(Value)
-    CheckForError()
+    CheckForError(lib.SwtControls_Set_SwitchedTerm(Value))
 
 
 def Idx(*args):
@@ -136,7 +129,7 @@ def Idx(*args):
     """
     # Getter
     if len(args) == 0:
-        return lib.SwtControls_Get_idx()
+        return CheckForError(lib.SwtControls_Get_idx())
 
     # Setter
     Value, = args

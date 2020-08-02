@@ -4,25 +4,25 @@ from ._utils import lib, codec, CheckForError, get_string, get_string_array
 
 
 def Close():
-    lib.Fuses_Close()
+    CheckForError(lib.Fuses_Close())
 
 
 def IsBlown():
-    return lib.Fuses_IsBlown() != 0
+    return CheckForError(lib.Fuses_IsBlown()) != 0
 
 
 def Open():
-    lib.Fuses_Open()
+    CheckForError(lib.Fuses_Open())
 
 
 def AllNames():
     """(read-only) List of strings with all Fuse names"""
-    return get_string_array(lib.Fuses_Get_AllNames)
+    return CheckForError(get_string_array(lib.Fuses_Get_AllNames))
 
 
 def Count():
     """(read-only) Number of Fuses"""
-    return lib.Fuses_Get_Count()
+    return CheckForError(lib.Fuses_Get_Count())
 
 
 def Delay(*args):
@@ -32,43 +32,40 @@ def Delay(*args):
     """
     # Getter
     if len(args) == 0:
-        return lib.Fuses_Get_Delay()
+        return CheckForError(lib.Fuses_Get_Delay())
 
     # Setter
     Value, = args
-    lib.Fuses_Set_Delay(Value)
-    CheckForError()
+    CheckForError(lib.Fuses_Set_Delay(Value))
 
 
 def First():
     """Set first Fuse active; returns 0 if none."""
-    return lib.Fuses_Get_First()
+    return CheckForError(lib.Fuses_Get_First())
 
 
 def MonitoredObj(*args):
     """Full name of the circuit element to which the fuse is connected."""
     # Getter
     if len(args) == 0:
-        return get_string(lib.Fuses_Get_MonitoredObj())
+        return get_string(CheckForError(lib.Fuses_Get_MonitoredObj()))
 
     # Setter
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-    lib.Fuses_Set_MonitoredObj(Value)
-    CheckForError()
+    CheckForError(lib.Fuses_Set_MonitoredObj(Value))
 
 
 def MonitoredTerm(*args):
     """Terminal number to which the fuse is connected."""
     # Getter
     if len(args) == 0:
-        return lib.Fuses_Get_MonitoredTerm()
+        return CheckForError(lib.Fuses_Get_MonitoredTerm())
 
     # Setter
     Value, = args
-    lib.Fuses_Set_MonitoredTerm(Value)
-    CheckForError()
+    CheckForError(lib.Fuses_Set_MonitoredTerm(Value))
 
 
 def Name(*args):
@@ -77,7 +74,7 @@ def Name(*args):
     """
     # Getter
     if len(args) == 0:
-        return get_string(lib.Fuses_Get_Name())
+        return CheckForError(get_string(lib.Fuses_Get_Name()))
 
     # Setter
     Value, = args
@@ -88,12 +85,12 @@ def Name(*args):
 
 def Next():
     """Sets next Fuse active; returns 0 if no more."""
-    return lib.Fuses_Get_Next()
+    return CheckForError(lib.Fuses_Get_Next())
 
 
 def NumPhases():
     """(read-only) Number of phases, this fuse."""
-    return lib.Fuses_Get_NumPhases()
+    return CheckForError(lib.Fuses_Get_NumPhases())
 
 
 def RatedCurrent(*args):
@@ -103,12 +100,11 @@ def RatedCurrent(*args):
     """
     # Getter
     if len(args) == 0:
-        return lib.Fuses_Get_RatedCurrent()
+        return CheckForError(lib.Fuses_Get_RatedCurrent())
 
     # Setter
     Value, = args
-    lib.Fuses_Set_RatedCurrent(Value)
-    CheckForError()
+    CheckForError(lib.Fuses_Set_RatedCurrent(Value))
 
 
 def SwitchedObj(*args):
@@ -118,14 +114,13 @@ def SwitchedObj(*args):
     """
     # Getter
     if len(args) == 0:
-        return get_string(lib.Fuses_Get_SwitchedObj())
+        return get_string(CheckForError(lib.Fuses_Get_SwitchedObj()))
 
     # Setter
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-    lib.Fuses_Set_SwitchedObj(Value)
-    CheckForError()
+    CheckForError(lib.Fuses_Set_SwitchedObj(Value))
 
 
 def SwitchedTerm(*args):
@@ -134,26 +129,24 @@ def SwitchedTerm(*args):
     """
     # Getter
     if len(args) == 0:
-        return lib.Fuses_Get_SwitchedTerm()
+        return CheckForError(lib.Fuses_Get_SwitchedTerm())
 
     # Setter
     Value, = args
-    lib.Fuses_Set_SwitchedTerm(Value)
-    CheckForError()
+    CheckForError(lib.Fuses_Set_SwitchedTerm(Value))
 
 
 def TCCCurve(*args):
     """Name of the TCCcurve object that determines fuse blowing."""
     # Getter
     if len(args) == 0:
-        return get_string(lib.Fuses_Get_TCCcurve())
+        return get_string(CheckForError(lib.Fuses_Get_TCCcurve()))
 
     # Setter
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-    lib.Fuses_Set_TCCcurve(Value)
-    CheckForError()
+    CheckForError(lib.Fuses_Set_TCCcurve(Value))
 
 
 def Idx(*args):
@@ -162,7 +155,7 @@ def Idx(*args):
     """
     # Getter
     if len(args) == 0:
-        return lib.Fuses_Get_idx()
+        return CheckForError(lib.Fuses_Get_idx())
 
     # Setter
     Value, = args

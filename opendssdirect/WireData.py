@@ -5,12 +5,12 @@ from ._utils import lib, codec, CheckForError, get_string, get_string_array
 
 def AllNames():
     """(read-only) List of strings with all WireData names"""
-    return get_string_array(lib.WireData_Get_AllNames)
+    return CheckForError(get_string_array(lib.WireData_Get_AllNames))
 
 
 def Count():
     """(read-only) Number of WireDatas"""
-    return lib.WireData_Get_Count()
+    return CheckForError(lib.WireData_Get_Count())
 
 
 def Idx(*args):
@@ -19,7 +19,7 @@ def Idx(*args):
     """
     # Getter
     if len(args) == 0:
-        return lib.WireData_Get_idx()
+        return CheckForError(lib.WireData_Get_idx())
 
     # Setter
     Value, = args
@@ -28,12 +28,12 @@ def Idx(*args):
 
 def First():
     """Set first WireData active; returns 0 if none."""
-    return lib.WireData_Get_First()
+    return CheckForError(lib.WireData_Get_First())
 
 
 def Next():
     """Sets next WireData active; returns 0 if no more."""
-    return lib.WireData_Get_Next()
+    return CheckForError(lib.WireData_Get_Next())
 
 
 def Name(*args):
@@ -42,13 +42,12 @@ def Name(*args):
     """
     # Getter
     if len(args) == 0:
-        return get_string(lib.WireData_Get_Name())
+        return CheckForError(get_string(lib.WireData_Get_Name()))
 
     # Setter
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-
     CheckForError(lib.WireData_Set_Name(Value))
 
 
@@ -56,112 +55,102 @@ def EmergAmps(*args):
     """Emergency ampere rating"""
     # Getter
     if len(args) == 0:
-        return lib.WireData_Get_EmergAmps()
+        return CheckForError(lib.WireData_Get_EmergAmps())
 
     # Setter
     Value, = args
-    lib.WireData_Set_EmergAmps(Value)
-    CheckForError()
+    CheckForError(lib.WireData_Set_EmergAmps(Value))
 
 
 def NormAmps(*args):
     """Normal Ampere rating"""
     # Getter
     if len(args) == 0:
-        return lib.WireData_Get_NormAmps()
+        return CheckForError(lib.WireData_Get_NormAmps())
 
     # Setter
     Value, = args
-    lib.WireData_Set_NormAmps(Value)
-    CheckForError()
+    CheckForError(lib.WireData_Set_NormAmps(Value))
 
 
 def Rdc(*args):
     # Getter
     if len(args) == 0:
-        return lib.WireData_Get_Rdc()
+        return CheckForError(lib.WireData_Get_Rdc())
 
     # Setter
     Value, = args
-    lib.WireData_Set_Rdc(Value)
-    CheckForError()
+    CheckForError(lib.WireData_Set_Rdc(Value))
 
 
 def Rac(*args):
     # Getter
     if len(args) == 0:
-        return lib.WireData_Get_Rac()
+        return CheckForError(lib.WireData_Get_Rac())
 
     # Setter
     Value, = args
-    lib.WireData_Set_Rac(Value)
-    CheckForError()
+    CheckForError(lib.WireData_Set_Rac(Value))
 
 
 def GMRac(*args):
     # Getter
     if len(args) == 0:
-        return lib.WireData_Get_GMRac()
+        return CheckForError(lib.WireData_Get_GMRac())
 
     # Setter
     Value, = args
-    lib.WireData_Set_GMRac(Value)
-    CheckForError()
+    CheckForError(lib.WireData_Set_GMRac(Value))
 
 
 def GMRUnits(*args):
     # Getter
     if len(args) == 0:
-        return lib.WireData_Get_GMRUnits()
+        return CheckForError(lib.WireData_Get_GMRUnits())
 
     # Setter
     Value, = args
-    lib.WireData_Set_GMRUnits(Value)
-    CheckForError()
+    CheckForError(lib.WireData_Set_GMRUnits(Value))
 
 
 def Radius(*args):
     # Getter
     if len(args) == 0:
-        return lib.WireData_Get_Radius()
+        return CheckForError(lib.WireData_Get_Radius())
 
     # Setter
     Value, = args
-    lib.WireData_Set_Radius(Value)
-    CheckForError()
+    CheckForError(lib.WireData_Set_Radius(Value))
 
 
 def RadiusUnits(*args):
     # Getter
     if len(args) == 0:
-        return lib.WireData_Get_RadiusUnits()
+        return CheckForError(lib.WireData_Get_RadiusUnits())
 
     # Setter
     Value, = args
-    lib.WireData_Set_RadiusUnits(Value)
-    CheckForError()
+    CheckForError(lib.WireData_Set_RadiusUnits(Value))
 
 
 def ResistanceUnits(*args):
     # Getter
     if len(args) == 0:
-        return lib.WireData_Get_ResistanceUnits()
+        return CheckForError(lib.WireData_Get_ResistanceUnits())
 
     # Setter
     Value, = args
-    lib.WireData_Set_ResistanceUnits(Value)
-    CheckForError()
+    CheckForError(lib.WireData_Set_ResistanceUnits(Value))
 
 
 def Diameter(*args):
     # Getter
     if len(args) == 0:
-        return lib.WireData_Get_Diameter()
+        return CheckForError(lib.WireData_Get_Diameter())
 
     # Setter
     Value, = args
-    lib.WireData_Set_Diameter(Value)
-    CheckForError()
+    CheckForError(lib.WireData_Set_Diameter(Value))
 
 
 _columns = [

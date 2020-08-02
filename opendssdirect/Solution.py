@@ -11,514 +11,464 @@ from ._utils import (
 
 
 def BuildYMatrix(BuildOption, AllocateVI):
-    lib.Solution_BuildYMatrix(BuildOption, AllocateVI)
-    CheckForError()
+    CheckForError(lib.Solution_BuildYMatrix(BuildOption, AllocateVI))
 
 
 def CheckControls():
-    lib.Solution_CheckControls()
-    CheckForError()
+    CheckForError(lib.Solution_CheckControls())
 
 
 def CheckFaultStatus():
-    lib.Solution_CheckFaultStatus()
-    CheckForError()
+    CheckForError(lib.Solution_CheckFaultStatus())
 
 
 def Cleanup():
-    lib.Solution_Cleanup()
-    CheckForError()
+    CheckForError(lib.Solution_Cleanup())
 
 
 def DoControlActions():
-    lib.Solution_DoControlActions()
-    CheckForError()
+    CheckForError(lib.Solution_DoControlActions())
 
 
 def FinishTimeStep():
-    lib.Solution_FinishTimeStep()
-    CheckForError()
+    CheckForError(lib.Solution_FinishTimeStep())
 
 
 def InitSnap():
-    lib.Solution_InitSnap()
-    CheckForError()
+    CheckForError(lib.Solution_InitSnap())
 
 
 def SampleControlDevices():
-    lib.Solution_SampleControlDevices()
-    CheckForError()
+    CheckForError(lib.Solution_SampleControlDevices())
 
 
 def SampleDoControlActions():
-    lib.Solution_Sample_DoControlActions()
-    CheckForError()
+    CheckForError(lib.Solution_Sample_DoControlActions())
 
 
 def Solve():
-    lib.Solution_Solve()
-    CheckForError()
+    CheckForError(lib.Solution_Solve())
 
 
 def SolveDirect():
-    lib.Solution_SolveDirect()
-    CheckForError()
+    CheckForError(lib.Solution_SolveDirect())
 
 
 def SolveNoControl():
-    lib.Solution_SolveNoControl()
-    CheckForError()
+    CheckForError(lib.Solution_SolveNoControl())
 
 
 def SolvePFlow():
-    lib.Solution_SolvePflow()
-    CheckForError()
+    CheckForError(lib.Solution_SolvePflow())
 
 
 def SolvePlusControl():
-    lib.Solution_SolvePlusControl()
-    CheckForError()
+    CheckForError(lib.Solution_SolvePlusControl())
 
 
 def SolveSnap():
-    lib.Solution_SolveSnap()
-    CheckForError()
+    CheckForError(lib.Solution_SolveSnap())
 
 
 def AddType(*args):
     """Type of device to add in AutoAdd Mode: {dssGen (Default) | dssCap}"""
     # Getter
     if len(args) == 0:
-        return lib.Solution_Get_AddType()
+        return CheckForError(lib.Solution_Get_AddType())
 
     # Setter
     Value, = args
-    lib.Solution_Set_AddType(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_AddType(Value))
 
 
 def Algorithm(*args):
     """Base Solution algorithm: {dssNormalSolve | dssNewtonSolve}"""
     # Getter
     if len(args) == 0:
-        return lib.Solution_Get_Algorithm()
+        return CheckForError(lib.Solution_Get_Algorithm())
 
     # Setter
     Value, = args
-    lib.Solution_Set_Algorithm(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_Algorithm(Value))
 
 
 def Capkvar(*args):
     """Capacitor kvar for adding capacitors in AutoAdd mode"""
     # Getter
     if len(args) == 0:
-        return lib.Solution_Get_Capkvar()
+        return CheckForError(lib.Solution_Get_Capkvar())
 
     # Setter
     Value, = args
-    lib.Solution_Set_Capkvar(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_Capkvar(Value))
 
 
 def ControlActionsDone(*args):
     """Flag indicating the control actions are done."""
     # Getter
     if len(args) == 0:
-        return lib.Solution_Get_ControlActionsDone() != 0
+        return CheckForError(lib.Solution_Get_ControlActionsDone()) != 0
 
     # Setter
     Value, = args
-    lib.Solution_Set_ControlActionsDone(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_ControlActionsDone(Value))
 
 
 def ControlIterations(*args):
     """Value of the control iteration counter"""
     # Getter
     if len(args) == 0:
-        return lib.Solution_Get_ControlIterations()
+        return CheckForError(lib.Solution_Get_ControlIterations())
 
     # Setter
     Value, = args
-    lib.Solution_Set_ControlIterations(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_ControlIterations(Value))
 
 
 def ControlMode(*args):
     """{dssStatic* | dssEvent | dssTime}  Modes for control devices"""
     # Getter
     if len(args) == 0:
-        return lib.Solution_Get_ControlMode()
+        return CheckForError(lib.Solution_Get_ControlMode())
 
     # Setter
     Value, = args
-    lib.Solution_Set_ControlMode(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_ControlMode(Value))
 
 
 def Converged(*args):
     """Flag to indicate whether the circuit solution converged"""
     # Getter
     if len(args) == 0:
-        return lib.Solution_Get_Converged() != 0
+        return CheckForError(lib.Solution_Get_Converged()) != 0
 
     # Setter
     Value, = args
-    lib.Solution_Set_Converged(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_Converged(Value))
 
 
 def DefaultDaily(*args):
     """Default daily load shape (defaults to "Default")"""
     # Getter
     if len(args) == 0:
-        return get_string(lib.Solution_Get_DefaultDaily())
+        return get_string(CheckForError(lib.Solution_Get_DefaultDaily()))
 
     # Setter
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-    lib.Solution_Set_DefaultDaily(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_DefaultDaily(Value))
 
 
 def DefaultYearly(*args):
     """Default Yearly load shape (defaults to "Default")"""
     # Getter
     if len(args) == 0:
-        return get_string(lib.Solution_Get_DefaultYearly())
+        return get_string(CheckForError(lib.Solution_Get_DefaultYearly()))
 
     # Setter
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-    lib.Solution_Set_DefaultYearly(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_DefaultYearly(Value))
 
 
 def EventLog():
     """(read-only) Array of strings containing the Event Log"""
-    return get_string_array(lib.Solution_Get_EventLog)
+    return CheckForError(get_string_array(lib.Solution_Get_EventLog))
 
 
 def Frequency(*args):
     """Set the Frequency for next solution"""
     # Getter
     if len(args) == 0:
-        return lib.Solution_Get_Frequency()
+        return CheckForError(lib.Solution_Get_Frequency())
 
     # Setter
     Value, = args
-    lib.Solution_Set_Frequency(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_Frequency(Value))
 
 
 def GenMult(*args):
     """Default Multiplier applied to generators (like LoadMult)"""
     # Getter
     if len(args) == 0:
-        return lib.Solution_Get_GenMult()
+        return CheckForError(lib.Solution_Get_GenMult())
 
     # Setter
     Value, = args
-    lib.Solution_Set_GenMult(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_GenMult(Value))
 
 
 def GenPF(*args):
     """PF for generators in AutoAdd mode"""
     # Getter
     if len(args) == 0:
-        return lib.Solution_Get_GenPF()
+        return CheckForError(lib.Solution_Get_GenPF())
 
     # Setter
     Value, = args
-    lib.Solution_Set_GenPF(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_GenPF(Value))
 
 
 def GenkW(*args):
     """Generator kW for AutoAdd mode"""
     # Getter
     if len(args) == 0:
-        return lib.Solution_Get_GenkW()
+        return CheckForError(lib.Solution_Get_GenkW())
 
     # Setter
     Value, = args
-    lib.Solution_Set_GenkW(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_GenkW(Value))
 
 
 def Hour(*args):
     """Set Hour for time series solutions."""
     # Getter
     if len(args) == 0:
-        return lib.Solution_Get_Hour()
+        return CheckForError(lib.Solution_Get_Hour())
 
     # Setter
     Value, = args
-    lib.Solution_Set_Hour(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_Hour(Value))
 
 
 def IntervalHrs(*args):
     """
-    (read) Get/Set the Solution.IntervalHrs variable used for devices that integrate
-    (write) Get/Set the Solution.IntervalHrs variable for custom solution algorithms
+    Get/Set the Solution.IntervalHrs variable used for devices that integrate / custom solution algorithms
     """
     # Getter
     if len(args) == 0:
-        return lib.Solution_Get_IntervalHrs()
+        return CheckForError(lib.Solution_Get_IntervalHrs())
 
     # Setter
     Value, = args
-    lib.Solution_Set_IntervalHrs(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_IntervalHrs(Value))
 
 
 def Iterations():
     """(read-only) Number of iterations taken for last solution. (Same as TotalIterations)"""
-    return lib.Solution_Get_Iterations()
+    return CheckForError(lib.Solution_Get_Iterations())
 
 
 def LDCurve(*args):
     """Load-Duration Curve name for LD modes"""
     # Getter
     if len(args) == 0:
-        return get_string(lib.Solution_Get_LDCurve())
+        return get_string(CheckForError(lib.Solution_Get_LDCurve()))
 
     # Setter
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-    lib.Solution_Set_LDCurve(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_LDCurve(Value))
 
 
 def LoadModel(*args):
     """Load Model: {dssPowerFlow (default) | dssAdmittance}"""
     # Getter
     if len(args) == 0:
-        return lib.Solution_Get_LoadModel()
+        return CheckForError(lib.Solution_Get_LoadModel())
 
     # Setter
     Value, = args
-    lib.Solution_Set_LoadModel(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_LoadModel(Value))
 
 
 def LoadMult(*args):
     """Default load multiplier applied to all non-fixed loads"""
     # Getter
     if len(args) == 0:
-        return lib.Solution_Get_LoadMult()
+        return CheckForError(lib.Solution_Get_LoadMult())
 
     # Setter
     Value, = args
-    lib.Solution_Set_LoadMult(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_LoadMult(Value))
 
 
 def MaxControlIterations(*args):
     """Maximum allowable control iterations"""
     # Getter
     if len(args) == 0:
-        return lib.Solution_Get_MaxControlIterations()
+        return CheckForError(lib.Solution_Get_MaxControlIterations())
 
     # Setter
     Value, = args
-    lib.Solution_Set_MaxControlIterations(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_MaxControlIterations(Value))
 
 
 def MaxIterations(*args):
     """Max allowable iterations."""
     # Getter
     if len(args) == 0:
-        return lib.Solution_Get_MaxIterations()
+        return CheckForError(lib.Solution_Get_MaxIterations())
 
     # Setter
     Value, = args
-    lib.Solution_Set_MaxIterations(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_MaxIterations(Value))
 
 
 def MinIterations(*args):
     """Minimum number of iterations required for a power flow solution."""
     # Getter
     if len(args) == 0:
-        return lib.Solution_Get_MinIterations()
+        return CheckForError(lib.Solution_Get_MinIterations())
 
     # Setter
     Value, = args
-    lib.Solution_Set_MinIterations(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_MinIterations(Value))
 
 
 def Mode(*args):
     """Set present solution mode (by a text code - see DSS Help)"""
     # Getter
     if len(args) == 0:
-        return lib.Solution_Get_Mode()
+        return CheckForError(lib.Solution_Get_Mode())
 
     # Setter
     Mode, = args
-    lib.Solution_Set_Mode(Mode)
-    CheckForError()
+    CheckForError(lib.Solution_Set_Mode(Mode))
 
 
 def ModeID():
     """(read-only) ID (text) of the present solution mode"""
-    return get_string(lib.Solution_Get_ModeID())
+    return get_string(CheckForError(lib.Solution_Get_ModeID()))
 
 
 def MostIterationsDone():
     """(read-only) Max number of iterations required to converge at any control iteration of the most recent solution."""
-    return lib.Solution_Get_MostIterationsDone()
+    return CheckForError(lib.Solution_Get_MostIterationsDone())
 
 
 def Number(*args):
     """Number of solutions to perform for Monte Carlo and time series simulations"""
     # Getter
     if len(args) == 0:
-        return lib.Solution_Get_Number()
+        return CheckForError(lib.Solution_Get_Number())
 
     # Setter
     Value, = args
-    lib.Solution_Set_Number(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_Number(Value))
 
 
 def ProcessTime():
     """(read-only) Gets the time required to perform the latest solution (Read only)"""
-    return lib.Solution_Get_Process_Time()
+    return CheckForError(lib.Solution_Get_Process_Time())
 
 
 def Random(*args):
-    '''Randomization mode for random variables "Gaussian" or "Uniform"'''
+    """Randomization mode for random variables "Gaussian" or "Uniform\""""
     # Getter
     if len(args) == 0:
-        return lib.Solution_Get_Random()
+        return CheckForError(lib.Solution_Get_Random())
 
     # Setter
     Random, = args
-    lib.Solution_Set_Random(Random)
-    CheckForError()
+    CheckForError(lib.Solution_Set_Random(Random))
 
 
 def Seconds(*args):
     """Seconds from top of the hour."""
     # Getter
     if len(args) == 0:
-        return lib.Solution_Get_Seconds()
+        return CheckForError(lib.Solution_Get_Seconds())
 
     # Setter
     Value, = args
-    lib.Solution_Set_Seconds(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_Seconds(Value))
 
 
 def StepSize(*args):
     """Time step size in sec"""
     # Getter
     if len(args) == 0:
-        return lib.Solution_Get_StepSize()
+        return CheckForError(lib.Solution_Get_StepSize())
 
     # Setter
     Value, = args
-    lib.Solution_Set_StepSize(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_StepSize(Value))
 
 
 def SystemYChanged():
     """(read-only) Flag that indicates if elements of the System Y have been changed by recent activity."""
-    return lib.Solution_Get_SystemYChanged() != 0
+    return CheckForError(lib.Solution_Get_SystemYChanged()) != 0
 
 
 def TimeTimeStep():
     """(read-only) Get the solution process time + sample time for time step"""
-    return lib.Solution_Get_Time_of_Step()
+    return CheckForError(lib.Solution_Get_Time_of_Step())
 
 
 def Convergence(*args):
     """Solution convergence tolerance."""
     # Getter
     if len(args) == 0:
-        return lib.Solution_Get_Tolerance()
+        return CheckForError(lib.Solution_Get_Tolerance())
 
     # Setter
     Value, = args
-    lib.Solution_Set_Tolerance(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_Tolerance(Value))
 
 
 def TotalTime(*args):
     """
-    (read) Gets the accumulated time of the simulation
-    (write) Sets the Accumulated time of the simulation
+    Gets/sets the accumulated time of the simulation
     """
     # Getter
     if len(args) == 0:
-        return lib.Solution_Get_Total_Time()
+        return CheckForError(lib.Solution_Get_Total_Time())
 
     # Setter
     Value, = args
-    lib.Solution_Set_Total_Time(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_Total_Time(Value))
 
 
 def TotalIterations():
     """(read-only) Total iterations including control iterations for most recent solution."""
-    return lib.Solution_Get_Totaliterations()
+    return CheckForError(lib.Solution_Get_Totaliterations())
 
 
 def Year(*args):
     """Set year for planning studies"""
     # Getter
     if len(args) == 0:
-        return lib.Solution_Get_Year()
+        return CheckForError(lib.Solution_Get_Year())
 
     # Setter
     Value, = args
-    lib.Solution_Set_Year(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_Year(Value))
 
 
 def DblHour(*args):
     """Hour as a double, including fractional part"""
     # Getter
     if len(args) == 0:
-        return lib.Solution_Get_dblHour()
+        return CheckForError(lib.Solution_Get_dblHour())
 
     # Setter
     Value, = args
-    lib.Solution_Set_dblHour(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_dblHour(Value))
 
 
 def PctGrowth(*args):
     """Percent default  annual load growth rate"""
     # Getter
     if len(args) == 0:
-        return lib.Solution_Get_pctGrowth()
+        return CheckForError(lib.Solution_Get_pctGrowth())
 
     # Setter
     Value, = args
-    lib.Solution_Set_pctGrowth(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_pctGrowth(Value))
 
 
 def StepSizeHr(Value):
     """(write-only) Set Stepsize in Hr"""
-    lib.Solution_Set_StepsizeHr(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_StepsizeHr(Value))
 
 
 def StepSizeMin(Value):
     """(write-only) Set Stepsize in minutes"""
-    lib.Solution_Set_StepsizeMin(Value)
-    CheckForError()
+    CheckForError(lib.Solution_Set_StepsizeMin(Value))
 
 
 def BusLevels():
@@ -530,11 +480,11 @@ def IncMatrix():
 
 
 def IncMatrixCols():
-    return get_string_array(lib.Solution_Get_IncMatrixCols)
+    return CheckForError(get_string_array(lib.Solution_Get_IncMatrixCols))
 
 
 def IncMatrixRows():
-    return get_string_array(lib.Solution_Get_IncMatrixRows)
+    return CheckForError(get_string_array(lib.Solution_Get_IncMatrixRows))
 
 
 def Laplacian():

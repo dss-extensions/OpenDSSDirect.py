@@ -22,7 +22,15 @@ class Iterator(object):
         self.function = function
 
     def __iter__(self):
-        self.module.First()
+        import opendssdirect as dss
+        
+        try:
+            idx = self.module.First()
+        except:
+            return # no circuit?
+        
+        if dss.Error.ExtendedErrors() and idx == 0:
+                return # nothing to iterate
 
         while True:
 
@@ -60,7 +68,7 @@ def to_dataframe(module):
             }
     else:
         class_name = module.__name__
-        warnings.warn("Empty element type ({class_name})".format(class_name=class_name))
+        warnings.warn("Empty list ({class_name})".format(class_name=class_name))
 
     if is_pandas_installed:
         return pd.DataFrame(data).T

@@ -16,12 +16,12 @@ from ._utils import (
 
 
 def Close(Term, Phs):
-    lib.CktElement_Close(Term, Phs)
+    CheckForError(lib.CktElement_Close(Term, Phs))
 
 
 def Controller(idx):
     """(read-only) Full name of the i-th controller attached to this element. Ex: str = Controller(2).  See NumControls to determine valid index range"""
-    return get_string(lib.CktElement_Get_Controller(idx))
+    return get_string(CheckForError(lib.CktElement_Get_Controller(idx)))
 
 
 def Variable(MyVarName, Code=None):
@@ -30,14 +30,16 @@ def Variable(MyVarName, Code=None):
     Otherwise, an exception is raised.
     """
     if Code is not None:
-        warnings.warn("The Code parameter is deprecated and unused. It will be removed in a future version.")
+        warnings.warn(
+            "The Code parameter is deprecated and unused. It will be removed in a future version."
+        )
 
     if type(MyVarName) is not bytes:
         MyVarName = MyVarName.encode(codec)
     Code = ffi.new("int32_t*")
     result = lib.CktElement_Get_Variable(MyVarName, Code)
     if Code[0] != 0:
-        raise DSSException(Code[0], 'No variable by this name or not a PCelement.')
+        raise DSSException(Code[0], "No variable by this name or not a PCelement.")
 
     return result
 
@@ -48,7 +50,9 @@ def Variablei(Idx, Code=None):
     Otherwise, an exception is raised.
     """
     if Code is not None:
-        warnings.warn("The Code parameter is deprecated and unused. It will be removed in a future version.")
+        warnings.warn(
+            "The Code parameter is deprecated and unused. It will be removed in a future version."
+        )
 
     Code = ffi.new("int32_t*")
     result = lib.CktElement_Get_Variablei(Idx, Code)
@@ -59,21 +63,21 @@ def Variablei(Idx, Code=None):
 
 
 def IsOpen(Term, Phs):
-    return lib.CktElement_IsOpen(Term, Phs) != 0
+    return CheckForError(lib.CktElement_IsOpen(Term, Phs)) != 0
 
 
 def Open(Term, Phs):
-    lib.CktElement_Open(Term, Phs)
+    CheckForError(lib.CktElement_Open(Term, Phs))
 
 
 def AllPropertyNames():
     """(read-only) Array containing all property names of the active device."""
-    return get_string_array(lib.CktElement_Get_AllPropertyNames)
+    return CheckForError(get_string_array(lib.CktElement_Get_AllPropertyNames))
 
 
 def AllVariableNames():
     """(read-only) Array of strings listing all the published variable names, if a PCElement. Otherwise, null string."""
-    return get_string_array(lib.CktElement_Get_AllVariableNames)
+    return CheckForError(get_string_array(lib.CktElement_Get_AllVariableNames))
 
 
 def AllVariableValues():
@@ -83,18 +87,16 @@ def AllVariableValues():
 
 def BusNames(*args):
     """
-    (read) Array of strings. Get  Bus definitions to which each terminal is connected. 0-based array.
-    (write) Array of strings. Set Bus definitions for each terminal is connected.
+    Array of strings. Get  Bus definitions to which each terminal is connected. 0-based array.
     """
     # Getter
     if len(args) == 0:
-        return get_string_array(lib.CktElement_Get_BusNames)
+        return CheckForError(get_string_array(lib.CktElement_Get_BusNames))
 
     # Setter
     Value, = args
     Value, ValuePtr, ValueCount = prepare_string_array(Value)
-    lib.CktElement_Set_BusNames(ValuePtr, ValueCount)
-    CheckForError()
+    CheckForError(lib.CktElement_Set_BusNames(ValuePtr, ValueCount))
 
 
 def CplxSeqCurrents():
@@ -121,71 +123,65 @@ def DisplayName(*args):
     """Display name of the object (not necessarily unique)"""
     # Getter
     if len(args) == 0:
-        return get_string(lib.CktElement_Get_DisplayName())
+        return get_string(CheckForError(lib.CktElement_Get_DisplayName()))
 
     # Setter
     Value, = args
     if type(Value) is not bytes:
         Value = Value.encode(codec)
-    lib.CktElement_Set_DisplayName(Value)
-    CheckForError()
+    CheckForError(lib.CktElement_Set_DisplayName(Value))
 
 
 def EmergAmps(*args):
-    """
-    (read) Emergency Ampere Rating for PD elements
-    (write) Emergency Ampere Rating
-    """
+    """Emergency Ampere Rating for PD elements"""
     # Getter
     if len(args) == 0:
-        return lib.CktElement_Get_EmergAmps()
+        return CheckForError(lib.CktElement_Get_EmergAmps())
 
     # Setter
     Value, = args
-    lib.CktElement_Set_EmergAmps(Value)
-    CheckForError()
+    CheckForError(lib.CktElement_Set_EmergAmps(Value))
 
 
 def Enabled(*args):
     """Boolean indicating that element is currently in the circuit."""
     # Getter
     if len(args) == 0:
-        return lib.CktElement_Get_Enabled() != 0
+        return CheckForError(lib.CktElement_Get_Enabled()) != 0
 
     # Setter
     Value, = args
-    lib.CktElement_Set_Enabled(Value)
-    CheckForError()
+    CheckForError(lib.CktElement_Set_Enabled(Value))
 
 
 def EnergyMeter():
     """(read-only) Name of the Energy Meter this element is assigned to."""
-    return get_string(lib.CktElement_Get_EnergyMeter())
+    return get_string(CheckForError(lib.CktElement_Get_EnergyMeter()))
 
 
 def GUID():
     """(read-only) globally unique identifier for this object"""
-    return get_string(lib.CktElement_Get_GUID())
+    return get_string(CheckForError(lib.CktElement_Get_GUID()))
 
 
 def Handle():
     """(read-only) Pointer to this object"""
-    return lib.CktElement_Get_Handle()
+    return CheckForError(lib.CktElement_Get_Handle())
 
 
 def HasOCPDevice():
     """(read-only) True if a recloser, relay, or fuse controlling this ckt element. OCP = Overcurrent Protection"""
-    return lib.CktElement_Get_HasOCPDevice() != 0
+    return CheckForError(lib.CktElement_Get_HasOCPDevice()) != 0
 
 
 def HasSwitchControl():
     """(read-only) This element has a SwtControl attached."""
-    return lib.CktElement_Get_HasSwitchControl() != 0
+    return CheckForError(lib.CktElement_Get_HasSwitchControl()) != 0
 
 
 def HasVoltControl():
     """(read-only) This element has a CapControl or RegControl attached."""
-    return lib.CktElement_Get_HasVoltControl() != 0
+    return CheckForError(lib.CktElement_Get_HasVoltControl()) != 0
 
 
 def Losses():
@@ -195,64 +191,61 @@ def Losses():
 
 def Name():
     """(read-only) Full Name of Active Circuit Element"""
-    return get_string(lib.CktElement_Get_Name())
+    return get_string(CheckForError(lib.CktElement_Get_Name()))
 
 
 def NodeOrder():
     """(read-only) Array of integer containing the node numbers (representing phases, for example) for each conductor of each terminal."""
-    result = get_int32_array(lib.CktElement_Get_NodeOrder)
-    CheckForError()
-    return result
+    return get_int32_array(lib.CktElement_Get_NodeOrder)
 
 
 def NormalAmps(*args):
-    """
-    (read) Normal ampere rating for PD Elements
-    (write) Normal ampere rating
-    """
+    """Normal ampere rating for PD Elements"""
     # Getter
     if len(args) == 0:
-        return lib.CktElement_Get_NormalAmps()
+        return CheckForError(lib.CktElement_Get_NormalAmps())
 
     # Setter
     Value, = args
-    lib.CktElement_Set_NormalAmps(Value)
-    CheckForError()
+    CheckForError(lib.CktElement_Set_NormalAmps(Value))
 
 
 def NumConductors():
     """(read-only) Number of Conductors per Terminal"""
-    return lib.CktElement_Get_NumConductors()
+    return CheckForError(lib.CktElement_Get_NumConductors())
 
 
 def NumControls():
-    """(read-only) Number of controls connected to this device. Use to determine valid range for index into Controller array."""
-    return lib.CktElement_Get_NumControls()
+    """
+    (read-only) Number of controls connected to this device. 
+    Use to determine valid range for index into Controller array.
+    """
+    return CheckForError(lib.CktElement_Get_NumControls())
 
 
 def NumPhases():
     """(read-only) Number of Phases"""
-    return lib.CktElement_Get_NumPhases()
+    return CheckForError(lib.CktElement_Get_NumPhases())
 
 
 def NumProperties():
     """(read-only) Number of Properties this Circuit Element."""
-    return lib.CktElement_Get_NumProperties()
+    return CheckForError(lib.CktElement_Get_NumProperties())
 
 
 def NumTerminals():
     """(read-only) Number of Terminals this Circuit Element"""
-    return lib.CktElement_Get_NumTerminals()
+    return CheckForError(lib.CktElement_Get_NumTerminals())
 
 
 def OCPDevIndex():
     """(read-only) Index into Controller list of OCP Device controlling this CktElement"""
-    return lib.CktElement_Get_OCPDevIndex()
+    return CheckForError(lib.CktElement_Get_OCPDevIndex())
 
 
 def OCPDevType():
     """(read-only) 0=None; 1=Fuse; 2=Recloser; 3=Relay;  Type of OCP controller device"""
-    return lib.CktElement_Get_OCPDevType()
+    return CheckForError(lib.CktElement_Get_OCPDevType())
 
 
 def PhaseLosses():
@@ -305,13 +298,10 @@ def IsIsolated():
     Returns true if the current active element is isolated.
     Note that this only fetches the current value. See also the Topology interface.
     """
-    return lib.CktElement_Get_IsIsolated() != 0
+    return CheckForError(lib.CktElement_Get_IsIsolated()) != 0
 
 
 _columns = [
-    "AllPropertyNames",
-    "AllVariableNames",
-    "AllVariableValues",
     "BusNames",
     "CplxSeqCurrents",
     "CplxSeqVoltages",
@@ -347,6 +337,9 @@ _columns = [
     "VoltagesMagAng",
     "YPrim",
     "IsIsolated",
+    "AllPropertyNames",
+    "AllVariableValues",
+    "AllVariableNames",
 ]
 __all__ = [
     "Close",
