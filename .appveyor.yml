@@ -5,6 +5,9 @@ build: false
 
 environment:
   matrix:
+    - PYTHON_VERSION: 3.9
+      TARGET_ARCH: "x64"
+      MINICONDA: C:\Miniconda3-x64
     - PYTHON_VERSION: 3.8
       TARGET_ARCH: "x64"
       MINICONDA: C:\Miniconda3-x64
@@ -17,9 +20,9 @@ environment:
     - PYTHON_VERSION: 3.5
       TARGET_ARCH: "x64"
       MINICONDA: C:\Miniconda3-x64
-    - PYTHON_VERSION: 2.7
-      TARGET_ARCH: "x64"
-      MINICONDA: C:\Miniconda-x64
+    - PYTHON_VERSION: 3.9
+      TARGET_ARCH: "x86"
+      MINICONDA: C:\Miniconda3
     - PYTHON_VERSION: 3.8
       TARGET_ARCH: "x86"
       MINICONDA: C:\Miniconda3
@@ -32,9 +35,6 @@ environment:
     - PYTHON_VERSION: 3.5
       TARGET_ARCH: "x86"
       MINICONDA: C:\Miniconda3
-    - PYTHON_VERSION: 2.7
-      TARGET_ARCH: "x86"
-      MINICONDA: C:\Miniconda
 
 install:
   - "set PATH=%MINICONDA%;%MINICONDA%\\Scripts;%PATH%"
@@ -43,8 +43,6 @@ install:
   - conda info -a
   - "conda create -q -n test-environment python=%PYTHON_VERSION% pandas matplotlib pytest"
   - activate test-environment
-  - pip install cffi
-  - pip install --pre dss-python
   - pip install -e .[extras]
 
 test_script:

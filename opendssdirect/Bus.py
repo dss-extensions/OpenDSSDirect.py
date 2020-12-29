@@ -190,6 +190,16 @@ def LineList():
     return CheckForError(get_string_array(lib.Bus_Get_LineList))
 
 
+def AllPCEatBus():
+    """Returns an array with the names of all PCE connected to the active bus"""
+    return CheckForError(get_string_array(lib.Bus_Get_AllPCEatBus))
+
+
+def AllPDEatBus():
+    """Returns an array with the names of all PDE connected to the active bus"""
+    return CheckForError(get_string_array(lib.Bus_Get_AllPDEatBus))
+
+
 _columns = [
     "Coorddefined",
     "CplxSeqVoltages",
@@ -223,6 +233,8 @@ _columns = [
     "Y",
 ]
 __all__ = [
+    "AllPCEatBus",
+    "AllPDEatBus",
     "GetUniqueNodeNumber",
     "ZscRefresh",
     "Coorddefined",

@@ -278,6 +278,11 @@ def SeqVoltages():
     return get_float64_array(lib.CktElement_Get_SeqVoltages)
 
 
+def TotalPowers():
+    """Returns the total powers (complex) at ALL terminals of the active circuit element."""
+    return get_float64_array(lib.CktElement_Get_TotalPowers)
+
+
 def Voltages():
     """(read-only) Complex array of voltages at terminals"""
     return get_float64_array(lib.CktElement_Get_Voltages)
@@ -333,6 +338,7 @@ _columns = [
     "SeqCurrents",
     "SeqPowers",
     "SeqVoltages",
+    "TotalPowers",
     "Voltages",
     "VoltagesMagAng",
     "YPrim",
@@ -341,6 +347,7 @@ _columns = [
     "AllVariableValues",
     "AllVariableNames",
 ]
+
 __all__ = [
     "Close",
     "Controller",
@@ -382,6 +389,7 @@ __all__ = [
     "SeqCurrents",
     "SeqPowers",
     "SeqVoltages",
+    "TotalPowers",
     "Voltages",
     "VoltagesMagAng",
     "YPrim",

@@ -1160,6 +1160,7 @@ def test_13Node_CktElement(dss):
         u"B0",
         u"Seasons",
         u"Ratings",
+        u"LineType",
         u"normamps",
         u"emergamps",
         u"faultrate",
@@ -1268,7 +1269,7 @@ def test_13Node_CktElement(dss):
     assert dss.CktElement.NumConductors() == 3
     assert dss.CktElement.NumControls() == 0
     assert dss.CktElement.NumPhases() == 3
-    assert dss.CktElement.NumProperties() == 37
+    assert dss.CktElement.NumProperties() == 38
     assert dss.CktElement.NumTerminals() == 2
     assert dss.CktElement.OCPDevIndex() == 0
     assert dss.CktElement.OCPDevType() == 0
@@ -1585,6 +1586,7 @@ def test_13Node_Element(dss):
         u"B0",
         u"Seasons",
         u"Ratings",
+        u"LineType",
         u"normamps",
         u"emergamps",
         u"faultrate",
@@ -1595,7 +1597,7 @@ def test_13Node_Element(dss):
         u"like",
     ]
     assert dss.Element.Name() == u"Line.671692"
-    assert dss.Element.NumProperties() == 37
+    assert dss.Element.NumProperties() == 38
 
 
 def test_13Node_Executive(dss):
@@ -1605,8 +1607,8 @@ def test_13Node_Executive(dss):
         == u"Create a new object within the DSS. Object becomes the active object\nExample: New Line.line1 ..."
     )
     assert (
-        dss.Executive.NumCommands() == 114
-    )  # adjusted to the latest version on 2020-07-28
+        dss.Executive.NumCommands() == 118
+    )  # adjusted to the latest version on 2020-12-28
     assert (
         dss.Executive.NumOptions() == 115
     )  # adjusted to the latest version on 2020-07-28
@@ -5045,7 +5047,7 @@ def test_storage_to_dataframe(dss):
             "duty": {"Storage.631": ""},
             "enabled": {"Storage.631": True},
             "kVA": {"Storage.631": "25"},
-            "kW": {"Storage.631": "-0.25"},
+            "kW": {"Storage.631": "0"},
             "kWhrated": {"Storage.631": "50"},
             "kWhstored": {"Storage.631": "50"},
             "kWrated": {"Storage.631": "25"},
@@ -5110,6 +5112,7 @@ def test_linegeometry_class_to_dataframe():
         "linegeometry.hc2_336_1neut_0mess": {
             "Seasons": "1",
             "Ratings": ["0"],
+            "LineType": "ug",
             "nconds": "4",
             "nphases": "3",
             "cond": "4",
@@ -5944,35 +5947,35 @@ def test_wiredata_class_to_dataframe():
 
     assert data == {
         "wiredata.acsr1/0": {
-            "Capradius": "-1",
+            "Capradius": "0.199",
             "Seasons": "1",
             "Ratings": ["-1"],
-            "GMRac": "0.0044600",
+            "GMRac": "0.00446",
             "GMRunits": "ft",
-            "Rac": "1.120000",
-            "Rdc": "-1",
+            "Rac": "1.12",
+            "Rdc": "1.09804",
             "Runits": "mi",
-            "diam": "0.3980000",
-            "emergamps": "-1",
+            "diam": "0.398",
+            "emergamps": "345",
             "like": "",
-            "normamps": "230.0000",
-            "radius": "-1",
+            "normamps": "230",
+            "radius": "0.199",
             "radunits": "in",
         },
         "wiredata.acsr336": {
-            "Capradius": "-1",
+            "Capradius": "0.3705",
             "Seasons": "1",
             "Ratings": ["-1"],
-            "GMRac": "0.0255000",
+            "GMRac": "0.0255",
             "GMRunits": "ft",
-            "Rac": "0.3060000",
-            "Rdc": "-1",
+            "Rac": "0.306",
+            "Rdc": "0.3",
             "Runits": "mi",
-            "diam": "0.7410000",
-            "emergamps": "-1",
+            "diam": "0.741",
+            "emergamps": "795",
             "like": "",
-            "normamps": "530.0000",
-            "radius": "-1",
+            "normamps": "530",
+            "radius": "0.3705",
             "radunits": "in",
         },
     }
