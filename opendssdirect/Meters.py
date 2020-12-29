@@ -271,6 +271,10 @@ def Totals():
     """(read-only) Totals of all registers of all meters"""
     return get_float64_array(lib.Meters_Get_Totals)
 
+def ZonePCE():
+    """Returns the list of all PCE within the area covered by the energy meter"""
+    return CheckForError(get_string_array(lib.Meters_Get_ZonePCE))
+
 
 def Idx(*args):
     """
@@ -361,5 +365,6 @@ __all__ = [
     "SumBranchFltRates",
     "TotalCustomers",
     "Totals",
+    "ZonePCE",
     "Idx",
 ]
