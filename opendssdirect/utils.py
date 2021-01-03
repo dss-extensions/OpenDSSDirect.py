@@ -3,7 +3,7 @@ from __future__ import absolute_import
 import inspect
 import warnings
 
-from ._utils import get_string
+from ._utils import get_string, dss_py
 
 is_pandas_installed = True
 
@@ -233,6 +233,32 @@ def meters_to_dataframe(dss=None):
     if dss is None:
         import opendssdirect as dss
     return to_dataframe(dss.Meters)
+
+
+def monitor_to_dataframe(dss=None):
+    """
+    Return the data from current active monitor as a Pandas DataFrame
+    """
+    if dss is None:
+        import opendssdirect as dss
+
+    if dss.Solution.Mode() in (dss_py.enums.SolveModes.Harmonic, 17):
+        # Note: Mode 17 is HarmonicT but it was not exposed in the enum
+        #       ported from COM as of 2021-01-03
+        columns = ['frequency', 'harmonic'] 
+    else:
+        columns = ['hour', 'second'] 
+
+    columns.extend(col.strip() for col in dss.Monitors.Header())
+    data = dss.Monitors.AsMatrix()
+
+    if is_pandas_installed:
+        return pd.DataFrame(data, columns=columns)
+    else:
+        warnings.warn(
+            "Pandas is not installed. Please see documentation for how to install extra dependencies."
+        )
+        return dict(zip(columns, data.T))
 
 
 def monitors_to_dataframe(dss=None):

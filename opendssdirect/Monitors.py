@@ -2,6 +2,7 @@
 from __future__ import absolute_import
 import numpy as np
 from ._utils import (
+    api_util,
     lib,
     codec,
     CheckForError,
@@ -201,7 +202,7 @@ def AsMatrix():
     Matrix of the active monitor, containing the hour vector, seconds vector, and all channels (index 2 = channel 1).
     If you need multiple channels, prefer using this function as it processes the monitor byte-stream once.
     """
-    buffer = get_int8_array(lib.Monitors_Get_ByteStream)
+    buffer = api_util.get_int8_array(lib.Monitors_Get_ByteStream)
     CheckForError()
     if len(buffer) <= 1:
         return None
