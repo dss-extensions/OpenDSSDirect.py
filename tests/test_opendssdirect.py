@@ -1963,6 +1963,56 @@ def test_13Node_Monitors(dss):
     assert dss.Monitors.ResetAll() is None
     assert dss.Monitors.SaveAll() is None
     assert dss.Monitors.SampleAll() is None
+    
+    dss.Text.Command("new monitor.test_monitor element=Transformer.Reg3 terminal=2 mode=2")
+    dss.Text.Command("solve mode=daily step=15m number=10")
+    
+    assert dss.Monitors.Count() == 1
+    assert dss.Monitors.First() == 1
+    
+    expected_dict = pd.DataFrame(
+        {
+            "Tap (pu)": {
+                0: 1.056249976158142,
+                1: 1.056249976158142,
+                2: 1.056249976158142,
+                3: 1.056249976158142,
+                4: 1.056249976158142,
+                5: 1.056249976158142,
+                6: 1.056249976158142,
+                7: 1.056249976158142,
+                8: 1.056249976158142,
+                9: 1.056249976158142
+            },
+            "hour": {
+                0: 0.0,
+                1: 0.0,
+                2: 0.0,
+                3: 1.0,
+                4: 1.0,
+                5: 1.0,
+                6: 1.0,
+                7: 2.0,
+                8: 2.0,
+                9: 2.0
+            },
+            "second": {
+                0: 900.0,
+                1: 1800.0,
+                2: 2700.0,
+                3: 0.0,
+                4: 900.0,
+                5: 1800.0,
+                6: 2700.0,
+                7: 0.0,
+                8: 900.0,
+                9: 1800.0
+            }
+        }
+    ).to_dict()
+
+    actual_dict = dss.utils.monitor_to_dataframe().to_dict()
+    assert_dict_equal(actual_dict, expected_dict)
 
 
 def test_13Node_PDElements(dss):
