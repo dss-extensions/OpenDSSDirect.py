@@ -4,6 +4,7 @@ import inspect
 import warnings
 
 from ._utils import get_string, dss_py
+from . import _utils
 
 is_pandas_installed = True
 
@@ -47,7 +48,7 @@ def run_command(text, dss=None):
 
     r = []
     for l in text.splitlines():
-        dss.dss_lib.Text_Set_Command(l.encode("ascii"))
+        dss.dss_lib.Text_Set_Command(l.encode(_utils.codec))
         r.append(get_string(dss.dss_lib.Text_Get_Result()))
 
     return "\n".join(r).strip()
