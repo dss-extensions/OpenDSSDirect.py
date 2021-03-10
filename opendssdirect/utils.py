@@ -4,6 +4,7 @@ import inspect
 import warnings
 
 from ._utils import get_string, dss_py
+from . import _utils
 
 is_pandas_installed = True
 
@@ -23,12 +24,12 @@ class Iterator(object):
 
     def __iter__(self):
         import opendssdirect as dss
-        
+
         try:
             idx = self.module.First()
         except:
             return # no circuit?
-        
+
         if dss.Error.ExtendedErrors() and idx == 0:
                 return # nothing to iterate
 
@@ -47,7 +48,7 @@ def run_command(text, dss=None):
 
     r = []
     for l in text.splitlines():
-        dss.dss_lib.Text_Set_Command(l.encode("ascii"))
+        dss.dss_lib.Text_Set_Command(l.encode(_utils.codec))
         r.append(get_string(dss.dss_lib.Text_Get_Result()))
 
     return "\n".join(r).strip()
@@ -245,9 +246,9 @@ def monitor_to_dataframe(dss=None):
     if dss.Solution.Mode() in (dss_py.enums.SolveModes.Harmonic, 17):
         # Note: Mode 17 is HarmonicT but it was not exposed in the enum
         #       ported from COM as of 2021-01-03
-        columns = ['frequency', 'harmonic'] 
+        columns = ['frequency', 'harmonic']
     else:
-        columns = ['hour', 'second'] 
+        columns = ['hour', 'second']
 
     columns.extend(col.strip() for col in dss.Monitors.Header())
     data = dss.Monitors.AsMatrix()
