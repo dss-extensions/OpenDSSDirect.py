@@ -330,12 +330,12 @@ def test_13Node_Bus(dss):
     assert dss.Bus.Cust_Interrupts() == 0.0
     assert dss.Bus.Distance() == 0.0
     assert dss.Bus.Int_Duration() == 0.0
-    assert dss.Bus.Isc() == [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    np.testing.assert_array_almost_equal(dss.Bus.Isc(), [0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
     assert dss.Bus.Lambda() == 0.0
     assert dss.Bus.N_Customers() == 0
     assert dss.Bus.N_interrupts() == 0.0
     assert dss.Bus.Name() == u"sourcebus"
-    assert dss.Bus.Nodes() == [1, 2, 3]
+    np.testing.assert_array_equal(dss.Bus.Nodes(), [1, 2, 3])
     assert dss.Bus.NumNodes() == 3
     np.testing.assert_array_almost_equal(
         dss.Bus.PuVoltage(),
@@ -380,7 +380,7 @@ def test_13Node_Bus(dss):
         ],
         decimal=4,
     )
-    assert dss.Bus.Voc() == [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    np.testing.assert_array_almost_equal(dss.Bus.Voc(), [0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
     np.testing.assert_array_almost_equal(
         dss.Bus.Voltages(),
         [
@@ -395,10 +395,10 @@ def test_13Node_Bus(dss):
     )
     assert dss.Bus.X() == 200.0
     assert dss.Bus.Y() == 400.0
-    assert dss.Bus.YscMatrix() == [0.0]
-    assert dss.Bus.Zsc0() == [0.0, 0.0]
-    assert dss.Bus.Zsc1() == [0.0, 0.0]
-    assert dss.Bus.ZscMatrix() == [0.0]
+    np.testing.assert_array_almost_equal(dss.Bus.YscMatrix(), [0.0])
+    np.testing.assert_array_almost_equal(dss.Bus.Zsc0(), [0.0, 0.0])
+    np.testing.assert_array_almost_equal(dss.Bus.Zsc1(), [0.0, 0.0])
+    np.testing.assert_array_almost_equal(dss.Bus.ZscMatrix(), [0.0])
     assert dss.Bus.ZscRefresh() == 1
     assert dss.Bus.kVBase() == 66.39528095680697
     np.testing.assert_array_almost_equal(
@@ -430,13 +430,13 @@ def test_13Node_Bus(dss):
 
     # TODO: this should not be sorted, we should define the order of the results
     assert sorted(dss.YMatrix.getV()[2:]) == sorted(dss.Circuit.AllBusVolts())
-    
-    assert dss.Bus.AllPDEatBus() == ["Transformer.sub"]
-    assert dss.Bus.AllPCEatBus() == ["Vsource.source"]
-    
+
+    np.testing.assert_array_equal(dss.Bus.AllPDEatBus(), ["Transformer.sub"])
+    np.testing.assert_array_equal(dss.Bus.AllPCEatBus(), ["Vsource.source"])
+
     dss.Circuit.SetActiveBus("684")
-    assert dss.Bus.AllPDEatBus() == ['Line.671684', 'Line.684611', 'Line.684652']
-    assert dss.Bus.AllPCEatBus() == []
+    np.testing.assert_array_equal(dss.Bus.AllPDEatBus(), ['Line.671684', 'Line.684611', 'Line.684652'])
+    np.testing.assert_array_equal(dss.Bus.AllPCEatBus(), [])
 
 
 def test_13Node_Circuit(dss):
@@ -785,7 +785,7 @@ def test_13Node_Circuit(dss):
         u"Line.684652",
         u"Line.671692",
     ]
-    assert dss.Circuit.AllNodeDistances() == [
+    np.testing.assert_array_almost_equal(dss.Circuit.AllNodeDistances(), [
         0.0,
         0.0,
         0.0,
@@ -827,8 +827,8 @@ def test_13Node_Circuit(dss):
         0.0,
         0.0,
         0.0,
-    ]
-    assert dss.Circuit.AllNodeNames() == [
+    ])
+    np.testing.assert_array_equal(dss.Circuit.AllNodeNames(), [
         u"sourcebus.1",
         u"sourcebus.2",
         u"sourcebus.3",
@@ -870,7 +870,7 @@ def test_13Node_Circuit(dss):
         u"680.3",
         u"684.1",
         u"684.3",
-    ]
+    ])
     #    assert dss.Circuit.Capacity() == 0.0 ---- NEEDS PARAMS
     assert dss.Circuit.Disable("632") is None
     assert dss.Circuit.Enable("632") is None
@@ -908,7 +908,7 @@ def test_13Node_Circuit(dss):
     assert dss.Circuit.SetActiveClass("Load") == 20
 
     assert dss.Circuit.SetActiveElement("") == -1
-    assert dss.Circuit.SubstationLosses() == [0.0, 0.0]
+    np.testing.assert_array_almost_equal(dss.Circuit.SubstationLosses(), [0.0, 0.0])
     np.testing.assert_array_almost_equal(
         dss.Circuit.TotalPower(), [-3567.2130572232213, -1736.5876246039768], decimal=4
     )
@@ -1001,7 +1001,7 @@ def test_13Node_Circuit(dss):
         ],
         decimal=4,
     )
-    assert dss.Circuit.YNodeOrder() == [
+    np.testing.assert_array_equal(dss.Circuit.YNodeOrder(), [
         u"SOURCEBUS.1",
         u"SOURCEBUS.2",
         u"SOURCEBUS.3",
@@ -1043,7 +1043,7 @@ def test_13Node_Circuit(dss):
         u"692.2",
         u"684.1",
         u"684.3",
-    ]
+    ])
     np.testing.assert_array_almost_equal(
         dss.Circuit.YNodeVArray(),
         [
@@ -1176,9 +1176,9 @@ def test_13Node_CktElement(dss):
         u"enabled",
         u"like",
     ]
-    assert dss.CktElement.AllVariableNames() == []
-    assert dss.CktElement.AllVariableValues() == [0.0]
-    assert dss.CktElement.BusNames() == [u"671", u"692"]
+    np.testing.assert_array_equal(dss.CktElement.AllVariableNames(), [])
+    np.testing.assert_array_almost_equal(dss.CktElement.AllVariableValues(), [0.0])
+    np.testing.assert_array_equal(dss.CktElement.BusNames(), [u"671", u"692"])
     assert dss.CktElement.Open(1, 0) is None
     assert dss.CktElement.IsOpen(1, 0)
     assert dss.CktElement.Close(1, 0) is None
@@ -1270,7 +1270,7 @@ def test_13Node_CktElement(dss):
         decimal=4,
     )
     assert dss.CktElement.Name() == u"Line.671692"
-    assert dss.CktElement.NodeOrder() == [1, 2, 3, 1, 2, 3]
+    np.testing.assert_array_equal(dss.CktElement.NodeOrder(), [1, 2, 3, 1, 2, 3])
     np.testing.assert_almost_equal(
         dss.CktElement.TotalPowers(),
         [1013.9070515856262, 19.023976609590814, -1013.9070425310053, -19.023976609590783],
@@ -1493,7 +1493,7 @@ def test_13Node_CktElement(dss):
     # Create an element with "variables" available to test
     dss.run_command("New PVSystem.631")
     dss.Circuit.SetActiveElement("PVSystem.631")
-    assert dss.CktElement.AllVariableNames() == [
+    np.testing.assert_array_equal(dss.CktElement.AllVariableNames(), [
         u"Irradiance",
         u"PanelkW",
         u"P_TFactor",
@@ -1507,8 +1507,8 @@ def test_13Node_CktElement(dss):
         u"watt-pf",
         u"watt-var",
         u"kW_out_desired",
-    ]
-    assert dss.CktElement.AllVariableValues() == [
+    ])
+    np.testing.assert_array_almost_equal(dss.CktElement.AllVariableValues(), [
         1.0,
         500.0,
         1.0,
@@ -1522,7 +1522,7 @@ def test_13Node_CktElement(dss):
         9999.0,
         9999.0,
         500.0,
-    ]
+    ])
     assert dss.CktElement.Variablei(2) == 500.0
     assert dss.CktElement.Variable(u"PanelkW") == 500.0
 
@@ -1692,7 +1692,7 @@ def test_13Node_Isource(dss):
 
 def test_13Node_Lines(dss):
 
-    assert dss.Lines.AllNames() == [
+    np.testing.assert_array_equal(dss.Lines.AllNames(), [
         u"650632",
         u"632670",
         u"670671",
@@ -1705,12 +1705,12 @@ def test_13Node_Lines(dss):
         u"684611",
         u"684652",
         u"671692",
-    ]
+    ])
     assert dss.Lines.Bus1() == u"671"
     assert dss.Lines.Bus2() == u"692"
     assert dss.Lines.C0() == 0.0
     assert dss.Lines.C1() == 0.0
-    assert dss.Lines.CMatrix() == [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    np.testing.assert_array_almost_equal(dss.Lines.CMatrix(), [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
     assert dss.Lines.Count() == 12
     assert dss.Lines.EmergAmps() == 600.0
     assert dss.Lines.First() == 1
@@ -1728,7 +1728,7 @@ def test_13Node_Lines(dss):
     assert dss.Lines.Spacing() == u""
     assert dss.Lines.Units() == 5
     assert dss.Lines.Xg() == 0.155081
-    assert dss.Lines.Yprim() == [
+    np.testing.assert_array_almost_equal(dss.Lines.Yprim(), [
         3.4335554553543783,
         -9.8965831153747,
         -1.4568043853617796,
@@ -1801,7 +1801,7 @@ def test_13Node_Lines(dss):
         2.0889991803940724,
         2.658753201413196,
         -8.847115639537611,
-    ]
+    ])
     with pt.raises(dss.DSSException):
         # This is not allowed at the moment (the value is/was ignored before)
         # so an exception was added in case someone was trying to use it
@@ -1809,7 +1809,7 @@ def test_13Node_Lines(dss):
 
     assert dss.Lines.R0() == 3.378880258497484e-05
     assert dss.Lines.X0() == 7.664982290436836e-05
-    assert dss.Lines.RMatrix() == [
+    np.testing.assert_array_almost_equal(dss.Lines.RMatrix(), [
         6.562679425837321e-05,
         2.9546262350090106e-05,
         2.992506058534767e-05,
@@ -1819,8 +1819,8 @@ def test_13Node_Lines(dss):
         2.992506058534767e-05,
         2.9072764556018148e-05,
         6.466085875846642e-05,
-    ]
-    assert dss.Lines.XMatrix() == [
+    ])
+    np.testing.assert_array_almost_equal(dss.Lines.XMatrix(), [
         0.00019278936183433795,
         9.502153731436029e-05,
         8.022946622755235e-05,
@@ -1830,7 +1830,7 @@ def test_13Node_Lines(dss):
         8.022946622755235e-05,
         7.289972037531847e-05,
         0.00019599020692226434,
-    ]
+    ])
 
     assert dss.Lines.R1() == 1.0985148822469399e-05
     assert dss.Lines.X1() == 2.2841533586031195e-05
@@ -1838,7 +1838,7 @@ def test_13Node_Lines(dss):
 
 def test_13Node_Loads(dss):
 
-    assert dss.Loads.AllNames() == [
+    np.testing.assert_array_equal(dss.Loads.AllNames(), [
         u"671",
         u"634a",
         u"634b",
@@ -1854,7 +1854,7 @@ def test_13Node_Loads(dss):
         u"670a",
         u"670b",
         u"670c",
-    ]
+    ])
     assert dss.Loads.AllocationFactor() == 0.5
     assert dss.Loads.CFactor() == 4.0
     assert dss.Loads.CVRCurve() == u""
@@ -1886,7 +1886,7 @@ def test_13Node_Loads(dss):
     assert dss.Loads.XfkVA() == 0.0
     assert dss.Loads.Xneut() == 0.0
     assert dss.Loads.Yearly() == u""
-    assert dss.Loads.ZipV() == []
+    np.testing.assert_array_almost_equal(dss.Loads.ZipV(), [])
     assert dss.Loads.kV() == 0.277
     assert dss.Loads.kVABase() == 194.164878389476
     assert dss.Loads.kW() == 160.0
@@ -1897,17 +1897,17 @@ def test_13Node_Loads(dss):
 
 
 def test_13Node_LoadShape(dss):
-    assert dss.LoadShape.AllNames() == [u"default"]
+    np.testing.assert_array_equal(dss.LoadShape.AllNames(), [u"default"])
     assert dss.LoadShape.Count() == 1
     assert dss.LoadShape.First() == 1
     assert dss.LoadShape.HrInterval() == 1.0
     assert dss.LoadShape.MinInterval() == 60.0
-    assert dss.LoadShape.Name() == u"default"
+    np.testing.assert_array_equal(dss.LoadShape.Name(), u"default")
     assert dss.LoadShape.Next() == 0
     assert dss.LoadShape.Normalize() is None
     assert dss.LoadShape.Npts() == 24
     assert dss.LoadShape.PBase() == 0.0
-    assert dss.LoadShape.PMult() == [
+    np.testing.assert_array_almost_equal(dss.LoadShape.PMult(), [
         0.677,
         0.6256,
         0.6087,
@@ -1932,11 +1932,11 @@ def test_13Node_LoadShape(dss):
         0.876,
         0.828,
         0.756,
-    ]
+    ])
     assert dss.LoadShape.QBase() == 0.0
-    assert dss.LoadShape.QMult() == [0.0]
+    np.testing.assert_array_almost_equal(dss.LoadShape.QMult(), [0.0])
     assert dss.LoadShape.SInterval() == 3600.0
-    assert dss.LoadShape.TimeArray() == [0.0]
+    np.testing.assert_array_almost_equal(dss.LoadShape.TimeArray(), [0.0])
     assert dss.LoadShape.UseActual() == 0
 
 
@@ -1963,13 +1963,13 @@ def test_13Node_Monitors(dss):
     assert dss.Monitors.ResetAll() is None
     assert dss.Monitors.SaveAll() is None
     assert dss.Monitors.SampleAll() is None
-    
+
     dss.Text.Command("new monitor.test_monitor element=Transformer.Reg3 terminal=2 mode=2")
     dss.Text.Command("solve mode=daily step=15m number=10")
-    
+
     assert dss.Monitors.Count() == 1
     assert dss.Monitors.First() == 1
-    
+
     expected_dict = pd.DataFrame(
         {
             "Tap (pu)": {
@@ -2077,12 +2077,12 @@ def test_13Node_PDElements(dss):
     for name in all_names:
         # We have to iterate by name to include disabled elements
         dss.PDElements.Name(name)
-        
+
         currents = np.asarray(dss.CktElement.Currents()).view(dtype=complex)
-        
+
         all_max_currents2.append(np.max(np.abs(currents[:dss.CktElement.NumPhases()])))
         all_max_currents_all_terms_2.append(np.max(np.abs(currents)))
-        
+
         all_currents2.append(currents)
         all_norm_amp2.append(dss.CktElement.NormalAmps())
         all_emerg_amp2.append(dss.CktElement.EmergAmps())
@@ -2096,8 +2096,8 @@ def test_13Node_PDElements(dss):
 
     np.testing.assert_array_almost_equal(all_max_currents, all_max_currents2, decimal=4)
     np.testing.assert_array_almost_equal(
-        all_max_currents_all_terms, 
-        all_max_currents_all_terms_2, 
+        all_max_currents_all_terms,
+        all_max_currents_all_terms_2,
         decimal=4
     )
 
@@ -2114,8 +2114,8 @@ def test_13Node_PDElements(dss):
     )
 
     np.testing.assert_array_almost_equal(
-        np.asarray(all_currents).view(dtype=complex), 
-        np.concatenate(all_currents2), 
+        np.asarray(all_currents).view(dtype=complex),
+        np.concatenate(all_currents2),
         decimal=4
     )
 
@@ -2228,7 +2228,7 @@ def test_13Node_Settings(dss):
     assert dss.Settings.Trapezoidal() == 0
     assert dss.Settings.UERegs() == [10]
     assert dss.Settings.UEWeight() == 1.0
-    assert dss.Settings.VoltageBases() == [115.0, 4.16, 0.48]
+    np.testing.assert_array_almost_equal(dss.Settings.VoltageBases(), [115.0, 4.16, 0.48])
     assert dss.Settings.ZoneLock() == 0
 
 

@@ -6,6 +6,7 @@ from __future__ import absolute_import
 import dss as dss_py
 import numpy as np
 import warnings
+import os
 
 # Bind to the FFI module instance. This should be refined in a future version,
 # especially after DSS C-API 0.11 is fully released.
@@ -18,12 +19,22 @@ DSSException = dss_py._cffi_api_util.DSSException
 
 # Currently, we prefer the functions that return lists (suffix 2)
 # to keep higher compatibility with previous versions of OpenDSSDirect.py.
-
-get_string = api_util.get_string
-get_float64_array = api_util.get_float64_array2
-get_int32_array = api_util.get_int32_array2
-get_int8_array = api_util.get_int8_array2
-get_string_array = api_util.get_string_array2
+if os.environ.get("OPENDSSDIRECT_PY_USE_NUMPY"):
+    get_string = api_util.get_string
+    get_float64_array = api_util.get_float64_array
+    get_int32_array = api_util.get_int32_array
+    get_int8_array = api_util.get_int8_array
+    # TODO: Fix the following once https://github.com/dss-extensions/dss_python/pull/35 is merged
+    # get_string_array = api_util.get_string_array
+    def get_string_array(*args, **kwargs):
+        l = api_util.get_string_array(*args, **kwargs)
+        return [i for i in l if i != "" and i != "NONE"]
+else:
+    get_string = api_util.get_string
+    get_float64_array = api_util.get_float64_array2
+    get_int32_array = api_util.get_int32_array2
+    get_int8_array = api_util.get_int8_array2
+    get_string_array = api_util.get_string_array2
 prepare_float64_array = api_util.prepare_float64_array
 prepare_int32_array = api_util.prepare_int32_array
 prepare_string_array = api_util.prepare_string_array
