@@ -243,7 +243,6 @@ def test_13Node_Basic(dss):
 
     assert dss.Basic.AllowForms() is False
     dss_classes = [
-        u"Solution",
         u"LineCode",
         u"LoadShape",
         u"TShape",
@@ -255,8 +254,8 @@ def test_13Node_Basic(dss):
         u"WireData",
         u"CNData",
         u"TSData",
-        u"LineGeometry",
         u"LineSpacing",
+        u"LineGeometry",
         u"XfmrCode",
         u"Line",
         u"Vsource",
@@ -905,7 +904,7 @@ def test_13Node_Circuit(dss):
     with pt.raises(dss.DSSException):
         dss.Circuit.SetActiveClass("")
 
-    assert dss.Circuit.SetActiveClass("Load") == 20
+    assert dss.Circuit.SetActiveClass("Load") == 19
 
     assert dss.Circuit.SetActiveElement("") == -1
     assert dss.Circuit.SubstationLosses() == [0.0, 0.0]
@@ -1618,11 +1617,11 @@ def test_13Node_Executive(dss):
         == u"Create a new object within the DSS. Object becomes the active object\nExample: New Line.line1 ..."
     )
     assert (
-        dss.Executive.NumCommands() == 118
-    )  # adjusted to the latest version on 2020-12-28
+        dss.Executive.NumCommands() == 125
+    )  # adjusted to the latest version on 2022-03-22
     assert (
-        dss.Executive.NumOptions() == 115
-    )  # adjusted to the latest version on 2020-07-28
+        dss.Executive.NumOptions() == 124
+    )  # adjusted to the latest version on 2022-02-28
     assert dss.Executive.Option(1) == u"type"
     assert (
         dss.Executive.OptionHelp(1)
@@ -1728,7 +1727,7 @@ def test_13Node_Lines(dss):
     assert dss.Lines.Spacing() == u""
     assert dss.Lines.Units() == 5
     assert dss.Lines.Xg() == 0.155081
-    assert dss.Lines.Yprim() == [
+    np.testing.assert_array_almost_equal(dss.Lines.Yprim(), [
         3.4335554553543783,
         -9.8965831153747,
         -1.4568043853617796,
@@ -1801,7 +1800,7 @@ def test_13Node_Lines(dss):
         2.0889991803940724,
         2.658753201413196,
         -8.847115639537611,
-    ]
+    ])
     with pt.raises(dss.DSSException):
         # This is not allowed at the moment (the value is/was ignored before)
         # so an exception was added in case someone was trying to use it
@@ -1886,7 +1885,7 @@ def test_13Node_Loads(dss):
     assert dss.Loads.XfkVA() == 0.0
     assert dss.Loads.Xneut() == 0.0
     assert dss.Loads.Yearly() == u""
-    assert dss.Loads.ZipV() == []
+    assert dss.Loads.ZipV() == [0, 0, 0, 0, 0, 0, 0]
     assert dss.Loads.kV() == 0.277
     assert dss.Loads.kVABase() == 194.164878389476
     assert dss.Loads.kW() == 160.0
@@ -2337,14 +2336,14 @@ def test_13Node_Transformers(dss):
     assert dss.Transformers.Next() == 2
     assert dss.Transformers.NumTaps() == 32
     assert dss.Transformers.NumWindings() == 2
-    assert dss.Transformers.R() == 5e-05
+    assert dss.Transformers.R() == 5e-03
     assert dss.Transformers.Rneut() == -1.0
     assert dss.Transformers.Tap() == 1.05625
     assert dss.Transformers.Wdg() == 2
     assert dss.Transformers.XfmrCode() == u""
-    assert dss.Transformers.Xhl() == 0.0001
-    assert dss.Transformers.Xht() == 0.35
-    assert dss.Transformers.Xlt() == 0.3
+    assert dss.Transformers.Xhl() == 0.01
+    assert dss.Transformers.Xht() == 35
+    assert dss.Transformers.Xlt() == 30
     assert dss.Transformers.Xneut() == 0.0
     assert dss.Transformers.kV() == 2.4
     assert dss.Transformers.kVA() == 1666.0
@@ -4185,21 +4184,21 @@ def test_loads_to_dataframe(dss):
                 "692": "",
             },
             "ZipV": {
-                "611": [],
-                "634a": [],
-                "634b": [],
-                "634c": [],
-                "645": [],
-                "646": [],
-                "652": [],
-                "670a": [],
-                "670b": [],
-                "670c": [],
-                "671": [],
-                "675a": [],
-                "675b": [],
-                "675c": [],
-                "692": [],
+                "611": [0, 0, 0, 0, 0, 0, 0],
+                "634a": [0, 0, 0, 0, 0, 0, 0],
+                "634b": [0, 0, 0, 0, 0, 0, 0],
+                "634c": [0, 0, 0, 0, 0, 0, 0],
+                "645": [0, 0, 0, 0, 0, 0, 0],
+                "646": [0, 0, 0, 0, 0, 0, 0],
+                "652": [0, 0, 0, 0, 0, 0, 0],
+                "670a": [0, 0, 0, 0, 0, 0, 0],
+                "670b": [0, 0, 0, 0, 0, 0, 0],
+                "670c": [0, 0, 0, 0, 0, 0, 0],
+                "671": [0, 0, 0, 0, 0, 0, 0],
+                "675a": [0, 0, 0, 0, 0, 0, 0],
+                "675b": [0, 0, 0, 0, 0, 0, 0],
+                "675c": [0, 0, 0, 0, 0, 0, 0],
+                "692": [0, 0, 0, 0, 0, 0, 0],
             },
             "kV": {
                 "611": 2.4,
@@ -4498,11 +4497,11 @@ def test_transformers_to_dataframe(dss):
             "NumTaps": {"reg1": 32, "reg2": 32, "reg3": 32, "sub": 32, "xfm1": 32},
             "NumWindings": {"reg1": 2, "reg2": 2, "reg3": 2, "sub": 2, "xfm1": 2},
             "R": {
-                "reg1": 5e-05,
-                "reg2": 5e-05,
-                "reg3": 5e-05,
-                "sub": 5e-06,
-                "xfm1": 0.0055000000000000005,
+                "reg1": 5e-03,
+                "reg2": 5e-03,
+                "reg3": 5e-03,
+                "sub": 5e-04,
+                "xfm1": 0.55000000000000005,
             },
             "Rneut": {
                 "reg1": -1.0,
@@ -4521,20 +4520,20 @@ def test_transformers_to_dataframe(dss):
             "Wdg": {"reg1": 2, "reg2": 2, "reg3": 2, "sub": 2, "xfm1": 2},
             "XfmrCode": {"reg1": "", "reg2": "", "reg3": "", "sub": "", "xfm1": ""},
             "Xhl": {
-                "reg1": 0.0001,
-                "reg2": 0.0001,
-                "reg3": 0.0001,
-                "sub": 8e-05,
-                "xfm1": 0.02,
+                "reg1": 0.01,
+                "reg2": 0.01,
+                "reg3": 0.01,
+                "sub": 8e-03,
+                "xfm1": 2,
             },
             "Xht": {
-                "reg1": 0.35,
-                "reg2": 0.35,
-                "reg3": 0.35,
-                "sub": 0.04,
-                "xfm1": 0.01,
+                "reg1": 35,
+                "reg2": 35,
+                "reg3": 35,
+                "sub": 4,
+                "xfm1": 1,
             },
-            "Xlt": {"reg1": 0.3, "reg2": 0.3, "reg3": 0.3, "sub": 0.04, "xfm1": 0.01},
+            "Xlt": {"reg1": 30, "reg2": 30, "reg3": 30, "sub": 4, "xfm1": 1},
             "Xneut": {"reg1": 0.0, "reg2": 0.0, "reg3": 0.0, "sub": 0.0, "xfm1": 0.0},
             "kV": {"reg1": 2.4, "reg2": 2.4, "reg3": 2.4, "sub": 4.16, "xfm1": 0.48},
             "kVA": {
@@ -4757,13 +4756,13 @@ def test_storage_to_dataframe(dss):
             "Balanced": {"Storage.631": "No"},
             "ChargeTrigger": {"Storage.631": "0"},
             "DischargeTrigger": {"Storage.631": "0"},
-            "DispMode": {"Storage.631": "default"},
+            "DispMode": {"Storage.631": "Default"},
             "DynaDLL": {"Storage.631": ""},
-            "DynaData": {"Storage.631": ()},
+            "DynaData": {"Storage.631": ""},
             "LimitCurrent": {"Storage.631": "No"},
-            "State": {"Storage.631": "IDLING"},
+            "State": {"Storage.631": "Idling"},
             "TimeChargeTrig": {"Storage.631": "2"},
-            "UserData": {"Storage.631": ()},
+            "UserData": {"Storage.631": ""},
             "UserModel": {"Storage.631": ""},
             "Vmaxpu": {"Storage.631": "1.1"},
             "Vminpu": {"Storage.631": "0.9"},
@@ -4772,9 +4771,9 @@ def test_storage_to_dataframe(dss):
             "class": {"Storage.631": "1"},
             "conn": {"Storage.631": "wye"},
             "daily": {"Storage.631": ""},
-            "debugtrace": {"Storage.631": "NO"},
+            "debugtrace": {"Storage.631": "No"},
             "duty": {"Storage.631": ""},
-            "enabled": {"Storage.631": True},
+            "enabled": {"Storage.631": "Yes"},
             "kVA": {"Storage.631": "25"},
             "kW": {"Storage.631": "0"},
             "kWhrated": {"Storage.631": "50"},
@@ -4812,7 +4811,6 @@ def test_storage_to_dataframe(dss):
             "%EffCharge": {"Storage.631": "90"},
             "%EffDischarge": {"Storage.631": "90"},
             "%IdlingkW": {"Storage.631": "1"},
-            "%Idlingkvar": {"Storage.631": ""},
             "%R": {"Storage.631": "0"},
             "%X": {"Storage.631": "50"},
             "%reserve": {"Storage.631": "20"},
@@ -4820,13 +4818,13 @@ def test_storage_to_dataframe(dss):
             "Balanced": {"Storage.631": "No"},
             "ChargeTrigger": {"Storage.631": "0"},
             "DischargeTrigger": {"Storage.631": "0"},
-            "DispMode": {"Storage.631": "default"},
+            "DispMode": {"Storage.631": "Default"},
             "DynaDLL": {"Storage.631": ""},
-            "DynaData": {"Storage.631": ()},
+            "DynaData": {"Storage.631": ""},
             "LimitCurrent": {"Storage.631": "No"},
-            "State": {"Storage.631": "IDLING"},
+            "State": {"Storage.631": "Idling"},
             "TimeChargeTrig": {"Storage.631": "2"},
-            "UserData": {"Storage.631": ()},
+            "UserData": {"Storage.631": ""},
             "UserModel": {"Storage.631": ""},
             "Vmaxpu": {"Storage.631": "1.1"},
             "Vminpu": {"Storage.631": "0.9"},
@@ -4835,11 +4833,11 @@ def test_storage_to_dataframe(dss):
             "class": {"Storage.631": "1"},
             "conn": {"Storage.631": "wye"},
             "daily": {"Storage.631": ""},
-            "debugtrace": {"Storage.631": "NO"},
+            "debugtrace": {"Storage.631": "No"},
             "duty": {"Storage.631": ""},
-            "enabled": {"Storage.631": True},
+            "enabled": {"Storage.631": "Yes"},
             "kVA": {"Storage.631": "25"},
-            "kW": {"Storage.631": "0"},
+            "kW": {"Storage.631": "-0.25"},
             "kWhrated": {"Storage.631": "50"},
             "kWhstored": {"Storage.631": "50"},
             "kWrated": {"Storage.631": "25"},
@@ -4857,9 +4855,9 @@ def test_storage_to_dataframe(dss):
             "%PminkvarMax": {"Storage.631": "-1"},
             "%kWrated": {"Storage.631": "100"},
             "EffCurve": {"Storage.631": ""},
-            "PFPriority": {"Storage.631": "NO"},
+            "PFPriority": {"Storage.631": "No"},
             "VarFollowInverter": {"Storage.631": "No"},
-            "WattPriority": {"Storage.631": "NO"},
+            "WattPriority": {"Storage.631": "No"},
             "kvarMax": {"Storage.631": "25"},
             "kvarMaxAbs": {"Storage.631": "25"},
         }
@@ -4903,23 +4901,23 @@ def test_linegeometry_class_to_dataframe():
         "linegeometry.hc2_336_1neut_0mess": {
             "Seasons": "1",
             "Ratings": ["0"],
-            "LineType": "ug",
+            "LineType": "oh",
             "nconds": "4",
             "nphases": "3",
             "cond": "4",
-            "wire": "ACSR1/0",
+            "wire": "acsr1/0",
             "x": [-1.2909, -0.1530096, 0.5737, 0.0],
             "h": [13.716, 4.1806368, 13.716, 14.648],
             "units": ["m", "ft", "m", "m"],
-            "normamps": "0",
-            "emergamps": "0",
-            "reduce": "",
+            "normamps": "530",
+            "emergamps": "795",
+            "reduce": "No",
             "spacing": "",
-            "wires": ["acsr336 acsr336 acsr336 ACSR1/0"],
-            "cncable": "ACSR1/0",
-            "tscable": "ACSR1/0",
-            "cncables": ["acsr336 acsr336 acsr336 ACSR1/0"],
-            "tscables": ["acsr336 acsr336 acsr336 ACSR1/0"],
+            "wires": ["acsr336", "acsr336", "acsr336", "acsr1/0"],
+            "cncable": "acsr1/0",
+            "tscable": "acsr1/0",
+            "cncables": ["acsr336", "acsr336", "acsr336", "acsr1/0"],
+            "tscables": ["acsr336", "acsr336", "acsr336", "acsr1/0"],
             "like": "",
         }
     }
@@ -5744,7 +5742,7 @@ def test_wiredata_class_to_dataframe():
             "GMRac": "0.00446",
             "GMRunits": "ft",
             "Rac": "1.12",
-            "Rdc": "1.09804",
+            "Rdc": "1.09803921568627",
             "Runits": "mi",
             "diam": "0.398",
             "emergamps": "345",

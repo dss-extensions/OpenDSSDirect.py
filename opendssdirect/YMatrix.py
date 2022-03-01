@@ -24,7 +24,7 @@ def getYsparse(factor=True):
         # return as (data, indices, indptr) that can fed into scipy.sparse.csc_matrix
         res = (
             np.frombuffer(
-                ffi.buffer(cValsPtr[0], nNz[0] * 16), dtype=np.complex
+                ffi.buffer(cValsPtr[0], nNz[0] * 16), dtype=complex
             ).copy(),
             np.frombuffer(ffi.buffer(RowIdxPtr[0], nNz[0] * 4), dtype=np.int32).copy(),
             np.frombuffer(
