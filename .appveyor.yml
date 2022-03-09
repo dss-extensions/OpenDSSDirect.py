@@ -5,6 +5,9 @@ build: false
 
 environment:
   matrix:
+    - PYTHON_VERSION: 3.10
+      TARGET_ARCH: "x64"
+      MINICONDA: C:\Miniconda3-x64
     - PYTHON_VERSION: 3.9
       TARGET_ARCH: "x64"
       MINICONDA: C:\Miniconda3-x64
@@ -17,9 +20,9 @@ environment:
     - PYTHON_VERSION: 3.6
       TARGET_ARCH: "x64"
       MINICONDA: C:\Miniconda3-x64
-    - PYTHON_VERSION: 3.5
-      TARGET_ARCH: "x64"
-      MINICONDA: C:\Miniconda3-x64
+    - PYTHON_VERSION: 3.10
+      TARGET_ARCH: "x86"
+      MINICONDA: C:\Miniconda3
     - PYTHON_VERSION: 3.9
       TARGET_ARCH: "x86"
       MINICONDA: C:\Miniconda3
@@ -30,9 +33,6 @@ environment:
       TARGET_ARCH: "x86"
       MINICONDA: C:\Miniconda3
     - PYTHON_VERSION: 3.6
-      TARGET_ARCH: "x86"
-      MINICONDA: C:\Miniconda3
-    - PYTHON_VERSION: 3.5
       TARGET_ARCH: "x86"
       MINICONDA: C:\Miniconda3
 

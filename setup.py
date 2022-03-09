@@ -46,7 +46,7 @@ setup(
     author_email="me@kdheepak.com",
     license="BSD-compatible",
     packages=find_packages(),
-    install_requires=["dss_python==0.12.0"],
+    install_requires=["dss_python==0.12.1"],
     extras_require={
         "extras": ["pandas", "matplotlib", "networkx"],
         "dev": [
@@ -74,13 +74,11 @@ setup(
         "Topic :: Software Development :: Build Tools",
         # Pick your license as you wish (should match "license" above)
         "License :: Other/Proprietary License",
-        # Specify the Python versions you support here. In particular, ensure
-        # that you indicate whether you support Python 2, Python 3 or both.
-        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
     ],
     cmdclass={"develop": PostDevelopCommand},
 )
