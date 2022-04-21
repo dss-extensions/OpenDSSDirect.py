@@ -26,7 +26,7 @@ def First():
 
 
 def Irradiance(*args):
-    """Get/set the present value of the Irradiance property in W/m²"""
+    """Get/set the present value of the Irradiance property in kW/m²"""
     # Getter
     if len(args) == 0:
         return CheckForError(lib.PVSystems_Get_Irradiance())
