@@ -1,4 +1,3 @@
-from __future__ import absolute_import
 from .._utils import lib as dss_lib
 from .._utils import ffi as dss_ffi
 from .._utils import DSSException

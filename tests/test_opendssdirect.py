@@ -304,10 +304,9 @@ def test_13Node_Basic(dss):
     assert dss.Basic.Reset() is None
     assert dss.Basic.Start(1) == 1
     assert dss.Basic.UserClasses() == []
-    from six import string_types
 
     # u'Version xxxx (64-bit build); License Status: Open '
-    assert isinstance(dss.Basic.Version(), string_types)
+    assert isinstance(dss.Basic.Version(), str)
 
 
 def test_13Node_Bus(dss):
@@ -1263,9 +1262,8 @@ def test_13Node_CktElement(dss):
     assert dss.CktElement.EmergAmps() == 600.0
     assert dss.CktElement.Enabled() == 1
     assert dss.CktElement.EnergyMeter() == u""
-    from six import string_types
 
-    assert isinstance(dss.CktElement.GUID(), string_types)
+    assert isinstance(dss.CktElement.GUID(), str)
     assert dss.CktElement.HasSwitchControl() == 0
     assert dss.CktElement.HasVoltControl() == 0
     np.testing.assert_almost_equal(
