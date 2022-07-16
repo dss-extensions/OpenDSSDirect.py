@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import
 from ._utils import lib, codec, CheckForError, get_string, get_string_array
 
 
@@ -124,9 +122,11 @@ def LegacyModels(*args):
     or contact the authors from DSS Extensions: https://github.com/dss-extensions/
 
     After toggling LegacyModels, run a "clear" command and the models will be loaded accordingly.
-    Defaults to False. 
+    Defaults to False.
 
     This can also be enabled by setting the environment variable DSS_CAPI_LEGACY_MODELS to 1.
+
+    NOTE: this option will be removed in a future release.
 
     (API Extension)
     """
@@ -136,7 +136,31 @@ def LegacyModels(*args):
 
     # Setter
     Value, = args
-    return CheckForError(lib.DSS_Set_LegacyModels(Value))
+    CheckForError(lib.DSS_Set_LegacyModels(Value))
+
+
+def AllowChangeDir(*args):
+    """
+    If disabled, the engine will not change the active working directory during execution. E.g. a "compile"
+    command will not "chdir" to the file path.
+
+    If you have issues with long paths, enabling this might help in some scenarios.
+
+    Defaults to True (allow changes, backwards compatible) in the 0.10.x versions of DSS C-API.
+    This might change to False in future versions.
+
+    This can also be set through the environment variable DSS_CAPI_ALLOW_CHANGE_DIR. Set it to 0 to
+    disallow changing the active working directory.
+
+    (API Extension)
+    """
+    # Getter
+    if len(args) == 0:
+        return CheckForError(lib.DSS_Get_AllowChangeDir()) != 0
+
+    # Setter
+    Value, = args
+    CheckForError(lib.DSS_Set_AllowChangeDir(Value))
 
 
 _columns = [
@@ -167,4 +191,5 @@ __all__ = [
     "NewCircuit",
     "AllowEditor",
     "LegacyModels",
+    "AllowChangeDir",
 ]

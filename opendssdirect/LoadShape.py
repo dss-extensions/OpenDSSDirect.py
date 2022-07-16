@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import
 from ._utils import (
     lib,
     codec,
@@ -160,11 +158,11 @@ def UseActual(*args):
 def SInterval(*args):
     # Getter
     if len(args) == 0:
-        return CheckForError(lib.LoadShapes_Get_sInterval())
+        return CheckForError(lib.LoadShapes_Get_SInterval())
 
     # Setter
     Value, = args
-    CheckForError(lib.LoadShapes_Set_Sinterval(Value))
+    CheckForError(lib.LoadShapes_Set_SInterval(Value))
 
 
 def Idx(*args):

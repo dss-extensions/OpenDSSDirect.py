@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import
 from ._utils import (
     lib,
     codec,
@@ -205,7 +203,7 @@ def SystemY():
 
 
 def TotalPower():
-    """(read-only) Total power, kw delivered to the circuit"""
+    """(read-only) Total power, kW delivered to the circuit"""
     return get_float64_array(lib.Circuit_Get_TotalPower)
 
 

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import
 from ._utils import (
     lib,
     codec,
@@ -270,6 +268,7 @@ def TotalCustomers():
 def Totals():
     """(read-only) Totals of all registers of all meters"""
     return get_float64_array(lib.Meters_Get_Totals)
+
 
 def ZonePCE():
     """Returns the list of all PCE within the area covered by the energy meter"""

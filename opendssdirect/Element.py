@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import
 from ._utils import lib, CheckForError, get_string, get_string_array
 
 
@@ -18,5 +16,17 @@ def NumProperties():
     return CheckForError(lib.DSSElement_Get_NumProperties())
 
 
+def ToJSON(options=0):
+    """
+    Returns the properties of the active DSS object as a JSON-encoded string.
+
+    The `options` parameter contains bit-flags to toggle specific features.
+    See `Obj_ToJSON` (C-API) for more.
+
+    (API Extension)
+    """
+    return get_string(CheckForError(lib.DSSElement_ToJSON(options)))
+
+
 _columns = ["Name", "NumProperties", "AllPropertyNames"]
-__all__ = ["AllPropertyNames", "Name", "NumProperties"]
+__all__ = ["AllPropertyNames", "Name", "NumProperties", "ToJSON"]

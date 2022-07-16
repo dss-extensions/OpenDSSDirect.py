@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import
 from ._utils import (
     lib,
     CheckForError,
@@ -231,6 +229,8 @@ _columns = [
     "PuVoltage",
     "X",
     "Y",
+    "AllPCEatBus",
+    "AllPDEatBus",
 ]
 __all__ = [
     "AllPCEatBus",
