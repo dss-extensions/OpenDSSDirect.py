@@ -324,8 +324,8 @@ def Mode(*args):
         return CheckForError(lib.Solution_Get_Mode())
 
     # Setter
-    Mode, = args
-    CheckForError(lib.Solution_Set_Mode(Mode))
+    Value, = args
+    CheckForError(lib.Solution_Set_Mode(Value))
 
 
 def ModeID():
@@ -361,8 +361,8 @@ def Random(*args):
         return CheckForError(lib.Solution_Get_Random())
 
     # Setter
-    Random, = args
-    CheckForError(lib.Solution_Set_Random(Random))
+    Value, = args
+    CheckForError(lib.Solution_Set_Random(Value))
 
 
 def Seconds(*args):
@@ -389,7 +389,7 @@ def StepSize(*args):
 
 def SystemYChanged():
     """(read-only) Flag that indicates if elements of the System Y have been changed by recent activity."""
-    return CheckForError(lib.Solution_Get_SystemYChanged()) != 0
+    return CheckForError(lib.Solution_Get_SystemYChanged() != 0)
 
 
 def TimeTimeStep():

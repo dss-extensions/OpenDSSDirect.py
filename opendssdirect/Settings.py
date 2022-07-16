@@ -35,7 +35,7 @@ def AutoBusList(*args):
 
 
 def CktModel(*args):
-    """{dssMultiphase * | dssPositiveSeq} IIndicate if the circuit model is positive sequence."""
+    """{dssMultiphase (0) * | dssPositiveSeq (1) } IIndicate if the circuit model is positive sequence."""
     # Getter
     if len(args) == 0:
         return CheckForError(lib.Settings_Get_CktModel())
@@ -222,7 +222,27 @@ def LoadsTerminalCheck(*args):
 
     # Setter
     Value, = args
-    return CheckForError(lib.Settings_Set_LoadsTerminalCheck(Value))
+    CheckForError(lib.Settings_Set_LoadsTerminalCheck(Value))
+
+
+def IterateDisabled(*args):
+    """
+    Controls whether `First`/`Next` iteration includes or skips disabled circuit elements.
+    The default behavior from OpenDSS is to skip those. The user can still activate the element by name or index.
+
+    The default value for IterateDisabled is 0, keeping the original behavior.
+    Set it to 1 (or `True`) to include disabled elements.
+    Other numeric values are reserved for other potential behaviors.
+
+    (API Extension)
+    """
+    # Getter
+    if len(args) == 0:
+        return CheckForError(lib.Settings_Get_IterateDisabled())
+
+    # Setter
+    Value, = args
+    CheckForError(lib.Settings_Set_IterateDisabled(int(Value)))
 
 
 _columns = [
@@ -243,6 +263,8 @@ _columns = [
     "VoltageBases",
     "ZoneLock",
     "AllowDuplicates",
+    "LoadsTerminalCheck",
+    "IterateDisabled",
 ]
 __all__ = [
     "AllowDuplicates",
@@ -264,4 +286,5 @@ __all__ = [
     "ZoneLock",
     "AllocationFactors",
     "LoadsTerminalCheck",
+    "IterateDisabled",
 ]

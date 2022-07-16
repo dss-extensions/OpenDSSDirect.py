@@ -304,6 +304,23 @@ def IsIsolated():
     return CheckForError(lib.CktElement_Get_IsIsolated()) != 0
 
 
+def setVariableByIndex(Idx, Value):
+    Code = ffi.new("int32_t*")
+    CheckForError(lib.CktElement_Set_Variablei(Idx, Code, Value))
+    return Code[0]
+
+
+def setVariableByName(Idx, Value):
+    Code = ffi.new("int32_t*")
+    CheckForError(lib.CktElement_Set_Variable(Idx, Code, Value))
+    return Code[0]
+
+
+def NodeRef():
+    """Array of integers, a copy of the internal NodeRef of the CktElement."""
+    return get_int32_array(lib.CktElement_Get_NodeRef)
+
+
 _columns = [
     "BusNames",
     "CplxSeqCurrents",
@@ -392,4 +409,7 @@ __all__ = [
     "VoltagesMagAng",
     "YPrim",
     "IsIsolated",
+    "setVariableByIndex",
+    "setVariableByName",
+    "NodeRef",
 ]

@@ -229,6 +229,8 @@ _columns = [
     "PuVoltage",
     "X",
     "Y",
+    "AllPCEatBus",
+    "AllPDEatBus",
 ]
 __all__ = [
     "AllPCEatBus",

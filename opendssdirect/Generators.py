@@ -176,6 +176,136 @@ def kvar(*args):
     CheckForError(lib.Generators_Set_kvar(Value))
 
 
+def daily(*args):
+    """
+    Name of the loadshape for a daily generation profile.
+
+    (API Extension)
+    """
+    # Getter
+    if len(args) == 0:
+        return get_string(CheckForError(lib.Generators_Get_daily()))
+
+    # Setter
+    Value, = args
+    if type(Value) is not bytes:
+        Value = Value.encode(codec)
+    CheckForError(lib.Generators_Set_daily(Value))
+
+
+def duty(*args):
+    """
+    Name of the loadshape for a duty cycle simulation.
+
+    (API Extension)
+    """
+    # Getter
+    if len(args) == 0:
+        return get_string(CheckForError(lib.Generators_Get_duty()))
+
+    # Setter
+    Value, = args
+    if type(Value) is not bytes:
+        Value = Value.encode(codec)
+    CheckForError(lib.Generators_Set_duty(Value))
+
+
+def Yearly(*args):
+    """
+    Name of yearly loadshape
+
+    (API Extension)
+    """
+    # Getter
+    if len(args) == 0:
+        return get_string(CheckForError(lib.Generators_Get_Yearly()))
+
+    # Setter
+    Value, = args
+    if type(Value) is not bytes:
+        Value = Value.encode(codec)
+    CheckForError(lib.Generators_Set_Yearly(Value))
+
+
+def Status(*args):
+    """
+    Response to dispatch multipliers: Fixed=1 (dispatch multipliers do not apply), Variable=0 (follows curves).
+
+    Related enumeration: GeneratorStatus
+
+    (API Extension)
+    """
+    # Getter
+    if len(args) == 0:
+        return CheckForError(lib.Generators_Get_Status())
+
+    # Setter
+    Value, = args
+    CheckForError(lib.Generators_Set_Status(Value))
+
+
+def IsDelta(*args):
+    """
+    Generator connection. True/1 if delta connection, False/0 if wye.
+
+    (API Extension)
+    """
+    # Getter
+    if len(args) == 0:
+        return CheckForError(lib.Generators_Get_IsDelta()) != 0
+
+    # Setter
+    Value, = args
+    CheckForError(lib.Generators_Set_IsDelta(Value))
+
+
+def kva(*args):
+    """
+    kVA rating of electrical machine. Applied to machine or inverter definition for Dynamics mode solutions.
+
+    (API Extension)
+    """
+    # Getter
+    if len(args) == 0:
+        return CheckForError(lib.Generators_Get_kva())
+
+    # Setter
+    Value, = args
+    CheckForError(lib.Generators_Set_kva(Value))
+
+
+def Class(*args):
+    """
+    An arbitrary integer number representing the class of Generator so that Generator values may be segregated by class.
+
+    (API Extension)
+    """
+    # Getter
+    if len(args) == 0:
+        return CheckForError(lib.Generators_Get_Class_())
+
+    # Setter
+    Value, = args
+    CheckForError(lib.Generators_Set_Class_(Value))
+
+
+def Bus1(*args):
+    """
+    Bus to which the Generator is connected. May include specific node specification.
+
+    (API Extension)
+    """
+    # Getter
+    if len(args) == 0:
+        return get_string(CheckForError(lib.Generators_Get_Bus1()))
+
+    # Setter
+    Value, = args
+    if type(Value) is not bytes:
+        Value = Value.encode(codec)
+    CheckForError(lib.Generators_Set_Bus1(Value))
+
+
 _columns = [
     "ForcedON",
     "Model",
@@ -191,6 +321,14 @@ _columns = [
     "kVARated",
     "kW",
     "kvar",
+    "Bus1",
+    "Class",
+    "kva",
+    "IsDelta",
+    "Status",
+    "daily",
+    "duty",
+    "Yearly",
 ]
 __all__ = [
     "AllNames",
@@ -211,4 +349,12 @@ __all__ = [
     "kVARated",
     "kW",
     "kvar",
+    "daily",
+    "duty",
+    "Yearly",
+    "Status",
+    "IsDelta",
+    "kva",
+    "Class",
+    "Bus1",
 ]

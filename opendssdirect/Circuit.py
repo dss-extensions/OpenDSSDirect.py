@@ -203,7 +203,7 @@ def SystemY():
 
 
 def TotalPower():
-    """(read-only) Total power, kw delivered to the circuit"""
+    """(read-only) Total power, kW delivered to the circuit"""
     return get_float64_array(lib.Circuit_Get_TotalPower)
 
 

@@ -49,6 +49,20 @@ def ActiveClassParent():
     return get_string(CheckForError(lib.ActiveClass_Get_ActiveClassParent()))
 
 
+def ToJSON(options=0):
+    """
+    Returns the data (as a list) of all elements from the active class as a JSON-encoded string.
+
+    The `options` parameter contains bit-flags to toggle specific features.
+    See `Obj_ToJSON` (C-API) for more.
+
+    Additionally, the `ExcludeDisabled` flag can be used to excluded disabled elements from the output.
+
+    (API Extension)
+    """
+    return get_string(CheckForError(lib.ActiveClass_ToJSON(options)))
+
+
 _columns = ["ActiveClassName", "Name", "NumElements", "ActiveClassParent"]
 __all__ = [
     "ActiveClassName",
@@ -59,4 +73,5 @@ __all__ = [
     "Next",
     "NumElements",
     "ActiveClassParent",
+    "ToJSON",
 ]
