@@ -5,15 +5,16 @@
 - [ ] Python version: <!-- (e.g. 2.7, 3.3, 3.6) -->
 - [ ] Python architecture: <!-- (e.g. x86, x64) -->
 - [ ] Operating system and version: <!-- (e.g. Windows XP, Windows 7, Windows 8, OSX 11, Red Hat, Ubuntu, Centos 6, Centos 7) -->
-- [ ] OpenDSSDirect.py version number: <!-- (e.g. v0.1.0, v0.2.5, v0.3.0) You can use `opendssdirect.Basic.Version()` to get this information --> 
+- [ ] OpenDSS Engine version number: <!-- (e.g. v0.1.0, v0.2.5, v0.3.0) You can use `opendssdirect.Basic.Version()` to get this information --> 
+- [ ] OpenDSSDirect.py Python package version number: <!-- (e.g. v0.1.0, v0.2.5, v0.3.0) You can use `opendssdirect.__version__` to get this information --> 
 
 <!--
 
 You can use the following block of code to find the version of OpenDSSDirect.py that you are using
 
 	```python
-	import opendssdirect as dss
-	print(dss.__version__)
+	import opendssdirect as odd
+	print(odd.__version__)
 	```
 
 -->
