@@ -16,9 +16,8 @@ html:
 
 github: html
 	-git branch -D gh-pages
-	-git push origin --delete gh-pages
 	ghp-import -n -b gh-pages -m "Update documentation" docs/_build/html
 	git checkout gh-pages
-	git push --set-upstream origin gh-pages
+	git push --force --set-upstream origin gh-pages
 	git checkout master
 

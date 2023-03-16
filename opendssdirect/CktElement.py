@@ -80,7 +80,7 @@ def AllVariableNames():
 
 def AllVariableValues():
     """(read-only) Array of doubles. Values of state variables of active element if PC element."""
-    return get_float64_array(lib.CktElement_Get_AllVariableValues)
+    return CheckForError(get_float64_array(lib.CktElement_Get_AllVariableValues))
 
 
 def BusNames(*args):

@@ -371,7 +371,6 @@ _columns = [
     "Name",
     "NormAmps",
     "NumCust",
-    "Parent",
     "Phases",
     "R0",
     "R1",

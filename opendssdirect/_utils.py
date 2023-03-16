@@ -5,11 +5,11 @@ import warnings
 
 # Bind to the FFI module instance. This should be refined in a future version,
 # especially after DSS C-API 0.11 is fully released.
-lib = dss_py.v7.api_util.lib
-ffi = dss_py.v7.api_util.ffi
-api_util = dss_py.v7.api_util
+lib = dss_py.prime_api_util.lib
+ffi = dss_py.prime_api_util.ffi
+api_util = dss_py.prime_api_util
 codec = api_util.codec
-CheckForError = dss_py.v7.DSS_IR.CheckForError
+CheckForError = dss_py.DSS_GR.CheckForError
 DSSException = dss_py._cffi_api_util.DSSException
 
 # Currently, we prefer the functions that return lists (suffix 2)

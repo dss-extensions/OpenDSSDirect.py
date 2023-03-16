@@ -16,7 +16,7 @@ def dss():
     import opendssdirect as dss
 
     dss.Error.ExtendedErrors(True)
-
+    dss.Text.Command("set eventlogdefault=yes")
     assert (
         dss.utils.run_command("Redirect {}".format(PATH_TO_DSS)) == ""
     ), "Unable to find test data"
@@ -166,10 +166,6 @@ def test_module_import():
 
     assert inspect.ismodule(m)
 
-    from opendssdirect import dss_lib as m
-
-    assert inspect.ismodule(m)
-
 
 def test_ActiveClass(dss):
 
@@ -206,13 +202,13 @@ def test_configuration():
     # Note COM's AllowForms can only be disabled and it ignores
     # the user's command to reallow forms if they were previously
     # disabled.
-    assert dss.Basic.AllowForms() is False, "Allow forms should be disabled by default"
+    assert not dss.Basic.AllowForms(), "Allow forms should be disabled by default"
 
     dss.Basic.AllowForms(True)
-    assert dss.Basic.AllowForms() is True
+    assert dss.Basic.AllowForms()
 
     dss.Basic.AllowForms(False)
-    assert dss.Basic.AllowForms() is False
+    assert not dss.Basic.AllowForms()
 
 
 def test_13Node(dss):
@@ -268,6 +264,7 @@ def test_13Node_Basic(dss):
         u"Reactor",
         u"CapControl",
         u"Fault",
+        "DynamicExp",
         u"Generator",
         u"GenDispatcher",
         u"Storage",
@@ -1177,8 +1174,12 @@ def test_13Node_CktElement(dss):
         u"enabled",
         u"like",
     ]
-    assert dss.CktElement.AllVariableNames() == []
-    assert dss.CktElement.AllVariableValues() == [0.0]
+    with pt.raises(dss.DSSException):
+        dss.CktElement.AllVariableNames()
+    
+    with pt.raises(dss.DSSException):
+        dss.CktElement.AllVariableValues()
+        
     assert dss.CktElement.BusNames() == [u"671", u"692"]
     assert dss.CktElement.Open(1, 0) is None
     assert dss.CktElement.IsOpen(1, 0)
@@ -1509,6 +1510,15 @@ def test_13Node_CktElement(dss):
         u"watt-pf",
         u"watt-var",
         u"kW_out_desired",
+        "Grid voltage",
+        "di/dt",
+        "it",
+        "it History",
+        "Rated VDC",
+        "Avg duty cycle",
+        "Target (Amps)",
+        "Series L",
+        "Max. Amps (phase)",
     ]
     assert dss.CktElement.AllVariableValues() == [
         1.0,
@@ -1524,6 +1534,15 @@ def test_13Node_CktElement(dss):
         9999.0,
         9999.0,
         500.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        8000.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
     ]
     assert dss.CktElement.Variablei(2) == 500.0
     assert dss.CktElement.Variable(u"PanelkW") == 500.0
@@ -1623,8 +1642,8 @@ def test_13Node_Executive(dss):
         dss.Executive.NumCommands() == 125
     )  # adjusted to the latest version on 2022-03-22
     assert (
-        dss.Executive.NumOptions() == 124
-    )  # adjusted to the latest version on 2022-02-28
+        dss.Executive.NumOptions() == 128
+    )  # adjusted to the latest version on 2023-03-15
     assert dss.Executive.Option(1) == u"type"
     assert (
         dss.Executive.OptionHelp(1)
@@ -2670,20 +2689,6 @@ def test_lines_to_dataframe(dss):
                 "692675": 400.0,
             },
             "NumCust": {
-                "632633": 0,
-                "632645": 0,
-                "632670": 0,
-                "645646": 0,
-                "650632": 0,
-                "670671": 0,
-                "671680": 0,
-                "671684": 0,
-                "671692": 0,
-                "684611": 0,
-                "684652": 0,
-                "692675": 0,
-            },
-            "Parent": {
                 "632633": 0,
                 "632645": 0,
                 "632670": 0,
@@ -4735,71 +4740,6 @@ def test_xycurves_to_dataframe(dss):
 
 
 def test_storage_to_dataframe(dss):
-    dss.dss_lib.DSS_Set_LegacyModels(1)
-    assert dss.dss_lib.DSS_Get_LegacyModels()
-
-    assert (
-        dss.utils.run_command("Redirect {}".format(PATH_TO_DSS)) == ""
-    ), "Unable to find test data"
-
-    dss.run_command("New Storage.631")
-
-    # Legacy version
-    expected_dict = pd.DataFrame(
-        {
-            "%Charge": {"Storage.631": "100"},
-            "%Discharge": {"Storage.631": "100"},
-            "%EffCharge": {"Storage.631": "90"},
-            "%EffDischarge": {"Storage.631": "90"},
-            "%IdlingkW": {"Storage.631": "1"},
-            "%Idlingkvar": {"Storage.631": "0"},
-            "%R": {"Storage.631": "0"},
-            "%X": {"Storage.631": "50"},
-            "%reserve": {"Storage.631": "20"},
-            "%stored": {"Storage.631": "100"},
-            "Balanced": {"Storage.631": "No"},
-            "ChargeTrigger": {"Storage.631": "0"},
-            "DischargeTrigger": {"Storage.631": "0"},
-            "DispMode": {"Storage.631": "Default"},
-            "DynaDLL": {"Storage.631": ""},
-            "DynaData": {"Storage.631": ""},
-            "LimitCurrent": {"Storage.631": "No"},
-            "State": {"Storage.631": "Idling"},
-            "TimeChargeTrig": {"Storage.631": "2"},
-            "UserData": {"Storage.631": ""},
-            "UserModel": {"Storage.631": ""},
-            "Vmaxpu": {"Storage.631": "1.1"},
-            "Vminpu": {"Storage.631": "0.9"},
-            "basefreq": {"Storage.631": "60"},
-            "bus1": {"Storage.631": "631_1"},
-            "class": {"Storage.631": "1"},
-            "conn": {"Storage.631": "wye"},
-            "daily": {"Storage.631": ""},
-            "debugtrace": {"Storage.631": "No"},
-            "duty": {"Storage.631": ""},
-            "enabled": {"Storage.631": "Yes"},
-            "kVA": {"Storage.631": "25"},
-            "kW": {"Storage.631": "0"},
-            "kWhrated": {"Storage.631": "50"},
-            "kWhstored": {"Storage.631": "50"},
-            "kWrated": {"Storage.631": "25"},
-            "kv": {"Storage.631": "12.47"},
-            "kvar": {"Storage.631": "0"},
-            "like": {"Storage.631": ""},
-            "model": {"Storage.631": "1"},
-            "pf": {"Storage.631": "1"},
-            "phases": {"Storage.631": "3"},
-            "spectrum": {"Storage.631": ""},
-            "yearly": {"Storage.631": ""},
-        }
-    ).to_dict()
-
-    actual_dict = dss.utils.class_to_dataframe("Storage").to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
-
-    # New version (OpenDSS v9.0+), previsouly Storage2
-    dss.dss_lib.DSS_Set_LegacyModels(0)
-
     assert not dss.dss_lib.DSS_Get_LegacyModels()
 
     assert (
@@ -4864,10 +4804,20 @@ def test_storage_to_dataframe(dss):
             "WattPriority": {"Storage.631": "No"},
             "kvarMax": {"Storage.631": "25"},
             "kvarMaxAbs": {"Storage.631": "25"},
+            "%Idlingkvar": {"Storage.631": ""},
+            "ControlMode": {"Storage.631": "GFL"},
+            "DynOut": {"Storage.631": []},
+            "DynamicEq": {"Storage.631": ""},
+            "Kp": {"Storage.631": "0.01"},
+            "PITol": {"Storage.631": "0"},
+            "SafeMode": {"Storage.631": "No"},
+            "SafeVoltage": {"Storage.631": "80"},
+            "kVDC": {"Storage.631": "8"},
         }
     ).to_dict()
 
     actual_dict = dss.utils.class_to_dataframe("Storage").to_dict()
+
     assert_dict_equal(actual_dict, expected_dict)
 
 

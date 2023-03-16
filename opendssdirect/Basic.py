@@ -116,17 +116,12 @@ def AllowEditor(*args):
 
 def LegacyModels(*args):
     """
-    If enabled, the legacy/deprecated models for PVSystem, InvControl, Storage and StorageControl are used.
-    In the official OpenDSS version 9.0, the old models where removed. They are temporarily present here
-    but may be removed in the near future. If they are important to you, please open an issue on GitHub
-    or contact the authors from DSS Extensions: https://github.com/dss-extensions/
-
-    After toggling LegacyModels, run a "clear" command and the models will be loaded accordingly.
-    Defaults to False.
-
-    This can also be enabled by setting the environment variable DSS_CAPI_LEGACY_MODELS to 1.
-
-    NOTE: this option will be removed in a future release.
+    LegacyModels was a flag used to toggle legacy (pre-2019) models for PVSystem, InvControl, Storage and
+    StorageControl.
+    In the official OpenDSS version 9.0, the old models were removed. They were temporarily present here
+    but were also removed in DSS C-API v0.13.0.
+        
+    **NOTE**: this function will be removed for v1.0. It is left to avoid breaking the current API too soon.
 
     (API Extension)
     """
