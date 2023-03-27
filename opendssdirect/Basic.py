@@ -158,6 +158,47 @@ def AllowChangeDir(*args):
     CheckForError(lib.DSS_Set_AllowChangeDir(Value))
 
 
+def CompatFlags(*args):
+    """
+    Controls some compatibility flags introduced to toggle some behavior from the official OpenDSS.
+
+    **THESE FLAGS ARE GLOBAL, affecting all DSS engines in the process.**
+
+    The current bit flags are:
+
+    - 0x1 (bit 0): If enabled, don't check for NaNs in the inner solution loop. This can lead to various errors.
+        This flag is useful for legacy applications that don't handle OpenDSS API errors properly. Through the 
+        development of DSS Extensions, we noticed this is actually a quite common issue.
+    - 0x2 (bit 1): Toggle worse precision for certain aspects of the engine. For example, the sequence-to-phase 
+        (`As2p`) and sequence-to-phase (`Ap2s`) transform matrices. On DSS C-API, we fill the matrix explicitly
+        using higher precision, while numerical inversion of an initially worse precision matrix is used in the 
+        official OpenDSS. We will introduce better precision for other aspects of the engine in the future, 
+        so this flag can be used to toggle the old/bad values where feasible.
+    - 0x4 (bit 2): Toggle some InvControl behavior introduced in OpenDSS 9.6.1.1. It could be a regression 
+        but needs further investigation, so we added this flag in the time being.
+
+    These flags may change for each version of DSS C-API, but the same value will not be reused. That is,
+    when we remove a compatibility flag, it will have no effect but will also not affect anything else
+    besides raising an error if the user tries to toggle a flag that was available in a previous version.
+
+    We expect to keep a very limited number of flags. Since the flags are more transient than the other
+    options/flags, it was preferred to add this generic function instead of a separate function per
+    flag.
+
+    Related enumeration: DSSCompatFlags
+
+    (API Extension)
+    """
+    # Getter
+    if len(args) == 0:
+        return CheckForError(lib.DSS_Get_CompatFlags())
+
+    # Setter
+    Value, = args
+    CheckForError(lib.DSS_Set_CompatFlags(Value))
+
+
+
 _columns = [
     "Classes",
     "DataPath",
