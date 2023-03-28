@@ -17,9 +17,6 @@ environment:
     - PYTHON_VERSION: 3.7
       TARGET_ARCH: "x64"
       MINICONDA: C:\Miniconda3-x64
-    - PYTHON_VERSION: 3.6
-      TARGET_ARCH: "x64"
-      MINICONDA: C:\Miniconda3-x64
     - PYTHON_VERSION: 3.10
       TARGET_ARCH: "x86"
       MINICONDA: C:\Miniconda3
@@ -30,9 +27,6 @@ environment:
       TARGET_ARCH: "x86"
       MINICONDA: C:\Miniconda3
     - PYTHON_VERSION: 3.7
-      TARGET_ARCH: "x86"
-      MINICONDA: C:\Miniconda3
-    - PYTHON_VERSION: 3.6
       TARGET_ARCH: "x86"
       MINICONDA: C:\Miniconda3
 
