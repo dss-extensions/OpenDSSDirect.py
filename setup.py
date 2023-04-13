@@ -46,7 +46,7 @@ setup(
     author_email="me@kdheepak.com",
     license="BSD-compatible",
     packages=find_packages(),
-    install_requires=["dss_python==0.13.1"],
+    install_requires=["dss_python==0.14.*"],
     extras_require={
         "extras": ["pandas", "matplotlib", "networkx"],
         "dev": [
