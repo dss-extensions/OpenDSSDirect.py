@@ -2,7 +2,11 @@
 import pytest as pt
 import os
 import pandas as pd
-from pandas.util.testing import assert_dict_equal
+try:
+    from pandas._testing import assert_dict_equal #TODO: migrate to something else, this is bad
+except:
+    from pandas.util.testing import assert_dict_equal
+
 import numpy as np
 
 current_directory = os.path.dirname(os.path.realpath(__file__))
