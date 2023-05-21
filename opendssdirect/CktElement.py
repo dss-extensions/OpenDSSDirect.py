@@ -74,12 +74,18 @@ def AllPropertyNames():
 
 
 def AllVariableNames():
-    """(read-only) Array of strings listing all the published variable names, if a PCElement. Otherwise, null string."""
+    """
+    Array of strings listing all the published state variable names.
+    Valid only for PCElements.
+    """
     return CheckForError(get_string_array(lib.CktElement_Get_AllVariableNames))
 
 
 def AllVariableValues():
-    """(read-only) Array of doubles. Values of state variables of active element if PC element."""
+    """
+    Array of doubles. Values of state variables of active element if PC element.
+    Valid only for PCElements.
+    """
     return CheckForError(get_float64_array(lib.CktElement_Get_AllVariableValues))
 
 
