@@ -36,7 +36,7 @@ class PostDevelopCommand(develop):
 setup(
     name="OpenDSSDirect.py",
     version=version,
-    description="Python direct-mode interface to OpenDSS",
+    description="Python direct-mode interface to an alternative implementation of OpenDSS",
     long_description=long_description,
     long_description_content_type='text/markdown',
     url="https://github.com/dss-extensions/OpenDSSDirect.py",

@@ -168,7 +168,7 @@ def CompatFlags(*args):
 
     - 0x1 (bit 0): If enabled, don't check for NaNs in the inner solution loop. This can lead to various errors.
         This flag is useful for legacy applications that don't handle OpenDSS API errors properly. Through the 
-        development of DSS Extensions, we noticed this is actually a quite common issue.
+        development of DSS-Extensions, we noticed this is actually a quite common issue.
     - 0x2 (bit 1): Toggle worse precision for certain aspects of the engine. For example, the sequence-to-phase 
         (`As2p`) and sequence-to-phase (`Ap2s`) transform matrices. On DSS C-API, we fill the matrix explicitly
         using higher precision, while numerical inversion of an initially worse precision matrix is used in the 
