@@ -4817,6 +4817,8 @@ def test_storage_to_dataframe(dss):
             "SafeMode": {"Storage.631": "No"},
             "SafeVoltage": {"Storage.631": "80"},
             "kVDC": {"Storage.631": "8"},
+            "AmpLimit": {"Storage.631": "-1"},
+            "AmpLimitGain": {"Storage.631": "0.8"},
         }
     ).to_dict()
 
