@@ -235,17 +235,32 @@ def Idx(*args):
 
 
 def WdgVoltages():
-    """(read-only) Complex array of voltages for active winding"""
+    """
+    (read-only) Complex array of voltages for active winding
+
+    WARNING: If the transformer has open terminal(s), results may be wrong, i.e. avoid using this
+    in those situations. For more information, see https://github.com/dss-extensions/dss-extensions/issues/24
+    """
     return get_float64_array(lib.Transformers_Get_WdgVoltages)
 
 
 def WdgCurrents():
-    """(read-only) All Winding currents (ph1, wdg1, wdg2,... ph2, wdg1, wdg2 ...)"""
+    """
+    (read-only) All Winding currents (ph1, wdg1, wdg2,... ph2, wdg1, wdg2 ...)
+
+    WARNING: If the transformer has open terminal(s), results may be wrong, i.e. avoid using this
+    in those situations. For more information, see https://github.com/dss-extensions/dss-extensions/issues/24
+    """
     return get_float64_array(lib.Transformers_Get_WdgCurrents)
 
 
 def strWdgCurrents():
-    """(read-only) All winding currents in CSV string form like the WdgCurrents property"""
+    """
+    (read-only) All winding currents in CSV string form like the WdgCurrents property
+
+    WARNING: If the transformer has open terminal(s), results may be wrong, i.e. avoid using this
+    in those situations. For more information, see https://github.com/dss-extensions/dss-extensions/issues/24
+    """
     return get_string(CheckForError(lib.Transformers_Get_strWdgCurrents()))
 
 
