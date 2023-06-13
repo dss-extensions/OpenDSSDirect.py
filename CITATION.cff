@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: "Krishnamurthy"
+    given-names: "Dheepak"
+    orcid: https://orcid.org/0000-0003-4008-3739
+  - family-names: "Meira"
+    given-names: "Paulo"
+    orcid: https://orcid.org/0000-0001-6170-7438
+title: "OpenDSSDirect.py: a cross-platform Python package that implements a native/direct library interface to the alternative OpenDSS engine from DSS-Extensions.org"
+url: "https://dss-extensions.org/OpenDSSDirect.py/"
+version: 0.8.3
+date-released: 2023-06-13
