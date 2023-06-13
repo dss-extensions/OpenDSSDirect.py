@@ -176,6 +176,9 @@ def CompatFlags(*args):
         so this flag can be used to toggle the old/bad values where feasible.
     - 0x4 (bit 2): Toggle some InvControl behavior introduced in OpenDSS 9.6.1.1. It could be a regression 
         but needs further investigation, so we added this flag in the time being.
+    - 0x8 (bit 3): When using "save circuit", the official OpenDSS always includes the "CalcVoltageBases" command
+        in the saved script. We found that it is not always a good idea, so we removed the command (leaving it 
+        commented). Use this flag to enable the command in the saved script.
 
     These flags may change for each version of DSS C-API, but the same value will not be reused. That is,
     when we remove a compatibility flag, it will have no effect but will also not affect anything else

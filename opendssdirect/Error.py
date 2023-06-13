@@ -1,4 +1,4 @@
-from ._utils import lib, get_string
+from ._utils import lib, get_string, Base
 
 
 def Description():
@@ -58,5 +58,33 @@ def ExtendedErrors(*args):
     lib.Error_Set_ExtendedErrors(Value)
 
 
-_columns = ["Description", "Number", "EarlyAbort"]
-__all__ = ["Description", "Number", "EarlyAbort", "ExtendedErrors"]
+def UseExceptions(*args):
+    """
+    Controls whether the automatic error checking mechanism is enable, i.e., if
+    the DSS engine errors (from the `Error` interface) are mapped exception when
+    detected. 
+    
+    **When disabled, the user takes responsibility for checking for errors.**
+    This can be done through the `Error` interface. When `Error.Number` is not
+    zero, there should be an error message in `Error.Description`. This is compatible
+    with the behavior on the official OpenDSS (Windows-only COM implementation) when 
+    `AllowForms` is disabled.
+
+    Users can also use the DSS command `Export ErrorLog` to inspect for errors.
+
+    **WARNING:** This is a global setting, affects all DSS instances from DSS-Python 
+    and OpenDSSDirect.py.
+
+    (API Extension)
+    """
+    # Getter
+    if len(args) == 0:
+        return Base._use_exceptions
+
+    # Setter
+    value, = args
+    Base._enable_exceptions(bool(value))
+
+
+_columns = ["Description", "Number", "EarlyAbort", "ExtendedErrors", "UseExceptions"]
+__all__ = ["Description", "Number", "EarlyAbort", "ExtendedErrors", "UseExceptions"]

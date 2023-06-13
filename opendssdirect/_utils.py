@@ -3,14 +3,14 @@ import dss as dss_py
 import numpy as np
 import warnings
 
-# Bind to the FFI module instance. This should be refined in a future version,
-# especially after DSS C-API 0.11 is fully released.
+# Bind to the FFI module instance. This should be refined in a future version
 lib = dss_py.prime_api_util.lib
 ffi = dss_py.prime_api_util.ffi
 api_util = dss_py.prime_api_util
 codec = api_util.codec
 CheckForError = dss_py.DSS_GR.CheckForError
 DSSException = dss_py._cffi_api_util.DSSException
+Base = dss_py._cffi_api_util.Base
 
 # Currently, we prefer the functions that return lists (suffix 2)
 # to keep higher compatibility with previous versions of OpenDSSDirect.py.

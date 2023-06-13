@@ -5342,3 +5342,20 @@ def test_dss_extensions_debug():
         assert "DEBUG" in opendssdirect.Basic.Version()
     else:
         assert "DEBUG" not in opendssdirect.Basic.Version()
+
+
+def test_exception_control(dss):
+    # Default behavior
+    assert dss.Error.UseExceptions()
+    with pt.raises(dss.DSSException):
+        dss.Text.Command('this_is_an_invalid_command1')
+
+    # Behavior without exceptions
+    dss.Error.UseExceptions(False)
+    assert not dss.Error.UseExceptions()
+    dss.Text.Command('this_is_an_invalid_command2')
+    # There should be an error code waiting for us...
+    assert dss.Error.Number() != 0
+    # ...but it should be gone after we read it
+    assert dss.Error.Number() == 0
+
