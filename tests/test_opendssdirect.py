@@ -208,8 +208,16 @@ def test_configuration():
     # disabled.
     assert not dss.Basic.AllowForms(), "Allow forms should be disabled by default"
 
-    dss.Basic.AllowForms(True)
-    assert dss.Basic.AllowForms()
+    check_if_true = True
+    try:
+        dss.Basic.AllowForms(True)
+    except:
+        # On Windows, without a console, we cannot activate this.
+        # Users can use the callback mechanism to integrate to GUIs though.
+        check_if_true = False
+
+    if check_if_true:
+        assert dss.Basic.AllowForms()
 
     dss.Basic.AllowForms(False)
     assert not dss.Basic.AllowForms()
