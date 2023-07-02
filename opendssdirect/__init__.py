@@ -15,7 +15,6 @@ from .dss import (
     CktElement,
     CtrlQueue,
     DSSCore,
-    DSSimComs,
     Element,
     Error,
     Executive,

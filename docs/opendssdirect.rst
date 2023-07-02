@@ -76,14 +76,6 @@ opendssdirect.DSSCore module
     :undoc-members:
     :show-inheritance:
 
-opendssdirect.DSSimComs module
-------------------------------
-
-.. automodule:: opendssdirect.DSSimComs
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 opendssdirect.Element module
 ----------------------------
 

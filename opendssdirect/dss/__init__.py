@@ -12,7 +12,6 @@ from ..Circuit import _Circuit as Circuit
 from ..CktElement import _CktElement as CktElement
 from ..CtrlQueue import _CtrlQueue as CtrlQueue
 from ..DSSCore import _DSSCore as DSSCore
-from ..DSSimComs import _DSSimComs as DSSimComs
 from ..Element import _Element as Element
 from ..Error import _Error as Error
 from ..Executive import _Executive as Executive
