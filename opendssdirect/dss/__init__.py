@@ -2,12 +2,18 @@ from .._utils import lib as dss_lib
 from .._utils import ffi as dss_ffi
 from .._utils import DSSException
 from ..utils import run_command
-from .. import ActiveClass
+
+from ..ActiveClass import _ActiveClass as ActiveClass
+
+# from ..Basic import _Basic as Basic
 from .. import Basic
-from .. import Bus
-from .. import CapControls
-from .. import Capacitors
-from .. import Circuit
+
+from ..Bus import _Bus as Bus
+from ..CapControls import _CapControls as CapControls
+from ..Capacitors import _Capacitors as Capacitors
+from ..Circuit import _Circuit as Circuit
+
+# from ..CktElement import _CktElement as CktElement
 from .. import CktElement
 
 from ..CtrlQueue import _CtrlQueue as CtrlQueue
@@ -35,6 +41,7 @@ from .. import Monitors as Monitors
 
 from ..PDElements import _PDElements as PDElements
 from ..PVsystems import _PVsystems as PVsystems
+from ..Parallel import _Parallel as Parallel
 from ..Parser import _Parser as Parser
 from ..Progress import _Progress as Progress
 
@@ -47,6 +54,7 @@ from ..Relays import _Relays as Relays
 from ..Sensors import _Sensors as Sensors
 from ..Settings import _Settings as Settings
 from ..Solution import _Solution as Solution
+from ..Storages import _Storages as Storages
 from ..SwtControls import _SwtControls as SwtControls
 from ..Text import _Text as Text
 from ..Topology import _Topology as Topology
@@ -57,4 +65,13 @@ from ..XYCurves import _XYCurves as XYCurves
 #from ..YMatrix import _YMatrix as YMatrix
 from .. import YMatrix as YMatrix
 
+
+from ..CNData import _CNData as CNData
+from ..LineGeometries import _LineGeometries as LineGeometries
+from ..LineSpacings import _LineSpacings as LineSpacings
+from ..Reactors import _Reactors as Reactors
+from ..ReduceCkt import _ReduceCkt as ReduceCkt
+from ..TSData import _TSData as TSData
+from ..WireData import _WireData as WireData
+from ..ZIP import _ZIP as ZIP
 

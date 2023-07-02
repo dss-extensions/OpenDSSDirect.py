@@ -2,6 +2,7 @@ import inspect
 import warnings
 from ._utils import get_string, dss_py
 from . import _utils
+from .Iterable import Iterable
 
 is_pandas_installed = True
 
@@ -13,7 +14,7 @@ except ImportError:
 
 class Iterator(object):
     def __init__(self, module, function):
-        assert inspect.ismodule(module), "{module} must be of type module".format(
+        assert inspect.ismodule(module) or isinstance(module, Iterable), "{module} must be of type module or a DSS iterable".format(
             module=module
         )
         self.module = module
