@@ -180,6 +180,14 @@ opendssdirect.Monitors module
     :undoc-members:
     :show-inheritance:
 
+opendssdirect.Parallel module
+-----------------------------
+
+.. automodule:: opendssdirect.Parallel
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 opendssdirect.PDElements module
 -------------------------------
 
@@ -228,6 +236,14 @@ opendssdirect.Reclosers module
     :undoc-members:
     :show-inheritance:
 
+opendssdirect.ReduceCkt module
+------------------------------
+
+.. automodule:: opendssdirect.ReduceCkt
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 opendssdirect.RegControls module
 --------------------------------
 
@@ -264,6 +280,14 @@ opendssdirect.Solution module
 -----------------------------
 
 .. automodule:: opendssdirect.Solution
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+opendssdirect.Storages module
+-----------------------------
+
+.. automodule:: opendssdirect.Storages
     :members:
     :undoc-members:
     :show-inheritance:

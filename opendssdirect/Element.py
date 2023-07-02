@@ -26,7 +26,7 @@ class IElement(Base):
         Returns the properties of the active DSS object as a JSON-encoded string.
 
         The `options` parameter contains bit-flags to toggle specific features.
-        See `Obj_ToJSON` (C-API) for more, or `DSSObj.to_json` in Python.
+        See `Obj_ToJSON` (C-API) for more.
 
         (API Extension)
         """
