@@ -41,134 +41,135 @@ def test_package_import():
 def test_module_import():
 
     import inspect
+    from opendssdirect.Iterable import Iterable, Base
 
     from opendssdirect import ActiveClass as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Base)
 
     from opendssdirect import Basic as m
 
-    assert inspect.ismodule(m)
+    assert inspect.ismodule(m) or isinstance(m, Base)
 
     from opendssdirect import Bus as m
 
-    assert inspect.ismodule(m)
+    assert inspect.ismodule(m) or isinstance(m, Base)
 
     from opendssdirect import Capacitors as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import CapControls as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import Circuit as m
 
-    assert inspect.ismodule(m)
+    assert inspect.ismodule(m) or isinstance(m, Base)
 
     from opendssdirect import CktElement as m
 
-    assert inspect.ismodule(m)
+    assert inspect.ismodule(m) or isinstance(m, Iterable)
 
     from opendssdirect import Element as m
 
-    assert inspect.ismodule(m)
+    assert inspect.ismodule(m) or isinstance(m, Base)
 
     from opendssdirect import Executive as m
 
-    assert inspect.ismodule(m)
+    assert inspect.ismodule(m) or isinstance(m, Base)
 
     from opendssdirect import Fuses as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import Generators as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import Isource as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import Lines as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import Loads as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import LoadShape as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import Meters as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import Monitors as m
 
-    assert inspect.ismodule(m)
+    assert inspect.ismodule(m) or isinstance(m, Iterable)
 
     from opendssdirect import Parser as m
 
-    assert inspect.ismodule(m)
+    assert inspect.ismodule(m) or isinstance(m, Base)
 
     from opendssdirect import PDElements as m
 
-    assert inspect.ismodule(m)
+    assert inspect.ismodule(m) or isinstance(m, Base)
 
     from opendssdirect import Properties as m
 
-    assert inspect.ismodule(m)
+    assert inspect.ismodule(m) or isinstance(m, Iterable)
 
     from opendssdirect import PVsystems as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import Reclosers as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import RegControls as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import Relays as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import Sensors as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import Settings as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Base)
 
     from opendssdirect import Solution as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Base)
 
     from opendssdirect import SwtControls as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import Topology as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Base)
 
     from opendssdirect import Transformers as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import Vsources as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import XYCurves as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
 
 def test_ActiveClass(dss):
