@@ -1,4 +1,5 @@
-from ._utils import lib, codec, CheckForError, get_string, get_string_array
+from ._utils import lib, codec, CheckForError, get_string, get_string_array, dss_py
+from ._version import __version__ 
 
 
 def ClearAll():
@@ -64,7 +65,7 @@ def UserClasses():
 
 def Version():
     """(read-only) Get version string for the DSS."""
-    return get_string(CheckForError(lib.DSS_Get_Version()))
+    return dss_py.DSS.Version + f"\nOpenDSSDirect.py version: {__version__}"
 
 
 def AllowForms(*args):

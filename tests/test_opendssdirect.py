@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import pytest as pt
-import os
+import os, re
 import pandas as pd
 try:
     from pandas._testing import assert_dict_equal #TODO: migrate to something else, this is bad
@@ -314,8 +314,10 @@ def test_13Node_Basic(dss):
     assert dss.Basic.Start(1) == 1
     assert dss.Basic.UserClasses() == []
 
-    # u'Version xxxx (64-bit build); License Status: Open '
-    assert isinstance(dss.Basic.Version(), str)
+    # u'Version xxxx (64-bit build); License Status: Open ...'
+    version = dss.Basic.Version()
+    assert isinstance(version, str)
+    assert re.match(r".*DSS-Python version: .*OpenDSSDirect.py version: .*", version, flags=re.MULTILINE|re.DOTALL)
 
 
 def test_13Node_Bus(dss):
