@@ -1,4 +1,4 @@
-from ._utils import ffi, codec, DSSException, api_util, Base
+from ._utils import DSSException, api_util, Base
 
 
 class ICktElement(Base):

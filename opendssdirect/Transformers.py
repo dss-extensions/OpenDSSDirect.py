@@ -1,4 +1,4 @@
-from ._utils import codec, CheckForError, api_util, Iterable
+from ._utils import  api_util, Iterable
 
 
 class ITransformers(Iterable):

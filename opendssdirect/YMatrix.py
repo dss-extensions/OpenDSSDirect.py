@@ -1,5 +1,5 @@
 import numpy as np
-from ._utils import ffi, CheckForError, api_util, Base
+from ._utils import api_util, Base
 
 
 class IYMatrix(Base):

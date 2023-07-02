@@ -1,4 +1,4 @@
-from ._utils import codec, CheckForError, api_util, Base
+from ._utils import  api_util, Base
 
 
 class ITopology(Base):

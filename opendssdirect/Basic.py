@@ -1,4 +1,4 @@
-from ._utils import codec, api_util, Base, dss_py
+from ._utils import api_util, Base, dss_py
 from ._version import __version__ 
 
 
