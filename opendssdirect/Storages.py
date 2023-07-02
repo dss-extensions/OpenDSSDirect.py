@@ -4,6 +4,7 @@ from ._utils import CheckForError, api_util, Iterable
 class IStorages(Iterable):
     """Storage objects"""
 
+    __name__ = "Storages"
     _api_prefix = "Storages"
     __slots__ = []
     _columns = ["Name", "Idx", "RegisterNames", "RegisterValues", "puSOC", "State"]

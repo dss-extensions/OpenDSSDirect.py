@@ -3,6 +3,7 @@ from ._utils import codec, CheckForError, api_util, Base
 
 class IActiveClass(Base):
     __slots__ = []
+    __name__ = "ActiveClass"
     _api_prefix = "ActiveClass"
     _columns = ["ActiveClassName", "ActiveClassParent", "Name", "NumElements"]
 

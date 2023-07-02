@@ -3,6 +3,7 @@ from ._utils import codec, CheckForError, api_util, Iterable
 
 class ILines(Iterable):
     __slots__ = []
+    __name__ = "Lines"
     _api_prefix = "Lines"
     _columns = [
         "Name",

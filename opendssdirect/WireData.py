@@ -4,6 +4,7 @@ from ._utils import CheckForError, api_util, Iterable
 class IWireData(Iterable):
     """Experimental API extension exposing part of the WireData objects"""
 
+    __name__ = "WireData"
     _api_prefix = "WireData"
     __slots__ = []
     _columns = [

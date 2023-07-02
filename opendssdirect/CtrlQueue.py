@@ -3,6 +3,7 @@ from ._utils import CheckForError, api_util, Base
 
 class ICtrlQueue(Base):
     __slots__ = []
+    __name__ = "CtrlQueue"
     _api_prefix = "CtrlQueue"
     _columns = ["Queue", "DeviceHandle", "QueueSize", "ActionCode", "NumActions"]
 

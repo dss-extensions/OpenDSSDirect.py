@@ -3,6 +3,7 @@ from ._utils import api_util, Base
 
 class IError(Base):
     __slots__ = []
+    __name__ = "Error"
     _api_prefix = "Error"
     _columns = ["Description", "Number", "EarlyAbort"]
 

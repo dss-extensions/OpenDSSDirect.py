@@ -3,6 +3,7 @@ from ._utils import codec, CheckForError, api_util, Base
 
 class ITopology(Base):
     __slots__ = []
+    __name__ = "Topology"
     _api_prefix = "Topology"
     _columns = [
         "NumIsolatedLoads",

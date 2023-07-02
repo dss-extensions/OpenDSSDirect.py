@@ -3,6 +3,7 @@ from ._utils import codec, CheckForError, api_util, Iterable
 
 class ILoadShape(Iterable):
     __slots__ = []
+    __name__ = "LoadShape"
     _api_prefix = "LoadShapes"
     _columns = [
         "Name",

@@ -3,6 +3,7 @@ from ._utils import CheckForError, api_util, Base
 
 class IExecutive(Base):
     __slots__ = []
+    __name__ = "Executive"
     _api_prefix = "DSS_Executive"
     _columns = ["NumCommands", "NumOptions"]
 

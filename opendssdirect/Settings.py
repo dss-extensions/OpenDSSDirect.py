@@ -3,6 +3,7 @@ from ._utils import codec, CheckForError, api_util, Base
 
 class ISettings(Base):
     __slots__ = []
+    __name__ = "Settings"
     _api_prefix = "Settings"
     _columns = [
         "Trapezoidal",

@@ -4,6 +4,7 @@ from ._utils import codec, CheckForError, api_util, Base
 class IReduceCkt(Base):
     """Circuit Reduction interface"""
 
+    __name__ = "ReduceCkt"
     _api_prefix = "ReduceCkt"
     _columns = []
 

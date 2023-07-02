@@ -3,6 +3,7 @@ from ._utils import codec, CheckForError, api_util, Base
 
 class IParser(Base):
     __slots__ = []
+    __name__ = "Parser"
     _api_prefix = "Parser"
     _columns = [
         "Delimiters",

@@ -3,6 +3,7 @@ from ._utils import CheckForError, api_util, Base
 
 class IElement(Base):
     __slots__ = ["Properties"]
+    __name__ = "Element"
     _api_prefix = "DSSElement"
     _columns = ["AllPropertyNames", "Name", "NumProperties"]
 

@@ -3,6 +3,7 @@ from ._utils import codec, CheckForError, api_util, Iterable
 
 class IPVsystems(Iterable):
     __slots__ = []
+    __name__ = "PVsystems"
     _api_prefix = "PVSystems"
     _columns = [
         "Name",

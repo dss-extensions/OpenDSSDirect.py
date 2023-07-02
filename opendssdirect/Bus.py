@@ -3,6 +3,7 @@ from ._utils import CheckForError, api_util, Base
 
 class IBus(Base):
     __slots__ = []
+    __name__ = "Bus"
     _api_prefix = "Bus"
     _columns = [
         "Name",

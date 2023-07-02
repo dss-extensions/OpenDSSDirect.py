@@ -47,6 +47,7 @@ class ICircuit(Base):
         "ReduceCkt",
         "Storages",
     ]
+    __name__ = "Circuit"
     _api_prefix = "Circuit"
     _columns = [
         "Name",

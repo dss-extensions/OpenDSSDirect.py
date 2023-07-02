@@ -3,6 +3,7 @@ from ._utils import CheckForError, api_util, Iterable
 
 class IIsource(Iterable):
     __slots__ = []
+    __name__ = "Isource"
     _api_prefix = "ISources"
     _columns = ["Name", "Idx", "Amps", "AngleDeg", "Frequency"]
 

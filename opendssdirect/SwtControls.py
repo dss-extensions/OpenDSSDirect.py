@@ -3,6 +3,7 @@ from ._utils import codec, CheckForError, api_util, Iterable
 
 class ISwtControls(Iterable):
     __slots__ = []
+    __name__ = "SwtControls"
     _api_prefix = "SwtControls"
     _columns = [
         "Name",

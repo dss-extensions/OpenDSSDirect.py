@@ -4,6 +4,7 @@ from ._utils import CheckForError, api_util, Iterable
 class ICNData(Iterable):
     """Experimental API extension exposing CNData objects"""
 
+    __name__ = "CNData"
     _api_prefix = "CNData"
     __slots__ = []
     _columns = [

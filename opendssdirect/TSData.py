@@ -4,6 +4,7 @@ from ._utils import CheckForError, api_util, Iterable
 class ITSData(Iterable):
     """Experimental API extension exposing TSData objects"""
 
+    __name__ = "TSData"
     _api_prefix = "TSData"
     __slots__ = []
     _columns = [

@@ -3,6 +3,7 @@ from ._utils import codec, CheckForError, api_util, Iterable
 
 class IGenerators(Iterable):
     __slots__ = []
+    __name__ = "Generators"
     _api_prefix = "Generators"
     _columns = [
         "Name",

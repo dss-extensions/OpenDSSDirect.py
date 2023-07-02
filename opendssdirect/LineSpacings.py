@@ -4,6 +4,7 @@ from ._utils import CheckForError, api_util, Iterable
 class ILineSpacings(Iterable):
     """Experimental API extension exposing part of the LineSpacing objects"""
 
+    __name__ = "LineSpacings"
     _api_prefix = "LineSpacings"
     __slots__ = []
     _columns = ["Name", "Idx", "Nconds", "Phases", "Units", "Xcoords", "Ycoords"]

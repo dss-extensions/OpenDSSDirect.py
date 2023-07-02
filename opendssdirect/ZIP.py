@@ -3,6 +3,7 @@ from ._utils import ffi, api_util, codec, CheckForError, api_util, Base
 
 class IZIP(Base):
     __slots__ = []
+    __name__ = "ZIP"
     _api_prefix = "ZIP"
     _columns = []
 

@@ -3,6 +3,7 @@ from ._utils import CheckForError, api_util, Iterable
 
 class ICapacitors(Iterable):
     __slots__ = []
+    __name__ = "Capacitors"
     _api_prefix = "Capacitors"
     _columns = [
         "Name",

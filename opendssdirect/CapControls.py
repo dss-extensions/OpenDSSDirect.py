@@ -3,6 +3,7 @@ from ._utils import codec, CheckForError, api_util, Iterable
 
 class ICapControls(Iterable):
     __slots__ = []
+    __name__ = "CapControls"
     _api_prefix = "CapControls"
     _columns = [
         "Name",

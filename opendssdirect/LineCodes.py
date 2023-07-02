@@ -3,6 +3,7 @@ from ._utils import CheckForError, api_util, Iterable
 
 class ILineCodes(Iterable):
     __slots__ = []
+    __name__ = "LineCodes"
     _api_prefix = "LineCodes"
     _columns = [
         "Name",

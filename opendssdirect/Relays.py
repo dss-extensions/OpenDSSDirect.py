@@ -3,6 +3,7 @@ from ._utils import codec, CheckForError, api_util, Iterable
 
 class IRelays(Iterable):
     __slots__ = []
+    __name__ = "Relays"
     _api_prefix = "Relays"
     _columns = [
         "Name",

@@ -3,6 +3,7 @@ from ._utils import codec, CheckForError, api_util, Iterable
 
 class ITransformers(Iterable):
     __slots__ = []
+    __name__ = "Transformers"
     _api_prefix = "Transformers"
     _columns = [
         "Name",

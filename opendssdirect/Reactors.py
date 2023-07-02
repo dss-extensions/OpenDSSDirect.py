@@ -4,6 +4,7 @@ from ._utils import codec, CheckForError, api_util, Iterable
 class IReactors(Iterable):
     """Experimental API extension exposing Reactor objects"""
 
+    __name__ = "Reactors"
     _api_prefix = "Reactors"
     __slots__ = []
     _columns = [

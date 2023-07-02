@@ -3,6 +3,7 @@ from ._utils import codec, CheckForError, api_util, Iterable
 
 class IRegControls(Iterable):
     __slots__ = []
+    __name__ = "RegControls"
     _api_prefix = "RegControls"
     _columns = [
         "Name",

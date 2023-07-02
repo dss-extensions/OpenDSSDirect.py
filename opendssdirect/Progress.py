@@ -3,6 +3,7 @@ from ._utils import codec, CheckForError, api_util, Base
 
 class IProgress(Base):
     __slots__ = []
+    __name__ = "Progress"
     _api_prefix = "DSSProgress"
     _columns = []
 

@@ -2,8 +2,9 @@ from ._utils import CheckForError, api_util, Iterable
 
 
 class IVsources(Iterable):
-    _api_prefix = "Vsources"
     __slots__ = []
+    __name__ = "Vsources"
+    _api_prefix = "Vsources"
     _columns = ["Name", "Idx", "Phases", "BasekV", "AngleDeg", "Frequency", "PU"]
 
     def AngleDeg(self, *args):

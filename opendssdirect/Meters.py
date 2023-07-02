@@ -3,6 +3,7 @@ from ._utils import codec, CheckForError, api_util, Iterable
 
 class IMeters(Iterable):
     __slots__ = []
+    __name__ = "Meters"
     _api_prefix = "Meters"
     _columns = [
         "Name",

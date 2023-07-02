@@ -3,6 +3,7 @@ from ._utils import codec, CheckForError, api_util, Iterable
 
 class ISensors(Iterable):
     __slots__ = []
+    __name__ = "Sensors"
     _api_prefix = "Sensors"
     _columns = [
         "Name",

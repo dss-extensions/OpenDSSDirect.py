@@ -4,6 +4,7 @@ from ._utils import CheckForError, api_util, Iterable
 class ILineGeometries(Iterable):
     """Experimental API extension exposing part of the LineGeometry objects"""
 
+    __name__ = "LineGeometries"
     _api_prefix = "LineGeometries"
     __slots__ = []
     _columns = [

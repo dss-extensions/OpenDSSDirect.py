@@ -3,6 +3,7 @@ from ._utils import codec, CheckForError, api_util, Iterable
 
 class IFuses(Iterable):
     __slots__ = []
+    __name__ = "Fuses"
     _api_prefix = "Fuses"
     _columns = [
         "Name",

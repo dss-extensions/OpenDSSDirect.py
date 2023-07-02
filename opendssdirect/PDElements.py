@@ -3,6 +3,7 @@ from ._utils import codec, CheckForError, api_util, Base
 
 class IPDElements(Base):
     __slots__ = []
+    __name__ = "PDElements"
     _api_prefix = "PDElements"
     _columns = [
         "Name",

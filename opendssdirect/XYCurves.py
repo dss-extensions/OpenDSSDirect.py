@@ -3,6 +3,7 @@ from ._utils import CheckForError, api_util, Iterable
 
 class IXYCurves(Iterable):
     __slots__ = []
+    __name__ = "XYCurves"
     _api_prefix = "XYCurves"
     _columns = [
         "Name",

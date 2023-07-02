@@ -3,6 +3,7 @@ from ._utils import codec, CheckForError, api_util, Base
 
 class ISolution(Base):
     __slots__ = []
+    __name__ = "Solution"
     _api_prefix = "Solution"
     _columns = [
         "MinIterations",

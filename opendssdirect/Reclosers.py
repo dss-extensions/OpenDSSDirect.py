@@ -3,6 +3,7 @@ from ._utils import codec, CheckForError, api_util, Iterable
 
 class IReclosers(Iterable):
     __slots__ = []
+    __name__ = "Reclosers"
     _api_prefix = "Reclosers"
     _columns = [
         "Name",

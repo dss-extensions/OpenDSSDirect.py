@@ -3,6 +3,7 @@ from ._utils import codec, CheckForError, api_util, Iterable
 
 class ILoads(Iterable):
     __slots__ = []
+    __name__ = "Loads"
     _api_prefix = "Loads"
     _columns = [
         "Name",
