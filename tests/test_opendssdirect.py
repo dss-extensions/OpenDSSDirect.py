@@ -109,7 +109,7 @@ def test_module_import():
 
     from opendssdirect import Monitors as m
 
-    assert inspect.ismodule(m) or isinstance(m, Iterable)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import Parser as m
 

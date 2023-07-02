@@ -24,10 +24,7 @@ from ..Lines import _Lines as Lines
 from ..LoadShape import _LoadShape as LoadShape
 from ..Loads import _Loads as Loads
 from ..Meters import _Meters as Meters
-
-#from ..Monitors import _Monitors as Monitors
-from .. import Monitors as Monitors
-
+from ..Monitors import _Monitors as Monitors
 from ..PDElements import _PDElements as PDElements
 from ..PVsystems import _PVsystems as PVsystems
 from ..Parallel import _Parallel as Parallel
