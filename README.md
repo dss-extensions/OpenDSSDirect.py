@@ -1,5 +1,6 @@
 # OpenDSSDirect.py
 [![Appveyor Build Status](https://ci.appveyor.com/api/projects/status/github/dss-extensions/OpenDSSDirect.py?branch=master&svg=true)](https://ci.appveyor.com/project/PMeira/opendssdirect-py)
+[![GitHub Build Status](https://github.com/dss-extensions/OpenDSSDirect.py/actions/workflows/tests.yml/badge.svg)](https://github.com/dss-extensions/OpenDSSDirect.py/actions/workflows/tests.yml)
 [![codecov](https://codecov.io/gh/dss-extensions/OpenDSSDirect.py/branch/master/graph/badge.svg)](https://codecov.io/gh/dss-extensions/OpenDSSDirect.py)
 [![PyPI](https://img.shields.io/pypi/v/OpenDSSDirect.py.svg)](https://pypi.python.org/pypi/OpenDSSDirect.py/)
 [![Documentation](https://img.shields.io/badge/docs-ready-blue.svg)](http://dss-extensions.org/OpenDSSDirect.py)
