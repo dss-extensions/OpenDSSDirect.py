@@ -73,11 +73,11 @@ def test_module_import():
 
     from opendssdirect import Element as m
 
-    assert inspect.ismodule(m) or isinstance(m, Base)
+    assert isinstance(m, Base)
 
     from opendssdirect import Executive as m
 
-    assert inspect.ismodule(m) or isinstance(m, Base)
+    assert isinstance(m, Base)
 
     from opendssdirect import Fuses as m
 
@@ -113,15 +113,15 @@ def test_module_import():
 
     from opendssdirect import Parser as m
 
-    assert inspect.ismodule(m) or isinstance(m, Base)
+    assert isinstance(m, Base)
 
     from opendssdirect import PDElements as m
 
-    assert inspect.ismodule(m) or isinstance(m, Base)
+    assert isinstance(m, Base)
 
     from opendssdirect import Properties as m
 
-    assert inspect.ismodule(m) or isinstance(m, Iterable)
+    assert isinstance(m, Base)
 
     from opendssdirect import PVsystems as m
 

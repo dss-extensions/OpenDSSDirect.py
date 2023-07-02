@@ -42,10 +42,7 @@ from ..PVsystems import _PVsystems as PVsystems
 from ..Parallel import _Parallel as Parallel
 from ..Parser import _Parser as Parser
 from ..Progress import _Progress as Progress
-
-# from ..Properties import _Properties as Properties
-from .. import Properties as Properties
-
+from ..Properties import _Properties as Properties
 from ..Reclosers import _Reclosers as Reclosers
 from ..RegControls import _RegControls as RegControls
 from ..Relays import _Relays as Relays

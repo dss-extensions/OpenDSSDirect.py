@@ -57,13 +57,13 @@ class IYMatrix(Base):
     def AddInAuxCurrents(self, SType):
         self.CheckForError(self._lib.YMatrix_AddInAuxCurrents(SType))
 
-    def VVector(self):
+    def IVector(self):
         """Get access to the internal Current pointer"""
         IvectorPtr = self._api_util.ffi.new("double**")
         self.CheckForError(self._lib.YMatrix_getIpointer(IvectorPtr))
         return IvectorPtr[0]
 
-    def IVector(self):
+    def VVector(self):
         """Get access to the internal Voltage pointer"""
         VvectorPtr = self._api_util.ffi.new("double**")
         self.CheckForError(self._lib.YMatrix_getVpointer(VvectorPtr))
@@ -109,14 +109,14 @@ class IYMatrix(Base):
 
     def getI(self):
         """Get the data from the internal Current pointer"""
-        IvectorPtr = self.GetIPointer()
+        IvectorPtr = self.IVector()
         return self._api_util.ffi.unpack(
             IvectorPtr, 2 * self.CheckForError(self._lib.Circuit_Get_NumNodes() + 1)
         )
 
     def getV(self):
         """Get the data from the internal Voltage pointer"""
-        VvectorPtr = self.GetVPointer()
+        VvectorPtr = self.VVector()
         return self._api_util.ffi.unpack(
             VvectorPtr, 2 * self.CheckForError(self._lib.Circuit_Get_NumNodes() + 1)
         )
