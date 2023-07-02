@@ -1,89 +1,102 @@
-from ._utils import lib, CheckForError, get_int32_array
+from ._utils import CheckForError, api_util, Base
 
 
-def CreateActor():
-    CheckForError(lib.Parallel_CreateActor())
+class IParallel(Base):
+    """Parallel machine interface. Available only in OpenDSS v8+"""
+
+    __name__ = "Parallel"
+    _api_prefix = "Parallel"
+    _columns = []
+
+    __slots__ = []
+
+    def CreateActor(self):
+        self.CheckForError(self._lib.Parallel_CreateActor())
+
+    def Wait(self):
+        self.CheckForError(self._lib.Parallel_Wait())
+
+    def ActiveActor(self, *args):
+        """Gets/sets the ID of the Active Actor"""
+        # Getter
+        if len(args) == 0:
+            return self.CheckForError(self._lib.Parallel_Get_ActiveActor())
+
+        # Setter
+        Value, = args
+        self.CheckForError(self._lib.Parallel_Set_ActiveActor(Value))
+
+    def ActiveParallel(self, *args):
+        """
+        (read) Sets ON/OFF (1/0) Parallel features of the Engine
+        (write) Delivers if the Parallel features of the Engine are Active
+        """
+        # Getter
+        if len(args) == 0:
+            return self.CheckForError(self._lib.Parallel_Get_ActiveParallel())
+
+        # Setter
+        Value, = args
+        self.CheckForError(self._lib.Parallel_Set_ActiveParallel(Value))
+
+    def ActorCPU(self, *args):
+        """Gets/sets the CPU of the Active Actor"""
+        # Getter
+        if len(args) == 0:
+            return self.CheckForError(self._lib.Parallel_Get_ActorCPU())
+
+        # Setter
+        Value, = args
+        self.CheckForError(self._lib.Parallel_Set_ActorCPU(Value))
+
+    def ActorProgress(self):
+        """(read-only) Gets the progress of all existing actors in pct"""
+        return self._get_int32_array(self._lib.Parallel_Get_ActorProgress)
+
+    def ActorStatus(self):
+        """(read-only) Gets the status of each actor"""
+        return self._get_int32_array(self._lib.Parallel_Get_ActorStatus)
+
+    def ConcatenateReports(self, *args):
+        """
+        Controls the ConcatenateReports option (1=enabled, 0=disabled)
+        """
+        # Getter
+        if len(args) == 0:
+            return self.CheckForError(self._lib.Parallel_Get_ConcatenateReports())
+
+        # Setter
+        Value, = args
+        self.CheckForError(self._lib.Parallel_Set_ConcatenateReports(Value))
+
+    def NumCPUs(self):
+        """(read-only) Delivers the number of CPUs on the current PC"""
+        return self.CheckForError(self._lib.Parallel_Get_NumCPUs())
+
+    def NumCores(self):
+        """(read-only) Delivers the number of Cores of the local PC"""
+        return self.CheckForError(self._lib.Parallel_Get_NumCores())
+
+    def NumOfActors(self):
+        """(read-only) Gets the number of Actors created"""
+        return self.CheckForError(self._lib.Parallel_Get_NumOfActors())
 
 
-def Wait():
-    CheckForError(lib.Parallel_Wait())
+_Parallel = IParallel(api_util)
 
-
-def ActiveActor(*args):
-    """Gets/sets the ID of the Active Actor"""
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.Parallel_Get_ActiveActor())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.Parallel_Set_ActiveActor(Value))
-
-
-def ActiveParallel(*args):
-    """
-    (read) Sets ON/OFF (1/0) Parallel features of the Engine
-    (write) Delivers if the Parallel features of the Engine are Active
-    """
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.Parallel_Get_ActiveParallel())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.Parallel_Set_ActiveParallel(Value))
-
-
-def ActorCPU(*args):
-    """Gets/sets the CPU of the Active Actor"""
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.Parallel_Get_ActorCPU())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.Parallel_Set_ActorCPU(Value))
-
-
-def ActorProgress():
-    """(read-only) Gets the progress of all existing actors in pct"""
-    return get_int32_array(lib.Parallel_Get_ActorProgress)
-
-
-def ActorStatus():
-    """(read-only) Gets the status of each actor"""
-    return get_int32_array(lib.Parallel_Get_ActorStatus)
-
-
-def ConcatenateReports(*args):
-    """
-    Controls the ConcatenateReports option (1=enabled, 0=disabled)
-    """
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.Parallel_Get_ConcatenateReports())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.Parallel_Set_ConcatenateReports(Value))
-
-
-def NumCPUs():
-    """(read-only) Delivers the number of CPUs on the current PC"""
-    return CheckForError(lib.Parallel_Get_NumCPUs())
-
-
-def NumCores():
-    """(read-only) Delivers the number of Cores of the local PC"""
-    return CheckForError(lib.Parallel_Get_NumCores())
-
-
-def NumOfActors():
-    """(read-only) Gets the number of Actors created"""
-    return CheckForError(lib.Parallel_Get_NumOfActors())
-
-
-_columns = []
+# For backwards compatibility, bind to the default instance
+CreateActor = _Parallel.CreateActor
+Wait = _Parallel.Wait
+ActiveActor = _Parallel.ActiveActor
+ActiveParallel = _Parallel.ActiveParallel
+ActorCPU = _Parallel.ActorCPU
+ActorProgress = _Parallel.ActorProgress
+ActorStatus = _Parallel.ActorStatus
+ConcatenateReports = _Parallel.ConcatenateReports
+NumCPUs = _Parallel.NumCPUs
+NumCores = _Parallel.NumCores
+NumOfActors = _Parallel.NumOfActors
+_columns = _Parallel._columns
 __all__ = [
     "CreateActor",
     "Wait",

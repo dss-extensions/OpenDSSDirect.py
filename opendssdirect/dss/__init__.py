@@ -17,9 +17,7 @@ from ..Circuit import _Circuit as Circuit
 from .. import CktElement
 
 from ..CtrlQueue import _CtrlQueue as CtrlQueue
-
-# from ..DSSCore import _DSSCore as DSSCore
-from .. import DSSCore as DSSCore
+from ..DSSCore import _DSSCore as DSSCore
 
 #from ..DSSimComs import _DSSimComs as DSSimComs
 from .. import DSSimComs as DSSimComs
@@ -61,11 +59,7 @@ from ..Topology import _Topology as Topology
 from ..Transformers import _Transformers as Transformers
 from ..Vsources import _Vsources as Vsources
 from ..XYCurves import _XYCurves as XYCurves
-
-#from ..YMatrix import _YMatrix as YMatrix
-from .. import YMatrix as YMatrix
-
-
+from ..YMatrix import _YMatrix as YMatrix
 from ..CNData import _CNData as CNData
 from ..LineGeometries import _LineGeometries as LineGeometries
 from ..LineSpacings import _LineSpacings as LineSpacings

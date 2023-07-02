@@ -1,122 +1,169 @@
 import numpy as np
-from .Circuit import NumNodes
-from ._utils import lib, ffi, CheckForError
+from ._utils import ffi, CheckForError, api_util, Base
 
 
-def getYsparse(factor=True):
-    """Return as (data, indices, indptr) that can fed into scipy.sparse.csc_matrix"""
-    nBus = ffi.new("uint32_t*")
-    nBus[0] = 0
-    nNz = ffi.new("uint32_t*")
-    nNz[0] = 0
+class IYMatrix(Base):
+    __slots__ = []
+    __name__ = "YMatrix"
+    _api_prefix = "YMatrix"
+    _columns = []
 
-    ColPtr = ffi.new("int32_t**")
-    RowIdxPtr = ffi.new("int32_t**")
-    cValsPtr = ffi.new("double**")
+    def getYsparse(self, factor=True):
+        """Return as (data, indices, indptr) that can fed into scipy.sparse.csc_matrix"""
+        ffi = self._api_util.ffi
+        nBus = ffi.new("uint32_t*")
+        nBus[0] = 0
+        nNz = ffi.new("uint32_t*")
+        nNz[0] = 0
+        ColPtr = ffi.new("int32_t**")
+        RowIdxPtr = ffi.new("int32_t**")
+        cValsPtr = ffi.new("double**")
+        self._lib.YMatrix_GetCompressedYMatrix(
+            factor, nBus, nNz, ColPtr, RowIdxPtr, cValsPtr
+        )
+        if not nBus[0] or not nNz[0]:
+            res = None
+        else:
+            # return as (data, indices, indptr) that can fed into scipy.sparse.csc_matrix
+            res = (
+                np.frombuffer(
+                    ffi.buffer(cValsPtr[0], nNz[0] * 16), dtype=np.complex
+                ).copy(),
+                np.frombuffer(
+                    ffi.buffer(RowIdxPtr[0], nNz[0] * 4), dtype=np.int32
+                ).copy(),
+                np.frombuffer(
+                    ffi.buffer(ColPtr[0], (nBus[0] + 1) * 4), dtype=np.int32
+                ).copy(),
+            )
+        self._lib.DSS_Dispose_PInteger(ColPtr)
+        self._lib.DSS_Dispose_PInteger(RowIdxPtr)
+        self._lib.DSS_Dispose_PDouble(cValsPtr)
+        self.CheckForError()
+        return res
 
-    lib.YMatrix_GetCompressedYMatrix(factor, nBus, nNz, ColPtr, RowIdxPtr, cValsPtr)
+    def ZeroInjCurr(self):
+        self.CheckForError(self._lib.YMatrix_ZeroInjCurr())
 
-    if not nBus[0] or not nNz[0]:
-        res = None
-    else:
-        # return as (data, indices, indptr) that can fed into scipy.sparse.csc_matrix
-        res = (
-            np.frombuffer(
-                ffi.buffer(cValsPtr[0], nNz[0] * 16), dtype=complex
-            ).copy(),
-            np.frombuffer(ffi.buffer(RowIdxPtr[0], nNz[0] * 4), dtype=np.int32).copy(),
-            np.frombuffer(
-                ffi.buffer(ColPtr[0], (nBus[0] + 1) * 4), dtype=np.int32
-            ).copy(),
+    def GetSourceInjCurrents(self):
+        self.CheckForError(self._lib.YMatrix_GetSourceInjCurrents())
+
+    def GetPCInjCurr(self):
+        self.CheckForError(self._lib.YMatrix_GetPCInjCurr())
+
+    def BuildYMatrixD(self, BuildOps, AllocateVI):
+        self.CheckForError(self._lib.YMatrix_BuildYMatrixD(BuildOps, AllocateVI))
+
+    def AddInAuxCurrents(self, SType):
+        self.CheckForError(self._lib.YMatrix_AddInAuxCurrents(SType))
+
+    def VVector(self):
+        """Get access to the internal Current pointer"""
+        IvectorPtr = self._api_util.ffi.new("double**")
+        self.CheckForError(self._lib.YMatrix_getIpointer(IvectorPtr))
+        return IvectorPtr[0]
+
+    def IVector(self):
+        """Get access to the internal Voltage pointer"""
+        VvectorPtr = self._api_util.ffi.new("double**")
+        self.CheckForError(self._lib.YMatrix_getVpointer(VvectorPtr))
+        return VvectorPtr[0]
+
+    def SolveSystem(self, NodeV=None):
+        if NodeV is not None and type(NodeV) is not np.ndarray:
+            NodeV = np.array(NodeV)
+        if NodeV is None:
+            NodeVPtr = self._api_util.ffi.NULL
+        else:
+            NodeVPtr = self._api_util.ffi.cast("double *", NodeV.ctypes.data)
+        result = self.CheckForError(self._lib.YMatrix_SolveSystem(NodeVPtr))
+        return result
+
+    def SystemYChanged(self, *args):
+        # Getter
+        if len(args) == 0:
+            return self.CheckForError(self._lib.YMatrix_Get_SystemYChanged() != 0)
+
+        # Setter
+        value, = args
+        self.CheckForError(self._lib.YMatrix_Set_SystemYChanged(value))
+
+    def UseAuxCurrents(self, *args):
+        # Getter
+        if len(args) == 0:
+            return self.CheckForError(self._lib.YMatrix_Get_UseAuxCurrents() != 0)
+
+        # Setter
+        value, = args
+        self.CheckForError(self._lib.YMatrix_Set_UseAuxCurrents(value))
+
+    def SolverOptions(self, *args):
+        """Sparse solver options. See the enumeration SparseSolverOptions"""
+        # Getter
+        if len(args) == 0:
+            return self._lib.YMatrix_Get_SolverOptions()
+
+        # Setter
+        Value, = args
+        self._lib.YMatrix_Set_SolverOptions(Value)
+
+    def getI(self):
+        """Get the data from the internal Current pointer"""
+        IvectorPtr = self.GetIPointer()
+        return self._api_util.ffi.unpack(
+            IvectorPtr, 2 * self.CheckForError(self._lib.Circuit_Get_NumNodes() + 1)
         )
 
-    lib.DSS_Dispose_PInteger(ColPtr)
-    lib.DSS_Dispose_PInteger(RowIdxPtr)
-    lib.DSS_Dispose_PDouble(cValsPtr)
+    def getV(self):
+        """Get the data from the internal Voltage pointer"""
+        VvectorPtr = self.GetVPointer()
+        return self._api_util.ffi.unpack(
+            VvectorPtr, 2 * self.CheckForError(self._lib.Circuit_Get_NumNodes() + 1)
+        )
 
-    return res
+    def CheckConvergence(self):
+        return self.CheckForError(self._lib.YMatrix_CheckConvergence())
 
+    def LoadsNeedUpdating(self, *args):
+        # Getter
+        if len(args) == 0:
+            return self.CheckForError(self._lib.YMatrix_Get_LoadsNeedUpdating() != 0)
 
-def ZeroInjCurr():
-    lib.YMatrix_ZeroInjCurr()
+        # Setter
+        value, = args
+        self.CheckForError(self._lib.YMatrix_Set_LoadsNeedUpdating(value))
 
+    def SolutionInitialized(self, *args):
+        # Getter
+        if len(args) == 0:
+            return self.CheckForError(self._lib.YMatrix_Get_SolutionInitialized() != 0)
 
-def GetSourceInjCurrents():
-    lib.YMatrix_GetSourceInjCurrents()
-
-
-def GetPCInjCurr():
-    lib.YMatrix_GetPCInjCurr()
-
-
-def BuildYMatrixD(BuildOps, AllocateVI):
-    lib.YMatrix_BuildYMatrixD(BuildOps, AllocateVI)
-
-
-def AddInAuxCurrents(SType):
-    lib.YMatrix_AddInAuxCurrents(SType)
-
-
-def IVector():
-    """Get access to the internal Current pointer"""
-    IvectorPtr = ffi.new("double**")
-    lib.YMatrix_getIpointer(IvectorPtr)
-    return IvectorPtr[0]
+        # Setter
+        value, = args
+        self.CheckForError(self._lib.YMatrix_Set_SolutionInitialized(value))
 
 
-def VVector():
-    """Get access to the internal Voltage pointer"""
-    VvectorPtr = ffi.new("double**")
-    lib.YMatrix_getVpointer(VvectorPtr)
-    return VvectorPtr[0]
+_YMatrix = IYMatrix(api_util)
 
-
-def getI():
-    """Get the data from the internal Current pointer"""
-    IvectorPtr = IVector()
-    return ffi.unpack(IvectorPtr, (NumNodes() + 1) * 2)
-
-
-def getV():
-    """Get the data from the internal Voltage pointer"""
-    VvectorPtr = VVector()
-    return ffi.unpack(VvectorPtr, (NumNodes() + 1) * 2)
-
-
-def SolveSystem(NodeV):
-    if type(NodeV) is not np.ndarray:
-        NodeV = np.array(NodeV)
-
-    NodeV = ffi.cast("double *", NodeV.ctypes.data)
-    NodeVPtr = ffi.new("double**")
-    NodeVPtr[0] = NodeV
-    result = lib.YMatrix_SolveSystem(NodeVPtr)
-    return result
-
-
-def SystemYChanged(*args):
-    # Getter
-    if len(args) == 0:
-        return lib.YMatrix_Get_SystemYChanged()
-
-    # Setter
-    value, = args
-    lib.YMatrix_Set_SystemYChanged(value)
-    CheckForError()
-
-
-def UseAuxCurrents(*args):
-    # Getter
-    if len(args) == 0:
-        return lib.YMatrix_Get_UseAuxCurrents()
-
-    # Setter
-    value, = args
-    lib.YMatrix_Set_UseAuxCurrents(value)
-    CheckForError()
-
-
-_columns = []
+# For backwards compatibility, bind to the default instance
+getYsparse = _YMatrix.getYsparse
+getV = _YMatrix.getV
+getI = _YMatrix.getI
+ZeroInjCurr = _YMatrix.ZeroInjCurr
+GetSourceInjCurrents = _YMatrix.GetSourceInjCurrents
+GetPCInjCurr = _YMatrix.GetPCInjCurr
+BuildYMatrixD = _YMatrix.BuildYMatrixD
+AddInAuxCurrents = _YMatrix.AddInAuxCurrents
+IVector = _YMatrix.IVector
+VVector = _YMatrix.VVector
+SolveSystem = _YMatrix.SolveSystem
+SystemYChanged = _YMatrix.SystemYChanged
+UseAuxCurrents = _YMatrix.UseAuxCurrents
+SolverOptions = _YMatrix.SolverOptions
+CheckConvergence = _YMatrix.CheckConvergence
+LoadsNeedUpdating = _YMatrix.LoadsNeedUpdating
+SolutionInitialized = _YMatrix.SolutionInitialized
+_columns = _YMatrix._columns
 __all__ = [
     "getYsparse",
     "getV",
@@ -131,4 +178,8 @@ __all__ = [
     "SolveSystem",
     "SystemYChanged",
     "UseAuxCurrents",
+    "SolverOptions",
+    "CheckConvergence",
+    "LoadsNeedUpdating",
+    "SolutionInitialized",
 ]
