@@ -1,4 +1,5 @@
-from ._utils import  api_util, Iterable
+from ._utils import api_util, Iterable
+from dss import GeneratorStatus
 
 
 class IGenerators(Iterable):
@@ -78,7 +79,8 @@ class IGenerators(Iterable):
 
     def RegisterValues(self):
         """(read-only) Array of valus in generator energy meter registers."""
-        return self._get_float64_array(self._lib.Generators_Get_RegisterValues)
+        self.CheckForError(self._lib.Generators_Get_RegisterValues_GR())
+        return self._get_float64_gr_array()
 
     def Vmaxpu(self, *args):
         """Vmaxpu for generator model"""
@@ -202,7 +204,9 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Generators_Get_Status())
+            return GeneratorStatus(
+                self.CheckForError(self._lib.Generators_Get_Status())
+            )
 
         # Setter
         Value, = args

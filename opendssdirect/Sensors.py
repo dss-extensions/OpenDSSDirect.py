@@ -1,4 +1,4 @@
-from ._utils import  api_util, Iterable
+from ._utils import api_util, Iterable
 
 
 class ISensors(Iterable):
@@ -19,6 +19,7 @@ class ISensors(Iterable):
         "kvar",
         "kVS",
         "kW",
+        "AllocationFactor",
     ]
 
     def Reset(self):
@@ -31,7 +32,8 @@ class ISensors(Iterable):
         """Array of doubles for the line current measurements; don't use with kWS and kVARS."""
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.Sensors_Get_Currents)
+            self.CheckForError(self._lib.Sensors_Get_Currents_GR())
+            return self._get_float64_gr_array()
 
         # Setter
         Value, = args
@@ -106,7 +108,8 @@ class ISensors(Iterable):
         """Array of doubles for Q measurements. Overwrites Currents with a new estimate using kWS."""
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.Sensors_Get_kVARS)
+            self.CheckForError(self._lib.Sensors_Get_kVARS_GR())
+            return self._get_float64_gr_array()
 
         # Setter
         Value, = args
@@ -117,7 +120,8 @@ class ISensors(Iterable):
         """Array of doubles for the LL or LN (depending on Delta connection) voltage measurements."""
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.Sensors_Get_kVS)
+            self.CheckForError(self._lib.Sensors_Get_kVS_GR())
+            return self._get_float64_gr_array()
 
         # Setter
         Value, = args
@@ -138,12 +142,18 @@ class ISensors(Iterable):
         """Array of doubles for P measurements. Overwrites Currents with a new estimate using kVARS."""
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.Sensors_Get_kWS)
+            self.CheckForError(self._lib.Sensors_Get_kWS_GR())
+            return self._get_float64_gr_array()
 
         # Setter
         Value, = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
         self.CheckForError(self._lib.Sensors_Set_kWS(ValuePtr, ValueCount))
+
+    def AllocationFactor(self):
+        """Array of doubles for the allocation factors for each phase."""
+        self.CheckForError(self._lib.Sensors_Get_AllocationFactor_GR())
+        return self._get_float64_gr_array()
 
 
 _Sensors = ISensors(api_util)
@@ -168,6 +178,7 @@ kVS = _Sensors.kVS
 kVBase = _Sensors.kVBase
 kW = _Sensors.kW
 Idx = _Sensors.Idx
+AllocationFactor = _Sensors.AllocationFactor
 _columns = _Sensors._columns
 __all__ = [
     "Reset",
@@ -189,4 +200,5 @@ __all__ = [
     "kVBase",
     "kW",
     "Idx",
+    "AllocationFactor",
 ]

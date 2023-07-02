@@ -1,4 +1,4 @@
-from ._utils import  api_util, Base
+from ._utils import api_util, Base
 
 
 class IActiveClass(Base):

@@ -1,8 +1,13 @@
 from ._utils import api_util, Iterable
+from dss import LineUnits
 
 
 class ILineGeometries(Iterable):
-    """Experimental API extension exposing part of the LineGeometry objects"""
+    """
+    LineGeometry objects
+
+    (API Extension)
+    """
 
     __name__ = "LineGeometries"
     _api_prefix = "LineGeometries"
@@ -10,6 +15,7 @@ class ILineGeometries(Iterable):
     _columns = [
         "Name",
         "Idx",
+        "Nconds",
         "Phases",
         "RhoEarth",
         "Reduce",
@@ -80,40 +86,37 @@ class ILineGeometries(Iterable):
 
     def Rmatrix(self, Frequency, Length, Units):
         """(read-only) Resistance matrix, ohms"""
-        return self.CheckForError(
-            self._get_float64_array(
-                self._lib.LineGeometries_Get_Rmatrix, Frequency, Length, Units
-            )
+        self.CheckForError(
+            self._lib.LineGeometries_Get_Rmatrix_GR(Frequency, Length, Units)
         )
+        return self._get_float64_gr_array()
 
     def Xmatrix(self, Frequency, Length, Units):
         """(read-only) Reactance matrix, ohms"""
-        return self.CheckForError(
-            self._get_float64_array(
-                self._lib.LineGeometries_Get_Xmatrix, Frequency, Length, Units
-            )
+        self.CheckForError(
+            self._lib.LineGeometries_Get_Xmatrix_GR(Frequency, Length, Units)
         )
+        return self._get_float64_gr_array()
 
     def Zmatrix(self, Frequency, Length, Units):
         """(read-only) Complex impedance matrix, ohms"""
-        return self.CheckForError(
-            self._get_float64_array(
-                self._lib.LineGeometries_Get_Zmatrix, Frequency, Length, Units
-            )
+        self.CheckForError(
+            self._lib.LineGeometries_Get_Zmatrix_GR(Frequency, Length, Units)
         )
+        return self._get_complex128_gr_array()
 
     def Cmatrix(self, Frequency, Length, Units):
         """(read-only) Capacitance matrix, nF"""
-        return self.CheckForError(
-            self._get_float64_array(
-                self._lib.LineGeometries_Get_Cmatrix, Frequency, Length, Units
-            )
+        self.CheckForError(
+            self._lib.LineGeometries_Get_Cmatrix_GR(Frequency, Length, Units)
         )
+        return self._get_float64_gr_array()
 
     def Units(self, *args):
         # Getter
         if len(args) == 0:
-            return self._get_int32_array(self._lib.LineGeometries_Get_Units)
+            self.CheckForError(self._lib.LineGeometries_Get_Units_GR())
+            return [LineUnits(unit) for unit in self._get_int32_gr_array()]
 
         # Setter
         Value, = args
@@ -124,7 +127,8 @@ class ILineGeometries(Iterable):
         """Get/Set the X (horizontal) coordinates of the conductors"""
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.LineGeometries_Get_Xcoords)
+            self.CheckForError(self._lib.LineGeometries_Get_Xcoords_GR())
+            return self._get_float64_gr_array()
 
         # Setter
         Value, = args
@@ -135,12 +139,23 @@ class ILineGeometries(Iterable):
         """Get/Set the Y (vertical/height) coordinates of the conductors"""
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.LineGeometries_Get_Ycoords)
+            self.CheckForError(self._lib.LineGeometries_Get_Ycoords_GR())
+            return self._get_float64_gr_array()
 
         # Setter
         Value, = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
         self.CheckForError(self._lib.LineGeometries_Set_Ycoords(ValuePtr, ValueCount))
+
+    def Nconds(self, *args):
+        """Number of conductors in this geometry. Default is 3. Triggers memory allocations. Define first!"""
+        # Getter
+        if len(args) == 0:
+            return self.CheckForError(self._lib.LineGeometries_Get_Nconds())
+
+        # Setter
+        Value, = args
+        self.CheckForError(self._lib.LineGeometries_Set_Nconds(Value))
 
 
 _LineGeometries = ILineGeometries(api_util)
@@ -165,6 +180,7 @@ Next = _LineGeometries.Next
 AllNames = _LineGeometries.AllNames
 Count = _LineGeometries.Count
 Name = _LineGeometries.Name
+Nconds = _LineGeometries.Nconds
 _columns = _LineGeometries._columns
 __all__ = [
     "Conductors",
@@ -186,4 +202,5 @@ __all__ = [
     "AllNames",
     "Count",
     "Name",
+    "Nconds",
 ]

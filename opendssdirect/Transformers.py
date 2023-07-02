@@ -1,4 +1,4 @@
-from ._utils import  api_util, Iterable
+from ._utils import api_util, Iterable
 
 
 class ITransformers(Iterable):
@@ -202,7 +202,8 @@ class ITransformers(Iterable):
         WARNING: If the transformer has open terminal(s), results may be wrong, i.e. avoid using this
         in those situations. For more information, see https://github.com/dss-extensions/dss-extensions/issues/24
         """
-        return self._get_float64_array(self._lib.Transformers_Get_WdgVoltages)
+        self.CheckForError(self._lib.Transformers_Get_WdgVoltages_GR())
+        return self._get_complex128_gr_array()
 
     def WdgCurrents(self):
         """
@@ -211,7 +212,8 @@ class ITransformers(Iterable):
         WARNING: If the transformer has open terminal(s), results may be wrong, i.e. avoid using this
         in those situations. For more information, see https://github.com/dss-extensions/dss-extensions/issues/24
         """
-        return self._get_float64_array(self._lib.Transformers_Get_WdgCurrents)
+        self.CheckForError(self._lib.Transformers_Get_WdgCurrents_GR())
+        return self._get_complex128_gr_array()
 
     def strWdgCurrents(self):
         """
@@ -225,7 +227,7 @@ class ITransformers(Iterable):
         )
 
     def CoreType(self, *args):
-        """Transformer Core Type: 0=shell;1 = 1-phase; 3= 3-leg; 5= 5-leg"""
+        """Transformer Core Type: 0=Shell; 1=1ph; 3-3leg; 4=4-Leg; 5=5-leg; 9=Core-1-phase"""
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Transformers_Get_CoreType())
@@ -245,12 +247,22 @@ class ITransformers(Iterable):
         self.CheckForError(self._lib.Transformers_Set_RdcOhms(Value))
 
     def LossesByType(self):
-        """Complex array with the losses by type (total losses, load losses, no-load losses), in VA"""
-        return self._get_float64_array(self._lib.Transformers_Get_LossesByType)
+        """
+        Complex array with the losses by type (total losses, load losses, no-load losses), in VA
+
+        (API Extension)
+        """
+        self.CheckForError(self._lib.Transformers_Get_LossesByType_GR())
+        return self._get_complex128_gr_array()
 
     def AllLossesByType(self):
-        """Complex array with the losses by type (total losses, load losses, no-load losses), in VA, concatenated for ALL transformers"""
-        return self._get_float64_array(self._lib.Transformers_Get_AllLossesByType)
+        """
+        Complex array with the losses by type (total losses, load losses, no-load losses), in VA, concatenated for ALL transformers
+
+        (API Extension)
+        """
+        self.CheckForError(self._lib.Transformers_Get_AllLossesByType_GR())
+        return self._get_complex128_gr_array()
 
 
 _Transformers = ITransformers(api_util)

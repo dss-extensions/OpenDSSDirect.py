@@ -8,14 +8,12 @@ class IDSSimComs(Base):
     _columns = []
 
     def BusVoltage(self, Index):
-        return self.CheckForError(
-            self._get_float64_array(self._lib.DSSimComs_BusVoltage, Index)
-        )
+        self.CheckForError(self._lib.DSSimComs_BusVoltage_GR(Index))
+        return self._get_float64_gr_array()
 
     def BusVoltagepu(self, Index):
-        return self.CheckForError(
-            self._get_float64_array(self._lib.DSSimComs_BusVoltagepu, Index)
-        )
+        self.CheckForError(self._lib.DSSimComs_BusVoltagepu_GR(Index))
+        return self._get_float64_gr_array()
 
 
 _DSSimComs = IDSSimComs(api_util)

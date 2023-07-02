@@ -1,4 +1,4 @@
-from ._utils import  api_util, Iterable
+from ._utils import api_util, Iterable
 
 
 class IPVsystems(Iterable):
@@ -23,6 +23,7 @@ class IPVsystems(Iterable):
         "Tdaily",
         "Tduty",
         "Tyearly",
+        "Sensor",
     ]
 
     def Irradiance(self, *args):
@@ -53,7 +54,8 @@ class IPVsystems(Iterable):
 
     def RegisterValues(self):
         """(read-only) Array of doubles containing values in PVSystem registers."""
-        return self._get_float64_array(self._lib.PVSystems_Get_RegisterValues)
+        self.CheckForError(self._lib.PVSystems_Get_RegisterValues_GR())
+        return self._get_float64_gr_array()
 
     def kVARated(self, *args):
         """Get/set Rated kVA of the PVSystem"""
@@ -80,7 +82,13 @@ class IPVsystems(Iterable):
         self.CheckForError(self._lib.PVSystems_Set_kvar(Value))
 
     def daily(self, *args):
-        """Name of the loadshape for a daily PVSystem profile."""
+        """
+        Name of the dispatch shape to use for daily simulations. Must be previously
+        defined as a Loadshape object of 24 hrs, typically. In the default dispatch
+        mode, the PVSystem element uses this loadshape to trigger State changes.
+
+        (API Extension)
+        """
         # Getter
         if len(args) == 0:
             return self._get_string(self.CheckForError(self._lib.PVSystems_Get_daily()))
@@ -96,6 +104,8 @@ class IPVsystems(Iterable):
         Name of the load shape to use for duty cycle dispatch simulations such as
         for solar ramp rate studies. Must be previously defined as a Loadshape
         object. Typically would have time intervals of 1-5 seconds.
+
+        (API Extension)
         """
         # Getter
         if len(args) == 0:
@@ -113,6 +123,8 @@ class IPVsystems(Iterable):
         as a Loadshape object. If this is not specified, the Daily dispatch shape,
         if any, is repeated during Yearly solution modes. In the default dispatch
         mode, the PVSystem element uses this loadshape to trigger State changes.
+
+        (API Extension)
         """
         # Getter
         if len(args) == 0:
@@ -132,6 +144,8 @@ class IPVsystems(Iterable):
         as a TShape object of 24 hrs, typically. The PVSystem element uses this
         TShape to determine the Pmpp from the Pmpp vs T curve. Units must agree
         with the Pmpp vs T curve.
+
+        (API Extension)
         """
         # Getter
         if len(args) == 0:
@@ -154,6 +168,8 @@ class IPVsystems(Iterable):
         points in the actual shape, the shape is assumed to repeat. The PVSystem
         model uses this TShape to determine the Pmpp from the Pmpp vs T curve.
         Units must agree with the Pmpp vs T curve.
+
+        (API Extension)
         """
         # Getter
         if len(args) == 0:
@@ -172,6 +188,8 @@ class IPVsystems(Iterable):
         any, is repeated during Yearly solution modes. The PVSystem element uses
         this TShape to determine the Pmpp from the Pmpp vs T curve. Units must
         agree with the Pmpp vs T curve.
+
+        (API Extension)
         """
         # Getter
         if len(args) == 0:
@@ -205,6 +223,10 @@ class IPVsystems(Iterable):
         Value, = args
         self.CheckForError(self._lib.PVSystems_Set_Pmpp(Value))
 
+    def Sensor(self):
+        """Name of the sensor monitoring this element."""
+        return self._get_string(self.CheckForError(self._lib.PVSystems_Get_Sensor()))
+
 
 _PVsystems = IPVsystems(api_util)
 
@@ -230,6 +252,7 @@ Tduty = _PVsystems.Tduty
 Tyearly = _PVsystems.Tyearly
 IrradianceNow = _PVsystems.IrradianceNow
 Pmpp = _PVsystems.Pmpp
+Sensor = _PVsystems.Sensor
 _columns = _PVsystems._columns
 __all__ = [
     "AllNames",
@@ -253,4 +276,5 @@ __all__ = [
     "Tyearly",
     "IrradianceNow",
     "Pmpp",
+    "Sensor",
 ]

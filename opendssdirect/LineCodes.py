@@ -1,4 +1,5 @@
 from ._utils import api_util, Iterable
+from dss import LineUnits
 
 
 class ILineCodes(Iterable):
@@ -48,7 +49,8 @@ class ILineCodes(Iterable):
         """Capacitance matrix, nF per unit length"""
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.LineCodes_Get_Cmatrix)
+            self.CheckForError(self._lib.LineCodes_Get_Cmatrix_GR())
+            return self._get_float64_gr_array()
 
         # Setter
         Value, = args
@@ -113,7 +115,8 @@ class ILineCodes(Iterable):
         """Resistance matrix, ohms per unit length"""
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.LineCodes_Get_Rmatrix)
+            self.CheckForError(self._lib.LineCodes_Get_Rmatrix_GR())
+            return self._get_float64_gr_array()
 
         # Setter
         Value, = args
@@ -123,7 +126,7 @@ class ILineCodes(Iterable):
     def Units(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.LineCodes_Get_Units())
+            return LineUnits(self.CheckForError(self._lib.LineCodes_Get_Units()))
 
         # Setter
         Value, = args
@@ -153,7 +156,8 @@ class ILineCodes(Iterable):
         """Reactance matrix, ohms per unit length"""
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.LineCodes_Get_Xmatrix)
+            self.CheckForError(self._lib.LineCodes_Get_Xmatrix_GR())
+            return self._get_float64_gr_array()
 
         # Setter
         Value, = args

@@ -40,7 +40,7 @@ class IZIP(Base):
         (API Extension)
         """
         if type(FileInZip) is not bytes:
-            FileName = FileInZip.encode(self._api_util.codec)
+            FileInZip = FileInZip.encode(self._api_util.codec)
         self.CheckForError(self._lib.ZIP_Redirect(FileInZip))
 
     def Extract(self, FileName):
@@ -51,14 +51,11 @@ class IZIP(Base):
         (API Extension)
         """
         api_util = self._api_util
-        ptr = api_util.ffi.new("int8_t**")
-        cnt = api_util.ffi.new("int32_t[4]")
         if type(FileName) is not bytes:
             FileName = FileName.encode(api_util.codec)
-        self.CheckForError(self._lib.ZIP_Extract(ptr, cnt, FileName))
-        result = bytes(api_util.ffi.buffer(ptr[0], cnt[0]))
-        self._lib.DSS_Dispose_PByte(ptr)
-        return result
+        self.CheckForError(self._lib.ZIP_Extract_GR(FileName))
+        ptr, cnt = api_util.gr_int8_pointers
+        return bytes(api_util.ffi.buffer(ptr[0], cnt[0]))
 
     def List(self, regexp=None):
         """

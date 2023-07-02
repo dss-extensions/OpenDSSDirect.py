@@ -1,4 +1,4 @@
-from ._utils import  api_util, Iterable
+from ._utils import api_util, Iterable
 
 
 class IMeters(Iterable):
@@ -7,24 +7,15 @@ class IMeters(Iterable):
     _api_prefix = "Meters"
     _columns = [
         "Name",
-        "Totals",
         "MeteredTerminal",
-        "NumSectionCustomers",
-        "SectSeqidx",
-        "SumBranchFltRates",
         "SeqListSize",
-        "AvgRepairTime",
         "RegisterNames",
-        "SectTotalCust",
-        "SequenceList",
         "MeteredElement",
         "PeakCurrent",
         "AllocFactors",
         "AllEndElements",
-        "OCPDeviceType",
         "SAIFIkW",
         "CountEndElements",
-        "NumSections",
         "SAIDI",
         "TotalCustomers",
         "RegisterValues",
@@ -33,6 +24,13 @@ class IMeters(Iterable):
         "CountBranches",
         "CalcCurrent",
         "AllBranchesInZone",
+        "NumSections",
+        "NumSectionCustomers",
+        "SectSeqidx",
+        "SumBranchFltRates",
+        "AvgRepairTime",
+        "SectTotalCust",
+        "OCPDeviceType",
         "FaultRateXRepairHrs",
         "NumSectionBranches",
     ]
@@ -83,7 +81,8 @@ class IMeters(Iterable):
         """Array of doubles: set the phase allocation factors for the active meter."""
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.Meters_Get_AllocFactors)
+            self.CheckForError(self._lib.Meters_Get_AllocFactors_GR())
+            return self._get_float64_gr_array()
 
         # Setter
         Value, = args
@@ -98,7 +97,8 @@ class IMeters(Iterable):
         """Set the magnitude of the real part of the Calculated Current (normally determined by solution) for the Meter to force some behavior on Load Allocation"""
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.Meters_Get_CalcCurrent)
+            self.CheckForError(self._lib.Meters_Get_CalcCurrent_GR())
+            return self._get_float64_gr_array()
 
         # Setter
         Value, = args
@@ -169,7 +169,8 @@ class IMeters(Iterable):
         """Array of doubles to set values of Peak Current property"""
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.Meters_Get_Peakcurrent)
+            self.CheckForError(self._lib.Meters_Get_Peakcurrent_GR())
+            return self._get_float64_gr_array()
 
         # Setter
         Value, = args
@@ -184,7 +185,8 @@ class IMeters(Iterable):
 
     def RegisterValues(self):
         """(read-only) Array of all the values contained in the Meter registers for the active Meter."""
-        return self._get_float64_array(self._lib.Meters_Get_RegisterValues)
+        self.CheckForError(self._lib.Meters_Get_RegisterValues_GR())
+        return self._get_float64_gr_array()
 
     def SAIDI(self):
         """(read-only) SAIDI for this meter's zone. Execute DoReliabilityCalc first."""
@@ -230,7 +232,8 @@ class IMeters(Iterable):
 
     def Totals(self):
         """(read-only) Totals of all registers of all meters"""
-        return self._get_float64_array(self._lib.Meters_Get_Totals)
+        self.CheckForError(self._lib.Meters_Get_Totals_GR())
+        return self._get_float64_gr_array()
 
     def ZonePCE(self):
         """Returns the list of all PCE within the area covered by the energy meter"""

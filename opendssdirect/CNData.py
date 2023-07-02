@@ -1,8 +1,13 @@
 from ._utils import api_util, Iterable
+from dss import LineUnits
 
 
 class ICNData(Iterable):
-    """Experimental API extension exposing CNData objects"""
+    """
+    CNData objects
+
+    (API Extension)
+    """
 
     __name__ = "CNData"
     _api_prefix = "CNData"
@@ -79,7 +84,7 @@ class ICNData(Iterable):
     def GMRUnits(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.CNData_Get_GMRUnits())
+            return LineUnits(self.CheckForError(self._lib.CNData_Get_GMRUnits()))
 
         # Setter
         Value, = args
@@ -97,7 +102,7 @@ class ICNData(Iterable):
     def RadiusUnits(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.CNData_Get_RadiusUnits())
+            return LineUnits(self.CheckForError(self._lib.CNData_Get_RadiusUnits()))
 
         # Setter
         Value, = args
@@ -106,7 +111,7 @@ class ICNData(Iterable):
     def ResistanceUnits(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.CNData_Get_ResistanceUnits())
+            return LineUnits(self.CheckForError(self._lib.CNData_Get_ResistanceUnits()))
 
         # Setter
         Value, = args

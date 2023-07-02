@@ -1,8 +1,13 @@
 from ._utils import api_util, Iterable
+from dss import LineUnits
 
 
 class IWireData(Iterable):
-    """Experimental API extension exposing part of the WireData objects"""
+    """
+    WireData objects
+
+    (API Extension)
+    """
 
     __name__ = "WireData"
     _api_prefix = "WireData"
@@ -20,6 +25,7 @@ class IWireData(Iterable):
         "Radius",
         "Diameter",
         "RadiusUnits",
+        "CapRadius",
     ]
 
     def EmergAmps(self, *args):
@@ -72,7 +78,7 @@ class IWireData(Iterable):
     def GMRUnits(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.WireData_Get_GMRUnits())
+            return LineUnits(self.CheckForError(self._lib.WireData_Get_GMRUnits()))
 
         # Setter
         Value, = args
@@ -99,7 +105,9 @@ class IWireData(Iterable):
     def ResistanceUnits(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.WireData_Get_ResistanceUnits())
+            return LineUnits(
+                self.CheckForError(self._lib.WireData_Get_ResistanceUnits())
+            )
 
         # Setter
         Value, = args
@@ -113,6 +121,16 @@ class IWireData(Iterable):
         # Setter
         Value, = args
         self.CheckForError(self._lib.WireData_Set_Diameter(Value))
+
+    def CapRadius(self, *args):
+        """Equivalent conductor radius for capacitance calcs. Specify this for bundled conductors. Defaults to same value as radius."""
+        # Getter
+        if len(args) == 0:
+            return self.CheckForError(self._lib.WireData_Get_CapRadius())
+
+        # Setter
+        Value, = args
+        self.CheckForError(self._lib.WireData_Set_CapRadius(Value))
 
 
 _WireData = IWireData(api_util)
@@ -134,6 +152,7 @@ Next = _WireData.Next
 AllNames = _WireData.AllNames
 Count = _WireData.Count
 Name = _WireData.Name
+CapRadius = _WireData.CapRadius
 _columns = _WireData._columns
 __all__ = [
     "EmergAmps",
@@ -152,4 +171,5 @@ __all__ = [
     "AllNames",
     "Count",
     "Name",
+    "CapRadius",
 ]

@@ -1,4 +1,4 @@
-from ._utils import  api_util, Iterable
+from ._utils import api_util, Iterable
 
 
 class ILoadShape(Iterable):
@@ -71,7 +71,8 @@ class ILoadShape(Iterable):
         """Array of doubles for the P multiplier in the Loadshape."""
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.LoadShapes_Get_Pmult)
+            self.CheckForError(self._lib.LoadShapes_Get_Pmult_GR())
+            return self._get_float64_gr_array()
 
         # Setter
         Value, = args
@@ -92,7 +93,8 @@ class ILoadShape(Iterable):
         """Array of doubles containing the Q multipliers."""
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.LoadShapes_Get_Qmult)
+            self.CheckForError(self._lib.LoadShapes_Get_Qmult_GR())
+            return self._get_float64_gr_array()
 
         # Setter
         Value, = args
@@ -103,7 +105,8 @@ class ILoadShape(Iterable):
         """Time array in hours correscponding to P and Q multipliers when the Interval=0."""
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.LoadShapes_Get_TimeArray)
+            self.CheckForError(self._lib.LoadShapes_Get_TimeArray_GR())
+            return self._get_float64_gr_array()
 
         # Setter
         Value, = args
@@ -129,6 +132,24 @@ class ILoadShape(Iterable):
         Value, = args
         self.CheckForError(self._lib.LoadShapes_Set_SInterval(Value))
 
+    def UseFloat32(self):
+        """
+        Converts the current LoadShape data to float32/single precision.
+        If there is no data or the data is already represented using float32, nothing is done.
+
+        (API Extension)
+        """
+        self.CheckForError(self._lib.LoadShapes_UseFloat32())
+
+    def UseFloat64(self):
+        """
+        Converts the current LoadShape data to float64/double precision.
+        If there is no data or the data is already represented using float64, nothing is done.
+
+        (API Extension)
+        """
+        self.CheckForError(self._lib.LoadShapes_UseFloat64())
+
 
 _LoadShape = ILoadShape(api_util)
 
@@ -151,6 +172,8 @@ TimeArray = _LoadShape.TimeArray
 UseActual = _LoadShape.UseActual
 SInterval = _LoadShape.SInterval
 Idx = _LoadShape.Idx
+UseFloat32 = _LoadShape.UseFloat32
+UseFloat64 = _LoadShape.UseFloat64
 _columns = _LoadShape._columns
 __all__ = [
     "New",
@@ -171,4 +194,6 @@ __all__ = [
     "UseActual",
     "SInterval",
     "Idx",
+    "UseFloat32",
+    "UseFloat64",
 ]

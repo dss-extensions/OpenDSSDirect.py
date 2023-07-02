@@ -1,26 +1,12 @@
+import warnings
 from ._utils import api_util, Base, dss_py
 from ._version import __version__ 
+from dss import DSSCompatFlags
 
 
 class IBasic(Base):
     __name__ = "Basic"
     _api_prefix = "DSS"
-    __slots__ = [
-        "ActiveCircuit",
-        "Circuits",
-        "Error",
-        "Text",
-        "DSSProgress",
-        "ActiveClass",
-        "Executive",
-        "Events",
-        "CmathLib",
-        "Parser",
-        "DSSim_Coms",
-        "YMatrix",
-        "ZIP",
-        "Obj",
-    ]
     _columns = [
         "Version",
         "Classes",
@@ -31,6 +17,7 @@ class IBasic(Base):
         "UserClasses",
         "DefaultEditor",
     ]
+    __slots__ = []
 
     def ClearAll(self):
         self.CheckForError(self._lib.DSS_ClearAll())
@@ -96,15 +83,6 @@ class IBasic(Base):
         # Setter
         value, = args
         self.CheckForError(self._lib.DSS_Set_AllowForms(value))
-    def ShowPanel(self):
-        # warnings.warn('ShowPanel is not implemented.')
-        return 0
-
-    def NewCircuit(self, name):
-        if type(name) is not bytes:
-            name = name.encode(self._api_util.codec)
-        self.CheckForError(self._lib.DSS_NewCircuit(name))
-        return "New Circuit" # self.ActiveCircuit
 
     def AllowEditor(self, *args):
         """
@@ -113,6 +91,8 @@ class IBasic(Base):
         AllowEditor controls whether the external editor is used in commands like "Show".
         If you set to 0 (false), the editor is not executed. Note that other side effects,
         such as the creation of files, are not affected.
+
+        (API Extension)
         """
         # Getter
         if len(args) == 0:
@@ -122,19 +102,24 @@ class IBasic(Base):
         value, = args
         self.CheckForError(self._lib.DSS_Set_AllowEditor(value))
 
+    def ShowPanel(self):
+        # warnings.warn("ShowPanel is not implemented.")
+        return 0
+
+    def NewCircuit(self, name):
+        if type(name) is not bytes:
+            name = name.encode(self._api_util.codec)
+        self.CheckForError(self._lib.DSS_NewCircuit(name))
+        return "New Circuit" # self.ActiveCircuit
+
     def LegacyModels(self, *args):
         """
-        If enabled, the legacy/deprecated models for PVSystem, InvControl, Storage and StorageControl are used.
-        In the official OpenDSS version 9.0, the old models where removed. They are temporarily present here
-        but may be removed in the near future. If they are important to you, please open an issue on GitHub
-        or contact the authors from DSS Extensions: https://github.com/dss-extensions/
+        LegacyModels was a flag used to toggle legacy (pre-2019) models for PVSystem, InvControl, Storage and
+        StorageControl.
+        In the official OpenDSS version 9.0, the old models were removed. They were temporarily present here
+        but were also removed in DSS C-API v0.13.0.
 
-        After toggling LegacyModels, run a "clear" command and the models will be loaded accordingly.
-        Defaults to False.
-
-        This can also be enabled by setting the environment variable DSS_CAPI_LEGACY_MODELS to 1.
-
-        NOTE: this option will be removed in a future release.
+        **NOTE**: this property will be removed for v1.0. It is left to avoid breaking the current API too soon.
 
         (API Extension)
         """
@@ -169,7 +154,61 @@ class IBasic(Base):
         Value, = args
         self.CheckForError(self._lib.DSS_Set_AllowChangeDir(Value))
 
-    def CompatFlags(*args):
+    def AllowDOScmd(self, *args):
+        """
+        If enabled, the `DOScmd` command is allowed. Otherwise, an error is reported if the user tries to use it.
+
+        Defaults to False/0 (disabled state). Users should consider DOScmd deprecated on DSS Extensions.
+
+        This can also be set through the environment variable DSS_CAPI_ALLOW_DOSCMD. Setting it to 1 enables
+        the command.
+
+        (API Extension)
+        """
+        # Getter
+        if len(args) == 0:
+            return self.CheckForError(self._lib.DSS_Get_AllowDOScmd()) != 0
+
+        # Setter
+        Value, = args
+        self.CheckForError(self._lib.DSS_Set_AllowDOScmd(Value))
+
+    # def NewContext(self):
+    #     """
+    #     Creates a new DSS engine context.
+    #     A DSS Context encapsulates most of the global state of the original OpenDSS engine,
+    #     allowing the user to create multiple instances in the same process. By creating contexts
+    #     manually, the management of threads and potential issues should be handled by the user.
+
+    #     (API Extension)
+    #     """
+    #     ffi = self._api_util.ffi
+    #     lib = self._api_util.lib_unpatched
+    #     new_ctx = ffi.gc(lib.ctx_New(), lib.ctx_Dispose)
+    #     new_api_util = CffiApiUtil(ffi, lib, new_ctx)
+    #     new_api_util._allow_complex = self._api_util._allow_complex
+    #     return IDSS(new_api_util)
+
+    # def Plotting(self):
+    #     """
+    #     Shortcut for the plotting module. This property is equivalent to:
+
+    #     ```
+    #     from dss import plot
+    #     return plot
+    #     ```
+
+    #     Gives access to the `enable()` and `disable()` functions.
+    #     Requires matplotlib and SciPy to be installed, hence it is an
+    #     optional feature.
+
+    #     (API Extension)
+    #     """
+    #     from dss import plot
+
+    #     return plot
+
+    def CompatFlags(self, *args):
         """
         Controls some compatibility flags introduced to toggle some behavior from the official OpenDSS.
 
@@ -233,6 +272,9 @@ NewCircuit = _Basic.NewCircuit
 AllowEditor = _Basic.AllowEditor
 LegacyModels = _Basic.LegacyModels
 AllowChangeDir = _Basic.AllowChangeDir
+AllowDOScmd = _Basic.AllowDOScmd
+# NewContext = _Basic.NewContext
+# Plotting = _Basic.Plotting
 CompatFlags = _Basic.CompatFlags
 _columns = _Basic._columns
 __all__ = [
@@ -254,5 +296,8 @@ __all__ = [
     "AllowEditor",
     "LegacyModels",
     "AllowChangeDir",
+    "AllowDOScmd",
+    # "NewContext",
+    # "Plotting",
     "CompatFlags",
 ]

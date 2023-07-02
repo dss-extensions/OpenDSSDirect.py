@@ -2,7 +2,7 @@ from ._utils import api_util, Base
 
 
 class IParallel(Base):
-    """Parallel machine interface. Available only in OpenDSS v8+"""
+    """Parallel machine interface"""
 
     __name__ = "Parallel"
     _api_prefix = "Parallel"
@@ -51,11 +51,13 @@ class IParallel(Base):
 
     def ActorProgress(self):
         """(read-only) Gets the progress of all existing actors in pct"""
-        return self._get_int32_array(self._lib.Parallel_Get_ActorProgress)
+        self.CheckForError(self._lib.Parallel_Get_ActorProgress_GR())
+        return self._get_int32_gr_array()
 
     def ActorStatus(self):
         """(read-only) Gets the status of each actor"""
-        return self._get_int32_array(self._lib.Parallel_Get_ActorStatus)
+        self.CheckForError(self._lib.Parallel_Get_ActorStatus_GR())
+        return self._get_int32_gr_array()
 
     def ConcatenateReports(self, *args):
         """

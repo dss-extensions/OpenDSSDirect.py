@@ -56,7 +56,8 @@ class ICapacitors(Iterable):
         """A array of  integer [0..numsteps-1] indicating state of each step. If the read value is -1 an error has occurred."""
         # Getter
         if len(args) == 0:
-            return self._get_int32_array(self._lib.Capacitors_Get_States)
+            self.CheckForError(self._lib.Capacitors_Get_States_GR())
+            return self._get_int32_gr_array()
 
         # Setter
         Value, = args

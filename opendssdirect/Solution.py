@@ -1,4 +1,5 @@
-from ._utils import  api_util, Base
+from ._utils import api_util, Base
+from dss import ControlModes, SolutionAlgorithms, SolveModes
 
 
 class ISolution(Base):
@@ -106,7 +107,9 @@ class ISolution(Base):
         """Base Solution algorithm: {dssNormalSolve | dssNewtonSolve}"""
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Solution_Get_Algorithm())
+            return SolutionAlgorithms(
+                self.CheckForError(self._lib.Solution_Get_Algorithm())
+            )
 
         # Setter
         Value, = args
@@ -146,7 +149,9 @@ class ISolution(Base):
         """{dssStatic* | dssEvent | dssTime}  Modes for control devices"""
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Solution_Get_ControlMode())
+            return ControlModes(
+                self.CheckForError(self._lib.Solution_Get_ControlMode())
+            )
 
         # Setter
         Value, = args
@@ -259,7 +264,7 @@ class ISolution(Base):
         self.CheckForError(self._lib.Solution_Set_IntervalHrs(Value))
 
     def Iterations(self):
-        """(read-only) Number of iterations taken for last solution. (Same as TotalIterations)"""
+        """(read-only) Number of iterations taken for last solution. (Same as Totaliterations)"""
         return self.CheckForError(self._lib.Solution_Get_Iterations())
 
     def LDCurve(self, *args):
@@ -327,10 +332,10 @@ class ISolution(Base):
         self.CheckForError(self._lib.Solution_Set_MinIterations(Value))
 
     def Mode(self, *args):
-        """Set present solution mode (by a text code - see DSS Help)"""
+        """Set present solution mode"""
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Solution_Get_Mode())
+            return SolveModes(self.CheckForError(self._lib.Solution_Get_Mode()))
 
         # Setter
         Value, = args
@@ -461,10 +466,12 @@ class ISolution(Base):
         self.CheckForError(self._lib.Solution_Set_StepsizeMin(Value))
 
     def BusLevels(self):
-        return self._get_int32_array(self._lib.Solution_Get_BusLevels)
+        self.CheckForError(self._lib.Solution_Get_BusLevels_GR())
+        return self._get_int32_gr_array()
 
     def IncMatrix(self):
-        return self._get_int32_array(self._lib.Solution_Get_IncMatrix)
+        self.CheckForError(self._lib.Solution_Get_IncMatrix_GR())
+        return self._get_int32_gr_array()
 
     def IncMatrixCols(self):
         return self.CheckForError(
@@ -477,7 +484,8 @@ class ISolution(Base):
         )
 
     def Laplacian(self):
-        return self._get_int32_array(self._lib.Solution_Get_Laplacian)
+        self.CheckForError(self._lib.Solution_Get_Laplacian_GR())
+        return self._get_int32_gr_array()
 
 
 _Solution = ISolution(api_util)

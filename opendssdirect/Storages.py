@@ -41,7 +41,8 @@ class IStorages(Iterable):
 
     def RegisterValues(self):
         """Array of values in Storage registers."""
-        return self._get_float64_array(self._lib.Storages_Get_RegisterValues)
+        self.CheckForError(self._lib.Storages_Get_RegisterValues_GR())
+        return self._get_float64_gr_array()
 
 
 _Storages = IStorages(api_util)

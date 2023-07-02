@@ -2,7 +2,11 @@ from ._utils import api_util, Iterable
 
 
 class ITSData(Iterable):
-    """Experimental API extension exposing TSData objects"""
+    """
+    TSData objects
+
+    (API Extension)
+    """
 
     __name__ = "TSData"
     _api_prefix = "TSData"

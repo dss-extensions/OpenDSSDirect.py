@@ -1,8 +1,13 @@
 from ._utils import api_util, Iterable
+from dss import LineUnits
 
 
 class ILineSpacings(Iterable):
-    """Experimental API extension exposing part of the LineSpacing objects"""
+    """
+    LineSpacing objects
+
+    (API Extension)
+    """
 
     __name__ = "LineSpacings"
     _api_prefix = "LineSpacings"
@@ -31,7 +36,7 @@ class ILineSpacings(Iterable):
     def Units(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.LineSpacings_Get_Units())
+            return LineUnits(self.CheckForError(self._lib.LineSpacings_Get_Units()))
 
         # Setter
         Value, = args
@@ -41,7 +46,8 @@ class ILineSpacings(Iterable):
         """Get/Set the X (horizontal) coordinates of the conductors"""
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.LineSpacings_Get_Xcoords)
+            self.CheckForError(self._lib.LineSpacings_Get_Xcoords_GR())
+            return self._get_float64_gr_array()
 
         # Setter
         Value, = args
@@ -52,7 +58,8 @@ class ILineSpacings(Iterable):
         """Get/Set the Y (vertical/height) coordinates of the conductors"""
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.LineSpacings_Get_Ycoords)
+            self.CheckForError(self._lib.LineSpacings_Get_Ycoords_GR())
+            return self._get_float64_gr_array()
 
         # Setter
         Value, = args

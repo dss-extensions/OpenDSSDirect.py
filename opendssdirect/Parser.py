@@ -1,4 +1,4 @@
-from ._utils import  api_util, Base
+from ._utils import api_util, Base
 
 
 class IParser(Base):
@@ -16,21 +16,18 @@ class IParser(Base):
 
     def Matrix(self, ExpectedOrder):
         """(read-only) Use this property to parse a Matrix token in OpenDSS format.  Returns square matrix of order specified. Order same as default Fortran order: column by column."""
-        return self.CheckForError(
-            self._get_float64_array(self._lib.Parser_Get_Matrix, ExpectedOrder)
-        )
+        self.CheckForError(self._lib.Parser_Get_Matrix_GR(ExpectedOrder))
+        return self._get_float64_gr_array()
 
     def SymMatrix(self, ExpectedOrder):
         """(read-only) Use this property to parse a matrix token specified in lower triangle form. Symmetry is forced."""
-        return self.CheckForError(
-            self._get_float64_array(self._lib.Parser_Get_SymMatrix, ExpectedOrder)
-        )
+        self.CheckForError(self._lib.Parser_Get_SymMatrix_GR(ExpectedOrder))
+        return self._get_float64_gr_array()
 
     def Vector(self, ExpectedSize):
         """(read-only) Returns token as array of doubles. For parsing quoted array syntax."""
-        return self.CheckForError(
-            self._get_float64_array(self._lib.Parser_Get_Vector, ExpectedSize)
-        )
+        self.CheckForError(self._lib.Parser_Get_Vector_GR(ExpectedSize))
+        return self._get_float64_gr_array()
 
     def ResetDelimiters(self):
         self.CheckForError(self._lib.Parser_ResetDelimiters())
@@ -119,8 +116,7 @@ class IParser(Base):
 
     def WhiteSpace(self, *args):
         """
-        (read) Get the characters used for White space in the command string.  Default is blank and Tab.
-        (write) Set the characters used for White space in the command string.  Default is blank and Tab.
+        Get/set the characters used for White space in the command string.  Default is blank and Tab.
         """
         # Getter
         if len(args) == 0:

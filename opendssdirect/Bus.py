@@ -53,7 +53,8 @@ class IBus(Base):
 
     def CplxSeqVoltages(self):
         """(read-only) Complex Double array of Sequence Voltages (0, 1, 2) at this Bus."""
-        return self._get_float64_array(self._lib.Bus_Get_CplxSeqVoltages)
+        self.CheckForError(self._lib.Bus_Get_CplxSeqVoltages_GR())
+        return self._get_complex128_gr_array()
 
     def Cust_Duration(self):
         """(read-only) Accumulated customer outage durations"""
@@ -73,7 +74,8 @@ class IBus(Base):
 
     def Isc(self):
         """(read-only) Short circuit currents at bus; Complex Array."""
-        return self._get_float64_array(self._lib.Bus_Get_Isc)
+        self.CheckForError(self._lib.Bus_Get_Isc_GR())
+        return self._get_complex128_gr_array()
 
     def Lambda(self):
         """(read-only) Accumulated failure rate downstream from this bus; faults per year"""
@@ -93,7 +95,8 @@ class IBus(Base):
 
     def Nodes(self):
         """(read-only) Integer Array of Node Numbers defined at the bus in same order as the voltages."""
-        return self._get_int32_array(self._lib.Bus_Get_Nodes)
+        self.CheckForError(self._lib.Bus_Get_Nodes_GR())
+        return self._get_int32_gr_array()
 
     def NumNodes(self):
         """(read-only) Number of Nodes this bus."""
@@ -104,8 +107,9 @@ class IBus(Base):
         return self.CheckForError(self._lib.Bus_Get_SectionID())
 
     def SeqVoltages(self):
-        """(read-only) Double Array of sequence voltages at this bus."""
-        return self._get_float64_array(self._lib.Bus_Get_SeqVoltages)
+        """(read-only) Double Array of sequence voltages at this bus. Magnitudes only."""
+        self.CheckForError(self._lib.Bus_Get_SeqVoltages_GR())
+        return self._get_float64_gr_array()
 
     def TotalMiles(self):
         """(read-only) Total length of line downline from this bus, in miles. For recloser siting algorithm."""
@@ -113,35 +117,43 @@ class IBus(Base):
 
     def VLL(self):
         """(read-only) For 2- and 3-phase buses, returns array of complex numbers represetin L-L voltages in volts. Returns -1.0 for 1-phase bus. If more than 3 phases, returns only first 3."""
-        return self._get_float64_array(self._lib.Bus_Get_VLL)
+        self.CheckForError(self._lib.Bus_Get_VLL_GR())
+        return self._get_complex128_gr_array()
 
     def VMagAngle(self):
-        """(read-only) Array of doubles containing voltages in Magnitude (VLN), angle (deg)"""
-        return self._get_float64_array(self._lib.Bus_Get_VMagAngle)
+        """(read-only) Array of doubles containing voltages in Magnitude (VLN), angle (degrees)"""
+        self.CheckForError(self._lib.Bus_Get_VMagAngle_GR())
+        return self._get_float64_gr_array()
 
     def Voc(self):
         """(read-only) Open circuit voltage; Complex array."""
-        return self._get_float64_array(self._lib.Bus_Get_Voc)
+        self.CheckForError(self._lib.Bus_Get_Voc_GR())
+        return self._get_complex128_gr_array()
 
     def Voltages(self):
         """(read-only) Complex array of voltages at this bus."""
-        return self._get_float64_array(self._lib.Bus_Get_Voltages)
+        self.CheckForError(self._lib.Bus_Get_Voltages_GR())
+        return self._get_complex128_gr_array()
 
     def YscMatrix(self):
         """(read-only) Complex array of Ysc matrix at bus. Column by column."""
-        return self._get_float64_array(self._lib.Bus_Get_YscMatrix)
+        self.CheckForError(self._lib.Bus_Get_YscMatrix_GR())
+        return self._get_complex128_gr_array()
 
     def Zsc0(self):
         """(read-only) Complex Zero-Sequence short circuit impedance at bus."""
-        return self._get_float64_array(self._lib.Bus_Get_Zsc0)
+        self.CheckForError(self._lib.Bus_Get_Zsc0_GR())
+        return self._get_complex128_gr_simple()
 
     def Zsc1(self):
-        """(read-only) Complex Positive-Sequence short circuit impedance at bus.."""
-        return self._get_float64_array(self._lib.Bus_Get_Zsc1)
+        """(read-only) Complex Positive-Sequence short circuit impedance at bus."""
+        self.CheckForError(self._lib.Bus_Get_Zsc1_GR())
+        return self._get_complex128_gr_simple()
 
     def ZscMatrix(self):
         """(read-only) Complex array of Zsc matrix at bus. Column by column."""
-        return self._get_float64_array(self._lib.Bus_Get_ZscMatrix)
+        self.CheckForError(self._lib.Bus_Get_ZscMatrix_GR())
+        return self._get_complex128_gr_array()
 
     def kVBase(self):
         """(read-only) Base voltage at bus in kV"""
@@ -149,15 +161,27 @@ class IBus(Base):
 
     def puVLL(self):
         """(read-only) Returns Complex array of pu L-L voltages for 2- and 3-phase buses. Returns -1.0 for 1-phase bus. If more than 3 phases, returns only 3 phases."""
-        return self._get_float64_array(self._lib.Bus_Get_puVLL)
+        self.CheckForError(self._lib.Bus_Get_puVLL_GR())
+        return self._get_complex128_gr_array()
 
     def puVmagAngle(self):
-        """(read-only) Array of doubles containig voltage magnitude, angle pairs in per unit"""
-        return self._get_float64_array(self._lib.Bus_Get_puVmagAngle)
+        """(read-only) Array of doubles containing voltage magnitude, angle (degrees) pairs in per unit"""
+        self.CheckForError(self._lib.Bus_Get_puVmagAngle_GR())
+        return self._get_float64_gr_array()
 
     def PuVoltage(self):
         """(read-only) Complex Array of pu voltages at the bus."""
-        return self._get_float64_array(self._lib.Bus_Get_puVoltages)
+        self.CheckForError(self._lib.Bus_Get_puVoltages_GR())
+        return self._get_complex128_gr_array()
+
+    def ZSC012Matrix(self):
+        """
+        Array of doubles (complex) containing the complete 012 Zsc matrix.
+        Only available after Zsc is computed, either through the "ZscRefresh" command, or running a "FaultStudy" solution.
+        Only available for buses with 3 nodes.
+        """
+        self.CheckForError(self._lib.Bus_Get_ZSC012Matrix_GR())
+        return self._get_complex128_gr_array()
 
     def X(self, *args):
         """X Coordinate for bus (double)"""
@@ -241,6 +265,7 @@ X = _Bus.X
 Y = _Bus.Y
 LoadList = _Bus.LoadList
 LineList = _Bus.LineList
+ZSC012Matrix = _Bus.ZSC012Matrix
 _columns = _Bus._columns
 __all__ = [
     "AllPCEatBus",
@@ -279,4 +304,5 @@ __all__ = [
     "Y",
     "LoadList",
     "LineList",
+    "ZSC012Matrix",
 ]

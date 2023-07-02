@@ -33,7 +33,8 @@ class IXYCurves(Iterable):
         """Get/set X values as a Array of doubles. Set Npts to max number expected if setting"""
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.XYCurves_Get_Xarray)
+            self.CheckForError(self._lib.XYCurves_Get_Xarray_GR())
+            return self._get_float64_gr_array()
 
         # Setter
         Value, = args
@@ -64,7 +65,8 @@ class IXYCurves(Iterable):
         """Get/Set Y values in curve; Set Npts to max number expected if setting"""
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.XYCurves_Get_Yarray)
+            self.CheckForError(self._lib.XYCurves_Get_Yarray_GR())
+            return self._get_float64_gr_array()
 
         # Setter
         Value, = args
@@ -82,7 +84,7 @@ class IXYCurves(Iterable):
         self.CheckForError(self._lib.XYCurves_Set_Yscale(Value))
 
     def YShift(self, *args):
-        """Amount to shift Y valiue from original curve"""
+        """Amount to shift Y value from original curve"""
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.XYCurves_Get_Yshift())

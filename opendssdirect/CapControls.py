@@ -1,4 +1,4 @@
-from ._utils import  api_util, Iterable
+from ._utils import api_util, Iterable
 
 
 class ICapControls(Iterable):
@@ -71,7 +71,7 @@ class ICapControls(Iterable):
         self.CheckForError(self._lib.CapControls_Set_Delay(Value))
 
     def DelayOff(self, *args):
-        """Time delay [s] before swithcing off a step. Control may reset before actually switching."""
+        """Time delay [s] before switching off a step. Control may reset before actually switching."""
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.CapControls_Get_DelayOff())

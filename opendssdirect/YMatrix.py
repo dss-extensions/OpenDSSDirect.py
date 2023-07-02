@@ -1,5 +1,6 @@
 import numpy as np
 from ._utils import api_util, Base
+from dss import SparseSolverOptions
 
 
 class IYMatrix(Base):
@@ -122,7 +123,10 @@ class IYMatrix(Base):
         )
 
     def CheckConvergence(self):
-        return self.CheckForError(self._lib.YMatrix_CheckConvergence())
+        return self.CheckForError(self._lib.YMatrix_CheckConvergence() != 0)
+
+    def SetGeneratordQdV(self):
+        self.CheckForError(self._lib.YMatrix_SetGeneratordQdV())
 
     def LoadsNeedUpdating(self, *args):
         # Getter
@@ -141,6 +145,15 @@ class IYMatrix(Base):
         # Setter
         value, = args
         self.CheckForError(self._lib.YMatrix_Set_SolutionInitialized(value))
+
+    def Iteration(self, *args):
+        # Getter
+        if len(args) == 0:
+            return self.CheckForError(self._lib.YMatrix_Get_Iteration())
+
+        # Setter
+        value, = args
+        self.CheckForError(self._lib.YMatrix_Set_Iteration(value))
 
 
 _YMatrix = IYMatrix(api_util)
@@ -161,8 +174,10 @@ SystemYChanged = _YMatrix.SystemYChanged
 UseAuxCurrents = _YMatrix.UseAuxCurrents
 SolverOptions = _YMatrix.SolverOptions
 CheckConvergence = _YMatrix.CheckConvergence
+SetGeneratordQdV = _YMatrix.SetGeneratordQdV
 LoadsNeedUpdating = _YMatrix.LoadsNeedUpdating
 SolutionInitialized = _YMatrix.SolutionInitialized
+Iteration = _YMatrix.Iteration
 _columns = _YMatrix._columns
 __all__ = [
     "getYsparse",
@@ -180,6 +195,8 @@ __all__ = [
     "UseAuxCurrents",
     "SolverOptions",
     "CheckConvergence",
+    "SetGeneratordQdV",
     "LoadsNeedUpdating",
     "SolutionInitialized",
+    "Iteration",
 ]

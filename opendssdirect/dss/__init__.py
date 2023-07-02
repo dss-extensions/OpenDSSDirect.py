@@ -18,6 +18,7 @@ from ..Error import _Error as Error
 from ..Executive import _Executive as Executive
 from ..Fuses import _Fuses as Fuses
 from ..Generators import _Generators as Generators
+from ..GICSources import _GICSources as GICSources
 from ..Isource import _Isource as Isource
 from ..LineCodes import _LineCodes as LineCodes
 from ..Lines import _Lines as Lines

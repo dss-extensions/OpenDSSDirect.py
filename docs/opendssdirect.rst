@@ -124,6 +124,14 @@ opendssdirect.Generators module
     :undoc-members:
     :show-inheritance:
 
+opendssdirect.GICSources module
+-------------------------------
+
+.. automodule:: opendssdirect.GICSources
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 opendssdirect.Isource module
 ----------------------------
 

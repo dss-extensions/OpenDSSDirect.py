@@ -1,4 +1,4 @@
-from ._utils import  api_util, Iterable
+from ._utils import api_util, Iterable
 
 
 class IFuses(Iterable):
@@ -17,16 +17,25 @@ class IFuses(Iterable):
         "RatedCurrent",
         "SwitchedObj",
         "SwitchedTerm",
+        "State",
+        "NormalState",
     ]
 
     def Close(self):
+        """Close all phases of the fuse."""
         self.CheckForError(self._lib.Fuses_Close())
 
     def IsBlown(self):
+        """Current state of the fuses. TRUE if any fuse on any phase is blown. Else FALSE."""
         return self.CheckForError(self._lib.Fuses_IsBlown()) != 0
 
     def Open(self):
+        """Manual opening of all phases of the fuse."""
         self.CheckForError(self._lib.Fuses_Open())
+
+    def Reset(self):
+        """Reset fuse to normal state."""
+        self.CheckForError(self._lib.Fuses_Reset())
 
     def Delay(self, *args):
         """
@@ -123,6 +132,30 @@ class IFuses(Iterable):
             Value = Value.encode(self._api_util.codec)
         self.CheckForError(self._lib.Fuses_Set_TCCcurve(Value))
 
+    def State(self, *args):
+        """Array of strings indicating the state of each phase of the fuse."""
+        # Getter
+        if len(args) == 0:
+            return self.CheckForError(self._get_string_array(self._lib.Fuses_Get_State))
+
+        # Setter
+        Value, = args
+        self.CheckForError(self._set_string_array(self._lib.Fuses_Set_State, Value))
+
+    def NormalState(self, *args):
+        """Array of strings indicating the normal state of each phase of the fuse."""
+        # Getter
+        if len(args) == 0:
+            return self.CheckForError(
+                self._get_string_array(self._lib.Fuses_Get_NormalState)
+            )
+
+        # Setter
+        Value, = args
+        self.CheckForError(
+            self._set_string_array(self._lib.Fuses_Set_NormalState, Value)
+        )
+
 
 _Fuses = IFuses(api_util)
 
@@ -144,6 +177,9 @@ SwitchedObj = _Fuses.SwitchedObj
 SwitchedTerm = _Fuses.SwitchedTerm
 TCCCurve = _Fuses.TCCCurve
 Idx = _Fuses.Idx
+Reset = _Fuses.Reset
+State = _Fuses.State
+NormalState = _Fuses.NormalState
 _columns = _Fuses._columns
 __all__ = [
     "Close",
@@ -163,4 +199,7 @@ __all__ = [
     "SwitchedTerm",
     "TCCCurve",
     "Idx",
+    "Reset",
+    "State",
+    "NormalState",
 ]

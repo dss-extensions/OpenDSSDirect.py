@@ -1,4 +1,5 @@
-from ._utils import  api_util, Iterable
+from ._utils import api_util, Iterable
+from dss import LoadStatus
 
 
 class ILoads(Iterable):
@@ -43,6 +44,7 @@ class ILoads(Iterable):
         "AllocationFactor",
         "XfkVA",
         "puSeriesRL",
+        "Sensor",
     ]
 
     def AllocationFactor(self, *args):
@@ -214,7 +216,7 @@ class ILoads(Iterable):
         """Response to load multipliers: Fixed (growth only), Exempt (no LD curve), Variable (all)."""
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Loads_Get_Status())
+            return LoadStatus(self.CheckForError(self._lib.Loads_Get_Status()))
 
         # Setter
         Value, = args
@@ -286,7 +288,8 @@ class ILoads(Iterable):
         """Array of 7 doubles with values for ZIPV property of the load object"""
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.Loads_Get_ZIPV)
+            self.CheckForError(self._lib.Loads_Get_ZIPV_GR())
+            return self._get_float64_gr_array()
 
         # Setter
         Value, = args
@@ -397,8 +400,16 @@ class ILoads(Iterable):
         Value, = args
         self.CheckForError(self._lib.Loads_Set_xfkVA(Value))
 
+    def Sensor(self):
+        """Name of the sensor monitoring this load."""
+        return self._get_string(self.CheckForError(self._lib.Loads_Get_Sensor()))
+
     def Phases(self, *args):
-        """Number of phases"""
+        """
+        Number of phases
+
+        (API Extension)
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Loads_Get_Phases())
@@ -452,6 +463,7 @@ kWhDays = _Loads.kWhDays
 puSeriesRL = _Loads.puSeriesRL
 XfkVA = _Loads.XfkVA
 Phases = _Loads.Phases
+Sensor = _Loads.Sensor
 _columns = _Loads._columns
 __all__ = [
     "AllNames",
@@ -495,4 +507,5 @@ __all__ = [
     "puSeriesRL",
     "XfkVA",
     "Phases",
+    "Sensor",
 ]

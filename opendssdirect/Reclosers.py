@@ -1,4 +1,5 @@
-from ._utils import  api_util, Iterable
+from ._utils import api_util, Iterable
+from dss import ActionCodes
 
 
 class IReclosers(Iterable):
@@ -19,6 +20,8 @@ class IReclosers(Iterable):
         "PhaseTrip",
         "RecloseIntervals",
         "Shots",
+        "State",
+        "NormalState",
     ]
 
     def Close(self):
@@ -103,7 +106,8 @@ class IReclosers(Iterable):
 
     def RecloseIntervals(self):
         """(read-only) Array of Doubles: reclose intervals, s, between shots."""
-        return self._get_float64_array(self._lib.Reclosers_Get_RecloseIntervals)
+        self.CheckForError(self._lib.Reclosers_Get_RecloseIntervals_GR())
+        return self._get_float64_gr_array()
 
     def Shots(self, *args):
         """Number of shots to lockout (fast + delayed)"""
@@ -139,6 +143,38 @@ class IReclosers(Iterable):
         Value, = args
         self.CheckForError(self._lib.Reclosers_Set_SwitchedTerm(Value))
 
+    def Reset(self):
+        """
+        Reset recloser to normal state.
+        If open, lock out the recloser.
+        If closed, resets recloser to first operation.
+        """
+        self.CheckForError(self._lib.Reclosers_Reset())
+
+    def State(self, *args):
+        """
+        Get/Set present state of recloser.
+        If set to open (ActionCodes.Open=1), open recloser's controlled element and lock out the recloser.
+        If set to close (ActionCodes.Close=2), close recloser's controlled element and resets recloser to first operation.
+        """
+        # Getter
+        if len(args) == 0:
+            return self.CheckForError(self._lib.Reclosers_Get_State())
+
+        # Setter
+        Value, = args
+        self.CheckForError(self._lib.Reclosers_Set_State(Value))
+
+    def NormalState(self, *args):
+        """Get/set normal state (ActionCodes.Open=1, ActionCodes.Close=2) of the recloser."""
+        # Getter
+        if len(args) == 0:
+            return self.CheckForError(self._lib.Reclosers_Get_NormalState())
+
+        # Setter
+        Value, = args
+        self.CheckForError(self._lib.Reclosers_Set_NormalState(Value))
+
 
 _Reclosers = IReclosers(api_util)
 
@@ -162,6 +198,9 @@ Shots = _Reclosers.Shots
 SwitchedObj = _Reclosers.SwitchedObj
 SwitchedTerm = _Reclosers.SwitchedTerm
 Idx = _Reclosers.Idx
+Reset = _Reclosers.Reset
+State = _Reclosers.State
+NormalState = _Reclosers.NormalState
 _columns = _Reclosers._columns
 __all__ = [
     "Close",
@@ -183,4 +222,7 @@ __all__ = [
     "SwitchedObj",
     "SwitchedTerm",
     "Idx",
+    "Reset",
+    "State",
+    "NormalState",
 ]

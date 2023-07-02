@@ -1,4 +1,4 @@
-from ._utils import  api_util, Base
+from ._utils import api_util, Base
 
 
 class ISettings(Base):
@@ -28,7 +28,12 @@ class ISettings(Base):
     ]
 
     def AllowDuplicates(self, *args):
-        """{True | False*} Designates whether to allow duplicate names of objects"""
+        """
+        {True | False*} Designates whether to allow duplicate names of objects
+
+        **NOTE**: for DSS Extensions, we are considering removing this option in a future
+        release since it has performance impacts even when not used.
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Settings_Get_AllowDuplicates()) != 0
@@ -52,7 +57,7 @@ class ISettings(Base):
         self.CheckForError(self._lib.Settings_Set_AutoBusList(Value))
 
     def CktModel(self, *args):
-        """{dssMultiphase (0) * | dssPositiveSeq (1) } IIndicate if the circuit model is positive sequence."""
+        """{dssMultiphase (0) * | dssPositiveSeq (1) } Indicate if the circuit model is positive sequence."""
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Settings_Get_CktModel())
@@ -95,7 +100,8 @@ class ISettings(Base):
         """Integer array defining which energy meter registers to use for computing losses"""
         # Getter
         if len(args) == 0:
-            return self._get_int32_array(self._lib.Settings_Get_LossRegs)
+            self.CheckForError(self._lib.Settings_Get_LossRegs_GR())
+            return self._get_int32_gr_array()
 
         # Setter
         Value, = args
@@ -157,7 +163,7 @@ class ISettings(Base):
         self.CheckForError(self._lib.Settings_Set_PriceSignal(Value))
 
     def Trapezoidal(self, *args):
-        """{True | False *} Gets value of trapezoidal integration flag in energy meters."""
+        """Gets value of trapezoidal integration flag in energy meters. Defaults to `False`."""
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Settings_Get_Trapezoidal()) != 0
@@ -170,7 +176,8 @@ class ISettings(Base):
         """Array of Integers defining energy meter registers to use for computing UE"""
         # Getter
         if len(args) == 0:
-            return self._get_int32_array(self._lib.Settings_Get_UEregs)
+            self.CheckForError(self._lib.Settings_Get_UEregs_GR())
+            return self._get_int32_gr_array()
 
         # Setter
         Value, = args
@@ -191,7 +198,8 @@ class ISettings(Base):
         """Array of doubles defining the legal voltage bases in kV L-L"""
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.Settings_Get_VoltageBases)
+            self.CheckForError(self._lib.Settings_Get_VoltageBases_GR())
+            return self._get_float64_gr_array()
 
         # Setter
         Value, = args
@@ -244,7 +252,7 @@ class ISettings(Base):
 
         # Setter
         Value, = args
-        self.CheckForError(self._lib.Settings_Set_IterateDisabled(int(Value)))
+        self.CheckForError(self._lib.Settings_Set_IterateDisabled(Value))
 
 
 _Settings = ISettings(api_util)

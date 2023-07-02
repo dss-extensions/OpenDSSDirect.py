@@ -1,4 +1,5 @@
-from ._utils import  api_util, Iterable
+from ._utils import api_util, Iterable
+from dss import LineUnits
 
 
 class ILines(Iterable):
@@ -15,7 +16,6 @@ class ILines(Iterable):
         "Geometry",
         "Length",
         "IsSwitch",
-        "Parent",
         "Spacing",
         "EmergAmps",
         "NormAmps",
@@ -90,7 +90,8 @@ class ILines(Iterable):
     def CMatrix(self, *args):
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.Lines_Get_Cmatrix)
+            self.CheckForError(self._lib.Lines_Get_Cmatrix_GR())
+            return self._get_float64_gr_array()
 
         # Setter
         Value, = args
@@ -213,7 +214,8 @@ class ILines(Iterable):
         """Resistance matrix (full), ohms per unit length. Array of doubles."""
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.Lines_Get_Rmatrix)
+            self.CheckForError(self._lib.Lines_Get_Rmatrix_GR())
+            return self._get_float64_gr_array()
 
         # Setter
         Value, = args
@@ -239,7 +241,7 @@ class ILines(Iterable):
     def Units(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Lines_Get_Units())
+            return LineUnits(self.CheckForError(self._lib.Lines_Get_Units()))
 
         # Setter
         Value, = args
@@ -276,9 +278,11 @@ class ILines(Iterable):
         self.CheckForError(self._lib.Lines_Set_Xg(Value))
 
     def XMatrix(self, *args):
+        """Reactance matrix (full), ohms per unit length. Array of doubles."""
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.Lines_Get_Xmatrix)
+            self.CheckForError(self._lib.Lines_Get_Xmatrix_GR())
+            return self._get_float64_gr_array()
 
         # Setter
         Value, = args
@@ -286,10 +290,11 @@ class ILines(Iterable):
         self.CheckForError(self._lib.Lines_Set_Xmatrix(ValuePtr, ValueCount))
 
     def Yprim(self, *args):
-        """Yprimitive: Does Nothing at present on Put; Dangerous"""
+        """Yprimitive for the active line object (complex array)."""
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.Lines_Get_Yprim)
+            self.CheckForError(self._lib.Lines_Get_Yprim_GR())
+            return self._get_complex128_gr_array()
 
         # Setter
         Value, = args
@@ -301,7 +306,11 @@ class ILines(Iterable):
         return self.CheckForError(self._lib.Lines_Get_SeasonRating())
 
     def IsSwitch(self, *args):
-        """Sets/gets the Line element switch status. Setting it has side-effects to the line parameters."""
+        """
+        Sets/gets the Line element switch status. Setting it has side-effects to the line parameters.
+
+        (API Extension)
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Lines_Get_IsSwitch()) != 0

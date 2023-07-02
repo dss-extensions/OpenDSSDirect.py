@@ -1,4 +1,4 @@
-from ._utils import  api_util, Base
+from ._utils import api_util, Base
 
 
 class IPDElements(Base):
@@ -157,9 +157,8 @@ class IPDElements(Base):
 
         (API Extension)
         """
-        return self.CheckForError(
-            self._get_float64_array(self._lib.PDElements_Get_AllMaxCurrents, AllNodes)
-        )
+        self.CheckForError(self._lib.PDElements_Get_AllMaxCurrents_GR(AllNodes))
+        return self._get_float64_gr_array()
 
     def AllPctNorm(self, AllNodes=False):
         """
@@ -175,9 +174,8 @@ class IPDElements(Base):
 
         (API Extension)
         """
-        return self.CheckForError(
-            self._get_float64_array(self._lib.PDElements_Get_AllPctNorm, AllNodes)
-        )
+        self.CheckForError(self._lib.PDElements_Get_AllPctNorm_GR(AllNodes))
+        return self._get_float64_gr_array()
 
     def AllPctEmerg(self, AllNodes=False):
         """
@@ -193,9 +191,8 @@ class IPDElements(Base):
 
         (API Extension)
         """
-        return self.CheckForError(
-            self._get_float64_array(self._lib.PDElements_Get_AllPctEmerg, AllNodes)
-        )
+        self.CheckForError(self._lib.PDElements_Get_AllPctEmerg_GR(AllNodes))
+        return self._get_float64_gr_array()
 
     def AllCurrents(self):
         """
@@ -203,7 +200,8 @@ class IPDElements(Base):
 
         (API Extension)
         """
-        return self._get_float64_array(self._lib.PDElements_Get_AllCurrents)
+        self.CheckForError(self._lib.PDElements_Get_AllCurrents_GR())
+        return self._get_complex128_gr_array()
 
     def AllCurrentsMagAng(self):
         """
@@ -211,7 +209,8 @@ class IPDElements(Base):
 
         (API Extension)
         """
-        return self._get_float64_array(self._lib.PDElements_Get_AllCurrentsMagAng)
+        self.CheckForError(self._lib.PDElements_Get_AllCurrentsMagAng_GR())
+        return self._get_float64_gr_array()
 
     def AllCplxSeqCurrents(self):
         """
@@ -219,15 +218,17 @@ class IPDElements(Base):
 
         (API Extension)
         """
-        return self._get_float64_array(self._lib.PDElements_Get_AllCplxSeqCurrents)
+        self.CheckForError(self._lib.PDElements_Get_AllCplxSeqCurrents_GR())
+        return self._get_complex128_gr_array()
 
     def AllSeqCurrents(self):
         """
-        Double array of the symmetrical component currents into each 3-phase terminal, for each PD element.
+        Double array of the symmetrical component currents (magnitudes only) into each 3-phase terminal, for each PD element.
 
         (API Extension)
         """
-        return self._get_float64_array(self._lib.PDElements_Get_AllSeqCurrents)
+        self.CheckForError(self._lib.PDElements_Get_AllSeqCurrents_GR())
+        return self._get_float64_gr_array()
 
     def AllPowers(self):
         """
@@ -235,15 +236,17 @@ class IPDElements(Base):
 
         (API Extension)
         """
-        return self._get_float64_array(self._lib.PDElements_Get_AllPowers)
+        self.CheckForError(self._lib.PDElements_Get_AllPowers_GR())
+        return self._get_complex128_gr_array()
 
     def AllSeqPowers(self):
         """
-        Double array of sequence powers into each 3-phase teminal, for each PD element
+        Complex array of sequence powers into each 3-phase teminal, for each PD element
 
         (API Extension)
         """
-        return self._get_float64_array(self._lib.PDElements_Get_AllSeqPowers)
+        self.CheckForError(self._lib.PDElements_Get_AllSeqPowers_GR())
+        return self._get_complex128_gr_array()
 
     def AllNumPhases(self):
         """
@@ -251,7 +254,8 @@ class IPDElements(Base):
 
         (API Extension)
         """
-        return self._get_int32_array(self._lib.PDElements_Get_AllNumPhases)
+        self.CheckForError(self._lib.PDElements_Get_AllNumPhases_GR())
+        return self._get_int32_gr_array()
 
     def AllNumConductors(self):
         """
@@ -259,7 +263,8 @@ class IPDElements(Base):
 
         (API Extension)
         """
-        return self._get_int32_array(self._lib.PDElements_Get_AllNumConductors)
+        self.CheckForError(self._lib.PDElements_Get_AllNumConductors_GR())
+        return self._get_int32_gr_array()
 
     def AllNumTerminals(self):
         """
@@ -267,7 +272,8 @@ class IPDElements(Base):
 
         (API Extension)
         """
-        return self._get_int32_array(self._lib.PDElements_Get_AllNumTerminals)
+        self.CheckForError(self._lib.PDElements_Get_AllNumTerminals_GR())
+        return self._get_int32_gr_array()
 
 
 _PDElements = IPDElements(api_util)

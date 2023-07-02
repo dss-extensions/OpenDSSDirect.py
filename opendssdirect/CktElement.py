@@ -1,4 +1,5 @@
-from ._utils import DSSException, api_util, Base
+from ._utils import api_util, Base
+from dss import OCPDevType
 
 
 class ICktElement(Base):
@@ -118,11 +119,12 @@ class ICktElement(Base):
         Array of doubles. Values of state variables of active element if PC element.
         Valid only for PCElements.
         """
-        return self._get_float64_array(self._lib.CktElement_Get_AllVariableValues)
+        self.CheckForError(self._lib.CktElement_Get_AllVariableValues_GR())
+        return self._get_float64_gr_array()
 
     def BusNames(self, *args):
         """
-        Array of strings. Get  Bus definitions to which each terminal is connected. 0-based array.
+        Array of strings. Get  Bus definitions to which each terminal is connected.
         """
         # Getter
         if len(args) == 0:
@@ -132,24 +134,29 @@ class ICktElement(Base):
 
         # Setter
         Value, = args
-        Value, ValuePtr, ValueCount = self._prepare_string_array(Value)
-        self.CheckForError(self._lib.CktElement_Set_BusNames(ValuePtr, ValueCount))
+        self.CheckForError(
+            self._set_string_array(self._lib.CktElement_Set_BusNames, Value)
+        )
 
     def CplxSeqCurrents(self):
         """(read-only) Complex double array of Sequence Currents for all conductors of all terminals of active circuit element."""
-        return self._get_float64_array(self._lib.CktElement_Get_CplxSeqCurrents)
+        self.CheckForError(self._lib.CktElement_Get_CplxSeqCurrents_GR())
+        return self._get_complex128_gr_array()
 
     def CplxSeqVoltages(self):
         """(read-only) Complex double array of Sequence Voltage for all terminals of active circuit element."""
-        return self._get_float64_array(self._lib.CktElement_Get_CplxSeqVoltages)
+        self.CheckForError(self._lib.CktElement_Get_CplxSeqVoltages_GR())
+        return self._get_complex128_gr_array()
 
     def Currents(self):
         """(read-only) Complex array of currents into each conductor of each terminal"""
-        return self._get_float64_array(self._lib.CktElement_Get_Currents)
+        self.CheckForError(self._lib.CktElement_Get_Currents_GR())
+        return self._get_complex128_gr_array()
 
     def CurrentsMagAng(self):
-        """(read-only) Currents in magnitude, angle format as a array of doubles."""
-        return self._get_float64_array(self._lib.CktElement_Get_CurrentsMagAng)
+        """(read-only) Currents in magnitude, angle (degrees) format as a array of doubles."""
+        self.CheckForError(self._lib.CktElement_Get_CurrentsMagAng_GR())
+        return self._get_float64_gr_array()
 
     def DisplayName(self, *args):
         """Display name of the object (not necessarily unique)"""
@@ -212,8 +219,9 @@ class ICktElement(Base):
         return self.CheckForError(self._lib.CktElement_Get_HasVoltControl()) != 0
 
     def Losses(self):
-        """(read-only) Total losses in the element: two-element complex array"""
-        return self._get_float64_array(self._lib.CktElement_Get_Losses)
+        """(read-only) Total losses in the element: two-element double array (complex), in VA (watts, vars)"""
+        self.CheckForError(self._lib.CktElement_Get_Losses_GR())
+        return self._get_complex128_gr_simple()
 
     def Name(self):
         """(read-only) Full Name of Active Circuit Element"""
@@ -221,7 +229,8 @@ class ICktElement(Base):
 
     def NodeOrder(self):
         """(read-only) Array of integer containing the node numbers (representing phases, for example) for each conductor of each terminal."""
-        return self._get_int32_array(self._lib.CktElement_Get_NodeOrder)
+        self.CheckForError(self._lib.CktElement_Get_NodeOrder_GR())
+        return self._get_int32_gr_array()
 
     def NormalAmps(self, *args):
         """Normal ampere rating for PD Elements"""
@@ -262,58 +271,71 @@ class ICktElement(Base):
 
     def OCPDevType(self):
         """(read-only) 0=None; 1=Fuse; 2=Recloser; 3=Relay;  Type of OCP controller device"""
-        return self.CheckForError(self._lib.CktElement_Get_OCPDevType())
+        return OCPDevType(self.CheckForError(self._lib.CktElement_Get_OCPDevType()))
 
     def PhaseLosses(self):
         """(read-only) Complex array of losses by phase"""
-        return self._get_float64_array(self._lib.CktElement_Get_PhaseLosses)
+        self.CheckForError(self._lib.CktElement_Get_PhaseLosses_GR())
+        return self._get_complex128_gr_array()
 
     def Powers(self):
         """(read-only) Complex array of powers into each conductor of each terminal"""
-        return self._get_float64_array(self._lib.CktElement_Get_Powers)
+        self.CheckForError(self._lib.CktElement_Get_Powers_GR())
+        return self._get_complex128_gr_array()
 
     def Residuals(self):
-        """(read-only) Residual currents for each terminal: (mag, angle)"""
-        return self._get_float64_array(self._lib.CktElement_Get_Residuals)
+        """(read-only) Residual currents for each terminal: (magnitude, angle in degrees)"""
+        self.CheckForError(self._lib.CktElement_Get_Residuals_GR())
+        return self._get_float64_gr_array()
 
     def SeqCurrents(self):
-        """(read-only) Double array of symmetrical component currents into each 3-phase terminal"""
-        return self._get_float64_array(self._lib.CktElement_Get_SeqCurrents)
+        """(read-only) Double array of symmetrical component currents (magnitudes only) into each 3-phase terminal"""
+        self.CheckForError(self._lib.CktElement_Get_SeqCurrents_GR())
+        return self._get_float64_gr_array()
 
     def SeqPowers(self):
-        """(read-only) Double array of sequence powers into each 3-phase teminal"""
-        return self._get_float64_array(self._lib.CktElement_Get_SeqPowers)
+        """(read-only) Complex array of sequence powers (kW, kvar) into each 3-phase teminal"""
+        self.CheckForError(self._lib.CktElement_Get_SeqPowers_GR())
+        return self._get_complex128_gr_array()
 
     def SeqVoltages(self):
-        """(read-only) Double array of symmetrical component voltages at each 3-phase terminal"""
-        return self._get_float64_array(self._lib.CktElement_Get_SeqVoltages)
+        """(read-only) Double array of symmetrical component voltages (magnitudes only) at each 3-phase terminal"""
+        self.CheckForError(self._lib.CktElement_Get_SeqVoltages_GR())
+        return self._get_float64_gr_array()
 
     def Voltages(self):
         """(read-only) Complex array of voltages at terminals"""
-        return self._get_float64_array(self._lib.CktElement_Get_Voltages)
+        self.CheckForError(self._lib.CktElement_Get_Voltages_GR())
+        return self._get_complex128_gr_array()
 
     def VoltagesMagAng(self):
         """(read-only) Voltages at each conductor in magnitude, angle form as array of doubles."""
-        return self._get_float64_array(self._lib.CktElement_Get_VoltagesMagAng)
+        self.CheckForError(self._lib.CktElement_Get_VoltagesMagAng_GR())
+        return self._get_float64_gr_array()
 
     def YPrim(self):
-        """(read-only) YPrim matrix, column order, complex numbers (paired)"""
-        return self._get_float64_array(self._lib.CktElement_Get_Yprim)
+        """(read-only) YPrim matrix, column order, complex numbers"""
+        self.CheckForError(self._lib.CktElement_Get_Yprim_GR())
+        return self._get_complex128_gr_array()
 
     def IsIsolated(self):
         """
         Returns true if the current active element is isolated.
         Note that this only fetches the current value. See also the Topology interface.
+
+        (API Extension)
         """
         return self.CheckForError(self._lib.CktElement_Get_IsIsolated()) != 0
 
     def TotalPowers(self):
         """Returns the total powers (complex) at ALL terminals of the active circuit element."""
-        return self._get_float64_array(self._lib.CktElement_Get_TotalPowers)
+        self.CheckForError(self._lib.CktElement_Get_TotalPowers_GR())
+        return self._get_complex128_gr_array()
 
     def NodeRef(self):
         """Array of integers, a copy of the internal NodeRef of the CktElement."""
-        return self._get_int32_array(self._lib.CktElement_Get_NodeRef)
+        self._lib.CktElement_Get_NodeRef_GR()
+        return self._get_int32_gr_array()
 
 
 _CktElement = ICktElement(api_util)

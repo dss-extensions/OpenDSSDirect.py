@@ -1,8 +1,12 @@
-from ._utils import  api_util, Iterable
+from ._utils import api_util, Iterable
 
 
 class IReactors(Iterable):
-    """Experimental API extension exposing Reactor objects"""
+    """
+    Reactor objects
+
+    (API Extension)
+    """
 
     __name__ = "Reactors"
     _api_prefix = "Reactors"
@@ -187,7 +191,8 @@ class IReactors(Iterable):
         """Resistance matrix, ohms at base frequency. Order of the matrix is the number of phases. Mutually exclusive to specifying parameters by kvar or X."""
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.Reactors_Get_Rmatrix)
+            self.CheckForError(self._lib.Reactors_Get_Rmatrix_GR())
+            return self._get_float64_gr_array()
 
         # Setter
         Value, = args
@@ -198,7 +203,8 @@ class IReactors(Iterable):
         """Reactance matrix, ohms at base frequency. Order of the matrix is the number of phases. Mutually exclusive to specifying parameters by kvar or X."""
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.Reactors_Get_Xmatrix)
+            self.CheckForError(self._lib.Reactors_Get_Xmatrix_GR())
+            return self._get_float64_gr_array()
 
         # Setter
         Value, = args
@@ -209,11 +215,12 @@ class IReactors(Iterable):
         """Alternative way of defining R and X properties. Enter a 2-element array representing R +jX in ohms."""
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.Reactors_Get_Z)
+            self.CheckForError(self._lib.Reactors_Get_Z_GR())
+            return self._get_complex128_gr_simple()
 
         # Setter
         Value, = args
-        Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
+        Value, ValuePtr, ValueCount = self._prepare_complex128_simple(Value)
         self.CheckForError(self._lib.Reactors_Set_Z(ValuePtr, ValueCount))
 
     def Z1(self, *args):
@@ -228,11 +235,12 @@ class IReactors(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.Reactors_Get_Z1)
+            self.CheckForError(self._lib.Reactors_Get_Z1_GR())
+            return self._get_complex128_gr_simple()
 
         # Setter
         Value, = args
-        Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
+        Value, ValuePtr, ValueCount = self._prepare_complex128_simple(Value)
         self.CheckForError(self._lib.Reactors_Set_Z1(ValuePtr, ValueCount))
 
     def Z2(self, *args):
@@ -245,11 +253,12 @@ class IReactors(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.Reactors_Get_Z2)
+            self.CheckForError(self._lib.Reactors_Get_Z2_GR())
+            return self._get_complex128_gr_simple()
 
         # Setter
         Value, = args
-        Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
+        Value, ValuePtr, ValueCount = self._prepare_complex128_simple(Value)
         self.CheckForError(self._lib.Reactors_Set_Z2(ValuePtr, ValueCount))
 
     def Z0(self, *args):
@@ -262,11 +271,12 @@ class IReactors(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_float64_array(self._lib.Reactors_Get_Z0)
+            self.CheckForError(self._lib.Reactors_Get_Z0_GR())
+            return self._get_complex128_gr_simple()
 
         # Setter
         Value, = args
-        Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
+        Value, ValuePtr, ValueCount = self._prepare_complex128_simple(Value)
         self.CheckForError(self._lib.Reactors_Set_Z0(ValuePtr, ValueCount))
 
 
