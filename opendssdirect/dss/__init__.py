@@ -12,10 +12,7 @@ from ..Bus import _Bus as Bus
 from ..CapControls import _CapControls as CapControls
 from ..Capacitors import _Capacitors as Capacitors
 from ..Circuit import _Circuit as Circuit
-
-# from ..CktElement import _CktElement as CktElement
-from .. import CktElement
-
+from ..CktElement import _CktElement as CktElement
 from ..CtrlQueue import _CtrlQueue as CtrlQueue
 from ..DSSCore import _DSSCore as DSSCore
 

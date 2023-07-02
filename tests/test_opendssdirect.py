@@ -53,7 +53,7 @@ def test_module_import():
 
     from opendssdirect import Bus as m
 
-    assert inspect.ismodule(m) or isinstance(m, Base)
+    assert isinstance(m, Base)
 
     from opendssdirect import Capacitors as m
 
@@ -65,11 +65,11 @@ def test_module_import():
 
     from opendssdirect import Circuit as m
 
-    assert inspect.ismodule(m) or isinstance(m, Base)
+    assert isinstance(m, Base)
 
     from opendssdirect import CktElement as m
 
-    assert inspect.ismodule(m) or isinstance(m, Iterable)
+    assert isinstance(m, Base)
 
     from opendssdirect import Element as m
 
@@ -1384,13 +1384,7 @@ def test_13Node_CktElement(dss):
         dss.CktElement.Variablei(1)
 
     with pt.raises(dss.DSSException):
-        dss.CktElement.Variablei(1, 10)
-
-    with pt.raises(dss.DSSException):
         dss.CktElement.Variable("some invalid name")
-
-    with pt.raises(dss.DSSException):
-        dss.CktElement.Variable("some invalid name", 10)
 
     np.testing.assert_array_almost_equal(
         dss.CktElement.Voltages(),
