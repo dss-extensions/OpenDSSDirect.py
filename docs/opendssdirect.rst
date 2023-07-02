@@ -60,14 +60,6 @@ opendssdirect.CktElement module
     :undoc-members:
     :show-inheritance:
 
-opendssdirect.CmathLib module
------------------------------
-
-.. automodule:: opendssdirect.CmathLib
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 opendssdirect.CtrlQueue module
 ------------------------------
 
@@ -80,14 +72,6 @@ opendssdirect.DSSCore module
 ----------------------------
 
 .. automodule:: opendssdirect.DSSCore
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-opendssdirect.DSSEvents module
-------------------------------
-
-.. automodule:: opendssdirect.DSSEvents
     :members:
     :undoc-members:
     :show-inheritance:

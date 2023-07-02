@@ -2,6 +2,7 @@
 import dss as dss_py
 import numpy as np
 import warnings
+from .Iterable import Iterable, Base
 
 # Bind to the FFI module instance. This should be refined in a future version
 lib = dss_py.prime_api_util.lib

@@ -1,99 +1,62 @@
-from ._utils import (
-    lib,
-    codec,
-    CheckForError,
-    get_string,
-    get_float64_array,
-    get_string_array,
-)
+from ._utils import CheckForError, api_util, Iterable
 
 
-def AllNames():
-    """(read-only) List of strings with all Storage names"""
-    return CheckForError(get_string_array(lib.Storages_Get_AllNames))
+class IStorages(Iterable):
+    """Storage objects"""
+
+    _api_prefix = "Storages"
+    __slots__ = []
+    _columns = ["Name", "Idx", "RegisterNames", "RegisterValues", "puSOC", "State"]
+
+    def puSOC(self, *args):
+        """Per unit state of charge"""
+        # Getter
+        if len(args) == 0:
+            return self.CheckForError(self._lib.Storages_Get_puSOC())
+
+        # Setter
+        Value, = args
+        self.CheckForError(self._lib.Storages_Set_puSOC(Value))
+
+    def State(self, *args):
+        """
+        Get/set state: 0=Idling; 1=Discharging; -1=Charging;
+
+        Related enumeration: StorageStates
+        """
+        # Getter
+        if len(args) == 0:
+            return self.CheckForError(self._lib.Storages_Get_State())
+
+        # Setter
+        Value, = args
+        self.CheckForError(self._lib.Storages_Set_State(Value))
+
+    def RegisterNames(self):
+        """Array of Names of all Storage energy meter registers"""
+        return self.CheckForError(
+            self._get_string_array(self._lib.Storages_Get_RegisterNames)
+        )
+
+    def RegisterValues(self):
+        """Array of values in Storage registers."""
+        return self._get_float64_array(self._lib.Storages_Get_RegisterValues)
 
 
-def Count():
-    """(read-only) Number of Storages"""
-    return CheckForError(lib.Storages_Get_Count())
+_Storages = IStorages(api_util)
 
-
-def Idx(*args):
-    """
-    Get/set active Storage by index;  1..Count
-    """
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.Storages_Get_idx())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.Storages_Set_idx(Value))
-
-
-def First():
-    """Set first Storage active; returns 0 if none."""
-    return CheckForError(lib.Storages_Get_First())
-
-
-def Next():
-    """Sets next Storage active; returns 0 if no more."""
-    return CheckForError(lib.Storages_Get_Next())
-
-
-def Name(*args):
-    """
-    Get/set the name of the active Storage
-    """
-    # Getter
-    if len(args) == 0:
-        return CheckForError(get_string(lib.Storages_Get_Name()))
-
-    # Setter
-    Value, = args
-    if type(Value) is not bytes:
-        Value = Value.encode(codec)
-
-    CheckForError(lib.Storages_Set_Name(Value))
-
-
-def puSOC(*args):
-    """Per unit state of charge"""
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.Storages_Get_puSOC())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.Storages_Set_puSOC(Value))
-
-
-def State(*args):
-    """
-    Get/set state: 0=Idling; 1=Discharging; -1=Charging;
-
-    Related enumeration: StorageStates
-    """
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.Storages_Get_State())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.Storages_Set_State(Value))
-
-
-def RegisterNames():
-    """Array of Names of all Storage energy meter registers"""
-    return CheckForError(get_string_array(lib.Storages_Get_RegisterNames))
-
-
-def RegisterValues():
-    """Array of values in Storage registers."""
-    return get_float64_array(lib.Storages_Get_RegisterValues)
-
-
-_columns = ["Name", "Idx", "RegisterNames", "RegisterValues", "puSOC", "State"]
+# For backwards compatibility, bind to the default instance
+puSOC = _Storages.puSOC
+State = _Storages.State
+RegisterNames = _Storages.RegisterNames
+RegisterValues = _Storages.RegisterValues
+Idx = _Storages.Idx
+First = _Storages.First
+Next = _Storages.Next
+AllNames = _Storages.AllNames
+Count = _Storages.Count
+Name = _Storages.Name
+_columns = _Storages._columns
 __all__ = [
     "puSOC",
     "State",

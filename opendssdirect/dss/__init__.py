@@ -9,10 +9,8 @@ from .. import CapControls
 from .. import Capacitors
 from .. import Circuit
 from .. import CktElement
-from .. import CmathLib
 from .. import CtrlQueue
 from .. import DSSCore
-from .. import DSSEvents
 from .. import DSSimComs
 from .. import Element
 from .. import Error
