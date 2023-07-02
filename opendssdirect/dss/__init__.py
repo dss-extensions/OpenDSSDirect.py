@@ -4,10 +4,7 @@ from .._utils import DSSException
 from ..utils import run_command
 
 from ..ActiveClass import _ActiveClass as ActiveClass
-
-# from ..Basic import _Basic as Basic
-from .. import Basic
-
+from ..Basic import _Basic as Basic
 from ..Bus import _Bus as Bus
 from ..CapControls import _CapControls as CapControls
 from ..Capacitors import _Capacitors as Capacitors

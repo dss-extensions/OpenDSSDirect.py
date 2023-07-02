@@ -49,7 +49,7 @@ def test_module_import():
 
     from opendssdirect import Basic as m
 
-    assert inspect.ismodule(m) or isinstance(m, Base)
+    assert isinstance(m, Base)
 
     from opendssdirect import Bus as m
 
