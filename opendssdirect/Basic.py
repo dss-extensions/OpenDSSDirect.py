@@ -1,7 +1,7 @@
-import warnings
+# import warnings
 from ._utils import api_util, Base, dss_py
 from ._version import __version__ 
-from dss import DSSCompatFlags
+# from dss import DSSCompatFlags
 
 
 class IBasic(Base):

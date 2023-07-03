@@ -1,5 +1,5 @@
 from ._utils import api_util, Base
-from dss import OCPDevType
+from dss import DSSException, OCPDevType as OCPDevTypeEnum
 
 
 class ICktElement(Base):
@@ -271,7 +271,7 @@ class ICktElement(Base):
 
     def OCPDevType(self):
         """(read-only) 0=None; 1=Fuse; 2=Recloser; 3=Relay;  Type of OCP controller device"""
-        return OCPDevType(self.CheckForError(self._lib.CktElement_Get_OCPDevType()))
+        return OCPDevTypeEnum(self.CheckForError(self._lib.CktElement_Get_OCPDevType()))
 
     def PhaseLosses(self):
         """(read-only) Complex array of losses by phase"""

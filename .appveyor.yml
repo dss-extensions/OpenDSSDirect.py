@@ -5,18 +5,18 @@ build: false
 
 environment:
   matrix:
-    - PYTHON_VERSION: 3.10
-      TARGET_ARCH: "x64"
-      MINICONDA: C:\Miniconda3-x64
-    - PYTHON_VERSION: 3.9
-      TARGET_ARCH: "x64"
-      MINICONDA: C:\Miniconda3-x64
-    - PYTHON_VERSION: 3.8
-      TARGET_ARCH: "x64"
-      MINICONDA: C:\Miniconda3-x64
-    - PYTHON_VERSION: 3.7
-      TARGET_ARCH: "x64"
-      MINICONDA: C:\Miniconda3-x64
+    # - PYTHON_VERSION: 3.10
+    #   TARGET_ARCH: "x64"
+    #   MINICONDA: C:\Miniconda3-x64
+    # - PYTHON_VERSION: 3.9
+    #   TARGET_ARCH: "x64"
+    #   MINICONDA: C:\Miniconda3-x64
+    # - PYTHON_VERSION: 3.8
+    #   TARGET_ARCH: "x64"
+    #   MINICONDA: C:\Miniconda3-x64
+    # - PYTHON_VERSION: 3.7
+    #   TARGET_ARCH: "x64"
+    #   MINICONDA: C:\Miniconda3-x64
     - PYTHON_VERSION: 3.10
       TARGET_ARCH: "x86"
       MINICONDA: C:\Miniconda3
@@ -37,7 +37,8 @@ install:
   - conda info -a
   - "conda create -q -n test-environment python=%PYTHON_VERSION% pandas matplotlib pytest"
   - activate test-environment
-  - pip install -e .[extras]
+  - python -m pip install https://github.com/dss-extensions/dss_python/archive/refs/heads/oddpy_next.zip
+  - python -m pip install --no-deps .
 
 test_script:
   - py.test -vv

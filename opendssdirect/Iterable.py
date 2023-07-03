@@ -2,18 +2,11 @@ from dss._cffi_api_util import Base as DSSPyBase
 import os
 
 class Base(DSSPyBase):
-    
     def __init__(self, api_util):
-        DSSPyBase.__init__(self, api_util)
-
         # Integrate "Use environment variable for numpy version" from @kdheepak
         # https://github.com/dss-extensions/OpenDSSDirect.py/pull/103/
-        if os.environ.get("OPENDSSDIRECT_PY_USE_NUMPY", "0").upper() not in ("1", "TRUE"):
-            self._get_float64_array = api_util.get_float64_array2
-            self._get_int32_array = api_util.get_int32_array2
-            self._get_int8_array = api_util.get_int8_array2
-            self._get_string_array = api_util.get_string_array2
-        
+        prefer_lists = os.environ.get("OPENDSSDIRECT_PY_USE_NUMPY", "0").upper() not in ("1", "TRUE")
+        DSSPyBase.__init__(self, api_util, prefer_lists=prefer_lists)
         
 
 class Iterable(Base):

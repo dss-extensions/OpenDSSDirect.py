@@ -1,5 +1,5 @@
 import numpy as np
-from ._utils import ffi, codec, DSSException, api_util, Iterable
+from ._utils import DSSException, api_util, Iterable
 
 
 class IMonitors(Iterable):
