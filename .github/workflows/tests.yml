@@ -24,8 +24,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install pandas matplotlib pytest
-          python -m pip install https://github.com/dss-extensions/dss_python/archive/refs/heads/oddpy_next.zip
-          python -m pip install --no-deps .
+          python -m pip install -e .[extras]
 
       - name: Test
         run: |
