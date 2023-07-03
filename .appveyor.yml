@@ -41,6 +41,7 @@ install:
 
 test_script:
   - py.test -vv
+  - set OPENDSSDIRECT_PY_USE_NUMPY=1 && pytest -vv
   - set DSS_EXTENSIONS_DEBUG=1 && py.test -vv
 
 init:

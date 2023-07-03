@@ -11,6 +11,7 @@ jobs:
       matrix:
         python-version: ["3.8", "3.9", "3.10", "3.11"]
         os: [ubuntu-latest, windows-latest, macos-latest]
+
     runs-on: ${{ matrix.os }}
     steps: 
       - uses: actions/checkout@v3
@@ -34,3 +35,8 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           DSS_EXTENSIONS_DEBUG=1 pytest -vv
+
+      - name: Test (activate NumPy on Linux only)
+        if: runner.os == 'Linux'
+        run: |
+          OPENDSSDIRECT_PY_USE_NUMPY=1 pytest -vv

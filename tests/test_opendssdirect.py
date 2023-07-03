@@ -340,12 +340,12 @@ def test_13Node_Bus(dss):
     assert dss.Bus.Cust_Interrupts() == 0.0
     assert dss.Bus.Distance() == 0.0
     assert dss.Bus.Int_Duration() == 0.0
-    assert dss.Bus.Isc() == [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    np.testing.assert_allclose(dss.Bus.Isc(), [0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
     assert dss.Bus.Lambda() == 0.0
     assert dss.Bus.N_Customers() == 0
     assert dss.Bus.N_interrupts() == 0.0
     assert dss.Bus.Name() == u"sourcebus"
-    assert dss.Bus.Nodes() == [1, 2, 3]
+    assert list(dss.Bus.Nodes()) == [1, 2, 3]
     assert dss.Bus.NumNodes() == 3
     np.testing.assert_array_almost_equal(
         dss.Bus.PuVoltage(),
@@ -390,7 +390,7 @@ def test_13Node_Bus(dss):
         ],
         decimal=4,
     )
-    assert dss.Bus.Voc() == [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    np.testing.assert_allclose(dss.Bus.Voc(), [0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
     np.testing.assert_array_almost_equal(
         dss.Bus.Voltages(),
         [
@@ -405,10 +405,10 @@ def test_13Node_Bus(dss):
     )
     assert dss.Bus.X() == 200.0
     assert dss.Bus.Y() == 400.0
-    assert dss.Bus.YscMatrix() == [0.0]
-    assert dss.Bus.Zsc0() == [0.0, 0.0]
-    assert dss.Bus.Zsc1() == [0.0, 0.0]
-    assert dss.Bus.ZscMatrix() == [0.0]
+    np.testing.assert_allclose(dss.Bus.YscMatrix(), [0.0])
+    np.testing.assert_allclose(dss.Bus.Zsc0(), [0.0, 0.0])
+    np.testing.assert_allclose(dss.Bus.Zsc1(), [0.0, 0.0])
+    np.testing.assert_allclose(dss.Bus.ZscMatrix(), [0.0])
     assert dss.Bus.ZscRefresh() == 1
     assert dss.Bus.kVBase() == 66.39528095680697
     np.testing.assert_array_almost_equal(
@@ -795,7 +795,7 @@ def test_13Node_Circuit(dss):
         u"Line.684652",
         u"Line.671692",
     ]
-    assert dss.Circuit.AllNodeDistances() == [
+    np.testing.assert_allclose(dss.Circuit.AllNodeDistances(), [
         0.0,
         0.0,
         0.0,
@@ -837,7 +837,7 @@ def test_13Node_Circuit(dss):
         0.0,
         0.0,
         0.0,
-    ]
+    ])
     assert dss.Circuit.AllNodeNames() == [
         u"sourcebus.1",
         u"sourcebus.2",
@@ -919,7 +919,7 @@ def test_13Node_Circuit(dss):
     assert dss.Circuit.SetActiveClass("Load") == 19
 
     assert dss.Circuit.SetActiveElement("") == -1
-    assert dss.Circuit.SubstationLosses() == [0.0, 0.0]
+    np.testing.assert_allclose(dss.Circuit.SubstationLosses(), [0.0, 0.0])
 
     np.testing.assert_array_almost_equal(
         dss.Circuit.TotalPower(), [-3567.2118131482466, -1736.5765097263468], decimal=4
@@ -1288,7 +1288,7 @@ def test_13Node_CktElement(dss):
         decimal=4,
     )
     assert dss.CktElement.Name() == u"Line.671692"
-    assert dss.CktElement.NodeOrder() == [1, 2, 3, 1, 2, 3]
+    assert list(dss.CktElement.NodeOrder()) == [1, 2, 3, 1, 2, 3]
     np.testing.assert_almost_equal(
         dss.CktElement.TotalPowers(),
         [1013.9073121262952, 19.02222347205106, -1013.9073030717203, -19.02222347205106],
@@ -1529,7 +1529,7 @@ def test_13Node_CktElement(dss):
         "Series L",
         "Max. Amps (phase)",
     ]
-    assert dss.CktElement.AllVariableValues() == [
+    np.testing.assert_allclose(dss.CktElement.AllVariableValues(), [
         1.0,
         500.0,
         1.0,
@@ -1552,7 +1552,7 @@ def test_13Node_CktElement(dss):
         0.0,
         0.0,
         0.0,
-    ]
+    ])
     assert dss.CktElement.Variablei(2) == 500.0
     assert dss.CktElement.Variable(u"PanelkW") == 500.0
 
@@ -1740,7 +1740,7 @@ def test_13Node_Lines(dss):
     assert dss.Lines.Bus2() == u"692"
     assert dss.Lines.C0() == 0.0
     assert dss.Lines.C1() == 0.0
-    assert dss.Lines.CMatrix() == [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    np.testing.assert_allclose(dss.Lines.CMatrix(), [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
     assert dss.Lines.Count() == 12
     assert dss.Lines.EmergAmps() == 600.0
     assert dss.Lines.First() == 1
@@ -1840,7 +1840,7 @@ def test_13Node_Lines(dss):
 
     assert dss.Lines.R0() == 3.378787878787879e-05
     assert dss.Lines.X0() == 7.664772727272727e-05
-    assert dss.Lines.RMatrix() == [
+    np.testing.assert_allclose(dss.Lines.RMatrix(), [
         6.5625e-05,
         2.9545454545454545e-05,
         2.9924242424242424e-05,
@@ -1850,8 +1850,8 @@ def test_13Node_Lines(dss):
         2.9924242424242424e-05,
         2.9071969696969698e-05,
         6.46590909090909e-05,
-    ]
-    assert dss.Lines.XMatrix() == [
+    ])
+    np.testing.assert_allclose(dss.Lines.XMatrix(), [
         0.00019278409090909093,
         9.50189393939394e-05,
         8.022727272727272e-05,
@@ -1861,7 +1861,7 @@ def test_13Node_Lines(dss):
         8.022727272727272e-05,
         7.289772727272727e-05,
         0.00019598484848484847,
-    ]
+    ])
 
     assert dss.Lines.R1() == 1.0984848484848486e-05
     assert dss.Lines.X1() == 2.284090909090909e-05
@@ -1917,7 +1917,7 @@ def test_13Node_Loads(dss):
     assert dss.Loads.XfkVA() == 0.0
     assert dss.Loads.Xneut() == 0.0
     assert dss.Loads.Yearly() == u""
-    assert dss.Loads.ZipV() == [0, 0, 0, 0, 0, 0, 0]
+    np.testing.assert_allclose(dss.Loads.ZipV(), [0, 0, 0, 0, 0, 0, 0])
     assert dss.Loads.kV() == 0.277
     assert dss.Loads.kVABase() == 194.164878389476
     assert dss.Loads.kW() == 160.0
@@ -1938,7 +1938,7 @@ def test_13Node_LoadShape(dss):
     assert dss.LoadShape.Normalize() is None
     assert dss.LoadShape.Npts() == 24
     assert dss.LoadShape.PBase() == 0.0
-    assert dss.LoadShape.PMult() == [
+    np.testing.assert_allclose(dss.LoadShape.PMult(), [
         0.677,
         0.6256,
         0.6087,
@@ -1963,11 +1963,11 @@ def test_13Node_LoadShape(dss):
         0.876,
         0.828,
         0.756,
-    ]
+    ])
     assert dss.LoadShape.QBase() == 0.0
-    assert dss.LoadShape.QMult() == [0.0]
+    np.testing.assert_allclose(dss.LoadShape.QMult(), [0.0])
     assert dss.LoadShape.SInterval() == 3600.0
-    assert dss.LoadShape.TimeArray() == [0.0]
+    np.testing.assert_allclose(dss.LoadShape.TimeArray(), [0.0])
     assert dss.LoadShape.UseActual() == 0
 
 
@@ -2251,16 +2251,16 @@ def test_13Node_Settings(dss):
 
     assert dss.Settings.EmergVmaxpu() == 1.08
     assert dss.Settings.EmergVminpu() == 0.9
-    assert dss.Settings.LossRegs() == [13]
+    assert list(dss.Settings.LossRegs()) == [13]
     assert dss.Settings.LossWeight() == 1.0
     assert dss.Settings.NormVmaxpu() == 1.05
     assert dss.Settings.NormVminpu() == 0.95
     assert dss.Settings.PriceCurve() == u""
     assert dss.Settings.PriceSignal() == 25.0
     assert dss.Settings.Trapezoidal() == 0
-    assert dss.Settings.UERegs() == [10]
+    assert list(dss.Settings.UERegs()) == [10]
     assert dss.Settings.UEWeight() == 1.0
-    assert dss.Settings.VoltageBases() == [115.0, 4.16, 0.48]
+    np.testing.assert_allclose(dss.Settings.VoltageBases(), [115.0, 4.16, 0.48])
     assert dss.Settings.ZoneLock() == 0
 
 
@@ -4834,7 +4834,7 @@ def test_storage_to_dataframe(dss):
             "kvarMaxAbs": {"Storage.631": "25"},
             "%Idlingkvar": {"Storage.631": ""},
             "ControlMode": {"Storage.631": "GFL"},
-            "DynOut": {"Storage.631": []},
+            "DynOut": {"Storage.631": ""},
             "DynamicEq": {"Storage.631": ""},
             "Kp": {"Storage.631": "0.01"},
             "PITol": {"Storage.631": "0"},

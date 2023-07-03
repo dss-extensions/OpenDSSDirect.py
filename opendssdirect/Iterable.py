@@ -6,8 +6,12 @@ class Base(DSSPyBase):
         # Integrate "Use environment variable for numpy version" from @kdheepak
         # https://github.com/dss-extensions/OpenDSSDirect.py/pull/103/
         prefer_lists = os.environ.get("OPENDSSDIRECT_PY_USE_NUMPY", "0").upper() not in ("1", "TRUE")
+
         DSSPyBase.__init__(self, api_util, prefer_lists=prefer_lists)
         
+        # Keep this since there are some differences when the array is empty.
+        self._get_string_array = api_util.get_string_array2
+
 
 class Iterable(Base):
     '''Based on dss_python's Iterable class.''' 
