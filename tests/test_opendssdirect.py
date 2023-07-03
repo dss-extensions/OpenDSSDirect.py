@@ -2233,7 +2233,8 @@ def test_13Node_Sensors(dss):
     assert dss.Sensors.Next() == 0
     assert dss.Sensors.ResetAll() is None
 
-    assert dss.Sensors.Currents() == [0.0]
+    with pt.raises(dss.DSSException):
+        dss.Sensors.Currents()
 
 
 def test_13Node_Settings(dss):
@@ -4354,6 +4355,23 @@ def test_loads_to_dataframe(dss):
                 "670b": 1,
                 "670c": 1,
             },
+            "Sensor": {
+                "671": "", 
+                "634a": "", 
+                "634b": "", 
+                "634c": "", 
+                "645": "", 
+                "646": "", 
+                "692": "", 
+                "675a": "", 
+                "675b": "", 
+                "675c": "", 
+                "611": "", 
+                "652": "", 
+                "670a": "", 
+                "670b": "", 
+                "670c": ""
+            },
         }
     ).to_dict()
 
@@ -4440,6 +4458,7 @@ def test_pvsystems_to_dataframe(dss):
             "daily": {"631": ""},
             "duty": {"631": ""},
             "yearly": {"631": ""},
+            "Sensor": {"631": ""},
         }
     ).to_dict()
 
