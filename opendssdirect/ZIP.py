@@ -1,12 +1,9 @@
 from ._utils import api_util, Base
 
-
 class IZIP(Base):
     __slots__ = []
     __name__ = "ZIP"
     _api_prefix = "ZIP"
-    _columns = []
-
     _columns = []
 
     def Open(self, FileName):

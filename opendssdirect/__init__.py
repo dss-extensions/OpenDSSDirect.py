@@ -1,6 +1,7 @@
 """
 This package implements the OpenDSSDirect.py API using DSS C-API instead
-of the official OpenDSS Direct DLL.
+of the official OpenDSS Direct DLL, sharing the CFFI backend and some other
+features (plotting) with DSS-Python.
 """
 from ._version import __version__
 from . import dss, utils

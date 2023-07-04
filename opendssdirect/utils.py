@@ -39,7 +39,11 @@ class Iterator(object):
 
 
 def run_command(text, dss=None):
-    """Use Text interface of OpenDSS"""
+    """
+    Use Text interface of OpenDSS, grabbing all output text in a string
+    
+    This is **deprecated** since it doesn't handle errors as exceptions and can confuse users.
+    """
 
     warnings.warn('run_command is deprecated, see https://github.com/dss-extensions/OpenDSSDirect.py/issues/70')
 
@@ -76,7 +80,7 @@ def to_dataframe(module):
         return pd.DataFrame(data).T
     else:
         warnings.warn(
-            "Pandas cannot be installed. Please see documentation for how to install extra dependencies."
+            "Pandas was not installed. Please see documentation for how to install extra dependencies."
         )
         return data
 
@@ -244,9 +248,7 @@ def monitor_to_dataframe(dss=None):
     if dss is None:
         import opendssdirect as dss
 
-    if dss.Solution.Mode() in (dss_py.enums.SolveModes.Harmonic, 17):
-        # Note: Mode 17 is HarmonicT but it was not exposed in the enum
-        #       ported from COM as of 2021-01-03
+    if dss.Solution.Mode() in (dss_py.enums.SolveModes.Harmonic, dss_py.enums.SolveModes.HarmonicT):
         columns = ['frequency', 'harmonic']
     else:
         columns = ['hour', 'second']

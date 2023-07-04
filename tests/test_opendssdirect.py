@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import pytest as pt
 import os, re
 import pandas as pd
@@ -20,6 +19,7 @@ def dss():
     import opendssdirect as dss
 
     dss.Error.ExtendedErrors(True)
+    dss.Basic.AdvancedTypes(False)
     dss.Text.Command("set eventlogdefault=yes")
     assert (
         dss.utils.run_command("Redirect {}".format(PATH_TO_DSS)) == ""
@@ -5383,3 +5383,181 @@ def test_exception_control(dss):
     # ...but it should be gone after we read it
     assert dss.Error.Number() == 0
 
+
+def test_contexts(dss):
+    dss2 = dss.Basic.NewContext()
+
+    dss.Basic.ClearAll()
+    dss.Text.Command('new circuit.test1')
+
+    dss2.Basic.ClearAll()
+    dss2.Text.Command('new circuit.test2')
+
+    assert dss.Circuit.Name() == 'test1'
+    assert dss2.Circuit.Name() == 'test2'
+
+
+def test_advtypes(dss):
+    dss.Basic.AdvancedTypes(True)
+    ckt = dss.Circuit
+
+    from opendssdirect.Iterable import OPENDSSDIRECT_PY_USE_NUMPY
+    ckt.SetActiveElement('Line.671692')
+    element = dss.CktElement
+
+    if OPENDSSDIRECT_PY_USE_NUMPY:
+        # With NumPy arrays, we have shapes to check
+
+        assert ckt.SystemY().shape == (ckt.NumNodes(), ckt.NumNodes())
+
+        assert (element.NodeOrder() == [[1, 2, 3], [1, 2, 3]]).all()
+
+        np.testing.assert_allclose(element.Currents(), [
+            [ 219.09972382 -73.01672363j, -219.09972382 +73.01672363j],
+            [  38.39052391 -56.74091721j,  -38.39052391 +56.74091721j],
+            [ -57.89537048+170.77581787j,   57.89537048-170.77581787j]
+        ])
+        assert (element.NumConductors(), element.NumTerminals()) == element.Currents().shape
+
+        np.testing.assert_allclose(element.CurrentsMagAng(), [
+            [230.94616452,  68.50813099, 180.32263833, 230.94616452, 68.50813099, 180.32263833],
+            [-18.43106123, -55.91798179, 108.72737151, 161.56893876, 124.0820182 , -71.27262848]
+        ])
+        assert (2, element.NumConductors() * element.NumTerminals()) == element.CurrentsMagAng().shape
+
+        np.testing.assert_allclose(element.SeqCurrents(), [
+            [ 67.9220189 ,  67.9220189 ],
+            [142.81150877, 142.81150877],
+            [ 71.92627184,  71.92627184]
+        ])
+        assert (3, element.NumTerminals()) == element.SeqCurrents().shape
+
+        np.testing.assert_allclose(element.CplxSeqCurrents(), [
+            [  66.53162575+13.67272568j,  -66.53162575-13.67272568j],
+            [ 141.96247316-15.54938113j, -141.96247316+15.54938113j],
+            [  10.60562491-71.14006818j,  -10.60562491+71.14006818j]
+        ])
+        assert (3, element.NumTerminals()) == element.CplxSeqCurrents().shape
+
+    else:
+        assert (element.NodeOrder() == [1, 2, 3, 1, 2, 3])
+
+        np.testing.assert_allclose(element.Currents(), [
+            219.09972382 -73.01672363j,
+            38.39052391 -56.74091721j,
+            -57.89537048+170.77581787j,
+            -219.09972382 +73.01672363j,
+            -38.39052391 +56.74091721j,
+            57.89537048-170.77581787j
+        ])
+        np.testing.assert_allclose(element.CurrentsMagAng(), [
+            230.94616452, -18.43106123, 
+            68.50813099, -55.91798179,
+            180.32263833, 108.72737151,
+            230.94616452, 161.56893876,
+            68.50813099, 124.0820182,
+            180.32263833,-71.27262848
+        ])
+        np.testing.assert_allclose(element.SeqCurrents(), [
+            67.9220189 , 
+            142.81150877, 
+            71.92627184,
+            67.9220189,
+            142.81150877,
+            71.92627184
+        ])
+        np.testing.assert_allclose(element.CplxSeqCurrents(), [
+            66.53162575+13.67272568j,
+            141.96247316-15.54938113j,
+            10.60562491-71.14006818j,
+            -66.53162575-13.67272568j,
+            -141.96247316+15.54938113j,
+            -10.60562491+71.14006818j
+        ])
+
+
+def test_threading2(dss):
+    # Ported directly from DSS-Python, but using only the 13Bus circuit
+    from opendssdirect.DSSContext import DSSContext
+    import threading
+    from time import perf_counter
+
+    dss.Basic.AllowChangeDir(False)
+
+    fns = [PATH_TO_DSS]
+
+    cases = []
+    for fn in fns:
+        for loadmult in np.linspace(0.9, 1.1, 16):
+            cases.append((fn, loadmult))
+
+    cases_to_run_threads = list(cases)
+    cases_to_run_seq = list(cases)
+
+    # Use the number of threads as CPU count, number of files
+    num = min(len(cases), os.cpu_count())
+
+    # Initialize a new context for each of the threads
+    ctxs = [dss.Basic.NewContext() for n in range(num)]
+    print(f"Using {len(ctxs)} DSS contexts")
+
+    tresults = {}
+    tconverged = {}
+    sresults = {}
+    sconverged = {}
+
+    def _run(ctx: DSSContext, case_list, converged, results):
+        tname = threading.current_thread().name
+        while case_list:
+            fn, loadmult = case_list.pop()
+            ctx.Text.Command('clear')
+            try:
+                ctx.Text.Command(f'redirect "{fn}"')
+                ctx.Solution.LoadMult(loadmult)
+                print(f'{tname}: Running "{fn}", circuit "{ctx.Circuit.Name()}", mult={loadmult}')
+                ctx.Text.Command('Solve mode=daily number=5000')
+            except Exception as ex:
+                print('ERROR:', tname, (fn, loadmult))
+                print('      ', ex.args)
+            
+            print(f'{tname}: Done "{fn}" (LoadMult={loadmult}), circuit "{ctx.Circuit.Name()}"')
+            converged[(fn, loadmult)] = ctx.Solution.Converged()
+            results[(fn, loadmult)] = ctx.Circuit.AllBusVolts()
+
+
+    t0 = perf_counter()
+    threads = []
+    for ctx in ctxs: 
+        t = threading.Thread(target=_run, args=(ctx, cases_to_run_threads, tconverged, tresults))
+        threads.append(t)
+
+    for t in threads:
+        t.start()
+        
+    for t in threads:
+        t.join()
+        
+    t1 = perf_counter()
+
+    # Check if all solutions converged
+    assert all(tconverged.values())
+
+    dt_thread = (t1 - t0)
+    print(f'Done in {dt_thread:.3f} s with {num} threads')
+
+    # Check with a sequential solution
+    t0 = perf_counter()
+
+    _run(dss, cases_to_run_seq, sconverged, sresults)
+
+    t1 = perf_counter()
+    dt_seq = (t1 - t0)
+    print(f'Done in {dt_seq:.3f} s sequentially')
+
+    # Check if each scenario has the same results wheter ran in multiple threads or single thread
+    for case in cases:
+        np.testing.assert_equal(sresults[case], tresults[case])
+
+    # Check if we actually got a lower time
+    if len(ctxs) > 2:
+        assert dt_thread < dt_seq

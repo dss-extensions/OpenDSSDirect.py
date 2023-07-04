@@ -173,21 +173,22 @@ class IBasic(Base):
         Value, = args
         self.CheckForError(self._lib.DSS_Set_AllowDOScmd(Value))
 
-    # def NewContext(self):
-    #     """
-    #     Creates a new DSS engine context.
-    #     A DSS Context encapsulates most of the global state of the original OpenDSS engine,
-    #     allowing the user to create multiple instances in the same process. By creating contexts
-    #     manually, the management of threads and potential issues should be handled by the user.
+    def NewContext(self):
+        """
+        Creates a new DSS engine context.
+        A DSS Context encapsulates most of the global state of the original OpenDSS engine,
+        allowing the user to create multiple instances in the same process. By creating contexts
+        manually, the management of threads and potential issues should be handled by the user.
 
-    #     (API Extension)
-    #     """
-    #     ffi = self._api_util.ffi
-    #     lib = self._api_util.lib_unpatched
-    #     new_ctx = ffi.gc(lib.ctx_New(), lib.ctx_Dispose)
-    #     new_api_util = CffiApiUtil(ffi, lib, new_ctx)
-    #     new_api_util._allow_complex = self._api_util._allow_complex
-    #     return IDSS(new_api_util)
+        (API Extension)
+        """
+        from .DSSContext import DSSContext
+        ffi = self._api_util.ffi
+        lib = self._api_util.lib_unpatched
+        new_ctx = ffi.gc(lib.ctx_New(), lib.ctx_Dispose)
+        new_api_util = dss_py.CffiApiUtil(ffi, lib, new_ctx)
+        new_api_util._allow_complex = self._api_util._allow_complex
+        return DSSContext(new_api_util)
 
     # def Plotting(self):
     #     """
@@ -207,6 +208,35 @@ class IBasic(Base):
     #     from dss import plot
 
     #     return plot
+
+    def AdvancedTypes(self, *args):
+        '''
+        When enabled, there are **two side-effects**:
+        
+        - **Per DSS Context:** Complex arrays and complex numbers can be returned and consumed by the Python API.
+        - **Global effect:** The low-level API provides matrix dimensions when available (`EnableArrayDimensions` is enabled).
+        
+        As a result, for example, `opendssdirect.CktElement.Yprim()` is returned as a complex matrix instead
+        of a plain array.
+        
+        When disabled, the legacy plain arrays are used and complex numbers cannot be consumed by the Python API.
+
+        *Defaults to **False** for backwards compatibility.*
+        
+        (API Extension)
+        '''
+
+        # Getter
+        if len(args) == 0:
+            arr_dim = self.CheckForError(self._lib.DSS_Get_EnableArrayDimensions()) != 0
+            allow_complex = self._api_util._allow_complex
+            return arr_dim and allow_complex
+
+        # Setter
+        Value, = args
+        self.CheckForError(self._lib.DSS_Set_EnableArrayDimensions(Value))
+        self._api_util._allow_complex = bool(Value)
+
 
     def CompatFlags(self, *args):
         """
@@ -273,7 +303,7 @@ AllowEditor = _Basic.AllowEditor
 LegacyModels = _Basic.LegacyModels
 AllowChangeDir = _Basic.AllowChangeDir
 AllowDOScmd = _Basic.AllowDOScmd
-# NewContext = _Basic.NewContext
+NewContext = _Basic.NewContext
 # Plotting = _Basic.Plotting
 CompatFlags = _Basic.CompatFlags
 _columns = _Basic._columns
@@ -297,7 +327,7 @@ __all__ = [
     "LegacyModels",
     "AllowChangeDir",
     "AllowDOScmd",
-    # "NewContext",
+    "NewContext",
     # "Plotting",
     "CompatFlags",
 ]

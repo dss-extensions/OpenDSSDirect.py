@@ -24,7 +24,7 @@ class IActiveClass(Base):
         return self.CheckForError(self._lib.ActiveClass_Get_Count())
 
     def First(self):
-        """(read-only) Sets first element in the active class to be the active DSS object. If object is a CktElement, ActiveCktELment also points to this element. Returns 0 if none."""
+        """(read-only) Sets first element in the active class to be the active DSS object. If object is a CktElement, ActiveCktElement also points to this element. Returns 0 if none."""
         return self.CheckForError(self._lib.ActiveClass_Get_First())
 
     def Name(self, *args):
