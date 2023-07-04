@@ -4,8 +4,9 @@ of the official OpenDSS Direct DLL, sharing the CFFI backend and some other
 features (plotting) with DSS-Python.
 """
 from ._version import __version__
-from . import dss, utils
-from .dss import (
+from . import utils
+from .DSSContext import (
+    dss,
     run_command,
     ActiveClass,
     Basic,
@@ -52,5 +53,6 @@ from .dss import (
     dss_lib,
     DSSException,
 )
-
-dss.dss = dss
+# Since run_command is deprecated, use these instead
+Command = dss.Command
+Commands = dss.Commands

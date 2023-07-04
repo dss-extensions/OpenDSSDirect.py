@@ -1,4 +1,7 @@
+from typing import AnyStr, List, Union
 from ._utils import Base, DSSException
+from ._utils import lib as dss_lib
+from ._utils import ffi as dss_ffi
 from .utils import run_command
 from .ActiveClass import _ActiveClass, IActiveClass
 from .Basic import _Basic, IBasic
@@ -108,6 +111,8 @@ class DSSContext(Base):
         "dss_lib",
         "dss_ffi",
         "dss",
+        "Command",
+        "Commands",
     ]
 
     # `_ptr_to_ctx` is to be used in callbacks (mapping the pointer 
@@ -177,6 +182,10 @@ class DSSContext(Base):
             self.TSData = _TSData
             self.WireData = _WireData
             self.ZIP = _ZIP
+
+            # Shortcuts
+            self.Command = self.Text.Command
+            self.Commands = self.Text.Commands
             return
 
         self.ActiveClass = IActiveClass(api_util)
@@ -230,8 +239,105 @@ class DSSContext(Base):
         self.ZIP = IZIP(api_util)
         self.DSSCore = self.YMatrix
 
+        # Shortcuts
+        self.Command = self.Text.Command
+        self.Commands = self.Text.Commands
+
+
     def run_command(self, text):
         run_command(text, self)
 
+    def __call__(self, single:Union[AnyStr, List[AnyStr]]=None, block : AnyStr = None): #TODO: benchmark and simplify (single argument)
+        '''
+        Shortcut to pass text commands.
+
+        If `single` is set and is a string, a normal `DSS.Text.Command = single` is called.
+        Otherwise, the value is passed to `DSS.Text.Commands`.
+
+        Examples:
+
+            # single command
+            dss("new Circuit.test") 
+            dss(single="new Circuit.test")
+
+            # list of commands (either will work)
+            dss(["new Circuit.test", "new Line.line1 bus1=a bus2=b"])
+            dss(single=["new circuit.test", "new Line.line1 bus1=a bus2=b"])
+            dss(block=["new circuit.test", "new Line.line1 bus1=a bus2=b"])
+
+            # block of commands in a big string
+            dss(block="""
+                clear
+                new Circuit.test
+                new Line.line1 bus1=a bus2=b
+                new Load.load1 bus1=a bus2=b
+            """)
+
+        (API Extension)
+        '''
+        if (single is not None) and (block is not None):
+           raise DSSException("Only a single argument is accepted.")
+
+        if (single is None) and (block is None):
+           raise DSSException("A value is required.")
+
+        if single is not None:
+            self.Command(single)
+            return
+
+        self.Commands(single or block)
+
+
 dss = DSSContext(None)
+ActiveClass = _ActiveClass
+Basic = _Basic
+Bus = _Bus
+CapControls = _CapControls
+Capacitors = _Capacitors
+Circuit = _Circuit
+CktElement = _CktElement
+CtrlQueue = _CtrlQueue
+DSSCore = _DSSCore
+Element = _Element
+Error = _Error
+Executive = _Executive
+Fuses = _Fuses
+Generators = _Generators
+GICSources = _GICSources
+Isource = _Isource
+LineCodes = _LineCodes
+Lines = _Lines
+LoadShape = _LoadShape
+Loads = _Loads
+Meters = _Meters
+Monitors = _Monitors
+PDElements = _PDElements
+PVsystems = _PVsystems
+Parallel = _Parallel
+Parser = _Parser
+Progress = _Progress
+Properties = _Properties
+Reclosers = _Reclosers
+RegControls = _RegControls
+Relays = _Relays
+Sensors = _Sensors
+Settings = _Settings
+Solution = _Solution
+Storages = _Storages
+SwtControls = _SwtControls
+Text = _Text
+Topology = _Topology
+Transformers = _Transformers
+Vsources = _Vsources
+XYCurves = _XYCurves
+YMatrix = _YMatrix
+CNData = _CNData
+LineGeometries = _LineGeometries
+LineSpacings = _LineSpacings
+Reactors = _Reactors
+ReduceCkt = _ReduceCkt
+TSData = _TSData
+WireData = _WireData
+ZIP = _ZIP
+
 __all__ = ["DSSContext", "dss"]

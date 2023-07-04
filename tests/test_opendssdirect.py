@@ -5476,6 +5476,27 @@ def test_advtypes(dss):
         ])
 
 
+def test_iterator(dss):
+    assert dss.Loads.AllNames() == [load.Name() for load in dss.Loads]
+
+
+def test_callable_ctx():
+    from opendssdirect import dss
+
+    dss("clear")
+    dss("new circuit.test897383")
+    assert dss.Circuit.Name() == "test897383"
+
+    dss(block="""
+        clear
+        new circuit.test23232
+        new load.load102909
+    """)
+
+    assert dss.Circuit.Name() == "test23232"
+    assert dss.Loads.First() == 1
+    assert dss.Loads.Name() == "load102909"
+
 def test_threading2(dss):
     # Ported directly from DSS-Python, but using only the 13Bus circuit
     from opendssdirect.DSSContext import DSSContext
