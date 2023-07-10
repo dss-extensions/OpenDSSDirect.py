@@ -5,28 +5,29 @@
 - [ ] Python version: <!-- (e.g. 2.7, 3.3, 3.6) -->
 - [ ] Python architecture: <!-- (e.g. x86, x64) -->
 - [ ] Operating system and version: <!-- (e.g. Windows XP, Windows 7, Windows 8, OSX 11, Red Hat, Ubuntu, Centos 6, Centos 7) -->
-- [ ] OpenDSSDirect.py version number: <!-- (e.g. v0.1.0, v0.2.5, v0.3.0) -->
+- [ ] OpenDSS Engine version number: <!-- (e.g. v0.1.0, v0.2.5, v0.3.0) You can use `opendssdirect.Basic.Version()` to get this information --> 
+- [ ] OpenDSSDirect.py Python package version number: <!-- (e.g. v0.1.0, v0.2.5, v0.3.0) You can use `opendssdirect.__version__` to get this information --> 
 
 <!--
 
 You can use the following block of code to find the version of OpenDSSDirect.py that you are using
 
 	```python
-	import opendssdirect as dss
-	print(dss.__version__)
+	import opendssdirect as odd
+	print(odd.__version__)
 	```
 
 -->
 
-<!--Delete the irrelevant sections-->
+<!-- Delete the irrelevant sections -->
 
 ### Feature Request
 
-<!--If it is a feature request, describe it in detail in this section and delete the sections below.-->
+<!-- If it is a feature request, describe it in detail in this section and delete the sections below. -->
 
 ### Bug
 
-<!--If it is a bug, answer the following questions and add information that you think is relevant. Delete the other sections-->
+<!-- If it is a bug, answer the following questions and add information that you think is relevant. Delete the other sections -->
 
 * **What is the current behavior?**
 
@@ -36,7 +37,9 @@ You can use the following block of code to find the version of OpenDSSDirect.py 
 
 * **Other information** (e.g. detailed explanation, stacktraces, related issues, suggestions how to fix, links for us to have context, eg. stackoverflow, gitter, etc)
 
+<!-- If you choose to provide screenshots, please copy paste relevant sections of text into the issue as well (so that it is easily findable using search functions -->
+
 ### Support Question
 
-<!--If it is a support question, describe it in detail in this section. Please provide the necessary OpenDSS files if possible or a minimal working example that we can use to discuss the quesiton. Delete the other sections.-->
+<!-- If it is a support question, describe it in detail in this section. Please provide the necessary OpenDSS files if possible or a minimal working example that we can use to discuss the question. Delete the other sections. -->
 
