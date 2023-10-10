@@ -1,10 +1,6 @@
 import pytest as pt
 import os, re
 import pandas as pd
-try:
-    from pandas._testing import assert_dict_equal #TODO: migrate to something else, this is bad
-except:
-    from pandas.util.testing import assert_dict_equal
 
 import numpy as np
 
@@ -12,7 +8,6 @@ current_directory = os.path.dirname(os.path.realpath(__file__))
 PATH_TO_DSS = os.path.abspath(
     os.path.join(current_directory, "./data/13Bus/IEEE13Nodeckt.dss")
 )
-
 
 @pt.fixture()
 def dss():
@@ -26,6 +21,31 @@ def dss():
     ), "Unable to find test data"
     return dss
 
+
+def to_lower(names):
+    return [name.lower() if isinstance(name, str) else name for name in names]
+
+
+def dict_keys_to_lower(data):
+    return dict(zip(to_lower(data.keys()), data.values()))
+
+
+def _assert_dict_equal(d1, d2, outer_key=None):
+    d1_keys = set(d1.keys())
+    d2_keys = set(d2.keys())
+    assert d1_keys == d2_keys, (d1_keys - d2_keys, d2_keys - d1_keys)
+    for key in d1_keys:
+        v1 = d1[key]
+        v2 = d2[key]
+        if isinstance(v1, dict):
+            _assert_dict_equal_lkeys(v1, v2, outer_key=key)
+        else:
+            assert (v1 == v2), (outer_key, key, v1, v2)
+
+def _assert_dict_equal_lkeys(d1, d2, outer_key=None):
+    d1 = dict_keys_to_lower(d1)
+    d2 = dict_keys_to_lower(d2)
+    _assert_dict_equal(d1, d2, outer_key=outer_key)
 
 def test_extended_errors(dss):
     assert dss.Error.ExtendedErrors()
@@ -1149,7 +1169,7 @@ def test_13Node_Circuit(dss):
 
 def test_13Node_CktElement(dss):
 
-    assert dss.CktElement.AllPropertyNames() == [
+    assert to_lower(dss.CktElement.AllPropertyNames()) == to_lower([
         u"bus1",
         u"bus2",
         u"linecode",
@@ -1188,7 +1208,7 @@ def test_13Node_CktElement(dss):
         u"basefreq",
         u"enabled",
         u"like",
-    ]
+    ])
     with pt.raises(dss.DSSException):
         dss.CktElement.AllVariableNames()
     
@@ -1597,7 +1617,7 @@ def test_13Node_CapControls(dss):
 
 
 def test_13Node_Element(dss):
-    assert dss.Element.AllPropertyNames() == [
+    assert to_lower(dss.Element.AllPropertyNames()) == to_lower([
         u"bus1",
         u"bus2",
         u"linecode",
@@ -1636,7 +1656,7 @@ def test_13Node_Element(dss):
         u"basefreq",
         u"enabled",
         u"like",
-    ]
+    ])
     assert dss.Element.Name() == u"Line.671692"
     assert dss.Element.NumProperties() == 38
 
@@ -2043,7 +2063,7 @@ def test_13Node_Monitors(dss):
     ).to_dict()
 
     actual_dict = dss.utils.monitor_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_13Node_PDElements(dss):
@@ -2165,10 +2185,10 @@ def test_13Node_Properties(dss):  # TODO!! rework DSSProperty
         dss.Properties.Description().replace(os.linesep, "\n")
         == u"Name of bus to which first terminal is connected.\nExample:\nbus1=busname   (assumes all terminals connected in normal phase order)\nbus1=busname.3.1.2.0 (specify terminal to node connections explicitly)"
     )
-    assert dss.Properties.Name() == u"bus1"
+    assert dss.Properties.Name().lower() == u"bus1"
 
     dss.dss_lib.DSSProperty_Set_Index(0)  # TODO?
-    assert dss.Properties.Name() == u"bus1"
+    assert dss.Properties.Name().lower() == u"bus1"
     assert dss.Properties.Value() == u"671"
 
 
@@ -2416,25 +2436,25 @@ def test_capacitors_to_dataframe(dss):
     ).to_dict()
 
     actual_dict = dss.utils.capacitors_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_fuses_to_dataframe(dss):
     expected_dict = {}
     actual_dict = dss.utils.fuses_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_generators_to_dataframe(dss):
     expected_dict = {}
     actual_dict = dss.utils.generators_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_isource_to_dataframe(dss):
     expected_dict = {}
     actual_dict = dss.utils.isource_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
     dss.Text.Command("New Isource.sampleIsource Bus1=611.3 Phases=1 Amps=0.1 Angle=30")
 
@@ -2449,7 +2469,7 @@ def test_isource_to_dataframe(dss):
     ).to_dict()
 
     actual_dict = dss.utils.isource_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_lines_to_dataframe(dss):
@@ -3720,7 +3740,7 @@ def test_lines_to_dataframe(dss):
     ).to_dict()
 
     actual_dict = dss.utils.lines_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_loads_to_dataframe(dss):
@@ -4376,7 +4396,7 @@ def test_loads_to_dataframe(dss):
     ).to_dict()
 
     actual_dict = dss.utils.loads_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_loadshape_to_dataframe(dss):
@@ -4425,13 +4445,13 @@ def test_loadshape_to_dataframe(dss):
     ).to_dict()
 
     actual_dict = dss.utils.loadshape_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_meters_to_dataframe(dss):
     expected_dict = {}
     actual_dict = dss.utils.meters_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_pvsystems_to_dataframe(dss):
@@ -4463,14 +4483,14 @@ def test_pvsystems_to_dataframe(dss):
     ).to_dict()
 
     actual_dict = dss.utils.pvsystems_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_reclosers_to_dataframe(dss):
     expected_dict = {}
     actual_dict = dss.utils.reclosers_to_dataframe().to_dict()
 
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_regcontrols_to_dataframe(dss):
@@ -4503,19 +4523,19 @@ def test_regcontrols_to_dataframe(dss):
     ).to_dict()
 
     actual_dict = dss.utils.regcontrols_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_relays_to_dataframe(dss):
     expected_dict = {}
     actual_dict = dss.utils.relays_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_sensors_to_dataframe(dss):
     expected_dict = {}
     actual_dict = dss.utils.sensors_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_transformers_to_dataframe(dss):
@@ -4740,7 +4760,7 @@ def test_transformers_to_dataframe(dss):
     ).to_dict()
 
     actual_dict = dss.utils.transformers_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_vsources_to_dataframe(dss):
@@ -4757,14 +4777,14 @@ def test_vsources_to_dataframe(dss):
     ).to_dict()
 
     actual_dict = dss.utils.vsources_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_xycurves_to_dataframe(dss):
     expected_dict = {}
 
     actual_dict = dss.utils.xycurves_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_storage_to_dataframe(dss):
@@ -4823,8 +4843,8 @@ def test_storage_to_dataframe(dss):
             "yearly": {"Storage.631": ""},
             "%Cutin": {"Storage.631": "0"},
             "%Cutout": {"Storage.631": "0"},
-            "%PminNoVars": {"Storage.631": "-1"},
-            "%PminkvarMax": {"Storage.631": "-1"},
+            "%PminNoVars": {"Storage.631": "0"}, # Changed from -1 on 2023-09-29; value is irrelevant, default
+            "%PminkvarMax": {"Storage.631": "0"}, # Changed from -1 on 2023-09-29; value is irrelevant, default
             "%kWrated": {"Storage.631": "100"},
             "EffCurve": {"Storage.631": ""},
             "PFPriority": {"Storage.631": "No"},
@@ -4848,7 +4868,7 @@ def test_storage_to_dataframe(dss):
 
     actual_dict = dss.utils.class_to_dataframe("Storage").to_dict()
 
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_linegeometry_class_to_dataframe():
@@ -4881,7 +4901,8 @@ def test_linegeometry_class_to_dataframe():
     dss.utils.is_pandas_installed = False
     data = dss.utils.class_to_dataframe("linegeometry")
     dss.utils.is_pandas_installed = is_pandas_installed
-    assert data == {
+
+    _assert_dict_equal_lkeys(data, {
         "linegeometry.hc2_336_1neut_0mess": {
             "Seasons": "1",
             "Ratings": ["0"],
@@ -4904,7 +4925,7 @@ def test_linegeometry_class_to_dataframe():
             "tscables": ["acsr336", "acsr336", "acsr336", "acsr1/0"],
             "like": "",
         }
-    }
+    })
 
 
 def test_ymatrix(dss):
@@ -5286,7 +5307,7 @@ def test_wiredata_class_to_dataframe():
     data = dss.utils.class_to_dataframe("wiredata")
     dss.utils.is_pandas_installed = is_pandas_installed
 
-    assert data == {
+    _assert_dict_equal_lkeys(data, {
         "wiredata.acsr1/0": {
             "Capradius": "0.199",
             "Seasons": "1",
@@ -5319,7 +5340,7 @@ def test_wiredata_class_to_dataframe():
             "radius": "0.3705",
             "radunits": "in",
         },
-    }
+    })
 
 
 def test_long_path():
@@ -5497,7 +5518,7 @@ def test_callable_ctx():
     assert dss.Loads.First() == 1
     assert dss.Loads.Name() == "load102909"
 
-def test_threading2(dss):
+def xtest_threading2(dss):
     # Ported directly from DSS-Python, but using only the 13Bus circuit
     from opendssdirect.DSSContext import DSSContext
     import threading

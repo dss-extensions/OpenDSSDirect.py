@@ -92,7 +92,23 @@ def _clean_data(data, class_name):
         name = "{class_name}.{element}".format(class_name=class_name, element=element)
         dss.ActiveClass.Name(element)
 
-        if "nconds" in dss.Element.AllPropertyNames():
+        all_prop_names = dss.Element.AllPropertyNames()
+        if "NConds" in all_prop_names:
+            nconds = int(data[name]["NConds"])
+            x = []
+            h = []
+            units = []
+
+            for cond in range(1, nconds + 1):
+                dss.run_command("{name}.cond={cond}".format(name=name, cond=cond))
+                x.append(float(dss.run_command("? {name}.x".format(name=name))))
+                h.append(float(dss.run_command("? {name}.h".format(name=name))))
+                units.append(dss.run_command("? {name}.units".format(name=name)))
+
+            data[name]["X"] = x
+            data[name]["H"] = h
+            data[name]["Units"] = units
+        elif "nconds" in all_prop_names: # backwards compat
             nconds = int(data[name]["nconds"])
             x = []
             h = []
