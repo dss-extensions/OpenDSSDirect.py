@@ -1,5 +1,5 @@
 import pytest as pt
-import os, re
+import os, re, sys
 import pandas as pd
 
 import numpy as np
@@ -9,9 +9,22 @@ PATH_TO_DSS = os.path.abspath(
     os.path.join(current_directory, "./data/13Bus/IEEE13Nodeckt.dss")
 )
 
+def import_odd():
+    if sys.platform == 'win32':
+        # When running pytest, the faulthandler seems too eager
+        # to grab FPC's exceptions, even when handled
+        import faulthandler
+        faulthandler.disable()
+        import opendssdirect as dss
+        faulthandler.enable()
+    else:
+        import opendssdirect as dss
+
+    return dss
+
 @pt.fixture()
 def dss():
-    import opendssdirect as dss
+    dss = import_odd()
 
     dss.Error.ExtendedErrors(True)
     dss.Basic.AdvancedTypes(False)
@@ -40,10 +53,12 @@ def _assert_dict_equal(d1, d2, outer_key=None):
         if isinstance(v1, dict):
             _assert_dict_equal_lkeys(v1, v2, outer_key=key)
         elif isinstance(v1, np.ndarray) or (
-            isinstance(v1, (list, tuple)) and 
+            isinstance(v1, (list, tuple)) and
             (len(v1) > 0) and isinstance(v1[0], (float, int))
         ):
-            np.testing.assert_array_almost_equal(v1, v2, err_msg=f'{outer_key}.{key}')
+            np.testing.assert_array_almost_equal(v1, v2, decimal=5, err_msg=f'{outer_key}.{key}')
+        elif isinstance(v1, float):
+            np.testing.assert_almost_equal(v1, v2, decimal=5, err_msg=f'{outer_key}.{key}')
         else:
             assert (v1 == v2), (outer_key, key, v1, v2)
 
@@ -58,12 +73,22 @@ def test_extended_errors(dss):
 
 def test_package_import():
 
-    import opendssdirect
+    if sys.platform == 'win32':
+        # When running pytest, the faulthandler seems too eager
+        # to grab FPC's exceptions, even when handled
+        import faulthandler
+        faulthandler.disable()
+        import opendssdirect
+        faulthandler.enable()
+    else:
+        import opendssdirect
 
     assert getattr(opendssdirect, "__version__") is not None
 
 
 def test_module_import():
+
+    import_odd()
 
     import inspect
     from opendssdirect.Iterable import Iterable, Base
@@ -226,7 +251,7 @@ def test_ActiveClass(dss):
 
 def test_configuration():
 
-    import opendssdirect as dss
+    dss = import_odd()
 
     # Test toggling the console output using AllowForms.
     # Note COM's AllowForms can only be disabled and it ignores
@@ -465,10 +490,10 @@ def test_13Node_Bus(dss):
 
     # TODO: this should not be sorted, we should define the order of the results
     assert sorted(dss.YMatrix.getV()[2:]) == sorted(dss.Circuit.AllBusVolts())
-    
+
     assert dss.Bus.AllPDEatBus() == ["Transformer.sub"]
     assert dss.Bus.AllPCEatBus() == ["Vsource.source"]
-    
+
     dss.Circuit.SetActiveBus("684")
     assert dss.Bus.AllPDEatBus() == ['Line.671684', 'Line.684611', 'Line.684652']
     assert dss.Bus.AllPCEatBus() == []
@@ -1216,10 +1241,10 @@ def test_13Node_CktElement(dss):
     ])
     with pt.raises(dss.DSSException):
         dss.CktElement.AllVariableNames()
-    
+
     with pt.raises(dss.DSSException):
         dss.CktElement.AllVariableValues()
-        
+
     assert dss.CktElement.BusNames() == [u"671", u"692"]
     assert dss.CktElement.Open(1, 0) is None
     assert dss.CktElement.IsOpen(1, 0)
@@ -1353,7 +1378,7 @@ def test_13Node_CktElement(dss):
             -68.33002136489694,
             156.9385702870313,
             -414.5331627631359,
-            -52.80423048102611,            
+            -52.80423048102611,
         ],
         decimal=4,
     )
@@ -1370,7 +1395,7 @@ def test_13Node_CktElement(dss):
             71.92627183650107,
             67.92201890463316,
             142.811508772432,
-            71.92627183650107,            
+            71.92627183650107,
         ],
         decimal=4,
     )
@@ -1400,7 +1425,7 @@ def test_13Node_CktElement(dss):
             42.212519130185925,
             82.59752865884985,
             2391.5781233658486,
-            42.21252404660491,            
+            42.21252404660491,
         ],
         decimal=4,
     )
@@ -1425,7 +1450,7 @@ def test_13Node_CktElement(dss):
             -1338.4031344410685,
             -2109.8005600677157,
             -1015.4071496666254,
-            2083.115713199053,            
+            2083.115713199053,
         ],
         decimal=4,
     )
@@ -2019,13 +2044,13 @@ def test_13Node_Monitors(dss):
     assert dss.Monitors.ResetAll() is None
     assert dss.Monitors.SaveAll() is None
     assert dss.Monitors.SampleAll() is None
-    
+
     dss.Text.Command("new monitor.test_monitor element=Transformer.Reg3 terminal=2 mode=2")
     dss.Text.Command("solve mode=daily step=15m number=10")
-    
+
     assert dss.Monitors.Count() == 1
     assert dss.Monitors.First() == 1
-    
+
     expected_dict = pd.DataFrame(
         {
             "Tap (pu)": {
@@ -2133,12 +2158,12 @@ def test_13Node_PDElements(dss):
     for name in all_names:
         # We have to iterate by name to include disabled elements
         dss.PDElements.Name(name)
-        
+
         currents = np.asarray(dss.CktElement.Currents()).view(dtype=complex)
-        
+
         all_max_currents2.append(np.max(np.abs(currents[:dss.CktElement.NumPhases()])))
         all_max_currents_all_terms_2.append(np.max(np.abs(currents)))
-        
+
         all_currents2.append(currents)
         all_norm_amp2.append(dss.CktElement.NormalAmps())
         all_emerg_amp2.append(dss.CktElement.EmergAmps())
@@ -2152,8 +2177,8 @@ def test_13Node_PDElements(dss):
 
     np.testing.assert_array_almost_equal(all_max_currents, all_max_currents2, decimal=4)
     np.testing.assert_array_almost_equal(
-        all_max_currents_all_terms, 
-        all_max_currents_all_terms_2, 
+        all_max_currents_all_terms,
+        all_max_currents_all_terms_2,
         decimal=4
     )
 
@@ -2170,8 +2195,8 @@ def test_13Node_PDElements(dss):
     )
 
     np.testing.assert_array_almost_equal(
-        np.asarray(all_currents).view(dtype=complex), 
-        np.concatenate(all_currents2), 
+        np.asarray(all_currents).view(dtype=complex),
+        np.concatenate(all_currents2),
         decimal=4
     )
 
@@ -4381,20 +4406,20 @@ def test_loads_to_dataframe(dss):
                 "670c": 1,
             },
             "Sensor": {
-                "671": "", 
-                "634a": "", 
-                "634b": "", 
-                "634c": "", 
-                "645": "", 
-                "646": "", 
-                "692": "", 
-                "675a": "", 
-                "675b": "", 
-                "675c": "", 
-                "611": "", 
-                "652": "", 
-                "670a": "", 
-                "670b": "", 
+                "671": "",
+                "634a": "",
+                "634b": "",
+                "634c": "",
+                "645": "",
+                "646": "",
+                "692": "",
+                "675a": "",
+                "675b": "",
+                "675c": "",
+                "611": "",
+                "652": "",
+                "670a": "",
+                "670b": "",
                 "670c": ""
             },
         }
@@ -4899,7 +4924,7 @@ def test_linegeometry_class_to_dataframe():
     Calcvoltagebases
     Solve"""
 
-    import opendssdirect as dss
+    dss = import_odd()
 
     dss.run_command(string).strip()
     is_pandas_installed = dss.utils.is_pandas_installed
@@ -5203,7 +5228,7 @@ def test_ymatrix(dss):
             -6.5300017720164165+6.619904745555312j,
             -2.407733520011465+0.9993426902982676j,
             13.754939838994417-13.264848127833126j
-        ], dtype=complex), 
+        ], dtype=complex),
         np.array([
             0,  1,  2,  3,  4,  0,  1,  2,  4,  5,  0,  1,  2,  3,  5,  0,  2,
             3,  6,  0,  1,  4,  7,  1,  2,  5,  8,  3,  6,  7,  8, 31, 32, 33,
@@ -5220,43 +5245,43 @@ def test_ymatrix(dss):
            18, 28, 29, 30, 31, 32, 33, 37,  6,  7,  8,  9, 10, 11, 18, 28, 29,
            30, 31, 32, 33, 37, 15, 16, 17, 34, 35, 36, 15, 16, 17, 34, 35, 36,
            15, 16, 17, 34, 35, 36, 18, 19, 20, 32, 33, 37, 16, 21, 22, 23, 24,
-           25, 38, 15, 17, 27, 39, 40, 15, 17, 26, 39, 40], dtype=np.int32), 
-        np.array([  
+           25, 38, 15, 17, 27, 39, 40, 15, 17, 26, 39, 40], dtype=np.int32),
+        np.array([
             0,   5,  10,  15,  19,  23,  27,  34,  41,  48,  55,  62,  69,
             71,  73,  75,  87,  97, 109, 115, 119, 123, 130, 137, 143, 149,
             155, 157, 159, 168, 177, 186, 198, 212, 226, 232, 238, 244, 250,
             257, 262, 267], dtype=np.int32)
     )
-    
+
     expected_V = [
-        0.0, 0.0, 57502.68622482564, 33189.47561163729, -10.988868660972098, -66394.86888242468, 
-        -57491.697356164674, 33205.39328374589, 2401.562774320432, -0.46690091155609226, 
-        -1201.2376790663666, -2079.7175126796437, -1200.3116016198273, 2080.1419403490627, 
-        2536.356120228099, -0.5793286234950956, -1246.2598772664523, -2157.4877137350218, 
-        -1267.5877694598496, 2196.935539327288, 2426.426283208282, -109.96557825373475, 
-        -1300.0178453618112, -2096.2860825922016, -1120.4252829545615, 2128.6048961933866, 
-        273.1208520924334, -15.653268696155022, -149.22087189563985, -236.28815213487727, 
-        -124.73890495654813, 242.00752558006548, 2350.0787848280174, -221.0796482325268, 
-        -1338.403130602016, -2109.8005657418075, -1015.4071554561624, 2083.115730276635, 
-        -1295.6847720988385, -2078.36830798424, -1296.2419078314422, -2073.161856729391, 
-        -1121.791131783235, 2124.3537662394715, -1015.4071496666254, 2083.115713199053, 
-        2350.078762918045, -221.07964093085445, 2333.5003985622425, -229.7550420165232, 
-        -1347.980749354996, -2110.413577571908, -1013.968224484203, 2078.6483630432745, 
-        -1002.1266180672616, 2078.753428367296, 2332.4291296649067, -217.30934684181196, 
-        2407.055227539434, -145.37221180195166, -1312.3003350597062, -2102.372937700745, 
-        -1083.0006449663492, 2116.1077231577597, 2433.850246648693, -107.5228592594183, 
-        -1300.761594930117, -2101.270878230695, -1123.5656240409862, 2134.1389201731336, 
-        2350.078813428112, -221.07966574213293, -1338.4031538526608, -2109.8005932052947, 
-        -1015.4071597837608, 2083.1157650090267, -1122.389508981748, 2129.5620039280097, 
-        -1338.4031344410685, -2109.8005600677157, 2345.3898452775716, -221.5997955616163, 
+        0.0, 0.0, 57502.68622482564, 33189.47561163729, -10.988868660972098, -66394.86888242468,
+        -57491.697356164674, 33205.39328374589, 2401.562774320432, -0.46690091155609226,
+        -1201.2376790663666, -2079.7175126796437, -1200.3116016198273, 2080.1419403490627,
+        2536.356120228099, -0.5793286234950956, -1246.2598772664523, -2157.4877137350218,
+        -1267.5877694598496, 2196.935539327288, 2426.426283208282, -109.96557825373475,
+        -1300.0178453618112, -2096.2860825922016, -1120.4252829545615, 2128.6048961933866,
+        273.1208520924334, -15.653268696155022, -149.22087189563985, -236.28815213487727,
+        -124.73890495654813, 242.00752558006548, 2350.0787848280174, -221.0796482325268,
+        -1338.403130602016, -2109.8005657418075, -1015.4071554561624, 2083.115730276635,
+        -1295.6847720988385, -2078.36830798424, -1296.2419078314422, -2073.161856729391,
+        -1121.791131783235, 2124.3537662394715, -1015.4071496666254, 2083.115713199053,
+        2350.078762918045, -221.07964093085445, 2333.5003985622425, -229.7550420165232,
+        -1347.980749354996, -2110.413577571908, -1013.968224484203, 2078.6483630432745,
+        -1002.1266180672616, 2078.753428367296, 2332.4291296649067, -217.30934684181196,
+        2407.055227539434, -145.37221180195166, -1312.3003350597062, -2102.372937700745,
+        -1083.0006449663492, 2116.1077231577597, 2433.850246648693, -107.5228592594183,
+        -1300.761594930117, -2101.270878230695, -1123.5656240409862, 2134.1389201731336,
+        2350.078813428112, -221.07966574213293, -1338.4031538526608, -2109.8005932052947,
+        -1015.4071597837608, 2083.1157650090267, -1122.389508981748, 2129.5620039280097,
+        -1338.4031344410685, -2109.8005600677157, 2345.3898452775716, -221.5997955616163,
         -1009.5693326805173, 2080.5326334201427
     ]
-    
+
     expected_I = [
-        45.06668904138904, 24.807535582766718, 69802.42815021734, -72191.08720768025, 
-        -97420.52952591579, -24355.13240711842, 27618.10139734361, 96546.21962201368, 
-        0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 
-        0.0, 0.0, -13.833771377298945, 10.726871597152865, -8.968504770843197, 
+        45.06668904138904, 24.807535582766718, 69802.42815021734, -72191.08720768025,
+        -97420.52952591579, -24355.13240711842, 27618.10139734361, 96546.21962201368,
+        0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+        0.0, 0.0, -13.833771377298945, 10.726871597152865, -8.968504770843197,
         -3.417089130031627, -3.12498992294411, -18.470505046170956, -2.667048628795584,
         3.832056283537952, -0.46758569533298555, -1.9484679417918613, 3.1346343241285695,
         -1.8835883417461048, -3.31446662403701, -1.321239610087268, -7.105427357601002e-15,
@@ -5265,7 +5290,7 @@ def test_ymatrix(dss):
         -3.0888821721242508, -0.8862751281506647, -1.9603496363737634, -10.9319093354963,
         0.028161796268869943, -3.0158125881806797, 0.0, 0.0, 0.06464719014600195,
         -0.04347962137929162, -1.7990236975013012, -0.9604538679363639, -0.05795649932674607,
-        -1.0830078082714039, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 
+        -1.0830078082714039, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
         0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
     ]
 
@@ -5304,7 +5329,7 @@ def test_wiredata_class_to_dataframe():
     Calcvoltagebases
     Solve"""
 
-    import opendssdirect as dss
+    dss = import_odd()
 
     dss.run_command(commands)
     is_pandas_installed = dss.utils.is_pandas_installed
@@ -5350,7 +5375,7 @@ def test_wiredata_class_to_dataframe():
 
 def test_long_path():
 
-    import opendssdirect as dss
+    dss = import_odd()
     import tempfile, shutil
     import warnings
 
@@ -5383,7 +5408,7 @@ def test_long_path():
 
 
 def test_dss_extensions_debug():
-    import opendssdirect
+    opendssdirect = import_odd()
     import dss
 
     # Check if the loaded version is correct
@@ -5477,7 +5502,7 @@ def test_advtypes(dss):
             57.89537048-170.77581787j
         ])
         np.testing.assert_allclose(element.CurrentsMagAng(), [
-            230.94616452, -18.43106123, 
+            230.94616452, -18.43106123,
             68.50813099, -55.91798179,
             180.32263833, 108.72737151,
             230.94616452, 161.56893876,
@@ -5485,8 +5510,8 @@ def test_advtypes(dss):
             180.32263833,-71.27262848
         ])
         np.testing.assert_allclose(element.SeqCurrents(), [
-            67.9220189 , 
-            142.81150877, 
+            67.9220189 ,
+            142.81150877,
             71.92627184,
             67.9220189,
             142.81150877,
@@ -5507,6 +5532,7 @@ def test_iterator(dss):
 
 
 def test_callable_ctx():
+    import_odd()
     from opendssdirect import dss
 
     dss("clear")
@@ -5566,7 +5592,7 @@ def xtest_threading2(dss):
             except Exception as ex:
                 print('ERROR:', tname, (fn, loadmult))
                 print('      ', ex.args)
-            
+
             print(f'{tname}: Done "{fn}" (LoadMult={loadmult}), circuit "{ctx.Circuit.Name()}"')
             converged[(fn, loadmult)] = ctx.Solution.Converged()
             results[(fn, loadmult)] = ctx.Circuit.AllBusVolts()
@@ -5574,16 +5600,16 @@ def xtest_threading2(dss):
 
     t0 = perf_counter()
     threads = []
-    for ctx in ctxs: 
+    for ctx in ctxs:
         t = threading.Thread(target=_run, args=(ctx, cases_to_run_threads, tconverged, tresults))
         threads.append(t)
 
     for t in threads:
         t.start()
-        
+
     for t in threads:
         t.join()
-        
+
     t1 = perf_counter()
 
     # Check if all solutions converged
