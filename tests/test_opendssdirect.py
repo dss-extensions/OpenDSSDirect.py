@@ -39,6 +39,11 @@ def _assert_dict_equal(d1, d2, outer_key=None):
         v2 = d2[key]
         if isinstance(v1, dict):
             _assert_dict_equal_lkeys(v1, v2, outer_key=key)
+        elif isinstance(v1, np.ndarray) or (
+            isinstance(v1, (list, tuple)) and 
+            (len(v1) > 0) and isinstance(v1[0], (float, int))
+        ):
+            np.testing.assert_array_almost_equal(v1, v2, err_msg=f'{outer_key}.{key}')
         else:
             assert (v1 == v2), (outer_key, key, v1, v2)
 
