@@ -5,6 +5,7 @@ features (plotting) with DSS-Python.
 """
 from ._version import __version__
 from . import utils
+from dss import enums
 from .DSSContext import (
     dss,
     run_command,

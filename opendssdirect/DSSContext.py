@@ -2,6 +2,7 @@ from typing import AnyStr, List, Union
 from ._utils import Base, DSSException
 from ._utils import lib as dss_lib
 from ._utils import ffi as dss_ffi
+from . import utils as _utils
 from .utils import run_command
 from .ActiveClass import _ActiveClass, IActiveClass
 from .Basic import _Basic, IBasic
@@ -114,6 +115,8 @@ class DSSContext(Base):
         "Command",
         "Commands",
     ]
+
+    utils = _utils
 
     # `_ptr_to_ctx` is to be used in callbacks (mapping the pointer 
     # to the equivalent Python object)
