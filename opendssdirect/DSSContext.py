@@ -247,7 +247,7 @@ class DSSContext(Base):
     def run_command(self, text):
         run_command(text, self)
 
-    def __call__(self, single:Union[AnyStr, List[AnyStr]]=None, block : AnyStr = None): #TODO: benchmark and simplify (single argument)
+    def __call__(self, cmds: Union[AnyStr, List[AnyStr]] = None):
         '''
         Shortcut to pass text commands.
 
@@ -258,15 +258,12 @@ class DSSContext(Base):
 
             # single command
             dss("new Circuit.test") 
-            dss(single="new Circuit.test")
 
             # list of commands (either will work)
             dss(["new Circuit.test", "new Line.line1 bus1=a bus2=b"])
-            dss(single=["new circuit.test", "new Line.line1 bus1=a bus2=b"])
-            dss(block=["new circuit.test", "new Line.line1 bus1=a bus2=b"])
 
             # block of commands in a big string
-            dss(block="""
+            dss("""
                 clear
                 new Circuit.test
                 new Line.line1 bus1=a bus2=b
@@ -275,17 +272,16 @@ class DSSContext(Base):
 
         (API Extension)
         '''
-        if (single is not None) and (block is not None):
-           raise DSSException("Only a single argument is accepted.")
+        # self.Commands(cmds) -- inlined
+        if isinstance(cmds, (str, bytes)):
+            if type(cmds) is not bytes:
+                cmds = cmds.encode(self._api_util.codec)
+            self.CheckForError(self._lib.Text_CommandBlock(cmds))
+        else:
+            self.CheckForError(
+                self._set_string_array(self._lib.Text_CommandArray, cmds)
+            )
 
-        if (single is None) and (block is None):
-           raise DSSException("A value is required.")
-
-        if single is not None:
-            self.Command(single)
-            return
-
-        self.Commands(single or block)
 
 
 dss = DSSContext(None)
