@@ -1,5 +1,5 @@
 from ._utils import api_util, Base
-
+from dss.enums import DSSPropertyNameStyle
 
 class ISettings(Base):
     __slots__ = []
@@ -254,6 +254,9 @@ class ISettings(Base):
         Value, = args
         self.CheckForError(self._lib.Settings_Set_IterateDisabled(Value))
 
+    def SetPropertyNameStyle(self, value: DSSPropertyNameStyle):
+        '''Switch the property names according'''
+        self._check_for_error(self._lib.Settings_SetPropertyNameStyle(value))
 
 _Settings = ISettings(api_util)
 
