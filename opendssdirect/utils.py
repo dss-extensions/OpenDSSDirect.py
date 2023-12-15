@@ -1,6 +1,6 @@
 import inspect
 import warnings
-from ._utils import dss_py
+from dss_python_backend import enums
 from .Iterable import Iterable
 
 is_pandas_installed = True
@@ -264,7 +264,7 @@ def monitor_to_dataframe(dss=None):
     if dss is None:
         import opendssdirect as dss
 
-    if dss.Solution.Mode() in (dss_py.enums.SolveModes.Harmonic, dss_py.enums.SolveModes.HarmonicT):
+    if dss.Solution.Mode() in (enums.SolveModes.Harmonic, enums.SolveModes.HarmonicT):
         columns = ['frequency', 'harmonic']
     else:
         columns = ['hour', 'second']
