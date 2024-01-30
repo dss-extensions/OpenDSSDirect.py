@@ -11,8 +11,9 @@ except ImportError:
     is_pandas_installed = False
 
 
-class Iterator(object):
+class Iterator:
     def __init__(self, module, function):
+        warnings.warn("OpenDSSDirect.py's Iterator is deprecated; you can use native Python iterators directly now.", DeprecationWarning, stacklevel=2)
         assert inspect.ismodule(module) or isinstance(module, Iterable), "{module} must be of type module or a DSS iterable".format(
             module=module
         )
@@ -20,7 +21,7 @@ class Iterator(object):
         self.function = function
 
     def __iter__(self):
-        import opendssdirect as dss
+        from opendssdirect import dss
 
         try:
             idx = self.module.First()
@@ -45,10 +46,11 @@ def run_command(text, dss=None):
     This is **deprecated** since it doesn't handle errors as exceptions and can confuse users.
     """
 
-    warnings.warn('run_command is deprecated, see https://github.com/dss-extensions/OpenDSSDirect.py/issues/70')
+    warnings.warn('run_command is deprecated (use Command, Commands or the callable shortcut), see https://github.com/dss-extensions/OpenDSSDirect.py/issues/70', 
+                  DeprecationWarning, stacklevel=2)
 
     if dss is None:
-        import opendssdirect as dss
+        from opendssdirect import dss
 
     api_util = dss.Basic._api_util
     r = []
@@ -60,15 +62,15 @@ def run_command(text, dss=None):
 
 
 def to_dataframe(module):
+    warnings.warn("to_dataframe is deprecated; it will not be removed any time soon, but we recommend trying AltDSS-Python's dataframe exports.", DeprecationWarning, stacklevel=2)
     data = dict()
 
-    for e in Iterator(module, "Name"):
-        data[e()] = dict()
+    for e in module:
+        data[e.Name()] = dict()
 
     if len(data) != 0:
-
-        for i in Iterator(module, "Name"):
-            element_name = i()
+        for element in module:
+            element_name = element.Name()
             data[element_name] = {
                 n: getattr(module, n)() for n, f in getmembers(module)
             }
@@ -86,7 +88,7 @@ def to_dataframe(module):
 
 
 def _clean_data(data, class_name):
-    import opendssdirect as dss
+    from opendssdirect import dss
 
     for element in dss.ActiveClass.AllNames():
         name = "{class_name}.{element}".format(class_name=class_name, element=element)
@@ -100,14 +102,21 @@ def _clean_data(data, class_name):
             units = []
 
             for cond in range(1, nconds + 1):
-                dss.run_command("{name}.cond={cond}".format(name=name, cond=cond))
-                x.append(float(dss.run_command("? {name}.x".format(name=name))))
-                h.append(float(dss.run_command("? {name}.h".format(name=name))))
-                units.append(dss.run_command("? {name}.units".format(name=name)))
+                dss("{name}.cond={cond}".format(name=name, cond=cond))
+
+                dss("? {name}.x".format(name=name))
+                x.append(float(dss.Text.Result()))
+
+                dss("? {name}.h".format(name=name))
+                h.append(float(dss.Text.Result()))
+
+                dss("? {name}.units".format(name=name))
+                units.append(dss.Text.Result())
 
             data[name]["X"] = x
             data[name]["H"] = h
             data[name]["Units"] = units
+
         elif "nconds" in all_prop_names: # backwards compat
             nconds = int(data[name]["nconds"])
             x = []
@@ -115,10 +124,16 @@ def _clean_data(data, class_name):
             units = []
 
             for cond in range(1, nconds + 1):
-                dss.run_command("{name}.cond={cond}".format(name=name, cond=cond))
-                x.append(float(dss.run_command("? {name}.x".format(name=name))))
-                h.append(float(dss.run_command("? {name}.h".format(name=name))))
-                units.append(dss.run_command("? {name}.units".format(name=name)))
+                dss("{name}.cond={cond}".format(name=name, cond=cond))
+
+                dss("? {name}.x".format(name=name))
+                x.append(float(dss.Text.Result()))
+
+                dss("? {name}.h".format(name=name))
+                h.append(float(dss.Text.Result()))
+
+                dss("? {name}.units".format(name=name))
+                units.append(dss.Text.Result())
 
             data[name]["x"] = x
             data[name]["h"] = h
@@ -128,6 +143,7 @@ def _clean_data(data, class_name):
 
 
 def class_to_dataframe(class_name, dss=None, transform_string=None, clean_data=None):
+    warnings.warn("class_to_dataframe is deprecated; it will not be removed any time soon, but we recommend trying AltDSS-Python's dataframe exports.", DeprecationWarning, stacklevel=2)
 
     if transform_string is None:
         transform_string = _evaluate_expression
@@ -141,7 +157,7 @@ def class_to_dataframe(class_name, dss=None, transform_string=None, clean_data=N
         )
 
     if dss is None:
-        import opendssdirect as dss
+        from opendssdirect import dss
 
     dss.Circuit.SetActiveClass("{class_name}".format(class_name=class_name))
     if class_name.lower() != dss.ActiveClass.ActiveClassName().lower():
@@ -211,49 +227,49 @@ def getmembers(module):
 
 def capacitors_to_dataframe(dss=None):
     if dss is None:
-        import opendssdirect as dss
+        from opendssdirect import dss
     return to_dataframe(dss.Capacitors)
 
 
 def fuses_to_dataframe(dss=None):
     if dss is None:
-        import opendssdirect as dss
+        from opendssdirect import dss
     return to_dataframe(dss.Fuses)
 
 
 def generators_to_dataframe(dss=None):
     if dss is None:
-        import opendssdirect as dss
+        from opendssdirect import dss
     return to_dataframe(dss.Generators)
 
 
 def isource_to_dataframe(dss=None):
     if dss is None:
-        import opendssdirect as dss
+        from opendssdirect import dss
     return to_dataframe(dss.Isource)
 
 
 def lines_to_dataframe(dss=None):
     if dss is None:
-        import opendssdirect as dss
+        from opendssdirect import dss
     return to_dataframe(dss.Lines)
 
 
 def loadshape_to_dataframe(dss=None):
     if dss is None:
-        import opendssdirect as dss
+        from opendssdirect import dss
     return to_dataframe(dss.LoadShape)
 
 
 def loads_to_dataframe(dss=None):
     if dss is None:
-        import opendssdirect as dss
+        from opendssdirect import dss
     return to_dataframe(dss.Loads)
 
 
 def meters_to_dataframe(dss=None):
     if dss is None:
-        import opendssdirect as dss
+        from opendssdirect import dss
     return to_dataframe(dss.Meters)
 
 
@@ -262,7 +278,7 @@ def monitor_to_dataframe(dss=None):
     Return the data from current active monitor as a Pandas DataFrame
     """
     if dss is None:
-        import opendssdirect as dss
+        from opendssdirect import dss
 
     if dss.Solution.Mode() in (enums.SolveModes.Harmonic, enums.SolveModes.HarmonicT):
         columns = ['frequency', 'harmonic']
@@ -283,53 +299,53 @@ def monitor_to_dataframe(dss=None):
 
 def monitors_to_dataframe(dss=None):
     if dss is None:
-        import opendssdirect as dss
+        from opendssdirect import dss
     return to_dataframe(dss.Monitors)
 
 
 def pvsystems_to_dataframe(dss=None):
     if dss is None:
-        import opendssdirect as dss
+        from opendssdirect import dss
     return to_dataframe(dss.PVsystems)
 
 
 def regcontrols_to_dataframe(dss=None):
     if dss is None:
-        import opendssdirect as dss
+        from opendssdirect import dss
     return to_dataframe(dss.RegControls)
 
 
 def reclosers_to_dataframe(dss=None):
     if dss is None:
-        import opendssdirect as dss
+        from opendssdirect import dss
     return to_dataframe(dss.Reclosers)
 
 
 def relays_to_dataframe(dss=None):
     if dss is None:
-        import opendssdirect as dss
+        from opendssdirect import dss
     return to_dataframe(dss.Relays)
 
 
 def sensors_to_dataframe(dss=None):
     if dss is None:
-        import opendssdirect as dss
+        from opendssdirect import dss
     return to_dataframe(dss.Sensors)
 
 
 def transformers_to_dataframe(dss=None):
     if dss is None:
-        import opendssdirect as dss
+        from opendssdirect import dss
     return to_dataframe(dss.Transformers)
 
 
 def vsources_to_dataframe(dss=None):
     if dss is None:
-        import opendssdirect as dss
+        from opendssdirect import dss
     return to_dataframe(dss.Vsources)
 
 
 def xycurves_to_dataframe(dss=None):
     if dss is None:
-        import opendssdirect as dss
+        from opendssdirect import dss
     return to_dataframe(dss.XYCurves)

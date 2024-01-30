@@ -15,10 +15,10 @@ def import_odd():
         # to grab FPC's exceptions, even when handled
         import faulthandler
         faulthandler.disable()
-        import opendssdirect as dss
+        from opendssdirect import dss
         faulthandler.enable()
     else:
-        import opendssdirect as dss
+        from opendssdirect import dss
 
     return dss
 
@@ -28,10 +28,8 @@ def dss():
 
     dss.Error.ExtendedErrors(True)
     dss.Basic.AdvancedTypes(False)
-    dss.Text.Command("set eventlogdefault=yes")
-    assert (
-        dss.utils.run_command("Redirect {}".format(PATH_TO_DSS)) == ""
-    ), "Unable to find test data"
+    dss("set eventlogdefault=yes")
+    dss(f'Redirect "{PATH_TO_DSS}"')
     return dss
 
 
@@ -1553,7 +1551,7 @@ def test_13Node_CktElement(dss):
     )
 
     # Create an element with "variables" available to test
-    dss.run_command("New PVSystem.631")
+    dss("New PVSystem.631")
     dss.Circuit.SetActiveElement("PVSystem.631")
     assert dss.CktElement.AllVariableNames() == [
         u"Irradiance",
@@ -4485,7 +4483,7 @@ def test_meters_to_dataframe(dss):
 
 
 def test_pvsystems_to_dataframe(dss):
-    dss.run_command("New PVSystem.631")
+    dss("New PVSystem.631")
 
     expected_dict = pd.DataFrame(
         {
@@ -4821,10 +4819,10 @@ def test_storage_to_dataframe(dss):
     assert not dss.dss_lib.DSS_Get_LegacyModels()
 
     assert (
-        dss.utils.run_command("Redirect {}".format(PATH_TO_DSS)) == ""
+        dss.utils.run_command("Redirect '{}'".format(PATH_TO_DSS)) == ""
     ), "Unable to find test data"
 
-    dss.run_command("New Storage.631")
+    dss("New Storage.631")
 
     expected_dict = pd.DataFrame(
         {
@@ -4926,7 +4924,7 @@ def test_linegeometry_class_to_dataframe():
 
     dss = import_odd()
 
-    dss.run_command(string).strip()
+    dss(string)
     is_pandas_installed = dss.utils.is_pandas_installed
     dss.utils.is_pandas_installed = False
     data = dss.utils.class_to_dataframe("linegeometry")
@@ -5331,7 +5329,7 @@ def test_wiredata_class_to_dataframe():
 
     dss = import_odd()
 
-    dss.run_command(commands)
+    dss(commands)
     is_pandas_installed = dss.utils.is_pandas_installed
     dss.utils.is_pandas_installed = False
     data = dss.utils.class_to_dataframe("wiredata")
@@ -5392,11 +5390,11 @@ def test_long_path():
             f.write("clear\nnew circuit.test\n")
 
         # Try running with the full path
-        dss.run_command("redirect '{}'".format(long_file_path))
+        dss("redirect '{}'".format(long_file_path))
 
         # Then try going to the folder and using only the filename
         os.chdir(inner_dir_path)
-        dss.run_command("redirect '{}'".format(long_name + ".dss"))
+        dss("redirect '{}'".format(long_name + ".dss"))
     except (IOError, OSError):  # FileNotFoundError:
         warnings.warn(
             "Could not create a file with a long path in Python. Skipping test."
@@ -5436,7 +5434,7 @@ def test_exception_control(dss):
 
 
 def test_contexts(dss):
-    dss2 = dss.Basic.NewContext()
+    dss2 = dss.NewContext()
 
     dss.Basic.ClearAll()
     dss.Text.Command('new circuit.test1')
@@ -5452,7 +5450,7 @@ def test_advtypes(dss):
     dss.Basic.AdvancedTypes(True)
     ckt = dss.Circuit
 
-    from opendssdirect.Iterable import OPENDSSDIRECT_PY_USE_NUMPY
+    from opendssdirect.OpenDSSDirect import OPENDSSDIRECT_PY_USE_NUMPY
     ckt.SetActiveElement('Line.671692')
     element = dss.CktElement
 
@@ -5539,7 +5537,7 @@ def test_callable_ctx():
     dss("new circuit.test897383")
     assert dss.Circuit.Name() == "test897383"
 
-    dss(block="""
+    dss("""
         clear
         new circuit.test23232
         new load.load102909
@@ -5549,9 +5547,26 @@ def test_callable_ctx():
     assert dss.Loads.First() == 1
     assert dss.Loads.Name() == "load102909"
 
+
+def test_numpy():
+    import_odd()
+    from opendssdirect.OpenDSSDirect import OpenDSSDirect
+    from numpy import ndarray
+
+    # NOTE: this constructors ALWAYS binds to the default DSS engine.
+    odd_np = OpenDSSDirect(prefer_lists=False)
+    # Use it normally
+    odd_np(f"Redirect '{PATH_TO_DSS}'")
+    assert isinstance(odd_np.Circuit.AllBusMagPu(), ndarray)
+
+    odd_lst = OpenDSSDirect(prefer_lists=True)
+    # Same global instance, we can just reuse the result
+    assert isinstance(odd_lst.Circuit.AllBusMagPu(), list)
+
+
 def xtest_threading2(dss):
     # Ported directly from DSS-Python, but using only the 13Bus circuit
-    from opendssdirect.DSSContext import DSSContext
+    from opendssdirect.OpenDSSDirect import OpenDSSDirect
     import threading
     from time import perf_counter
 
@@ -5571,7 +5586,7 @@ def xtest_threading2(dss):
     num = min(len(cases), os.cpu_count())
 
     # Initialize a new context for each of the threads
-    ctxs = [dss.Basic.NewContext() for n in range(num)]
+    ctxs = [dss.NewContext() for n in range(num)]
     print(f"Using {len(ctxs)} DSS contexts")
 
     tresults = {}
@@ -5579,7 +5594,7 @@ def xtest_threading2(dss):
     sresults = {}
     sconverged = {}
 
-    def _run(ctx: DSSContext, case_list, converged, results):
+    def _run(ctx: OpenDSSDirect, case_list, converged, results):
         tname = threading.current_thread().name
         while case_list:
             fn, loadmult = case_list.pop()

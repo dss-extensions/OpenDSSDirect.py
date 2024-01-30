@@ -173,23 +173,6 @@ class IBasic(Base):
         Value, = args
         self.CheckForError(self._lib.DSS_Set_AllowDOScmd(Value))
 
-    def NewContext(self):
-        """
-        Creates a new DSS engine context.
-        A DSS Context encapsulates most of the global state of the original OpenDSS engine,
-        allowing the user to create multiple instances in the same process. By creating contexts
-        manually, the management of threads and potential issues should be handled by the user.
-
-        (API Extension)
-        """
-        from .DSSContext import DSSContext
-        ffi = self._api_util.ffi
-        lib = self._api_util.lib_unpatched
-        new_ctx = ffi.gc(lib.ctx_New(), lib.ctx_Dispose)
-        new_api_util = dss_py.CffiApiUtil(ffi, lib, new_ctx)
-        new_api_util._allow_complex = self._api_util._allow_complex
-        return DSSContext(new_api_util)
-
     # def Plotting(self):
     #     """
     #     Shortcut for the plotting module. This property is equivalent to:
@@ -303,7 +286,6 @@ AllowEditor = _Basic.AllowEditor
 LegacyModels = _Basic.LegacyModels
 AllowChangeDir = _Basic.AllowChangeDir
 AllowDOScmd = _Basic.AllowDOScmd
-NewContext = _Basic.NewContext
 # Plotting = _Basic.Plotting
 CompatFlags = _Basic.CompatFlags
 _columns = _Basic._columns
@@ -327,7 +309,6 @@ __all__ = [
     "LegacyModels",
     "AllowChangeDir",
     "AllowDOScmd",
-    "NewContext",
     # "Plotting",
     "CompatFlags",
 ]

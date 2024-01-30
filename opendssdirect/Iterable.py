@@ -1,13 +1,8 @@
 from dss._cffi_api_util import Base as DSSPyBase
-import os
-
-# Integrate "Use environment variable for numpy version" from @kdheepak
-# https://github.com/dss-extensions/OpenDSSDirect.py/pull/103/
-OPENDSSDIRECT_PY_USE_NUMPY = os.environ.get("OPENDSSDIRECT_PY_USE_NUMPY", "0").upper() in ("1", "TRUE")
 
 class Base(DSSPyBase):
-    def __init__(self, api_util):
-        DSSPyBase.__init__(self, api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
+    def __init__(self, api_util, prefer_lists=None):
+        DSSPyBase.__init__(self, api_util, prefer_lists=prefer_lists)
         # Keep this since there are some differences when the array is empty.
         self._get_string_array = api_util.get_string_array2
 
@@ -30,8 +25,8 @@ class Iterable(Base):
         "_Set_idx",
     ]
     
-    def __init__(self, api_util):
-        Base.__init__(self, api_util)
+    def __init__(self, api_util, prefer_lists=None):
+        Base.__init__(self, api_util, prefer_lists=prefer_lists)
         
         prefix = self._api_prefix
         self._Get_First = getattr(self._lib, "{}_Get_First".format(prefix))
@@ -92,4 +87,4 @@ class Iterable(Base):
         if type(Value) is not bytes:
             self.CheckForError(self._Set_idx(Value))
 
-__all__ = ["Iterable", "Base", "OPENDSSDIRECT_PY_USE_NUMPY"]
+__all__ = ["Iterable", "Base",]

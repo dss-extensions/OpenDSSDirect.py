@@ -1,7 +1,7 @@
 """
 This package implements the OpenDSSDirect.py API using DSS C-API instead
 of the official OpenDSS Direct DLL, sharing the CFFI backend and some other
-features (plotting) with DSS-Python.
+features (plotting) with DSS-Python and AltDSS.
 """
 try:
     # Version is now populated by the build script based
@@ -12,7 +12,7 @@ except:
 
 from . import utils
 from dss_python_backend import enums
-from .DSSContext import (
+from .OpenDSSDirect import (
     dss,
     run_command,
     ActiveClass,

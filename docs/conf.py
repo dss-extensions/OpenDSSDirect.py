@@ -23,7 +23,7 @@ import sys
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('..'))
 
-import opendssdirect as dss
+from opendssdirect import dss
 
 # -- General configuration ------------------------------------------------
 
