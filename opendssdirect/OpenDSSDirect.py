@@ -1,3 +1,5 @@
+from __future__ import annotations
+from typing import TYPE_CHECKING
 import os
 from weakref import WeakKeyDictionary
 from typing import AnyStr, List, Union
@@ -56,6 +58,16 @@ from .ReduceCkt import _ReduceCkt, IReduceCkt
 from .TSData import _TSData, ITSData
 from .WireData import _WireData, IWireData
 from .ZIP import _ZIP, IZIP
+
+if TYPE_CHECKING:
+    # DSS-Python is always required at the moment
+    from dss import IDSS as DSSPython
+
+    # AltDSS is optional
+    try:
+        from altdss import AltDSS
+    except:
+        AltDSS = None
 
 # Integrate "Use environment variable for numpy version" from @kdheepak
 # https://github.com/dss-extensions/OpenDSSDirect.py/pull/103/
@@ -130,10 +142,10 @@ class OpenDSSDirect(Base):
     _ctx_to_dss = WeakKeyDictionary()
 
     @classmethod
-    def _get_dss_instance(cls, api_util=None, ctx=None) -> 'OpenDSSDirect':
+    def _get_instance(cls: OpenDSSDirect, api_util: dss_py.CffiApiUtil = None, ctx=None) -> OpenDSSDirect:
         '''
-        If there is an existing instance for a OpenDSSDirect, returns it.
-        Otherwise, tries to wrap the context into a new OpenDSSDirect.py API instance.
+        If there is an existing OpenDSSDirect instance for a context, return it.
+        Otherwise, try to wrap the context into a new OpenDSSDirect.py API instance.
         '''
         if api_util is None:
             # If none exists, something is probably wrong elsewhere,
@@ -249,16 +261,33 @@ class OpenDSSDirect(Base):
         new_api_util._allow_complex = self._api_util._allow_complex
         return OpenDSSDirect(new_api_util)
 
+    def to_dss_python(self) -> DSSPython:
+        """
+        Returns an instance of DSS-Python for the active DSS Context.
+        """
+        from dss import IDSS as DSSPython
+        return DSSPython._get_instance(ctx=self._api_util.ctx, api_util=self._api_util)
+
+    def to_altdss(self) -> AltDSS:
+        """
+        Returns an instance of AltDSS for the active DSS Context.
+
+        A compatible AltDSS (`pip install altdss`) is required.
+        """
+        from altdss import AltDSS
+        return AltDSS._get_instance(self._api_util.ctx, self._api_util)
 
     def __call__(self, cmds: Union[AnyStr, List[AnyStr]] = None):
         '''
-        Shortcut to pass text commands.
+        Shortcut to pass text commands. Allow single and multiple commands in a string, or a list of commands.
 
-        If `single` is set and a string, a normal `DSS.Text.Command = single` is called.
-        Otherwise, the value is passed to `DSS.Text.Commands`.
+        For multiple commands, a big string tends to be the faster.
+
+        Equivalent to `OpenDSSDirect.Text.Commands`
 
         Examples:
 
+        ```python
             # single command
             dss("new Circuit.test") 
 
@@ -272,6 +301,7 @@ class OpenDSSDirect(Base):
                 new Line.line1 bus1=a bus2=b
                 new Load.load1 bus1=a bus2=b
             """)
+        ```
 
         (API Extension)
         '''
@@ -338,5 +368,7 @@ ReduceCkt = _ReduceCkt
 TSData = _TSData
 WireData = _WireData
 ZIP = _ZIP
+to_dss_python = dss.to_dss_python
+to_altdss = dss.to_altdss
 
 __all__ = ["OpenDSSDirect", "dss", "OPENDSSDIRECT_PY_USE_NUMPY"]
