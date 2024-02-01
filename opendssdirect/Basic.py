@@ -1,6 +1,10 @@
 # import warnings
 from ._utils import api_util, Base, dss_py
-from ._version import __version__ 
+try:
+    from ._version import __version__
+except:
+    __version__ = '0.0dev'
+
 # from dss import DSSCompatFlags
 
 

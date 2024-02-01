@@ -1,3 +1,4 @@
+from typing import Any
 from dss._cffi_api_util import Base as DSSPyBase
 
 class Base(DSSPyBase):
@@ -5,6 +6,13 @@ class Base(DSSPyBase):
         DSSPyBase.__init__(self, api_util, prefer_lists=prefer_lists)
         # Keep this since there are some differences when the array is empty.
         self._get_string_array = api_util.get_string_array2
+        self._frozen_attrs = True
+
+    def __setattr__(self, __name: str, __value: Any) -> None:
+        if self._frozen_attrs:
+            raise AttributeError("Misuse of OpenDSSDirect.py: use function calls instead of assignments to interact with the DSS engine. For properties and COM-API compatibility, use DSS-Python.\nSee also https://dss-extensions.org/python_apis.html")
+        
+        object.__setattr__(self, __name, __value)
 
 
 class Iterable(Base):
@@ -29,6 +37,7 @@ class Iterable(Base):
         Base.__init__(self, api_util, prefer_lists=prefer_lists)
         
         prefix = self._api_prefix
+        object.__setattr__(self, '_frozen_attrs', False)
         self._Get_First = getattr(self._lib, "{}_Get_First".format(prefix))
         self._Get_Next = getattr(self._lib, "{}_Get_Next".format(prefix))
         self._Get_Count = getattr(self._lib, "{}_Get_Count".format(prefix))
@@ -37,6 +46,7 @@ class Iterable(Base):
         self._Set_Name = getattr(self._lib, "{}_Set_Name".format(prefix))
         self._Get_idx = getattr(self._lib, "{}_Get_idx".format(prefix))
         self._Set_idx = getattr(self._lib, "{}_Set_idx".format(prefix))
+        object.__setattr__(self, '_frozen_attrs', True)
 
     def First(self):
         """Sets the first object of this type active. Returns 0 if none."""

@@ -147,6 +147,13 @@ class OpenDSSDirect(Base):
         return dss
 
     def __init__(self, ctx_api_util=None, prefer_lists=None):
+        '''
+        Creates a new OpenDSSDirect.py instance for the DSS context specified in `ctx_api_util`.
+
+        Not intended for typical usage. For creating new separate DSS instances, refer
+        to the `OpenDSSDirect.NewContext` method.
+        '''
+        
         if prefer_lists is None:
             prefer_lists = not OPENDSSDIRECT_PY_USE_NUMPY
 
@@ -156,6 +163,7 @@ class OpenDSSDirect(Base):
 
         Base.__init__(self, ctx_api_util, prefer_lists=prefer_lists)
         OpenDSSDirect._ctx_to_dss[ctx_api_util.ctx] = self
+        object.__setattr__(self, '_frozen_attrs', False)
         self.dss_lib = ctx_api_util.lib
         self.dss_ffi = ctx_api_util.ffi
         self.dss = self
@@ -216,6 +224,8 @@ class OpenDSSDirect(Base):
         self.Commands = self.Text.Commands
         self.Version = self.Basic.Version
 
+        object.__setattr__(self, '_frozen_attrs', True)
+
 
     def run_command(self, text):
         run_command(text, self)
@@ -223,7 +233,8 @@ class OpenDSSDirect(Base):
 
     def NewContext(self):
         """
-        Creates a new DSS engine context.
+        Creates a new DSS engine context, wrapped by the OpenDSSDirect.py classes.
+
         A DSS Context encapsulates most of the global state of the original OpenDSS engine,
         allowing the user to create multiple instances in the same process. By creating contexts
         manually, the management of threads and potential issues should be handled by the user.
