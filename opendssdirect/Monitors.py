@@ -1,5 +1,5 @@
 import numpy as np
-from ._utils import DSSException, api_util, Iterable
+from ._utils import DSSException, api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 
 
 class IMonitors(Iterable):
@@ -163,7 +163,7 @@ class IMonitors(Iterable):
         return self._get_float64_gr_array()
 
 
-_Monitors = IMonitors(api_util)
+_Monitors = IMonitors(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 Channel = _Monitors.Channel

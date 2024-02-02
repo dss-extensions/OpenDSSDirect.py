@@ -1,4 +1,4 @@
-from ._utils import api_util, Iterable
+from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 from dss import LoadStatus
 
 
@@ -419,7 +419,7 @@ class ILoads(Iterable):
         self.CheckForError(self._lib.Loads_Set_Phases(Value))
 
 
-_Loads = ILoads(api_util)
+_Loads = ILoads(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 AllNames = _Loads.AllNames

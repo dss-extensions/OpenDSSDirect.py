@@ -1,4 +1,4 @@
-from ._utils import api_util, Iterable
+from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 
 class IGICSources(Iterable):
     __slots__ = []
@@ -108,7 +108,7 @@ class IGICSources(Iterable):
         self.CheckForError(self._lib.GICSources_Set_Volts(Value))
 
 
-_GICSources = IGICSources(api_util)
+_GICSources = IGICSources(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 Bus1 = _GICSources.Bus1

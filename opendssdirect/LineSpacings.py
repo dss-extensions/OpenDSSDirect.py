@@ -1,4 +1,4 @@
-from ._utils import api_util, Iterable
+from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 from dss import LineUnits
 
 
@@ -67,7 +67,7 @@ class ILineSpacings(Iterable):
         self.CheckForError(self._lib.LineSpacings_Set_Ycoords(ValuePtr, ValueCount))
 
 
-_LineSpacings = ILineSpacings(api_util)
+_LineSpacings = ILineSpacings(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 Phases = _LineSpacings.Phases

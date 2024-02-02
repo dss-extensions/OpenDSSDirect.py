@@ -1,4 +1,4 @@
-from ._utils import api_util, Iterable
+from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 
 
 class IRegControls(Iterable):
@@ -253,7 +253,7 @@ class IRegControls(Iterable):
         self.CheckForError(self._lib.RegControls_Set_Winding(Value))
 
 
-_RegControls = IRegControls(api_util)
+_RegControls = IRegControls(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 Reset = _RegControls.Reset

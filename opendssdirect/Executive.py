@@ -1,4 +1,4 @@
-from ._utils import api_util, Base
+from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
 
 
 class IExecutive(Base):
@@ -46,7 +46,7 @@ class IExecutive(Base):
         return self.CheckForError(self._lib.DSS_Executive_Get_NumOptions())
 
 
-_Executive = IExecutive(api_util)
+_Executive = IExecutive(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 Command = _Executive.Command

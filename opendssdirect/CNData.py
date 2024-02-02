@@ -1,4 +1,4 @@
-from ._utils import api_util, Iterable
+from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 from dss import LineUnits
 
 
@@ -199,7 +199,7 @@ class ICNData(Iterable):
         self.CheckForError(self._lib.CNData_Set_RStrand(Value))
 
 
-_CNData = ICNData(api_util)
+_CNData = ICNData(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 EmergAmps = _CNData.EmergAmps

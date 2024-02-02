@@ -1,4 +1,4 @@
-from ._utils import api_util, Iterable
+from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 
 
 class IReactors(Iterable):
@@ -280,7 +280,7 @@ class IReactors(Iterable):
         self.CheckForError(self._lib.Reactors_Set_Z0(ValuePtr, ValueCount))
 
 
-_Reactors = IReactors(api_util)
+_Reactors = IReactors(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 SpecType = _Reactors.SpecType

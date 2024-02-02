@@ -1,4 +1,4 @@
-from ._utils import api_util, Base
+from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
 
 
 class IParallel(Base):
@@ -84,7 +84,7 @@ class IParallel(Base):
         return self.CheckForError(self._lib.Parallel_Get_NumOfActors())
 
 
-_Parallel = IParallel(api_util)
+_Parallel = IParallel(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 CreateActor = _Parallel.CreateActor

@@ -1,4 +1,4 @@
-from ._utils import api_util, Iterable
+from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 
 
 class ISensors(Iterable):
@@ -156,7 +156,7 @@ class ISensors(Iterable):
         return self._get_float64_gr_array()
 
 
-_Sensors = ISensors(api_util)
+_Sensors = ISensors(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 Reset = _Sensors.Reset

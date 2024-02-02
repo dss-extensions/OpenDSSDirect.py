@@ -1,4 +1,4 @@
-from ._utils import api_util, Base
+from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
 
 
 class IProgress(Base):
@@ -24,7 +24,7 @@ class IProgress(Base):
         self.CheckForError(self._lib.DSSProgress_Set_PctProgress(Value))
 
 
-_Progress = IProgress(api_util)
+_Progress = IProgress(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 Close = _Progress.Close

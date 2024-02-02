@@ -1,5 +1,5 @@
 import numpy as np
-from ._utils import api_util, Base
+from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
 from dss import SparseSolverOptions
 
 
@@ -156,7 +156,7 @@ class IYMatrix(Base):
         self.CheckForError(self._lib.YMatrix_Set_Iteration(value))
 
 
-_YMatrix = IYMatrix(api_util)
+_YMatrix = IYMatrix(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 getYsparse = _YMatrix.getYsparse

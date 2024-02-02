@@ -1,4 +1,4 @@
-from ._utils import api_util, Iterable
+from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 
 
 class IMeters(Iterable):
@@ -243,7 +243,7 @@ class IMeters(Iterable):
         return result
 
 
-_Meters = IMeters(api_util)
+_Meters = IMeters(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 CloseAllDIFiles = _Meters.CloseAllDIFiles

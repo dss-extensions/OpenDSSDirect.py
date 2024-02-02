@@ -1,4 +1,4 @@
-from ._utils import api_util, Iterable
+from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 
 
 class IXYCurves(Iterable):
@@ -114,7 +114,7 @@ class IXYCurves(Iterable):
         self.CheckForError(self._lib.XYCurves_Set_y(Value))
 
 
-_XYCurves = IXYCurves(api_util)
+_XYCurves = IXYCurves(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 Count = _XYCurves.Count

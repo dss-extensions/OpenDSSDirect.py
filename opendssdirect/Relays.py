@@ -1,4 +1,4 @@
-from ._utils import api_util, Iterable
+from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 
 
 class IRelays(Iterable):
@@ -105,7 +105,7 @@ class IRelays(Iterable):
         self.CheckForError(self._lib.Relays_Set_NormalState(Value))
 
 
-_Relays = IRelays(api_util)
+_Relays = IRelays(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 AllNames = _Relays.AllNames

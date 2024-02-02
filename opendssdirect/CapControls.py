@@ -1,4 +1,4 @@
-from ._utils import api_util, Iterable
+from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 
 
 class ICapControls(Iterable):
@@ -175,7 +175,7 @@ class ICapControls(Iterable):
         self.CheckForError(self._lib.CapControls_Set_Vmin(Value))
 
 
-_CapControls = ICapControls(api_util)
+_CapControls = ICapControls(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 Reset = _CapControls.Reset

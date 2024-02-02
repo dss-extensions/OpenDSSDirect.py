@@ -1,4 +1,4 @@
-from ._utils import api_util, Base
+from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
 from dss.enums import DSSPropertyNameStyle
 
 class ISettings(Base):
@@ -258,7 +258,7 @@ class ISettings(Base):
         '''Switch the property names according'''
         self._check_for_error(self._lib.Settings_SetPropertyNameStyle(value))
 
-_Settings = ISettings(api_util)
+_Settings = ISettings(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 AllowDuplicates = _Settings.AllowDuplicates

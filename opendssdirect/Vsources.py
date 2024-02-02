@@ -1,4 +1,4 @@
-from ._utils import api_util, Iterable
+from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 
 
 class IVsources(Iterable):
@@ -58,7 +58,7 @@ class IVsources(Iterable):
         self.CheckForError(self._lib.Vsources_Set_pu(Value))
 
 
-_Vsources = IVsources(api_util)
+_Vsources = IVsources(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 AllNames = _Vsources.AllNames

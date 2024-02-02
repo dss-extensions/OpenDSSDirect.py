@@ -1,4 +1,4 @@
-from ._utils import api_util, Base
+from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
 
 class IZIP(Base):
     __slots__ = []
@@ -81,7 +81,7 @@ class IZIP(Base):
         return self.CheckForError(self._lib.ZIP_Contains(Name)) != 0
 
 
-_ZIP = IZIP(api_util)
+_ZIP = IZIP(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 Open = _ZIP.Open

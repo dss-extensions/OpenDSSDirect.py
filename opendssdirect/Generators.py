@@ -1,4 +1,4 @@
-from ._utils import api_util, Iterable
+from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 from dss import GeneratorStatus
 
 
@@ -271,7 +271,7 @@ class IGenerators(Iterable):
         self.CheckForError(self._lib.Generators_Set_Bus1(Value))
 
 
-_Generators = IGenerators(api_util)
+_Generators = IGenerators(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 AllNames = _Generators.AllNames

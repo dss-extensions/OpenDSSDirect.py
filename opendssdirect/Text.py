@@ -1,4 +1,4 @@
-from ._utils import api_util, Base
+from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
 
 
 class IText(Base):
@@ -42,7 +42,7 @@ class IText(Base):
             )
 
 
-_Text = IText(api_util)
+_Text = IText(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 Command = _Text.Command

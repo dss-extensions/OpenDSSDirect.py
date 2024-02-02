@@ -1,9 +1,8 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
-import os
 from weakref import WeakKeyDictionary
 from typing import AnyStr, List, Union
-from ._utils import Base, DSSException, dss_py
+from ._utils import Base, DSSException, dss_py, OPENDSSDIRECT_PY_USE_NUMPY
 from ._utils import lib as dss_lib
 from ._utils import ffi as dss_ffi
 from . import utils as _utils
@@ -69,11 +68,15 @@ if TYPE_CHECKING:
     except:
         AltDSS = None
 
-# Integrate "Use environment variable for numpy version" from @kdheepak
-# https://github.com/dss-extensions/OpenDSSDirect.py/pull/103/
-OPENDSSDIRECT_PY_USE_NUMPY = os.environ.get("OPENDSSDIRECT_PY_USE_NUMPY", "0").upper() in ("1", "TRUE")
 
 class OpenDSSDirect(Base):
+    try:
+        # Version is now populated by the build script based
+        # on the git tags. See pyproject.toml for more info.
+        from ._version import __version__
+    except:
+        __version__ = "0.0dev"
+
     DSSException = DSSException
 
     __slots__ = [
@@ -179,6 +182,72 @@ class OpenDSSDirect(Base):
         self.dss_lib = ctx_api_util.lib
         self.dss_ffi = ctx_api_util.ffi
         self.dss = self
+
+        # Check if we're creating the default instance, with the same options
+        grab_default = (
+            (ctx_api_util == _ActiveClass._api_util) and
+            (prefer_lists == (_ActiveClass._get_complex128_array == _ActiveClass._api_util.get_complex128_array2))
+        )
+
+        if grab_default:
+            self.ActiveClass = _ActiveClass
+            self.Basic = _Basic
+            self.Bus = _Bus
+            self.CapControls = _CapControls
+            self.Capacitors = _Capacitors
+            self.Circuit = _Circuit
+            self.CktElement = _CktElement
+            self.CtrlQueue = _CtrlQueue
+            self.DSSCore = _DSSCore
+            self.Element = _Element
+            self.Error = _Error
+            self.Executive = _Executive
+            self.Fuses = _Fuses
+            self.Generators = _Generators
+            self.GICSources = _GICSources
+            self.Isource = _Isource
+            self.LineCodes = _LineCodes
+            self.Lines = _Lines
+            self.LoadShape = _LoadShape
+            self.Loads = _Loads
+            self.Meters = _Meters
+            self.Monitors = _Monitors
+            self.PDElements = _PDElements
+            self.PVsystems = _PVsystems
+            self.Parallel = _Parallel
+            self.Parser = _Parser
+            self.Progress = _Progress
+            self.Properties = _Properties
+            self.Reclosers = _Reclosers
+            self.RegControls = _RegControls
+            self.Relays = _Relays
+            self.Sensors = _Sensors
+            self.Settings = _Settings
+            self.Solution = _Solution
+            self.Storages = _Storages
+            self.SwtControls = _SwtControls
+            self.Text = _Text
+            self.Topology = _Topology
+            self.Transformers = _Transformers
+            self.Vsources = _Vsources
+            self.XYCurves = _XYCurves
+            self.YMatrix = _YMatrix
+            self.CNData = _CNData
+            self.LineGeometries = _LineGeometries
+            self.LineSpacings = _LineSpacings
+            self.Reactors = _Reactors
+            self.ReduceCkt = _ReduceCkt
+            self.TSData = _TSData
+            self.WireData = _WireData
+            self.ZIP = _ZIP
+
+            # Shortcuts
+            self.Command = self.Text.Command
+            self.Commands = self.Text.Commands
+            self.Version = self.Basic.Version
+
+            object.__setattr__(self, '_frozen_attrs', True)
+            return
 
         self.ActiveClass = IActiveClass(ctx_api_util, prefer_lists=prefer_lists)
         self.Basic = IBasic(ctx_api_util, prefer_lists=prefer_lists)
@@ -370,5 +439,6 @@ WireData = _WireData
 ZIP = _ZIP
 to_dss_python = dss.to_dss_python
 to_altdss = dss.to_altdss
+NewContext = dss.NewContext
 
 __all__ = ["OpenDSSDirect", "dss", "OPENDSSDIRECT_PY_USE_NUMPY"]

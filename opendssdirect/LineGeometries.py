@@ -1,4 +1,4 @@
-from ._utils import api_util, Iterable
+from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 from dss import LineUnits
 
 
@@ -158,7 +158,7 @@ class ILineGeometries(Iterable):
         self.CheckForError(self._lib.LineGeometries_Set_Nconds(Value))
 
 
-_LineGeometries = ILineGeometries(api_util)
+_LineGeometries = ILineGeometries(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 Conductors = _LineGeometries.Conductors

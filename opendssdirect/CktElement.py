@@ -1,4 +1,4 @@
-from ._utils import api_util, Base
+from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
 from dss import DSSException, OCPDevType as OCPDevTypeEnum
 
 
@@ -338,7 +338,7 @@ class ICktElement(Base):
         return self._get_int32_gr_array()
 
 
-_CktElement = ICktElement(api_util)
+_CktElement = ICktElement(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 Close = _CktElement.Close

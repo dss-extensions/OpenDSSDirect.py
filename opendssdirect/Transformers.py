@@ -1,4 +1,4 @@
-from ._utils import api_util, Iterable
+from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 
 
 class ITransformers(Iterable):
@@ -265,7 +265,7 @@ class ITransformers(Iterable):
         return self._get_complex128_gr_array()
 
 
-_Transformers = ITransformers(api_util)
+_Transformers = ITransformers(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 AllNames = _Transformers.AllNames

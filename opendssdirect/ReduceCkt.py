@@ -1,4 +1,4 @@
-from ._utils import api_util, Base
+from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
 
 
 class IReduceCkt(Base):
@@ -109,7 +109,7 @@ class IReduceCkt(Base):
         self.CheckForError(self._lib.ReduceCkt_DoBranchRemove())
 
 
-_ReduceCkt = IReduceCkt(api_util)
+_ReduceCkt = IReduceCkt(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 Zmag = _ReduceCkt.Zmag

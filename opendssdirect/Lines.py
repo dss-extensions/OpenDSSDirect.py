@@ -1,4 +1,4 @@
-from ._utils import api_util, Iterable
+from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 from dss import LineUnits
 
 
@@ -320,7 +320,7 @@ class ILines(Iterable):
         self.CheckForError(self._lib.Lines_Set_IsSwitch(Value))
 
 
-_Lines = ILines(api_util)
+_Lines = ILines(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 New = _Lines.New

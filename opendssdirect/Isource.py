@@ -1,4 +1,4 @@
-from ._utils import api_util, Iterable
+from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 
 
 class IIsource(Iterable):
@@ -38,7 +38,7 @@ class IIsource(Iterable):
         self.CheckForError(self._lib.ISources_Set_Frequency(Value))
 
 
-_Isource = IIsource(api_util)
+_Isource = IIsource(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 AllNames = _Isource.AllNames

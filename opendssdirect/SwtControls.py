@@ -1,4 +1,4 @@
-from ._utils import api_util, Iterable
+from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 
 
 class ISwtControls(Iterable):
@@ -97,7 +97,7 @@ class ISwtControls(Iterable):
         self.CheckForError(self._lib.SwtControls_Set_SwitchedTerm(Value))
 
 
-_SwtControls = ISwtControls(api_util)
+_SwtControls = ISwtControls(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 Reset = _SwtControls.Reset

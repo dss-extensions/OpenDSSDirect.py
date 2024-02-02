@@ -57,6 +57,9 @@ from .OpenDSSDirect import (
     XYCurves,
     YMatrix,
     ZIP,
+    to_dss_python,
+    to_altdss,
+    NewContext,
     dss_lib,
     DSSException,
 )

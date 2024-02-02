@@ -1,4 +1,4 @@
-from ._utils import api_util, Iterable
+from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 
 
 class IStorages(Iterable):
@@ -45,7 +45,7 @@ class IStorages(Iterable):
         return self._get_float64_gr_array()
 
 
-_Storages = IStorages(api_util)
+_Storages = IStorages(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 puSOC = _Storages.puSOC

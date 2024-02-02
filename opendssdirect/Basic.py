@@ -1,5 +1,5 @@
 # import warnings
-from ._utils import api_util, Base, dss_py
+from ._utils import api_util, Base, dss_py, OPENDSSDIRECT_PY_USE_NUMPY
 try:
     from ._version import __version__
 except:
@@ -268,7 +268,7 @@ class IBasic(Base):
         self.CheckForError(self._lib.DSS_Set_CompatFlags(Value))
 
 
-_Basic = IBasic(api_util)
+_Basic = IBasic(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 ClearAll = _Basic.ClearAll

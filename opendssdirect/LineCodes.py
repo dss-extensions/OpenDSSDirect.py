@@ -1,4 +1,4 @@
-from ._utils import api_util, Iterable
+from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 from dss import LineUnits
 
 
@@ -165,7 +165,7 @@ class ILineCodes(Iterable):
         self.CheckForError(self._lib.LineCodes_Set_Xmatrix(ValuePtr, ValueCount))
 
 
-_LineCodes = ILineCodes(api_util)
+_LineCodes = ILineCodes(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 AllNames = _LineCodes.AllNames

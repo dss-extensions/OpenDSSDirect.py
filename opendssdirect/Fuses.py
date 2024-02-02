@@ -1,4 +1,4 @@
-from ._utils import api_util, Iterable
+from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 
 
 class IFuses(Iterable):
@@ -157,7 +157,7 @@ class IFuses(Iterable):
         )
 
 
-_Fuses = IFuses(api_util)
+_Fuses = IFuses(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 Close = _Fuses.Close

@@ -1,4 +1,4 @@
-from ._utils import api_util, Base
+from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
 
 
 class IParser(Base):
@@ -131,7 +131,7 @@ class IParser(Base):
         self.CheckForError(self._lib.Parser_Set_WhiteSpace(Value))
 
 
-_Parser = IParser(api_util)
+_Parser = IParser(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 Matrix = _Parser.Matrix

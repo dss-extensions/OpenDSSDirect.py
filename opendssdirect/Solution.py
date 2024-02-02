@@ -1,4 +1,4 @@
-from ._utils import api_util, Base
+from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
 from dss import ControlModes, SolutionAlgorithms, SolveModes
 
 
@@ -488,7 +488,7 @@ class ISolution(Base):
         return self._get_int32_gr_array()
 
 
-_Solution = ISolution(api_util)
+_Solution = ISolution(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 BuildYMatrix = _Solution.BuildYMatrix

@@ -1,4 +1,4 @@
-from ._utils import api_util, Iterable
+from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 
 
 class ICapacitors(Iterable):
@@ -85,7 +85,7 @@ class ICapacitors(Iterable):
         self.CheckForError(self._lib.Capacitors_Set_kvar(Value))
 
 
-_Capacitors = ICapacitors(api_util)
+_Capacitors = ICapacitors(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 AddStep = _Capacitors.AddStep

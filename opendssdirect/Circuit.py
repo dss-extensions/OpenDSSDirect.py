@@ -1,4 +1,4 @@
-from ._utils import api_util, Base
+from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
 
 
 class ICircuit(Base):
@@ -236,7 +236,7 @@ class ICircuit(Base):
         return self._get_complex128_gr_array()
 
 
-_Circuit = ICircuit(api_util)
+_Circuit = ICircuit(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 Capacity = _Circuit.Capacity

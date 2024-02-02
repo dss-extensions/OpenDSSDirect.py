@@ -1,4 +1,4 @@
-from ._utils import api_util, Base
+from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
 
 
 class ITopology(Base):
@@ -116,7 +116,7 @@ class ITopology(Base):
         return self.CheckForError(self._lib.Topology_Get_ParallelBranch())
 
 
-_Topology = ITopology(api_util)
+_Topology = ITopology(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 ActiveBranch = _Topology.ActiveBranch

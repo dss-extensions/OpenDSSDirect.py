@@ -1,4 +1,4 @@
-from ._utils import api_util, Iterable
+from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 
 
 class IPVsystems(Iterable):
@@ -228,7 +228,7 @@ class IPVsystems(Iterable):
         return self._get_string(self.CheckForError(self._lib.PVSystems_Get_Sensor()))
 
 
-_PVsystems = IPVsystems(api_util)
+_PVsystems = IPVsystems(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 AllNames = _PVsystems.AllNames

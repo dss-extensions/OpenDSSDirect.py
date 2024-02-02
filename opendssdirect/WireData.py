@@ -1,4 +1,4 @@
-from ._utils import api_util, Iterable
+from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 from dss import LineUnits
 
 
@@ -133,7 +133,7 @@ class IWireData(Iterable):
         self.CheckForError(self._lib.WireData_Set_CapRadius(Value))
 
 
-_WireData = IWireData(api_util)
+_WireData = IWireData(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
 # For backwards compatibility, bind to the default instance
 EmergAmps = _WireData.EmergAmps
