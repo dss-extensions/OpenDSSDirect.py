@@ -3,6 +3,7 @@ from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
 
 class IProgress(Base):
     __slots__ = []
+
     __name__ = "Progress"
     _api_prefix = "DSSProgress"
     _columns = []
@@ -14,13 +15,21 @@ class IProgress(Base):
         self.CheckForError(self._lib.DSSProgress_Show())
 
     def Caption(self, Value):
-        """(write-only) Caption to appear on the bottom of the DSS Progress form."""
+        """
+        (write-only) Caption to appear on the bottom of the DSS Progress form.
+
+        Original COM help: https://opendss.epri.com/Caption.html
+        """
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
         self.CheckForError(self._lib.DSSProgress_Set_Caption(Value))
 
     def PctProgress(self, Value):
-        """(write-only) Percent progress to indicate [0..100]"""
+        """
+        (write-only) Percent progress to indicate [0..100]
+
+        Original COM help: https://opendss.epri.com/PctProgress.html
+        """
         self.CheckForError(self._lib.DSSProgress_Set_PctProgress(Value))
 
 

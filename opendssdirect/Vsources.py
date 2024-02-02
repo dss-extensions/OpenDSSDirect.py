@@ -3,58 +3,79 @@ from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 
 class IVsources(Iterable):
     __slots__ = []
+
     __name__ = "Vsources"
     _api_prefix = "Vsources"
     _columns = ["Name", "Idx", "Phases", "BasekV", "AngleDeg", "Frequency", "PU"]
 
     def AngleDeg(self, *args):
-        """Phase angle of first phase in degrees"""
+        """
+        Phase angle of first phase in degrees
+
+        Original COM help: https://opendss.epri.com/AngleDeg1.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Vsources_Get_AngleDeg())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Vsources_Set_AngleDeg(Value))
 
     def BasekV(self, *args):
-        """Source voltage in kV"""
+        """
+        Source voltage in kV
+
+        Original COM help: https://opendss.epri.com/BasekV.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Vsources_Get_BasekV())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Vsources_Set_BasekV(Value))
 
     def Frequency(self, *args):
-        """Source frequency in Hz"""
+        """
+        Source frequency in Hz
+
+        Original COM help: https://opendss.epri.com/Frequency2.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Vsources_Get_Frequency())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Vsources_Set_Frequency(Value))
 
     def Phases(self, *args):
-        """Number of phases"""
+        """
+        Number of phases
+
+        Original COM help: https://opendss.epri.com/Phases3.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Vsources_Get_Phases())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Vsources_Set_Phases(Value))
 
     def PU(self, *args):
-        """Per-unit value of source voltage"""
+        """
+        Per-unit value of source voltage
+
+        Original COM help: https://opendss.epri.com/pu.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Vsources_Get_pu())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Vsources_Set_pu(Value))
 
 

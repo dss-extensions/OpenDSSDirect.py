@@ -3,16 +3,25 @@ from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
 
 class IError(Base):
     __slots__ = []
+
     __name__ = "Error"
     _api_prefix = "Error"
     _columns = ["Description", "Number", "EarlyAbort"]
 
     def Description(self):
-        """(read-only) Description of error for last operation"""
+        """
+        Description of error for last operation
+
+        Original COM help: https://opendss.epri.com/Description1.html
+        """
         return self._get_string(self._lib.Error_Get_Description())
 
     def Number(self):
-        """(read-only) Error Number (returns current value and then resets to zero)"""
+        """
+        Error Number (returns current value and then resets to zero)
+
+        Original COM help: https://opendss.epri.com/Number.html
+        """
         return self._lib.Error_Get_Number()
 
     def EarlyAbort(self, *args):
@@ -26,7 +35,7 @@ class IError(Base):
             return self._lib.Error_Get_EarlyAbort() != 0
 
         # Setter
-        Value, = args
+        (Value,) = args
         self._lib.Error_Set_EarlyAbort(Value)
 
     def ExtendedErrors(self, *args):
@@ -50,42 +59,42 @@ class IError(Base):
         off to restore the previous behavior.
 
         (API Extension)
-
         """
         # Getter
         if len(args) == 0:
             return self._lib.Error_Get_ExtendedErrors() != 0
 
         # Setter
-        Value, = args
+        (Value,) = args
         self._lib.Error_Set_ExtendedErrors(Value)
 
     def UseExceptions(self, *args):
         """
         Controls whether the automatic error checking mechanism is enable, i.e., if
         the DSS engine errors (from the `Error` interface) are mapped exception when
-        detected. 
-        
+        detected.
+
         **When disabled, the user takes responsibility for checking for errors.**
         This can be done through the `Error` interface. When `Error.Number` is not
         zero, there should be an error message in `Error.Description`. This is compatible
-        with the behavior on the official OpenDSS (Windows-only COM implementation) when 
+        with the behavior on the official OpenDSS (Windows-only COM implementation) when
         `AllowForms` is disabled.
 
         Users can also use the DSS command `Export ErrorLog` to inspect for errors.
 
-        **WARNING:** This is a global setting, affects all DSS instances from DSS-Python 
-        and OpenDSSDirect.py.
+        **WARNING:** This is a global setting, affects all DSS instances from DSS-Python,
+        OpenDSSDirect.py and AltDSS.
 
         (API Extension)
         """
         # Getter
         if len(args) == 0:
             return Base._use_exceptions
-            
+
         # Setter
-        value, = args
+        (value,) = args
         Base._enable_exceptions(bool(value))
+
 
 _Error = IError(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 

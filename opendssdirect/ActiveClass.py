@@ -8,27 +8,50 @@ class IActiveClass(Base):
     _columns = ["ActiveClassName", "ActiveClassParent", "Name", "NumElements"]
 
     def ActiveClassName(self):
-        """(read-only) Returns name of active class."""
+        """
+        Returns name of active class.
+
+        Original COM help: https://opendss.epri.com/ActiveClassName.html
+        """
         return self._get_string(
             self.CheckForError(self._lib.ActiveClass_Get_ActiveClassName())
         )
 
     def AllNames(self):
-        """(read-only) Array of strings consisting of all element names in the active class."""
+        """
+        Array of strings consisting of all element names in the active class.
+
+        Original COM help: https://opendss.epri.com/AllNames.html
+        """
         return self.CheckForError(
             self._get_string_array(self._lib.ActiveClass_Get_AllNames)
         )
 
     def Count(self):
-        """(read-only) Number of elements in Active Class. Same as NumElements Property."""
+        """
+        Number of elements in Active Class. Same as NumElements Property.
+
+        Original COM help: https://opendss.epri.com/Count.html
+        """
         return self.CheckForError(self._lib.ActiveClass_Get_Count())
 
     def First(self):
-        """(read-only) Sets first element in the active class to be the active DSS object. If object is a CktElement, ActiveCktElement also points to this element. Returns 0 if none."""
+        """
+        Sets first element in the active class to be the active DSS object.
+        If the object is a CktElement, ActiveCktELement also points to this element.
+
+        Returns 0 if none.
+
+        Original COM help: https://opendss.epri.com/First.html
+        """
         return self.CheckForError(self._lib.ActiveClass_Get_First())
 
     def Name(self, *args):
-        """Name of the Active Element of the Active Class"""
+        """
+        Name of the Active Element of the Active Class
+
+        Original COM help: https://opendss.epri.com/Name.html
+        """
         # Getter
         if len(args) == 0:
             return self._get_string(
@@ -36,21 +59,36 @@ class IActiveClass(Base):
             )
 
         # Setter
-        Value, = args
+        (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
         self.CheckForError(self._lib.ActiveClass_Set_Name(Value))
 
     def Next(self):
-        """(read-only) Sets next element in active class to be the active DSS object. If object is a CktElement, ActiveCktElement also points to this element.  Returns 0 if no more."""
+        """
+        Sets next element in active class to be the active DSS object.
+        If the object is a CktElement, ActiveCktElement also points to this element.
+
+        Returns 0 if no more.
+
+        Original COM help: https://opendss.epri.com/Next.html
+        """
         return self.CheckForError(self._lib.ActiveClass_Get_Next())
 
     def NumElements(self):
-        """(read-only) Number of elements in this class. Same as Count property."""
+        """
+        Number of elements in this class. Same as Count property.
+
+        Original COM help: https://opendss.epri.com/NumElements.html
+        """
         return self.CheckForError(self._lib.ActiveClass_Get_NumElements())
 
     def ActiveClassParent(self):
-        """Get the name of the parent class of the active class"""
+        """
+        Get the name of the parent class of the active class
+
+        Original COM help: https://opendss.epri.com/ActiveClassParent.html
+        """
         return self._get_string(
             self.CheckForError(self._lib.ActiveClass_Get_ActiveClassParent())
         )
@@ -60,7 +98,7 @@ class IActiveClass(Base):
         Returns the data (as a list) of all elements from the active class as a JSON-encoded string.
 
         The `options` parameter contains bit-flags to toggle specific features.
-        See `Obj_ToJSON` (C-API) for more.
+        See `Obj_ToJSON` (C-API) for more, or `DSSObj.to_json` in Python.
 
         Additionally, the `ExcludeDisabled` flag can be used to excluded disabled elements from the output.
 

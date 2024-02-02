@@ -3,6 +3,7 @@ from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 
 class ISwtControls(Iterable):
     __slots__ = []
+
     __name__ = "SwtControls"
     _api_prefix = "SwtControls"
     _columns = [
@@ -21,59 +22,81 @@ class ISwtControls(Iterable):
         self.CheckForError(self._lib.SwtControls_Reset())
 
     def Action(self, *args):
-        """Open or Close the switch. No effect if switch is locked.  However, Reset removes any lock and then closes the switch (shelf state)."""
+        """
+        Open or Close the switch. No effect if switch is locked.  However, Reset removes any lock and then closes the switch (shelf state).
+
+        Original COM help: https://opendss.epri.com/Action1.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.SwtControls_Get_Action())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.SwtControls_Set_Action(Value))
 
     def Delay(self, *args):
-        """Time delay [s] betwen arming and opening or closing the switch.  Control may reset before actually operating the switch."""
+        """
+        Time delay [s] between arming and opening or closing the switch.  Control may reset before actually operating the switch.
+
+        Original COM help: https://opendss.epri.com/Delay3.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.SwtControls_Get_Delay())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.SwtControls_Set_Delay(Value))
 
     def IsLocked(self, *args):
-        """The lock prevents both manual and automatic switch operation."""
+        """
+        The lock prevents both manual and automatic switch operation.
+
+        Original COM help: https://opendss.epri.com/IsLocked.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.SwtControls_Get_IsLocked()) != 0
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.SwtControls_Set_IsLocked(Value))
 
     def NormalState(self, *args):
         """
-        Get/set Normal state of switch (see actioncodes) dssActionOpen or dssActionClose
+        Get/set Normal state of switch (see ActionCodes) dssActionOpen or dssActionClose
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.SwtControls_Get_NormalState())
+            return ActionCodes(
+                self.CheckForError(self._lib.SwtControls_Get_NormalState())
+            )
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.SwtControls_Set_NormalState(Value))
 
     def State(self, *args):
-        """Set it to force the switch to a specified state, otherwise read its present state."""
+        """
+        Set it to force the switch to a specified state, otherwise read its present state.
+
+        Original COM help: https://opendss.epri.com/State.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.SwtControls_Get_State())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.SwtControls_Set_State(Value))
 
     def SwitchedObj(self, *args):
-        """Full name of the switched element."""
+        """
+        Full name of the switched element.
+
+        Original COM help: https://opendss.epri.com/SwitchedObj3.html
+        """
         # Getter
         if len(args) == 0:
             return self._get_string(
@@ -81,19 +104,23 @@ class ISwtControls(Iterable):
             )
 
         # Setter
-        Value, = args
+        (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
         self.CheckForError(self._lib.SwtControls_Set_SwitchedObj(Value))
 
     def SwitchedTerm(self, *args):
-        """Terminal number where the switch is located on the SwitchedObj"""
+        """
+        Terminal number where the switch is located on the SwitchedObj
+
+        Original COM help: https://opendss.epri.com/SwitchedTerm3.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.SwtControls_Get_SwitchedTerm())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.SwtControls_Set_SwitchedTerm(Value))
 
 

@@ -2,85 +2,131 @@ from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
 
 
 class IParallel(Base):
-    """Parallel machine interface"""
+    """
+    Parallel machine interface
+    
+    On DSS-Extensions, prefer using DSSContexts and native threading capabilities of your programming
+    language, if available.
+    """
+
+    __slots__ = []
 
     __name__ = "Parallel"
     _api_prefix = "Parallel"
     _columns = []
 
-    __slots__ = []
-
     def CreateActor(self):
+        """
+        Create a new actor, if there are still cores available.
+        """
         self.CheckForError(self._lib.Parallel_CreateActor())
 
     def Wait(self):
+        """
+        Suspends the host's thread until all the OpenDSS running jobs finish.
+
+        Original COM help: https://opendss.epri.com/Wait.html
+        """
         self.CheckForError(self._lib.Parallel_Wait())
 
     def ActiveActor(self, *args):
-        """Gets/sets the ID of the Active Actor"""
+        """
+        Gets/sets the ID of the Active Actor
+
+        Original COM help: https://opendss.epri.com/ActiveActor.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Parallel_Get_ActiveActor())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Parallel_Set_ActiveActor(Value))
 
     def ActiveParallel(self, *args):
         """
         (read) Sets ON/OFF (1/0) Parallel features of the Engine
         (write) Delivers if the Parallel features of the Engine are Active
+
+        Original COM help: https://opendss.epri.com/ActiveParallel.html
         """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Parallel_Get_ActiveParallel())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Parallel_Set_ActiveParallel(Value))
 
     def ActorCPU(self, *args):
-        """Gets/sets the CPU of the Active Actor"""
+        """
+        Gets/sets the CPU of the Active Actor
+
+        Original COM help: https://opendss.epri.com/ActorCPU.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Parallel_Get_ActorCPU())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Parallel_Set_ActorCPU(Value))
 
     def ActorProgress(self):
-        """(read-only) Gets the progress of all existing actors in pct"""
+        """
+        Gets the progress of all existing actors in pct
+
+        Original COM help: https://opendss.epri.com/ActorProgress.html
+        """
         self.CheckForError(self._lib.Parallel_Get_ActorProgress_GR())
         return self._get_int32_gr_array()
 
     def ActorStatus(self):
-        """(read-only) Gets the status of each actor"""
+        """
+        Gets the status of each actor
+
+        Original COM help: https://opendss.epri.com/ActorStatus.html
+        """
         self.CheckForError(self._lib.Parallel_Get_ActorStatus_GR())
         return self._get_int32_gr_array()
 
     def ConcatenateReports(self, *args):
         """
-        Controls the ConcatenateReports option (1=enabled, 0=disabled)
+        (read) Reads the values of the ConcatenateReports option (1=enabled, 0=disabled)
+        (write) Enable/Disable (1/0) the ConcatenateReports option for extracting monitors data
+
+        Original COM help: https://opendss.epri.com/ConcatenateReports.html
         """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Parallel_Get_ConcatenateReports())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Parallel_Set_ConcatenateReports(Value))
 
     def NumCPUs(self):
-        """(read-only) Delivers the number of CPUs on the current PC"""
+        """
+        Delivers the number of CPUs on the current PC
+
+        Original COM help: https://opendss.epri.com/NumCPUs.html
+        """
         return self.CheckForError(self._lib.Parallel_Get_NumCPUs())
 
     def NumCores(self):
-        """(read-only) Delivers the number of Cores of the local PC"""
+        """
+        Delivers the number of Cores of the local PC
+
+        Original COM help: https://opendss.epri.com/NumCores.html
+        """
         return self.CheckForError(self._lib.Parallel_Get_NumCores())
 
     def NumOfActors(self):
-        """(read-only) Gets the number of Actors created"""
+        """
+        Gets the number of Actors created
+
+        Original COM help: https://opendss.epri.com/NumOfActors.html
+        """
         return self.CheckForError(self._lib.Parallel_Get_NumOfActors())
 
 

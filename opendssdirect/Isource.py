@@ -3,38 +3,51 @@ from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 
 class IIsource(Iterable):
     __slots__ = []
+
     __name__ = "Isource"
     _api_prefix = "ISources"
     _columns = ["Name", "Idx", "Amps", "AngleDeg", "Frequency"]
 
     def Amps(self, *args):
-        """Magnitude of the ISource in amps"""
+        """
+        Magnitude of the ISource in amps
+
+        Original COM help: https://opendss.epri.com/Amps.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.ISources_Get_Amps())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.ISources_Set_Amps(Value))
 
     def AngleDeg(self, *args):
-        """Phase angle for ISource, degrees"""
+        """
+        Phase angle for ISource, degrees
+
+        Original COM help: https://opendss.epri.com/AngleDeg.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.ISources_Get_AngleDeg())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.ISources_Set_AngleDeg(Value))
 
     def Frequency(self, *args):
-        """The present frequency of the ISource, Hz"""
+        """
+        The present frequency of the ISource, Hz
+
+        Original COM help: https://opendss.epri.com/Frequency.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.ISources_Get_Frequency())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.ISources_Set_Frequency(Value))
 
 

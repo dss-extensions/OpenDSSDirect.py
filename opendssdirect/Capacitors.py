@@ -3,6 +3,7 @@ from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 
 class ICapacitors(Iterable):
     __slots__ = []
+
     __name__ = "Capacitors"
     _api_prefix = "Capacitors"
     _columns = [
@@ -29,49 +30,69 @@ class ICapacitors(Iterable):
         return self.CheckForError(self._lib.Capacitors_SubtractStep()) != 0
 
     def AvailableSteps(self):
-        """(read-only) Number of Steps available in cap bank to be switched ON."""
+        """
+        Number of Steps available in cap bank to be switched ON.
+
+        Original COM help: https://opendss.epri.com/AvailableSteps.html
+        """
         return self.CheckForError(self._lib.Capacitors_Get_AvailableSteps())
 
     def IsDelta(self, *args):
-        """Delta connection or wye?"""
+        """
+        Delta connection or wye?
+
+        Original COM help: https://opendss.epri.com/IsDelta.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Capacitors_Get_IsDelta()) != 0
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Capacitors_Set_IsDelta(Value))
 
     def NumSteps(self, *args):
-        """Number of steps (default 1) for distributing and switching the total bank kVAR."""
+        """
+        Number of steps (default 1) for distributing and switching the total bank kVAR.
+
+        Original COM help: https://opendss.epri.com/NumSteps.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Capacitors_Get_NumSteps())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Capacitors_Set_NumSteps(Value))
 
     def States(self, *args):
-        """A array of  integer [0..numsteps-1] indicating state of each step. If the read value is -1 an error has occurred."""
+        """
+        An array of integers [0..NumSteps-1] indicating state of each step. If the read value is -1 an error has occurred.
+
+        Original COM help: https://opendss.epri.com/States.html
+        """
         # Getter
         if len(args) == 0:
             self.CheckForError(self._lib.Capacitors_Get_States_GR())
             return self._get_int32_gr_array()
 
         # Setter
-        Value, = args
+        (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_int32_array(Value)
         self.CheckForError(self._lib.Capacitors_Set_States(ValuePtr, ValueCount))
 
     def kV(self, *args):
-        """Bank kV rating. Use LL for 2 or 3 phases, or actual can rating for 1 phase."""
+        """
+        Bank kV rating. Use LL for 2 or 3 phases, or actual can rating for 1 phase.
+
+        Original COM help: https://opendss.epri.com/kV.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Capacitors_Get_kV())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Capacitors_Set_kV(Value))
 
     def kvar(self, *args):
@@ -81,7 +102,7 @@ class ICapacitors(Iterable):
             return self.CheckForError(self._lib.Capacitors_Get_kvar())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Capacitors_Set_kvar(Value))
 
 

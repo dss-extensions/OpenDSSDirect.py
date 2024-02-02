@@ -1,5 +1,4 @@
 from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
-from dss import LineUnits
 
 
 class ICNData(Iterable):
@@ -41,7 +40,7 @@ class ICNData(Iterable):
             return self.CheckForError(self._lib.CNData_Get_EmergAmps())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.CNData_Set_EmergAmps(Value))
 
     def NormAmps(self, *args):
@@ -51,7 +50,7 @@ class ICNData(Iterable):
             return self.CheckForError(self._lib.CNData_Get_NormAmps())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.CNData_Set_NormAmps(Value))
 
     def Rdc(self, *args):
@@ -60,7 +59,7 @@ class ICNData(Iterable):
             return self.CheckForError(self._lib.CNData_Get_Rdc())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.CNData_Set_Rdc(Value))
 
     def Rac(self, *args):
@@ -69,7 +68,7 @@ class ICNData(Iterable):
             return self.CheckForError(self._lib.CNData_Get_Rac())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.CNData_Set_Rac(Value))
 
     def GMRac(self, *args):
@@ -78,7 +77,7 @@ class ICNData(Iterable):
             return self.CheckForError(self._lib.CNData_Get_GMRac())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.CNData_Set_GMRac(Value))
 
     def GMRUnits(self, *args):
@@ -87,7 +86,7 @@ class ICNData(Iterable):
             return LineUnits(self.CheckForError(self._lib.CNData_Get_GMRUnits()))
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.CNData_Set_GMRUnits(Value))
 
     def Radius(self, *args):
@@ -96,7 +95,7 @@ class ICNData(Iterable):
             return self.CheckForError(self._lib.CNData_Get_Radius())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.CNData_Set_Radius(Value))
 
     def RadiusUnits(self, *args):
@@ -105,7 +104,7 @@ class ICNData(Iterable):
             return LineUnits(self.CheckForError(self._lib.CNData_Get_RadiusUnits()))
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.CNData_Set_RadiusUnits(Value))
 
     def ResistanceUnits(self, *args):
@@ -114,7 +113,7 @@ class ICNData(Iterable):
             return LineUnits(self.CheckForError(self._lib.CNData_Get_ResistanceUnits()))
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.CNData_Set_ResistanceUnits(Value))
 
     def Diameter(self, *args):
@@ -123,7 +122,7 @@ class ICNData(Iterable):
             return self.CheckForError(self._lib.CNData_Get_Diameter())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.CNData_Set_Diameter(Value))
 
     def EpsR(self, *args):
@@ -132,7 +131,7 @@ class ICNData(Iterable):
             return self.CheckForError(self._lib.CNData_Get_EpsR())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.CNData_Set_EpsR(Value))
 
     def InsLayer(self, *args):
@@ -141,7 +140,7 @@ class ICNData(Iterable):
             return self.CheckForError(self._lib.CNData_Get_InsLayer())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.CNData_Set_InsLayer(Value))
 
     def DiaIns(self, *args):
@@ -150,7 +149,7 @@ class ICNData(Iterable):
             return self.CheckForError(self._lib.CNData_Get_DiaIns())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.CNData_Set_DiaIns(Value))
 
     def DiaCable(self, *args):
@@ -159,7 +158,7 @@ class ICNData(Iterable):
             return self.CheckForError(self._lib.CNData_Get_DiaCable())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.CNData_Set_DiaCable(Value))
 
     def k(self, *args):
@@ -168,7 +167,7 @@ class ICNData(Iterable):
             return self.CheckForError(self._lib.CNData_Get_k())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.CNData_Set_k(Value))
 
     def DiaStrand(self, *args):
@@ -177,7 +176,7 @@ class ICNData(Iterable):
             return self.CheckForError(self._lib.CNData_Get_DiaStrand())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.CNData_Set_DiaStrand(Value))
 
     def GmrStrand(self, *args):
@@ -186,7 +185,7 @@ class ICNData(Iterable):
             return self.CheckForError(self._lib.CNData_Get_GmrStrand())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.CNData_Set_GmrStrand(Value))
 
     def RStrand(self, *args):
@@ -195,7 +194,7 @@ class ICNData(Iterable):
             return self.CheckForError(self._lib.CNData_Get_RStrand())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.CNData_Set_RStrand(Value))
 
 

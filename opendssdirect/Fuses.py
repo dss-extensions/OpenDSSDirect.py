@@ -3,6 +3,7 @@ from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 
 class IFuses(Iterable):
     __slots__ = []
+
     __name__ = "Fuses"
     _api_prefix = "Fuses"
     _columns = [
@@ -22,36 +23,58 @@ class IFuses(Iterable):
     ]
 
     def Close(self):
-        """Close all phases of the fuse."""
+        """
+        Close all phases of the fuse.
+
+        Original COM help: https://opendss.epri.com/Close3.html
+        """
         self.CheckForError(self._lib.Fuses_Close())
 
     def IsBlown(self):
-        """Current state of the fuses. TRUE if any fuse on any phase is blown. Else FALSE."""
+        """
+        Current state of the fuses. TRUE if any fuse on any phase is blown. Else FALSE.
+
+        Original COM help: https://opendss.epri.com/IsBlown.html
+        """
         return self.CheckForError(self._lib.Fuses_IsBlown()) != 0
 
     def Open(self):
-        """Manual opening of all phases of the fuse."""
+        """
+        Manual opening of all phases of the fuse.
+
+        Original COM help: https://opendss.epri.com/Open2.html
+        """
         self.CheckForError(self._lib.Fuses_Open())
 
     def Reset(self):
-        """Reset fuse to normal state."""
+        """
+        Reset fuse to normal state.
+
+        Original COM help: https://opendss.epri.com/Reset7.html
+        """
         self.CheckForError(self._lib.Fuses_Reset())
 
     def Delay(self, *args):
         """
         A fixed delay time in seconds added to the fuse blowing time determined by the TCC curve. Default is 0.
         This represents a fuse clear or other delay.
+
+        Original COM help: https://opendss.epri.com/Delay1.html
         """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Fuses_Get_Delay())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Fuses_Set_Delay(Value))
 
     def MonitoredObj(self, *args):
-        """Full name of the circuit element to which the fuse is connected."""
+        """
+        Full name of the circuit element to which the fuse is connected.
+
+        Original COM help: https://opendss.epri.com/MonitoredObj1.html
+        """
         # Getter
         if len(args) == 0:
             return self._get_string(
@@ -59,42 +82,55 @@ class IFuses(Iterable):
             )
 
         # Setter
-        Value, = args
+        (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
         self.CheckForError(self._lib.Fuses_Set_MonitoredObj(Value))
 
     def MonitoredTerm(self, *args):
-        """Terminal number to which the fuse is connected."""
+        """
+        Terminal number to which the fuse is connected.
+
+        Original COM help: https://opendss.epri.com/MonitoredTerm1.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Fuses_Get_MonitoredTerm())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Fuses_Set_MonitoredTerm(Value))
 
     def NumPhases(self):
-        """(read-only) Number of phases, this fuse."""
+        """
+        Number of phases, this fuse.
+
+        Original COM help: https://opendss.epri.com/NumPhases1.html
+        """
         return self.CheckForError(self._lib.Fuses_Get_NumPhases())
 
     def RatedCurrent(self, *args):
         """
         Multiplier or actual amps for the TCCcurve object. Defaults to 1.0.
+
         Multiply current values of TCC curve by this to get actual amps.
+
+        Original COM help: https://opendss.epri.com/RatedCurrent.html
         """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Fuses_Get_RatedCurrent())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Fuses_Set_RatedCurrent(Value))
 
     def SwitchedObj(self, *args):
         """
         Full name of the circuit element switch that the fuse controls.
         Defaults to the MonitoredObj.
+
+        Original COM help: https://opendss.epri.com/SwitchedObj.html
         """
         # Getter
         if len(args) == 0:
@@ -103,7 +139,7 @@ class IFuses(Iterable):
             )
 
         # Setter
-        Value, = args
+        (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
         self.CheckForError(self._lib.Fuses_Set_SwitchedObj(Value))
@@ -111,39 +147,53 @@ class IFuses(Iterable):
     def SwitchedTerm(self, *args):
         """
         Number of the terminal of the controlled element containing the switch controlled by the fuse.
+
+        Original COM help: https://opendss.epri.com/SwitchedTerm.html
         """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Fuses_Get_SwitchedTerm())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Fuses_Set_SwitchedTerm(Value))
 
     def TCCCurve(self, *args):
-        """Name of the TCCcurve object that determines fuse blowing."""
+        """
+        Name of the TCCcurve object that determines fuse blowing.
+
+        Original COM help: https://opendss.epri.com/TCCcurve.html
+        """
         # Getter
         if len(args) == 0:
             return self._get_string(self.CheckForError(self._lib.Fuses_Get_TCCcurve()))
 
         # Setter
-        Value, = args
+        (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
         self.CheckForError(self._lib.Fuses_Set_TCCcurve(Value))
 
     def State(self, *args):
-        """Array of strings indicating the state of each phase of the fuse."""
+        """
+        Array of strings indicating the state of each phase of the fuse.
+
+        Original COM help: https://opendss.epri.com/State2.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._get_string_array(self._lib.Fuses_Get_State))
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._set_string_array(self._lib.Fuses_Set_State, Value))
 
     def NormalState(self, *args):
-        """Array of strings indicating the normal state of each phase of the fuse."""
+        """
+        Array of strings indicating the normal state of each phase of the fuse.
+
+        Original COM help: https://opendss.epri.com/NormalState2.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(
@@ -151,7 +201,7 @@ class IFuses(Iterable):
             )
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(
             self._set_string_array(self._lib.Fuses_Set_NormalState, Value)
         )

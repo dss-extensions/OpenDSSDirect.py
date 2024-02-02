@@ -5,12 +5,13 @@ from dss import SparseSolverOptions
 
 class IYMatrix(Base):
     __slots__ = []
+
     __name__ = "YMatrix"
     _api_prefix = "YMatrix"
     _columns = []
 
     def getYsparse(self, factor=True):
-        """Return as (data, indices, indptr) that can fed into scipy.sparse.csc_matrix"""
+        """Return as (data, indices, indptr) that can fed into `scipy.sparse.csc_matrix`"""
         ffi = self._api_util.ffi
         nBus = ffi.new("uint32_t*")
         nBus[0] = 0
@@ -86,7 +87,7 @@ class IYMatrix(Base):
             return self.CheckForError(self._lib.YMatrix_Get_SystemYChanged() != 0)
 
         # Setter
-        value, = args
+        (value,) = args
         self.CheckForError(self._lib.YMatrix_Set_SystemYChanged(value))
 
     def UseAuxCurrents(self, *args):
@@ -95,7 +96,7 @@ class IYMatrix(Base):
             return self.CheckForError(self._lib.YMatrix_Get_UseAuxCurrents() != 0)
 
         # Setter
-        value, = args
+        (value,) = args
         self.CheckForError(self._lib.YMatrix_Set_UseAuxCurrents(value))
 
     def SolverOptions(self, *args):
@@ -105,7 +106,7 @@ class IYMatrix(Base):
             return self._lib.YMatrix_Get_SolverOptions()
 
         # Setter
-        Value, = args
+        (Value,) = args
         self._lib.YMatrix_Set_SolverOptions(Value)
 
     def getI(self):
@@ -134,7 +135,7 @@ class IYMatrix(Base):
             return self.CheckForError(self._lib.YMatrix_Get_LoadsNeedUpdating() != 0)
 
         # Setter
-        value, = args
+        (value,) = args
         self.CheckForError(self._lib.YMatrix_Set_LoadsNeedUpdating(value))
 
     def SolutionInitialized(self, *args):
@@ -143,7 +144,7 @@ class IYMatrix(Base):
             return self.CheckForError(self._lib.YMatrix_Get_SolutionInitialized() != 0)
 
         # Setter
-        value, = args
+        (value,) = args
         self.CheckForError(self._lib.YMatrix_Set_SolutionInitialized(value))
 
     def Iteration(self, *args):
@@ -152,7 +153,7 @@ class IYMatrix(Base):
             return self.CheckForError(self._lib.YMatrix_Get_Iteration())
 
         # Setter
-        value, = args
+        (value,) = args
         self.CheckForError(self._lib.YMatrix_Set_Iteration(value))
 
 

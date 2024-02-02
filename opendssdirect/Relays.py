@@ -3,6 +3,7 @@ from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 
 class IRelays(Iterable):
     __slots__ = []
+
     __name__ = "Relays"
     _api_prefix = "Relays"
     _columns = [
@@ -17,7 +18,11 @@ class IRelays(Iterable):
     ]
 
     def MonitoredObj(self, *args):
-        """Full name of object this Relay is monitoring."""
+        """
+        Full name of object this Relay is monitoring.
+
+        Original COM help: https://opendss.epri.com/MonitoredObj3.html
+        """
         # Getter
         if len(args) == 0:
             return self._get_string(
@@ -25,23 +30,31 @@ class IRelays(Iterable):
             )
 
         # Setter
-        Value, = args
+        (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
         self.CheckForError(self._lib.Relays_Set_MonitoredObj(Value))
 
     def MonitoredTerm(self, *args):
-        """Number of terminal of monitored element that this Relay is monitoring."""
+        """
+        Number of terminal of monitored element that this Relay is monitoring.
+
+        Original COM help: https://opendss.epri.com/MonitoredTerm3.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Relays_Get_MonitoredTerm())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Relays_Set_MonitoredTerm(Value))
 
     def SwitchedObj(self, *args):
-        """Full name of element that will be switched when relay trips."""
+        """
+        Full name of element that will be switched when relay trips.
+
+        Original COM help: https://opendss.epri.com/SwitchedObj2.html
+        """
         # Getter
         if len(args) == 0:
             return self._get_string(
@@ -49,27 +62,39 @@ class IRelays(Iterable):
             )
 
         # Setter
-        Value, = args
+        (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
         self.CheckForError(self._lib.Relays_Set_SwitchedObj(Value))
 
     def SwitchedTerm(self, *args):
-        """Terminal number of the switched object that will be opened when the relay trips."""
+        """
+        Terminal number of the switched object that will be opened when the relay trips.
+
+        Original COM help: https://opendss.epri.com/SwitchedTerm2.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Relays_Get_SwitchedTerm())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Relays_Set_SwitchedTerm(Value))
 
     def Open(self):
-        """Open relay's controlled element and lock out the relay."""
+        """
+        Open relay's controlled element and lock out the relay.
+
+        Original COM help: https://opendss.epri.com/Open4.html
+        """
         self.CheckForError(self._lib.Relays_Open())
 
     def Close(self):
-        """Close the switched object controlled by the relay. Resets relay to first operation."""
+        """
+        Close the switched object controlled by the relay. Resets relay to first operation.
+
+        Original COM help: https://opendss.epri.com/Close5.html
+        """
         self.CheckForError(self._lib.Relays_Close())
 
     def Reset(self):
@@ -91,17 +116,21 @@ class IRelays(Iterable):
             return self.CheckForError(self._lib.Relays_Get_State())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Relays_Set_State(Value))
 
     def NormalState(self, *args):
-        """Normal state of relay."""
+        """
+        Normal state of relay.
+
+        Original COM help: https://opendss.epri.com/NormalState3.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Relays_Get_NormalState())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Relays_Set_NormalState(Value))
 
 

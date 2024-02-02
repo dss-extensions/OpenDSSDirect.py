@@ -3,6 +3,7 @@ from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
 
 class IPDElements(Base):
     __slots__ = []
+
     __name__ = "PDElements"
     _api_prefix = "PDElements"
     _columns = [
@@ -22,11 +23,19 @@ class IPDElements(Base):
     ]
 
     def AccumulatedL(self):
-        """(read-only) accummulated failure rate for this branch on downline"""
+        """
+        Accumulated failure rate for this branch on downline
+
+        Original COM help: https://opendss.epri.com/AccumulatedL.html
+        """
         return self.CheckForError(self._lib.PDElements_Get_AccumulatedL())
 
     def Count(self):
-        """(read-only) Number of PD elements (including disabled elements)"""
+        """
+        Number of PD elements (including disabled elements)
+
+        Original COM help: https://opendss.epri.com/Count12.html
+        """
         return self.CheckForError(self._lib.PDElements_Get_Count())
 
     def FaultRate(self, *args):
@@ -39,7 +48,7 @@ class IPDElements(Base):
             return self.CheckForError(self._lib.PDElements_Get_FaultRate())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.PDElements_Set_FaultRate(Value))
 
     def First(self):
@@ -65,7 +74,11 @@ class IPDElements(Base):
         return self.CheckForError(self._lib.PDElements_Get_IsShunt()) != 0
 
     def Lambda(self):
-        """(read-only) Failure rate for this branch. Faults per year including length of line."""
+        """
+        Failure rate for this branch. Faults per year including length of line.
+
+        Original COM help: https://opendss.epri.com/Lambda1.html
+        """
         return self.CheckForError(self._lib.PDElements_Get_Lambda())
 
     def Name(self, *args):
@@ -78,7 +91,7 @@ class IPDElements(Base):
             return self._get_string(self.CheckForError(self._lib.PDElements_Get_Name()))
 
         # Setter
-        Value, = args
+        (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
         self.CheckForError(self._lib.PDElements_Set_Name(Value))
@@ -91,7 +104,11 @@ class IPDElements(Base):
         return self.CheckForError(self._lib.PDElements_Get_Next())
 
     def NumCustomers(self):
-        """(read-only) Number of customers, this branch"""
+        """
+        Number of customers, this branch
+
+        Original COM help: https://opendss.epri.com/Numcustomers.html
+        """
         return self.CheckForError(self._lib.PDElements_Get_Numcustomers())
 
     def ParentPDElement(self):
@@ -102,35 +119,55 @@ class IPDElements(Base):
         return self.CheckForError(self._lib.PDElements_Get_ParentPDElement())
 
     def RepairTime(self, *args):
-        """Average repair time for this element in hours"""
+        """
+        Average repair time for this element in hours
+
+        Original COM help: https://opendss.epri.com/RepairTime.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.PDElements_Get_RepairTime())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.PDElements_Set_RepairTime(Value))
 
     def SectionID(self):
-        """(read-only) Integer ID of the feeder section that this PDElement branch is part of"""
+        """
+        Integer ID of the feeder section that this PDElement branch is part of
+
+        Original COM help: https://opendss.epri.com/SectionID1.html
+        """
         return self.CheckForError(self._lib.PDElements_Get_SectionID())
 
     def TotalMiles(self):
-        """(read-only) Total miles of line from this element to the end of the zone. For recloser siting algorithm."""
+        """
+        Total miles of line from this element to the end of the zone. For recloser siting algorithm.
+
+        Original COM help: https://opendss.epri.com/TotalMiles1.html
+        """
         return self.CheckForError(self._lib.PDElements_Get_TotalMiles())
 
     def TotalCustomers(self):
-        """(read-only) Total number of customers from this branch to the end of the zone"""
+        """
+        Total number of customers from this branch to the end of the zone
+
+        Original COM help: https://opendss.epri.com/TotalCustomers1.html
+        """
         return self.CheckForError(self._lib.PDElements_Get_Totalcustomers())
 
     def PctPermanent(self, *args):
-        """Get/Set percent of faults that are permanent (require repair). Otherwise, fault is assumed to be transient/temporary."""
+        """
+        Get/Set percent of faults that are permanent (require repair). Otherwise, fault is assumed to be transient/temporary.
+
+        Original COM help: https://opendss.epri.com/pctPermanent.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.PDElements_Get_pctPermanent())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.PDElements_Set_pctPermanent(Value))
 
     def AllNames(self):
@@ -241,7 +278,7 @@ class IPDElements(Base):
 
     def AllSeqPowers(self):
         """
-        Complex array of sequence powers into each 3-phase teminal, for each PD element
+        Complex array of sequence powers into each 3-phase terminal, for each PD element
 
         (API Extension)
         """

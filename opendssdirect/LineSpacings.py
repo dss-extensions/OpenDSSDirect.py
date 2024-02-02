@@ -21,7 +21,7 @@ class ILineSpacings(Iterable):
             return self.CheckForError(self._lib.LineSpacings_Get_Phases())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.LineSpacings_Set_Phases(Value))
 
     def Nconds(self, *args):
@@ -30,7 +30,7 @@ class ILineSpacings(Iterable):
             return self.CheckForError(self._lib.LineSpacings_Get_Nconds())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.LineSpacings_Set_Nconds(Value))
 
     def Units(self, *args):
@@ -39,7 +39,7 @@ class ILineSpacings(Iterable):
             return LineUnits(self.CheckForError(self._lib.LineSpacings_Get_Units()))
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.LineSpacings_Set_Units(Value))
 
     def Xcoords(self, *args):
@@ -50,7 +50,7 @@ class ILineSpacings(Iterable):
             return self._get_float64_gr_array()
 
         # Setter
-        Value, = args
+        (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
         self.CheckForError(self._lib.LineSpacings_Set_Xcoords(ValuePtr, ValueCount))
 
@@ -62,7 +62,7 @@ class ILineSpacings(Iterable):
             return self._get_float64_gr_array()
 
         # Setter
-        Value, = args
+        (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
         self.CheckForError(self._lib.LineSpacings_Set_Ycoords(ValuePtr, ValueCount))
 

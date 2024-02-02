@@ -27,6 +27,11 @@ class IBasic(Base):
         self.CheckForError(self._lib.DSS_ClearAll())
 
     def Reset(self):
+        """
+        This is a no-op function, does nothing. Left for compatibility.
+
+        Original COM help: https://opendss.epri.com/Reset1.html
+        """
         self.CheckForError(self._lib.DSS_Reset())
 
     def SetActiveClass(self, ClassName):
@@ -35,57 +40,104 @@ class IBasic(Base):
         return self.CheckForError(self._lib.DSS_SetActiveClass(ClassName))
 
     def Start(self, code):
+        """
+        This is a no-op function, does nothing. Left for compatibility.
+
+        Calling `Start` in AltDSS/DSS-Extensions is required but that is already
+        handled automatically, so the users do not need to call it manually,
+        unless using AltDSS/DSS C-API directly without further tools.
+
+        On the official OpenDSS, `Start` also does nothing at all in the current
+        versions.
+
+        Original COM help: https://opendss.epri.com/Start.html
+        """
         return self.CheckForError(self._lib.DSS_Start(code)) != 0
 
     def Classes(self):
-        """(read-only) List of DSS intrinsic classes (names of the classes)"""
+        """
+        List of DSS intrinsic classes (names of the classes)
+
+        Original COM help: https://opendss.epri.com/Classes1.html
+        """
         return self.CheckForError(self._get_string_array(self._lib.DSS_Get_Classes))
 
     def DataPath(self, *args):
-        """DSS Data File Path.  Default path for reports, etc. from DSS"""
+        """
+        DSS Data File Path.  Default path for reports, etc. from DSS
+
+        Original COM help: https://opendss.epri.com/DataPath.html
+        """
         # Getter
         if len(args) == 0:
             return self._get_string(self.CheckForError(self._lib.DSS_Get_DataPath()))
 
         # Setter
-        Value, = args
+        (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
         self.CheckForError(self._lib.DSS_Set_DataPath(Value))
 
     def DefaultEditor(self):
-        """(read-only) Returns the path name for the default text editor."""
+        """
+        Returns the path name for the default text editor.
+
+        Original COM help: https://opendss.epri.com/DefaultEditor.html
+        """
         return self._get_string(self.CheckForError(self._lib.DSS_Get_DefaultEditor()))
 
     def NumCircuits(self):
-        """(read-only) Number of Circuits currently defined"""
+        """
+        Number of Circuits currently defined
+
+        Original COM help: https://opendss.epri.com/NumCircuits.html
+        """
         return self.CheckForError(self._lib.DSS_Get_NumCircuits())
 
     def NumClasses(self):
-        """(read-only) Number of DSS intrinsic classes"""
+        """
+        Number of DSS intrinsic classes
+
+        Original COM help: https://opendss.epri.com/NumClasses.html
+        """
         return self.CheckForError(self._lib.DSS_Get_NumClasses())
 
     def NumUserClasses(self):
-        """(read-only) Number of user-defined classes"""
+        """
+        Number of user-defined classes
+
+        Original COM help: https://opendss.epri.com/NumUserClasses.html
+        """
         return self.CheckForError(self._lib.DSS_Get_NumUserClasses())
 
     def UserClasses(self):
-        """(read-only) List of user-defined classes"""
+        """
+        List of user-defined classes
+
+        Original COM help: https://opendss.epri.com/UserClasses.html
+        """
         return self.CheckForError(self._get_string_array(self._lib.DSS_Get_UserClasses))
 
-
     def Version(self):
-        """(read-only) Get version string for the DSS."""
+        """
+        Get version string for the DSS.
+
+        Original COM help: https://opendss.epri.com/Version.html
+        """
         return dss_py.DSS.Version + f"\nOpenDSSDirect.py version: {__version__}"
 
     def AllowForms(self, *args):
-        """Gets/sets whether text output is allowed"""
+        """
+        Gets/sets whether text output is allowed (DSS-Extensions) or general forms/windows are shown (official OpenDSS).
+
+        Original COM help: https://opendss.epri.com/AllowForms.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.DSS_Get_AllowForms()) != 0
 
         # Setter
-        value, = args
+        (value,) = args
         self.CheckForError(self._lib.DSS_Set_AllowForms(value))
 
     def AllowEditor(self, *args):
@@ -103,11 +155,10 @@ class IBasic(Base):
             return self.CheckForError(self._lib.DSS_Get_AllowEditor()) != 0
 
         # Setter
-        value, = args
+        (value,) = args
         self.CheckForError(self._lib.DSS_Set_AllowEditor(value))
 
     def ShowPanel(self):
-        # warnings.warn("ShowPanel is not implemented.")
         return 0
 
     def NewCircuit(self, name):
@@ -132,7 +183,7 @@ class IBasic(Base):
             return self.CheckForError(self._lib.DSS_Get_LegacyModels()) != 0
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.DSS_Set_LegacyModels(Value))
 
     def AllowChangeDir(self, *args):
@@ -155,14 +206,14 @@ class IBasic(Base):
             return self.CheckForError(self._lib.DSS_Get_AllowChangeDir()) != 0
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.DSS_Set_AllowChangeDir(Value))
 
     def AllowDOScmd(self, *args):
         """
         If enabled, the `DOScmd` command is allowed. Otherwise, an error is reported if the user tries to use it.
 
-        Defaults to False/0 (disabled state). Users should consider DOScmd deprecated on DSS Extensions.
+        Defaults to False/0 (disabled state). Users should consider DOScmd deprecated on DSS-Extensions.
 
         This can also be set through the environment variable DSS_CAPI_ALLOW_DOSCMD. Setting it to 1 enables
         the command.
@@ -174,45 +225,51 @@ class IBasic(Base):
             return self.CheckForError(self._lib.DSS_Get_AllowDOScmd()) != 0
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.DSS_Set_AllowDOScmd(Value))
 
-    # def Plotting(self):
-    #     """
-    #     Shortcut for the plotting module. This property is equivalent to:
+    def COMErrorResults(self, *args):
+        """
+        If enabled, in case of errors or empty arrays, the API returns arrays with values compatible with the
+        official OpenDSS COM interface.
 
-    #     ```
-    #     from dss import plot
-    #     return plot
-    #     ```
+        For example, consider the function `Loads_Get_ZIPV`. If there is no active circuit or active load element:
 
-    #     Gives access to the `enable()` and `disable()` functions.
-    #     Requires matplotlib and SciPy to be installed, hence it is an
-    #     optional feature.
+        - In the disabled state (COMErrorResults=False), the function will return "[]", an array with 0 elements.
+        - In the enabled state (COMErrorResults=True), the function will return "[0.0]" instead. This should
+        be compatible with the return value of the official COM interface.
 
-    #     (API Extension)
-    #     """
-    #     from dss import plot
+        Defaults to True/1 (enabled state) in the v0.12.x series. This will change to false in future series.
 
-    #     return plot
+        This can also be set through the environment variable `DSS_CAPI_COM_DEFAULTS`. Setting it to 0 disables
+        the legacy/COM behavior. The value can be toggled through the API at any time.
+
+        (API Extension)
+        """
+        # Getter
+        if len(args) == 0:
+            return self.CheckForError(self._lib.DSS_Get_COMErrorResults()) != 0
+
+        # Setter
+        (Value,) = args
+        self.CheckForError(self._lib.DSS_Set_COMErrorResults(Value))
 
     def AdvancedTypes(self, *args):
-        '''
+        """
         When enabled, there are **two side-effects**:
-        
+
         - **Per DSS Context:** Complex arrays and complex numbers can be returned and consumed by the Python API.
         - **Global effect:** The low-level API provides matrix dimensions when available (`EnableArrayDimensions` is enabled).
-        
-        As a result, for example, `opendssdirect.CktElement.Yprim()` is returned as a complex matrix instead
+
+        As a result, for example, `OpenDSSDirect.CktElement.Yprim()` is returned as a complex matrix instead
         of a plain array.
-        
+
         When disabled, the legacy plain arrays are used and complex numbers cannot be consumed by the Python API.
 
         *Defaults to **False** for backwards compatibility.*
-        
-        (API Extension)
-        '''
 
+        (API Extension)
+        """
         # Getter
         if len(args) == 0:
             arr_dim = self.CheckForError(self._lib.DSS_Get_EnableArrayDimensions()) != 0
@@ -220,32 +277,15 @@ class IBasic(Base):
             return arr_dim and allow_complex
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.DSS_Set_EnableArrayDimensions(Value))
         self._api_util._allow_complex = bool(Value)
-
 
     def CompatFlags(self, *args):
         """
         Controls some compatibility flags introduced to toggle some behavior from the official OpenDSS.
 
-        **THESE FLAGS ARE GLOBAL, affecting all DSS engines in the process.**
-
-        The current bit flags are:
-
-        - 0x1 (bit 0): If enabled, don't check for NaNs in the inner solution loop. This can lead to various errors.
-            This flag is useful for legacy applications that don't handle OpenDSS API errors properly. Through the 
-            development of DSS-Extensions, we noticed this is actually a quite common issue.
-        - 0x2 (bit 1): Toggle worse precision for certain aspects of the engine. For example, the sequence-to-phase 
-            (`As2p`) and sequence-to-phase (`Ap2s`) transform matrices. On DSS C-API, we fill the matrix explicitly
-            using higher precision, while numerical inversion of an initially worse precision matrix is used in the 
-            official OpenDSS. We will introduce better precision for other aspects of the engine in the future, 
-            so this flag can be used to toggle the old/bad values where feasible.
-        - 0x4 (bit 2): Toggle some InvControl behavior introduced in OpenDSS 9.6.1.1. It could be a regression 
-            but needs further investigation, so we added this flag in the time being.
-        - 0x8 (bit 3): When using "save circuit", the official OpenDSS always includes the "CalcVoltageBases" command
-            in the saved script. We found that it is not always a good idea, so we removed the command (leaving it 
-            commented). Use this flag to enable the command in the saved script.
+        **THE FLAGS ARE GLOBAL, affecting all DSS engines in the process.**
 
         These flags may change for each version of DSS C-API, but the same value will not be reused. That is,
         when we remove a compatibility flag, it will have no effect but will also not affect anything else
@@ -255,7 +295,7 @@ class IBasic(Base):
         options/flags, it was preferred to add this generic function instead of a separate function per
         flag.
 
-        Related enumeration: DSSCompatFlags
+        See the enumeration `DSSCompatFlags` for available flags, including description.
 
         (API Extension)
         """
@@ -264,7 +304,7 @@ class IBasic(Base):
             return self.CheckForError(self._lib.DSS_Get_CompatFlags())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.DSS_Set_CompatFlags(Value))
 
 
@@ -290,7 +330,8 @@ AllowEditor = _Basic.AllowEditor
 LegacyModels = _Basic.LegacyModels
 AllowChangeDir = _Basic.AllowChangeDir
 AllowDOScmd = _Basic.AllowDOScmd
-# Plotting = _Basic.Plotting
+COMErrorResults = _Basic.COMErrorResults
+AdvancedTypes = _Basic.AdvancedTypes
 CompatFlags = _Basic.CompatFlags
 _columns = _Basic._columns
 __all__ = [
@@ -313,6 +354,7 @@ __all__ = [
     "LegacyModels",
     "AllowChangeDir",
     "AllowDOScmd",
-    # "Plotting",
+    "COMErrorResults",
+    "AdvancedTypes",
     "CompatFlags",
 ]

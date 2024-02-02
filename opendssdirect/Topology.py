@@ -3,6 +3,7 @@ from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
 
 class ITopology(Base):
     __slots__ = []
+
     __name__ = "Topology"
     _api_prefix = "Topology"
     _columns = [
@@ -18,37 +19,65 @@ class ITopology(Base):
     ]
 
     def ActiveBranch(self):
-        """(read-only) Returns index of the active branch"""
+        """
+        Returns index of the active branch
+
+        Original COM help: https://opendss.epri.com/ActiveBranch.html
+        """
         return self.CheckForError(self._lib.Topology_Get_ActiveBranch())
 
     def ActiveLevel(self):
-        """(read-only) Topological depth of the active branch"""
+        """
+        Topological depth of the active branch
+
+        Original COM help: https://opendss.epri.com/ActiveLevel.html
+        """
         return self.CheckForError(self._lib.Topology_Get_ActiveLevel())
 
     def AllIsolatedBranches(self):
-        """(read-only) Array of all isolated branch names."""
+        """
+        Array of all isolated branch names.
+
+        Original COM help: https://opendss.epri.com/AllIsolatedBranches.html
+        """
         return self.CheckForError(
             self._get_string_array(self._lib.Topology_Get_AllIsolatedBranches)
         )
 
     def AllIsolatedLoads(self):
-        """(read-only) Array of all isolated load names."""
+        """
+        Array of all isolated load names.
+
+        Original COM help: https://opendss.epri.com/AllIsolatedLoads.html
+        """
         return self.CheckForError(
             self._get_string_array(self._lib.Topology_Get_AllIsolatedLoads)
         )
 
     def AllLoopedPairs(self):
-        """(read-only) Array of all looped element names, by pairs."""
+        """
+        Array of all looped element names, by pairs.
+
+        Original COM help: https://opendss.epri.com/AllLoopedPairs.html
+        """
         return self.CheckForError(
             self._get_string_array(self._lib.Topology_Get_AllLoopedPairs)
         )
 
     def BackwardBranch(self):
-        """(read-only) MOve back toward the source, return index of new active branch, or 0 if no more."""
+        """
+        Move back toward the source, return index of new active branch, or 0 if no more.
+
+        Original COM help: https://opendss.epri.com/BackwardBranch.html
+        """
         return self.CheckForError(self._lib.Topology_Get_BackwardBranch())
 
     def BranchName(self, *args):
-        """Name of the active branch."""
+        """
+        Name of the active branch.
+
+        Original COM help: https://opendss.epri.com/BranchName.html
+        """
         # Getter
         if len(args) == 0:
             return self._get_string(
@@ -56,13 +85,17 @@ class ITopology(Base):
             )
 
         # Setter
-        Value, = args
+        (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
         self.CheckForError(self._lib.Topology_Set_BranchName(Value))
 
     def BusName(self, *args):
-        """Set the active branch to one containing this bus, return index or 0 if not found"""
+        """
+        Set the active branch to one containing this bus, return index or 0 if not found
+
+        Original COM help: https://opendss.epri.com/BusName.html
+        """
         # Getter
         if len(args) == 0:
             return self._get_string(
@@ -70,49 +103,89 @@ class ITopology(Base):
             )
 
         # Setter
-        Value, = args
+        (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
         self.CheckForError(self._lib.Topology_Set_BusName(Value))
 
     def First(self):
-        """(read-only) Sets the first branch active, returns 0 if none."""
+        """
+        Sets the first branch active, returns 0 if none.
+
+        Original COM help: https://opendss.epri.com/First19.html
+        """
         return self.CheckForError(self._lib.Topology_Get_First())
 
     def FirstLoad(self):
-        """(read-only) First load at the active branch, return index or 0 if none."""
+        """
+        First load at the active branch, return index or 0 if none.
+
+        Original COM help: https://opendss.epri.com/FirstLoad.html
+        """
         return self.CheckForError(self._lib.Topology_Get_FirstLoad())
 
     def ForwardBranch(self):
-        """(read-only) Move forward in the tree, return index of new active branch or 0 if no more"""
+        """
+        Move forward in the tree, return index of new active branch or 0 if no more
+
+        Original COM help: https://opendss.epri.com/ForwardBranch.html
+        """
         return self.CheckForError(self._lib.Topology_Get_ForwardBranch())
 
     def LoopedBranch(self):
-        """(read-only) Move to looped branch, return index or 0 if none."""
+        """
+        Move to looped branch, return index or 0 if none.
+
+        Original COM help: https://opendss.epri.com/LoopedBranch.html
+        """
         return self.CheckForError(self._lib.Topology_Get_LoopedBranch())
 
     def Next(self):
-        """(read-only) Sets the next branch active, returns 0 if no more."""
+        """
+        Sets the next branch active, returns 0 if no more.
+
+        Original COM help: https://opendss.epri.com/Next18.html
+        """
         return self.CheckForError(self._lib.Topology_Get_Next())
 
     def NextLoad(self):
-        """(read-only) Next load at the active branch, return index or 0 if no more."""
+        """
+        Next load at the active branch, return index or 0 if no more.
+
+        Original COM help: https://opendss.epri.com/NextLoad.html
+        """
         return self.CheckForError(self._lib.Topology_Get_NextLoad())
 
     def NumIsolatedBranches(self):
-        """(read-only) Number of isolated branches (PD elements and capacitors)."""
+        """
+        Number of isolated branches (PD elements and capacitors).
+
+        Original COM help: https://opendss.epri.com/NumIsolatedBranches.html
+        """
         return self.CheckForError(self._lib.Topology_Get_NumIsolatedBranches())
 
     def NumIsolatedLoads(self):
-        """(read-only) Number of isolated loads"""
+        """
+        Number of isolated loads
+
+        Original COM help: https://opendss.epri.com/NumIsolatedLoads.html
+        """
         return self.CheckForError(self._lib.Topology_Get_NumIsolatedLoads())
 
     def NumLoops(self):
-        """(read-only) Number of loops"""
+        """
+        Number of loops
+
+        Original COM help: https://opendss.epri.com/NumLoops.html
+        """
         return self.CheckForError(self._lib.Topology_Get_NumLoops())
 
     def ParallelBranch(self):
-        """(read-only) Move to directly parallel branch, return index or 0 if none."""
+        """
+        Move to directly parallel branch, return index or 0 if none.
+
+        Original COM help: https://opendss.epri.com/ParallelBranch.html
+        """
         return self.CheckForError(self._lib.Topology_Get_ParallelBranch())
 
 

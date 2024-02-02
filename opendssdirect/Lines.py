@@ -4,6 +4,7 @@ from dss import LineUnits
 
 class ILines(Iterable):
     __slots__ = []
+
     __name__ = "Lines"
     _api_prefix = "Lines"
     _columns = [
@@ -44,47 +45,63 @@ class ILines(Iterable):
         return self.CheckForError(self._lib.Lines_New(Name))
 
     def Bus1(self, *args):
-        """Name of bus for terminal 1."""
+        """
+        Name of bus for terminal 1.
+
+        Original COM help: https://opendss.epri.com/Bus1.html
+        """
         # Getter
         if len(args) == 0:
             return self._get_string(self.CheckForError(self._lib.Lines_Get_Bus1()))
 
         # Setter
-        Value, = args
+        (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
         self.CheckForError(self._lib.Lines_Set_Bus1(Value))
 
     def Bus2(self, *args):
-        """Name of bus for terminal 2."""
+        """
+        Name of bus for terminal 2.
+
+        Original COM help: https://opendss.epri.com/Bus2.html
+        """
         # Getter
         if len(args) == 0:
             return self._get_string(self.CheckForError(self._lib.Lines_Get_Bus2()))
 
         # Setter
-        Value, = args
+        (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
         self.CheckForError(self._lib.Lines_Set_Bus2(Value))
 
     def C0(self, *args):
-        """Zero Sequence capacitance, nanofarads per unit length."""
+        """
+        Zero Sequence capacitance, nanofarads per unit length.
+
+        Original COM help: https://opendss.epri.com/C0.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Lines_Get_C0())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Lines_Set_C0(Value))
 
     def C1(self, *args):
-        """Positive Sequence capacitance, nanofarads per unit length."""
+        """
+        Positive Sequence capacitance, nanofarads per unit length.
+
+        Original COM help: https://opendss.epri.com/C1.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Lines_Get_C1())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Lines_Set_C1(Value))
 
     def CMatrix(self, *args):
@@ -94,148 +111,208 @@ class ILines(Iterable):
             return self._get_float64_gr_array()
 
         # Setter
-        Value, = args
+        (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
         self.CheckForError(self._lib.Lines_Set_Cmatrix(ValuePtr, ValueCount))
 
     def EmergAmps(self, *args):
-        """Emergency (maximum) ampere rating of Line."""
+        """
+        Emergency (maximum) ampere rating of Line.
+
+        Original COM help: https://opendss.epri.com/EmergAmps1.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Lines_Get_EmergAmps())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Lines_Set_EmergAmps(Value))
 
     def Geometry(self, *args):
-        """Line geometry code"""
+        """
+        Line geometry code
+
+        Original COM help: https://opendss.epri.com/Geometry.html
+        """
         # Getter
         if len(args) == 0:
             return self._get_string(self.CheckForError(self._lib.Lines_Get_Geometry()))
 
         # Setter
-        Value, = args
+        (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
         self.CheckForError(self._lib.Lines_Set_Geometry(Value))
 
     def Length(self, *args):
-        """Length of line section in units compatible with the LineCode definition."""
+        """
+        Length of line section in units compatible with the LineCode definition.
+
+        Original COM help: https://opendss.epri.com/Length.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Lines_Get_Length())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Lines_Set_Length(Value))
 
     def LineCode(self, *args):
-        """Name of LineCode object that defines the impedances."""
+        """
+        Name of LineCode object that defines the impedances.
+
+        Original COM help: https://opendss.epri.com/LineCode.html
+        """
         # Getter
         if len(args) == 0:
             return self._get_string(self.CheckForError(self._lib.Lines_Get_LineCode()))
 
         # Setter
-        Value, = args
+        (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
         self.CheckForError(self._lib.Lines_Set_LineCode(Value))
 
     def NormAmps(self, *args):
-        """Normal ampere rating of Line."""
+        """
+        Normal ampere rating of Line.
+
+        Original COM help: https://opendss.epri.com/NormAmps.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Lines_Get_NormAmps())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Lines_Set_NormAmps(Value))
 
     def NumCust(self):
-        """(read-only) Number of customers on this line section."""
+        """
+        Number of customers on this line section.
+
+        Original COM help: https://opendss.epri.com/NumCust.html
+        """
         return self.CheckForError(self._lib.Lines_Get_NumCust())
 
     def Parent(self):
-        """(read-only) Sets Parent of the active Line to be the active line. Returns 0 if no parent or action fails."""
+        """
+        Sets Parent of the active Line to be the active line. Returns 0 if no parent or action fails.
+
+        Original COM help: https://opendss.epri.com/Parent.html
+        """
         return self.CheckForError(self._lib.Lines_Get_Parent())
 
     def Phases(self, *args):
-        """Number of Phases, this Line element."""
+        """
+        Number of Phases, this Line element.
+
+        Original COM help: https://opendss.epri.com/Phases1.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Lines_Get_Phases())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Lines_Set_Phases(Value))
 
     def R0(self, *args):
-        """Zero Sequence resistance, ohms per unit length."""
+        """
+        Zero Sequence resistance, ohms per unit length.
+
+        Original COM help: https://opendss.epri.com/R0.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Lines_Get_R0())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Lines_Set_R0(Value))
 
     def R1(self, *args):
-        """Positive Sequence resistance, ohms per unit length."""
+        """
+        Positive Sequence resistance, ohms per unit length.
+
+        Original COM help: https://opendss.epri.com/R1.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Lines_Get_R1())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Lines_Set_R1(Value))
 
     def Rg(self, *args):
-        """Earth return resistance value used to compute line impedances at power frequency"""
+        """
+        Earth return resistance value used to compute line impedances at power frequency
+
+        Original COM help: https://opendss.epri.com/Rg.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Lines_Get_Rg())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Lines_Set_Rg(Value))
 
     def Rho(self, *args):
-        """Earth Resistivity, m-ohms"""
+        """
+        Earth Resistivity, m-ohms
+
+        Original COM help: https://opendss.epri.com/Rho.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Lines_Get_Rho())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Lines_Set_Rho(Value))
 
     def RMatrix(self, *args):
-        """Resistance matrix (full), ohms per unit length. Array of doubles."""
+        """
+        Resistance matrix (full), ohms per unit length. Array of doubles.
+
+        Original COM help: https://opendss.epri.com/Rmatrix.html
+        """
         # Getter
         if len(args) == 0:
             self.CheckForError(self._lib.Lines_Get_Rmatrix_GR())
             return self._get_float64_gr_array()
 
         # Setter
-        Value, = args
+        (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
         self.CheckForError(self._lib.Lines_Set_Rmatrix(ValuePtr, ValueCount))
 
     def Spacing(self, *args):
-        """Line spacing code"""
+        """
+        Line spacing code
+
+        Original COM help: https://opendss.epri.com/Spacing.html
+        """
         # Getter
         if len(args) == 0:
             return self._get_string(self.CheckForError(self._lib.Lines_Get_Spacing()))
 
         # Setter
-        Value, = args
+        (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
         self.CheckForError(self._lib.Lines_Set_Spacing(Value))
 
     def TotalCust(self):
-        """(read-only) Total Number of customers served from this line section."""
+        """
+        Total Number of customers served from this line section.
+
+        Original COM help: https://opendss.epri.com/TotalCust.html
+        """
         return self.CheckForError(self._lib.Lines_Get_TotalCust())
 
     def Units(self, *args):
@@ -244,65 +321,89 @@ class ILines(Iterable):
             return LineUnits(self.CheckForError(self._lib.Lines_Get_Units()))
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Lines_Set_Units(Value))
 
     def X0(self, *args):
-        """Zero Sequence reactance ohms per unit length."""
+        """
+        Zero Sequence reactance ohms per unit length.
+
+        Original COM help: https://opendss.epri.com/X0.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Lines_Get_X0())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Lines_Set_X0(Value))
 
     def X1(self, *args):
-        """Positive Sequence reactance, ohms per unit length."""
+        """
+        Positive Sequence reactance, ohms per unit length.
+
+        Original COM help: https://opendss.epri.com/X1.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Lines_Get_X1())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Lines_Set_X1(Value))
 
     def Xg(self, *args):
-        """Earth return reactance value used to compute line impedances at power frequency"""
+        """
+        Earth return reactance value used to compute line impedances at power frequency
+
+        Original COM help: https://opendss.epri.com/Xg.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Lines_Get_Xg())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Lines_Set_Xg(Value))
 
     def XMatrix(self, *args):
-        """Reactance matrix (full), ohms per unit length. Array of doubles."""
+        """
+        Reactance matrix (full), ohms per unit length. Array of doubles.
+
+        Original COM help: https://opendss.epri.com/Xmatrix.html
+        """
         # Getter
         if len(args) == 0:
             self.CheckForError(self._lib.Lines_Get_Xmatrix_GR())
             return self._get_float64_gr_array()
 
         # Setter
-        Value, = args
+        (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
         self.CheckForError(self._lib.Lines_Set_Xmatrix(ValuePtr, ValueCount))
 
     def Yprim(self, *args):
-        """Yprimitive for the active line object (complex array)."""
+        """
+        Yprimitive for the active line object (complex array).
+
+        Original COM help: https://opendss.epri.com/Yprim1.html
+        """
         # Getter
         if len(args) == 0:
             self.CheckForError(self._lib.Lines_Get_Yprim_GR())
             return self._get_complex128_gr_array()
 
         # Setter
-        Value, = args
+        (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
         self.CheckForError(self._lib.Lines_Set_Yprim(ValuePtr, ValueCount))
 
     def SeasonRating(self):
-        """Delivers the rating for the current season (in Amps)  if the "SeasonalRatings" option is active"""
+        """
+        Delivers the rating for the current season (in Amps)  if the "SeasonalRatings" option is active
+
+        Original COM help: https://opendss.epri.com/SeasonRating.html
+        """
         return self.CheckForError(self._lib.Lines_Get_SeasonRating())
 
     def IsSwitch(self, *args):
@@ -316,7 +417,7 @@ class ILines(Iterable):
             return self.CheckForError(self._lib.Lines_Get_IsSwitch()) != 0
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Lines_Set_IsSwitch(Value))
 
 

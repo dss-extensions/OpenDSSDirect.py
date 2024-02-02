@@ -2,6 +2,7 @@ from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 
 class IGICSources(Iterable):
     __slots__ = []
+
     __name__ = "GICSources"
     _api_prefix = "GICSources"
     _columns = [
@@ -34,7 +35,7 @@ class IGICSources(Iterable):
             return self.CheckForError(self._lib.GICSources_Get_Phases())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.GICSources_Set_Phases(Value))
 
     def EN(self, *args):
@@ -44,7 +45,7 @@ class IGICSources(Iterable):
             return self.CheckForError(self._lib.GICSources_Get_EN())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.GICSources_Set_EN(Value))
 
     def EE(self, *args):
@@ -54,7 +55,7 @@ class IGICSources(Iterable):
             return self.CheckForError(self._lib.GICSources_Get_EE())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.GICSources_Set_EE(Value))
 
     def Lat1(self, *args):
@@ -64,7 +65,7 @@ class IGICSources(Iterable):
             return self.CheckForError(self._lib.GICSources_Get_Lat1())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.GICSources_Set_Lat1(Value))
 
     def Lat2(self, *args):
@@ -74,7 +75,7 @@ class IGICSources(Iterable):
             return self.CheckForError(self._lib.GICSources_Get_Lat2())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.GICSources_Set_Lat2(Value))
 
     def Lon1(self, *args):
@@ -84,7 +85,7 @@ class IGICSources(Iterable):
             return self.CheckForError(self._lib.GICSources_Get_Lon1())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.GICSources_Set_Lon1(Value))
 
     def Lon2(self, *args):
@@ -94,7 +95,7 @@ class IGICSources(Iterable):
             return self.CheckForError(self._lib.GICSources_Get_Lon2())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.GICSources_Set_Lon2(Value))
 
     def Volts(self, *args):
@@ -104,7 +105,7 @@ class IGICSources(Iterable):
             return self.CheckForError(self._lib.GICSources_Get_Volts())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.GICSources_Set_Volts(Value))
 
 

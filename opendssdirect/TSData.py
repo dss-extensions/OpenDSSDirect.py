@@ -40,7 +40,7 @@ class ITSData(Iterable):
             return self.CheckForError(self._lib.TSData_Get_EmergAmps())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.TSData_Set_EmergAmps(Value))
 
     def NormAmps(self, *args):
@@ -50,7 +50,7 @@ class ITSData(Iterable):
             return self.CheckForError(self._lib.TSData_Get_NormAmps())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.TSData_Set_NormAmps(Value))
 
     def Rdc(self, *args):
@@ -59,7 +59,7 @@ class ITSData(Iterable):
             return self.CheckForError(self._lib.TSData_Get_Rdc())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.TSData_Set_Rdc(Value))
 
     def Rac(self, *args):
@@ -68,7 +68,7 @@ class ITSData(Iterable):
             return self.CheckForError(self._lib.TSData_Get_Rac())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.TSData_Set_Rac(Value))
 
     def GMRac(self, *args):
@@ -77,7 +77,7 @@ class ITSData(Iterable):
             return self.CheckForError(self._lib.TSData_Get_GMRac())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.TSData_Set_GMRac(Value))
 
     def GMRUnits(self, *args):
@@ -86,7 +86,7 @@ class ITSData(Iterable):
             return self.CheckForError(self._lib.TSData_Get_GMRUnits())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.TSData_Set_GMRUnits(Value))
 
     def Radius(self, *args):
@@ -95,7 +95,7 @@ class ITSData(Iterable):
             return self.CheckForError(self._lib.TSData_Get_Radius())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.TSData_Set_Radius(Value))
 
     def RadiusUnits(self, *args):
@@ -104,7 +104,7 @@ class ITSData(Iterable):
             return self.CheckForError(self._lib.TSData_Get_RadiusUnits())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.TSData_Set_RadiusUnits(Value))
 
     def ResistanceUnits(self, *args):
@@ -113,7 +113,7 @@ class ITSData(Iterable):
             return self.CheckForError(self._lib.TSData_Get_ResistanceUnits())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.TSData_Set_ResistanceUnits(Value))
 
     def Diameter(self, *args):
@@ -122,7 +122,7 @@ class ITSData(Iterable):
             return self.CheckForError(self._lib.TSData_Get_Diameter())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.TSData_Set_Diameter(Value))
 
     def EpsR(self, *args):
@@ -131,7 +131,7 @@ class ITSData(Iterable):
             return self.CheckForError(self._lib.TSData_Get_EpsR())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.TSData_Set_EpsR(Value))
 
     def InsLayer(self, *args):
@@ -140,7 +140,7 @@ class ITSData(Iterable):
             return self.CheckForError(self._lib.TSData_Get_InsLayer())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.TSData_Set_InsLayer(Value))
 
     def DiaIns(self, *args):
@@ -149,7 +149,7 @@ class ITSData(Iterable):
             return self.CheckForError(self._lib.TSData_Get_DiaIns())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.TSData_Set_DiaIns(Value))
 
     def DiaCable(self, *args):
@@ -158,7 +158,7 @@ class ITSData(Iterable):
             return self.CheckForError(self._lib.TSData_Get_DiaCable())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.TSData_Set_DiaCable(Value))
 
     def DiaShield(self, *args):
@@ -167,7 +167,7 @@ class ITSData(Iterable):
             return self.CheckForError(self._lib.TSData_Get_DiaShield())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.TSData_Set_DiaShield(Value))
 
     def TapeLayer(self, *args):
@@ -176,7 +176,7 @@ class ITSData(Iterable):
             return self.CheckForError(self._lib.TSData_Get_TapeLayer())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.TSData_Set_TapeLayer(Value))
 
     def TapeLap(self, *args):
@@ -185,7 +185,7 @@ class ITSData(Iterable):
             return self.CheckForError(self._lib.TSData_Get_TapeLap())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.TSData_Set_TapeLap(Value))
 
 

@@ -16,25 +16,27 @@ class IStorages(Iterable):
             return self.CheckForError(self._lib.Storages_Get_puSOC())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Storages_Set_puSOC(Value))
 
     def State(self, *args):
         """
         Get/set state: 0=Idling; 1=Discharging; -1=Charging;
-
-        Related enumeration: StorageStates
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Storages_Get_State())
+            return StorageStates(self.CheckForError(self._lib.Storages_Get_State()))
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Storages_Set_State(Value))
 
     def RegisterNames(self):
-        """Array of Names of all Storage energy meter registers"""
+        """
+        Array of Storage energy meter register names
+
+        See also the enum `GeneratorRegisters`.
+        """
         return self.CheckForError(
             self._get_string_array(self._lib.Storages_Get_RegisterNames)
         )

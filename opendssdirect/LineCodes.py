@@ -4,6 +4,7 @@ from dss import LineUnits
 
 class ILineCodes(Iterable):
     __slots__ = []
+
     __name__ = "LineCodes"
     _api_prefix = "LineCodes"
     _columns = [
@@ -26,100 +27,140 @@ class ILineCodes(Iterable):
     ]
 
     def C0(self, *args):
-        """Zero-sequence capacitance, nF per unit length"""
+        """
+        Zero-sequence capacitance, nF per unit length
+
+        Original COM help: https://opendss.epri.com/C2.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.LineCodes_Get_C0())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.LineCodes_Set_C0(Value))
 
     def C1(self, *args):
-        """Positive-sequence capacitance, nF per unit length"""
+        """
+        Positive-sequence capacitance, nF per unit length
+
+        Original COM help: https://opendss.epri.com/C3.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.LineCodes_Get_C1())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.LineCodes_Set_C1(Value))
 
     def Cmatrix(self, *args):
-        """Capacitance matrix, nF per unit length"""
+        """
+        Capacitance matrix, nF per unit length
+
+        Original COM help: https://opendss.epri.com/Cmatrix1.html
+        """
         # Getter
         if len(args) == 0:
             self.CheckForError(self._lib.LineCodes_Get_Cmatrix_GR())
             return self._get_float64_gr_array()
 
         # Setter
-        Value, = args
+        (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
         self.CheckForError(self._lib.LineCodes_Set_Cmatrix(ValuePtr, ValueCount))
 
     def EmergAmps(self, *args):
-        """Emergency ampere rating"""
+        """
+        Emergency ampere rating
+
+        Original COM help: https://opendss.epri.com/EmergAmps2.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.LineCodes_Get_EmergAmps())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.LineCodes_Set_EmergAmps(Value))
 
     def IsZ1Z0(self):
-        """(read-only) Flag denoting whether impedance data were entered in symmetrical components"""
+        """
+        Flag denoting whether impedance data were entered in symmetrical components
+
+        Original COM help: https://opendss.epri.com/IsZ1Z0.html
+        """
         return self.CheckForError(self._lib.LineCodes_Get_IsZ1Z0()) != 0
 
     def NormAmps(self, *args):
-        """Normal Ampere rating"""
+        """
+        Normal Ampere rating
+
+        Original COM help: https://opendss.epri.com/NormAmps1.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.LineCodes_Get_NormAmps())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.LineCodes_Set_NormAmps(Value))
 
     def Phases(self, *args):
-        """Number of Phases"""
+        """
+        Number of Phases
+
+        Original COM help: https://opendss.epri.com/Phases2.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.LineCodes_Get_Phases())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.LineCodes_Set_Phases(Value))
 
     def R0(self, *args):
-        """Zero-Sequence Resistance, ohms per unit length"""
+        """
+        Zero-Sequence Resistance, ohms per unit length
+
+        Original COM help: https://opendss.epri.com/R2.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.LineCodes_Get_R0())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.LineCodes_Set_R0(Value))
 
     def R1(self, *args):
-        """Positive-sequence resistance ohms per unit length"""
+        """
+        Positive-sequence resistance ohms per unit length
+
+        Original COM help: https://opendss.epri.com/R3.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.LineCodes_Get_R1())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.LineCodes_Set_R1(Value))
 
     def Rmatrix(self, *args):
-        """Resistance matrix, ohms per unit length"""
+        """
+        Resistance matrix, ohms per unit length
+
+        Original COM help: https://opendss.epri.com/Rmatrix1.html
+        """
         # Getter
         if len(args) == 0:
             self.CheckForError(self._lib.LineCodes_Get_Rmatrix_GR())
             return self._get_float64_gr_array()
 
         # Setter
-        Value, = args
+        (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
         self.CheckForError(self._lib.LineCodes_Set_Rmatrix(ValuePtr, ValueCount))
 
@@ -129,38 +170,50 @@ class ILineCodes(Iterable):
             return LineUnits(self.CheckForError(self._lib.LineCodes_Get_Units()))
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.LineCodes_Set_Units(Value))
 
     def X0(self, *args):
-        """Zero Sequence Reactance, Ohms per unit length"""
+        """
+        Zero Sequence Reactance, Ohms per unit length
+
+        Original COM help: https://opendss.epri.com/X2.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.LineCodes_Get_X0())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.LineCodes_Set_X0(Value))
 
     def X1(self, *args):
-        """Posiive-sequence reactance, ohms per unit length"""
+        """
+        Positive-sequence reactance, ohms per unit length
+
+        Original COM help: https://opendss.epri.com/X3.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.LineCodes_Get_X1())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.LineCodes_Set_X1(Value))
 
     def Xmatrix(self, *args):
-        """Reactance matrix, ohms per unit length"""
+        """
+        Reactance matrix, ohms per unit length
+
+        Original COM help: https://opendss.epri.com/Xmatrix1.html
+        """
         # Getter
         if len(args) == 0:
             self.CheckForError(self._lib.LineCodes_Get_Xmatrix_GR())
             return self._get_float64_gr_array()
 
         # Setter
-        Value, = args
+        (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
         self.CheckForError(self._lib.LineCodes_Set_Xmatrix(ValuePtr, ValueCount))
 

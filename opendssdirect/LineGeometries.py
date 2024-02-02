@@ -31,7 +31,7 @@ class ILineGeometries(Iterable):
     ]
 
     def Conductors(self):
-        """(read-only) Array of strings with names of all conductors in the active LineGeometry object"""
+        """Array of strings with names of all conductors in the active LineGeometry object"""
         return self.CheckForError(
             self._get_string_array(self._lib.LineGeometries_Get_Conductors)
         )
@@ -43,7 +43,7 @@ class ILineGeometries(Iterable):
             return self.CheckForError(self._lib.LineGeometries_Get_EmergAmps())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.LineGeometries_Set_EmergAmps(Value))
 
     def NormAmps(self, *args):
@@ -53,7 +53,7 @@ class ILineGeometries(Iterable):
             return self.CheckForError(self._lib.LineGeometries_Get_NormAmps())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.LineGeometries_Set_NormAmps(Value))
 
     def RhoEarth(self, *args):
@@ -62,7 +62,7 @@ class ILineGeometries(Iterable):
             return self.CheckForError(self._lib.LineGeometries_Get_RhoEarth())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.LineGeometries_Set_RhoEarth(Value))
 
     def Reduce(self, *args):
@@ -71,7 +71,7 @@ class ILineGeometries(Iterable):
             return self.CheckForError(self._lib.LineGeometries_Get_Reduce()) != 0
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.LineGeometries_Set_Reduce(Value))
 
     def Phases(self, *args):
@@ -81,32 +81,32 @@ class ILineGeometries(Iterable):
             return self.CheckForError(self._lib.LineGeometries_Get_Phases())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.LineGeometries_Set_Phases(Value))
 
     def Rmatrix(self, Frequency, Length, Units):
-        """(read-only) Resistance matrix, ohms"""
+        """Resistance matrix, ohms"""
         self.CheckForError(
             self._lib.LineGeometries_Get_Rmatrix_GR(Frequency, Length, Units)
         )
         return self._get_float64_gr_array()
 
     def Xmatrix(self, Frequency, Length, Units):
-        """(read-only) Reactance matrix, ohms"""
+        """Reactance matrix, ohms"""
         self.CheckForError(
             self._lib.LineGeometries_Get_Xmatrix_GR(Frequency, Length, Units)
         )
         return self._get_float64_gr_array()
 
     def Zmatrix(self, Frequency, Length, Units):
-        """(read-only) Complex impedance matrix, ohms"""
+        """Complex impedance matrix, ohms"""
         self.CheckForError(
             self._lib.LineGeometries_Get_Zmatrix_GR(Frequency, Length, Units)
         )
         return self._get_complex128_gr_array()
 
     def Cmatrix(self, Frequency, Length, Units):
-        """(read-only) Capacitance matrix, nF"""
+        """Capacitance matrix, nF"""
         self.CheckForError(
             self._lib.LineGeometries_Get_Cmatrix_GR(Frequency, Length, Units)
         )
@@ -119,7 +119,7 @@ class ILineGeometries(Iterable):
             return [LineUnits(unit) for unit in self._get_int32_gr_array()]
 
         # Setter
-        Value, = args
+        (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_int32_array(Value)
         self.CheckForError(self._lib.LineGeometries_Set_Units(ValuePtr, ValueCount))
 
@@ -131,7 +131,7 @@ class ILineGeometries(Iterable):
             return self._get_float64_gr_array()
 
         # Setter
-        Value, = args
+        (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
         self.CheckForError(self._lib.LineGeometries_Set_Xcoords(ValuePtr, ValueCount))
 
@@ -143,7 +143,7 @@ class ILineGeometries(Iterable):
             return self._get_float64_gr_array()
 
         # Setter
-        Value, = args
+        (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
         self.CheckForError(self._lib.LineGeometries_Set_Ycoords(ValuePtr, ValueCount))
 
@@ -154,7 +154,7 @@ class ILineGeometries(Iterable):
             return self.CheckForError(self._lib.LineGeometries_Get_Nconds())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.LineGeometries_Set_Nconds(Value))
 
 

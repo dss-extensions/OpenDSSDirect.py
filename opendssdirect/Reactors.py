@@ -49,7 +49,7 @@ class IReactors(Iterable):
             return self.CheckForError(self._lib.Reactors_Get_IsDelta()) != 0
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Reactors_Set_IsDelta(Value))
 
     def Parallel(self, *args):
@@ -59,7 +59,7 @@ class IReactors(Iterable):
             return self.CheckForError(self._lib.Reactors_Get_Parallel()) != 0
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Reactors_Set_Parallel(Value))
 
     def LmH(self, *args):
@@ -69,7 +69,7 @@ class IReactors(Iterable):
             return self.CheckForError(self._lib.Reactors_Get_LmH())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Reactors_Set_LmH(Value))
 
     def kV(self, *args):
@@ -79,7 +79,7 @@ class IReactors(Iterable):
             return self.CheckForError(self._lib.Reactors_Get_kV())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Reactors_Set_kV(Value))
 
     def kvar(self, *args):
@@ -89,7 +89,7 @@ class IReactors(Iterable):
             return self.CheckForError(self._lib.Reactors_Get_kvar())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Reactors_Set_kvar(Value))
 
     def Phases(self, *args):
@@ -99,7 +99,7 @@ class IReactors(Iterable):
             return self.CheckForError(self._lib.Reactors_Get_Phases())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Reactors_Set_Phases(Value))
 
     def Bus1(self, *args):
@@ -113,7 +113,7 @@ class IReactors(Iterable):
             return self._get_string(self.CheckForError(self._lib.Reactors_Get_Bus1()))
 
         # Setter
-        Value, = args
+        (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
         self.CheckForError(self._lib.Reactors_Set_Bus1(Value))
@@ -128,7 +128,7 @@ class IReactors(Iterable):
             return self._get_string(self.CheckForError(self._lib.Reactors_Get_Bus2()))
 
         # Setter
-        Value, = args
+        (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
         self.CheckForError(self._lib.Reactors_Set_Bus2(Value))
@@ -140,7 +140,7 @@ class IReactors(Iterable):
             return self._get_string(self.CheckForError(self._lib.Reactors_Get_LCurve()))
 
         # Setter
-        Value, = args
+        (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
         self.CheckForError(self._lib.Reactors_Set_LCurve(Value))
@@ -152,7 +152,7 @@ class IReactors(Iterable):
             return self._get_string(self.CheckForError(self._lib.Reactors_Get_RCurve()))
 
         # Setter
-        Value, = args
+        (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
         self.CheckForError(self._lib.Reactors_Set_RCurve(Value))
@@ -164,7 +164,7 @@ class IReactors(Iterable):
             return self.CheckForError(self._lib.Reactors_Get_R())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Reactors_Set_R(Value))
 
     def X(self, *args):
@@ -174,7 +174,7 @@ class IReactors(Iterable):
             return self.CheckForError(self._lib.Reactors_Get_X())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Reactors_Set_X(Value))
 
     def Rp(self, *args):
@@ -184,7 +184,7 @@ class IReactors(Iterable):
             return self.CheckForError(self._lib.Reactors_Get_Rp())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Reactors_Set_Rp(Value))
 
     def Rmatrix(self, *args):
@@ -195,7 +195,7 @@ class IReactors(Iterable):
             return self._get_float64_gr_array()
 
         # Setter
-        Value, = args
+        (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
         self.CheckForError(self._lib.Reactors_Set_Rmatrix(ValuePtr, ValueCount))
 
@@ -207,7 +207,7 @@ class IReactors(Iterable):
             return self._get_float64_gr_array()
 
         # Setter
-        Value, = args
+        (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
         self.CheckForError(self._lib.Reactors_Set_Xmatrix(ValuePtr, ValueCount))
 
@@ -219,7 +219,7 @@ class IReactors(Iterable):
             return self._get_complex128_gr_simple()
 
         # Setter
-        Value, = args
+        (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_complex128_simple(Value)
         self.CheckForError(self._lib.Reactors_Set_Z(ValuePtr, ValueCount))
 
@@ -239,7 +239,7 @@ class IReactors(Iterable):
             return self._get_complex128_gr_simple()
 
         # Setter
-        Value, = args
+        (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_complex128_simple(Value)
         self.CheckForError(self._lib.Reactors_Set_Z1(ValuePtr, ValueCount))
 
@@ -257,7 +257,7 @@ class IReactors(Iterable):
             return self._get_complex128_gr_simple()
 
         # Setter
-        Value, = args
+        (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_complex128_simple(Value)
         self.CheckForError(self._lib.Reactors_Set_Z2(ValuePtr, ValueCount))
 
@@ -275,7 +275,7 @@ class IReactors(Iterable):
             return self._get_complex128_gr_simple()
 
         # Setter
-        Value, = args
+        (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_complex128_simple(Value)
         self.CheckForError(self._lib.Reactors_Set_Z0(ValuePtr, ValueCount))
 

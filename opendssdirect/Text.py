@@ -3,24 +3,33 @@ from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
 
 class IText(Base):
     __slots__ = []
+
     __name__ = "Text"
     _api_prefix = "Text"
     _columns = []
 
     def Command(self, *args):
-        """Input command string for the DSS."""
+        """
+        Input command string for the DSS.
+
+        Original COM help: https://opendss.epri.com/Command1.html
+        """
         # Getter
         if len(args) == 0:
             return self._get_string(self.CheckForError(self._lib.Text_Get_Command()))
 
         # Setter
-        Value, = args
+        (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
         self.CheckForError(self._lib.Text_Set_Command(Value))
 
     def Result(self):
-        """(read-only) Result string for the last command."""
+        """
+        Result string for the last command.
+
+        Original COM help: https://opendss.epri.com/Result.html
+        """
         return self._get_string(self.CheckForError(self._lib.Text_Get_Result()))
 
     def Commands(self, Value):

@@ -4,6 +4,7 @@ from dss import GeneratorStatus
 
 class IGenerators(Iterable):
     __slots__ = []
+
     __name__ = "Generators"
     _api_prefix = "Generators"
     _columns = [
@@ -32,114 +33,162 @@ class IGenerators(Iterable):
     ]
 
     def ForcedON(self, *args):
-        """Indicates whether the generator is forced ON regardles of other dispatch criteria."""
+        """
+        Indicates whether the generator is forced ON regardless of other dispatch criteria.
+
+        Original COM help: https://opendss.epri.com/ForcedON.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Generators_Get_ForcedON()) != 0
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Generators_Set_ForcedON(Value))
 
     def Model(self, *args):
-        """Generator Model"""
+        """
+        Generator Model
+
+        Original COM help: https://opendss.epri.com/Model.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Generators_Get_Model())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Generators_Set_Model(Value))
 
     def PF(self, *args):
-        """Power factor (pos. = producing vars). Updates kvar based on present kW value."""
+        """
+        Power factor (pos. = producing vars). Updates kvar based on present kW value.
+
+        Original COM help: https://opendss.epri.com/PF.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Generators_Get_PF())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Generators_Set_PF(Value))
 
     def Phases(self, *args):
-        """Number of phases"""
+        """
+        Number of phases
+
+        Original COM help: https://opendss.epri.com/Phases.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Generators_Get_Phases())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Generators_Set_Phases(Value))
 
     def RegisterNames(self):
-        """(read-only) Array of Names of all generator energy meter registers"""
+        """
+        Array of Names of all generator energy meter registers
+
+        See also the enum `GeneratorRegisters`.
+        """
         return self.CheckForError(
             self._get_string_array(self._lib.Generators_Get_RegisterNames)
         )
 
     def RegisterValues(self):
-        """(read-only) Array of valus in generator energy meter registers."""
+        """
+        Array of values in generator energy meter registers.
+
+        Original COM help: https://opendss.epri.com/RegisterValues.html
+        """
         self.CheckForError(self._lib.Generators_Get_RegisterValues_GR())
         return self._get_float64_gr_array()
 
     def Vmaxpu(self, *args):
-        """Vmaxpu for generator model"""
+        """
+        Vmaxpu for generator model
+
+        Original COM help: https://opendss.epri.com/Vmaxpu.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Generators_Get_Vmaxpu())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Generators_Set_Vmaxpu(Value))
 
     def Vminpu(self, *args):
-        """Vminpu for Generator model"""
+        """
+        Vminpu for Generator model
+
+        Original COM help: https://opendss.epri.com/Vminpu.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Generators_Get_Vminpu())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Generators_Set_Vminpu(Value))
 
     def kV(self, *args):
-        """Voltage base for the active generator, kV"""
+        """
+        Voltage base for the active generator, kV
+
+        Original COM help: https://opendss.epri.com/kV1.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Generators_Get_kV())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Generators_Set_kV(Value))
 
     def kVARated(self, *args):
-        """kVA rating of the generator"""
+        """
+        kVA rating of the generator
+
+        Original COM help: https://opendss.epri.com/kVArated.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Generators_Get_kVArated())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Generators_Set_kVArated(Value))
 
     def kW(self, *args):
-        """kW output for the active generator. kvar is updated for current power factor."""
+        """
+        kW output for the active generator. kvar is updated for current power factor.
+
+        Original COM help: https://opendss.epri.com/kW.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Generators_Get_kW())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Generators_Set_kW(Value))
 
     def kvar(self, *args):
-        """kvar output for the active generator. Updates power factor based on present kW value."""
+        """
+        kvar output for the active generator. Updates power factor based on present kW value.
+
+        Original COM help: https://opendss.epri.com/kvar.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Generators_Get_kvar())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Generators_Set_kvar(Value))
 
     def daily(self, *args):
@@ -155,7 +204,7 @@ class IGenerators(Iterable):
             )
 
         # Setter
-        Value, = args
+        (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
         self.CheckForError(self._lib.Generators_Set_daily(Value))
@@ -171,7 +220,7 @@ class IGenerators(Iterable):
             return self._get_string(self.CheckForError(self._lib.Generators_Get_duty()))
 
         # Setter
-        Value, = args
+        (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
         self.CheckForError(self._lib.Generators_Set_duty(Value))
@@ -189,7 +238,7 @@ class IGenerators(Iterable):
             )
 
         # Setter
-        Value, = args
+        (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
         self.CheckForError(self._lib.Generators_Set_Yearly(Value))
@@ -209,7 +258,7 @@ class IGenerators(Iterable):
             )
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Generators_Set_Status(Value))
 
     def IsDelta(self, *args):
@@ -223,7 +272,7 @@ class IGenerators(Iterable):
             return self.CheckForError(self._lib.Generators_Get_IsDelta()) != 0
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Generators_Set_IsDelta(Value))
 
     def kva(self, *args):
@@ -237,7 +286,7 @@ class IGenerators(Iterable):
             return self.CheckForError(self._lib.Generators_Get_kva())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Generators_Set_kva(Value))
 
     def Class(self, *args):
@@ -251,7 +300,7 @@ class IGenerators(Iterable):
             return self.CheckForError(self._lib.Generators_Get_Class_())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Generators_Set_Class_(Value))
 
     def Bus1(self, *args):
@@ -265,7 +314,7 @@ class IGenerators(Iterable):
             return self._get_string(self.CheckForError(self._lib.Generators_Get_Bus1()))
 
         # Setter
-        Value, = args
+        (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
         self.CheckForError(self._lib.Generators_Set_Bus1(Value))

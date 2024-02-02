@@ -35,7 +35,7 @@ class IWireData(Iterable):
             return self.CheckForError(self._lib.WireData_Get_EmergAmps())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.WireData_Set_EmergAmps(Value))
 
     def NormAmps(self, *args):
@@ -45,7 +45,7 @@ class IWireData(Iterable):
             return self.CheckForError(self._lib.WireData_Get_NormAmps())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.WireData_Set_NormAmps(Value))
 
     def Rdc(self, *args):
@@ -54,7 +54,7 @@ class IWireData(Iterable):
             return self.CheckForError(self._lib.WireData_Get_Rdc())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.WireData_Set_Rdc(Value))
 
     def Rac(self, *args):
@@ -63,7 +63,7 @@ class IWireData(Iterable):
             return self.CheckForError(self._lib.WireData_Get_Rac())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.WireData_Set_Rac(Value))
 
     def GMRac(self, *args):
@@ -72,7 +72,7 @@ class IWireData(Iterable):
             return self.CheckForError(self._lib.WireData_Get_GMRac())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.WireData_Set_GMRac(Value))
 
     def GMRUnits(self, *args):
@@ -81,7 +81,7 @@ class IWireData(Iterable):
             return LineUnits(self.CheckForError(self._lib.WireData_Get_GMRUnits()))
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.WireData_Set_GMRUnits(Value))
 
     def Radius(self, *args):
@@ -90,7 +90,7 @@ class IWireData(Iterable):
             return self.CheckForError(self._lib.WireData_Get_Radius())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.WireData_Set_Radius(Value))
 
     def RadiusUnits(self, *args):
@@ -99,7 +99,7 @@ class IWireData(Iterable):
             return self.CheckForError(self._lib.WireData_Get_RadiusUnits())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.WireData_Set_RadiusUnits(Value))
 
     def ResistanceUnits(self, *args):
@@ -110,7 +110,7 @@ class IWireData(Iterable):
             )
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.WireData_Set_ResistanceUnits(Value))
 
     def Diameter(self, *args):
@@ -119,7 +119,7 @@ class IWireData(Iterable):
             return self.CheckForError(self._lib.WireData_Get_Diameter())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.WireData_Set_Diameter(Value))
 
     def CapRadius(self, *args):
@@ -129,7 +129,7 @@ class IWireData(Iterable):
             return self.CheckForError(self._lib.WireData_Get_CapRadius())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.WireData_Set_CapRadius(Value))
 
 

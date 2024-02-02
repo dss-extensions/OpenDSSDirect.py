@@ -3,6 +3,7 @@ from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
 
 class ILoadShape(Iterable):
     __slots__ = []
+
     __name__ = "LoadShape"
     _api_prefix = "LoadShapes"
     _columns = [
@@ -21,115 +22,159 @@ class ILoadShape(Iterable):
     ]
 
     def New(self, Name):
+        """Create a new LoadShape, with default parameters"""
         if type(Name) is not bytes:
             Name = Name.encode(self._api_util.codec)
         return self.CheckForError(self._lib.LoadShapes_New(Name))
 
     def Normalize(self):
+        """Normalize the LoadShape data inplace"""
         self.CheckForError(self._lib.LoadShapes_Normalize())
 
     def HrInterval(self, *args):
-        """Fixed interval time value, hours."""
+        """
+        Fixed interval time value, in hours.
+
+        Original COM help: https://opendss.epri.com/HrInterval.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.LoadShapes_Get_HrInterval())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.LoadShapes_Set_HrInterval(Value))
 
     def MinInterval(self, *args):
-        """Fixed Interval time value, in minutes"""
+        """
+        Fixed Interval time value, in minutes
+
+        Original COM help: https://opendss.epri.com/MinInterval.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.LoadShapes_Get_MinInterval())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.LoadShapes_Set_MinInterval(Value))
 
     def Npts(self, *args):
-        """Get/set Number of points in active Loadshape."""
+        """
+        Get/set Number of points in active Loadshape.
+
+        Original COM help: https://opendss.epri.com/Npts.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.LoadShapes_Get_Npts())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.LoadShapes_Set_Npts(Value))
 
     def PBase(self, *args):
+        """
+        Base P value for normalization. Default is zero, meaning the peak will be used.
+
+        Original COM help: https://opendss.epri.com/Pbase.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.LoadShapes_Get_PBase())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.LoadShapes_Set_PBase(Value))
 
     def PMult(self, *args):
-        """Array of doubles for the P multiplier in the Loadshape."""
+        """
+        Array of doubles for the P multiplier in the Loadshape.
+
+        Original COM help: https://opendss.epri.com/Pmult.html
+        """
         # Getter
         if len(args) == 0:
             self.CheckForError(self._lib.LoadShapes_Get_Pmult_GR())
             return self._get_float64_gr_array()
 
         # Setter
-        Value, = args
+        (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
         self.CheckForError(self._lib.LoadShapes_Set_Pmult(ValuePtr, ValueCount))
 
     def QBase(self, *args):
-        """Base for normalizing Q curve. If left at zero, the peak value is used."""
+        """
+        Base for normalizing Q curve. If left at zero, the peak value is used.
+
+        Original COM help: https://opendss.epri.com/Qbase.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.LoadShapes_Get_Qbase())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.LoadShapes_Set_Qbase(Value))
 
     def QMult(self, *args):
-        """Array of doubles containing the Q multipliers."""
+        """
+        Array of doubles containing the Q multipliers.
+
+        Original COM help: https://opendss.epri.com/Qmult.html
+        """
         # Getter
         if len(args) == 0:
             self.CheckForError(self._lib.LoadShapes_Get_Qmult_GR())
             return self._get_float64_gr_array()
 
         # Setter
-        Value, = args
+        (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
         self.CheckForError(self._lib.LoadShapes_Set_Qmult(ValuePtr, ValueCount))
 
     def TimeArray(self, *args):
-        """Time array in hours correscponding to P and Q multipliers when the Interval=0."""
+        """
+        Time array in hours corresponding to P and Q multipliers when the Interval=0.
+
+        Original COM help: https://opendss.epri.com/TimeArray.html
+        """
         # Getter
         if len(args) == 0:
             self.CheckForError(self._lib.LoadShapes_Get_TimeArray_GR())
             return self._get_float64_gr_array()
 
         # Setter
-        Value, = args
+        (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
         self.CheckForError(self._lib.LoadShapes_Set_TimeArray(ValuePtr, ValueCount))
 
     def UseActual(self, *args):
-        """Boolean flag to let Loads know to use the actual value in the curve rather than use the value as a multiplier."""
+        """
+        Boolean flag to let Loads know to use the actual value in the curve rather than use the value as a multiplier.
+
+        Original COM help: https://opendss.epri.com/UseActual.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.LoadShapes_Get_UseActual()) != 0
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.LoadShapes_Set_UseActual(Value))
 
     def SInterval(self, *args):
+        """
+        Fixed interval time value, in seconds.
+
+        Original COM help: https://opendss.epri.com/Sinterval.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.LoadShapes_Get_SInterval())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.LoadShapes_Set_SInterval(Value))
 
     def UseFloat32(self):

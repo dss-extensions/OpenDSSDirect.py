@@ -3,6 +3,7 @@ from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
 
 class IBus(Base):
     __slots__ = []
+
     __name__ = "Bus"
     _api_prefix = "Bus"
     _columns = [
@@ -42,135 +43,258 @@ class IBus(Base):
     ]
 
     def GetUniqueNodeNumber(self, StartNumber):
+        """
+        Return a unique node number at the active bus to avoid node collisions and adds
+        it to the node list for the bus.
+
+        Original COM help: https://opendss.epri.com/GetUniqueNodeNumber.html
+        """
         return self.CheckForError(self._lib.Bus_GetUniqueNodeNumber(StartNumber))
 
     def ZscRefresh(self):
+        """
+        Refreshes the Zsc matrix for the active bus.
+
+        Original COM help: https://opendss.epri.com/ZscRefresh.html
+        """
         return self.CheckForError(self._lib.Bus_ZscRefresh()) != 0
 
     def Coorddefined(self):
-        """(read-only) False=0 else True. Indicates whether a coordinate has been defined for this bus"""
+        """
+        Indicates whether a coordinate has been defined for this bus
+
+        Original COM help: https://opendss.epri.com/Coorddefined.html
+        """
         return self.CheckForError(self._lib.Bus_Get_Coorddefined()) != 0
 
     def CplxSeqVoltages(self):
-        """(read-only) Complex Double array of Sequence Voltages (0, 1, 2) at this Bus."""
+        """
+        Complex Double array of Sequence Voltages (0, 1, 2) at this Bus.
+
+        Original COM help: https://opendss.epri.com/CplxSeqVoltages.html
+        """
         self.CheckForError(self._lib.Bus_Get_CplxSeqVoltages_GR())
         return self._get_complex128_gr_array()
 
     def Cust_Duration(self):
-        """(read-only) Accumulated customer outage durations"""
+        """
+        Accumulated customer outage durations
+
+        Original COM help: https://opendss.epri.com/Cust_Duration.html
+        """
         return self.CheckForError(self._lib.Bus_Get_Cust_Duration())
 
     def Cust_Interrupts(self):
-        """(read-only) Annual number of customer-interruptions from this bus"""
+        """
+        Annual number of customer-interruptions from this bus
+
+        Original COM help: https://opendss.epri.com/Cust_Interrupts.html
+        """
         return self.CheckForError(self._lib.Bus_Get_Cust_Interrupts())
 
     def Distance(self):
-        """(read-only) Distance from energymeter (if non-zero)"""
+        """
+        Distance from energymeter (if non-zero)
+
+        Original COM help: https://opendss.epri.com/Distance.html
+        """
         return self.CheckForError(self._lib.Bus_Get_Distance())
 
     def Int_Duration(self):
-        """(read-only) Average interruption duration, hr."""
+        """
+        Average interruption duration, hr.
+
+        Original COM help: https://opendss.epri.com/Int_Duration.html
+        """
         return self.CheckForError(self._lib.Bus_Get_Int_Duration())
 
     def Isc(self):
-        """(read-only) Short circuit currents at bus; Complex Array."""
+        """
+        Short circuit currents at bus; Complex Array.
+
+        Original COM help: https://opendss.epri.com/Isc.html
+        """
         self.CheckForError(self._lib.Bus_Get_Isc_GR())
         return self._get_complex128_gr_array()
 
     def Lambda(self):
-        """(read-only) Accumulated failure rate downstream from this bus; faults per year"""
+        """
+        Accumulated failure rate downstream from this bus; faults per year
+
+        Original COM help: https://opendss.epri.com/Lambda.html
+        """
         return self.CheckForError(self._lib.Bus_Get_Lambda())
 
     def N_Customers(self):
-        """(read-only) Total numbers of customers served downline from this bus"""
+        """
+        Total numbers of customers served downline from this bus
+
+        Original COM help: https://opendss.epri.com/N_Customers.html
+        """
         return self.CheckForError(self._lib.Bus_Get_N_Customers())
 
     def N_interrupts(self):
-        """(read-only) Number of interruptions this bus per year"""
+        """
+        Number of interruptions this bus per year
+
+        Original COM help: https://opendss.epri.com/N_interrupts.html
+        """
         return self.CheckForError(self._lib.Bus_Get_N_interrupts())
 
     def Name(self):
-        """(read-only) Name of Bus"""
+        """
+        Name of Bus
+
+        Original COM help: https://opendss.epri.com/Name1.html
+        """
         return self._get_string(self.CheckForError(self._lib.Bus_Get_Name()))
 
     def Nodes(self):
-        """(read-only) Integer Array of Node Numbers defined at the bus in same order as the voltages."""
+        """
+        Integer Array of Node Numbers defined at the bus in same order as the voltages.
+
+        Original COM help: https://opendss.epri.com/Nodes.html
+        """
         self.CheckForError(self._lib.Bus_Get_Nodes_GR())
         return self._get_int32_gr_array()
 
     def NumNodes(self):
-        """(read-only) Number of Nodes this bus."""
+        """
+        Number of Nodes this bus.
+
+        Original COM help: https://opendss.epri.com/NumNodes.html
+        """
         return self.CheckForError(self._lib.Bus_Get_NumNodes())
 
     def SectionID(self):
-        """(read-only) Integer ID of the feeder section in which this bus is located."""
+        """
+        Integer ID of the feeder section in which this bus is located.
+
+        Original COM help: https://opendss.epri.com/SectionID.html
+        """
         return self.CheckForError(self._lib.Bus_Get_SectionID())
 
     def SeqVoltages(self):
-        """(read-only) Double Array of sequence voltages at this bus. Magnitudes only."""
+        """
+        Double Array of sequence voltages at this bus. Magnitudes only.
+
+        Original COM help: https://opendss.epri.com/SeqVoltages.html
+        """
         self.CheckForError(self._lib.Bus_Get_SeqVoltages_GR())
         return self._get_float64_gr_array()
 
     def TotalMiles(self):
-        """(read-only) Total length of line downline from this bus, in miles. For recloser siting algorithm."""
+        """
+        Total length of line downline from this bus, in miles. For recloser siting algorithm.
+
+        Original COM help: https://opendss.epri.com/TotalMiles.html
+        """
         return self.CheckForError(self._lib.Bus_Get_TotalMiles())
 
     def VLL(self):
-        """(read-only) For 2- and 3-phase buses, returns array of complex numbers represetin L-L voltages in volts. Returns -1.0 for 1-phase bus. If more than 3 phases, returns only first 3."""
+        """
+        For 2- and 3-phase buses, returns array of complex numbers representing L-L voltages in volts. Returns -1.0 for 1-phase bus. If more than 3 phases, returns only first 3.
+
+        Original COM help: https://opendss.epri.com/VLL.html
+        """
         self.CheckForError(self._lib.Bus_Get_VLL_GR())
         return self._get_complex128_gr_array()
 
     def VMagAngle(self):
-        """(read-only) Array of doubles containing voltages in Magnitude (VLN), angle (degrees)"""
+        """
+        Array of doubles containing voltages in Magnitude (VLN), angle (degrees)
+
+        Original COM help: https://opendss.epri.com/VMagAngle.html
+        """
         self.CheckForError(self._lib.Bus_Get_VMagAngle_GR())
         return self._get_float64_gr_array()
 
     def Voc(self):
-        """(read-only) Open circuit voltage; Complex array."""
+        """
+        Open circuit voltage; Complex array.
+
+        Original COM help: https://opendss.epri.com/Voc.html
+        """
         self.CheckForError(self._lib.Bus_Get_Voc_GR())
         return self._get_complex128_gr_array()
 
     def Voltages(self):
-        """(read-only) Complex array of voltages at this bus."""
+        """
+        Complex array of voltages at this bus.
+
+        Original COM help: https://opendss.epri.com/Voltages.html
+        """
         self.CheckForError(self._lib.Bus_Get_Voltages_GR())
         return self._get_complex128_gr_array()
 
     def YscMatrix(self):
-        """(read-only) Complex array of Ysc matrix at bus. Column by column."""
+        """
+        Complex array of Ysc matrix at bus. Column by column.
+
+        Original COM help: https://opendss.epri.com/YscMatrix.html
+        """
         self.CheckForError(self._lib.Bus_Get_YscMatrix_GR())
         return self._get_complex128_gr_array()
 
     def Zsc0(self):
-        """(read-only) Complex Zero-Sequence short circuit impedance at bus."""
+        """
+        Complex Zero-Sequence short circuit impedance at bus.
+
+        Original COM help: https://opendss.epri.com/Zsc0.html
+        """
         self.CheckForError(self._lib.Bus_Get_Zsc0_GR())
         return self._get_complex128_gr_simple()
 
     def Zsc1(self):
-        """(read-only) Complex Positive-Sequence short circuit impedance at bus."""
+        """
+        Complex Positive-Sequence short circuit impedance at bus.
+
+        Original COM help: https://opendss.epri.com/Zsc1.html
+        """
         self.CheckForError(self._lib.Bus_Get_Zsc1_GR())
         return self._get_complex128_gr_simple()
 
     def ZscMatrix(self):
-        """(read-only) Complex array of Zsc matrix at bus. Column by column."""
+        """
+        Complex array of Zsc matrix at bus. Column by column.
+
+        Original COM help: https://opendss.epri.com/ZscMatrix.html
+        """
         self.CheckForError(self._lib.Bus_Get_ZscMatrix_GR())
         return self._get_complex128_gr_array()
 
     def kVBase(self):
-        """(read-only) Base voltage at bus in kV"""
+        """
+        Base voltage at bus in kV
+
+        Original COM help: https://opendss.epri.com/kVBase.html
+        """
         return self.CheckForError(self._lib.Bus_Get_kVBase())
 
     def puVLL(self):
-        """(read-only) Returns Complex array of pu L-L voltages for 2- and 3-phase buses. Returns -1.0 for 1-phase bus. If more than 3 phases, returns only 3 phases."""
+        """
+        Returns Complex array of pu L-L voltages for 2- and 3-phase buses. Returns -1.0 for 1-phase bus. If more than 3 phases, returns only 3 phases.
+
+        Original COM help: https://opendss.epri.com/puVLL.html
+        """
         self.CheckForError(self._lib.Bus_Get_puVLL_GR())
         return self._get_complex128_gr_array()
 
     def puVmagAngle(self):
-        """(read-only) Array of doubles containing voltage magnitude, angle (degrees) pairs in per unit"""
+        """
+        Array of doubles containing voltage magnitude, angle (degrees) pairs in per unit
+
+        Original COM help: https://opendss.epri.com/puVmagAngle.html
+        """
         self.CheckForError(self._lib.Bus_Get_puVmagAngle_GR())
         return self._get_float64_gr_array()
 
     def PuVoltage(self):
-        """(read-only) Complex Array of pu voltages at the bus."""
+        """
+        Complex Array of pu voltages at the bus.
+
+        Original COM help: https://opendss.epri.com/puVoltages.html
+        """
         self.CheckForError(self._lib.Bus_Get_puVoltages_GR())
         return self._get_complex128_gr_array()
 
@@ -179,47 +303,73 @@ class IBus(Base):
         Array of doubles (complex) containing the complete 012 Zsc matrix.
         Only available after Zsc is computed, either through the "ZscRefresh" command, or running a "FaultStudy" solution.
         Only available for buses with 3 nodes.
+
+        Original COM help: https://opendss.epri.com/ZSC012Matrix.html
         """
         self.CheckForError(self._lib.Bus_Get_ZSC012Matrix_GR())
         return self._get_complex128_gr_array()
 
     def X(self, *args):
-        """X Coordinate for bus (double)"""
+        """
+        X Coordinate for bus
+
+        Original COM help: https://opendss.epri.com/x.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Bus_Get_x())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Bus_Set_x(Value))
 
     def Y(self, *args):
-        """Y coordinate for bus(double)"""
+        """
+        Y coordinate for bus
+
+        Original COM help: https://opendss.epri.com/y.html
+        """
         # Getter
         if len(args) == 0:
             return self.CheckForError(self._lib.Bus_Get_y())
 
         # Setter
-        Value, = args
+        (Value,) = args
         self.CheckForError(self._lib.Bus_Set_y(Value))
 
     def LoadList(self):
-        """List of strings: Full Names of LOAD elements connected to the active bus."""
+        """
+        List of strings: Full Names of LOAD elements connected to the active bus.
+
+        Original COM help: https://opendss.epri.com/LoadList.html
+        """
         return self.CheckForError(self._get_string_array(self._lib.Bus_Get_LoadList))
 
     def LineList(self):
-        """List of strings: Full Names of LINE elements connected to the active bus."""
+        """
+        List of strings: Full Names of LINE elements connected to the active bus.
+
+        Original COM help: https://opendss.epri.com/LineList.html
+        """
         return self.CheckForError(self._get_string_array(self._lib.Bus_Get_LineList))
 
     def AllPCEatBus(self):
-        """Returns an array with the names of all PCE connected to the active bus"""
+        """
+        Returns an array with the names of all PCE connected to the active bus
+
+        Original COM help: https://opendss.epri.com/AllPCEatBus.html
+        """
         result = self.CheckForError(
             self._get_string_array(self._lib.Bus_Get_AllPCEatBus)
         )
         return result
 
     def AllPDEatBus(self):
-        """Returns an array with the names of all PDE connected to the active bus"""
+        """
+        Returns an array with the names of all PDE connected to the active bus
+
+        Original COM help: https://opendss.epri.com/AllPDEatBus1.html
+        """
         result = self.CheckForError(
             self._get_string_array(self._lib.Bus_Get_AllPDEatBus)
         )
