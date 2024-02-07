@@ -53,7 +53,7 @@ class Iterable(Base):
         return self._Get_First()
 
     def Next(self):
-        """(read-only) Sets next object of this type active. Returns 0 if no more."""
+        """Sets next object of this type active. Returns 0 if no more."""
         return self._Get_Next()
 
     def Count(self):
@@ -61,9 +61,26 @@ class Iterable(Base):
         return self._Get_Count()
 
     def __len__(self):
+        """
+        Number of objects of this type
+        
+        **(API Extension)**
+        """
         return self._Get_Count()
 
     def __iter__(self):
+        """
+        Get an iterator of the object collection.
+        
+        Note that OpenDSS, via the classic APIs, only allow a single object of a specific type
+        to be activated. That is, you cannot use references of distinct objects and interact
+        with both at the same time, or keep a reference to use later. You need to reactivate
+        the target object or ensure it is the active one.
+
+        For an alternative, consider using our AltDSS-Python package.
+
+        **(API Extension)**
+        """
         idx = self._Get_First()
         while idx != 0:
             yield self

@@ -1,4 +1,5 @@
-from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from .Iterable import Base
 
 
 class ICircuit(Base):
@@ -424,7 +425,7 @@ class ICircuit(Base):
         Array of total losses (complex) in a selection of elements.
         Use the element indices (starting at 1) as parameter.
 
-        (API Extension)
+        **(API Extension)**
         """
         Value, ValuePtr, ValueCount = self._prepare_int32_array(Value)
         self.CheckForError(self._lib.Circuit_Get_ElementLosses_GR(ValuePtr, ValueCount))
@@ -440,7 +441,7 @@ class ICircuit(Base):
         The `options` parameter contains bit-flags to toggle specific features.
         See the enum `DSSJSONFlags` or `Obj_ToJSON` (C-API) for more.
 
-        (API Extension)
+        **(API Extension)**
         """
         return self._get_string(self.CheckForError(self._lib.Circuit_ToJSON(options)))
 
@@ -455,7 +456,7 @@ class ICircuit(Base):
         The `options` parameter contains bit-flags to toggle specific features.
         See the enum `DSSJSONFlags`.
 
-        (API Extension)
+        **(API Extension)**
         """
         if isinstance(data, dict):
             data = json.dumps(data).encode()
@@ -484,7 +485,7 @@ class ICircuit(Base):
         If `SingleFile` is enabled, the first argument (`dirOrFilePath`) is the file path,
         otherwise it is the folder path. For string output, the argument is not used.
 
-        (API Extension)
+        **(API Extension)**
         """
         if not isinstance(dirOrFilePath, bytes):
             dirOrFilePath = dirOrFilePath.encode()

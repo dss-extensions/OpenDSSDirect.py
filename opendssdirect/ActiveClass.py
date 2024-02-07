@@ -1,4 +1,5 @@
-from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from .Iterable import Base
 
 
 class IActiveClass(Base):
@@ -102,7 +103,7 @@ class IActiveClass(Base):
 
         Additionally, the `ExcludeDisabled` flag can be used to excluded disabled elements from the output.
 
-        (API Extension)
+        **(API Extension)**
         """
         return self._get_string(
             self.CheckForError(self._lib.ActiveClass_ToJSON(options))

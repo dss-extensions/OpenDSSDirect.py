@@ -1,4 +1,5 @@
-from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from .Iterable import Iterable
 
 
 class IPVsystems(Iterable):
@@ -118,7 +119,7 @@ class IPVsystems(Iterable):
         defined as a Loadshape object of 24 hrs, typically. In the default dispatch
         mode, the PVSystem element uses this loadshape to trigger State changes.
 
-        (API Extension)
+        **(API Extension)**
         """
         # Getter
         if len(args) == 0:
@@ -136,7 +137,7 @@ class IPVsystems(Iterable):
         for solar ramp rate studies. Must be previously defined as a Loadshape
         object. Typically would have time intervals of 1-5 seconds.
 
-        (API Extension)
+        **(API Extension)**
         """
         # Getter
         if len(args) == 0:
@@ -155,7 +156,7 @@ class IPVsystems(Iterable):
         if any, is repeated during Yearly solution modes. In the default dispatch
         mode, the PVSystem element uses this loadshape to trigger State changes.
 
-        (API Extension)
+        **(API Extension)**
         """
         # Getter
         if len(args) == 0:
@@ -176,7 +177,7 @@ class IPVsystems(Iterable):
         TShape to determine the Pmpp from the Pmpp vs T curve. Units must agree
         with the Pmpp vs T curve.
 
-        (API Extension)
+        **(API Extension)**
         """
         # Getter
         if len(args) == 0:
@@ -200,7 +201,7 @@ class IPVsystems(Iterable):
         model uses this TShape to determine the Pmpp from the Pmpp vs T curve.
         Units must agree with the Pmpp vs T curve.
 
-        (API Extension)
+        **(API Extension)**
         """
         # Getter
         if len(args) == 0:
@@ -220,7 +221,7 @@ class IPVsystems(Iterable):
         this TShape to determine the Pmpp from the Pmpp vs T curve. Units must
         agree with the Pmpp vs T curve.
 
-        (API Extension)
+        **(API Extension)**
         """
         # Getter
         if len(args) == 0:

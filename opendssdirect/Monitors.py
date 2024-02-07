@@ -1,6 +1,6 @@
 import numpy as np
-
-from ._utils import DSSException, api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import DSSException, api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from .Iterable import Iterable
 
 
 class IMonitors(Iterable):
@@ -55,7 +55,7 @@ class IMonitors(Iterable):
         Matrix of the active monitor, containing the hour vector, seconds vector, and all channels (index 2 = channel 1).
         If you need multiple channels, prefer using this function as it processes the monitor byte-stream once.
 
-        (API Extension)
+        **(API Extension)**
         """
         ffi = self._api_util.ffi
         self.CheckForError(self._lib.Monitors_Get_ByteStream_GR())

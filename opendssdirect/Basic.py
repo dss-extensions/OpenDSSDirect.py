@@ -1,5 +1,6 @@
 # import warnings
-from ._utils import api_util, Base, dss_py, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util, dss_py, OPENDSSDIRECT_PY_USE_NUMPY
+from .Iterable import Base
 try:
     from ._version import __version__
 except:
@@ -148,7 +149,7 @@ class IBasic(Base):
         If you set to 0 (false), the editor is not executed. Note that other side effects,
         such as the creation of files, are not affected.
 
-        (API Extension)
+        **(API Extension)**
         """
         # Getter
         if len(args) == 0:
@@ -176,7 +177,7 @@ class IBasic(Base):
 
         **NOTE**: this property will be removed for v1.0. It is left to avoid breaking the current API too soon.
 
-        (API Extension)
+        **(API Extension)**
         """
         # Getter
         if len(args) == 0:
@@ -199,7 +200,7 @@ class IBasic(Base):
         This can also be set through the environment variable DSS_CAPI_ALLOW_CHANGE_DIR. Set it to 0 to
         disallow changing the active working directory.
 
-        (API Extension)
+        **(API Extension)**
         """
         # Getter
         if len(args) == 0:
@@ -218,7 +219,7 @@ class IBasic(Base):
         This can also be set through the environment variable DSS_CAPI_ALLOW_DOSCMD. Setting it to 1 enables
         the command.
 
-        (API Extension)
+        **(API Extension)**
         """
         # Getter
         if len(args) == 0:
@@ -235,8 +236,8 @@ class IBasic(Base):
 
         For example, consider the function `Loads_Get_ZIPV`. If there is no active circuit or active load element:
 
-        - In the disabled state (COMErrorResults=False), the function will return "[]", an array with 0 elements.
-        - In the enabled state (COMErrorResults=True), the function will return "[0.0]" instead. This should
+        - In the disabled state (`COMErrorResults(False)`), the function will return "[]", an array with 0 elements.
+        - In the enabled state (`COMErrorResults(True)`), the function will return "[0.0]" instead. This should
         be compatible with the return value of the official COM interface.
 
         Defaults to True/1 (enabled state) in the v0.12.x series. This will change to false in future series.
@@ -244,7 +245,7 @@ class IBasic(Base):
         This can also be set through the environment variable `DSS_CAPI_COM_DEFAULTS`. Setting it to 0 disables
         the legacy/COM behavior. The value can be toggled through the API at any time.
 
-        (API Extension)
+        **(API Extension)**
         """
         # Getter
         if len(args) == 0:
@@ -256,7 +257,7 @@ class IBasic(Base):
 
     def AdvancedTypes(self, *args):
         """
-        When enabled, there are **two side-effects**:
+        When enabled, there are two side-effects:
 
         - **Per DSS Context:** Complex arrays and complex numbers can be returned and consumed by the Python API.
         - **Global effect:** The low-level API provides matrix dimensions when available (`EnableArrayDimensions` is enabled).
@@ -266,9 +267,9 @@ class IBasic(Base):
 
         When disabled, the legacy plain arrays are used and complex numbers cannot be consumed by the Python API.
 
-        *Defaults to **False** for backwards compatibility.*
+        *Defaults to `False` for backwards compatibility.*
 
-        (API Extension)
+        **(API Extension)**
         """
         # Getter
         if len(args) == 0:
@@ -297,7 +298,7 @@ class IBasic(Base):
 
         See the enumeration `DSSCompatFlags` for available flags, including description.
 
-        (API Extension)
+        **(API Extension)**
         """
         # Getter
         if len(args) == 0:

@@ -1,5 +1,6 @@
 import numpy as np
-from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from .Iterable import Base
 from dss import SparseSolverOptions
 
 

@@ -41,9 +41,11 @@ class Iterator:
 
 def run_command(text, dss=None):
     """
-    Use Text interface of OpenDSS, grabbing all output text in a string
+    Use the Text interface of OpenDSS, grabbing all output text in a string.
     
     This is **deprecated** since it doesn't handle errors as exceptions and can confuse users.
+
+    Prefer using [`dss("commands")`](#opendssdirect.OpenDSSDirect.OpenDSSDirect.__call__), [`dss.Text.Command("command")`](#opendssdirect.Text.IText.Command), or [`dss.Text.Commands("commands")`](#opendssdirect.Text.IText.Commands),.
     """
 
     warnings.warn('run_command is deprecated (use Command, Commands or the callable shortcut), see https://github.com/dss-extensions/OpenDSSDirect.py/issues/70', 
@@ -62,7 +64,11 @@ def run_command(text, dss=None):
 
 
 def to_dataframe(module):
-    warnings.warn("to_dataframe is deprecated; it will not be removed any time soon, but we recommend trying AltDSS-Python's dataframe exports.", DeprecationWarning, stacklevel=2)
+    """
+    Iterate and export all data from the classic API class/module to a dataframe.
+
+    If Pandas is not available, a dict of dicts is returned.
+    """
     data = dict()
 
     for e in module:
@@ -143,7 +149,26 @@ def _clean_data(data, class_name):
 
 
 def class_to_dataframe(class_name, dss=None, transform_string=None, clean_data=None):
-    warnings.warn("class_to_dataframe is deprecated; it will not be removed any time soon, but we recommend trying AltDSS-Python's dataframe exports.", DeprecationWarning, stacklevel=2)
+    """
+    Export all DSS properties for a selected DSS object class.
+
+    This function uses the `ActiveClass`, `Element` and `Properties` interfaces to iterate through the elements, extracting the value of each DSS property.
+
+    Caveats are:
+
+    - All properties are exported; this can be misleading since the order of definition and which properties are used can change how the DSS models behave.
+    - All data is exported as text and must be reinterpreted in Python.
+    - It can be slow for large circuits.
+
+    Due to these caveats, the function has been marked **deprecated**. Still, it has been used by many third-party software as a way to extract important data, so it will be kept for backwards compatibility.
+
+    For alternatives:
+    
+    - Check the functions for JSON output, such as [`Circuit.ToJSON()`](#opendssdirect.Circuit.ICircuit.ToJSON) (whole circuit), [`ActiveClass.ToJSON()`](#opendssdirect.ActiveClass.IActiveClass.ToJSON) (a whole class), and [`Element.ToJSON()`](#opendssdirect.Element.IElement.ToJSON). The DSS-Python examples are a good starting point (all related functions are also available in OpenDSSDirect.py): https://dss-extensions.org/dss_python/examples/JSON/
+    - The JSON output/input, and other future alternatives are based on the work-in-progress AltDSS Schema project. Check https://github.com/dss-extensions/AltDSS-Schema
+    
+    """
+    warnings.warn("class_to_dataframe is deprecated; it will not be removed any time soon, using JSON exports is preferable. Watch AltDSS-Python for future alternatives, including native dataframes.", DeprecationWarning, stacklevel=2)
 
     if transform_string is None:
         transform_string = _evaluate_expression

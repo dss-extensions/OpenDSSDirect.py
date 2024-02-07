@@ -1,4 +1,5 @@
-from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from .Iterable import Iterable
 from dss import GeneratorStatus
 
 
@@ -195,7 +196,7 @@ class IGenerators(Iterable):
         """
         Name of the loadshape for a daily generation profile.
 
-        (API Extension)
+        **(API Extension)**
         """
         # Getter
         if len(args) == 0:
@@ -213,7 +214,7 @@ class IGenerators(Iterable):
         """
         Name of the loadshape for a duty cycle simulation.
 
-        (API Extension)
+        **(API Extension)**
         """
         # Getter
         if len(args) == 0:
@@ -229,7 +230,7 @@ class IGenerators(Iterable):
         """
         Name of yearly loadshape
 
-        (API Extension)
+        **(API Extension)**
         """
         # Getter
         if len(args) == 0:
@@ -249,7 +250,7 @@ class IGenerators(Iterable):
 
         Related enumeration: GeneratorStatus
 
-        (API Extension)
+        **(API Extension)**
         """
         # Getter
         if len(args) == 0:
@@ -265,7 +266,7 @@ class IGenerators(Iterable):
         """
         Generator connection. True/1 if delta connection, False/0 if wye.
 
-        (API Extension)
+        **(API Extension)**
         """
         # Getter
         if len(args) == 0:
@@ -279,7 +280,7 @@ class IGenerators(Iterable):
         """
         kVA rating of electrical machine. Applied to machine or inverter definition for Dynamics mode solutions.
 
-        (API Extension)
+        **(API Extension)**
         """
         # Getter
         if len(args) == 0:
@@ -293,7 +294,7 @@ class IGenerators(Iterable):
         """
         An arbitrary integer number representing the class of Generator so that Generator values may be segregated by class.
 
-        (API Extension)
+        **(API Extension)**
         """
         # Getter
         if len(args) == 0:
@@ -307,7 +308,7 @@ class IGenerators(Iterable):
         """
         Bus to which the Generator is connected. May include specific node specification.
 
-        (API Extension)
+        **(API Extension)**
         """
         # Getter
         if len(args) == 0:

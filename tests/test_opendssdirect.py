@@ -5582,7 +5582,7 @@ def xtest_threading2(dss):
     cases_to_run_threads = list(cases)
     cases_to_run_seq = list(cases)
 
-    # Use the number of threads as CPU count, number of files
+    # Use the number of threads as CPU count, number of cases
     num = min(len(cases), os.cpu_count())
 
     # Initialize a new context for each of the threads
@@ -5642,7 +5642,7 @@ def xtest_threading2(dss):
     dt_seq = (t1 - t0)
     print(f'Done in {dt_seq:.3f} s sequentially')
 
-    # Check if each scenario has the same results wheter ran in multiple threads or single thread
+    # Check if each scenario has the same results whether ran in multiple threads or single thread
     for case in cases:
         np.testing.assert_equal(sresults[case], tresults[case])
 

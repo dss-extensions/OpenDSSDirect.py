@@ -2,9 +2,10 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 from weakref import WeakKeyDictionary
 from typing import AnyStr, List, Union
-from ._utils import Base, DSSException, dss_py, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import DSSException, dss_py, OPENDSSDIRECT_PY_USE_NUMPY
 from ._utils import lib as dss_lib
 from ._utils import ffi as dss_ffi
+from .Iterable import Base
 from . import utils as _utils
 from .utils import run_command
 from .ActiveClass import _ActiveClass, IActiveClass
@@ -70,6 +71,20 @@ if TYPE_CHECKING:
 
 
 class OpenDSSDirect(Base):
+    """
+    This is the main OpenDSSDirect.py class that wraps all the available interfaces.
+    
+    Besides the traditional submodules from previous (pre-v0.9) versions, it has a
+    shortcut for commands as the call operator, plus some utility methods.
+        
+    Note that users do not typically need to create instances of this class manually.
+    For creating multiple, separate DSS engine instances, use the [`NewContext()`](OpenDSSDirect.NewContext)
+    method.
+
+    This class also provides function to return DSS-Python and AltDSS representations
+    of the same engine, allowing users to mix usage of the packages more easily.
+    """
+        
     try:
         # Version is now populated by the build script based
         # on the git tags. See pyproject.toml for more info.
@@ -78,6 +93,7 @@ class OpenDSSDirect(Base):
         __version__ = "0.0dev"
 
     DSSException = DSSException
+    """Shortcut to the `DSSException` class."""
 
     __slots__ = [
         "ActiveClass",
@@ -139,6 +155,7 @@ class OpenDSSDirect(Base):
     ]
 
     utils = _utils
+    """Shortcut to the [`utils`](opendssdirect.utils) module."""
 
     # `_ctx_to_dss` is to be used in callbacks (mapping the pointer 
     # to the equivalent Python object)
@@ -146,10 +163,10 @@ class OpenDSSDirect(Base):
 
     @classmethod
     def _get_instance(cls: OpenDSSDirect, api_util: dss_py.CffiApiUtil = None, ctx=None) -> OpenDSSDirect:
-        '''
+        """
         If there is an existing OpenDSSDirect instance for a context, return it.
         Otherwise, try to wrap the context into a new OpenDSSDirect.py API instance.
-        '''
+        """
         if api_util is None:
             # If none exists, something is probably wrong elsewhere,
             # so let's allow the IndexError to propagate
@@ -162,12 +179,12 @@ class OpenDSSDirect(Base):
         return dss
 
     def __init__(self, ctx_api_util=None, prefer_lists=None):
-        '''
+        """
         Creates a new OpenDSSDirect.py instance for the DSS context specified in `ctx_api_util`.
 
         Not intended for typical usage. For creating new separate DSS instances, refer
-        to the `OpenDSSDirect.NewContext` method.
-        '''
+        to the [`NewContext()`](OpenDSSDirect.NewContext) method.
+        """
         
         if prefer_lists is None:
             prefer_lists = not OPENDSSDIRECT_PY_USE_NUMPY
@@ -309,6 +326,13 @@ class OpenDSSDirect(Base):
 
 
     def run_command(self, text):
+        """
+        Use the Text interface of OpenDSS, grabbing all output text in a string.
+        
+        This is **deprecated** since it doesn't handle errors as exceptions and can confuse users.
+
+        Use instead: [`dss("commands")`](#opendssdirect.OpenDSSDirect.OpenDSSDirect.__call__), [`dss.Text.Command("command")`](#opendssdirect.Text.IText.Command), or [`dss.Text.Commands("commands")`](#opendssdirect.Text.IText.Commands).
+        """
         run_command(text, self)
 
 
@@ -320,7 +344,7 @@ class OpenDSSDirect(Base):
         allowing the user to create multiple instances in the same process. By creating contexts
         manually, the management of threads and potential issues should be handled by the user.
 
-        (API Extension)
+        **(API Extension)**
         """
         from .OpenDSSDirect import OpenDSSDirect
         ffi = self._api_util.ffi
@@ -357,6 +381,7 @@ class OpenDSSDirect(Base):
         Examples:
 
         ```python
+
             # single command
             dss("new Circuit.test") 
 
@@ -372,7 +397,7 @@ class OpenDSSDirect(Base):
             """)
         ```
 
-        (API Extension)
+        **(API Extension)**
         '''
         # self.Commands(cmds) -- inlined
         if isinstance(cmds, (str, bytes)):

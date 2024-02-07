@@ -1,4 +1,5 @@
-from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from .Iterable import Base
 from dss import DSSException, OCPDevType as OCPDevTypeEnum
 
 
@@ -474,7 +475,7 @@ class ICktElement(Base):
         Returns true if the current active element is isolated.
         Note that this only fetches the current value. See also the Topology interface.
 
-        (API Extension)
+        **(API Extension)**
         """
         return self.CheckForError(self._lib.CktElement_Get_IsIsolated()) != 0
 
@@ -491,7 +492,7 @@ class ICktElement(Base):
         """
         Array of integers, a copy of the internal NodeRef of the CktElement.
 
-        (API Extension)
+        **(API Extension)**
         """
         self._lib.CktElement_Get_NodeRef_GR()
         return self._get_int32_gr_array()

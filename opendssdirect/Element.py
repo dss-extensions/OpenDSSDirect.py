@@ -1,4 +1,5 @@
-from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from .Iterable import Base
 
 
 class IElement(Base):
@@ -41,7 +42,7 @@ class IElement(Base):
         The `options` parameter contains bit-flags to toggle specific features.
         See `Obj_ToJSON` (C-API) for more, or `DSSObj.to_json` in Python.
 
-        (API Extension)
+        **(API Extension)**
         """
         return self._get_string(
             self.CheckForError(self._lib.DSSElement_ToJSON(options))

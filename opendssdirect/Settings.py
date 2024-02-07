@@ -1,4 +1,5 @@
-from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from .Iterable import Base
 from dss.enums import DSSPropertyNameStyle, CktModels
 
 class ISettings(Base):
@@ -290,7 +291,7 @@ class ISettings(Base):
         Controls whether the terminals are checked when updating the currents in Load component. Defaults to True.
         If the loads are guaranteed to have their terminals closed throughout the simulation, this can be set to False to save some time.
 
-        (API Extension)
+        **(API Extension)**
         """
         # Getter
         if len(args) == 0:
@@ -309,7 +310,7 @@ class ISettings(Base):
         Set it to 1 (or `True`) to include disabled elements.
         Other numeric values are reserved for other potential behaviors.
 
-        (API Extension)
+        **(API Extension)**
         """
         # Getter
         if len(args) == 0:

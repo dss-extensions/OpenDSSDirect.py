@@ -1,4 +1,5 @@
-from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from .Iterable import Base
 
 class IZIP(Base):
     __slots__ = []
@@ -13,7 +14,7 @@ class IZIP(Base):
         Besides that, the full filenames inside the ZIP must be shorter than 256 characters.
         The limitations should be removed in a future revision.
 
-        (API Extension)
+        **(API Extension)**
         """
         if type(FileName) is not bytes:
             FileName = FileName.encode(self._api_util.codec)
@@ -23,7 +24,7 @@ class IZIP(Base):
         """
         Closes the current open ZIP file
 
-        (API Extension)
+        **(API Extension)**
         """
         self.CheckForError(self._lib.ZIP_Close())
 
@@ -34,7 +35,7 @@ class IZIP(Base):
         be present inside the ZIP, using relative paths. The only exceptions are
         memory-mapped files.
 
-        (API Extension)
+        **(API Extension)**
         """
         if type(FileInZip) is not bytes:
             FileInZip = FileInZip.encode(self._api_util.codec)
@@ -45,7 +46,7 @@ class IZIP(Base):
         Extracts the contents of the file "FileName" from the current (open) ZIP file.
         Returns a byte-string.
 
-        (API Extension)
+        **(API Extension)**
         """
         api_util = self._api_util
         if type(FileName) is not bytes:
@@ -62,7 +63,7 @@ class IZIP(Base):
         See https://regex.sorokin.engineer/en/latest/regular_expressions.html for information on
         the expression syntax and options.
 
-        (API Extension)
+        **(API Extension)**
         """
         if regexp is None or not regexp:
             regexp = self._api_util.ffi.NULL
@@ -74,7 +75,7 @@ class IZIP(Base):
         """
         Check if the given path name is present in the current ZIP file.
 
-        (API Extension)
+        **(API Extension)**
         """
         if type(Name) is not bytes:
             Name = Name.encode(self._api_util.codec)

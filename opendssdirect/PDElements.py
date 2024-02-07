@@ -1,4 +1,5 @@
-from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from .Iterable import Base
 
 
 class IPDElements(Base):
@@ -174,7 +175,7 @@ class IPDElements(Base):
         """
         Array of strings consisting of all PD element names.
 
-        (API Extension)
+        **(API Extension)**
         """
         return self.CheckForError(
             self._get_string_array(self._lib.PDElements_Get_AllNames)
@@ -192,7 +193,7 @@ class IPDElements(Base):
         See also:
         https://sourceforge.net/p/electricdss/discussion/beginners/thread/da5b93ca/
 
-        (API Extension)
+        **(API Extension)**
         """
         self.CheckForError(self._lib.PDElements_Get_AllMaxCurrents_GR(AllNodes))
         return self._get_float64_gr_array()
@@ -209,7 +210,7 @@ class IPDElements(Base):
         See also:
         https://sourceforge.net/p/electricdss/discussion/beginners/thread/da5b93ca/
 
-        (API Extension)
+        **(API Extension)**
         """
         self.CheckForError(self._lib.PDElements_Get_AllPctNorm_GR(AllNodes))
         return self._get_float64_gr_array()
@@ -226,7 +227,7 @@ class IPDElements(Base):
         See also:
         https://sourceforge.net/p/electricdss/discussion/beginners/thread/da5b93ca/
 
-        (API Extension)
+        **(API Extension)**
         """
         self.CheckForError(self._lib.PDElements_Get_AllPctEmerg_GR(AllNodes))
         return self._get_float64_gr_array()
@@ -235,7 +236,7 @@ class IPDElements(Base):
         """
         Complex array of currents for all conductors, all terminals, for each PD element.
 
-        (API Extension)
+        **(API Extension)**
         """
         self.CheckForError(self._lib.PDElements_Get_AllCurrents_GR())
         return self._get_complex128_gr_array()
@@ -244,7 +245,7 @@ class IPDElements(Base):
         """
         Complex array (magnitude and angle format) of currents for all conductors, all terminals, for each PD element.
 
-        (API Extension)
+        **(API Extension)**
         """
         self.CheckForError(self._lib.PDElements_Get_AllCurrentsMagAng_GR())
         return self._get_float64_gr_array()
@@ -253,7 +254,7 @@ class IPDElements(Base):
         """
         Complex double array of Sequence Currents for all conductors of all terminals, for each PD elements.
 
-        (API Extension)
+        **(API Extension)**
         """
         self.CheckForError(self._lib.PDElements_Get_AllCplxSeqCurrents_GR())
         return self._get_complex128_gr_array()
@@ -262,7 +263,7 @@ class IPDElements(Base):
         """
         Double array of the symmetrical component currents (magnitudes only) into each 3-phase terminal, for each PD element.
 
-        (API Extension)
+        **(API Extension)**
         """
         self.CheckForError(self._lib.PDElements_Get_AllSeqCurrents_GR())
         return self._get_float64_gr_array()
@@ -271,7 +272,7 @@ class IPDElements(Base):
         """
         Complex array of powers into each conductor of each terminal, for each PD element.
 
-        (API Extension)
+        **(API Extension)**
         """
         self.CheckForError(self._lib.PDElements_Get_AllPowers_GR())
         return self._get_complex128_gr_array()
@@ -280,7 +281,7 @@ class IPDElements(Base):
         """
         Complex array of sequence powers into each 3-phase terminal, for each PD element
 
-        (API Extension)
+        **(API Extension)**
         """
         self.CheckForError(self._lib.PDElements_Get_AllSeqPowers_GR())
         return self._get_complex128_gr_array()
@@ -289,7 +290,7 @@ class IPDElements(Base):
         """
         Integer array listing the number of phases of all PD elements
 
-        (API Extension)
+        **(API Extension)**
         """
         self.CheckForError(self._lib.PDElements_Get_AllNumPhases_GR())
         return self._get_int32_gr_array()
@@ -298,7 +299,7 @@ class IPDElements(Base):
         """
         Integer array listing the number of conductors of all PD elements
 
-        (API Extension)
+        **(API Extension)**
         """
         self.CheckForError(self._lib.PDElements_Get_AllNumConductors_GR())
         return self._get_int32_gr_array()
@@ -307,7 +308,7 @@ class IPDElements(Base):
         """
         Integer array listing the number of terminals of all PD elements
 
-        (API Extension)
+        **(API Extension)**
         """
         self.CheckForError(self._lib.PDElements_Get_AllNumTerminals_GR())
         return self._get_int32_gr_array()

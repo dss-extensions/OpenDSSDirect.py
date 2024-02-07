@@ -1,4 +1,5 @@
-from ._utils import api_util, Base, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from .Iterable import Base
 
 
 class IText(Base):
@@ -39,7 +40,7 @@ class IText(Base):
 
         Value can be a list of strings, or a single large string (usually faster).
 
-        (API Extension)
+        **(API Extension)**
         """
         if isinstance(Value, str) or isinstance(Value, bytes):
             if type(Value) is not bytes:

@@ -1,4 +1,5 @@
-from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from .Iterable import Iterable
 from dss import CoreType as TransformerCoreType
 
 class ITransformers(Iterable):
@@ -329,7 +330,7 @@ class ITransformers(Iterable):
         """
         Complex array with the losses by type (total losses, load losses, no-load losses), in VA
 
-        (API Extension)
+        **(API Extension)**
         """
         self.CheckForError(self._lib.Transformers_Get_LossesByType_GR())
         return self._get_complex128_gr_array()
@@ -338,7 +339,7 @@ class ITransformers(Iterable):
         """
         Complex array with the losses by type (total losses, load losses, no-load losses), in VA, concatenated for ALL transformers
 
-        (API Extension)
+        **(API Extension)**
         """
         self.CheckForError(self._lib.Transformers_Get_AllLossesByType_GR())
         return self._get_complex128_gr_array()

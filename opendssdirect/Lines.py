@@ -1,4 +1,5 @@
-from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from .Iterable import Iterable
 from dss import LineUnits
 
 
@@ -410,7 +411,7 @@ class ILines(Iterable):
         """
         Sets/gets the Line element switch status. Setting it has side-effects to the line parameters.
 
-        (API Extension)
+        **(API Extension)**
         """
         # Getter
         if len(args) == 0:

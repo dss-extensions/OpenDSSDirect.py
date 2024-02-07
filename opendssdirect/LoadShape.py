@@ -1,4 +1,5 @@
-from ._utils import api_util, Iterable, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from .Iterable import Iterable
 
 
 class ILoadShape(Iterable):
@@ -182,7 +183,7 @@ class ILoadShape(Iterable):
         Converts the current LoadShape data to float32/single precision.
         If there is no data or the data is already represented using float32, nothing is done.
 
-        (API Extension)
+        **(API Extension)**
         """
         self.CheckForError(self._lib.LoadShapes_UseFloat32())
 
@@ -191,7 +192,7 @@ class ILoadShape(Iterable):
         Converts the current LoadShape data to float64/double precision.
         If there is no data or the data is already represented using float64, nothing is done.
 
-        (API Extension)
+        **(API Extension)**
         """
         self.CheckForError(self._lib.LoadShapes_UseFloat64())
 

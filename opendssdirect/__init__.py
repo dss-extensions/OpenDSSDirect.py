@@ -11,7 +11,7 @@ except:
     __version__ = "0.0dev"
 
 from . import utils
-from dss_python_backend import enums
+from . import enums
 from .OpenDSSDirect import (
     dss,
     run_command,

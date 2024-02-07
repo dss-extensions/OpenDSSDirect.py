@@ -1,6 +1,5 @@
 # Import dss_python
 import dss as dss_py
-from .Iterable import Iterable, Base
 import os
 
 # Integrate "Use environment variable for numpy version" from @kdheepak
