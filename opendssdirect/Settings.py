@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Base
+from .Bases import Base
 from dss.enums import DSSPropertyNameStyle, CktModels
 
 class ISettings(Base):
@@ -38,11 +38,11 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Settings_Get_AllowDuplicates()) != 0
+            return self._check_for_error(self._lib.Settings_Get_AllowDuplicates()) != 0
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Settings_Set_AllowDuplicates(Value))
+        self._check_for_error(self._lib.Settings_Set_AllowDuplicates(Value))
 
     def AutoBusList(self, *args):
         """
@@ -53,14 +53,14 @@ class ISettings(Base):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.Settings_Get_AutoBusList())
+                self._check_for_error(self._lib.Settings_Get_AutoBusList())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Settings_Set_AutoBusList(Value))
+        self._check_for_error(self._lib.Settings_Set_AutoBusList(Value))
 
     def CktModel(self, *args):
         """
@@ -70,11 +70,11 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(CktModels(self._lib.Settings_Get_CktModel()))
+            return self._check_for_error(CktModels(self._lib.Settings_Get_CktModel()))
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Settings_Set_CktModel(Value))
+        self._check_for_error(self._lib.Settings_Set_CktModel(Value))
 
     def ControlTrace(self, *args):
         """
@@ -84,11 +84,11 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Settings_Get_ControlTrace()) != 0
+            return self._check_for_error(self._lib.Settings_Get_ControlTrace()) != 0
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Settings_Set_ControlTrace(Value))
+        self._check_for_error(self._lib.Settings_Set_ControlTrace(Value))
 
     def EmergVmaxpu(self, *args):
         """
@@ -98,11 +98,11 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Settings_Get_EmergVmaxpu())
+            return self._check_for_error(self._lib.Settings_Get_EmergVmaxpu())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Settings_Set_EmergVmaxpu(Value))
+        self._check_for_error(self._lib.Settings_Set_EmergVmaxpu(Value))
 
     def EmergVminpu(self, *args):
         """
@@ -112,11 +112,11 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Settings_Get_EmergVminpu())
+            return self._check_for_error(self._lib.Settings_Get_EmergVminpu())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Settings_Set_EmergVminpu(Value))
+        self._check_for_error(self._lib.Settings_Set_EmergVminpu(Value))
 
     def LossRegs(self, *args):
         """
@@ -126,13 +126,13 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            self.CheckForError(self._lib.Settings_Get_LossRegs_GR())
+            self._check_for_error(self._lib.Settings_Get_LossRegs_GR())
             return self._get_int32_gr_array()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_int32_array(Value)
-        self.CheckForError(self._lib.Settings_Set_LossRegs(ValuePtr, ValueCount))
+        self._check_for_error(self._lib.Settings_Set_LossRegs(ValuePtr, ValueCount))
 
     def LossWeight(self, *args):
         """
@@ -142,11 +142,11 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Settings_Get_LossWeight())
+            return self._check_for_error(self._lib.Settings_Get_LossWeight())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Settings_Set_LossWeight(Value))
+        self._check_for_error(self._lib.Settings_Set_LossWeight(Value))
 
     def NormVmaxpu(self, *args):
         """
@@ -156,11 +156,11 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Settings_Get_NormVmaxpu())
+            return self._check_for_error(self._lib.Settings_Get_NormVmaxpu())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Settings_Set_NormVmaxpu(Value))
+        self._check_for_error(self._lib.Settings_Set_NormVmaxpu(Value))
 
     def NormVminpu(self, *args):
         """
@@ -170,11 +170,11 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Settings_Get_NormVminpu())
+            return self._check_for_error(self._lib.Settings_Get_NormVminpu())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Settings_Set_NormVminpu(Value))
+        self._check_for_error(self._lib.Settings_Set_NormVminpu(Value))
 
     def PriceCurve(self, *args):
         """
@@ -185,14 +185,14 @@ class ISettings(Base):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.Settings_Get_PriceCurve())
+                self._check_for_error(self._lib.Settings_Get_PriceCurve())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Settings_Set_PriceCurve(Value))
+        self._check_for_error(self._lib.Settings_Set_PriceCurve(Value))
 
     def PriceSignal(self, *args):
         """
@@ -202,11 +202,11 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Settings_Get_PriceSignal())
+            return self._check_for_error(self._lib.Settings_Get_PriceSignal())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Settings_Set_PriceSignal(Value))
+        self._check_for_error(self._lib.Settings_Set_PriceSignal(Value))
 
     def Trapezoidal(self, *args):
         """
@@ -216,11 +216,11 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Settings_Get_Trapezoidal()) != 0
+            return self._check_for_error(self._lib.Settings_Get_Trapezoidal()) != 0
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Settings_Set_Trapezoidal(Value))
+        self._check_for_error(self._lib.Settings_Set_Trapezoidal(Value))
 
     def UERegs(self, *args):
         """
@@ -230,13 +230,13 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            self.CheckForError(self._lib.Settings_Get_UEregs_GR())
+            self._check_for_error(self._lib.Settings_Get_UEregs_GR())
             return self._get_int32_gr_array()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_int32_array(Value)
-        self.CheckForError(self._lib.Settings_Set_UEregs(ValuePtr, ValueCount))
+        self._check_for_error(self._lib.Settings_Set_UEregs(ValuePtr, ValueCount))
 
     def UEWeight(self, *args):
         """
@@ -246,11 +246,11 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Settings_Get_UEweight())
+            return self._check_for_error(self._lib.Settings_Get_UEweight())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Settings_Set_UEweight(Value))
+        self._check_for_error(self._lib.Settings_Set_UEweight(Value))
 
     def VoltageBases(self, *args):
         """
@@ -260,13 +260,13 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            self.CheckForError(self._lib.Settings_Get_VoltageBases_GR())
+            self._check_for_error(self._lib.Settings_Get_VoltageBases_GR())
             return self._get_float64_gr_array()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self.CheckForError(self._lib.Settings_Set_VoltageBases(ValuePtr, ValueCount))
+        self._check_for_error(self._lib.Settings_Set_VoltageBases(ValuePtr, ValueCount))
 
     def ZoneLock(self, *args):
         """
@@ -276,15 +276,15 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Settings_Get_ZoneLock()) != 0
+            return self._check_for_error(self._lib.Settings_Get_ZoneLock()) != 0
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Settings_Set_ZoneLock(Value))
+        self._check_for_error(self._lib.Settings_Set_ZoneLock(Value))
 
     def AllocationFactors(self, Value):
         """(write-only) Sets all load allocation factors for all loads defined by XFKVA property to this value."""
-        self.CheckForError(self._lib.Settings_Set_AllocationFactors(Value))
+        self._check_for_error(self._lib.Settings_Set_AllocationFactors(Value))
 
     def LoadsTerminalCheck(self, *args):
         """
@@ -295,11 +295,11 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Settings_Get_LoadsTerminalCheck()) != 0
+            return self._check_for_error(self._lib.Settings_Get_LoadsTerminalCheck()) != 0
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Settings_Set_LoadsTerminalCheck(Value))
+        self._check_for_error(self._lib.Settings_Set_LoadsTerminalCheck(Value))
 
     def IterateDisabled(self, *args):
         """
@@ -314,11 +314,11 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Settings_Get_IterateDisabled())
+            return self._check_for_error(self._lib.Settings_Get_IterateDisabled())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Settings_Set_IterateDisabled(Value))
+        self._check_for_error(self._lib.Settings_Set_IterateDisabled(Value))
 
     def SetPropertyNameStyle(self, value):
         """Switch the property names according"""

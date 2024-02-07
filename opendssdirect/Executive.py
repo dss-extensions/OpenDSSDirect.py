@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Base
+from .Bases import Base
 
 
 class IExecutive(Base):
@@ -16,7 +16,7 @@ class IExecutive(Base):
         Original COM help: https://opendss.epri.com/Command.html
         """
         return self._get_string(
-            self.CheckForError(self._lib.DSS_Executive_Get_Command(i))
+            self._check_for_error(self._lib.DSS_Executive_Get_Command(i))
         )
 
     def CommandHelp(self, i):
@@ -26,7 +26,7 @@ class IExecutive(Base):
         Original COM help: https://opendss.epri.com/CommandHelp.html
         """
         return self._get_string(
-            self.CheckForError(self._lib.DSS_Executive_Get_CommandHelp(i))
+            self._check_for_error(self._lib.DSS_Executive_Get_CommandHelp(i))
         )
 
     def Option(self, i):
@@ -36,7 +36,7 @@ class IExecutive(Base):
         Original COM help: https://opendss.epri.com/Option.html
         """
         return self._get_string(
-            self.CheckForError(self._lib.DSS_Executive_Get_Option(i))
+            self._check_for_error(self._lib.DSS_Executive_Get_Option(i))
         )
 
     def OptionHelp(self, i):
@@ -46,7 +46,7 @@ class IExecutive(Base):
         Original COM help: https://opendss.epri.com/OptionHelp.html
         """
         return self._get_string(
-            self.CheckForError(self._lib.DSS_Executive_Get_OptionHelp(i))
+            self._check_for_error(self._lib.DSS_Executive_Get_OptionHelp(i))
         )
 
     def OptionValue(self, i):
@@ -56,7 +56,7 @@ class IExecutive(Base):
         Original COM help: https://opendss.epri.com/OptionValue.html
         """
         return self._get_string(
-            self.CheckForError(self._lib.DSS_Executive_Get_OptionValue(i))
+            self._check_for_error(self._lib.DSS_Executive_Get_OptionValue(i))
         )
 
     def NumCommands(self):
@@ -65,7 +65,7 @@ class IExecutive(Base):
 
         Original COM help: https://opendss.epri.com/NumCommands.html
         """
-        return self.CheckForError(self._lib.DSS_Executive_Get_NumCommands())
+        return self._check_for_error(self._lib.DSS_Executive_Get_NumCommands())
 
     def NumOptions(self):
         """
@@ -73,7 +73,7 @@ class IExecutive(Base):
 
         Original COM help: https://opendss.epri.com/NumOptions.html
         """
-        return self.CheckForError(self._lib.DSS_Executive_Get_NumOptions())
+        return self._check_for_error(self._lib.DSS_Executive_Get_NumOptions())
 
 
 _Executive = IExecutive(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)

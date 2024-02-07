@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Base
+from .Bases import Base
 from dss import DSSException, OCPDevType as OCPDevTypeEnum
 
 
@@ -56,12 +56,12 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/Close1.html
         """
-        self.CheckForError(self._lib.CktElement_Close(Term, Phs))
+        self._check_for_error(self._lib.CktElement_Close(Term, Phs))
 
     def Controller(self, idx):
         """Full name of the i-th controller attached to this element. Ex: str = Controller(2).  See NumControls to determine valid index range"""
         return self._get_string(
-            self.CheckForError(self._lib.CktElement_Get_Controller(idx))
+            self._check_for_error(self._lib.CktElement_Get_Controller(idx))
         )
 
     def Variable(self, MyVarName):
@@ -72,7 +72,7 @@ class ICktElement(Base):
         if type(MyVarName) is not bytes:
             MyVarName = MyVarName.encode(self._api_util.codec)
         Code = self._api_util.ffi.new("int32_t*")
-        result = self.CheckForError(self._lib.CktElement_Get_Variable(MyVarName, Code))
+        result = self._check_for_error(self._lib.CktElement_Get_Variable(MyVarName, Code))
         if Code[0] != 0:
             raise DSSException(Code[0], "No variable by this name or not a PCelement.")
         
@@ -84,7 +84,7 @@ class ICktElement(Base):
         Otherwise, an exception is raised.
         """
         Code = self._api_util.ffi.new("int32_t*")
-        result = self.CheckForError(self._lib.CktElement_Get_Variablei(Idx, Code))
+        result = self._check_for_error(self._lib.CktElement_Get_Variablei(Idx, Code))
         if Code[0] != 0:
             raise DSSException(Code[0], "No variable by this index or not a PCelement.")
 
@@ -92,16 +92,16 @@ class ICktElement(Base):
 
     def setVariableByIndex(self, Idx, Value):
         Code = self._api_util.ffi.new("int32_t*")
-        self.CheckForError(self._lib.CktElement_Set_Variablei(Idx, Code, Value))
+        self._check_for_error(self._lib.CktElement_Set_Variablei(Idx, Code, Value))
         return Code[0]
 
     def setVariableByName(self, Idx, Value):
         Code = self._api_util.ffi.new("int32_t*")
-        self.CheckForError(self._lib.CktElement_Set_Variable(Idx, Code, Value))
+        self._check_for_error(self._lib.CktElement_Set_Variable(Idx, Code, Value))
         return Code[0]
 
     def IsOpen(self, Term, Phs):
-        return self.CheckForError(self._lib.CktElement_IsOpen(Term, Phs)) != 0
+        return self._check_for_error(self._lib.CktElement_IsOpen(Term, Phs)) != 0
 
     def Open(self, Term, Phs):
         """
@@ -109,7 +109,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/Open1.html
         """
-        self.CheckForError(self._lib.CktElement_Open(Term, Phs))
+        self._check_for_error(self._lib.CktElement_Open(Term, Phs))
 
     def AllPropertyNames(self):
         """
@@ -117,7 +117,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/AllPropertyNames.html
         """
-        return self.CheckForError(
+        return self._check_for_error(
             self._get_string_array(self._lib.CktElement_Get_AllPropertyNames)
         )
 
@@ -128,7 +128,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/AllVariableNames.html
         """
-        return self.CheckForError(
+        return self._check_for_error(
             self._get_string_array(self._lib.CktElement_Get_AllVariableNames)
         )
 
@@ -139,7 +139,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/AllVariableValues.html
         """
-        self.CheckForError(self._lib.CktElement_Get_AllVariableValues_GR())
+        self._check_for_error(self._lib.CktElement_Get_AllVariableValues_GR())
         return self._get_float64_gr_array()
 
     def BusNames(self, *args):
@@ -150,13 +150,13 @@ class ICktElement(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(
+            return self._check_for_error(
                 self._get_string_array(self._lib.CktElement_Get_BusNames)
             )
 
         # Setter
         (Value,) = args
-        self.CheckForError(
+        self._check_for_error(
             self._set_string_array(self._lib.CktElement_Set_BusNames, Value)
         )
 
@@ -166,7 +166,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/CplxSeqCurrents.html
         """
-        self.CheckForError(self._lib.CktElement_Get_CplxSeqCurrents_GR())
+        self._check_for_error(self._lib.CktElement_Get_CplxSeqCurrents_GR())
         return self._get_complex128_gr_array()
 
     def CplxSeqVoltages(self):
@@ -175,7 +175,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/CplxSeqVoltages1.html
         """
-        self.CheckForError(self._lib.CktElement_Get_CplxSeqVoltages_GR())
+        self._check_for_error(self._lib.CktElement_Get_CplxSeqVoltages_GR())
         return self._get_complex128_gr_array()
 
     def Currents(self):
@@ -184,7 +184,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/Currents1.html
         """
-        self.CheckForError(self._lib.CktElement_Get_Currents_GR())
+        self._check_for_error(self._lib.CktElement_Get_Currents_GR())
         return self._get_complex128_gr_array()
 
     def CurrentsMagAng(self):
@@ -193,7 +193,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/CurrentsMagAng.html
         """
-        self.CheckForError(self._lib.CktElement_Get_CurrentsMagAng_GR())
+        self._check_for_error(self._lib.CktElement_Get_CurrentsMagAng_GR())
         return self._get_float64_gr_array()
 
     def DisplayName(self, *args):
@@ -205,14 +205,14 @@ class ICktElement(Base):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.CktElement_Get_DisplayName())
+                self._check_for_error(self._lib.CktElement_Get_DisplayName())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.CktElement_Set_DisplayName(Value))
+        self._check_for_error(self._lib.CktElement_Set_DisplayName(Value))
 
     def EmergAmps(self, *args):
         """
@@ -222,11 +222,11 @@ class ICktElement(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.CktElement_Get_EmergAmps())
+            return self._check_for_error(self._lib.CktElement_Get_EmergAmps())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.CktElement_Set_EmergAmps(Value))
+        self._check_for_error(self._lib.CktElement_Set_EmergAmps(Value))
 
     def Enabled(self, *args):
         """
@@ -236,11 +236,11 @@ class ICktElement(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.CktElement_Get_Enabled()) != 0
+            return self._check_for_error(self._lib.CktElement_Get_Enabled()) != 0
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.CktElement_Set_Enabled(Value))
+        self._check_for_error(self._lib.CktElement_Set_Enabled(Value))
 
     def EnergyMeter(self):
         """
@@ -249,7 +249,7 @@ class ICktElement(Base):
         Original COM help: https://opendss.epri.com/EnergyMeter.html
         """
         return self._get_string(
-            self.CheckForError(self._lib.CktElement_Get_EnergyMeter())
+            self._check_for_error(self._lib.CktElement_Get_EnergyMeter())
         )
 
     def GUID(self):
@@ -258,7 +258,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/GUID.html
         """
-        return self._get_string(self.CheckForError(self._lib.CktElement_Get_GUID()))
+        return self._get_string(self._check_for_error(self._lib.CktElement_Get_GUID()))
 
     def Handle(self):
         """
@@ -266,7 +266,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/Handle.html
         """
-        return self.CheckForError(self._lib.CktElement_Get_Handle())
+        return self._check_for_error(self._lib.CktElement_Get_Handle())
 
     def HasOCPDevice(self):
         """
@@ -274,7 +274,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/HasOCPDevice.html
         """
-        return self.CheckForError(self._lib.CktElement_Get_HasOCPDevice()) != 0
+        return self._check_for_error(self._lib.CktElement_Get_HasOCPDevice()) != 0
 
     def HasSwitchControl(self):
         """
@@ -282,7 +282,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/HasSwitchControl.html
         """
-        return self.CheckForError(self._lib.CktElement_Get_HasSwitchControl()) != 0
+        return self._check_for_error(self._lib.CktElement_Get_HasSwitchControl()) != 0
 
     def HasVoltControl(self):
         """
@@ -290,7 +290,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/HasVoltControl.html
         """
-        return self.CheckForError(self._lib.CktElement_Get_HasVoltControl()) != 0
+        return self._check_for_error(self._lib.CktElement_Get_HasVoltControl()) != 0
 
     def Losses(self):
         """
@@ -298,7 +298,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/Losses1.html
         """
-        self.CheckForError(self._lib.CktElement_Get_Losses_GR())
+        self._check_for_error(self._lib.CktElement_Get_Losses_GR())
         return self._get_complex128_gr_simple()
 
     def Name(self):
@@ -307,7 +307,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/Name4.html
         """
-        return self._get_string(self.CheckForError(self._lib.CktElement_Get_Name()))
+        return self._get_string(self._check_for_error(self._lib.CktElement_Get_Name()))
 
     def NodeOrder(self):
         """
@@ -315,7 +315,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/NodeOrder.html
         """
-        self.CheckForError(self._lib.CktElement_Get_NodeOrder_GR())
+        self._check_for_error(self._lib.CktElement_Get_NodeOrder_GR())
         return self._get_int32_gr_array()
 
     def NormalAmps(self, *args):
@@ -326,11 +326,11 @@ class ICktElement(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.CktElement_Get_NormalAmps())
+            return self._check_for_error(self._lib.CktElement_Get_NormalAmps())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.CktElement_Set_NormalAmps(Value))
+        self._check_for_error(self._lib.CktElement_Set_NormalAmps(Value))
 
     def NumConductors(self):
         """
@@ -338,7 +338,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/NumConductors.html
         """
-        return self.CheckForError(self._lib.CktElement_Get_NumConductors())
+        return self._check_for_error(self._lib.CktElement_Get_NumConductors())
 
     def NumControls(self):
         """
@@ -347,7 +347,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/NumControls.html
         """
-        return self.CheckForError(self._lib.CktElement_Get_NumControls())
+        return self._check_for_error(self._lib.CktElement_Get_NumControls())
 
     def NumPhases(self):
         """
@@ -355,7 +355,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/NumPhases.html
         """
-        return self.CheckForError(self._lib.CktElement_Get_NumPhases())
+        return self._check_for_error(self._lib.CktElement_Get_NumPhases())
 
     def NumProperties(self):
         """
@@ -363,7 +363,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/NumProperties.html
         """
-        return self.CheckForError(self._lib.CktElement_Get_NumProperties())
+        return self._check_for_error(self._lib.CktElement_Get_NumProperties())
 
     def NumTerminals(self):
         """
@@ -371,7 +371,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/NumTerminals.html
         """
-        return self.CheckForError(self._lib.CktElement_Get_NumTerminals())
+        return self._check_for_error(self._lib.CktElement_Get_NumTerminals())
 
     def OCPDevIndex(self):
         """
@@ -379,7 +379,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/OCPDevIndex.html
         """
-        return self.CheckForError(self._lib.CktElement_Get_OCPDevIndex())
+        return self._check_for_error(self._lib.CktElement_Get_OCPDevIndex())
 
     def OCPDevType(self):
         """
@@ -387,7 +387,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/OCPDevType.html
         """
-        return OCPDevTypeEnum(self.CheckForError(self._lib.CktElement_Get_OCPDevType()))
+        return OCPDevTypeEnum(self._check_for_error(self._lib.CktElement_Get_OCPDevType()))
 
     def PhaseLosses(self):
         """
@@ -395,7 +395,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/PhaseLosses.html
         """
-        self.CheckForError(self._lib.CktElement_Get_PhaseLosses_GR())
+        self._check_for_error(self._lib.CktElement_Get_PhaseLosses_GR())
         return self._get_complex128_gr_array()
 
     def Powers(self):
@@ -404,7 +404,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/Powers.html
         """
-        self.CheckForError(self._lib.CktElement_Get_Powers_GR())
+        self._check_for_error(self._lib.CktElement_Get_Powers_GR())
         return self._get_complex128_gr_array()
 
     def Residuals(self):
@@ -413,7 +413,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/Residuals.html
         """
-        self.CheckForError(self._lib.CktElement_Get_Residuals_GR())
+        self._check_for_error(self._lib.CktElement_Get_Residuals_GR())
         return self._get_float64_gr_array()
 
     def SeqCurrents(self):
@@ -422,7 +422,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/SeqCurrents.html
         """
-        self.CheckForError(self._lib.CktElement_Get_SeqCurrents_GR())
+        self._check_for_error(self._lib.CktElement_Get_SeqCurrents_GR())
         return self._get_float64_gr_array()
 
     def SeqPowers(self):
@@ -431,7 +431,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/SeqPowers.html
         """
-        self.CheckForError(self._lib.CktElement_Get_SeqPowers_GR())
+        self._check_for_error(self._lib.CktElement_Get_SeqPowers_GR())
         return self._get_complex128_gr_array()
 
     def SeqVoltages(self):
@@ -440,7 +440,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/SeqVoltages1.html
         """
-        self.CheckForError(self._lib.CktElement_Get_SeqVoltages_GR())
+        self._check_for_error(self._lib.CktElement_Get_SeqVoltages_GR())
         return self._get_float64_gr_array()
 
     def Voltages(self):
@@ -449,7 +449,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/Voltages1.html
         """
-        self.CheckForError(self._lib.CktElement_Get_Voltages_GR())
+        self._check_for_error(self._lib.CktElement_Get_Voltages_GR())
         return self._get_complex128_gr_array()
 
     def VoltagesMagAng(self):
@@ -458,7 +458,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/VoltagesMagAng.html
         """
-        self.CheckForError(self._lib.CktElement_Get_VoltagesMagAng_GR())
+        self._check_for_error(self._lib.CktElement_Get_VoltagesMagAng_GR())
         return self._get_float64_gr_array()
 
     def YPrim(self):
@@ -467,7 +467,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/Yprim.html
         """
-        self.CheckForError(self._lib.CktElement_Get_Yprim_GR())
+        self._check_for_error(self._lib.CktElement_Get_Yprim_GR())
         return self._get_complex128_gr_array()
 
     def IsIsolated(self):
@@ -477,7 +477,7 @@ class ICktElement(Base):
 
         **(API Extension)**
         """
-        return self.CheckForError(self._lib.CktElement_Get_IsIsolated()) != 0
+        return self._check_for_error(self._lib.CktElement_Get_IsIsolated()) != 0
 
     def TotalPowers(self):
         """
@@ -485,7 +485,7 @@ class ICktElement(Base):
 
         Original COM help: https://opendss.epri.com/TotalPowers.html
         """
-        self.CheckForError(self._lib.CktElement_Get_TotalPowers_GR())
+        self._check_for_error(self._lib.CktElement_Get_TotalPowers_GR())
         return self._get_complex128_gr_array()
 
     def NodeRef(self):

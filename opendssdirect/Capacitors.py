@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Iterable
+from .Bases import Iterable
 
 
 class ICapacitors(Iterable):
@@ -19,16 +19,16 @@ class ICapacitors(Iterable):
     ]
 
     def AddStep(self):
-        return self.CheckForError(self._lib.Capacitors_AddStep()) != 0
+        return self._check_for_error(self._lib.Capacitors_AddStep()) != 0
 
     def Close(self):
-        self.CheckForError(self._lib.Capacitors_Close())
+        self._check_for_error(self._lib.Capacitors_Close())
 
     def Open(self):
-        self.CheckForError(self._lib.Capacitors_Open())
+        self._check_for_error(self._lib.Capacitors_Open())
 
     def SubtractStep(self):
-        return self.CheckForError(self._lib.Capacitors_SubtractStep()) != 0
+        return self._check_for_error(self._lib.Capacitors_SubtractStep()) != 0
 
     def AvailableSteps(self):
         """
@@ -36,7 +36,7 @@ class ICapacitors(Iterable):
 
         Original COM help: https://opendss.epri.com/AvailableSteps.html
         """
-        return self.CheckForError(self._lib.Capacitors_Get_AvailableSteps())
+        return self._check_for_error(self._lib.Capacitors_Get_AvailableSteps())
 
     def IsDelta(self, *args):
         """
@@ -46,11 +46,11 @@ class ICapacitors(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Capacitors_Get_IsDelta()) != 0
+            return self._check_for_error(self._lib.Capacitors_Get_IsDelta()) != 0
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Capacitors_Set_IsDelta(Value))
+        self._check_for_error(self._lib.Capacitors_Set_IsDelta(Value))
 
     def NumSteps(self, *args):
         """
@@ -60,11 +60,11 @@ class ICapacitors(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Capacitors_Get_NumSteps())
+            return self._check_for_error(self._lib.Capacitors_Get_NumSteps())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Capacitors_Set_NumSteps(Value))
+        self._check_for_error(self._lib.Capacitors_Set_NumSteps(Value))
 
     def States(self, *args):
         """
@@ -74,13 +74,13 @@ class ICapacitors(Iterable):
         """
         # Getter
         if len(args) == 0:
-            self.CheckForError(self._lib.Capacitors_Get_States_GR())
+            self._check_for_error(self._lib.Capacitors_Get_States_GR())
             return self._get_int32_gr_array()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_int32_array(Value)
-        self.CheckForError(self._lib.Capacitors_Set_States(ValuePtr, ValueCount))
+        self._check_for_error(self._lib.Capacitors_Set_States(ValuePtr, ValueCount))
 
     def kV(self, *args):
         """
@@ -90,21 +90,21 @@ class ICapacitors(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Capacitors_Get_kV())
+            return self._check_for_error(self._lib.Capacitors_Get_kV())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Capacitors_Set_kV(Value))
+        self._check_for_error(self._lib.Capacitors_Set_kV(Value))
 
     def kvar(self, *args):
         """Total bank KVAR, distributed equally among phases and steps."""
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Capacitors_Get_kvar())
+            return self._check_for_error(self._lib.Capacitors_Get_kvar())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Capacitors_Set_kvar(Value))
+        self._check_for_error(self._lib.Capacitors_Set_kvar(Value))
 
 
 _Capacitors = ICapacitors(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)

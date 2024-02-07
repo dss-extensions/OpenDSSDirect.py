@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Iterable
+from .Bases import Iterable
 
 
 class IXYCurves(Iterable):
@@ -29,11 +29,11 @@ class IXYCurves(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.XYCurves_Get_Npts())
+            return self._check_for_error(self._lib.XYCurves_Get_Npts())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.XYCurves_Set_Npts(Value))
+        self._check_for_error(self._lib.XYCurves_Set_Npts(Value))
 
     def XArray(self, *args):
         """
@@ -43,13 +43,13 @@ class IXYCurves(Iterable):
         """
         # Getter
         if len(args) == 0:
-            self.CheckForError(self._lib.XYCurves_Get_Xarray_GR())
+            self._check_for_error(self._lib.XYCurves_Get_Xarray_GR())
             return self._get_float64_gr_array()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self.CheckForError(self._lib.XYCurves_Set_Xarray(ValuePtr, ValueCount))
+        self._check_for_error(self._lib.XYCurves_Set_Xarray(ValuePtr, ValueCount))
 
     def XScale(self, *args):
         """
@@ -59,11 +59,11 @@ class IXYCurves(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.XYCurves_Get_Xscale())
+            return self._check_for_error(self._lib.XYCurves_Get_Xscale())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.XYCurves_Set_Xscale(Value))
+        self._check_for_error(self._lib.XYCurves_Set_Xscale(Value))
 
     def XShift(self, *args):
         """
@@ -73,11 +73,11 @@ class IXYCurves(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.XYCurves_Get_Xshift())
+            return self._check_for_error(self._lib.XYCurves_Get_Xshift())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.XYCurves_Set_Xshift(Value))
+        self._check_for_error(self._lib.XYCurves_Set_Xshift(Value))
 
     def YArray(self, *args):
         """
@@ -87,13 +87,13 @@ class IXYCurves(Iterable):
         """
         # Getter
         if len(args) == 0:
-            self.CheckForError(self._lib.XYCurves_Get_Yarray_GR())
+            self._check_for_error(self._lib.XYCurves_Get_Yarray_GR())
             return self._get_float64_gr_array()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self.CheckForError(self._lib.XYCurves_Set_Yarray(ValuePtr, ValueCount))
+        self._check_for_error(self._lib.XYCurves_Set_Yarray(ValuePtr, ValueCount))
 
     def YScale(self, *args):
         """
@@ -103,11 +103,11 @@ class IXYCurves(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.XYCurves_Get_Yscale())
+            return self._check_for_error(self._lib.XYCurves_Get_Yscale())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.XYCurves_Set_Yscale(Value))
+        self._check_for_error(self._lib.XYCurves_Set_Yscale(Value))
 
     def YShift(self, *args):
         """
@@ -117,11 +117,11 @@ class IXYCurves(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.XYCurves_Get_Yshift())
+            return self._check_for_error(self._lib.XYCurves_Get_Yshift())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.XYCurves_Set_Yshift(Value))
+        self._check_for_error(self._lib.XYCurves_Set_Yshift(Value))
 
     def X(self, *args):
         """
@@ -131,11 +131,11 @@ class IXYCurves(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.XYCurves_Get_x())
+            return self._check_for_error(self._lib.XYCurves_Get_x())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.XYCurves_Set_x(Value))
+        self._check_for_error(self._lib.XYCurves_Set_x(Value))
 
     def Y(self, *args):
         """
@@ -145,11 +145,11 @@ class IXYCurves(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.XYCurves_Get_y())
+            return self._check_for_error(self._lib.XYCurves_Get_y())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.XYCurves_Set_y(Value))
+        self._check_for_error(self._lib.XYCurves_Set_y(Value))
 
 
 _XYCurves = IXYCurves(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)

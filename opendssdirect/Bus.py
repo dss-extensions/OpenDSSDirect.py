@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Base
+from .Bases import Base
 
 
 class IBus(Base):
@@ -50,7 +50,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/GetUniqueNodeNumber.html
         """
-        return self.CheckForError(self._lib.Bus_GetUniqueNodeNumber(StartNumber))
+        return self._check_for_error(self._lib.Bus_GetUniqueNodeNumber(StartNumber))
 
     def ZscRefresh(self):
         """
@@ -58,7 +58,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/ZscRefresh.html
         """
-        return self.CheckForError(self._lib.Bus_ZscRefresh()) != 0
+        return self._check_for_error(self._lib.Bus_ZscRefresh()) != 0
 
     def Coorddefined(self):
         """
@@ -66,7 +66,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/Coorddefined.html
         """
-        return self.CheckForError(self._lib.Bus_Get_Coorddefined()) != 0
+        return self._check_for_error(self._lib.Bus_Get_Coorddefined()) != 0
 
     def CplxSeqVoltages(self):
         """
@@ -74,7 +74,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/CplxSeqVoltages.html
         """
-        self.CheckForError(self._lib.Bus_Get_CplxSeqVoltages_GR())
+        self._check_for_error(self._lib.Bus_Get_CplxSeqVoltages_GR())
         return self._get_complex128_gr_array()
 
     def Cust_Duration(self):
@@ -83,7 +83,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/Cust_Duration.html
         """
-        return self.CheckForError(self._lib.Bus_Get_Cust_Duration())
+        return self._check_for_error(self._lib.Bus_Get_Cust_Duration())
 
     def Cust_Interrupts(self):
         """
@@ -91,7 +91,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/Cust_Interrupts.html
         """
-        return self.CheckForError(self._lib.Bus_Get_Cust_Interrupts())
+        return self._check_for_error(self._lib.Bus_Get_Cust_Interrupts())
 
     def Distance(self):
         """
@@ -99,7 +99,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/Distance.html
         """
-        return self.CheckForError(self._lib.Bus_Get_Distance())
+        return self._check_for_error(self._lib.Bus_Get_Distance())
 
     def Int_Duration(self):
         """
@@ -107,7 +107,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/Int_Duration.html
         """
-        return self.CheckForError(self._lib.Bus_Get_Int_Duration())
+        return self._check_for_error(self._lib.Bus_Get_Int_Duration())
 
     def Isc(self):
         """
@@ -115,7 +115,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/Isc.html
         """
-        self.CheckForError(self._lib.Bus_Get_Isc_GR())
+        self._check_for_error(self._lib.Bus_Get_Isc_GR())
         return self._get_complex128_gr_array()
 
     def Lambda(self):
@@ -124,7 +124,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/Lambda.html
         """
-        return self.CheckForError(self._lib.Bus_Get_Lambda())
+        return self._check_for_error(self._lib.Bus_Get_Lambda())
 
     def N_Customers(self):
         """
@@ -132,7 +132,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/N_Customers.html
         """
-        return self.CheckForError(self._lib.Bus_Get_N_Customers())
+        return self._check_for_error(self._lib.Bus_Get_N_Customers())
 
     def N_interrupts(self):
         """
@@ -140,7 +140,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/N_interrupts.html
         """
-        return self.CheckForError(self._lib.Bus_Get_N_interrupts())
+        return self._check_for_error(self._lib.Bus_Get_N_interrupts())
 
     def Name(self):
         """
@@ -148,7 +148,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/Name1.html
         """
-        return self._get_string(self.CheckForError(self._lib.Bus_Get_Name()))
+        return self._get_string(self._check_for_error(self._lib.Bus_Get_Name()))
 
     def Nodes(self):
         """
@@ -156,7 +156,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/Nodes.html
         """
-        self.CheckForError(self._lib.Bus_Get_Nodes_GR())
+        self._check_for_error(self._lib.Bus_Get_Nodes_GR())
         return self._get_int32_gr_array()
 
     def NumNodes(self):
@@ -165,7 +165,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/NumNodes.html
         """
-        return self.CheckForError(self._lib.Bus_Get_NumNodes())
+        return self._check_for_error(self._lib.Bus_Get_NumNodes())
 
     def SectionID(self):
         """
@@ -173,7 +173,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/SectionID.html
         """
-        return self.CheckForError(self._lib.Bus_Get_SectionID())
+        return self._check_for_error(self._lib.Bus_Get_SectionID())
 
     def SeqVoltages(self):
         """
@@ -181,7 +181,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/SeqVoltages.html
         """
-        self.CheckForError(self._lib.Bus_Get_SeqVoltages_GR())
+        self._check_for_error(self._lib.Bus_Get_SeqVoltages_GR())
         return self._get_float64_gr_array()
 
     def TotalMiles(self):
@@ -190,7 +190,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/TotalMiles.html
         """
-        return self.CheckForError(self._lib.Bus_Get_TotalMiles())
+        return self._check_for_error(self._lib.Bus_Get_TotalMiles())
 
     def VLL(self):
         """
@@ -198,7 +198,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/VLL.html
         """
-        self.CheckForError(self._lib.Bus_Get_VLL_GR())
+        self._check_for_error(self._lib.Bus_Get_VLL_GR())
         return self._get_complex128_gr_array()
 
     def VMagAngle(self):
@@ -207,7 +207,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/VMagAngle.html
         """
-        self.CheckForError(self._lib.Bus_Get_VMagAngle_GR())
+        self._check_for_error(self._lib.Bus_Get_VMagAngle_GR())
         return self._get_float64_gr_array()
 
     def Voc(self):
@@ -216,7 +216,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/Voc.html
         """
-        self.CheckForError(self._lib.Bus_Get_Voc_GR())
+        self._check_for_error(self._lib.Bus_Get_Voc_GR())
         return self._get_complex128_gr_array()
 
     def Voltages(self):
@@ -225,7 +225,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/Voltages.html
         """
-        self.CheckForError(self._lib.Bus_Get_Voltages_GR())
+        self._check_for_error(self._lib.Bus_Get_Voltages_GR())
         return self._get_complex128_gr_array()
 
     def YscMatrix(self):
@@ -234,7 +234,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/YscMatrix.html
         """
-        self.CheckForError(self._lib.Bus_Get_YscMatrix_GR())
+        self._check_for_error(self._lib.Bus_Get_YscMatrix_GR())
         return self._get_complex128_gr_array()
 
     def Zsc0(self):
@@ -243,7 +243,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/Zsc0.html
         """
-        self.CheckForError(self._lib.Bus_Get_Zsc0_GR())
+        self._check_for_error(self._lib.Bus_Get_Zsc0_GR())
         return self._get_complex128_gr_simple()
 
     def Zsc1(self):
@@ -252,7 +252,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/Zsc1.html
         """
-        self.CheckForError(self._lib.Bus_Get_Zsc1_GR())
+        self._check_for_error(self._lib.Bus_Get_Zsc1_GR())
         return self._get_complex128_gr_simple()
 
     def ZscMatrix(self):
@@ -261,7 +261,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/ZscMatrix.html
         """
-        self.CheckForError(self._lib.Bus_Get_ZscMatrix_GR())
+        self._check_for_error(self._lib.Bus_Get_ZscMatrix_GR())
         return self._get_complex128_gr_array()
 
     def kVBase(self):
@@ -270,7 +270,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/kVBase.html
         """
-        return self.CheckForError(self._lib.Bus_Get_kVBase())
+        return self._check_for_error(self._lib.Bus_Get_kVBase())
 
     def puVLL(self):
         """
@@ -278,7 +278,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/puVLL.html
         """
-        self.CheckForError(self._lib.Bus_Get_puVLL_GR())
+        self._check_for_error(self._lib.Bus_Get_puVLL_GR())
         return self._get_complex128_gr_array()
 
     def puVmagAngle(self):
@@ -287,7 +287,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/puVmagAngle.html
         """
-        self.CheckForError(self._lib.Bus_Get_puVmagAngle_GR())
+        self._check_for_error(self._lib.Bus_Get_puVmagAngle_GR())
         return self._get_float64_gr_array()
 
     def PuVoltage(self):
@@ -296,7 +296,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/puVoltages.html
         """
-        self.CheckForError(self._lib.Bus_Get_puVoltages_GR())
+        self._check_for_error(self._lib.Bus_Get_puVoltages_GR())
         return self._get_complex128_gr_array()
 
     def ZSC012Matrix(self):
@@ -307,7 +307,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/ZSC012Matrix.html
         """
-        self.CheckForError(self._lib.Bus_Get_ZSC012Matrix_GR())
+        self._check_for_error(self._lib.Bus_Get_ZSC012Matrix_GR())
         return self._get_complex128_gr_array()
 
     def X(self, *args):
@@ -318,11 +318,11 @@ class IBus(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Bus_Get_x())
+            return self._check_for_error(self._lib.Bus_Get_x())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Bus_Set_x(Value))
+        self._check_for_error(self._lib.Bus_Set_x(Value))
 
     def Y(self, *args):
         """
@@ -332,11 +332,11 @@ class IBus(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Bus_Get_y())
+            return self._check_for_error(self._lib.Bus_Get_y())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Bus_Set_y(Value))
+        self._check_for_error(self._lib.Bus_Set_y(Value))
 
     def LoadList(self):
         """
@@ -344,7 +344,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/LoadList.html
         """
-        return self.CheckForError(self._get_string_array(self._lib.Bus_Get_LoadList))
+        return self._check_for_error(self._get_string_array(self._lib.Bus_Get_LoadList))
 
     def LineList(self):
         """
@@ -352,7 +352,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/LineList.html
         """
-        return self.CheckForError(self._get_string_array(self._lib.Bus_Get_LineList))
+        return self._check_for_error(self._get_string_array(self._lib.Bus_Get_LineList))
 
     def AllPCEatBus(self):
         """
@@ -360,7 +360,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/AllPCEatBus.html
         """
-        result = self.CheckForError(
+        result = self._check_for_error(
             self._get_string_array(self._lib.Bus_Get_AllPCEatBus)
         )
         return result
@@ -371,7 +371,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/AllPDEatBus1.html
         """
-        result = self.CheckForError(
+        result = self._check_for_error(
             self._get_string_array(self._lib.Bus_Get_AllPDEatBus)
         )
         return result

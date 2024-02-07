@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Base
+from .Bases import Base
 
 
 class IParallel(Base):
@@ -20,7 +20,7 @@ class IParallel(Base):
         """
         Create a new actor, if there are still cores available.
         """
-        self.CheckForError(self._lib.Parallel_CreateActor())
+        self._check_for_error(self._lib.Parallel_CreateActor())
 
     def Wait(self):
         """
@@ -28,7 +28,7 @@ class IParallel(Base):
 
         Original COM help: https://opendss.epri.com/Wait.html
         """
-        self.CheckForError(self._lib.Parallel_Wait())
+        self._check_for_error(self._lib.Parallel_Wait())
 
     def ActiveActor(self, *args):
         """
@@ -38,11 +38,11 @@ class IParallel(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Parallel_Get_ActiveActor())
+            return self._check_for_error(self._lib.Parallel_Get_ActiveActor())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Parallel_Set_ActiveActor(Value))
+        self._check_for_error(self._lib.Parallel_Set_ActiveActor(Value))
 
     def ActiveParallel(self, *args):
         """
@@ -53,11 +53,11 @@ class IParallel(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Parallel_Get_ActiveParallel())
+            return self._check_for_error(self._lib.Parallel_Get_ActiveParallel())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Parallel_Set_ActiveParallel(Value))
+        self._check_for_error(self._lib.Parallel_Set_ActiveParallel(Value))
 
     def ActorCPU(self, *args):
         """
@@ -67,11 +67,11 @@ class IParallel(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Parallel_Get_ActorCPU())
+            return self._check_for_error(self._lib.Parallel_Get_ActorCPU())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Parallel_Set_ActorCPU(Value))
+        self._check_for_error(self._lib.Parallel_Set_ActorCPU(Value))
 
     def ActorProgress(self):
         """
@@ -79,7 +79,7 @@ class IParallel(Base):
 
         Original COM help: https://opendss.epri.com/ActorProgress.html
         """
-        self.CheckForError(self._lib.Parallel_Get_ActorProgress_GR())
+        self._check_for_error(self._lib.Parallel_Get_ActorProgress_GR())
         return self._get_int32_gr_array()
 
     def ActorStatus(self):
@@ -88,7 +88,7 @@ class IParallel(Base):
 
         Original COM help: https://opendss.epri.com/ActorStatus.html
         """
-        self.CheckForError(self._lib.Parallel_Get_ActorStatus_GR())
+        self._check_for_error(self._lib.Parallel_Get_ActorStatus_GR())
         return self._get_int32_gr_array()
 
     def ConcatenateReports(self, *args):
@@ -100,11 +100,11 @@ class IParallel(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Parallel_Get_ConcatenateReports())
+            return self._check_for_error(self._lib.Parallel_Get_ConcatenateReports())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Parallel_Set_ConcatenateReports(Value))
+        self._check_for_error(self._lib.Parallel_Set_ConcatenateReports(Value))
 
     def NumCPUs(self):
         """
@@ -112,7 +112,7 @@ class IParallel(Base):
 
         Original COM help: https://opendss.epri.com/NumCPUs.html
         """
-        return self.CheckForError(self._lib.Parallel_Get_NumCPUs())
+        return self._check_for_error(self._lib.Parallel_Get_NumCPUs())
 
     def NumCores(self):
         """
@@ -120,7 +120,7 @@ class IParallel(Base):
 
         Original COM help: https://opendss.epri.com/NumCores.html
         """
-        return self.CheckForError(self._lib.Parallel_Get_NumCores())
+        return self._check_for_error(self._lib.Parallel_Get_NumCores())
 
     def NumOfActors(self):
         """
@@ -128,7 +128,7 @@ class IParallel(Base):
 
         Original COM help: https://opendss.epri.com/NumOfActors.html
         """
-        return self.CheckForError(self._lib.Parallel_Get_NumOfActors())
+        return self._check_for_error(self._lib.Parallel_Get_NumOfActors())
 
 
 _Parallel = IParallel(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)

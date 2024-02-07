@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Iterable
+from .Bases import Iterable
 
 
 class IRelays(Iterable):
@@ -27,14 +27,14 @@ class IRelays(Iterable):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.Relays_Get_MonitoredObj())
+                self._check_for_error(self._lib.Relays_Get_MonitoredObj())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Relays_Set_MonitoredObj(Value))
+        self._check_for_error(self._lib.Relays_Set_MonitoredObj(Value))
 
     def MonitoredTerm(self, *args):
         """
@@ -44,11 +44,11 @@ class IRelays(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Relays_Get_MonitoredTerm())
+            return self._check_for_error(self._lib.Relays_Get_MonitoredTerm())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Relays_Set_MonitoredTerm(Value))
+        self._check_for_error(self._lib.Relays_Set_MonitoredTerm(Value))
 
     def SwitchedObj(self, *args):
         """
@@ -59,14 +59,14 @@ class IRelays(Iterable):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.Relays_Get_SwitchedObj())
+                self._check_for_error(self._lib.Relays_Get_SwitchedObj())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Relays_Set_SwitchedObj(Value))
+        self._check_for_error(self._lib.Relays_Set_SwitchedObj(Value))
 
     def SwitchedTerm(self, *args):
         """
@@ -76,11 +76,11 @@ class IRelays(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Relays_Get_SwitchedTerm())
+            return self._check_for_error(self._lib.Relays_Get_SwitchedTerm())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Relays_Set_SwitchedTerm(Value))
+        self._check_for_error(self._lib.Relays_Set_SwitchedTerm(Value))
 
     def Open(self):
         """
@@ -88,7 +88,7 @@ class IRelays(Iterable):
 
         Original COM help: https://opendss.epri.com/Open4.html
         """
-        self.CheckForError(self._lib.Relays_Open())
+        self._check_for_error(self._lib.Relays_Open())
 
     def Close(self):
         """
@@ -96,7 +96,7 @@ class IRelays(Iterable):
 
         Original COM help: https://opendss.epri.com/Close5.html
         """
-        self.CheckForError(self._lib.Relays_Close())
+        self._check_for_error(self._lib.Relays_Close())
 
     def Reset(self):
         """
@@ -104,7 +104,7 @@ class IRelays(Iterable):
         If open, lock out the relay.
         If closed, resets relay to first operation.
         """
-        self.CheckForError(self._lib.Relays_Reset())
+        self._check_for_error(self._lib.Relays_Reset())
 
     def State(self, *args):
         """
@@ -114,11 +114,11 @@ class IRelays(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Relays_Get_State())
+            return self._check_for_error(self._lib.Relays_Get_State())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Relays_Set_State(Value))
+        self._check_for_error(self._lib.Relays_Set_State(Value))
 
     def NormalState(self, *args):
         """
@@ -128,11 +128,11 @@ class IRelays(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Relays_Get_NormalState())
+            return self._check_for_error(self._lib.Relays_Get_NormalState())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Relays_Set_NormalState(Value))
+        self._check_for_error(self._lib.Relays_Set_NormalState(Value))
 
 
 _Relays = IRelays(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)

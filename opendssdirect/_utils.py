@@ -11,7 +11,4 @@ lib = dss_py.prime_api_util.lib
 ffi = dss_py.prime_api_util.ffi
 
 api_util = dss_py.prime_api_util
-
-# codec = api_util.codec
-# CheckForError = dss_py.DSS_GR.CheckForError
 DSSException = dss_py.DSSException

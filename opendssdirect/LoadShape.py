@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Iterable
+from .Bases import Iterable
 
 
 class ILoadShape(Iterable):
@@ -26,11 +26,11 @@ class ILoadShape(Iterable):
         """Create a new LoadShape, with default parameters"""
         if type(Name) is not bytes:
             Name = Name.encode(self._api_util.codec)
-        return self.CheckForError(self._lib.LoadShapes_New(Name))
+        return self._check_for_error(self._lib.LoadShapes_New(Name))
 
     def Normalize(self):
         """Normalize the LoadShape data inplace"""
-        self.CheckForError(self._lib.LoadShapes_Normalize())
+        self._check_for_error(self._lib.LoadShapes_Normalize())
 
     def HrInterval(self, *args):
         """
@@ -40,11 +40,11 @@ class ILoadShape(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.LoadShapes_Get_HrInterval())
+            return self._check_for_error(self._lib.LoadShapes_Get_HrInterval())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.LoadShapes_Set_HrInterval(Value))
+        self._check_for_error(self._lib.LoadShapes_Set_HrInterval(Value))
 
     def MinInterval(self, *args):
         """
@@ -54,11 +54,11 @@ class ILoadShape(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.LoadShapes_Get_MinInterval())
+            return self._check_for_error(self._lib.LoadShapes_Get_MinInterval())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.LoadShapes_Set_MinInterval(Value))
+        self._check_for_error(self._lib.LoadShapes_Set_MinInterval(Value))
 
     def Npts(self, *args):
         """
@@ -68,11 +68,11 @@ class ILoadShape(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.LoadShapes_Get_Npts())
+            return self._check_for_error(self._lib.LoadShapes_Get_Npts())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.LoadShapes_Set_Npts(Value))
+        self._check_for_error(self._lib.LoadShapes_Set_Npts(Value))
 
     def PBase(self, *args):
         """
@@ -82,11 +82,11 @@ class ILoadShape(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.LoadShapes_Get_PBase())
+            return self._check_for_error(self._lib.LoadShapes_Get_PBase())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.LoadShapes_Set_PBase(Value))
+        self._check_for_error(self._lib.LoadShapes_Set_PBase(Value))
 
     def PMult(self, *args):
         """
@@ -96,13 +96,13 @@ class ILoadShape(Iterable):
         """
         # Getter
         if len(args) == 0:
-            self.CheckForError(self._lib.LoadShapes_Get_Pmult_GR())
+            self._check_for_error(self._lib.LoadShapes_Get_Pmult_GR())
             return self._get_float64_gr_array()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self.CheckForError(self._lib.LoadShapes_Set_Pmult(ValuePtr, ValueCount))
+        self._check_for_error(self._lib.LoadShapes_Set_Pmult(ValuePtr, ValueCount))
 
     def QBase(self, *args):
         """
@@ -112,11 +112,11 @@ class ILoadShape(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.LoadShapes_Get_Qbase())
+            return self._check_for_error(self._lib.LoadShapes_Get_Qbase())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.LoadShapes_Set_Qbase(Value))
+        self._check_for_error(self._lib.LoadShapes_Set_Qbase(Value))
 
     def QMult(self, *args):
         """
@@ -126,13 +126,13 @@ class ILoadShape(Iterable):
         """
         # Getter
         if len(args) == 0:
-            self.CheckForError(self._lib.LoadShapes_Get_Qmult_GR())
+            self._check_for_error(self._lib.LoadShapes_Get_Qmult_GR())
             return self._get_float64_gr_array()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self.CheckForError(self._lib.LoadShapes_Set_Qmult(ValuePtr, ValueCount))
+        self._check_for_error(self._lib.LoadShapes_Set_Qmult(ValuePtr, ValueCount))
 
     def TimeArray(self, *args):
         """
@@ -142,13 +142,13 @@ class ILoadShape(Iterable):
         """
         # Getter
         if len(args) == 0:
-            self.CheckForError(self._lib.LoadShapes_Get_TimeArray_GR())
+            self._check_for_error(self._lib.LoadShapes_Get_TimeArray_GR())
             return self._get_float64_gr_array()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self.CheckForError(self._lib.LoadShapes_Set_TimeArray(ValuePtr, ValueCount))
+        self._check_for_error(self._lib.LoadShapes_Set_TimeArray(ValuePtr, ValueCount))
 
     def UseActual(self, *args):
         """
@@ -158,11 +158,11 @@ class ILoadShape(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.LoadShapes_Get_UseActual()) != 0
+            return self._check_for_error(self._lib.LoadShapes_Get_UseActual()) != 0
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.LoadShapes_Set_UseActual(Value))
+        self._check_for_error(self._lib.LoadShapes_Set_UseActual(Value))
 
     def SInterval(self, *args):
         """
@@ -172,11 +172,11 @@ class ILoadShape(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.LoadShapes_Get_SInterval())
+            return self._check_for_error(self._lib.LoadShapes_Get_SInterval())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.LoadShapes_Set_SInterval(Value))
+        self._check_for_error(self._lib.LoadShapes_Set_SInterval(Value))
 
     def UseFloat32(self):
         """
@@ -185,7 +185,7 @@ class ILoadShape(Iterable):
 
         **(API Extension)**
         """
-        self.CheckForError(self._lib.LoadShapes_UseFloat32())
+        self._check_for_error(self._lib.LoadShapes_UseFloat32())
 
     def UseFloat64(self):
         """
@@ -194,7 +194,7 @@ class ILoadShape(Iterable):
 
         **(API Extension)**
         """
-        self.CheckForError(self._lib.LoadShapes_UseFloat64())
+        self._check_for_error(self._lib.LoadShapes_UseFloat64())
 
 
 _LoadShape = ILoadShape(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)

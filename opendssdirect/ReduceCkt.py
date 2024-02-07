@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Base
+from .Bases import Base
 
 
 class IReduceCkt(Base):
@@ -20,11 +20,11 @@ class IReduceCkt(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.ReduceCkt_Get_Zmag())
+            return self._check_for_error(self._lib.ReduceCkt_Get_Zmag())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.ReduceCkt_Set_Zmag(Value))
+        self._check_for_error(self._lib.ReduceCkt_Set_Zmag(Value))
 
     def KeepLoad(self, *args):
         """
@@ -34,11 +34,11 @@ class IReduceCkt(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.ReduceCkt_Get_KeepLoad()) != 0
+            return self._check_for_error(self._lib.ReduceCkt_Get_KeepLoad()) != 0
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.ReduceCkt_Set_KeepLoad(bool(Value)))
+        self._check_for_error(self._lib.ReduceCkt_Set_KeepLoad(bool(Value)))
 
     def EditString(self, *args):
         """
@@ -49,14 +49,14 @@ class IReduceCkt(Base):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.ReduceCkt_Get_EditString())
+                self._check_for_error(self._lib.ReduceCkt_Get_EditString())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.ReduceCkt_Set_EditString(Value))
+        self._check_for_error(self._lib.ReduceCkt_Set_EditString(Value))
 
     def StartPDElement(self, *args):
         """
@@ -67,14 +67,14 @@ class IReduceCkt(Base):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.ReduceCkt_Get_StartPDElement())
+                self._check_for_error(self._lib.ReduceCkt_Get_StartPDElement())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.ReduceCkt_Set_StartPDElement(Value))
+        self._check_for_error(self._lib.ReduceCkt_Set_StartPDElement(Value))
 
     def EnergyMeter(self, *args):
         """
@@ -85,14 +85,14 @@ class IReduceCkt(Base):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.ReduceCkt_Get_EnergyMeter())
+                self._check_for_error(self._lib.ReduceCkt_Get_EnergyMeter())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.ReduceCkt_Set_EnergyMeter(Value))
+        self._check_for_error(self._lib.ReduceCkt_Set_EnergyMeter(Value))
 
     def SaveCircuit(self, CktName):
         """
@@ -101,7 +101,7 @@ class IReduceCkt(Base):
         """
         if type(CktName) is not bytes:
             CktName = CktName.encode(self._api_util.codec)
-        self.CheckForError(self._lib.ReduceCkt_SaveCircuit(CktName))
+        self._check_for_error(self._lib.ReduceCkt_SaveCircuit(CktName))
 
     def DoDefault(self):
         """
@@ -109,7 +109,7 @@ class IReduceCkt(Base):
 
         Original COM help: https://opendss.epri.com/DoDefault.html
         """
-        self.CheckForError(self._lib.ReduceCkt_DoDefault())
+        self._check_for_error(self._lib.ReduceCkt_DoDefault())
 
     def DoShortLines(self):
         """
@@ -117,7 +117,7 @@ class IReduceCkt(Base):
 
         Original COM help: https://opendss.epri.com/DoShortLines.html
         """
-        self.CheckForError(self._lib.ReduceCkt_DoShortLines())
+        self._check_for_error(self._lib.ReduceCkt_DoShortLines())
 
     def DoDangling(self):
         """
@@ -125,7 +125,7 @@ class IReduceCkt(Base):
 
         Original COM help: https://opendss.epri.com/DoDangling.html
         """
-        self.CheckForError(self._lib.ReduceCkt_DoDangling())
+        self._check_for_error(self._lib.ReduceCkt_DoDangling())
 
     def DoLoopBreak(self):
         """
@@ -133,19 +133,19 @@ class IReduceCkt(Base):
 
         Disables one of the Line objects at the head of a loop to force the circuit to be radial.
         """
-        self.CheckForError(self._lib.ReduceCkt_DoLoopBreak())
+        self._check_for_error(self._lib.ReduceCkt_DoLoopBreak())
 
     def DoParallelLines(self):
         """
         Merge all parallel lines found in the circuit to facilitate its reduction.
         """
-        self.CheckForError(self._lib.ReduceCkt_DoParallelLines())
+        self._check_for_error(self._lib.ReduceCkt_DoParallelLines())
 
     def DoSwitches(self):
         """
         Merge Line objects in which the IsSwitch property is true with the down-line Line object.
         """
-        self.CheckForError(self._lib.ReduceCkt_DoSwitches())
+        self._check_for_error(self._lib.ReduceCkt_DoSwitches())
 
     def Do1phLaterals(self):
         """
@@ -153,7 +153,7 @@ class IReduceCkt(Base):
 
         Loads and other shunt elements are moved to the parent 3-phase bus.
         """
-        self.CheckForError(self._lib.ReduceCkt_Do1phLaterals())
+        self._check_for_error(self._lib.ReduceCkt_Do1phLaterals())
 
     def DoBranchRemove(self):
         """
@@ -163,7 +163,7 @@ class IReduceCkt(Base):
         If KeepLoad=Y (default), a new Load element is defined and kW, kvar are set to present power flow solution for the first element eliminated.
         The EditString is applied to each new Load element defined.
         """
-        self.CheckForError(self._lib.ReduceCkt_DoBranchRemove())
+        self._check_for_error(self._lib.ReduceCkt_DoBranchRemove())
 
 
 _ReduceCkt = IReduceCkt(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)

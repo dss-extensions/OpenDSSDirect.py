@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Base
+from .Bases import Base
 from dss import ControlModes, SolutionAlgorithms, SolveModes
 
 
@@ -51,49 +51,49 @@ class ISolution(Base):
     ]
 
     def BuildYMatrix(self, BuildOption, AllocateVI):
-        self.CheckForError(self._lib.Solution_BuildYMatrix(BuildOption, AllocateVI))
+        self._check_for_error(self._lib.Solution_BuildYMatrix(BuildOption, AllocateVI))
 
     def CheckControls(self):
-        self.CheckForError(self._lib.Solution_CheckControls())
+        self._check_for_error(self._lib.Solution_CheckControls())
 
     def CheckFaultStatus(self):
-        self.CheckForError(self._lib.Solution_CheckFaultStatus())
+        self._check_for_error(self._lib.Solution_CheckFaultStatus())
 
     def Cleanup(self):
-        self.CheckForError(self._lib.Solution_Cleanup())
+        self._check_for_error(self._lib.Solution_Cleanup())
 
     def DoControlActions(self):
-        self.CheckForError(self._lib.Solution_DoControlActions())
+        self._check_for_error(self._lib.Solution_DoControlActions())
 
     def FinishTimeStep(self):
-        self.CheckForError(self._lib.Solution_FinishTimeStep())
+        self._check_for_error(self._lib.Solution_FinishTimeStep())
 
     def InitSnap(self):
-        self.CheckForError(self._lib.Solution_InitSnap())
+        self._check_for_error(self._lib.Solution_InitSnap())
 
     def SampleControlDevices(self):
-        self.CheckForError(self._lib.Solution_SampleControlDevices())
+        self._check_for_error(self._lib.Solution_SampleControlDevices())
 
     def SampleDoControlActions(self):
-        self.CheckForError(self._lib.Solution_Sample_DoControlActions())
+        self._check_for_error(self._lib.Solution_Sample_DoControlActions())
 
     def Solve(self):
-        self.CheckForError(self._lib.Solution_Solve())
+        self._check_for_error(self._lib.Solution_Solve())
 
     def SolveDirect(self):
-        self.CheckForError(self._lib.Solution_SolveDirect())
+        self._check_for_error(self._lib.Solution_SolveDirect())
 
     def SolveNoControl(self):
-        self.CheckForError(self._lib.Solution_SolveNoControl())
+        self._check_for_error(self._lib.Solution_SolveNoControl())
 
     def SolvePFlow(self):
-        self.CheckForError(self._lib.Solution_SolvePflow())
+        self._check_for_error(self._lib.Solution_SolvePflow())
 
     def SolvePlusControl(self):
-        self.CheckForError(self._lib.Solution_SolvePlusControl())
+        self._check_for_error(self._lib.Solution_SolvePlusControl())
 
     def SolveSnap(self):
-        self.CheckForError(self._lib.Solution_SolveSnap())
+        self._check_for_error(self._lib.Solution_SolveSnap())
 
     def AddType(self, *args):
         """
@@ -103,11 +103,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Solution_Get_AddType())
+            return self._check_for_error(self._lib.Solution_Get_AddType())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Solution_Set_AddType(Value))
+        self._check_for_error(self._lib.Solution_Set_AddType(Value))
 
     def Algorithm(self, *args):
         """
@@ -118,12 +118,12 @@ class ISolution(Base):
         # Getter
         if len(args) == 0:
             return SolutionAlgorithms(
-                self.CheckForError(self._lib.Solution_Get_Algorithm())
+                self._check_for_error(self._lib.Solution_Get_Algorithm())
             )
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Solution_Set_Algorithm(Value))
+        self._check_for_error(self._lib.Solution_Set_Algorithm(Value))
 
     def Capkvar(self, *args):
         """
@@ -133,11 +133,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Solution_Get_Capkvar())
+            return self._check_for_error(self._lib.Solution_Get_Capkvar())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Solution_Set_Capkvar(Value))
+        self._check_for_error(self._lib.Solution_Set_Capkvar(Value))
 
     def ControlActionsDone(self, *args):
         """
@@ -147,11 +147,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Solution_Get_ControlActionsDone()) != 0
+            return self._check_for_error(self._lib.Solution_Get_ControlActionsDone()) != 0
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Solution_Set_ControlActionsDone(Value))
+        self._check_for_error(self._lib.Solution_Set_ControlActionsDone(Value))
 
     def ControlIterations(self, *args):
         """
@@ -161,11 +161,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Solution_Get_ControlIterations())
+            return self._check_for_error(self._lib.Solution_Get_ControlIterations())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Solution_Set_ControlIterations(Value))
+        self._check_for_error(self._lib.Solution_Set_ControlIterations(Value))
 
     def ControlMode(self, *args):
         """
@@ -176,12 +176,12 @@ class ISolution(Base):
         # Getter
         if len(args) == 0:
             return ControlModes(
-                self.CheckForError(self._lib.Solution_Get_ControlMode())
+                self._check_for_error(self._lib.Solution_Get_ControlMode())
             )
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Solution_Set_ControlMode(Value))
+        self._check_for_error(self._lib.Solution_Set_ControlMode(Value))
 
     def Converged(self, *args):
         """
@@ -191,11 +191,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Solution_Get_Converged()) != 0
+            return self._check_for_error(self._lib.Solution_Get_Converged()) != 0
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Solution_Set_Converged(Value))
+        self._check_for_error(self._lib.Solution_Set_Converged(Value))
 
     def DefaultDaily(self, *args):
         """
@@ -206,14 +206,14 @@ class ISolution(Base):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.Solution_Get_DefaultDaily())
+                self._check_for_error(self._lib.Solution_Get_DefaultDaily())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Solution_Set_DefaultDaily(Value))
+        self._check_for_error(self._lib.Solution_Set_DefaultDaily(Value))
 
     def DefaultYearly(self, *args):
         """
@@ -224,14 +224,14 @@ class ISolution(Base):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.Solution_Get_DefaultYearly())
+                self._check_for_error(self._lib.Solution_Get_DefaultYearly())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Solution_Set_DefaultYearly(Value))
+        self._check_for_error(self._lib.Solution_Set_DefaultYearly(Value))
 
     def EventLog(self):
         """
@@ -239,7 +239,7 @@ class ISolution(Base):
 
         Original COM help: https://opendss.epri.com/EventLog.html
         """
-        return self.CheckForError(
+        return self._check_for_error(
             self._get_string_array(self._lib.Solution_Get_EventLog)
         )
 
@@ -251,11 +251,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Solution_Get_Frequency())
+            return self._check_for_error(self._lib.Solution_Get_Frequency())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Solution_Set_Frequency(Value))
+        self._check_for_error(self._lib.Solution_Set_Frequency(Value))
 
     def GenMult(self, *args):
         """
@@ -265,11 +265,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Solution_Get_GenMult())
+            return self._check_for_error(self._lib.Solution_Get_GenMult())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Solution_Set_GenMult(Value))
+        self._check_for_error(self._lib.Solution_Set_GenMult(Value))
 
     def GenPF(self, *args):
         """
@@ -279,11 +279,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Solution_Get_GenPF())
+            return self._check_for_error(self._lib.Solution_Get_GenPF())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Solution_Set_GenPF(Value))
+        self._check_for_error(self._lib.Solution_Set_GenPF(Value))
 
     def GenkW(self, *args):
         """
@@ -293,11 +293,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Solution_Get_GenkW())
+            return self._check_for_error(self._lib.Solution_Get_GenkW())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Solution_Set_GenkW(Value))
+        self._check_for_error(self._lib.Solution_Set_GenkW(Value))
 
     def Hour(self, *args):
         """
@@ -307,11 +307,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Solution_Get_Hour())
+            return self._check_for_error(self._lib.Solution_Get_Hour())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Solution_Set_Hour(Value))
+        self._check_for_error(self._lib.Solution_Set_Hour(Value))
 
     def IntervalHrs(self, *args):
         """
@@ -319,11 +319,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Solution_Get_IntervalHrs())
+            return self._check_for_error(self._lib.Solution_Get_IntervalHrs())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Solution_Set_IntervalHrs(Value))
+        self._check_for_error(self._lib.Solution_Set_IntervalHrs(Value))
 
     def Iterations(self):
         """
@@ -331,7 +331,7 @@ class ISolution(Base):
 
         Original COM help: https://opendss.epri.com/Iterations.html
         """
-        return self.CheckForError(self._lib.Solution_Get_Iterations())
+        return self._check_for_error(self._lib.Solution_Get_Iterations())
 
     def LDCurve(self, *args):
         """
@@ -342,14 +342,14 @@ class ISolution(Base):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.Solution_Get_LDCurve())
+                self._check_for_error(self._lib.Solution_Get_LDCurve())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Solution_Set_LDCurve(Value))
+        self._check_for_error(self._lib.Solution_Set_LDCurve(Value))
 
     def LoadModel(self, *args):
         """
@@ -359,11 +359,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Solution_Get_LoadModel())
+            return self._check_for_error(self._lib.Solution_Get_LoadModel())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Solution_Set_LoadModel(Value))
+        self._check_for_error(self._lib.Solution_Set_LoadModel(Value))
 
     def LoadMult(self, *args):
         """
@@ -373,11 +373,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Solution_Get_LoadMult())
+            return self._check_for_error(self._lib.Solution_Get_LoadMult())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Solution_Set_LoadMult(Value))
+        self._check_for_error(self._lib.Solution_Set_LoadMult(Value))
 
     def MaxControlIterations(self, *args):
         """
@@ -387,11 +387,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Solution_Get_MaxControlIterations())
+            return self._check_for_error(self._lib.Solution_Get_MaxControlIterations())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Solution_Set_MaxControlIterations(Value))
+        self._check_for_error(self._lib.Solution_Set_MaxControlIterations(Value))
 
     def MaxIterations(self, *args):
         """
@@ -401,11 +401,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Solution_Get_MaxIterations())
+            return self._check_for_error(self._lib.Solution_Get_MaxIterations())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Solution_Set_MaxIterations(Value))
+        self._check_for_error(self._lib.Solution_Set_MaxIterations(Value))
 
     def MinIterations(self, *args):
         """
@@ -415,11 +415,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Solution_Get_MinIterations())
+            return self._check_for_error(self._lib.Solution_Get_MinIterations())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Solution_Set_MinIterations(Value))
+        self._check_for_error(self._lib.Solution_Set_MinIterations(Value))
 
     def Mode(self, *args):
         """
@@ -429,11 +429,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return SolveModes(self.CheckForError(self._lib.Solution_Get_Mode()))
+            return SolveModes(self._check_for_error(self._lib.Solution_Get_Mode()))
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Solution_Set_Mode(Value))
+        self._check_for_error(self._lib.Solution_Set_Mode(Value))
 
     def ModeID(self):
         """
@@ -441,7 +441,7 @@ class ISolution(Base):
 
         Original COM help: https://opendss.epri.com/ModeID.html
         """
-        return self._get_string(self.CheckForError(self._lib.Solution_Get_ModeID()))
+        return self._get_string(self._check_for_error(self._lib.Solution_Get_ModeID()))
 
     def MostIterationsDone(self):
         """
@@ -449,7 +449,7 @@ class ISolution(Base):
 
         Original COM help: https://opendss.epri.com/MostIterationsDone.html
         """
-        return self.CheckForError(self._lib.Solution_Get_MostIterationsDone())
+        return self._check_for_error(self._lib.Solution_Get_MostIterationsDone())
 
     def Number(self, *args):
         """
@@ -459,11 +459,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Solution_Get_Number())
+            return self._check_for_error(self._lib.Solution_Get_Number())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Solution_Set_Number(Value))
+        self._check_for_error(self._lib.Solution_Set_Number(Value))
 
     def ProcessTime(self):
         """
@@ -471,7 +471,7 @@ class ISolution(Base):
 
         Original COM help: https://opendss.epri.com/Process_Time.html
         """
-        return self.CheckForError(self._lib.Solution_Get_Process_Time())
+        return self._check_for_error(self._lib.Solution_Get_Process_Time())
 
     def Random(self, *args):
         """
@@ -481,11 +481,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Solution_Get_Random())
+            return self._check_for_error(self._lib.Solution_Get_Random())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Solution_Set_Random(Value))
+        self._check_for_error(self._lib.Solution_Set_Random(Value))
 
     def Seconds(self, *args):
         """
@@ -495,11 +495,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Solution_Get_Seconds())
+            return self._check_for_error(self._lib.Solution_Get_Seconds())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Solution_Set_Seconds(Value))
+        self._check_for_error(self._lib.Solution_Set_Seconds(Value))
 
     def StepSize(self, *args):
         """
@@ -509,11 +509,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Solution_Get_StepSize())
+            return self._check_for_error(self._lib.Solution_Get_StepSize())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Solution_Set_StepSize(Value))
+        self._check_for_error(self._lib.Solution_Set_StepSize(Value))
 
     def SystemYChanged(self):
         """
@@ -521,7 +521,7 @@ class ISolution(Base):
 
         Original COM help: https://opendss.epri.com/SystemYChanged.html
         """
-        return self.CheckForError(self._lib.Solution_Get_SystemYChanged() != 0)
+        return self._check_for_error(self._lib.Solution_Get_SystemYChanged() != 0)
 
     def TimeTimeStep(self):
         """
@@ -529,7 +529,7 @@ class ISolution(Base):
 
         Original COM help: https://opendss.epri.com/Time_of_Step.html
         """
-        return self.CheckForError(self._lib.Solution_Get_Time_of_Step())
+        return self._check_for_error(self._lib.Solution_Get_Time_of_Step())
 
     def Convergence(self, *args):
         """
@@ -539,11 +539,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Solution_Get_Tolerance())
+            return self._check_for_error(self._lib.Solution_Get_Tolerance())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Solution_Set_Tolerance(Value))
+        self._check_for_error(self._lib.Solution_Set_Tolerance(Value))
 
     def TotalTime(self, *args):
         """
@@ -555,11 +555,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Solution_Get_Total_Time())
+            return self._check_for_error(self._lib.Solution_Get_Total_Time())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Solution_Set_Total_Time(Value))
+        self._check_for_error(self._lib.Solution_Set_Total_Time(Value))
 
     def TotalIterations(self):
         """
@@ -567,7 +567,7 @@ class ISolution(Base):
 
         Original COM help: https://opendss.epri.com/Totaliterations.html
         """
-        return self.CheckForError(self._lib.Solution_Get_Totaliterations())
+        return self._check_for_error(self._lib.Solution_Get_Totaliterations())
 
     def Year(self, *args):
         """
@@ -577,11 +577,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Solution_Get_Year())
+            return self._check_for_error(self._lib.Solution_Get_Year())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Solution_Set_Year(Value))
+        self._check_for_error(self._lib.Solution_Set_Year(Value))
 
     def DblHour(self, *args):
         """
@@ -591,11 +591,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Solution_Get_dblHour())
+            return self._check_for_error(self._lib.Solution_Get_dblHour())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Solution_Set_dblHour(Value))
+        self._check_for_error(self._lib.Solution_Set_dblHour(Value))
 
     def PctGrowth(self, *args):
         """
@@ -605,19 +605,19 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Solution_Get_pctGrowth())
+            return self._check_for_error(self._lib.Solution_Get_pctGrowth())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Solution_Set_pctGrowth(Value))
+        self._check_for_error(self._lib.Solution_Set_pctGrowth(Value))
 
     def StepSizeHr(self, Value):
         """(write-only) Set Stepsize in Hr"""
-        self.CheckForError(self._lib.Solution_Set_StepsizeHr(Value))
+        self._check_for_error(self._lib.Solution_Set_StepsizeHr(Value))
 
     def StepSizeMin(self, Value):
         """(write-only) Set Stepsize in minutes"""
-        self.CheckForError(self._lib.Solution_Set_StepsizeMin(Value))
+        self._check_for_error(self._lib.Solution_Set_StepsizeMin(Value))
 
     def BusLevels(self):
         """
@@ -630,7 +630,7 @@ class ISolution(Base):
 
         Original COM help: https://opendss.epri.com/BusLevels.html
         """
-        self.CheckForError(self._lib.Solution_Get_BusLevels_GR())
+        self._check_for_error(self._lib.Solution_Get_BusLevels_GR())
         return self._get_int32_gr_array()
 
     def IncMatrix(self):
@@ -645,7 +645,7 @@ class ISolution(Base):
 
         Original COM help: https://opendss.epri.com/IncMatrix.html
         """
-        self.CheckForError(self._lib.Solution_Get_IncMatrix_GR())
+        self._check_for_error(self._lib.Solution_Get_IncMatrix_GR())
         return self._get_int32_gr_array()
 
     def IncMatrixCols(self):
@@ -654,7 +654,7 @@ class ISolution(Base):
 
         Original COM help: https://opendss.epri.com/IncMatrixCols.html
         """
-        return self.CheckForError(
+        return self._check_for_error(
             self._get_string_array(self._lib.Solution_Get_IncMatrixCols)
         )
 
@@ -664,7 +664,7 @@ class ISolution(Base):
 
         Original COM help: https://opendss.epri.com/IncMatrixRows.html
         """
-        return self.CheckForError(
+        return self._check_for_error(
             self._get_string_array(self._lib.Solution_Get_IncMatrixRows)
         )
 
@@ -681,7 +681,7 @@ class ISolution(Base):
 
         Original COM help: https://opendss.epri.com/Laplacian.html
         """
-        self.CheckForError(self._lib.Solution_Get_Laplacian_GR())
+        self._check_for_error(self._lib.Solution_Get_Laplacian_GR())
         return self._get_int32_gr_array()
 
 

@@ -101,7 +101,7 @@ class Iterable(Base):
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
 
-        self.CheckForError(self._Set_Name(Value))
+        self._check_for_error(self._Set_Name(Value))
         
     def Idx(self, *args):
         """Gets the current index or sets the active object of this type by index"""
@@ -112,6 +112,6 @@ class Iterable(Base):
         # Setter
         Value, = args        
         if type(Value) is not bytes:
-            self.CheckForError(self._Set_idx(Value))
+            self._check_for_error(self._Set_idx(Value))
 
 __all__ = ["Iterable", "Base",]

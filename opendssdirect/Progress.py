@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Base
+from .Bases import Base
 
 
 class IProgress(Base):
@@ -10,10 +10,10 @@ class IProgress(Base):
     _columns = []
 
     def Close(self):
-        self.CheckForError(self._lib.DSSProgress_Close())
+        self._check_for_error(self._lib.DSSProgress_Close())
 
     def Show(self):
-        self.CheckForError(self._lib.DSSProgress_Show())
+        self._check_for_error(self._lib.DSSProgress_Show())
 
     def Caption(self, Value):
         """
@@ -23,7 +23,7 @@ class IProgress(Base):
         """
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.DSSProgress_Set_Caption(Value))
+        self._check_for_error(self._lib.DSSProgress_Set_Caption(Value))
 
     def PctProgress(self, Value):
         """
@@ -31,7 +31,7 @@ class IProgress(Base):
 
         Original COM help: https://opendss.epri.com/PctProgress.html
         """
-        self.CheckForError(self._lib.DSSProgress_Set_PctProgress(Value))
+        self._check_for_error(self._lib.DSSProgress_Set_PctProgress(Value))
 
 
 _Progress = IProgress(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)

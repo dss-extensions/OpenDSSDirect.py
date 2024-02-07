@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Iterable
+from .Bases import Iterable
 
 
 class IIsource(Iterable):
@@ -17,11 +17,11 @@ class IIsource(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.ISources_Get_Amps())
+            return self._check_for_error(self._lib.ISources_Get_Amps())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.ISources_Set_Amps(Value))
+        self._check_for_error(self._lib.ISources_Set_Amps(Value))
 
     def AngleDeg(self, *args):
         """
@@ -31,11 +31,11 @@ class IIsource(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.ISources_Get_AngleDeg())
+            return self._check_for_error(self._lib.ISources_Get_AngleDeg())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.ISources_Set_AngleDeg(Value))
+        self._check_for_error(self._lib.ISources_Set_AngleDeg(Value))
 
     def Frequency(self, *args):
         """
@@ -45,11 +45,11 @@ class IIsource(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.ISources_Get_Frequency())
+            return self._check_for_error(self._lib.ISources_Get_Frequency())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.ISources_Set_Frequency(Value))
+        self._check_for_error(self._lib.ISources_Set_Frequency(Value))
 
 
 _Isource = IIsource(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)

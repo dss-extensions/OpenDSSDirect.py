@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Base
+from .Bases import Base
 
 
 class IProperties(Base):
@@ -11,12 +11,12 @@ class IProperties(Base):
     def Description(self):
         """(read-only) Description of the property."""
         return self._get_string(
-            self.CheckForError(self._lib.DSSProperty_Get_Description())
+            self._check_for_error(self._lib.DSSProperty_Get_Description())
         )
 
     def Name(self):
         """(read-only) Name of Property"""
-        return self._get_string(self.CheckForError(self._lib.DSSProperty_Get_Name()))
+        return self._get_string(self._check_for_error(self._lib.DSSProperty_Get_Name()))
 
     def _setCurrentProperty(self, argIndex_or_Name):
         """
@@ -42,13 +42,13 @@ class IProperties(Base):
         # Getter
         if len(args) == 0:
             # General getter
-            return self._get_string(self.CheckForError(self._lib.DSSProperty_Get_Val()))
+            return self._get_string(self._check_for_error(self._lib.DSSProperty_Get_Val()))
         elif len(args) == 1:
             # Getter by index as str or integer
             argIndex_or_Name, = args
 
             self._setCurrentProperty(argIndex_or_Name)
-            return self._get_string(self.CheckForError(self._lib.DSSProperty_Get_Val()))
+            return self._get_string(self._check_for_error(self._lib.DSSProperty_Get_Val()))
 
         # Setter by index as strs
         argIndex_or_Name, Value = args
@@ -57,7 +57,7 @@ class IProperties(Base):
 
         self._setCurrentProperty(argIndex_or_Name)
         self._lib.DSSProperty_Set_Val(Value)
-        self.CheckForError()
+        self._check_for_error()
 
 
 _Properties = IProperties(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)

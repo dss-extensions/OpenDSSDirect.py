@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Iterable
+from .Bases import Iterable
 
 
 class IVsources(Iterable):
@@ -17,11 +17,11 @@ class IVsources(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Vsources_Get_AngleDeg())
+            return self._check_for_error(self._lib.Vsources_Get_AngleDeg())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Vsources_Set_AngleDeg(Value))
+        self._check_for_error(self._lib.Vsources_Set_AngleDeg(Value))
 
     def BasekV(self, *args):
         """
@@ -31,11 +31,11 @@ class IVsources(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Vsources_Get_BasekV())
+            return self._check_for_error(self._lib.Vsources_Get_BasekV())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Vsources_Set_BasekV(Value))
+        self._check_for_error(self._lib.Vsources_Set_BasekV(Value))
 
     def Frequency(self, *args):
         """
@@ -45,11 +45,11 @@ class IVsources(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Vsources_Get_Frequency())
+            return self._check_for_error(self._lib.Vsources_Get_Frequency())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Vsources_Set_Frequency(Value))
+        self._check_for_error(self._lib.Vsources_Set_Frequency(Value))
 
     def Phases(self, *args):
         """
@@ -59,11 +59,11 @@ class IVsources(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Vsources_Get_Phases())
+            return self._check_for_error(self._lib.Vsources_Get_Phases())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Vsources_Set_Phases(Value))
+        self._check_for_error(self._lib.Vsources_Set_Phases(Value))
 
     def PU(self, *args):
         """
@@ -73,11 +73,11 @@ class IVsources(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Vsources_Get_pu())
+            return self._check_for_error(self._lib.Vsources_Get_pu())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Vsources_Set_pu(Value))
+        self._check_for_error(self._lib.Vsources_Set_pu(Value))
 
 
 _Vsources = IVsources(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)

@@ -1,6 +1,6 @@
 import numpy as np
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Base
+from .Bases import Base
 from dss import SparseSolverOptions
 
 
@@ -42,34 +42,34 @@ class IYMatrix(Base):
         self._lib.DSS_Dispose_PInteger(ColPtr)
         self._lib.DSS_Dispose_PInteger(RowIdxPtr)
         self._lib.DSS_Dispose_PDouble(cValsPtr)
-        self.CheckForError()
+        self._check_for_error()
         return res
 
     def ZeroInjCurr(self):
-        self.CheckForError(self._lib.YMatrix_ZeroInjCurr())
+        self._check_for_error(self._lib.YMatrix_ZeroInjCurr())
 
     def GetSourceInjCurrents(self):
-        self.CheckForError(self._lib.YMatrix_GetSourceInjCurrents())
+        self._check_for_error(self._lib.YMatrix_GetSourceInjCurrents())
 
     def GetPCInjCurr(self):
-        self.CheckForError(self._lib.YMatrix_GetPCInjCurr())
+        self._check_for_error(self._lib.YMatrix_GetPCInjCurr())
 
     def BuildYMatrixD(self, BuildOps, AllocateVI):
-        self.CheckForError(self._lib.YMatrix_BuildYMatrixD(BuildOps, AllocateVI))
+        self._check_for_error(self._lib.YMatrix_BuildYMatrixD(BuildOps, AllocateVI))
 
     def AddInAuxCurrents(self, SType):
-        self.CheckForError(self._lib.YMatrix_AddInAuxCurrents(SType))
+        self._check_for_error(self._lib.YMatrix_AddInAuxCurrents(SType))
 
     def IVector(self):
         """Get access to the internal Current pointer"""
         IvectorPtr = self._api_util.ffi.new("double**")
-        self.CheckForError(self._lib.YMatrix_getIpointer(IvectorPtr))
+        self._check_for_error(self._lib.YMatrix_getIpointer(IvectorPtr))
         return IvectorPtr[0]
 
     def VVector(self):
         """Get access to the internal Voltage pointer"""
         VvectorPtr = self._api_util.ffi.new("double**")
-        self.CheckForError(self._lib.YMatrix_getVpointer(VvectorPtr))
+        self._check_for_error(self._lib.YMatrix_getVpointer(VvectorPtr))
         return VvectorPtr[0]
 
     def SolveSystem(self, NodeV=None):
@@ -79,26 +79,26 @@ class IYMatrix(Base):
             NodeVPtr = self._api_util.ffi.NULL
         else:
             NodeVPtr = self._api_util.ffi.cast("double *", NodeV.ctypes.data)
-        result = self.CheckForError(self._lib.YMatrix_SolveSystem(NodeVPtr))
+        result = self._check_for_error(self._lib.YMatrix_SolveSystem(NodeVPtr))
         return result
 
     def SystemYChanged(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.YMatrix_Get_SystemYChanged() != 0)
+            return self._check_for_error(self._lib.YMatrix_Get_SystemYChanged() != 0)
 
         # Setter
         (value,) = args
-        self.CheckForError(self._lib.YMatrix_Set_SystemYChanged(value))
+        self._check_for_error(self._lib.YMatrix_Set_SystemYChanged(value))
 
     def UseAuxCurrents(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.YMatrix_Get_UseAuxCurrents() != 0)
+            return self._check_for_error(self._lib.YMatrix_Get_UseAuxCurrents() != 0)
 
         # Setter
         (value,) = args
-        self.CheckForError(self._lib.YMatrix_Set_UseAuxCurrents(value))
+        self._check_for_error(self._lib.YMatrix_Set_UseAuxCurrents(value))
 
     def SolverOptions(self, *args):
         """Sparse solver options. See the enumeration SparseSolverOptions"""
@@ -114,48 +114,48 @@ class IYMatrix(Base):
         """Get the data from the internal Current pointer"""
         IvectorPtr = self.IVector()
         return self._api_util.ffi.unpack(
-            IvectorPtr, 2 * self.CheckForError(self._lib.Circuit_Get_NumNodes() + 1)
+            IvectorPtr, 2 * self._check_for_error(self._lib.Circuit_Get_NumNodes() + 1)
         )
 
     def getV(self):
         """Get the data from the internal Voltage pointer"""
         VvectorPtr = self.VVector()
         return self._api_util.ffi.unpack(
-            VvectorPtr, 2 * self.CheckForError(self._lib.Circuit_Get_NumNodes() + 1)
+            VvectorPtr, 2 * self._check_for_error(self._lib.Circuit_Get_NumNodes() + 1)
         )
 
     def CheckConvergence(self):
-        return self.CheckForError(self._lib.YMatrix_CheckConvergence() != 0)
+        return self._check_for_error(self._lib.YMatrix_CheckConvergence() != 0)
 
     def SetGeneratordQdV(self):
-        self.CheckForError(self._lib.YMatrix_SetGeneratordQdV())
+        self._check_for_error(self._lib.YMatrix_SetGeneratordQdV())
 
     def LoadsNeedUpdating(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.YMatrix_Get_LoadsNeedUpdating() != 0)
+            return self._check_for_error(self._lib.YMatrix_Get_LoadsNeedUpdating() != 0)
 
         # Setter
         (value,) = args
-        self.CheckForError(self._lib.YMatrix_Set_LoadsNeedUpdating(value))
+        self._check_for_error(self._lib.YMatrix_Set_LoadsNeedUpdating(value))
 
     def SolutionInitialized(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.YMatrix_Get_SolutionInitialized() != 0)
+            return self._check_for_error(self._lib.YMatrix_Get_SolutionInitialized() != 0)
 
         # Setter
         (value,) = args
-        self.CheckForError(self._lib.YMatrix_Set_SolutionInitialized(value))
+        self._check_for_error(self._lib.YMatrix_Set_SolutionInitialized(value))
 
     def Iteration(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.YMatrix_Get_Iteration())
+            return self._check_for_error(self._lib.YMatrix_Get_Iteration())
 
         # Setter
         (value,) = args
-        self.CheckForError(self._lib.YMatrix_Set_Iteration(value))
+        self._check_for_error(self._lib.YMatrix_Set_Iteration(value))
 
 
 _YMatrix = IYMatrix(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)

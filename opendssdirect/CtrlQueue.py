@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Base
+from .Bases import Base
 
 
 class ICtrlQueue(Base):
@@ -15,7 +15,7 @@ class ICtrlQueue(Base):
 
         Original COM help: https://opendss.epri.com/ClearActions.html
         """
-        self.CheckForError(self._lib.CtrlQueue_ClearActions())
+        self._check_for_error(self._lib.CtrlQueue_ClearActions())
 
     def ClearQueue(self):
         """
@@ -23,7 +23,7 @@ class ICtrlQueue(Base):
 
         Original COM help: https://opendss.epri.com/ClearQueue.html
         """
-        self.CheckForError(self._lib.CtrlQueue_ClearQueue())
+        self._check_for_error(self._lib.CtrlQueue_ClearQueue())
 
     def Delete(self, ActionHandle):
         """
@@ -33,7 +33,7 @@ class ICtrlQueue(Base):
 
         Original COM help: https://opendss.epri.com/Delete.html
         """
-        self.CheckForError(self._lib.CtrlQueue_Delete(ActionHandle))
+        self._check_for_error(self._lib.CtrlQueue_Delete(ActionHandle))
 
     def DoAllQueue(self):
         """
@@ -43,7 +43,7 @@ class ICtrlQueue(Base):
 
         Original COM help: https://opendss.epri.com/DoAllQueue.html
         """
-        self.CheckForError(self._lib.CtrlQueue_DoAllQueue())
+        self._check_for_error(self._lib.CtrlQueue_DoAllQueue())
 
     def Show(self):
         """
@@ -51,7 +51,7 @@ class ICtrlQueue(Base):
 
         Original COM help: https://opendss.epri.com/Show.html
         """
-        self.CheckForError(self._lib.CtrlQueue_Show())
+        self._check_for_error(self._lib.CtrlQueue_Show())
 
     def ActionCode(self):
         """
@@ -62,7 +62,7 @@ class ICtrlQueue(Base):
 
         Original COM help: https://opendss.epri.com/ActionCode.html
         """
-        return self.CheckForError(self._lib.CtrlQueue_Get_ActionCode())
+        return self._check_for_error(self._lib.CtrlQueue_Get_ActionCode())
 
     def DeviceHandle(self):
         """
@@ -75,7 +75,7 @@ class ICtrlQueue(Base):
 
         Original COM help: https://opendss.epri.com/DeviceHandle.html
         """
-        return self.CheckForError(self._lib.CtrlQueue_Get_DeviceHandle())
+        return self._check_for_error(self._lib.CtrlQueue_Get_DeviceHandle())
 
     def NumActions(self):
         """
@@ -83,7 +83,7 @@ class ICtrlQueue(Base):
 
         Original COM help: https://opendss.epri.com/NumActions.html
         """
-        return self.CheckForError(self._lib.CtrlQueue_Get_NumActions())
+        return self._check_for_error(self._lib.CtrlQueue_Get_NumActions())
 
     def Push(self, Hour, Seconds, ActionCode, DeviceHandle):
         """
@@ -91,7 +91,7 @@ class ICtrlQueue(Base):
 
         Original COM help: https://opendss.epri.com/Push.html
         """
-        return self.CheckForError(
+        return self._check_for_error(
             self._lib.CtrlQueue_Push(Hour, Seconds, ActionCode, DeviceHandle)
         )
 
@@ -101,7 +101,7 @@ class ICtrlQueue(Base):
 
         Original COM help: https://opendss.epri.com/PopAction.html
         """
-        return self.CheckForError(self._lib.CtrlQueue_Get_PopAction())
+        return self._check_for_error(self._lib.CtrlQueue_Get_PopAction())
 
     def Queue(self):
         """
@@ -109,7 +109,7 @@ class ICtrlQueue(Base):
 
         Original COM help: https://opendss.epri.com/Queue.html
         """
-        return self.CheckForError(self._get_string_array(self._lib.CtrlQueue_Get_Queue))
+        return self._check_for_error(self._get_string_array(self._lib.CtrlQueue_Get_Queue))
 
     def QueueSize(self):
         """
@@ -117,7 +117,7 @@ class ICtrlQueue(Base):
 
         Original COM help: https://opendss.epri.com/QueueSize.html
         """
-        return self.CheckForError(self._lib.CtrlQueue_Get_QueueSize())
+        return self._check_for_error(self._lib.CtrlQueue_Get_QueueSize())
 
     def Action(self, Param1):
         """
@@ -125,7 +125,7 @@ class ICtrlQueue(Base):
 
         Original COM help: https://opendss.epri.com/Action.html
         """
-        self.CheckForError(self._lib.CtrlQueue_Set_Action(Param1))
+        self._check_for_error(self._lib.CtrlQueue_Set_Action(Param1))
 
 
 _CtrlQueue = ICtrlQueue(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)

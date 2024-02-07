@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Base
+from .Bases import Base
 
 
 class IParser(Base):
@@ -18,17 +18,17 @@ class IParser(Base):
 
     def Matrix(self, ExpectedOrder):
         """Use this property to parse a Matrix token in OpenDSS format.  Returns square matrix of order specified. Order same as default Fortran order: column by column."""
-        self.CheckForError(self._lib.Parser_Get_Matrix_GR(ExpectedOrder))
+        self._check_for_error(self._lib.Parser_Get_Matrix_GR(ExpectedOrder))
         return self._get_float64_gr_array()
 
     def SymMatrix(self, ExpectedOrder):
         """Use this property to parse a matrix token specified in lower triangle form. Symmetry is forced."""
-        self.CheckForError(self._lib.Parser_Get_SymMatrix_GR(ExpectedOrder))
+        self._check_for_error(self._lib.Parser_Get_SymMatrix_GR(ExpectedOrder))
         return self._get_float64_gr_array()
 
     def Vector(self, ExpectedSize):
         """Returns token as array of doubles. For parsing quoted array syntax."""
-        self.CheckForError(self._lib.Parser_Get_Vector_GR(ExpectedSize))
+        self._check_for_error(self._lib.Parser_Get_Vector_GR(ExpectedSize))
         return self._get_float64_gr_array()
 
     def ResetDelimiters(self):
@@ -37,7 +37,7 @@ class IParser(Base):
 
         Original COM help: https://opendss.epri.com/ResetDelimiters.html
         """
-        self.CheckForError(self._lib.Parser_ResetDelimiters())
+        self._check_for_error(self._lib.Parser_ResetDelimiters())
 
     def AutoIncrement(self, *args):
         """
@@ -47,11 +47,11 @@ class IParser(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Parser_Get_AutoIncrement()) != 0
+            return self._check_for_error(self._lib.Parser_Get_AutoIncrement()) != 0
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Parser_Set_AutoIncrement(Value))
+        self._check_for_error(self._lib.Parser_Set_AutoIncrement(Value))
 
     def BeginQuote(self, *args):
         """
@@ -62,14 +62,14 @@ class IParser(Base):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.Parser_Get_BeginQuote())
+                self._check_for_error(self._lib.Parser_Get_BeginQuote())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Parser_Set_BeginQuote(Value))
+        self._check_for_error(self._lib.Parser_Set_BeginQuote(Value))
 
     def CmdString(self, *args):
         """
@@ -80,14 +80,14 @@ class IParser(Base):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.Parser_Get_CmdString())
+                self._check_for_error(self._lib.Parser_Get_CmdString())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Parser_Set_CmdString(Value))
+        self._check_for_error(self._lib.Parser_Set_CmdString(Value))
 
     def DblValue(self):
         """
@@ -95,7 +95,7 @@ class IParser(Base):
 
         Original COM help: https://opendss.epri.com/DblValue.html
         """
-        return self.CheckForError(self._lib.Parser_Get_DblValue())
+        return self._check_for_error(self._lib.Parser_Get_DblValue())
 
     def Delimiters(self, *args):
         """
@@ -106,14 +106,14 @@ class IParser(Base):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.Parser_Get_Delimiters())
+                self._check_for_error(self._lib.Parser_Get_Delimiters())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Parser_Set_Delimiters(Value))
+        self._check_for_error(self._lib.Parser_Set_Delimiters(Value))
 
     def EndQuote(self, *args):
         """
@@ -123,13 +123,13 @@ class IParser(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(self.CheckForError(self._lib.Parser_Get_EndQuote()))
+            return self._get_string(self._check_for_error(self._lib.Parser_Get_EndQuote()))
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Parser_Set_EndQuote(Value))
+        self._check_for_error(self._lib.Parser_Set_EndQuote(Value))
 
     def IntValue(self):
         """
@@ -137,7 +137,7 @@ class IParser(Base):
 
         Original COM help: https://opendss.epri.com/IntValue.html
         """
-        return self.CheckForError(self._lib.Parser_Get_IntValue())
+        return self._check_for_error(self._lib.Parser_Get_IntValue())
 
     def NextParam(self):
         """
@@ -145,7 +145,7 @@ class IParser(Base):
 
         Original COM help: https://opendss.epri.com/NextParam.html
         """
-        return self._get_string(self.CheckForError(self._lib.Parser_Get_NextParam()))
+        return self._get_string(self._check_for_error(self._lib.Parser_Get_NextParam()))
 
     def StrValue(self):
         """
@@ -153,7 +153,7 @@ class IParser(Base):
 
         Original COM help: https://opendss.epri.com/StrValue.html
         """
-        return self._get_string(self.CheckForError(self._lib.Parser_Get_StrValue()))
+        return self._get_string(self._check_for_error(self._lib.Parser_Get_StrValue()))
 
     def WhiteSpace(self, *args):
         """
@@ -164,14 +164,14 @@ class IParser(Base):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.Parser_Get_WhiteSpace())
+                self._check_for_error(self._lib.Parser_Get_WhiteSpace())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Parser_Set_WhiteSpace(Value))
+        self._check_for_error(self._lib.Parser_Set_WhiteSpace(Value))
 
 
 _Parser = IParser(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)

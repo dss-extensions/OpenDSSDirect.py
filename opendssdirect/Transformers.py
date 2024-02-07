@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Iterable
+from .Bases import Iterable
 from dss import CoreType as TransformerCoreType
 
 class ITransformers(Iterable):
@@ -41,11 +41,11 @@ class ITransformers(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Transformers_Get_IsDelta()) != 0
+            return self._check_for_error(self._lib.Transformers_Get_IsDelta()) != 0
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Transformers_Set_IsDelta(Value))
+        self._check_for_error(self._lib.Transformers_Set_IsDelta(Value))
 
     def MaxTap(self, *args):
         """
@@ -55,11 +55,11 @@ class ITransformers(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Transformers_Get_MaxTap())
+            return self._check_for_error(self._lib.Transformers_Get_MaxTap())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Transformers_Set_MaxTap(Value))
+        self._check_for_error(self._lib.Transformers_Set_MaxTap(Value))
 
     def MinTap(self, *args):
         """
@@ -69,11 +69,11 @@ class ITransformers(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Transformers_Get_MinTap())
+            return self._check_for_error(self._lib.Transformers_Get_MinTap())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Transformers_Set_MinTap(Value))
+        self._check_for_error(self._lib.Transformers_Set_MinTap(Value))
 
     def NumTaps(self, *args):
         """
@@ -83,11 +83,11 @@ class ITransformers(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Transformers_Get_NumTaps())
+            return self._check_for_error(self._lib.Transformers_Get_NumTaps())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Transformers_Set_NumTaps(Value))
+        self._check_for_error(self._lib.Transformers_Set_NumTaps(Value))
 
     def NumWindings(self, *args):
         """
@@ -97,11 +97,11 @@ class ITransformers(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Transformers_Get_NumWindings())
+            return self._check_for_error(self._lib.Transformers_Get_NumWindings())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Transformers_Set_NumWindings(Value))
+        self._check_for_error(self._lib.Transformers_Set_NumWindings(Value))
 
     def R(self, *args):
         """
@@ -111,11 +111,11 @@ class ITransformers(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Transformers_Get_R())
+            return self._check_for_error(self._lib.Transformers_Get_R())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Transformers_Set_R(Value))
+        self._check_for_error(self._lib.Transformers_Set_R(Value))
 
     def Rneut(self, *args):
         """
@@ -125,11 +125,11 @@ class ITransformers(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Transformers_Get_Rneut())
+            return self._check_for_error(self._lib.Transformers_Get_Rneut())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Transformers_Set_Rneut(Value))
+        self._check_for_error(self._lib.Transformers_Set_Rneut(Value))
 
     def Tap(self, *args):
         """
@@ -139,11 +139,11 @@ class ITransformers(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Transformers_Get_Tap())
+            return self._check_for_error(self._lib.Transformers_Get_Tap())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Transformers_Set_Tap(Value))
+        self._check_for_error(self._lib.Transformers_Set_Tap(Value))
 
     def Wdg(self, *args):
         """
@@ -153,11 +153,11 @@ class ITransformers(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Transformers_Get_Wdg())
+            return self._check_for_error(self._lib.Transformers_Get_Wdg())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Transformers_Set_Wdg(Value))
+        self._check_for_error(self._lib.Transformers_Set_Wdg(Value))
 
     def XfmrCode(self, *args):
         """
@@ -168,14 +168,14 @@ class ITransformers(Iterable):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.Transformers_Get_XfmrCode())
+                self._check_for_error(self._lib.Transformers_Get_XfmrCode())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Transformers_Set_XfmrCode(Value))
+        self._check_for_error(self._lib.Transformers_Set_XfmrCode(Value))
 
     def Xhl(self, *args):
         """
@@ -185,11 +185,11 @@ class ITransformers(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Transformers_Get_Xhl())
+            return self._check_for_error(self._lib.Transformers_Get_Xhl())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Transformers_Set_Xhl(Value))
+        self._check_for_error(self._lib.Transformers_Set_Xhl(Value))
 
     def Xht(self, *args):
         """
@@ -199,11 +199,11 @@ class ITransformers(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Transformers_Get_Xht())
+            return self._check_for_error(self._lib.Transformers_Get_Xht())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Transformers_Set_Xht(Value))
+        self._check_for_error(self._lib.Transformers_Set_Xht(Value))
 
     def Xlt(self, *args):
         """
@@ -213,11 +213,11 @@ class ITransformers(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Transformers_Get_Xlt())
+            return self._check_for_error(self._lib.Transformers_Get_Xlt())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Transformers_Set_Xlt(Value))
+        self._check_for_error(self._lib.Transformers_Set_Xlt(Value))
 
     def Xneut(self, *args):
         """
@@ -227,11 +227,11 @@ class ITransformers(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Transformers_Get_Xneut())
+            return self._check_for_error(self._lib.Transformers_Get_Xneut())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Transformers_Set_Xneut(Value))
+        self._check_for_error(self._lib.Transformers_Set_Xneut(Value))
 
     def kV(self, *args):
         """
@@ -241,11 +241,11 @@ class ITransformers(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Transformers_Get_kV())
+            return self._check_for_error(self._lib.Transformers_Get_kV())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Transformers_Set_kV(Value))
+        self._check_for_error(self._lib.Transformers_Set_kV(Value))
 
     def kVA(self, *args):
         """
@@ -255,11 +255,11 @@ class ITransformers(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Transformers_Get_kVA())
+            return self._check_for_error(self._lib.Transformers_Get_kVA())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Transformers_Set_kVA(Value))
+        self._check_for_error(self._lib.Transformers_Set_kVA(Value))
 
     def WdgVoltages(self):
         """
@@ -270,7 +270,7 @@ class ITransformers(Iterable):
 
         Original COM help: https://opendss.epri.com/WdgVoltages.html
         """
-        self.CheckForError(self._lib.Transformers_Get_WdgVoltages_GR())
+        self._check_for_error(self._lib.Transformers_Get_WdgVoltages_GR())
         return self._get_complex128_gr_array()
 
     def WdgCurrents(self):
@@ -282,7 +282,7 @@ class ITransformers(Iterable):
 
         Original COM help: https://opendss.epri.com/WdgCurrents.html
         """
-        self.CheckForError(self._lib.Transformers_Get_WdgCurrents_GR())
+        self._check_for_error(self._lib.Transformers_Get_WdgCurrents_GR())
         return self._get_complex128_gr_array()
 
     def strWdgCurrents(self):
@@ -293,7 +293,7 @@ class ITransformers(Iterable):
         in those situations. For more information, see https://github.com/dss-extensions/dss-extensions/issues/24
         """
         return self._get_string(
-            self.CheckForError(self._lib.Transformers_Get_strWdgCurrents())
+            self._check_for_error(self._lib.Transformers_Get_strWdgCurrents())
         )
 
     def CoreType(self, *args):
@@ -305,12 +305,12 @@ class ITransformers(Iterable):
         # Getter
         if len(args) == 0:
             return TransformerCoreType(
-                self.CheckForError(self._lib.Transformers_Get_CoreType())
+                self._check_for_error(self._lib.Transformers_Get_CoreType())
             )
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Transformers_Set_CoreType(Value))
+        self._check_for_error(self._lib.Transformers_Set_CoreType(Value))
 
     def RdcOhms(self, *args):
         """
@@ -320,11 +320,11 @@ class ITransformers(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Transformers_Get_RdcOhms())
+            return self._check_for_error(self._lib.Transformers_Get_RdcOhms())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Transformers_Set_RdcOhms(Value))
+        self._check_for_error(self._lib.Transformers_Set_RdcOhms(Value))
 
     def LossesByType(self):
         """
@@ -332,7 +332,7 @@ class ITransformers(Iterable):
 
         **(API Extension)**
         """
-        self.CheckForError(self._lib.Transformers_Get_LossesByType_GR())
+        self._check_for_error(self._lib.Transformers_Get_LossesByType_GR())
         return self._get_complex128_gr_array()
 
     def AllLossesByType(self):
@@ -341,7 +341,7 @@ class ITransformers(Iterable):
 
         **(API Extension)**
         """
-        self.CheckForError(self._lib.Transformers_Get_AllLossesByType_GR())
+        self._check_for_error(self._lib.Transformers_Get_AllLossesByType_GR())
         return self._get_complex128_gr_array()
 
 

@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Iterable
+from .Bases import Iterable
 
 
 class ISwtControls(Iterable):
@@ -20,7 +20,7 @@ class ISwtControls(Iterable):
     ]
 
     def Reset(self):
-        self.CheckForError(self._lib.SwtControls_Reset())
+        self._check_for_error(self._lib.SwtControls_Reset())
 
     def Action(self, *args):
         """
@@ -30,11 +30,11 @@ class ISwtControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.SwtControls_Get_Action())
+            return self._check_for_error(self._lib.SwtControls_Get_Action())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.SwtControls_Set_Action(Value))
+        self._check_for_error(self._lib.SwtControls_Set_Action(Value))
 
     def Delay(self, *args):
         """
@@ -44,11 +44,11 @@ class ISwtControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.SwtControls_Get_Delay())
+            return self._check_for_error(self._lib.SwtControls_Get_Delay())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.SwtControls_Set_Delay(Value))
+        self._check_for_error(self._lib.SwtControls_Set_Delay(Value))
 
     def IsLocked(self, *args):
         """
@@ -58,11 +58,11 @@ class ISwtControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.SwtControls_Get_IsLocked()) != 0
+            return self._check_for_error(self._lib.SwtControls_Get_IsLocked()) != 0
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.SwtControls_Set_IsLocked(Value))
+        self._check_for_error(self._lib.SwtControls_Set_IsLocked(Value))
 
     def NormalState(self, *args):
         """
@@ -71,12 +71,12 @@ class ISwtControls(Iterable):
         # Getter
         if len(args) == 0:
             return ActionCodes(
-                self.CheckForError(self._lib.SwtControls_Get_NormalState())
+                self._check_for_error(self._lib.SwtControls_Get_NormalState())
             )
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.SwtControls_Set_NormalState(Value))
+        self._check_for_error(self._lib.SwtControls_Set_NormalState(Value))
 
     def State(self, *args):
         """
@@ -86,11 +86,11 @@ class ISwtControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.SwtControls_Get_State())
+            return self._check_for_error(self._lib.SwtControls_Get_State())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.SwtControls_Set_State(Value))
+        self._check_for_error(self._lib.SwtControls_Set_State(Value))
 
     def SwitchedObj(self, *args):
         """
@@ -101,14 +101,14 @@ class ISwtControls(Iterable):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.SwtControls_Get_SwitchedObj())
+                self._check_for_error(self._lib.SwtControls_Get_SwitchedObj())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.SwtControls_Set_SwitchedObj(Value))
+        self._check_for_error(self._lib.SwtControls_Set_SwitchedObj(Value))
 
     def SwitchedTerm(self, *args):
         """
@@ -118,11 +118,11 @@ class ISwtControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.SwtControls_Get_SwitchedTerm())
+            return self._check_for_error(self._lib.SwtControls_Get_SwitchedTerm())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.SwtControls_Set_SwitchedTerm(Value))
+        self._check_for_error(self._lib.SwtControls_Set_SwitchedTerm(Value))
 
 
 _SwtControls = ISwtControls(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)

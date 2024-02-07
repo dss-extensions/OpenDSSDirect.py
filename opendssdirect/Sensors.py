@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Iterable
+from .Bases import Iterable
 
 
 class ISensors(Iterable):
@@ -25,10 +25,10 @@ class ISensors(Iterable):
     ]
 
     def Reset(self):
-        self.CheckForError(self._lib.Sensors_Reset())
+        self._check_for_error(self._lib.Sensors_Reset())
 
     def ResetAll(self):
-        self.CheckForError(self._lib.Sensors_ResetAll())
+        self._check_for_error(self._lib.Sensors_ResetAll())
 
     def Currents(self, *args):
         """
@@ -38,13 +38,13 @@ class ISensors(Iterable):
         """
         # Getter
         if len(args) == 0:
-            self.CheckForError(self._lib.Sensors_Get_Currents_GR())
+            self._check_for_error(self._lib.Sensors_Get_Currents_GR())
             return self._get_float64_gr_array()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self.CheckForError(self._lib.Sensors_Set_Currents(ValuePtr, ValueCount))
+        self._check_for_error(self._lib.Sensors_Set_Currents(ValuePtr, ValueCount))
 
     def IsDelta(self, *args):
         """
@@ -54,11 +54,11 @@ class ISensors(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Sensors_Get_IsDelta()) != 0
+            return self._check_for_error(self._lib.Sensors_Get_IsDelta()) != 0
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Sensors_Set_IsDelta(Value))
+        self._check_for_error(self._lib.Sensors_Set_IsDelta(Value))
 
     def MeteredElement(self, *args):
         """
@@ -69,14 +69,14 @@ class ISensors(Iterable):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.Sensors_Get_MeteredElement())
+                self._check_for_error(self._lib.Sensors_Get_MeteredElement())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Sensors_Set_MeteredElement(Value))
+        self._check_for_error(self._lib.Sensors_Set_MeteredElement(Value))
 
     def MeteredTerminal(self, *args):
         """
@@ -86,11 +86,11 @@ class ISensors(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Sensors_Get_MeteredTerminal())
+            return self._check_for_error(self._lib.Sensors_Get_MeteredTerminal())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Sensors_Set_MeteredTerminal(Value))
+        self._check_for_error(self._lib.Sensors_Set_MeteredTerminal(Value))
 
     def PctError(self, *args):
         """
@@ -100,11 +100,11 @@ class ISensors(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Sensors_Get_PctError())
+            return self._check_for_error(self._lib.Sensors_Get_PctError())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Sensors_Set_PctError(Value))
+        self._check_for_error(self._lib.Sensors_Set_PctError(Value))
 
     def ReverseDelta(self, *args):
         """
@@ -114,11 +114,11 @@ class ISensors(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Sensors_Get_ReverseDelta()) != 0
+            return self._check_for_error(self._lib.Sensors_Get_ReverseDelta()) != 0
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Sensors_Set_ReverseDelta(Value))
+        self._check_for_error(self._lib.Sensors_Set_ReverseDelta(Value))
 
     def Weight(self, *args):
         """
@@ -128,11 +128,11 @@ class ISensors(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Sensors_Get_Weight())
+            return self._check_for_error(self._lib.Sensors_Get_Weight())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Sensors_Set_Weight(Value))
+        self._check_for_error(self._lib.Sensors_Set_Weight(Value))
 
     def kvar(self, *args):
         """
@@ -142,13 +142,13 @@ class ISensors(Iterable):
         """
         # Getter
         if len(args) == 0:
-            self.CheckForError(self._lib.Sensors_Get_kVARS_GR())
+            self._check_for_error(self._lib.Sensors_Get_kVARS_GR())
             return self._get_float64_gr_array()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self.CheckForError(self._lib.Sensors_Set_kVARS(ValuePtr, ValueCount))
+        self._check_for_error(self._lib.Sensors_Set_kVARS(ValuePtr, ValueCount))
 
     def kVS(self, *args):
         """
@@ -158,13 +158,13 @@ class ISensors(Iterable):
         """
         # Getter
         if len(args) == 0:
-            self.CheckForError(self._lib.Sensors_Get_kVS_GR())
+            self._check_for_error(self._lib.Sensors_Get_kVS_GR())
             return self._get_float64_gr_array()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self.CheckForError(self._lib.Sensors_Set_kVS(ValuePtr, ValueCount))
+        self._check_for_error(self._lib.Sensors_Set_kVS(ValuePtr, ValueCount))
 
     def kVBase(self, *args):
         """
@@ -174,11 +174,11 @@ class ISensors(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Sensors_Get_kVbase())
+            return self._check_for_error(self._lib.Sensors_Get_kVbase())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Sensors_Set_kVbase(Value))
+        self._check_for_error(self._lib.Sensors_Set_kVbase(Value))
 
     def kW(self, *args):
         """
@@ -188,13 +188,13 @@ class ISensors(Iterable):
         """
         # Getter
         if len(args) == 0:
-            self.CheckForError(self._lib.Sensors_Get_kWS_GR())
+            self._check_for_error(self._lib.Sensors_Get_kWS_GR())
             return self._get_float64_gr_array()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self.CheckForError(self._lib.Sensors_Set_kWS(ValuePtr, ValueCount))
+        self._check_for_error(self._lib.Sensors_Set_kWS(ValuePtr, ValueCount))
 
     def AllocationFactor(self):
         """
@@ -202,7 +202,7 @@ class ISensors(Iterable):
 
         Original COM help: https://opendss.epri.com/AllocationFactor1.html
         """
-        self.CheckForError(self._lib.Sensors_Get_AllocationFactor_GR())
+        self._check_for_error(self._lib.Sensors_Get_AllocationFactor_GR())
         return self._get_float64_gr_array()
 
 

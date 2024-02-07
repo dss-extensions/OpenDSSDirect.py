@@ -5,7 +5,7 @@ from typing import AnyStr, List, Union
 from ._utils import DSSException, dss_py, OPENDSSDIRECT_PY_USE_NUMPY
 from ._utils import lib as dss_lib
 from ._utils import ffi as dss_ffi
-from .Iterable import Base
+from .Bases import Base
 from . import utils as _utils
 from .utils import run_command
 from .ActiveClass import _ActiveClass, IActiveClass
@@ -403,9 +403,9 @@ class OpenDSSDirect(Base):
         if isinstance(cmds, (str, bytes)):
             if type(cmds) is not bytes:
                 cmds = cmds.encode(self._api_util.codec)
-            self.CheckForError(self._lib.Text_CommandBlock(cmds))
+            self._check_for_error(self._lib.Text_CommandBlock(cmds))
         else:
-            self.CheckForError(
+            self._check_for_error(
                 self._set_string_array(self._lib.Text_CommandArray, cmds)
             )
 

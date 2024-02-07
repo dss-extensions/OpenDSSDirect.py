@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Iterable
+from .Bases import Iterable
 from dss import LoadStatus
 
 
@@ -57,11 +57,11 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Loads_Get_AllocationFactor())
+            return self._check_for_error(self._lib.Loads_Get_AllocationFactor())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Loads_Set_AllocationFactor(Value))
+        self._check_for_error(self._lib.Loads_Set_AllocationFactor(Value))
 
     def CVRCurve(self, *args):
         """
@@ -71,13 +71,13 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(self.CheckForError(self._lib.Loads_Get_CVRcurve()))
+            return self._get_string(self._check_for_error(self._lib.Loads_Get_CVRcurve()))
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Loads_Set_CVRcurve(Value))
+        self._check_for_error(self._lib.Loads_Set_CVRcurve(Value))
 
     def CVRvars(self, *args):
         """
@@ -87,11 +87,11 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Loads_Get_CVRvars())
+            return self._check_for_error(self._lib.Loads_Get_CVRvars())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Loads_Set_CVRvars(Value))
+        self._check_for_error(self._lib.Loads_Set_CVRvars(Value))
 
     def CVRwatts(self, *args):
         """
@@ -101,11 +101,11 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Loads_Get_CVRwatts())
+            return self._check_for_error(self._lib.Loads_Get_CVRwatts())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Loads_Set_CVRwatts(Value))
+        self._check_for_error(self._lib.Loads_Set_CVRwatts(Value))
 
     def CFactor(self, *args):
         """
@@ -115,11 +115,11 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Loads_Get_Cfactor())
+            return self._check_for_error(self._lib.Loads_Get_Cfactor())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Loads_Set_Cfactor(Value))
+        self._check_for_error(self._lib.Loads_Set_Cfactor(Value))
 
     def Class(self, *args):
         """
@@ -129,11 +129,11 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Loads_Get_Class_())
+            return self._check_for_error(self._lib.Loads_Get_Class_())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Loads_Set_Class_(Value))
+        self._check_for_error(self._lib.Loads_Set_Class_(Value))
 
     def Growth(self, *args):
         """
@@ -143,13 +143,13 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(self.CheckForError(self._lib.Loads_Get_Growth()))
+            return self._get_string(self._check_for_error(self._lib.Loads_Get_Growth()))
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Loads_Set_Growth(Value))
+        self._check_for_error(self._lib.Loads_Set_Growth(Value))
 
     def IsDelta(self, *args):
         """
@@ -159,11 +159,11 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Loads_Get_IsDelta()) != 0
+            return self._check_for_error(self._lib.Loads_Get_IsDelta()) != 0
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Loads_Set_IsDelta(Value))
+        self._check_for_error(self._lib.Loads_Set_IsDelta(Value))
 
     def Model(self, *args):
         """
@@ -173,11 +173,11 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Loads_Get_Model())
+            return self._check_for_error(self._lib.Loads_Get_Model())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Loads_Set_Model(Value))
+        self._check_for_error(self._lib.Loads_Set_Model(Value))
 
     def NumCust(self, *args):
         """
@@ -187,11 +187,11 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Loads_Get_NumCust())
+            return self._check_for_error(self._lib.Loads_Get_NumCust())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Loads_Set_NumCust(Value))
+        self._check_for_error(self._lib.Loads_Set_NumCust(Value))
 
     def PF(self, *args):
         """
@@ -201,11 +201,11 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Loads_Get_PF())
+            return self._check_for_error(self._lib.Loads_Get_PF())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Loads_Set_PF(Value))
+        self._check_for_error(self._lib.Loads_Set_PF(Value))
 
     def PctMean(self, *args):
         """
@@ -215,11 +215,11 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Loads_Get_PctMean())
+            return self._check_for_error(self._lib.Loads_Get_PctMean())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Loads_Set_PctMean(Value))
+        self._check_for_error(self._lib.Loads_Set_PctMean(Value))
 
     def PctStdDev(self, *args):
         """
@@ -229,11 +229,11 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Loads_Get_PctStdDev())
+            return self._check_for_error(self._lib.Loads_Get_PctStdDev())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Loads_Set_PctStdDev(Value))
+        self._check_for_error(self._lib.Loads_Set_PctStdDev(Value))
 
     def RelWeighting(self, *args):
         """
@@ -243,11 +243,11 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Loads_Get_RelWeight())
+            return self._check_for_error(self._lib.Loads_Get_RelWeight())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Loads_Set_RelWeight(Value))
+        self._check_for_error(self._lib.Loads_Set_RelWeight(Value))
 
     def Rneut(self, *args):
         """
@@ -257,11 +257,11 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Loads_Get_Rneut())
+            return self._check_for_error(self._lib.Loads_Get_Rneut())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Loads_Set_Rneut(Value))
+        self._check_for_error(self._lib.Loads_Set_Rneut(Value))
 
     def Spectrum(self, *args):
         """
@@ -271,13 +271,13 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(self.CheckForError(self._lib.Loads_Get_Spectrum()))
+            return self._get_string(self._check_for_error(self._lib.Loads_Get_Spectrum()))
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Loads_Set_Spectrum(Value))
+        self._check_for_error(self._lib.Loads_Set_Spectrum(Value))
 
     def Status(self, *args):
         """
@@ -287,11 +287,11 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return LoadStatus(self.CheckForError(self._lib.Loads_Get_Status()))
+            return LoadStatus(self._check_for_error(self._lib.Loads_Get_Status()))
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Loads_Set_Status(Value))
+        self._check_for_error(self._lib.Loads_Set_Status(Value))
 
     def Vmaxpu(self, *args):
         """
@@ -301,11 +301,11 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Loads_Get_Vmaxpu())
+            return self._check_for_error(self._lib.Loads_Get_Vmaxpu())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Loads_Set_Vmaxpu(Value))
+        self._check_for_error(self._lib.Loads_Set_Vmaxpu(Value))
 
     def VminEmerg(self, *args):
         """
@@ -315,11 +315,11 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Loads_Get_Vminemerg())
+            return self._check_for_error(self._lib.Loads_Get_Vminemerg())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Loads_Set_Vminemerg(Value))
+        self._check_for_error(self._lib.Loads_Set_Vminemerg(Value))
 
     def VminNorm(self, *args):
         """
@@ -329,11 +329,11 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Loads_Get_Vminnorm())
+            return self._check_for_error(self._lib.Loads_Get_Vminnorm())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Loads_Set_Vminnorm(Value))
+        self._check_for_error(self._lib.Loads_Set_Vminnorm(Value))
 
     def Vminpu(self, *args):
         """
@@ -343,11 +343,11 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Loads_Get_Vminpu())
+            return self._check_for_error(self._lib.Loads_Get_Vminpu())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Loads_Set_Vminpu(Value))
+        self._check_for_error(self._lib.Loads_Set_Vminpu(Value))
 
     def Xneut(self, *args):
         """
@@ -357,11 +357,11 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Loads_Get_Xneut())
+            return self._check_for_error(self._lib.Loads_Get_Xneut())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Loads_Set_Xneut(Value))
+        self._check_for_error(self._lib.Loads_Set_Xneut(Value))
 
     def Yearly(self, *args):
         """
@@ -371,13 +371,13 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(self.CheckForError(self._lib.Loads_Get_Yearly()))
+            return self._get_string(self._check_for_error(self._lib.Loads_Get_Yearly()))
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Loads_Set_Yearly(Value))
+        self._check_for_error(self._lib.Loads_Set_Yearly(Value))
 
     def ZipV(self, *args):
         """
@@ -387,13 +387,13 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            self.CheckForError(self._lib.Loads_Get_ZIPV_GR())
+            self._check_for_error(self._lib.Loads_Get_ZIPV_GR())
             return self._get_float64_gr_array()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self.CheckForError(self._lib.Loads_Set_ZIPV(ValuePtr, ValueCount))
+        self._check_for_error(self._lib.Loads_Set_ZIPV(ValuePtr, ValueCount))
 
     def Daily(self, *args):
         """
@@ -403,13 +403,13 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(self.CheckForError(self._lib.Loads_Get_daily()))
+            return self._get_string(self._check_for_error(self._lib.Loads_Get_daily()))
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Loads_Set_daily(Value))
+        self._check_for_error(self._lib.Loads_Set_daily(Value))
 
     def Duty(self, *args):
         """
@@ -419,13 +419,13 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(self.CheckForError(self._lib.Loads_Get_duty()))
+            return self._get_string(self._check_for_error(self._lib.Loads_Get_duty()))
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Loads_Set_duty(Value))
+        self._check_for_error(self._lib.Loads_Set_duty(Value))
 
     def kV(self, *args):
         """
@@ -435,11 +435,11 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Loads_Get_kV())
+            return self._check_for_error(self._lib.Loads_Get_kV())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Loads_Set_kV(Value))
+        self._check_for_error(self._lib.Loads_Set_kV(Value))
 
     def kW(self, *args):
         """
@@ -449,11 +449,11 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Loads_Get_kW())
+            return self._check_for_error(self._lib.Loads_Get_kW())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Loads_Set_kW(Value))
+        self._check_for_error(self._lib.Loads_Set_kW(Value))
 
     def kVABase(self, *args):
         """
@@ -463,11 +463,11 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Loads_Get_kva())
+            return self._check_for_error(self._lib.Loads_Get_kva())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Loads_Set_kva(Value))
+        self._check_for_error(self._lib.Loads_Set_kva(Value))
 
     def kvar(self, *args):
         """Reactive power in kvar for active Load. If set, updates PF based on present kW.
@@ -476,11 +476,11 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Loads_Get_kvar())
+            return self._check_for_error(self._lib.Loads_Get_kvar())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Loads_Set_kvar(Value))
+        self._check_for_error(self._lib.Loads_Set_kvar(Value))
 
     def kWh(self, *args):
         """
@@ -490,11 +490,11 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Loads_Get_kwh())
+            return self._check_for_error(self._lib.Loads_Get_kwh())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Loads_Set_kwh(Value))
+        self._check_for_error(self._lib.Loads_Set_kwh(Value))
 
     def kWhDays(self, *args):
         """
@@ -504,11 +504,11 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Loads_Get_kwhdays())
+            return self._check_for_error(self._lib.Loads_Get_kwhdays())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Loads_Set_kwhdays(Value))
+        self._check_for_error(self._lib.Loads_Set_kwhdays(Value))
 
     def puSeriesRL(self, *args):
         """
@@ -518,11 +518,11 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Loads_Get_pctSeriesRL())
+            return self._check_for_error(self._lib.Loads_Get_pctSeriesRL())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Loads_Set_pctSeriesRL(Value))
+        self._check_for_error(self._lib.Loads_Set_pctSeriesRL(Value))
 
     def XfkVA(self, *args):
         """
@@ -532,11 +532,11 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Loads_Get_xfkVA())
+            return self._check_for_error(self._lib.Loads_Get_xfkVA())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Loads_Set_xfkVA(Value))
+        self._check_for_error(self._lib.Loads_Set_xfkVA(Value))
 
     def Sensor(self):
         """
@@ -544,7 +544,7 @@ class ILoads(Iterable):
 
         Original COM help: https://opendss.epri.com/Sensor.html
         """
-        return self._get_string(self.CheckForError(self._lib.Loads_Get_Sensor()))
+        return self._get_string(self._check_for_error(self._lib.Loads_Get_Sensor()))
 
     def Phases(self, *args):
         """
@@ -554,11 +554,11 @@ class ILoads(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Loads_Get_Phases())
+            return self._check_for_error(self._lib.Loads_Get_Phases())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Loads_Set_Phases(Value))
+        self._check_for_error(self._lib.Loads_Set_Phases(Value))
 
 
 _Loads = ILoads(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)

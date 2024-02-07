@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Iterable
+from .Bases import Iterable
 
 
 class IFuses(Iterable):
@@ -29,7 +29,7 @@ class IFuses(Iterable):
 
         Original COM help: https://opendss.epri.com/Close3.html
         """
-        self.CheckForError(self._lib.Fuses_Close())
+        self._check_for_error(self._lib.Fuses_Close())
 
     def IsBlown(self):
         """
@@ -37,7 +37,7 @@ class IFuses(Iterable):
 
         Original COM help: https://opendss.epri.com/IsBlown.html
         """
-        return self.CheckForError(self._lib.Fuses_IsBlown()) != 0
+        return self._check_for_error(self._lib.Fuses_IsBlown()) != 0
 
     def Open(self):
         """
@@ -45,7 +45,7 @@ class IFuses(Iterable):
 
         Original COM help: https://opendss.epri.com/Open2.html
         """
-        self.CheckForError(self._lib.Fuses_Open())
+        self._check_for_error(self._lib.Fuses_Open())
 
     def Reset(self):
         """
@@ -53,7 +53,7 @@ class IFuses(Iterable):
 
         Original COM help: https://opendss.epri.com/Reset7.html
         """
-        self.CheckForError(self._lib.Fuses_Reset())
+        self._check_for_error(self._lib.Fuses_Reset())
 
     def Delay(self, *args):
         """
@@ -64,11 +64,11 @@ class IFuses(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Fuses_Get_Delay())
+            return self._check_for_error(self._lib.Fuses_Get_Delay())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Fuses_Set_Delay(Value))
+        self._check_for_error(self._lib.Fuses_Set_Delay(Value))
 
     def MonitoredObj(self, *args):
         """
@@ -79,14 +79,14 @@ class IFuses(Iterable):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.Fuses_Get_MonitoredObj())
+                self._check_for_error(self._lib.Fuses_Get_MonitoredObj())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Fuses_Set_MonitoredObj(Value))
+        self._check_for_error(self._lib.Fuses_Set_MonitoredObj(Value))
 
     def MonitoredTerm(self, *args):
         """
@@ -96,11 +96,11 @@ class IFuses(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Fuses_Get_MonitoredTerm())
+            return self._check_for_error(self._lib.Fuses_Get_MonitoredTerm())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Fuses_Set_MonitoredTerm(Value))
+        self._check_for_error(self._lib.Fuses_Set_MonitoredTerm(Value))
 
     def NumPhases(self):
         """
@@ -108,7 +108,7 @@ class IFuses(Iterable):
 
         Original COM help: https://opendss.epri.com/NumPhases1.html
         """
-        return self.CheckForError(self._lib.Fuses_Get_NumPhases())
+        return self._check_for_error(self._lib.Fuses_Get_NumPhases())
 
     def RatedCurrent(self, *args):
         """
@@ -120,11 +120,11 @@ class IFuses(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Fuses_Get_RatedCurrent())
+            return self._check_for_error(self._lib.Fuses_Get_RatedCurrent())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Fuses_Set_RatedCurrent(Value))
+        self._check_for_error(self._lib.Fuses_Set_RatedCurrent(Value))
 
     def SwitchedObj(self, *args):
         """
@@ -136,14 +136,14 @@ class IFuses(Iterable):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.Fuses_Get_SwitchedObj())
+                self._check_for_error(self._lib.Fuses_Get_SwitchedObj())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Fuses_Set_SwitchedObj(Value))
+        self._check_for_error(self._lib.Fuses_Set_SwitchedObj(Value))
 
     def SwitchedTerm(self, *args):
         """
@@ -153,11 +153,11 @@ class IFuses(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Fuses_Get_SwitchedTerm())
+            return self._check_for_error(self._lib.Fuses_Get_SwitchedTerm())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Fuses_Set_SwitchedTerm(Value))
+        self._check_for_error(self._lib.Fuses_Set_SwitchedTerm(Value))
 
     def TCCCurve(self, *args):
         """
@@ -167,13 +167,13 @@ class IFuses(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(self.CheckForError(self._lib.Fuses_Get_TCCcurve()))
+            return self._get_string(self._check_for_error(self._lib.Fuses_Get_TCCcurve()))
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Fuses_Set_TCCcurve(Value))
+        self._check_for_error(self._lib.Fuses_Set_TCCcurve(Value))
 
     def State(self, *args):
         """
@@ -183,11 +183,11 @@ class IFuses(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._get_string_array(self._lib.Fuses_Get_State))
+            return self._check_for_error(self._get_string_array(self._lib.Fuses_Get_State))
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._set_string_array(self._lib.Fuses_Set_State, Value))
+        self._check_for_error(self._set_string_array(self._lib.Fuses_Set_State, Value))
 
     def NormalState(self, *args):
         """
@@ -197,13 +197,13 @@ class IFuses(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(
+            return self._check_for_error(
                 self._get_string_array(self._lib.Fuses_Get_NormalState)
             )
 
         # Setter
         (Value,) = args
-        self.CheckForError(
+        self._check_for_error(
             self._set_string_array(self._lib.Fuses_Set_NormalState, Value)
         )
 

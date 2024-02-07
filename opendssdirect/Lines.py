@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Iterable
+from .Bases import Iterable
 from dss import LineUnits
 
 
@@ -43,7 +43,7 @@ class ILines(Iterable):
     def New(self, Name):
         if type(Name) is not bytes:
             Name = Name.encode(self._api_util.codec)
-        return self.CheckForError(self._lib.Lines_New(Name))
+        return self._check_for_error(self._lib.Lines_New(Name))
 
     def Bus1(self, *args):
         """
@@ -53,13 +53,13 @@ class ILines(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(self.CheckForError(self._lib.Lines_Get_Bus1()))
+            return self._get_string(self._check_for_error(self._lib.Lines_Get_Bus1()))
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Lines_Set_Bus1(Value))
+        self._check_for_error(self._lib.Lines_Set_Bus1(Value))
 
     def Bus2(self, *args):
         """
@@ -69,13 +69,13 @@ class ILines(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(self.CheckForError(self._lib.Lines_Get_Bus2()))
+            return self._get_string(self._check_for_error(self._lib.Lines_Get_Bus2()))
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Lines_Set_Bus2(Value))
+        self._check_for_error(self._lib.Lines_Set_Bus2(Value))
 
     def C0(self, *args):
         """
@@ -85,11 +85,11 @@ class ILines(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Lines_Get_C0())
+            return self._check_for_error(self._lib.Lines_Get_C0())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Lines_Set_C0(Value))
+        self._check_for_error(self._lib.Lines_Set_C0(Value))
 
     def C1(self, *args):
         """
@@ -99,22 +99,22 @@ class ILines(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Lines_Get_C1())
+            return self._check_for_error(self._lib.Lines_Get_C1())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Lines_Set_C1(Value))
+        self._check_for_error(self._lib.Lines_Set_C1(Value))
 
     def CMatrix(self, *args):
         # Getter
         if len(args) == 0:
-            self.CheckForError(self._lib.Lines_Get_Cmatrix_GR())
+            self._check_for_error(self._lib.Lines_Get_Cmatrix_GR())
             return self._get_float64_gr_array()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self.CheckForError(self._lib.Lines_Set_Cmatrix(ValuePtr, ValueCount))
+        self._check_for_error(self._lib.Lines_Set_Cmatrix(ValuePtr, ValueCount))
 
     def EmergAmps(self, *args):
         """
@@ -124,11 +124,11 @@ class ILines(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Lines_Get_EmergAmps())
+            return self._check_for_error(self._lib.Lines_Get_EmergAmps())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Lines_Set_EmergAmps(Value))
+        self._check_for_error(self._lib.Lines_Set_EmergAmps(Value))
 
     def Geometry(self, *args):
         """
@@ -138,13 +138,13 @@ class ILines(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(self.CheckForError(self._lib.Lines_Get_Geometry()))
+            return self._get_string(self._check_for_error(self._lib.Lines_Get_Geometry()))
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Lines_Set_Geometry(Value))
+        self._check_for_error(self._lib.Lines_Set_Geometry(Value))
 
     def Length(self, *args):
         """
@@ -154,11 +154,11 @@ class ILines(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Lines_Get_Length())
+            return self._check_for_error(self._lib.Lines_Get_Length())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Lines_Set_Length(Value))
+        self._check_for_error(self._lib.Lines_Set_Length(Value))
 
     def LineCode(self, *args):
         """
@@ -168,13 +168,13 @@ class ILines(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(self.CheckForError(self._lib.Lines_Get_LineCode()))
+            return self._get_string(self._check_for_error(self._lib.Lines_Get_LineCode()))
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Lines_Set_LineCode(Value))
+        self._check_for_error(self._lib.Lines_Set_LineCode(Value))
 
     def NormAmps(self, *args):
         """
@@ -184,11 +184,11 @@ class ILines(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Lines_Get_NormAmps())
+            return self._check_for_error(self._lib.Lines_Get_NormAmps())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Lines_Set_NormAmps(Value))
+        self._check_for_error(self._lib.Lines_Set_NormAmps(Value))
 
     def NumCust(self):
         """
@@ -196,7 +196,7 @@ class ILines(Iterable):
 
         Original COM help: https://opendss.epri.com/NumCust.html
         """
-        return self.CheckForError(self._lib.Lines_Get_NumCust())
+        return self._check_for_error(self._lib.Lines_Get_NumCust())
 
     def Parent(self):
         """
@@ -204,7 +204,7 @@ class ILines(Iterable):
 
         Original COM help: https://opendss.epri.com/Parent.html
         """
-        return self.CheckForError(self._lib.Lines_Get_Parent())
+        return self._check_for_error(self._lib.Lines_Get_Parent())
 
     def Phases(self, *args):
         """
@@ -214,11 +214,11 @@ class ILines(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Lines_Get_Phases())
+            return self._check_for_error(self._lib.Lines_Get_Phases())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Lines_Set_Phases(Value))
+        self._check_for_error(self._lib.Lines_Set_Phases(Value))
 
     def R0(self, *args):
         """
@@ -228,11 +228,11 @@ class ILines(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Lines_Get_R0())
+            return self._check_for_error(self._lib.Lines_Get_R0())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Lines_Set_R0(Value))
+        self._check_for_error(self._lib.Lines_Set_R0(Value))
 
     def R1(self, *args):
         """
@@ -242,11 +242,11 @@ class ILines(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Lines_Get_R1())
+            return self._check_for_error(self._lib.Lines_Get_R1())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Lines_Set_R1(Value))
+        self._check_for_error(self._lib.Lines_Set_R1(Value))
 
     def Rg(self, *args):
         """
@@ -256,11 +256,11 @@ class ILines(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Lines_Get_Rg())
+            return self._check_for_error(self._lib.Lines_Get_Rg())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Lines_Set_Rg(Value))
+        self._check_for_error(self._lib.Lines_Set_Rg(Value))
 
     def Rho(self, *args):
         """
@@ -270,11 +270,11 @@ class ILines(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Lines_Get_Rho())
+            return self._check_for_error(self._lib.Lines_Get_Rho())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Lines_Set_Rho(Value))
+        self._check_for_error(self._lib.Lines_Set_Rho(Value))
 
     def RMatrix(self, *args):
         """
@@ -284,13 +284,13 @@ class ILines(Iterable):
         """
         # Getter
         if len(args) == 0:
-            self.CheckForError(self._lib.Lines_Get_Rmatrix_GR())
+            self._check_for_error(self._lib.Lines_Get_Rmatrix_GR())
             return self._get_float64_gr_array()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self.CheckForError(self._lib.Lines_Set_Rmatrix(ValuePtr, ValueCount))
+        self._check_for_error(self._lib.Lines_Set_Rmatrix(ValuePtr, ValueCount))
 
     def Spacing(self, *args):
         """
@@ -300,13 +300,13 @@ class ILines(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(self.CheckForError(self._lib.Lines_Get_Spacing()))
+            return self._get_string(self._check_for_error(self._lib.Lines_Get_Spacing()))
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Lines_Set_Spacing(Value))
+        self._check_for_error(self._lib.Lines_Set_Spacing(Value))
 
     def TotalCust(self):
         """
@@ -314,16 +314,16 @@ class ILines(Iterable):
 
         Original COM help: https://opendss.epri.com/TotalCust.html
         """
-        return self.CheckForError(self._lib.Lines_Get_TotalCust())
+        return self._check_for_error(self._lib.Lines_Get_TotalCust())
 
     def Units(self, *args):
         # Getter
         if len(args) == 0:
-            return LineUnits(self.CheckForError(self._lib.Lines_Get_Units()))
+            return LineUnits(self._check_for_error(self._lib.Lines_Get_Units()))
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Lines_Set_Units(Value))
+        self._check_for_error(self._lib.Lines_Set_Units(Value))
 
     def X0(self, *args):
         """
@@ -333,11 +333,11 @@ class ILines(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Lines_Get_X0())
+            return self._check_for_error(self._lib.Lines_Get_X0())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Lines_Set_X0(Value))
+        self._check_for_error(self._lib.Lines_Set_X0(Value))
 
     def X1(self, *args):
         """
@@ -347,11 +347,11 @@ class ILines(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Lines_Get_X1())
+            return self._check_for_error(self._lib.Lines_Get_X1())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Lines_Set_X1(Value))
+        self._check_for_error(self._lib.Lines_Set_X1(Value))
 
     def Xg(self, *args):
         """
@@ -361,11 +361,11 @@ class ILines(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Lines_Get_Xg())
+            return self._check_for_error(self._lib.Lines_Get_Xg())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Lines_Set_Xg(Value))
+        self._check_for_error(self._lib.Lines_Set_Xg(Value))
 
     def XMatrix(self, *args):
         """
@@ -375,13 +375,13 @@ class ILines(Iterable):
         """
         # Getter
         if len(args) == 0:
-            self.CheckForError(self._lib.Lines_Get_Xmatrix_GR())
+            self._check_for_error(self._lib.Lines_Get_Xmatrix_GR())
             return self._get_float64_gr_array()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self.CheckForError(self._lib.Lines_Set_Xmatrix(ValuePtr, ValueCount))
+        self._check_for_error(self._lib.Lines_Set_Xmatrix(ValuePtr, ValueCount))
 
     def Yprim(self, *args):
         """
@@ -391,13 +391,13 @@ class ILines(Iterable):
         """
         # Getter
         if len(args) == 0:
-            self.CheckForError(self._lib.Lines_Get_Yprim_GR())
+            self._check_for_error(self._lib.Lines_Get_Yprim_GR())
             return self._get_complex128_gr_array()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self.CheckForError(self._lib.Lines_Set_Yprim(ValuePtr, ValueCount))
+        self._check_for_error(self._lib.Lines_Set_Yprim(ValuePtr, ValueCount))
 
     def SeasonRating(self):
         """
@@ -405,7 +405,7 @@ class ILines(Iterable):
 
         Original COM help: https://opendss.epri.com/SeasonRating.html
         """
-        return self.CheckForError(self._lib.Lines_Get_SeasonRating())
+        return self._check_for_error(self._lib.Lines_Get_SeasonRating())
 
     def IsSwitch(self, *args):
         """
@@ -415,11 +415,11 @@ class ILines(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Lines_Get_IsSwitch()) != 0
+            return self._check_for_error(self._lib.Lines_Get_IsSwitch()) != 0
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Lines_Set_IsSwitch(Value))
+        self._check_for_error(self._lib.Lines_Set_IsSwitch(Value))
 
 
 _Lines = ILines(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)

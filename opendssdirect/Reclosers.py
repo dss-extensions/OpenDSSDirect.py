@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Iterable
+from .Bases import Iterable
 from dss import ActionCodes
 
 
@@ -27,10 +27,10 @@ class IReclosers(Iterable):
     ]
 
     def Close(self):
-        self.CheckForError(self._lib.Reclosers_Close())
+        self._check_for_error(self._lib.Reclosers_Close())
 
     def Open(self):
-        self.CheckForError(self._lib.Reclosers_Open())
+        self._check_for_error(self._lib.Reclosers_Open())
 
     def GroundInst(self, *args):
         """
@@ -40,11 +40,11 @@ class IReclosers(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Reclosers_Get_GroundInst())
+            return self._check_for_error(self._lib.Reclosers_Get_GroundInst())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Reclosers_Set_GroundInst(Value))
+        self._check_for_error(self._lib.Reclosers_Set_GroundInst(Value))
 
     def GroundTrip(self, *args):
         """
@@ -54,11 +54,11 @@ class IReclosers(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Reclosers_Get_GroundTrip())
+            return self._check_for_error(self._lib.Reclosers_Get_GroundTrip())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Reclosers_Set_GroundTrip(Value))
+        self._check_for_error(self._lib.Reclosers_Set_GroundTrip(Value))
 
     def MonitoredObj(self, *args):
         """
@@ -69,14 +69,14 @@ class IReclosers(Iterable):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.Reclosers_Get_MonitoredObj())
+                self._check_for_error(self._lib.Reclosers_Get_MonitoredObj())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Reclosers_Set_MonitoredObj(Value))
+        self._check_for_error(self._lib.Reclosers_Set_MonitoredObj(Value))
 
     def MonitoredTerm(self, *args):
         """
@@ -86,11 +86,11 @@ class IReclosers(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Reclosers_Get_MonitoredTerm())
+            return self._check_for_error(self._lib.Reclosers_Get_MonitoredTerm())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Reclosers_Set_MonitoredTerm(Value))
+        self._check_for_error(self._lib.Reclosers_Set_MonitoredTerm(Value))
 
     def NumFast(self, *args):
         """
@@ -100,11 +100,11 @@ class IReclosers(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Reclosers_Get_NumFast())
+            return self._check_for_error(self._lib.Reclosers_Get_NumFast())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Reclosers_Set_NumFast(Value))
+        self._check_for_error(self._lib.Reclosers_Set_NumFast(Value))
 
     def PhaseInst(self, *args):
         """
@@ -114,11 +114,11 @@ class IReclosers(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Reclosers_Get_PhaseInst())
+            return self._check_for_error(self._lib.Reclosers_Get_PhaseInst())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Reclosers_Set_PhaseInst(Value))
+        self._check_for_error(self._lib.Reclosers_Set_PhaseInst(Value))
 
     def PhaseTrip(self, *args):
         """
@@ -128,11 +128,11 @@ class IReclosers(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Reclosers_Get_PhaseTrip())
+            return self._check_for_error(self._lib.Reclosers_Get_PhaseTrip())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Reclosers_Set_PhaseTrip(Value))
+        self._check_for_error(self._lib.Reclosers_Set_PhaseTrip(Value))
 
     def RecloseIntervals(self):
         """
@@ -140,7 +140,7 @@ class IReclosers(Iterable):
 
         Original COM help: https://opendss.epri.com/RecloseIntervals.html
         """
-        self.CheckForError(self._lib.Reclosers_Get_RecloseIntervals_GR())
+        self._check_for_error(self._lib.Reclosers_Get_RecloseIntervals_GR())
         return self._get_float64_gr_array()
 
     def Shots(self, *args):
@@ -151,11 +151,11 @@ class IReclosers(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Reclosers_Get_Shots())
+            return self._check_for_error(self._lib.Reclosers_Get_Shots())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Reclosers_Set_Shots(Value))
+        self._check_for_error(self._lib.Reclosers_Set_Shots(Value))
 
     def SwitchedObj(self, *args):
         """
@@ -166,14 +166,14 @@ class IReclosers(Iterable):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.Reclosers_Get_SwitchedObj())
+                self._check_for_error(self._lib.Reclosers_Get_SwitchedObj())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Reclosers_Set_SwitchedObj(Value))
+        self._check_for_error(self._lib.Reclosers_Set_SwitchedObj(Value))
 
     def SwitchedTerm(self, *args):
         """
@@ -183,11 +183,11 @@ class IReclosers(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Reclosers_Get_SwitchedTerm())
+            return self._check_for_error(self._lib.Reclosers_Get_SwitchedTerm())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Reclosers_Set_SwitchedTerm(Value))
+        self._check_for_error(self._lib.Reclosers_Set_SwitchedTerm(Value))
 
     def Reset(self):
         """
@@ -195,7 +195,7 @@ class IReclosers(Iterable):
         If open, lock out the recloser.
         If closed, resets recloser to first operation.
         """
-        self.CheckForError(self._lib.Reclosers_Reset())
+        self._check_for_error(self._lib.Reclosers_Reset())
 
     def State(self, *args):
         """
@@ -205,11 +205,11 @@ class IReclosers(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Reclosers_Get_State())
+            return self._check_for_error(self._lib.Reclosers_Get_State())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Reclosers_Set_State(Value))
+        self._check_for_error(self._lib.Reclosers_Set_State(Value))
 
     def NormalState(self, *args):
         """
@@ -219,11 +219,11 @@ class IReclosers(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Reclosers_Get_NormalState())
+            return self._check_for_error(self._lib.Reclosers_Get_NormalState())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Reclosers_Set_NormalState(Value))
+        self._check_for_error(self._lib.Reclosers_Set_NormalState(Value))
 
 
 _Reclosers = IReclosers(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)

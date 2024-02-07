@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Iterable
+from .Bases import Iterable
 from dss import LineUnits
 
 
@@ -19,53 +19,53 @@ class ILineSpacings(Iterable):
         """Number of Phases"""
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.LineSpacings_Get_Phases())
+            return self._check_for_error(self._lib.LineSpacings_Get_Phases())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.LineSpacings_Set_Phases(Value))
+        self._check_for_error(self._lib.LineSpacings_Set_Phases(Value))
 
     def Nconds(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.LineSpacings_Get_Nconds())
+            return self._check_for_error(self._lib.LineSpacings_Get_Nconds())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.LineSpacings_Set_Nconds(Value))
+        self._check_for_error(self._lib.LineSpacings_Set_Nconds(Value))
 
     def Units(self, *args):
         # Getter
         if len(args) == 0:
-            return LineUnits(self.CheckForError(self._lib.LineSpacings_Get_Units()))
+            return LineUnits(self._check_for_error(self._lib.LineSpacings_Get_Units()))
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.LineSpacings_Set_Units(Value))
+        self._check_for_error(self._lib.LineSpacings_Set_Units(Value))
 
     def Xcoords(self, *args):
         """Get/Set the X (horizontal) coordinates of the conductors"""
         # Getter
         if len(args) == 0:
-            self.CheckForError(self._lib.LineSpacings_Get_Xcoords_GR())
+            self._check_for_error(self._lib.LineSpacings_Get_Xcoords_GR())
             return self._get_float64_gr_array()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self.CheckForError(self._lib.LineSpacings_Set_Xcoords(ValuePtr, ValueCount))
+        self._check_for_error(self._lib.LineSpacings_Set_Xcoords(ValuePtr, ValueCount))
 
     def Ycoords(self, *args):
         """Get/Set the Y (vertical/height) coordinates of the conductors"""
         # Getter
         if len(args) == 0:
-            self.CheckForError(self._lib.LineSpacings_Get_Ycoords_GR())
+            self._check_for_error(self._lib.LineSpacings_Get_Ycoords_GR())
             return self._get_float64_gr_array()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self.CheckForError(self._lib.LineSpacings_Set_Ycoords(ValuePtr, ValueCount))
+        self._check_for_error(self._lib.LineSpacings_Set_Ycoords(ValuePtr, ValueCount))
 
 
 _LineSpacings = ILineSpacings(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)

@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Iterable
+from .Bases import Iterable
 
 
 class ICNData(Iterable):
@@ -38,165 +38,165 @@ class ICNData(Iterable):
         """Emergency ampere rating"""
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.CNData_Get_EmergAmps())
+            return self._check_for_error(self._lib.CNData_Get_EmergAmps())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.CNData_Set_EmergAmps(Value))
+        self._check_for_error(self._lib.CNData_Set_EmergAmps(Value))
 
     def NormAmps(self, *args):
         """Normal Ampere rating"""
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.CNData_Get_NormAmps())
+            return self._check_for_error(self._lib.CNData_Get_NormAmps())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.CNData_Set_NormAmps(Value))
+        self._check_for_error(self._lib.CNData_Set_NormAmps(Value))
 
     def Rdc(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.CNData_Get_Rdc())
+            return self._check_for_error(self._lib.CNData_Get_Rdc())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.CNData_Set_Rdc(Value))
+        self._check_for_error(self._lib.CNData_Set_Rdc(Value))
 
     def Rac(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.CNData_Get_Rac())
+            return self._check_for_error(self._lib.CNData_Get_Rac())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.CNData_Set_Rac(Value))
+        self._check_for_error(self._lib.CNData_Set_Rac(Value))
 
     def GMRac(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.CNData_Get_GMRac())
+            return self._check_for_error(self._lib.CNData_Get_GMRac())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.CNData_Set_GMRac(Value))
+        self._check_for_error(self._lib.CNData_Set_GMRac(Value))
 
     def GMRUnits(self, *args):
         # Getter
         if len(args) == 0:
-            return LineUnits(self.CheckForError(self._lib.CNData_Get_GMRUnits()))
+            return LineUnits(self._check_for_error(self._lib.CNData_Get_GMRUnits()))
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.CNData_Set_GMRUnits(Value))
+        self._check_for_error(self._lib.CNData_Set_GMRUnits(Value))
 
     def Radius(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.CNData_Get_Radius())
+            return self._check_for_error(self._lib.CNData_Get_Radius())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.CNData_Set_Radius(Value))
+        self._check_for_error(self._lib.CNData_Set_Radius(Value))
 
     def RadiusUnits(self, *args):
         # Getter
         if len(args) == 0:
-            return LineUnits(self.CheckForError(self._lib.CNData_Get_RadiusUnits()))
+            return LineUnits(self._check_for_error(self._lib.CNData_Get_RadiusUnits()))
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.CNData_Set_RadiusUnits(Value))
+        self._check_for_error(self._lib.CNData_Set_RadiusUnits(Value))
 
     def ResistanceUnits(self, *args):
         # Getter
         if len(args) == 0:
-            return LineUnits(self.CheckForError(self._lib.CNData_Get_ResistanceUnits()))
+            return LineUnits(self._check_for_error(self._lib.CNData_Get_ResistanceUnits()))
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.CNData_Set_ResistanceUnits(Value))
+        self._check_for_error(self._lib.CNData_Set_ResistanceUnits(Value))
 
     def Diameter(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.CNData_Get_Diameter())
+            return self._check_for_error(self._lib.CNData_Get_Diameter())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.CNData_Set_Diameter(Value))
+        self._check_for_error(self._lib.CNData_Set_Diameter(Value))
 
     def EpsR(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.CNData_Get_EpsR())
+            return self._check_for_error(self._lib.CNData_Get_EpsR())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.CNData_Set_EpsR(Value))
+        self._check_for_error(self._lib.CNData_Set_EpsR(Value))
 
     def InsLayer(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.CNData_Get_InsLayer())
+            return self._check_for_error(self._lib.CNData_Get_InsLayer())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.CNData_Set_InsLayer(Value))
+        self._check_for_error(self._lib.CNData_Set_InsLayer(Value))
 
     def DiaIns(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.CNData_Get_DiaIns())
+            return self._check_for_error(self._lib.CNData_Get_DiaIns())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.CNData_Set_DiaIns(Value))
+        self._check_for_error(self._lib.CNData_Set_DiaIns(Value))
 
     def DiaCable(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.CNData_Get_DiaCable())
+            return self._check_for_error(self._lib.CNData_Get_DiaCable())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.CNData_Set_DiaCable(Value))
+        self._check_for_error(self._lib.CNData_Set_DiaCable(Value))
 
     def k(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.CNData_Get_k())
+            return self._check_for_error(self._lib.CNData_Get_k())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.CNData_Set_k(Value))
+        self._check_for_error(self._lib.CNData_Set_k(Value))
 
     def DiaStrand(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.CNData_Get_DiaStrand())
+            return self._check_for_error(self._lib.CNData_Get_DiaStrand())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.CNData_Set_DiaStrand(Value))
+        self._check_for_error(self._lib.CNData_Set_DiaStrand(Value))
 
     def GmrStrand(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.CNData_Get_GmrStrand())
+            return self._check_for_error(self._lib.CNData_Get_GmrStrand())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.CNData_Set_GmrStrand(Value))
+        self._check_for_error(self._lib.CNData_Set_GmrStrand(Value))
 
     def RStrand(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.CNData_Get_RStrand())
+            return self._check_for_error(self._lib.CNData_Get_RStrand())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.CNData_Set_RStrand(Value))
+        self._check_for_error(self._lib.CNData_Set_RStrand(Value))
 
 
 _CNData = ICNData(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)

@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Base
+from .Bases import Base
 
 
 class ITopology(Base):
@@ -25,7 +25,7 @@ class ITopology(Base):
 
         Original COM help: https://opendss.epri.com/ActiveBranch.html
         """
-        return self.CheckForError(self._lib.Topology_Get_ActiveBranch())
+        return self._check_for_error(self._lib.Topology_Get_ActiveBranch())
 
     def ActiveLevel(self):
         """
@@ -33,7 +33,7 @@ class ITopology(Base):
 
         Original COM help: https://opendss.epri.com/ActiveLevel.html
         """
-        return self.CheckForError(self._lib.Topology_Get_ActiveLevel())
+        return self._check_for_error(self._lib.Topology_Get_ActiveLevel())
 
     def AllIsolatedBranches(self):
         """
@@ -41,7 +41,7 @@ class ITopology(Base):
 
         Original COM help: https://opendss.epri.com/AllIsolatedBranches.html
         """
-        return self.CheckForError(
+        return self._check_for_error(
             self._get_string_array(self._lib.Topology_Get_AllIsolatedBranches)
         )
 
@@ -51,7 +51,7 @@ class ITopology(Base):
 
         Original COM help: https://opendss.epri.com/AllIsolatedLoads.html
         """
-        return self.CheckForError(
+        return self._check_for_error(
             self._get_string_array(self._lib.Topology_Get_AllIsolatedLoads)
         )
 
@@ -61,7 +61,7 @@ class ITopology(Base):
 
         Original COM help: https://opendss.epri.com/AllLoopedPairs.html
         """
-        return self.CheckForError(
+        return self._check_for_error(
             self._get_string_array(self._lib.Topology_Get_AllLoopedPairs)
         )
 
@@ -71,7 +71,7 @@ class ITopology(Base):
 
         Original COM help: https://opendss.epri.com/BackwardBranch.html
         """
-        return self.CheckForError(self._lib.Topology_Get_BackwardBranch())
+        return self._check_for_error(self._lib.Topology_Get_BackwardBranch())
 
     def BranchName(self, *args):
         """
@@ -82,14 +82,14 @@ class ITopology(Base):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.Topology_Get_BranchName())
+                self._check_for_error(self._lib.Topology_Get_BranchName())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Topology_Set_BranchName(Value))
+        self._check_for_error(self._lib.Topology_Set_BranchName(Value))
 
     def BusName(self, *args):
         """
@@ -100,14 +100,14 @@ class ITopology(Base):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.Topology_Get_BusName())
+                self._check_for_error(self._lib.Topology_Get_BusName())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Topology_Set_BusName(Value))
+        self._check_for_error(self._lib.Topology_Set_BusName(Value))
 
     def First(self):
         """
@@ -115,7 +115,7 @@ class ITopology(Base):
 
         Original COM help: https://opendss.epri.com/First19.html
         """
-        return self.CheckForError(self._lib.Topology_Get_First())
+        return self._check_for_error(self._lib.Topology_Get_First())
 
     def FirstLoad(self):
         """
@@ -123,7 +123,7 @@ class ITopology(Base):
 
         Original COM help: https://opendss.epri.com/FirstLoad.html
         """
-        return self.CheckForError(self._lib.Topology_Get_FirstLoad())
+        return self._check_for_error(self._lib.Topology_Get_FirstLoad())
 
     def ForwardBranch(self):
         """
@@ -131,7 +131,7 @@ class ITopology(Base):
 
         Original COM help: https://opendss.epri.com/ForwardBranch.html
         """
-        return self.CheckForError(self._lib.Topology_Get_ForwardBranch())
+        return self._check_for_error(self._lib.Topology_Get_ForwardBranch())
 
     def LoopedBranch(self):
         """
@@ -139,7 +139,7 @@ class ITopology(Base):
 
         Original COM help: https://opendss.epri.com/LoopedBranch.html
         """
-        return self.CheckForError(self._lib.Topology_Get_LoopedBranch())
+        return self._check_for_error(self._lib.Topology_Get_LoopedBranch())
 
     def Next(self):
         """
@@ -147,7 +147,7 @@ class ITopology(Base):
 
         Original COM help: https://opendss.epri.com/Next18.html
         """
-        return self.CheckForError(self._lib.Topology_Get_Next())
+        return self._check_for_error(self._lib.Topology_Get_Next())
 
     def NextLoad(self):
         """
@@ -155,7 +155,7 @@ class ITopology(Base):
 
         Original COM help: https://opendss.epri.com/NextLoad.html
         """
-        return self.CheckForError(self._lib.Topology_Get_NextLoad())
+        return self._check_for_error(self._lib.Topology_Get_NextLoad())
 
     def NumIsolatedBranches(self):
         """
@@ -163,7 +163,7 @@ class ITopology(Base):
 
         Original COM help: https://opendss.epri.com/NumIsolatedBranches.html
         """
-        return self.CheckForError(self._lib.Topology_Get_NumIsolatedBranches())
+        return self._check_for_error(self._lib.Topology_Get_NumIsolatedBranches())
 
     def NumIsolatedLoads(self):
         """
@@ -171,7 +171,7 @@ class ITopology(Base):
 
         Original COM help: https://opendss.epri.com/NumIsolatedLoads.html
         """
-        return self.CheckForError(self._lib.Topology_Get_NumIsolatedLoads())
+        return self._check_for_error(self._lib.Topology_Get_NumIsolatedLoads())
 
     def NumLoops(self):
         """
@@ -179,7 +179,7 @@ class ITopology(Base):
 
         Original COM help: https://opendss.epri.com/NumLoops.html
         """
-        return self.CheckForError(self._lib.Topology_Get_NumLoops())
+        return self._check_for_error(self._lib.Topology_Get_NumLoops())
 
     def ParallelBranch(self):
         """
@@ -187,7 +187,7 @@ class ITopology(Base):
 
         Original COM help: https://opendss.epri.com/ParallelBranch.html
         """
-        return self.CheckForError(self._lib.Topology_Get_ParallelBranch())
+        return self._check_for_error(self._lib.Topology_Get_ParallelBranch())
 
 
 _Topology = ITopology(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)

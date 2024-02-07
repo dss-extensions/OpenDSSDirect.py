@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Iterable
+from .Bases import Iterable
 
 class IGICSources(Iterable):
     __slots__ = []
@@ -23,91 +23,91 @@ class IGICSources(Iterable):
 
     def Bus1(self):
         """First bus name of GICSource (Created name)"""
-        return self._get_string(self.CheckForError(self._lib.GICSources_Get_Bus1()))
+        return self._get_string(self._check_for_error(self._lib.GICSources_Get_Bus1()))
 
     def Bus2(self):
         """Second bus name"""
-        return self._get_string(self.CheckForError(self._lib.GICSources_Get_Bus2()))
+        return self._get_string(self._check_for_error(self._lib.GICSources_Get_Bus2()))
 
     def Phases(self, *args):
         """Number of Phases, this GICSource element."""
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.GICSources_Get_Phases())
+            return self._check_for_error(self._lib.GICSources_Get_Phases())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.GICSources_Set_Phases(Value))
+        self._check_for_error(self._lib.GICSources_Set_Phases(Value))
 
     def EN(self, *args):
         """Northward E Field V/km"""
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.GICSources_Get_EN())
+            return self._check_for_error(self._lib.GICSources_Get_EN())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.GICSources_Set_EN(Value))
+        self._check_for_error(self._lib.GICSources_Set_EN(Value))
 
     def EE(self, *args):
         """Eastward E Field, V/km"""
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.GICSources_Get_EE())
+            return self._check_for_error(self._lib.GICSources_Get_EE())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.GICSources_Set_EE(Value))
+        self._check_for_error(self._lib.GICSources_Set_EE(Value))
 
     def Lat1(self, *args):
         """Latitude of Bus1 (degrees)"""
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.GICSources_Get_Lat1())
+            return self._check_for_error(self._lib.GICSources_Get_Lat1())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.GICSources_Set_Lat1(Value))
+        self._check_for_error(self._lib.GICSources_Set_Lat1(Value))
 
     def Lat2(self, *args):
         """Latitude of Bus2 (degrees)"""
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.GICSources_Get_Lat2())
+            return self._check_for_error(self._lib.GICSources_Get_Lat2())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.GICSources_Set_Lat2(Value))
+        self._check_for_error(self._lib.GICSources_Set_Lat2(Value))
 
     def Lon1(self, *args):
         """Longitude of Bus1 (Degrees)"""
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.GICSources_Get_Lon1())
+            return self._check_for_error(self._lib.GICSources_Get_Lon1())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.GICSources_Set_Lon1(Value))
+        self._check_for_error(self._lib.GICSources_Set_Lon1(Value))
 
     def Lon2(self, *args):
         """Longitude of Bus2 (Degrees)"""
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.GICSources_Get_Lon2())
+            return self._check_for_error(self._lib.GICSources_Get_Lon2())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.GICSources_Set_Lon2(Value))
+        self._check_for_error(self._lib.GICSources_Set_Lon2(Value))
 
     def Volts(self, *args):
         """Specify dc voltage directly"""
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.GICSources_Get_Volts())
+            return self._check_for_error(self._lib.GICSources_Get_Volts())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.GICSources_Set_Volts(Value))
+        self._check_for_error(self._lib.GICSources_Set_Volts(Value))
 
 
 _GICSources = IGICSources(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)

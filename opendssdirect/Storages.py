@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Iterable
+from .Bases import Iterable
 
 
 class IStorages(Iterable):
@@ -14,11 +14,11 @@ class IStorages(Iterable):
         """Per unit state of charge"""
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Storages_Get_puSOC())
+            return self._check_for_error(self._lib.Storages_Get_puSOC())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Storages_Set_puSOC(Value))
+        self._check_for_error(self._lib.Storages_Set_puSOC(Value))
 
     def State(self, *args):
         """
@@ -26,11 +26,11 @@ class IStorages(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return StorageStates(self.CheckForError(self._lib.Storages_Get_State()))
+            return StorageStates(self._check_for_error(self._lib.Storages_Get_State()))
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Storages_Set_State(Value))
+        self._check_for_error(self._lib.Storages_Set_State(Value))
 
     def RegisterNames(self):
         """
@@ -38,13 +38,13 @@ class IStorages(Iterable):
 
         See also the enum `GeneratorRegisters`.
         """
-        return self.CheckForError(
+        return self._check_for_error(
             self._get_string_array(self._lib.Storages_Get_RegisterNames)
         )
 
     def RegisterValues(self):
         """Array of values in Storage registers."""
-        self.CheckForError(self._lib.Storages_Get_RegisterValues_GR())
+        self._check_for_error(self._lib.Storages_Get_RegisterValues_GR())
         return self._get_float64_gr_array()
 
 

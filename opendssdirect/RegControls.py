@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Iterable
+from .Bases import Iterable
 
 
 class IRegControls(Iterable):
@@ -34,7 +34,7 @@ class IRegControls(Iterable):
     ]
 
     def Reset(self):
-        self.CheckForError(self._lib.RegControls_Reset())
+        self._check_for_error(self._lib.RegControls_Reset())
 
     def CTPrimary(self, *args):
         """
@@ -44,11 +44,11 @@ class IRegControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.RegControls_Get_CTPrimary())
+            return self._check_for_error(self._lib.RegControls_Get_CTPrimary())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.RegControls_Set_CTPrimary(Value))
+        self._check_for_error(self._lib.RegControls_Set_CTPrimary(Value))
 
     def Delay(self, *args):
         """
@@ -58,11 +58,11 @@ class IRegControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.RegControls_Get_Delay())
+            return self._check_for_error(self._lib.RegControls_Get_Delay())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.RegControls_Set_Delay(Value))
+        self._check_for_error(self._lib.RegControls_Set_Delay(Value))
 
     def ForwardBand(self, *args):
         """
@@ -72,11 +72,11 @@ class IRegControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.RegControls_Get_ForwardBand())
+            return self._check_for_error(self._lib.RegControls_Get_ForwardBand())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.RegControls_Set_ForwardBand(Value))
+        self._check_for_error(self._lib.RegControls_Set_ForwardBand(Value))
 
     def ForwardR(self, *args):
         """
@@ -86,11 +86,11 @@ class IRegControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.RegControls_Get_ForwardR())
+            return self._check_for_error(self._lib.RegControls_Get_ForwardR())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.RegControls_Set_ForwardR(Value))
+        self._check_for_error(self._lib.RegControls_Set_ForwardR(Value))
 
     def ForwardVreg(self, *args):
         """
@@ -100,11 +100,11 @@ class IRegControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.RegControls_Get_ForwardVreg())
+            return self._check_for_error(self._lib.RegControls_Get_ForwardVreg())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.RegControls_Set_ForwardVreg(Value))
+        self._check_for_error(self._lib.RegControls_Set_ForwardVreg(Value))
 
     def ForwardX(self, *args):
         """
@@ -114,11 +114,11 @@ class IRegControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.RegControls_Get_ForwardX())
+            return self._check_for_error(self._lib.RegControls_Get_ForwardX())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.RegControls_Set_ForwardX(Value))
+        self._check_for_error(self._lib.RegControls_Set_ForwardX(Value))
 
     def IsInverseTime(self, *args):
         """
@@ -128,11 +128,11 @@ class IRegControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.RegControls_Get_IsInverseTime()) != 0
+            return self._check_for_error(self._lib.RegControls_Get_IsInverseTime()) != 0
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.RegControls_Set_IsInverseTime(Value))
+        self._check_for_error(self._lib.RegControls_Set_IsInverseTime(Value))
 
     def IsReversible(self, *args):
         """
@@ -142,11 +142,11 @@ class IRegControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.RegControls_Get_IsReversible()) != 0
+            return self._check_for_error(self._lib.RegControls_Get_IsReversible()) != 0
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.RegControls_Set_IsReversible(Value))
+        self._check_for_error(self._lib.RegControls_Set_IsReversible(Value))
 
     def MaxTapChange(self, *args):
         """
@@ -156,11 +156,11 @@ class IRegControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.RegControls_Get_MaxTapChange())
+            return self._check_for_error(self._lib.RegControls_Get_MaxTapChange())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.RegControls_Set_MaxTapChange(Value))
+        self._check_for_error(self._lib.RegControls_Set_MaxTapChange(Value))
 
     def MonitoredBus(self, *args):
         """
@@ -171,14 +171,14 @@ class IRegControls(Iterable):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.RegControls_Get_MonitoredBus())
+                self._check_for_error(self._lib.RegControls_Get_MonitoredBus())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.RegControls_Set_MonitoredBus(Value))
+        self._check_for_error(self._lib.RegControls_Set_MonitoredBus(Value))
 
     def PTRatio(self, *args):
         """
@@ -188,11 +188,11 @@ class IRegControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.RegControls_Get_PTratio())
+            return self._check_for_error(self._lib.RegControls_Get_PTratio())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.RegControls_Set_PTratio(Value))
+        self._check_for_error(self._lib.RegControls_Set_PTratio(Value))
 
     def ReverseBand(self, *args):
         """
@@ -202,11 +202,11 @@ class IRegControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.RegControls_Get_ReverseBand())
+            return self._check_for_error(self._lib.RegControls_Get_ReverseBand())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.RegControls_Set_ReverseBand(Value))
+        self._check_for_error(self._lib.RegControls_Set_ReverseBand(Value))
 
     def ReverseR(self, *args):
         """
@@ -216,11 +216,11 @@ class IRegControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.RegControls_Get_ReverseR())
+            return self._check_for_error(self._lib.RegControls_Get_ReverseR())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.RegControls_Set_ReverseR(Value))
+        self._check_for_error(self._lib.RegControls_Set_ReverseR(Value))
 
     def ReverseVreg(self, *args):
         """
@@ -230,11 +230,11 @@ class IRegControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.RegControls_Get_ReverseVreg())
+            return self._check_for_error(self._lib.RegControls_Get_ReverseVreg())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.RegControls_Set_ReverseVreg(Value))
+        self._check_for_error(self._lib.RegControls_Set_ReverseVreg(Value))
 
     def ReverseX(self, *args):
         """
@@ -244,11 +244,11 @@ class IRegControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.RegControls_Get_ReverseX())
+            return self._check_for_error(self._lib.RegControls_Get_ReverseX())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.RegControls_Set_ReverseX(Value))
+        self._check_for_error(self._lib.RegControls_Set_ReverseX(Value))
 
     def TapDelay(self, *args):
         """
@@ -258,11 +258,11 @@ class IRegControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.RegControls_Get_TapDelay())
+            return self._check_for_error(self._lib.RegControls_Get_TapDelay())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.RegControls_Set_TapDelay(Value))
+        self._check_for_error(self._lib.RegControls_Set_TapDelay(Value))
 
     def TapNumber(self, *args):
         """
@@ -272,11 +272,11 @@ class IRegControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.RegControls_Get_TapNumber())
+            return self._check_for_error(self._lib.RegControls_Get_TapNumber())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.RegControls_Set_TapNumber(Value))
+        self._check_for_error(self._lib.RegControls_Set_TapNumber(Value))
 
     def TapWinding(self, *args):
         """
@@ -286,11 +286,11 @@ class IRegControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.RegControls_Get_TapWinding())
+            return self._check_for_error(self._lib.RegControls_Get_TapWinding())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.RegControls_Set_TapWinding(Value))
+        self._check_for_error(self._lib.RegControls_Set_TapWinding(Value))
 
     def Transformer(self, *args):
         """
@@ -301,14 +301,14 @@ class IRegControls(Iterable):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.RegControls_Get_Transformer())
+                self._check_for_error(self._lib.RegControls_Get_Transformer())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.RegControls_Set_Transformer(Value))
+        self._check_for_error(self._lib.RegControls_Set_Transformer(Value))
 
     def VoltageLimit(self, *args):
         """
@@ -318,11 +318,11 @@ class IRegControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.RegControls_Get_VoltageLimit())
+            return self._check_for_error(self._lib.RegControls_Get_VoltageLimit())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.RegControls_Set_VoltageLimit(Value))
+        self._check_for_error(self._lib.RegControls_Set_VoltageLimit(Value))
 
     def Winding(self, *args):
         """
@@ -332,11 +332,11 @@ class IRegControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.RegControls_Get_Winding())
+            return self._check_for_error(self._lib.RegControls_Get_Winding())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.RegControls_Set_Winding(Value))
+        self._check_for_error(self._lib.RegControls_Set_Winding(Value))
 
 
 _RegControls = IRegControls(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)

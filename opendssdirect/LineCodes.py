@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Iterable
+from .Bases import Iterable
 from dss import LineUnits
 
 
@@ -35,11 +35,11 @@ class ILineCodes(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.LineCodes_Get_C0())
+            return self._check_for_error(self._lib.LineCodes_Get_C0())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.LineCodes_Set_C0(Value))
+        self._check_for_error(self._lib.LineCodes_Set_C0(Value))
 
     def C1(self, *args):
         """
@@ -49,11 +49,11 @@ class ILineCodes(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.LineCodes_Get_C1())
+            return self._check_for_error(self._lib.LineCodes_Get_C1())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.LineCodes_Set_C1(Value))
+        self._check_for_error(self._lib.LineCodes_Set_C1(Value))
 
     def Cmatrix(self, *args):
         """
@@ -63,13 +63,13 @@ class ILineCodes(Iterable):
         """
         # Getter
         if len(args) == 0:
-            self.CheckForError(self._lib.LineCodes_Get_Cmatrix_GR())
+            self._check_for_error(self._lib.LineCodes_Get_Cmatrix_GR())
             return self._get_float64_gr_array()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self.CheckForError(self._lib.LineCodes_Set_Cmatrix(ValuePtr, ValueCount))
+        self._check_for_error(self._lib.LineCodes_Set_Cmatrix(ValuePtr, ValueCount))
 
     def EmergAmps(self, *args):
         """
@@ -79,11 +79,11 @@ class ILineCodes(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.LineCodes_Get_EmergAmps())
+            return self._check_for_error(self._lib.LineCodes_Get_EmergAmps())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.LineCodes_Set_EmergAmps(Value))
+        self._check_for_error(self._lib.LineCodes_Set_EmergAmps(Value))
 
     def IsZ1Z0(self):
         """
@@ -91,7 +91,7 @@ class ILineCodes(Iterable):
 
         Original COM help: https://opendss.epri.com/IsZ1Z0.html
         """
-        return self.CheckForError(self._lib.LineCodes_Get_IsZ1Z0()) != 0
+        return self._check_for_error(self._lib.LineCodes_Get_IsZ1Z0()) != 0
 
     def NormAmps(self, *args):
         """
@@ -101,11 +101,11 @@ class ILineCodes(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.LineCodes_Get_NormAmps())
+            return self._check_for_error(self._lib.LineCodes_Get_NormAmps())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.LineCodes_Set_NormAmps(Value))
+        self._check_for_error(self._lib.LineCodes_Set_NormAmps(Value))
 
     def Phases(self, *args):
         """
@@ -115,11 +115,11 @@ class ILineCodes(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.LineCodes_Get_Phases())
+            return self._check_for_error(self._lib.LineCodes_Get_Phases())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.LineCodes_Set_Phases(Value))
+        self._check_for_error(self._lib.LineCodes_Set_Phases(Value))
 
     def R0(self, *args):
         """
@@ -129,11 +129,11 @@ class ILineCodes(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.LineCodes_Get_R0())
+            return self._check_for_error(self._lib.LineCodes_Get_R0())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.LineCodes_Set_R0(Value))
+        self._check_for_error(self._lib.LineCodes_Set_R0(Value))
 
     def R1(self, *args):
         """
@@ -143,11 +143,11 @@ class ILineCodes(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.LineCodes_Get_R1())
+            return self._check_for_error(self._lib.LineCodes_Get_R1())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.LineCodes_Set_R1(Value))
+        self._check_for_error(self._lib.LineCodes_Set_R1(Value))
 
     def Rmatrix(self, *args):
         """
@@ -157,22 +157,22 @@ class ILineCodes(Iterable):
         """
         # Getter
         if len(args) == 0:
-            self.CheckForError(self._lib.LineCodes_Get_Rmatrix_GR())
+            self._check_for_error(self._lib.LineCodes_Get_Rmatrix_GR())
             return self._get_float64_gr_array()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self.CheckForError(self._lib.LineCodes_Set_Rmatrix(ValuePtr, ValueCount))
+        self._check_for_error(self._lib.LineCodes_Set_Rmatrix(ValuePtr, ValueCount))
 
     def Units(self, *args):
         # Getter
         if len(args) == 0:
-            return LineUnits(self.CheckForError(self._lib.LineCodes_Get_Units()))
+            return LineUnits(self._check_for_error(self._lib.LineCodes_Get_Units()))
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.LineCodes_Set_Units(Value))
+        self._check_for_error(self._lib.LineCodes_Set_Units(Value))
 
     def X0(self, *args):
         """
@@ -182,11 +182,11 @@ class ILineCodes(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.LineCodes_Get_X0())
+            return self._check_for_error(self._lib.LineCodes_Get_X0())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.LineCodes_Set_X0(Value))
+        self._check_for_error(self._lib.LineCodes_Set_X0(Value))
 
     def X1(self, *args):
         """
@@ -196,11 +196,11 @@ class ILineCodes(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.LineCodes_Get_X1())
+            return self._check_for_error(self._lib.LineCodes_Get_X1())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.LineCodes_Set_X1(Value))
+        self._check_for_error(self._lib.LineCodes_Set_X1(Value))
 
     def Xmatrix(self, *args):
         """
@@ -210,13 +210,13 @@ class ILineCodes(Iterable):
         """
         # Getter
         if len(args) == 0:
-            self.CheckForError(self._lib.LineCodes_Get_Xmatrix_GR())
+            self._check_for_error(self._lib.LineCodes_Get_Xmatrix_GR())
             return self._get_float64_gr_array()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self.CheckForError(self._lib.LineCodes_Set_Xmatrix(ValuePtr, ValueCount))
+        self._check_for_error(self._lib.LineCodes_Set_Xmatrix(ValuePtr, ValueCount))
 
 
 _LineCodes = ILineCodes(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)

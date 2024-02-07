@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Base
+from .Bases import Base
 
 class IZIP(Base):
     __slots__ = []
@@ -18,7 +18,7 @@ class IZIP(Base):
         """
         if type(FileName) is not bytes:
             FileName = FileName.encode(self._api_util.codec)
-        self.CheckForError(self._lib.ZIP_Open(FileName))
+        self._check_for_error(self._lib.ZIP_Open(FileName))
 
     def Close(self):
         """
@@ -26,7 +26,7 @@ class IZIP(Base):
 
         **(API Extension)**
         """
-        self.CheckForError(self._lib.ZIP_Close())
+        self._check_for_error(self._lib.ZIP_Close())
 
     def Redirect(self, FileInZip):
         """
@@ -39,7 +39,7 @@ class IZIP(Base):
         """
         if type(FileInZip) is not bytes:
             FileInZip = FileInZip.encode(self._api_util.codec)
-        self.CheckForError(self._lib.ZIP_Redirect(FileInZip))
+        self._check_for_error(self._lib.ZIP_Redirect(FileInZip))
 
     def Extract(self, FileName):
         """
@@ -51,7 +51,7 @@ class IZIP(Base):
         api_util = self._api_util
         if type(FileName) is not bytes:
             FileName = FileName.encode(api_util.codec)
-        self.CheckForError(self._lib.ZIP_Extract_GR(FileName))
+        self._check_for_error(self._lib.ZIP_Extract_GR(FileName))
         ptr, cnt = api_util.gr_int8_pointers
         return bytes(api_util.ffi.buffer(ptr[0], cnt[0]))
 
@@ -69,7 +69,7 @@ class IZIP(Base):
             regexp = self._api_util.ffi.NULL
         elif type(regexp) is not bytes:
             regexp = regexp.encode(self._api_util.codec)
-        return self.CheckForError(self._get_string_array(self._lib.ZIP_List, regexp))
+        return self._check_for_error(self._get_string_array(self._lib.ZIP_List, regexp))
 
     def Contains(self, Name):
         """
@@ -79,7 +79,7 @@ class IZIP(Base):
         """
         if type(Name) is not bytes:
             Name = Name.encode(self._api_util.codec)
-        return self.CheckForError(self._lib.ZIP_Contains(Name)) != 0
+        return self._check_for_error(self._lib.ZIP_Contains(Name)) != 0
 
 
 _ZIP = IZIP(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)

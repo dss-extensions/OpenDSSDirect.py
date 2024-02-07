@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Iterable
+from .Bases import Iterable
 from dss import LineUnits
 
 
@@ -33,7 +33,7 @@ class ILineGeometries(Iterable):
 
     def Conductors(self):
         """Array of strings with names of all conductors in the active LineGeometry object"""
-        return self.CheckForError(
+        return self._check_for_error(
             self._get_string_array(self._lib.LineGeometries_Get_Conductors)
         )
 
@@ -41,74 +41,74 @@ class ILineGeometries(Iterable):
         """Emergency ampere rating"""
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.LineGeometries_Get_EmergAmps())
+            return self._check_for_error(self._lib.LineGeometries_Get_EmergAmps())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.LineGeometries_Set_EmergAmps(Value))
+        self._check_for_error(self._lib.LineGeometries_Set_EmergAmps(Value))
 
     def NormAmps(self, *args):
         """Normal ampere rating"""
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.LineGeometries_Get_NormAmps())
+            return self._check_for_error(self._lib.LineGeometries_Get_NormAmps())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.LineGeometries_Set_NormAmps(Value))
+        self._check_for_error(self._lib.LineGeometries_Set_NormAmps(Value))
 
     def RhoEarth(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.LineGeometries_Get_RhoEarth())
+            return self._check_for_error(self._lib.LineGeometries_Get_RhoEarth())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.LineGeometries_Set_RhoEarth(Value))
+        self._check_for_error(self._lib.LineGeometries_Set_RhoEarth(Value))
 
     def Reduce(self, *args):
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.LineGeometries_Get_Reduce()) != 0
+            return self._check_for_error(self._lib.LineGeometries_Get_Reduce()) != 0
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.LineGeometries_Set_Reduce(Value))
+        self._check_for_error(self._lib.LineGeometries_Set_Reduce(Value))
 
     def Phases(self, *args):
         """Number of Phases"""
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.LineGeometries_Get_Phases())
+            return self._check_for_error(self._lib.LineGeometries_Get_Phases())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.LineGeometries_Set_Phases(Value))
+        self._check_for_error(self._lib.LineGeometries_Set_Phases(Value))
 
     def Rmatrix(self, Frequency, Length, Units):
         """Resistance matrix, ohms"""
-        self.CheckForError(
+        self._check_for_error(
             self._lib.LineGeometries_Get_Rmatrix_GR(Frequency, Length, Units)
         )
         return self._get_float64_gr_array()
 
     def Xmatrix(self, Frequency, Length, Units):
         """Reactance matrix, ohms"""
-        self.CheckForError(
+        self._check_for_error(
             self._lib.LineGeometries_Get_Xmatrix_GR(Frequency, Length, Units)
         )
         return self._get_float64_gr_array()
 
     def Zmatrix(self, Frequency, Length, Units):
         """Complex impedance matrix, ohms"""
-        self.CheckForError(
+        self._check_for_error(
             self._lib.LineGeometries_Get_Zmatrix_GR(Frequency, Length, Units)
         )
         return self._get_complex128_gr_array()
 
     def Cmatrix(self, Frequency, Length, Units):
         """Capacitance matrix, nF"""
-        self.CheckForError(
+        self._check_for_error(
             self._lib.LineGeometries_Get_Cmatrix_GR(Frequency, Length, Units)
         )
         return self._get_float64_gr_array()
@@ -116,47 +116,47 @@ class ILineGeometries(Iterable):
     def Units(self, *args):
         # Getter
         if len(args) == 0:
-            self.CheckForError(self._lib.LineGeometries_Get_Units_GR())
+            self._check_for_error(self._lib.LineGeometries_Get_Units_GR())
             return [LineUnits(unit) for unit in self._get_int32_gr_array()]
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_int32_array(Value)
-        self.CheckForError(self._lib.LineGeometries_Set_Units(ValuePtr, ValueCount))
+        self._check_for_error(self._lib.LineGeometries_Set_Units(ValuePtr, ValueCount))
 
     def Xcoords(self, *args):
         """Get/Set the X (horizontal) coordinates of the conductors"""
         # Getter
         if len(args) == 0:
-            self.CheckForError(self._lib.LineGeometries_Get_Xcoords_GR())
+            self._check_for_error(self._lib.LineGeometries_Get_Xcoords_GR())
             return self._get_float64_gr_array()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self.CheckForError(self._lib.LineGeometries_Set_Xcoords(ValuePtr, ValueCount))
+        self._check_for_error(self._lib.LineGeometries_Set_Xcoords(ValuePtr, ValueCount))
 
     def Ycoords(self, *args):
         """Get/Set the Y (vertical/height) coordinates of the conductors"""
         # Getter
         if len(args) == 0:
-            self.CheckForError(self._lib.LineGeometries_Get_Ycoords_GR())
+            self._check_for_error(self._lib.LineGeometries_Get_Ycoords_GR())
             return self._get_float64_gr_array()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self.CheckForError(self._lib.LineGeometries_Set_Ycoords(ValuePtr, ValueCount))
+        self._check_for_error(self._lib.LineGeometries_Set_Ycoords(ValuePtr, ValueCount))
 
     def Nconds(self, *args):
         """Number of conductors in this geometry. Default is 3. Triggers memory allocations. Define first!"""
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.LineGeometries_Get_Nconds())
+            return self._check_for_error(self._lib.LineGeometries_Get_Nconds())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.LineGeometries_Set_Nconds(Value))
+        self._check_for_error(self._lib.LineGeometries_Set_Nconds(Value))
 
 
 _LineGeometries = ILineGeometries(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)

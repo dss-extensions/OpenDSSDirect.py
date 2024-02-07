@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Base
+from .Bases import Base
 
 
 class IText(Base):
@@ -17,13 +17,13 @@ class IText(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(self.CheckForError(self._lib.Text_Get_Command()))
+            return self._get_string(self._check_for_error(self._lib.Text_Get_Command()))
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Text_Set_Command(Value))
+        self._check_for_error(self._lib.Text_Set_Command(Value))
 
     def Result(self):
         """
@@ -31,7 +31,7 @@ class IText(Base):
 
         Original COM help: https://opendss.epri.com/Result.html
         """
-        return self._get_string(self.CheckForError(self._lib.Text_Get_Result()))
+        return self._get_string(self._check_for_error(self._lib.Text_Get_Result()))
 
     def Commands(self, Value):
         """
@@ -45,9 +45,9 @@ class IText(Base):
         if isinstance(Value, str) or isinstance(Value, bytes):
             if type(Value) is not bytes:
                 Value = Value.encode(self._api_util.codec)
-            self.CheckForError(self._lib.Text_CommandBlock(Value))
+            self._check_for_error(self._lib.Text_CommandBlock(Value))
         else:
-            self.CheckForError(
+            self._check_for_error(
                 self._set_string_array(self._lib.Text_CommandArray, Value)
             )
 

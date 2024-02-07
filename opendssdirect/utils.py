@@ -1,7 +1,7 @@
 import inspect
 import warnings
 from dss_python_backend import enums
-from .Iterable import Iterable
+from .Bases import Iterable
 
 is_pandas_installed = True
 

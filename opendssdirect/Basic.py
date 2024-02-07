@@ -1,6 +1,6 @@
 # import warnings
 from ._utils import api_util, dss_py, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Base
+from .Bases import Base
 try:
     from ._version import __version__
 except:
@@ -25,7 +25,7 @@ class IBasic(Base):
     __slots__ = []
 
     def ClearAll(self):
-        self.CheckForError(self._lib.DSS_ClearAll())
+        self._check_for_error(self._lib.DSS_ClearAll())
 
     def Reset(self):
         """
@@ -33,12 +33,12 @@ class IBasic(Base):
 
         Original COM help: https://opendss.epri.com/Reset1.html
         """
-        self.CheckForError(self._lib.DSS_Reset())
+        self._check_for_error(self._lib.DSS_Reset())
 
     def SetActiveClass(self, ClassName):
         if type(ClassName) is not bytes:
             ClassName = ClassName.encode(self._api_util.codec)
-        return self.CheckForError(self._lib.DSS_SetActiveClass(ClassName))
+        return self._check_for_error(self._lib.DSS_SetActiveClass(ClassName))
 
     def Start(self, code):
         """
@@ -53,7 +53,7 @@ class IBasic(Base):
 
         Original COM help: https://opendss.epri.com/Start.html
         """
-        return self.CheckForError(self._lib.DSS_Start(code)) != 0
+        return self._check_for_error(self._lib.DSS_Start(code)) != 0
 
     def Classes(self):
         """
@@ -61,7 +61,7 @@ class IBasic(Base):
 
         Original COM help: https://opendss.epri.com/Classes1.html
         """
-        return self.CheckForError(self._get_string_array(self._lib.DSS_Get_Classes))
+        return self._check_for_error(self._get_string_array(self._lib.DSS_Get_Classes))
 
     def DataPath(self, *args):
         """
@@ -71,13 +71,13 @@ class IBasic(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(self.CheckForError(self._lib.DSS_Get_DataPath()))
+            return self._get_string(self._check_for_error(self._lib.DSS_Get_DataPath()))
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.DSS_Set_DataPath(Value))
+        self._check_for_error(self._lib.DSS_Set_DataPath(Value))
 
     def DefaultEditor(self):
         """
@@ -85,7 +85,7 @@ class IBasic(Base):
 
         Original COM help: https://opendss.epri.com/DefaultEditor.html
         """
-        return self._get_string(self.CheckForError(self._lib.DSS_Get_DefaultEditor()))
+        return self._get_string(self._check_for_error(self._lib.DSS_Get_DefaultEditor()))
 
     def NumCircuits(self):
         """
@@ -93,7 +93,7 @@ class IBasic(Base):
 
         Original COM help: https://opendss.epri.com/NumCircuits.html
         """
-        return self.CheckForError(self._lib.DSS_Get_NumCircuits())
+        return self._check_for_error(self._lib.DSS_Get_NumCircuits())
 
     def NumClasses(self):
         """
@@ -101,7 +101,7 @@ class IBasic(Base):
 
         Original COM help: https://opendss.epri.com/NumClasses.html
         """
-        return self.CheckForError(self._lib.DSS_Get_NumClasses())
+        return self._check_for_error(self._lib.DSS_Get_NumClasses())
 
     def NumUserClasses(self):
         """
@@ -109,7 +109,7 @@ class IBasic(Base):
 
         Original COM help: https://opendss.epri.com/NumUserClasses.html
         """
-        return self.CheckForError(self._lib.DSS_Get_NumUserClasses())
+        return self._check_for_error(self._lib.DSS_Get_NumUserClasses())
 
     def UserClasses(self):
         """
@@ -117,7 +117,7 @@ class IBasic(Base):
 
         Original COM help: https://opendss.epri.com/UserClasses.html
         """
-        return self.CheckForError(self._get_string_array(self._lib.DSS_Get_UserClasses))
+        return self._check_for_error(self._get_string_array(self._lib.DSS_Get_UserClasses))
 
     def Version(self):
         """
@@ -135,11 +135,11 @@ class IBasic(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.DSS_Get_AllowForms()) != 0
+            return self._check_for_error(self._lib.DSS_Get_AllowForms()) != 0
 
         # Setter
         (value,) = args
-        self.CheckForError(self._lib.DSS_Set_AllowForms(value))
+        self._check_for_error(self._lib.DSS_Set_AllowForms(value))
 
     def AllowEditor(self, *args):
         """
@@ -153,11 +153,11 @@ class IBasic(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.DSS_Get_AllowEditor()) != 0
+            return self._check_for_error(self._lib.DSS_Get_AllowEditor()) != 0
 
         # Setter
         (value,) = args
-        self.CheckForError(self._lib.DSS_Set_AllowEditor(value))
+        self._check_for_error(self._lib.DSS_Set_AllowEditor(value))
 
     def ShowPanel(self):
         return 0
@@ -165,7 +165,7 @@ class IBasic(Base):
     def NewCircuit(self, name):
         if type(name) is not bytes:
             name = name.encode(self._api_util.codec)
-        self.CheckForError(self._lib.DSS_NewCircuit(name))
+        self._check_for_error(self._lib.DSS_NewCircuit(name))
         return "New Circuit" # self.ActiveCircuit
 
     def LegacyModels(self, *args):
@@ -181,11 +181,11 @@ class IBasic(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.DSS_Get_LegacyModels()) != 0
+            return self._check_for_error(self._lib.DSS_Get_LegacyModels()) != 0
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.DSS_Set_LegacyModels(Value))
+        self._check_for_error(self._lib.DSS_Set_LegacyModels(Value))
 
     def AllowChangeDir(self, *args):
         """
@@ -204,11 +204,11 @@ class IBasic(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.DSS_Get_AllowChangeDir()) != 0
+            return self._check_for_error(self._lib.DSS_Get_AllowChangeDir()) != 0
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.DSS_Set_AllowChangeDir(Value))
+        self._check_for_error(self._lib.DSS_Set_AllowChangeDir(Value))
 
     def AllowDOScmd(self, *args):
         """
@@ -223,11 +223,11 @@ class IBasic(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.DSS_Get_AllowDOScmd()) != 0
+            return self._check_for_error(self._lib.DSS_Get_AllowDOScmd()) != 0
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.DSS_Set_AllowDOScmd(Value))
+        self._check_for_error(self._lib.DSS_Set_AllowDOScmd(Value))
 
     def COMErrorResults(self, *args):
         """
@@ -249,11 +249,11 @@ class IBasic(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.DSS_Get_COMErrorResults()) != 0
+            return self._check_for_error(self._lib.DSS_Get_COMErrorResults()) != 0
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.DSS_Set_COMErrorResults(Value))
+        self._check_for_error(self._lib.DSS_Set_COMErrorResults(Value))
 
     def AdvancedTypes(self, *args):
         """
@@ -273,13 +273,13 @@ class IBasic(Base):
         """
         # Getter
         if len(args) == 0:
-            arr_dim = self.CheckForError(self._lib.DSS_Get_EnableArrayDimensions()) != 0
+            arr_dim = self._check_for_error(self._lib.DSS_Get_EnableArrayDimensions()) != 0
             allow_complex = self._api_util._allow_complex
             return arr_dim and allow_complex
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.DSS_Set_EnableArrayDimensions(Value))
+        self._check_for_error(self._lib.DSS_Set_EnableArrayDimensions(Value))
         self._api_util._allow_complex = bool(Value)
 
     def CompatFlags(self, *args):
@@ -302,11 +302,11 @@ class IBasic(Base):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.DSS_Get_CompatFlags())
+            return self._check_for_error(self._lib.DSS_Get_CompatFlags())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.DSS_Set_CompatFlags(Value))
+        self._check_for_error(self._lib.DSS_Set_CompatFlags(Value))
 
 
 _Basic = IBasic(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)

@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Iterable
+from .Bases import Iterable
 from dss import GeneratorStatus
 
 
@@ -41,11 +41,11 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Generators_Get_ForcedON()) != 0
+            return self._check_for_error(self._lib.Generators_Get_ForcedON()) != 0
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Generators_Set_ForcedON(Value))
+        self._check_for_error(self._lib.Generators_Set_ForcedON(Value))
 
     def Model(self, *args):
         """
@@ -55,11 +55,11 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Generators_Get_Model())
+            return self._check_for_error(self._lib.Generators_Get_Model())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Generators_Set_Model(Value))
+        self._check_for_error(self._lib.Generators_Set_Model(Value))
 
     def PF(self, *args):
         """
@@ -69,11 +69,11 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Generators_Get_PF())
+            return self._check_for_error(self._lib.Generators_Get_PF())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Generators_Set_PF(Value))
+        self._check_for_error(self._lib.Generators_Set_PF(Value))
 
     def Phases(self, *args):
         """
@@ -83,11 +83,11 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Generators_Get_Phases())
+            return self._check_for_error(self._lib.Generators_Get_Phases())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Generators_Set_Phases(Value))
+        self._check_for_error(self._lib.Generators_Set_Phases(Value))
 
     def RegisterNames(self):
         """
@@ -95,7 +95,7 @@ class IGenerators(Iterable):
 
         See also the enum `GeneratorRegisters`.
         """
-        return self.CheckForError(
+        return self._check_for_error(
             self._get_string_array(self._lib.Generators_Get_RegisterNames)
         )
 
@@ -105,7 +105,7 @@ class IGenerators(Iterable):
 
         Original COM help: https://opendss.epri.com/RegisterValues.html
         """
-        self.CheckForError(self._lib.Generators_Get_RegisterValues_GR())
+        self._check_for_error(self._lib.Generators_Get_RegisterValues_GR())
         return self._get_float64_gr_array()
 
     def Vmaxpu(self, *args):
@@ -116,11 +116,11 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Generators_Get_Vmaxpu())
+            return self._check_for_error(self._lib.Generators_Get_Vmaxpu())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Generators_Set_Vmaxpu(Value))
+        self._check_for_error(self._lib.Generators_Set_Vmaxpu(Value))
 
     def Vminpu(self, *args):
         """
@@ -130,11 +130,11 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Generators_Get_Vminpu())
+            return self._check_for_error(self._lib.Generators_Get_Vminpu())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Generators_Set_Vminpu(Value))
+        self._check_for_error(self._lib.Generators_Set_Vminpu(Value))
 
     def kV(self, *args):
         """
@@ -144,11 +144,11 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Generators_Get_kV())
+            return self._check_for_error(self._lib.Generators_Get_kV())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Generators_Set_kV(Value))
+        self._check_for_error(self._lib.Generators_Set_kV(Value))
 
     def kVARated(self, *args):
         """
@@ -158,11 +158,11 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Generators_Get_kVArated())
+            return self._check_for_error(self._lib.Generators_Get_kVArated())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Generators_Set_kVArated(Value))
+        self._check_for_error(self._lib.Generators_Set_kVArated(Value))
 
     def kW(self, *args):
         """
@@ -172,11 +172,11 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Generators_Get_kW())
+            return self._check_for_error(self._lib.Generators_Get_kW())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Generators_Set_kW(Value))
+        self._check_for_error(self._lib.Generators_Set_kW(Value))
 
     def kvar(self, *args):
         """
@@ -186,11 +186,11 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Generators_Get_kvar())
+            return self._check_for_error(self._lib.Generators_Get_kvar())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Generators_Set_kvar(Value))
+        self._check_for_error(self._lib.Generators_Set_kvar(Value))
 
     def daily(self, *args):
         """
@@ -201,14 +201,14 @@ class IGenerators(Iterable):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.Generators_Get_daily())
+                self._check_for_error(self._lib.Generators_Get_daily())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Generators_Set_daily(Value))
+        self._check_for_error(self._lib.Generators_Set_daily(Value))
 
     def duty(self, *args):
         """
@@ -218,13 +218,13 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(self.CheckForError(self._lib.Generators_Get_duty()))
+            return self._get_string(self._check_for_error(self._lib.Generators_Get_duty()))
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Generators_Set_duty(Value))
+        self._check_for_error(self._lib.Generators_Set_duty(Value))
 
     def Yearly(self, *args):
         """
@@ -235,14 +235,14 @@ class IGenerators(Iterable):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.Generators_Get_Yearly())
+                self._check_for_error(self._lib.Generators_Get_Yearly())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Generators_Set_Yearly(Value))
+        self._check_for_error(self._lib.Generators_Set_Yearly(Value))
 
     def Status(self, *args):
         """
@@ -255,12 +255,12 @@ class IGenerators(Iterable):
         # Getter
         if len(args) == 0:
             return GeneratorStatus(
-                self.CheckForError(self._lib.Generators_Get_Status())
+                self._check_for_error(self._lib.Generators_Get_Status())
             )
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Generators_Set_Status(Value))
+        self._check_for_error(self._lib.Generators_Set_Status(Value))
 
     def IsDelta(self, *args):
         """
@@ -270,11 +270,11 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Generators_Get_IsDelta()) != 0
+            return self._check_for_error(self._lib.Generators_Get_IsDelta()) != 0
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Generators_Set_IsDelta(Value))
+        self._check_for_error(self._lib.Generators_Set_IsDelta(Value))
 
     def kva(self, *args):
         """
@@ -284,11 +284,11 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Generators_Get_kva())
+            return self._check_for_error(self._lib.Generators_Get_kva())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Generators_Set_kva(Value))
+        self._check_for_error(self._lib.Generators_Set_kva(Value))
 
     def Class(self, *args):
         """
@@ -298,11 +298,11 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self.CheckForError(self._lib.Generators_Get_Class_())
+            return self._check_for_error(self._lib.Generators_Get_Class_())
 
         # Setter
         (Value,) = args
-        self.CheckForError(self._lib.Generators_Set_Class_(Value))
+        self._check_for_error(self._lib.Generators_Set_Class_(Value))
 
     def Bus1(self, *args):
         """
@@ -312,13 +312,13 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(self.CheckForError(self._lib.Generators_Get_Bus1()))
+            return self._get_string(self._check_for_error(self._lib.Generators_Get_Bus1()))
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.Generators_Set_Bus1(Value))
+        self._check_for_error(self._lib.Generators_Set_Bus1(Value))
 
 
 _Generators = IGenerators(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)

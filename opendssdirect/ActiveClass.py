@@ -1,5 +1,5 @@
 from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
-from .Iterable import Base
+from .Bases import Base
 
 
 class IActiveClass(Base):
@@ -15,7 +15,7 @@ class IActiveClass(Base):
         Original COM help: https://opendss.epri.com/ActiveClassName.html
         """
         return self._get_string(
-            self.CheckForError(self._lib.ActiveClass_Get_ActiveClassName())
+            self._check_for_error(self._lib.ActiveClass_Get_ActiveClassName())
         )
 
     def AllNames(self):
@@ -24,7 +24,7 @@ class IActiveClass(Base):
 
         Original COM help: https://opendss.epri.com/AllNames.html
         """
-        return self.CheckForError(
+        return self._check_for_error(
             self._get_string_array(self._lib.ActiveClass_Get_AllNames)
         )
 
@@ -34,7 +34,7 @@ class IActiveClass(Base):
 
         Original COM help: https://opendss.epri.com/Count.html
         """
-        return self.CheckForError(self._lib.ActiveClass_Get_Count())
+        return self._check_for_error(self._lib.ActiveClass_Get_Count())
 
     def First(self):
         """
@@ -45,7 +45,7 @@ class IActiveClass(Base):
 
         Original COM help: https://opendss.epri.com/First.html
         """
-        return self.CheckForError(self._lib.ActiveClass_Get_First())
+        return self._check_for_error(self._lib.ActiveClass_Get_First())
 
     def Name(self, *args):
         """
@@ -56,14 +56,14 @@ class IActiveClass(Base):
         # Getter
         if len(args) == 0:
             return self._get_string(
-                self.CheckForError(self._lib.ActiveClass_Get_Name())
+                self._check_for_error(self._lib.ActiveClass_Get_Name())
             )
 
         # Setter
         (Value,) = args
         if type(Value) is not bytes:
             Value = Value.encode(self._api_util.codec)
-        self.CheckForError(self._lib.ActiveClass_Set_Name(Value))
+        self._check_for_error(self._lib.ActiveClass_Set_Name(Value))
 
     def Next(self):
         """
@@ -74,7 +74,7 @@ class IActiveClass(Base):
 
         Original COM help: https://opendss.epri.com/Next.html
         """
-        return self.CheckForError(self._lib.ActiveClass_Get_Next())
+        return self._check_for_error(self._lib.ActiveClass_Get_Next())
 
     def NumElements(self):
         """
@@ -82,7 +82,7 @@ class IActiveClass(Base):
 
         Original COM help: https://opendss.epri.com/NumElements.html
         """
-        return self.CheckForError(self._lib.ActiveClass_Get_NumElements())
+        return self._check_for_error(self._lib.ActiveClass_Get_NumElements())
 
     def ActiveClassParent(self):
         """
@@ -91,7 +91,7 @@ class IActiveClass(Base):
         Original COM help: https://opendss.epri.com/ActiveClassParent.html
         """
         return self._get_string(
-            self.CheckForError(self._lib.ActiveClass_Get_ActiveClassParent())
+            self._check_for_error(self._lib.ActiveClass_Get_ActiveClassParent())
         )
 
     def ToJSON(self, options=0):
@@ -106,7 +106,7 @@ class IActiveClass(Base):
         **(API Extension)**
         """
         return self._get_string(
-            self.CheckForError(self._lib.ActiveClass_ToJSON(options))
+            self._check_for_error(self._lib.ActiveClass_ToJSON(options))
         )
 
 

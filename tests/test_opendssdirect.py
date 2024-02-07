@@ -89,7 +89,7 @@ def test_module_import():
     import_odd()
 
     import inspect
-    from opendssdirect.Iterable import Iterable, Base
+    from opendssdirect.Bases import Iterable, Base
 
     from opendssdirect import ActiveClass as m
 
