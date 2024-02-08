@@ -5564,7 +5564,7 @@ def test_numpy():
     assert isinstance(odd_lst.Circuit.AllBusMagPu(), list)
 
 
-def xtest_threading2(dss):
+def test_threading2(dss):
     # Ported directly from DSS-Python, but using only the 13Bus circuit
     from opendssdirect.OpenDSSDirect import OpenDSSDirect
     import threading
