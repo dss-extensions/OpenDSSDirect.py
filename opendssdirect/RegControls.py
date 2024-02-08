@@ -176,7 +176,7 @@ class IRegControls(Iterable):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.RegControls_Set_MonitoredBus(Value))
 
@@ -306,7 +306,7 @@ class IRegControls(Iterable):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.RegControls_Set_Transformer(Value))
 

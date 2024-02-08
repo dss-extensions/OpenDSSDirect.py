@@ -58,7 +58,7 @@ class ISettings(Base):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.Settings_Set_AutoBusList(Value))
 
@@ -190,7 +190,7 @@ class ISettings(Base):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.Settings_Set_PriceCurve(Value))
 

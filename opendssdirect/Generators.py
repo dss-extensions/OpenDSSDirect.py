@@ -206,7 +206,7 @@ class IGenerators(Iterable):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.Generators_Set_daily(Value))
 
@@ -222,7 +222,7 @@ class IGenerators(Iterable):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.Generators_Set_duty(Value))
 
@@ -240,7 +240,7 @@ class IGenerators(Iterable):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.Generators_Set_Yearly(Value))
 
@@ -316,7 +316,7 @@ class IGenerators(Iterable):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.Generators_Set_Bus1(Value))
 

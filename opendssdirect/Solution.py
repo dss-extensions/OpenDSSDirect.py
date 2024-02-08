@@ -211,7 +211,7 @@ class ISolution(Base):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.Solution_Set_DefaultDaily(Value))
 
@@ -229,7 +229,7 @@ class ISolution(Base):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.Solution_Set_DefaultYearly(Value))
 
@@ -347,7 +347,7 @@ class ISolution(Base):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.Solution_Set_LDCurve(Value))
 

@@ -67,7 +67,7 @@ class IParser(Base):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.Parser_Set_BeginQuote(Value))
 
@@ -85,7 +85,7 @@ class IParser(Base):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.Parser_Set_CmdString(Value))
 
@@ -111,7 +111,7 @@ class IParser(Base):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.Parser_Set_Delimiters(Value))
 
@@ -127,7 +127,7 @@ class IParser(Base):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.Parser_Set_EndQuote(Value))
 
@@ -169,7 +169,7 @@ class IParser(Base):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.Parser_Set_WhiteSpace(Value))
 

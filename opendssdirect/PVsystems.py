@@ -127,7 +127,7 @@ class IPVsystems(Iterable):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.PVSystems_Set_daily(Value))
 
@@ -145,7 +145,7 @@ class IPVsystems(Iterable):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.PVSystems_Set_duty(Value))
 
@@ -166,7 +166,7 @@ class IPVsystems(Iterable):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.PVSystems_Set_yearly(Value))
 
@@ -187,7 +187,7 @@ class IPVsystems(Iterable):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.PVSystems_Set_Tdaily(Value))
 
@@ -209,7 +209,7 @@ class IPVsystems(Iterable):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.PVSystems_Set_Tduty(Value))
 
@@ -231,7 +231,7 @@ class IPVsystems(Iterable):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.PVSystems_Set_Tyearly(Value))
 

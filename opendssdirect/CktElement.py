@@ -69,7 +69,7 @@ class ICktElement(Base):
         If the active element is a PCElement, get the value of a variable by name.
         Otherwise, an exception is raised.
         """
-        if type(MyVarName) is not bytes:
+        if not isinstance(MyVarName, bytes):
             MyVarName = MyVarName.encode(self._api_util.codec)
         Code = self._api_util.ffi.new("int32_t*")
         result = self._check_for_error(self._lib.CktElement_Get_Variable(MyVarName, Code))
@@ -210,7 +210,7 @@ class ICktElement(Base):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.CktElement_Set_DisplayName(Value))
 

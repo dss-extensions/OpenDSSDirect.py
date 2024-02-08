@@ -98,7 +98,7 @@ class Iterable(Base):
         
         # Setter
         Value, = args        
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
 
         self._check_for_error(self._Set_Name(Value))
@@ -111,7 +111,7 @@ class Iterable(Base):
 
         # Setter
         Value, = args        
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             self._check_for_error(self._Set_idx(Value))
 
 __all__ = ["Iterable", "Base",]

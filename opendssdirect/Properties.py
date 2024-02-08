@@ -32,7 +32,7 @@ class IProperties(Base):
 
         except ValueError:
             # if we cannot convert to integer, use string as name instead
-            if type(argIndex_or_Name) is not bytes:
+            if not isinstance(argIndex_or_Name, bytes):
                 argIndex_or_Name = argIndex_or_Name.encode(self._api_util.codec)
 
             self._lib.DSSProperty_Set_Name(argIndex_or_Name)
@@ -52,7 +52,7 @@ class IProperties(Base):
 
         # Setter by index as strs
         argIndex_or_Name, Value = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = str(Value).encode(self._api_util.codec)
 
         self._setCurrentProperty(argIndex_or_Name)

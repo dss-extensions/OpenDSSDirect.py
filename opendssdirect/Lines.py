@@ -41,7 +41,7 @@ class ILines(Iterable):
     ]
 
     def New(self, Name):
-        if type(Name) is not bytes:
+        if not isinstance(Name, bytes):
             Name = Name.encode(self._api_util.codec)
         return self._check_for_error(self._lib.Lines_New(Name))
 
@@ -57,7 +57,7 @@ class ILines(Iterable):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.Lines_Set_Bus1(Value))
 
@@ -73,7 +73,7 @@ class ILines(Iterable):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.Lines_Set_Bus2(Value))
 
@@ -142,7 +142,7 @@ class ILines(Iterable):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.Lines_Set_Geometry(Value))
 
@@ -172,7 +172,7 @@ class ILines(Iterable):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.Lines_Set_LineCode(Value))
 
@@ -304,7 +304,7 @@ class ILines(Iterable):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.Lines_Set_Spacing(Value))
 

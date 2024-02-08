@@ -401,7 +401,7 @@ class OpenDSSDirect(Base):
         '''
         # self.Commands(cmds) -- inlined
         if isinstance(cmds, (str, bytes)):
-            if type(cmds) is not bytes:
+            if not isinstance(cmds, bytes):
                 cmds = cmds.encode(self._api_util.codec)
             self._check_for_error(self._lib.Text_CommandBlock(cmds))
         else:

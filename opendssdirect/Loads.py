@@ -75,7 +75,7 @@ class ILoads(Iterable):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.Loads_Set_CVRcurve(Value))
 
@@ -147,7 +147,7 @@ class ILoads(Iterable):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.Loads_Set_Growth(Value))
 
@@ -275,7 +275,7 @@ class ILoads(Iterable):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.Loads_Set_Spectrum(Value))
 
@@ -375,7 +375,7 @@ class ILoads(Iterable):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.Loads_Set_Yearly(Value))
 
@@ -407,7 +407,7 @@ class ILoads(Iterable):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.Loads_Set_daily(Value))
 
@@ -423,7 +423,7 @@ class ILoads(Iterable):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.Loads_Set_duty(Value))
 

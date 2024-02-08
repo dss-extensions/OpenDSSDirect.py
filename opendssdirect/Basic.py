@@ -36,7 +36,7 @@ class IBasic(Base):
         self._check_for_error(self._lib.DSS_Reset())
 
     def SetActiveClass(self, ClassName):
-        if type(ClassName) is not bytes:
+        if not isinstance(ClassName, bytes):
             ClassName = ClassName.encode(self._api_util.codec)
         return self._check_for_error(self._lib.DSS_SetActiveClass(ClassName))
 
@@ -75,7 +75,7 @@ class IBasic(Base):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.DSS_Set_DataPath(Value))
 
@@ -163,7 +163,7 @@ class IBasic(Base):
         return 0
 
     def NewCircuit(self, name):
-        if type(name) is not bytes:
+        if not isinstance(name, bytes):
             name = name.encode(self._api_util.codec)
         self._check_for_error(self._lib.DSS_NewCircuit(name))
         return "New Circuit" # self.ActiveCircuit

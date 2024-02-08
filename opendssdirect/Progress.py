@@ -21,7 +21,7 @@ class IProgress(Base):
 
         Original COM help: https://opendss.epri.com/Caption.html
         """
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.DSSProgress_Set_Caption(Value))
 

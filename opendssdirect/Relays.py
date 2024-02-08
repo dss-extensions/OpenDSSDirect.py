@@ -32,7 +32,7 @@ class IRelays(Iterable):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.Relays_Set_MonitoredObj(Value))
 
@@ -64,7 +64,7 @@ class IRelays(Iterable):
 
         # Setter
         (Value,) = args
-        if type(Value) is not bytes:
+        if not isinstance(Value, bytes):
             Value = Value.encode(self._api_util.codec)
         self._check_for_error(self._lib.Relays_Set_SwitchedObj(Value))
 
