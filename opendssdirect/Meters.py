@@ -27,14 +27,14 @@ class IMeters(Iterable):
         "CalcCurrent",
         "AllBranchesInZone",
         "NumSections",
-        "NumSectionCustomers",
-        "SectSeqidx",
-        "SumBranchFltRates",
-        "AvgRepairTime",
-        "SectTotalCust",
-        "OCPDeviceType",
-        "FaultRateXRepairHrs",
-        "NumSectionBranches",
+        # "NumSectionCustomers",
+        # "SectSeqidx",
+        # "SumBranchFltRates",
+        # "AvgRepairTime",
+        # "SectTotalCust",
+        # "OCPDeviceType",
+        # "FaultRateXRepairHrs",
+        # "NumSectionBranches",
     ]
 
     def CloseAllDIFiles(self):
