@@ -24,9 +24,9 @@ class ILineGeometries(Iterable):
         "Conductors",
         "Xcoords",
         "Ycoords",
-        "Rmatrix",
-        "Xmatrix",
-        "Zmatrix",
+        # "Rmatrix",
+        # "Xmatrix",
+        # "Zmatrix",
         "NormAmps",
         "EmergAmps",
     ]
