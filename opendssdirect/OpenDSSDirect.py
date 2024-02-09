@@ -196,7 +196,18 @@ class OpenDSSDirect(Base):
         Base.__init__(self, ctx_api_util, prefer_lists=prefer_lists)
         OpenDSSDirect._ctx_to_dss[ctx_api_util.ctx] = self
         object.__setattr__(self, '_frozen_attrs', False)
+        
         self.dss_lib = ctx_api_util.lib
+        """
+        `dss_lib` provides access to the low-level CFFI library; this is not recommended for most users and may 
+        change across versions. The intention is to allow some (very) advanced operations directly, when the
+        high-level interface either does not model some specific detail, or when users know how to manually
+        address some data directly with lower overhead.
+
+        **WARNING**: if used incorrectly, could even crash your computer.
+        """
+
+
         self.dss_ffi = ctx_api_util.ffi
         self.dss = self
 
