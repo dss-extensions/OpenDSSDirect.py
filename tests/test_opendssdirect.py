@@ -5564,6 +5564,23 @@ def test_numpy():
     assert isinstance(odd_lst.Circuit.AllBusMagPu(), list)
 
 
+def test_numpy_option_propagation():
+    import_odd()
+    from opendssdirect.OpenDSSDirect import OpenDSSDirect
+    from numpy import ndarray
+
+    # NOTE: this constructors ALWAYS binds to the default DSS engine.
+    odd_np = OpenDSSDirect(prefer_lists=False)
+    # Use it normally
+    odd_np(f"Redirect '{PATH_TO_DSS}'")
+    assert isinstance(odd_np.Circuit.AllBusMagPu(), ndarray)
+
+    odd_np2 = odd_np.NewContext()
+    odd_np2(f"Redirect '{PATH_TO_DSS}'")
+    assert isinstance(odd_np2.Circuit.AllBusMagPu(), ndarray)
+
+
+
 def test_threading2(dss):
     # Ported directly from DSS-Python, but using only the 13Bus circuit
     from opendssdirect.OpenDSSDirect import OpenDSSDirect

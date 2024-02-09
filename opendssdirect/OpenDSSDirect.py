@@ -352,7 +352,8 @@ class OpenDSSDirect(Base):
         new_ctx = ffi.gc(lib.ctx_New(), lib.ctx_Dispose)
         new_api_util = dss_py.CffiApiUtil(ffi, lib, new_ctx)
         new_api_util._allow_complex = self._api_util._allow_complex
-        return OpenDSSDirect(new_api_util)
+        prefer_lists = (self._get_complex128_array == self._api_util.get_complex128_array2)
+        return OpenDSSDirect(new_api_util, prefer_lists=prefer_lists)
 
     def to_dss_python(self) -> DSSPython:
         """
