@@ -9,5 +9,5 @@ authors:
     orcid: https://orcid.org/0000-0001-6170-7438
 title: "OpenDSSDirect.py: a cross-platform Python package that implements a native/direct library interface to the alternative OpenDSS engine from DSS-Extensions.org"
 url: "https://dss-extensions.org/OpenDSSDirect.py/"
-version: 0.8.3
-date-released: 2023-06-13
+version: 0.9.0
+date-released: 2024-02-12
