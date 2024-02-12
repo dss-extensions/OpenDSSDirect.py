@@ -1,0 +1,85 @@
+[build-system]
+requires = [
+    "hatchling",
+    "versioningit",
+]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "versioningit"
+
+[tool.versioningit]
+
+[tool.versioningit.write]
+file = "opendssdirect/_version.py"
+
+[tool.hatch.build]
+artifacts = [
+    "opendssdirect/_version.py", 
+]
+packages = ["opendssdirect"]
+
+[project]
+name = "opendssdirect.py"
+dynamic = ["version"]
+dependencies = [
+    "dss_python==0.15.0,<0.16",
+]
+requires-python = ">=3.7"
+authors = [
+  {name = "Dheepak Krishnamurthy", email = "me@kdheepak.com"},
+  {name = "Paulo Meira", email = "pmeira@ieee.org"},
+]
+maintainers = [
+  {name = "Dheepak Krishnamurthy", email = "me@kdheepak.com"},
+  {name = "Paulo Meira", email = "pmeira@ieee.org"},
+]
+description = "Python direct-mode interface to an alternative implementation of OpenDSS"
+readme = "README.md"
+license = {file = "LICENSE"}
+keywords = ["opendss", "altdss", "electric power systems", "opendssdirect", "cffi"]
+classifiers = [
+    'Intended Audience :: Science/Research',
+    'Intended Audience :: Education',
+    'Intended Audience :: Developers',
+    'Topic :: Software Development :: Build Tools',
+    'Programming Language :: Python :: 3.7',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
+    'Programming Language :: Python :: Implementation :: CPython',
+    'Programming Language :: Python :: Implementation :: PyPy',
+    "Development Status :: 4 - Beta",
+    'Topic :: Scientific/Engineering',
+    "License :: Other/Proprietary License",
+]
+
+[project.urls]
+Homepage = "https://github.com/dss-extensions/OpenDSSDirect.py"
+Documentation = "https://dss-extensions.org/OpenDSSDirect.py"
+Repository = "https://github.com/dss-extensions/OpenDSSDirect.py.git"
+"Bug Tracker" = "https://github.com/dss-extensions/OpenDSSDirect.py/issues"
+
+[project.optional-dependencies]
+extras = [
+    "pandas", 
+    "matplotlib", 
+    "networkx",
+    "altdss",
+    "scipy",
+]
+
+[tool.hatch.envs.dev]
+dependencies = [
+    "pytest",
+    "pytest-cov",
+    "sphinx-rtd-theme",
+    "nbsphinx",
+    "black",
+    "pre-commit",
+]
+post-install-commands = [
+  "hatch run dev:pre-commit install",
+]

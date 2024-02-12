@@ -1,11 +1,6 @@
-# -*- coding: utf-8 -*-
 import pytest as pt
-import os, re
+import os, re, sys
 import pandas as pd
-try:
-    from pandas._testing import assert_dict_equal #TODO: migrate to something else, this is bad
-except:
-    from pandas.util.testing import assert_dict_equal
 
 import numpy as np
 
@@ -14,18 +9,61 @@ PATH_TO_DSS = os.path.abspath(
     os.path.join(current_directory, "./data/13Bus/IEEE13Nodeckt.dss")
 )
 
+def import_odd():
+    if sys.platform == 'win32':
+        # When running pytest, the faulthandler seems too eager
+        # to grab FPC's exceptions, even when handled
+        import faulthandler
+        faulthandler.disable()
+        from opendssdirect import dss
+        faulthandler.enable()
+    else:
+        from opendssdirect import dss
+
+    return dss
 
 @pt.fixture()
 def dss():
-    import opendssdirect as dss
+    dss = import_odd()
 
     dss.Error.ExtendedErrors(True)
-    dss.Text.Command("set eventlogdefault=yes")
-    assert (
-        dss.utils.run_command("Redirect {}".format(PATH_TO_DSS)) == ""
-    ), "Unable to find test data"
+    dss.Basic.AdvancedTypes(False)
+    dss("set eventlogdefault=yes")
+    dss(f'Redirect "{PATH_TO_DSS}"')
     return dss
 
+
+def to_lower(names):
+    return [name.lower() if isinstance(name, str) else name for name in names]
+
+
+def dict_keys_to_lower(data):
+    return dict(zip(to_lower(data.keys()), data.values()))
+
+
+def _assert_dict_equal(d1, d2, outer_key=None):
+    d1_keys = set(d1.keys())
+    d2_keys = set(d2.keys())
+    assert d1_keys == d2_keys, (d1_keys - d2_keys, d2_keys - d1_keys)
+    for key in d1_keys:
+        v1 = d1[key]
+        v2 = d2[key]
+        if isinstance(v1, dict):
+            _assert_dict_equal_lkeys(v1, v2, outer_key=key)
+        elif isinstance(v1, np.ndarray) or (
+            isinstance(v1, (list, tuple)) and
+            (len(v1) > 0) and isinstance(v1[0], (float, int))
+        ):
+            np.testing.assert_array_almost_equal(v1, v2, decimal=5, err_msg=f'{outer_key}.{key}')
+        elif isinstance(v1, float):
+            np.testing.assert_almost_equal(v1, v2, decimal=5, err_msg=f'{outer_key}.{key}')
+        else:
+            assert (v1 == v2), (outer_key, key, v1, v2)
+
+def _assert_dict_equal_lkeys(d1, d2, outer_key=None):
+    d1 = dict_keys_to_lower(d1)
+    d2 = dict_keys_to_lower(d2)
+    _assert_dict_equal(d1, d2, outer_key=outer_key)
 
 def test_extended_errors(dss):
     assert dss.Error.ExtendedErrors()
@@ -33,142 +71,153 @@ def test_extended_errors(dss):
 
 def test_package_import():
 
-    import opendssdirect
+    if sys.platform == 'win32':
+        # When running pytest, the faulthandler seems too eager
+        # to grab FPC's exceptions, even when handled
+        import faulthandler
+        faulthandler.disable()
+        import opendssdirect
+        faulthandler.enable()
+    else:
+        import opendssdirect
 
     assert getattr(opendssdirect, "__version__") is not None
 
 
 def test_module_import():
 
+    import_odd()
+
     import inspect
+    from opendssdirect.Bases import Iterable, Base
 
     from opendssdirect import ActiveClass as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Base)
 
     from opendssdirect import Basic as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Base)
 
     from opendssdirect import Bus as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Base)
 
     from opendssdirect import Capacitors as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import CapControls as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import Circuit as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Base)
 
     from opendssdirect import CktElement as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Base)
 
     from opendssdirect import Element as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Base)
 
     from opendssdirect import Executive as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Base)
 
     from opendssdirect import Fuses as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import Generators as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import Isource as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import Lines as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import Loads as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import LoadShape as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import Meters as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import Monitors as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import Parser as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Base)
 
     from opendssdirect import PDElements as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Base)
 
     from opendssdirect import Properties as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Base)
 
     from opendssdirect import PVsystems as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import Reclosers as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import RegControls as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import Relays as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import Sensors as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import Settings as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Base)
 
     from opendssdirect import Solution as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Base)
 
     from opendssdirect import SwtControls as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import Topology as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Base)
 
     from opendssdirect import Transformers as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import Vsources as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
     from opendssdirect import XYCurves as m
 
-    assert inspect.ismodule(m)
+    assert isinstance(m, Iterable)
 
 
 def test_ActiveClass(dss):
@@ -200,7 +249,7 @@ def test_ActiveClass(dss):
 
 def test_configuration():
 
-    import opendssdirect as dss
+    dss = import_odd()
 
     # Test toggling the console output using AllowForms.
     # Note COM's AllowForms can only be disabled and it ignores
@@ -339,12 +388,12 @@ def test_13Node_Bus(dss):
     assert dss.Bus.Cust_Interrupts() == 0.0
     assert dss.Bus.Distance() == 0.0
     assert dss.Bus.Int_Duration() == 0.0
-    assert dss.Bus.Isc() == [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    np.testing.assert_allclose(dss.Bus.Isc(), [0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
     assert dss.Bus.Lambda() == 0.0
     assert dss.Bus.N_Customers() == 0
     assert dss.Bus.N_interrupts() == 0.0
     assert dss.Bus.Name() == u"sourcebus"
-    assert dss.Bus.Nodes() == [1, 2, 3]
+    assert list(dss.Bus.Nodes()) == [1, 2, 3]
     assert dss.Bus.NumNodes() == 3
     np.testing.assert_array_almost_equal(
         dss.Bus.PuVoltage(),
@@ -389,7 +438,7 @@ def test_13Node_Bus(dss):
         ],
         decimal=4,
     )
-    assert dss.Bus.Voc() == [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    np.testing.assert_allclose(dss.Bus.Voc(), [0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
     np.testing.assert_array_almost_equal(
         dss.Bus.Voltages(),
         [
@@ -404,10 +453,10 @@ def test_13Node_Bus(dss):
     )
     assert dss.Bus.X() == 200.0
     assert dss.Bus.Y() == 400.0
-    assert dss.Bus.YscMatrix() == [0.0]
-    assert dss.Bus.Zsc0() == [0.0, 0.0]
-    assert dss.Bus.Zsc1() == [0.0, 0.0]
-    assert dss.Bus.ZscMatrix() == [0.0]
+    np.testing.assert_allclose(dss.Bus.YscMatrix(), [0.0])
+    np.testing.assert_allclose(dss.Bus.Zsc0(), [0.0, 0.0])
+    np.testing.assert_allclose(dss.Bus.Zsc1(), [0.0, 0.0])
+    np.testing.assert_allclose(dss.Bus.ZscMatrix(), [0.0])
     assert dss.Bus.ZscRefresh() == 1
     assert dss.Bus.kVBase() == 66.39528095680697
     np.testing.assert_array_almost_equal(
@@ -439,10 +488,10 @@ def test_13Node_Bus(dss):
 
     # TODO: this should not be sorted, we should define the order of the results
     assert sorted(dss.YMatrix.getV()[2:]) == sorted(dss.Circuit.AllBusVolts())
-    
+
     assert dss.Bus.AllPDEatBus() == ["Transformer.sub"]
     assert dss.Bus.AllPCEatBus() == ["Vsource.source"]
-    
+
     dss.Circuit.SetActiveBus("684")
     assert dss.Bus.AllPDEatBus() == ['Line.671684', 'Line.684611', 'Line.684652']
     assert dss.Bus.AllPCEatBus() == []
@@ -794,7 +843,7 @@ def test_13Node_Circuit(dss):
         u"Line.684652",
         u"Line.671692",
     ]
-    assert dss.Circuit.AllNodeDistances() == [
+    np.testing.assert_allclose(dss.Circuit.AllNodeDistances(), [
         0.0,
         0.0,
         0.0,
@@ -836,7 +885,7 @@ def test_13Node_Circuit(dss):
         0.0,
         0.0,
         0.0,
-    ]
+    ])
     assert dss.Circuit.AllNodeNames() == [
         u"sourcebus.1",
         u"sourcebus.2",
@@ -918,7 +967,7 @@ def test_13Node_Circuit(dss):
     assert dss.Circuit.SetActiveClass("Load") == 19
 
     assert dss.Circuit.SetActiveElement("") == -1
-    assert dss.Circuit.SubstationLosses() == [0.0, 0.0]
+    np.testing.assert_allclose(dss.Circuit.SubstationLosses(), [0.0, 0.0])
 
     np.testing.assert_array_almost_equal(
         dss.Circuit.TotalPower(), [-3567.2118131482466, -1736.5765097263468], decimal=4
@@ -1148,7 +1197,7 @@ def test_13Node_Circuit(dss):
 
 def test_13Node_CktElement(dss):
 
-    assert dss.CktElement.AllPropertyNames() == [
+    assert to_lower(dss.CktElement.AllPropertyNames()) == to_lower([
         u"bus1",
         u"bus2",
         u"linecode",
@@ -1187,13 +1236,13 @@ def test_13Node_CktElement(dss):
         u"basefreq",
         u"enabled",
         u"like",
-    ]
+    ])
     with pt.raises(dss.DSSException):
         dss.CktElement.AllVariableNames()
-    
+
     with pt.raises(dss.DSSException):
         dss.CktElement.AllVariableValues()
-        
+
     assert dss.CktElement.BusNames() == [u"671", u"692"]
     assert dss.CktElement.Open(1, 0) is None
     assert dss.CktElement.IsOpen(1, 0)
@@ -1287,7 +1336,7 @@ def test_13Node_CktElement(dss):
         decimal=4,
     )
     assert dss.CktElement.Name() == u"Line.671692"
-    assert dss.CktElement.NodeOrder() == [1, 2, 3, 1, 2, 3]
+    assert list(dss.CktElement.NodeOrder()) == [1, 2, 3, 1, 2, 3]
     np.testing.assert_almost_equal(
         dss.CktElement.TotalPowers(),
         [1013.9073121262952, 19.02222347205106, -1013.9073030717203, -19.02222347205106],
@@ -1327,7 +1376,7 @@ def test_13Node_CktElement(dss):
             -68.33002136489694,
             156.9385702870313,
             -414.5331627631359,
-            -52.80423048102611,            
+            -52.80423048102611,
         ],
         decimal=4,
     )
@@ -1344,7 +1393,7 @@ def test_13Node_CktElement(dss):
             71.92627183650107,
             67.92201890463316,
             142.811508772432,
-            71.92627183650107,            
+            71.92627183650107,
         ],
         decimal=4,
     )
@@ -1374,7 +1423,7 @@ def test_13Node_CktElement(dss):
             42.212519130185925,
             82.59752865884985,
             2391.5781233658486,
-            42.21252404660491,            
+            42.21252404660491,
         ],
         decimal=4,
     )
@@ -1383,13 +1432,7 @@ def test_13Node_CktElement(dss):
         dss.CktElement.Variablei(1)
 
     with pt.raises(dss.DSSException):
-        dss.CktElement.Variablei(1, 10)
-
-    with pt.raises(dss.DSSException):
         dss.CktElement.Variable("some invalid name")
-
-    with pt.raises(dss.DSSException):
-        dss.CktElement.Variable("some invalid name", 10)
 
     np.testing.assert_array_almost_equal(
         dss.CktElement.Voltages(),
@@ -1405,7 +1448,7 @@ def test_13Node_CktElement(dss):
             -1338.4031344410685,
             -2109.8005600677157,
             -1015.4071496666254,
-            2083.115713199053,            
+            2083.115713199053,
         ],
         decimal=4,
     )
@@ -1508,7 +1551,7 @@ def test_13Node_CktElement(dss):
     )
 
     # Create an element with "variables" available to test
-    dss.run_command("New PVSystem.631")
+    dss("New PVSystem.631")
     dss.Circuit.SetActiveElement("PVSystem.631")
     assert dss.CktElement.AllVariableNames() == [
         u"Irradiance",
@@ -1534,7 +1577,7 @@ def test_13Node_CktElement(dss):
         "Series L",
         "Max. Amps (phase)",
     ]
-    assert dss.CktElement.AllVariableValues() == [
+    np.testing.assert_allclose(dss.CktElement.AllVariableValues(), [
         1.0,
         500.0,
         1.0,
@@ -1557,7 +1600,7 @@ def test_13Node_CktElement(dss):
         0.0,
         0.0,
         0.0,
-    ]
+    ])
     assert dss.CktElement.Variablei(2) == 500.0
     assert dss.CktElement.Variable(u"PanelkW") == 500.0
 
@@ -1602,7 +1645,7 @@ def test_13Node_CapControls(dss):
 
 
 def test_13Node_Element(dss):
-    assert dss.Element.AllPropertyNames() == [
+    assert to_lower(dss.Element.AllPropertyNames()) == to_lower([
         u"bus1",
         u"bus2",
         u"linecode",
@@ -1641,7 +1684,7 @@ def test_13Node_Element(dss):
         u"basefreq",
         u"enabled",
         u"like",
-    ]
+    ])
     assert dss.Element.Name() == u"Line.671692"
     assert dss.Element.NumProperties() == 38
 
@@ -1745,7 +1788,7 @@ def test_13Node_Lines(dss):
     assert dss.Lines.Bus2() == u"692"
     assert dss.Lines.C0() == 0.0
     assert dss.Lines.C1() == 0.0
-    assert dss.Lines.CMatrix() == [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    np.testing.assert_allclose(dss.Lines.CMatrix(), [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
     assert dss.Lines.Count() == 12
     assert dss.Lines.EmergAmps() == 600.0
     assert dss.Lines.First() == 1
@@ -1845,7 +1888,7 @@ def test_13Node_Lines(dss):
 
     assert dss.Lines.R0() == 3.378787878787879e-05
     assert dss.Lines.X0() == 7.664772727272727e-05
-    assert dss.Lines.RMatrix() == [
+    np.testing.assert_allclose(dss.Lines.RMatrix(), [
         6.5625e-05,
         2.9545454545454545e-05,
         2.9924242424242424e-05,
@@ -1855,8 +1898,8 @@ def test_13Node_Lines(dss):
         2.9924242424242424e-05,
         2.9071969696969698e-05,
         6.46590909090909e-05,
-    ]
-    assert dss.Lines.XMatrix() == [
+    ])
+    np.testing.assert_allclose(dss.Lines.XMatrix(), [
         0.00019278409090909093,
         9.50189393939394e-05,
         8.022727272727272e-05,
@@ -1866,7 +1909,7 @@ def test_13Node_Lines(dss):
         8.022727272727272e-05,
         7.289772727272727e-05,
         0.00019598484848484847,
-    ]
+    ])
 
     assert dss.Lines.R1() == 1.0984848484848486e-05
     assert dss.Lines.X1() == 2.284090909090909e-05
@@ -1922,7 +1965,7 @@ def test_13Node_Loads(dss):
     assert dss.Loads.XfkVA() == 0.0
     assert dss.Loads.Xneut() == 0.0
     assert dss.Loads.Yearly() == u""
-    assert dss.Loads.ZipV() == [0, 0, 0, 0, 0, 0, 0]
+    np.testing.assert_allclose(dss.Loads.ZipV(), [0, 0, 0, 0, 0, 0, 0])
     assert dss.Loads.kV() == 0.277
     assert dss.Loads.kVABase() == 194.164878389476
     assert dss.Loads.kW() == 160.0
@@ -1943,7 +1986,7 @@ def test_13Node_LoadShape(dss):
     assert dss.LoadShape.Normalize() is None
     assert dss.LoadShape.Npts() == 24
     assert dss.LoadShape.PBase() == 0.0
-    assert dss.LoadShape.PMult() == [
+    np.testing.assert_allclose(dss.LoadShape.PMult(), [
         0.677,
         0.6256,
         0.6087,
@@ -1968,11 +2011,11 @@ def test_13Node_LoadShape(dss):
         0.876,
         0.828,
         0.756,
-    ]
+    ])
     assert dss.LoadShape.QBase() == 0.0
-    assert dss.LoadShape.QMult() == [0.0]
+    np.testing.assert_allclose(dss.LoadShape.QMult(), [0.0])
     assert dss.LoadShape.SInterval() == 3600.0
-    assert dss.LoadShape.TimeArray() == [0.0]
+    np.testing.assert_allclose(dss.LoadShape.TimeArray(), [0.0])
     assert dss.LoadShape.UseActual() == 0
 
 
@@ -1999,13 +2042,13 @@ def test_13Node_Monitors(dss):
     assert dss.Monitors.ResetAll() is None
     assert dss.Monitors.SaveAll() is None
     assert dss.Monitors.SampleAll() is None
-    
+
     dss.Text.Command("new monitor.test_monitor element=Transformer.Reg3 terminal=2 mode=2")
     dss.Text.Command("solve mode=daily step=15m number=10")
-    
+
     assert dss.Monitors.Count() == 1
     assert dss.Monitors.First() == 1
-    
+
     expected_dict = pd.DataFrame(
         {
             "Tap (pu)": {
@@ -2048,7 +2091,7 @@ def test_13Node_Monitors(dss):
     ).to_dict()
 
     actual_dict = dss.utils.monitor_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_13Node_PDElements(dss):
@@ -2113,12 +2156,12 @@ def test_13Node_PDElements(dss):
     for name in all_names:
         # We have to iterate by name to include disabled elements
         dss.PDElements.Name(name)
-        
+
         currents = np.asarray(dss.CktElement.Currents()).view(dtype=complex)
-        
+
         all_max_currents2.append(np.max(np.abs(currents[:dss.CktElement.NumPhases()])))
         all_max_currents_all_terms_2.append(np.max(np.abs(currents)))
-        
+
         all_currents2.append(currents)
         all_norm_amp2.append(dss.CktElement.NormalAmps())
         all_emerg_amp2.append(dss.CktElement.EmergAmps())
@@ -2132,8 +2175,8 @@ def test_13Node_PDElements(dss):
 
     np.testing.assert_array_almost_equal(all_max_currents, all_max_currents2, decimal=4)
     np.testing.assert_array_almost_equal(
-        all_max_currents_all_terms, 
-        all_max_currents_all_terms_2, 
+        all_max_currents_all_terms,
+        all_max_currents_all_terms_2,
         decimal=4
     )
 
@@ -2150,8 +2193,8 @@ def test_13Node_PDElements(dss):
     )
 
     np.testing.assert_array_almost_equal(
-        np.asarray(all_currents).view(dtype=complex), 
-        np.concatenate(all_currents2), 
+        np.asarray(all_currents).view(dtype=complex),
+        np.concatenate(all_currents2),
         decimal=4
     )
 
@@ -2170,10 +2213,10 @@ def test_13Node_Properties(dss):  # TODO!! rework DSSProperty
         dss.Properties.Description().replace(os.linesep, "\n")
         == u"Name of bus to which first terminal is connected.\nExample:\nbus1=busname   (assumes all terminals connected in normal phase order)\nbus1=busname.3.1.2.0 (specify terminal to node connections explicitly)"
     )
-    assert dss.Properties.Name() == u"bus1"
+    assert dss.Properties.Name().lower() == u"bus1"
 
     dss.dss_lib.DSSProperty_Set_Index(0)  # TODO?
-    assert dss.Properties.Name() == u"bus1"
+    assert dss.Properties.Name().lower() == u"bus1"
     assert dss.Properties.Value() == u"671"
 
 
@@ -2238,7 +2281,8 @@ def test_13Node_Sensors(dss):
     assert dss.Sensors.Next() == 0
     assert dss.Sensors.ResetAll() is None
 
-    assert dss.Sensors.Currents() == [0.0]
+    with pt.raises(dss.DSSException):
+        dss.Sensors.Currents()
 
 
 def test_13Node_Settings(dss):
@@ -2255,16 +2299,16 @@ def test_13Node_Settings(dss):
 
     assert dss.Settings.EmergVmaxpu() == 1.08
     assert dss.Settings.EmergVminpu() == 0.9
-    assert dss.Settings.LossRegs() == [13]
+    assert list(dss.Settings.LossRegs()) == [13]
     assert dss.Settings.LossWeight() == 1.0
     assert dss.Settings.NormVmaxpu() == 1.05
     assert dss.Settings.NormVminpu() == 0.95
     assert dss.Settings.PriceCurve() == u""
     assert dss.Settings.PriceSignal() == 25.0
     assert dss.Settings.Trapezoidal() == 0
-    assert dss.Settings.UERegs() == [10]
+    assert list(dss.Settings.UERegs()) == [10]
     assert dss.Settings.UEWeight() == 1.0
-    assert dss.Settings.VoltageBases() == [115.0, 4.16, 0.48]
+    np.testing.assert_allclose(dss.Settings.VoltageBases(), [115.0, 4.16, 0.48])
     assert dss.Settings.ZoneLock() == 0
 
 
@@ -2420,25 +2464,25 @@ def test_capacitors_to_dataframe(dss):
     ).to_dict()
 
     actual_dict = dss.utils.capacitors_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_fuses_to_dataframe(dss):
     expected_dict = {}
     actual_dict = dss.utils.fuses_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_generators_to_dataframe(dss):
     expected_dict = {}
     actual_dict = dss.utils.generators_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_isource_to_dataframe(dss):
     expected_dict = {}
     actual_dict = dss.utils.isource_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
     dss.Text.Command("New Isource.sampleIsource Bus1=611.3 Phases=1 Amps=0.1 Angle=30")
 
@@ -2453,7 +2497,7 @@ def test_isource_to_dataframe(dss):
     ).to_dict()
 
     actual_dict = dss.utils.isource_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_lines_to_dataframe(dss):
@@ -3724,7 +3768,7 @@ def test_lines_to_dataframe(dss):
     ).to_dict()
 
     actual_dict = dss.utils.lines_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_loads_to_dataframe(dss):
@@ -4359,11 +4403,28 @@ def test_loads_to_dataframe(dss):
                 "670b": 1,
                 "670c": 1,
             },
+            "Sensor": {
+                "671": "",
+                "634a": "",
+                "634b": "",
+                "634c": "",
+                "645": "",
+                "646": "",
+                "692": "",
+                "675a": "",
+                "675b": "",
+                "675c": "",
+                "611": "",
+                "652": "",
+                "670a": "",
+                "670b": "",
+                "670c": ""
+            },
         }
     ).to_dict()
 
     actual_dict = dss.utils.loads_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_loadshape_to_dataframe(dss):
@@ -4412,17 +4473,17 @@ def test_loadshape_to_dataframe(dss):
     ).to_dict()
 
     actual_dict = dss.utils.loadshape_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_meters_to_dataframe(dss):
     expected_dict = {}
     actual_dict = dss.utils.meters_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_pvsystems_to_dataframe(dss):
-    dss.run_command("New PVSystem.631")
+    dss("New PVSystem.631")
 
     expected_dict = pd.DataFrame(
         {
@@ -4445,18 +4506,19 @@ def test_pvsystems_to_dataframe(dss):
             "daily": {"631": ""},
             "duty": {"631": ""},
             "yearly": {"631": ""},
+            "Sensor": {"631": ""},
         }
     ).to_dict()
 
     actual_dict = dss.utils.pvsystems_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_reclosers_to_dataframe(dss):
     expected_dict = {}
     actual_dict = dss.utils.reclosers_to_dataframe().to_dict()
 
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_regcontrols_to_dataframe(dss):
@@ -4489,19 +4551,19 @@ def test_regcontrols_to_dataframe(dss):
     ).to_dict()
 
     actual_dict = dss.utils.regcontrols_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_relays_to_dataframe(dss):
     expected_dict = {}
     actual_dict = dss.utils.relays_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_sensors_to_dataframe(dss):
     expected_dict = {}
     actual_dict = dss.utils.sensors_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_transformers_to_dataframe(dss):
@@ -4726,7 +4788,7 @@ def test_transformers_to_dataframe(dss):
     ).to_dict()
 
     actual_dict = dss.utils.transformers_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_vsources_to_dataframe(dss):
@@ -4743,24 +4805,24 @@ def test_vsources_to_dataframe(dss):
     ).to_dict()
 
     actual_dict = dss.utils.vsources_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_xycurves_to_dataframe(dss):
     expected_dict = {}
 
     actual_dict = dss.utils.xycurves_to_dataframe().to_dict()
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_storage_to_dataframe(dss):
     assert not dss.dss_lib.DSS_Get_LegacyModels()
 
     assert (
-        dss.utils.run_command("Redirect {}".format(PATH_TO_DSS)) == ""
+        dss.utils.run_command("Redirect '{}'".format(PATH_TO_DSS)) == ""
     ), "Unable to find test data"
 
-    dss.run_command("New Storage.631")
+    dss("New Storage.631")
 
     expected_dict = pd.DataFrame(
         {
@@ -4809,8 +4871,8 @@ def test_storage_to_dataframe(dss):
             "yearly": {"Storage.631": ""},
             "%Cutin": {"Storage.631": "0"},
             "%Cutout": {"Storage.631": "0"},
-            "%PminNoVars": {"Storage.631": "-1"},
-            "%PminkvarMax": {"Storage.631": "-1"},
+            "%PminNoVars": {"Storage.631": "0"}, # Changed from -1 on 2023-09-29; value is irrelevant, default
+            "%PminkvarMax": {"Storage.631": "0"}, # Changed from -1 on 2023-09-29; value is irrelevant, default
             "%kWrated": {"Storage.631": "100"},
             "EffCurve": {"Storage.631": ""},
             "PFPriority": {"Storage.631": "No"},
@@ -4820,7 +4882,7 @@ def test_storage_to_dataframe(dss):
             "kvarMaxAbs": {"Storage.631": "25"},
             "%Idlingkvar": {"Storage.631": ""},
             "ControlMode": {"Storage.631": "GFL"},
-            "DynOut": {"Storage.631": []},
+            "DynOut": {"Storage.631": ""},
             "DynamicEq": {"Storage.631": ""},
             "Kp": {"Storage.631": "0.01"},
             "PITol": {"Storage.631": "0"},
@@ -4834,7 +4896,7 @@ def test_storage_to_dataframe(dss):
 
     actual_dict = dss.utils.class_to_dataframe("Storage").to_dict()
 
-    assert_dict_equal(actual_dict, expected_dict)
+    _assert_dict_equal_lkeys(actual_dict, expected_dict)
 
 
 def test_linegeometry_class_to_dataframe():
@@ -4860,14 +4922,15 @@ def test_linegeometry_class_to_dataframe():
     Calcvoltagebases
     Solve"""
 
-    import opendssdirect as dss
+    dss = import_odd()
 
-    dss.run_command(string).strip()
+    dss(string)
     is_pandas_installed = dss.utils.is_pandas_installed
     dss.utils.is_pandas_installed = False
     data = dss.utils.class_to_dataframe("linegeometry")
     dss.utils.is_pandas_installed = is_pandas_installed
-    assert data == {
+
+    _assert_dict_equal_lkeys(data, {
         "linegeometry.hc2_336_1neut_0mess": {
             "Seasons": "1",
             "Ratings": ["0"],
@@ -4890,7 +4953,7 @@ def test_linegeometry_class_to_dataframe():
             "tscables": ["acsr336", "acsr336", "acsr336", "acsr1/0"],
             "like": "",
         }
-    }
+    })
 
 
 def test_ymatrix(dss):
@@ -5163,7 +5226,7 @@ def test_ymatrix(dss):
             -6.5300017720164165+6.619904745555312j,
             -2.407733520011465+0.9993426902982676j,
             13.754939838994417-13.264848127833126j
-        ], dtype=complex), 
+        ], dtype=complex),
         np.array([
             0,  1,  2,  3,  4,  0,  1,  2,  4,  5,  0,  1,  2,  3,  5,  0,  2,
             3,  6,  0,  1,  4,  7,  1,  2,  5,  8,  3,  6,  7,  8, 31, 32, 33,
@@ -5180,43 +5243,43 @@ def test_ymatrix(dss):
            18, 28, 29, 30, 31, 32, 33, 37,  6,  7,  8,  9, 10, 11, 18, 28, 29,
            30, 31, 32, 33, 37, 15, 16, 17, 34, 35, 36, 15, 16, 17, 34, 35, 36,
            15, 16, 17, 34, 35, 36, 18, 19, 20, 32, 33, 37, 16, 21, 22, 23, 24,
-           25, 38, 15, 17, 27, 39, 40, 15, 17, 26, 39, 40], dtype=np.int32), 
-        np.array([  
+           25, 38, 15, 17, 27, 39, 40, 15, 17, 26, 39, 40], dtype=np.int32),
+        np.array([
             0,   5,  10,  15,  19,  23,  27,  34,  41,  48,  55,  62,  69,
             71,  73,  75,  87,  97, 109, 115, 119, 123, 130, 137, 143, 149,
             155, 157, 159, 168, 177, 186, 198, 212, 226, 232, 238, 244, 250,
             257, 262, 267], dtype=np.int32)
     )
-    
+
     expected_V = [
-        0.0, 0.0, 57502.68622482564, 33189.47561163729, -10.988868660972098, -66394.86888242468, 
-        -57491.697356164674, 33205.39328374589, 2401.562774320432, -0.46690091155609226, 
-        -1201.2376790663666, -2079.7175126796437, -1200.3116016198273, 2080.1419403490627, 
-        2536.356120228099, -0.5793286234950956, -1246.2598772664523, -2157.4877137350218, 
-        -1267.5877694598496, 2196.935539327288, 2426.426283208282, -109.96557825373475, 
-        -1300.0178453618112, -2096.2860825922016, -1120.4252829545615, 2128.6048961933866, 
-        273.1208520924334, -15.653268696155022, -149.22087189563985, -236.28815213487727, 
-        -124.73890495654813, 242.00752558006548, 2350.0787848280174, -221.0796482325268, 
-        -1338.403130602016, -2109.8005657418075, -1015.4071554561624, 2083.115730276635, 
-        -1295.6847720988385, -2078.36830798424, -1296.2419078314422, -2073.161856729391, 
-        -1121.791131783235, 2124.3537662394715, -1015.4071496666254, 2083.115713199053, 
-        2350.078762918045, -221.07964093085445, 2333.5003985622425, -229.7550420165232, 
-        -1347.980749354996, -2110.413577571908, -1013.968224484203, 2078.6483630432745, 
-        -1002.1266180672616, 2078.753428367296, 2332.4291296649067, -217.30934684181196, 
-        2407.055227539434, -145.37221180195166, -1312.3003350597062, -2102.372937700745, 
-        -1083.0006449663492, 2116.1077231577597, 2433.850246648693, -107.5228592594183, 
-        -1300.761594930117, -2101.270878230695, -1123.5656240409862, 2134.1389201731336, 
-        2350.078813428112, -221.07966574213293, -1338.4031538526608, -2109.8005932052947, 
-        -1015.4071597837608, 2083.1157650090267, -1122.389508981748, 2129.5620039280097, 
-        -1338.4031344410685, -2109.8005600677157, 2345.3898452775716, -221.5997955616163, 
+        0.0, 0.0, 57502.68622482564, 33189.47561163729, -10.988868660972098, -66394.86888242468,
+        -57491.697356164674, 33205.39328374589, 2401.562774320432, -0.46690091155609226,
+        -1201.2376790663666, -2079.7175126796437, -1200.3116016198273, 2080.1419403490627,
+        2536.356120228099, -0.5793286234950956, -1246.2598772664523, -2157.4877137350218,
+        -1267.5877694598496, 2196.935539327288, 2426.426283208282, -109.96557825373475,
+        -1300.0178453618112, -2096.2860825922016, -1120.4252829545615, 2128.6048961933866,
+        273.1208520924334, -15.653268696155022, -149.22087189563985, -236.28815213487727,
+        -124.73890495654813, 242.00752558006548, 2350.0787848280174, -221.0796482325268,
+        -1338.403130602016, -2109.8005657418075, -1015.4071554561624, 2083.115730276635,
+        -1295.6847720988385, -2078.36830798424, -1296.2419078314422, -2073.161856729391,
+        -1121.791131783235, 2124.3537662394715, -1015.4071496666254, 2083.115713199053,
+        2350.078762918045, -221.07964093085445, 2333.5003985622425, -229.7550420165232,
+        -1347.980749354996, -2110.413577571908, -1013.968224484203, 2078.6483630432745,
+        -1002.1266180672616, 2078.753428367296, 2332.4291296649067, -217.30934684181196,
+        2407.055227539434, -145.37221180195166, -1312.3003350597062, -2102.372937700745,
+        -1083.0006449663492, 2116.1077231577597, 2433.850246648693, -107.5228592594183,
+        -1300.761594930117, -2101.270878230695, -1123.5656240409862, 2134.1389201731336,
+        2350.078813428112, -221.07966574213293, -1338.4031538526608, -2109.8005932052947,
+        -1015.4071597837608, 2083.1157650090267, -1122.389508981748, 2129.5620039280097,
+        -1338.4031344410685, -2109.8005600677157, 2345.3898452775716, -221.5997955616163,
         -1009.5693326805173, 2080.5326334201427
     ]
-    
+
     expected_I = [
-        45.06668904138904, 24.807535582766718, 69802.42815021734, -72191.08720768025, 
-        -97420.52952591579, -24355.13240711842, 27618.10139734361, 96546.21962201368, 
-        0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 
-        0.0, 0.0, -13.833771377298945, 10.726871597152865, -8.968504770843197, 
+        45.06668904138904, 24.807535582766718, 69802.42815021734, -72191.08720768025,
+        -97420.52952591579, -24355.13240711842, 27618.10139734361, 96546.21962201368,
+        0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+        0.0, 0.0, -13.833771377298945, 10.726871597152865, -8.968504770843197,
         -3.417089130031627, -3.12498992294411, -18.470505046170956, -2.667048628795584,
         3.832056283537952, -0.46758569533298555, -1.9484679417918613, 3.1346343241285695,
         -1.8835883417461048, -3.31446662403701, -1.321239610087268, -7.105427357601002e-15,
@@ -5225,7 +5288,7 @@ def test_ymatrix(dss):
         -3.0888821721242508, -0.8862751281506647, -1.9603496363737634, -10.9319093354963,
         0.028161796268869943, -3.0158125881806797, 0.0, 0.0, 0.06464719014600195,
         -0.04347962137929162, -1.7990236975013012, -0.9604538679363639, -0.05795649932674607,
-        -1.0830078082714039, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 
+        -1.0830078082714039, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
         0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
     ]
 
@@ -5264,15 +5327,15 @@ def test_wiredata_class_to_dataframe():
     Calcvoltagebases
     Solve"""
 
-    import opendssdirect as dss
+    dss = import_odd()
 
-    dss.run_command(commands)
+    dss(commands)
     is_pandas_installed = dss.utils.is_pandas_installed
     dss.utils.is_pandas_installed = False
     data = dss.utils.class_to_dataframe("wiredata")
     dss.utils.is_pandas_installed = is_pandas_installed
 
-    assert data == {
+    _assert_dict_equal_lkeys(data, {
         "wiredata.acsr1/0": {
             "Capradius": "0.199",
             "Seasons": "1",
@@ -5305,12 +5368,12 @@ def test_wiredata_class_to_dataframe():
             "radius": "0.3705",
             "radunits": "in",
         },
-    }
+    })
 
 
 def test_long_path():
 
-    import opendssdirect as dss
+    dss = import_odd()
     import tempfile, shutil
     import warnings
 
@@ -5327,11 +5390,11 @@ def test_long_path():
             f.write("clear\nnew circuit.test\n")
 
         # Try running with the full path
-        dss.run_command("redirect '{}'".format(long_file_path))
+        dss("redirect '{}'".format(long_file_path))
 
         # Then try going to the folder and using only the filename
         os.chdir(inner_dir_path)
-        dss.run_command("redirect '{}'".format(long_name + ".dss"))
+        dss("redirect '{}'".format(long_name + ".dss"))
     except (IOError, OSError):  # FileNotFoundError:
         warnings.warn(
             "Could not create a file with a long path in Python. Skipping test."
@@ -5343,7 +5406,7 @@ def test_long_path():
 
 
 def test_dss_extensions_debug():
-    import opendssdirect
+    opendssdirect = import_odd()
     import dss
 
     # Check if the loaded version is correct
@@ -5369,3 +5432,237 @@ def test_exception_control(dss):
     # ...but it should be gone after we read it
     assert dss.Error.Number() == 0
 
+
+def test_contexts(dss):
+    dss2 = dss.NewContext()
+
+    dss.Basic.ClearAll()
+    dss.Text.Command('new circuit.test1')
+
+    dss2.Basic.ClearAll()
+    dss2.Text.Command('new circuit.test2')
+
+    assert dss.Circuit.Name() == 'test1'
+    assert dss2.Circuit.Name() == 'test2'
+
+
+def test_advtypes(dss):
+    dss.Basic.AdvancedTypes(True)
+    ckt = dss.Circuit
+
+    from opendssdirect.OpenDSSDirect import OPENDSSDIRECT_PY_USE_NUMPY
+    ckt.SetActiveElement('Line.671692')
+    element = dss.CktElement
+
+    if OPENDSSDIRECT_PY_USE_NUMPY:
+        # With NumPy arrays, we have shapes to check
+
+        assert ckt.SystemY().shape == (ckt.NumNodes(), ckt.NumNodes())
+
+        assert (element.NodeOrder() == [[1, 2, 3], [1, 2, 3]]).all()
+
+        np.testing.assert_allclose(element.Currents(), [
+            [ 219.09972382 -73.01672363j, -219.09972382 +73.01672363j],
+            [  38.39052391 -56.74091721j,  -38.39052391 +56.74091721j],
+            [ -57.89537048+170.77581787j,   57.89537048-170.77581787j]
+        ])
+        assert (element.NumConductors(), element.NumTerminals()) == element.Currents().shape
+
+        np.testing.assert_allclose(element.CurrentsMagAng(), [
+            [230.94616452,  68.50813099, 180.32263833, 230.94616452, 68.50813099, 180.32263833],
+            [-18.43106123, -55.91798179, 108.72737151, 161.56893876, 124.0820182 , -71.27262848]
+        ])
+        assert (2, element.NumConductors() * element.NumTerminals()) == element.CurrentsMagAng().shape
+
+        np.testing.assert_allclose(element.SeqCurrents(), [
+            [ 67.9220189 ,  67.9220189 ],
+            [142.81150877, 142.81150877],
+            [ 71.92627184,  71.92627184]
+        ])
+        assert (3, element.NumTerminals()) == element.SeqCurrents().shape
+
+        np.testing.assert_allclose(element.CplxSeqCurrents(), [
+            [  66.53162575+13.67272568j,  -66.53162575-13.67272568j],
+            [ 141.96247316-15.54938113j, -141.96247316+15.54938113j],
+            [  10.60562491-71.14006818j,  -10.60562491+71.14006818j]
+        ])
+        assert (3, element.NumTerminals()) == element.CplxSeqCurrents().shape
+
+    else:
+        assert (element.NodeOrder() == [1, 2, 3, 1, 2, 3])
+
+        np.testing.assert_allclose(element.Currents(), [
+            219.09972382 -73.01672363j,
+            38.39052391 -56.74091721j,
+            -57.89537048+170.77581787j,
+            -219.09972382 +73.01672363j,
+            -38.39052391 +56.74091721j,
+            57.89537048-170.77581787j
+        ])
+        np.testing.assert_allclose(element.CurrentsMagAng(), [
+            230.94616452, -18.43106123,
+            68.50813099, -55.91798179,
+            180.32263833, 108.72737151,
+            230.94616452, 161.56893876,
+            68.50813099, 124.0820182,
+            180.32263833,-71.27262848
+        ])
+        np.testing.assert_allclose(element.SeqCurrents(), [
+            67.9220189 ,
+            142.81150877,
+            71.92627184,
+            67.9220189,
+            142.81150877,
+            71.92627184
+        ])
+        np.testing.assert_allclose(element.CplxSeqCurrents(), [
+            66.53162575+13.67272568j,
+            141.96247316-15.54938113j,
+            10.60562491-71.14006818j,
+            -66.53162575-13.67272568j,
+            -141.96247316+15.54938113j,
+            -10.60562491+71.14006818j
+        ])
+
+
+def test_iterator(dss):
+    assert dss.Loads.AllNames() == [load.Name() for load in dss.Loads]
+
+
+def test_callable_ctx():
+    import_odd()
+    from opendssdirect import dss
+
+    dss("clear")
+    dss("new circuit.test897383")
+    assert dss.Circuit.Name() == "test897383"
+
+    dss("""
+        clear
+        new circuit.test23232
+        new load.load102909
+    """)
+
+    assert dss.Circuit.Name() == "test23232"
+    assert dss.Loads.First() == 1
+    assert dss.Loads.Name() == "load102909"
+
+
+def test_numpy():
+    import_odd()
+    from opendssdirect.OpenDSSDirect import OpenDSSDirect
+    from numpy import ndarray
+
+    # NOTE: this constructors ALWAYS binds to the default DSS engine.
+    odd_np = OpenDSSDirect(prefer_lists=False)
+    # Use it normally
+    odd_np(f"Redirect '{PATH_TO_DSS}'")
+    assert isinstance(odd_np.Circuit.AllBusMagPu(), ndarray)
+
+    odd_lst = OpenDSSDirect(prefer_lists=True)
+    # Same global instance, we can just reuse the result
+    assert isinstance(odd_lst.Circuit.AllBusMagPu(), list)
+
+
+def test_numpy_option_propagation():
+    import_odd()
+    from opendssdirect.OpenDSSDirect import OpenDSSDirect
+    from numpy import ndarray
+
+    # NOTE: this constructors ALWAYS binds to the default DSS engine.
+    odd_np = OpenDSSDirect(prefer_lists=False)
+    # Use it normally
+    odd_np(f"Redirect '{PATH_TO_DSS}'")
+    assert isinstance(odd_np.Circuit.AllBusMagPu(), ndarray)
+
+    odd_np2 = odd_np.NewContext()
+    odd_np2(f"Redirect '{PATH_TO_DSS}'")
+    assert isinstance(odd_np2.Circuit.AllBusMagPu(), ndarray)
+
+
+
+def test_threading2(dss):
+    # Ported directly from DSS-Python, but using only the 13Bus circuit
+    from opendssdirect.OpenDSSDirect import OpenDSSDirect
+    import threading
+    from time import perf_counter
+
+    dss.Basic.AllowChangeDir(False)
+
+    fns = [PATH_TO_DSS]
+
+    cases = []
+    for fn in fns:
+        for loadmult in np.linspace(0.9, 1.1, 16):
+            cases.append((fn, loadmult))
+
+    cases_to_run_threads = list(cases)
+    cases_to_run_seq = list(cases)
+
+    # Use the number of threads as CPU count, number of cases
+    num = min(len(cases), os.cpu_count())
+
+    # Initialize a new context for each of the threads
+    ctxs = [dss.NewContext() for n in range(num)]
+    print(f"Using {len(ctxs)} DSS contexts")
+
+    tresults = {}
+    tconverged = {}
+    sresults = {}
+    sconverged = {}
+
+    def _run(ctx: OpenDSSDirect, case_list, converged, results):
+        tname = threading.current_thread().name
+        while case_list:
+            fn, loadmult = case_list.pop()
+            ctx.Text.Command('clear')
+            try:
+                ctx.Text.Command(f'redirect "{fn}"')
+                ctx.Solution.LoadMult(loadmult)
+                print(f'{tname}: Running "{fn}", circuit "{ctx.Circuit.Name()}", mult={loadmult}')
+                ctx.Text.Command('Solve mode=daily number=5000')
+            except Exception as ex:
+                print('ERROR:', tname, (fn, loadmult))
+                print('      ', ex.args)
+
+            print(f'{tname}: Done "{fn}" (LoadMult={loadmult}), circuit "{ctx.Circuit.Name()}"')
+            converged[(fn, loadmult)] = ctx.Solution.Converged()
+            results[(fn, loadmult)] = ctx.Circuit.AllBusVolts()
+
+
+    t0 = perf_counter()
+    threads = []
+    for ctx in ctxs:
+        t = threading.Thread(target=_run, args=(ctx, cases_to_run_threads, tconverged, tresults))
+        threads.append(t)
+
+    for t in threads:
+        t.start()
+
+    for t in threads:
+        t.join()
+
+    t1 = perf_counter()
+
+    # Check if all solutions converged
+    assert all(tconverged.values())
+
+    dt_thread = (t1 - t0)
+    print(f'Done in {dt_thread:.3f} s with {num} threads')
+
+    # Check with a sequential solution
+    t0 = perf_counter()
+
+    _run(dss, cases_to_run_seq, sconverged, sresults)
+
+    t1 = perf_counter()
+    dt_seq = (t1 - t0)
+    print(f'Done in {dt_seq:.3f} s sequentially')
+
+    # Check if each scenario has the same results whether ran in multiple threads or single thread
+    for case in cases:
+        np.testing.assert_equal(sresults[case], tresults[case])
+
+    # Check if we actually got a lower time
+    if len(ctxs) > 2:
+        assert dt_thread < dt_seq

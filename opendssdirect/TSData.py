@@ -1,247 +1,222 @@
-from ._utils import lib, codec, CheckForError, get_string, get_string_array
+from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from .Bases import Iterable
 
 
-def AllNames():
-    """(read-only) List of strings with all TSData names"""
-    return CheckForError(get_string_array(lib.TSData_Get_AllNames))
-
-
-def Count():
-    """(read-only) Number of TSDatas"""
-    return CheckForError(lib.TSData_Get_Count())
-
-
-def Idx(*args):
+class ITSData(Iterable):
     """
-    Get/set active TSData by index;  1..Count
+    TSData objects
+
+    (API Extension)
     """
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.TSData_Get_idx())
 
-    # Setter
-    Value, = args
-    CheckForError(lib.TSData_Set_idx(Value))
+    __name__ = "TSData"
+    _api_prefix = "TSData"
+    __slots__ = []
+    _columns = [
+        "Name",
+        "Idx",
+        "NormAmps",
+        "EmergAmps",
+        "Rdc",
+        "Rac",
+        "GMRac",
+        "GMRUnits",
+        "Radius",
+        "RadiusUnits",
+        "ResistanceUnits",
+        "Diameter",
+        "TapeLayer",
+        "TapeLap",
+        "DiaShield",
+        "DiaCable",
+        "DiaIns",
+        "InsLayer",
+        "EpsR",
+    ]
 
+    def EmergAmps(self, *args):
+        """Emergency ampere rating"""
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.TSData_Get_EmergAmps())
 
-def First():
-    """Set first TSData active; returns 0 if none."""
-    return CheckForError(lib.TSData_Get_First())
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.TSData_Set_EmergAmps(Value))
 
+    def NormAmps(self, *args):
+        """Normal Ampere rating"""
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.TSData_Get_NormAmps())
 
-def Next():
-    """Sets next TSData active; returns 0 if no more."""
-    return CheckForError(lib.TSData_Get_Next())
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.TSData_Set_NormAmps(Value))
 
+    def Rdc(self, *args):
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.TSData_Get_Rdc())
 
-def Name(*args):
-    """
-    Get/set the name of the active TSData
-    """
-    # Getter
-    if len(args) == 0:
-        return CheckForError(get_string(lib.TSData_Get_Name()))
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.TSData_Set_Rdc(Value))
 
-    # Setter
-    Value, = args
-    if type(Value) is not bytes:
-        Value = Value.encode(codec)
-    CheckForError(lib.TSData_Set_Name(Value))
+    def Rac(self, *args):
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.TSData_Get_Rac())
 
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.TSData_Set_Rac(Value))
 
-def EmergAmps(*args):
-    """Emergency ampere rating"""
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.TSData_Get_EmergAmps())
+    def GMRac(self, *args):
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.TSData_Get_GMRac())
 
-    # Setter
-    Value, = args
-    CheckForError(lib.TSData_Set_EmergAmps(Value))
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.TSData_Set_GMRac(Value))
 
+    def GMRUnits(self, *args):
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.TSData_Get_GMRUnits())
 
-def NormAmps(*args):
-    """Normal Ampere rating"""
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.TSData_Get_NormAmps())
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.TSData_Set_GMRUnits(Value))
 
-    # Setter
-    Value, = args
-    CheckForError(lib.TSData_Set_NormAmps(Value))
+    def Radius(self, *args):
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.TSData_Get_Radius())
 
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.TSData_Set_Radius(Value))
 
-def Rdc(*args):
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.TSData_Get_Rdc())
+    def RadiusUnits(self, *args):
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.TSData_Get_RadiusUnits())
 
-    # Setter
-    Value, = args
-    CheckForError(lib.TSData_Set_Rdc(Value))
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.TSData_Set_RadiusUnits(Value))
 
+    def ResistanceUnits(self, *args):
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.TSData_Get_ResistanceUnits())
 
-def Rac(*args):
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.TSData_Get_Rac())
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.TSData_Set_ResistanceUnits(Value))
 
-    # Setter
-    Value, = args
-    CheckForError(lib.TSData_Set_Rac(Value))
+    def Diameter(self, *args):
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.TSData_Get_Diameter())
 
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.TSData_Set_Diameter(Value))
 
-def GMRac(*args):
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.TSData_Get_GMRac())
+    def EpsR(self, *args):
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.TSData_Get_EpsR())
 
-    # Setter
-    Value, = args
-    CheckForError(lib.TSData_Set_GMRac(Value))
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.TSData_Set_EpsR(Value))
 
+    def InsLayer(self, *args):
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.TSData_Get_InsLayer())
 
-def GMRUnits(*args):
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.TSData_Get_GMRUnits())
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.TSData_Set_InsLayer(Value))
 
-    # Setter
-    Value, = args
-    CheckForError(lib.TSData_Set_GMRUnits(Value))
+    def DiaIns(self, *args):
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.TSData_Get_DiaIns())
 
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.TSData_Set_DiaIns(Value))
 
-def Radius(*args):
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.TSData_Get_Radius())
+    def DiaCable(self, *args):
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.TSData_Get_DiaCable())
 
-    # Setter
-    Value, = args
-    CheckForError(lib.TSData_Set_Radius(Value))
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.TSData_Set_DiaCable(Value))
 
+    def DiaShield(self, *args):
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.TSData_Get_DiaShield())
 
-def RadiusUnits(*args):
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.TSData_Get_RadiusUnits())
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.TSData_Set_DiaShield(Value))
 
-    # Setter
-    Value, = args
-    CheckForError(lib.TSData_Set_RadiusUnits(Value))
+    def TapeLayer(self, *args):
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.TSData_Get_TapeLayer())
 
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.TSData_Set_TapeLayer(Value))
 
-def ResistanceUnits(*args):
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.TSData_Get_ResistanceUnits())
+    def TapeLap(self, *args):
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.TSData_Get_TapeLap())
 
-    # Setter
-    Value, = args
-    CheckForError(lib.TSData_Set_ResistanceUnits(Value))
-
-
-def Diameter(*args):
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.TSData_Get_Diameter())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.TSData_Set_Diameter(Value))
-
-
-def EpsR(*args):
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.TSData_Get_EpsR())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.TSData_Set_EpsR(Value))
-
-
-def InsLayer(*args):
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.TSData_Get_InsLayer())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.TSData_Set_InsLayer(Value))
-
-
-def DiaIns(*args):
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.TSData_Get_DiaIns())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.TSData_Set_DiaIns(Value))
-
-
-def DiaCable(*args):
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.TSData_Get_DiaCable())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.TSData_Set_DiaCable(Value))
-
-
-def DiaShield(*args):
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.TSData_Get_DiaShield())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.TSData_Set_DiaShield(Value))
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.TSData_Set_TapeLap(Value))
 
 
-def TapeLayer(*args):
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.TSData_Get_TapeLayer())
+_TSData = ITSData(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
-    # Setter
-    Value, = args
-    CheckForError(lib.TSData_Set_TapeLayer(Value))
-
-
-def TapeLap(*args):
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.TSData_Get_TapeLap())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.TSData_Set_TapeLap(Value))
-
-
-_columns = [
-    "Name",
-    "Idx",
-    "NormAmps",
-    "EmergAmps",
-    "Rdc",
-    "Rac",
-    "GMRac",
-    "GMRUnits",
-    "Radius",
-    "RadiusUnits",
-    "ResistanceUnits",
-    "Diameter",
-    "TapeLayer",
-    "TapeLap",
-    "DiaShield",
-    "DiaCable",
-    "DiaIns",
-    "InsLayer",
-    "EpsR",
-]
+# For backwards compatibility, bind to the default instance
+EmergAmps = _TSData.EmergAmps
+NormAmps = _TSData.NormAmps
+Rdc = _TSData.Rdc
+Rac = _TSData.Rac
+GMRac = _TSData.GMRac
+GMRUnits = _TSData.GMRUnits
+Radius = _TSData.Radius
+RadiusUnits = _TSData.RadiusUnits
+ResistanceUnits = _TSData.ResistanceUnits
+Diameter = _TSData.Diameter
+EpsR = _TSData.EpsR
+InsLayer = _TSData.InsLayer
+DiaIns = _TSData.DiaIns
+DiaCable = _TSData.DiaCable
+DiaShield = _TSData.DiaShield
+TapeLayer = _TSData.TapeLayer
+TapeLap = _TSData.TapeLap
+Idx = _TSData.Idx
+First = _TSData.First
+Next = _TSData.Next
+AllNames = _TSData.AllNames
+Count = _TSData.Count
+Name = _TSData.Name
+_columns = _TSData._columns
 __all__ = [
     "EmergAmps",
     "NormAmps",

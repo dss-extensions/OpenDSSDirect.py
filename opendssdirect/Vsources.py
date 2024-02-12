@@ -1,110 +1,100 @@
-from ._utils import lib, codec, CheckForError, get_string, get_string_array
+from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from .Bases import Iterable
 
 
-def AllNames():
-    """(read-only) List of strings with all Vsource names"""
-    return CheckForError(get_string_array(lib.Vsources_Get_AllNames))
+class IVsources(Iterable):
+    __slots__ = []
+
+    __name__ = "Vsources"
+    _api_prefix = "Vsources"
+    _columns = ["Name", "Idx", "Phases", "BasekV", "AngleDeg", "Frequency", "PU"]
+
+    def AngleDeg(self, *args):
+        """
+        Phase angle of first phase in degrees
+
+        Original COM help: https://opendss.epri.com/AngleDeg1.html
+        """
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.Vsources_Get_AngleDeg())
+
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.Vsources_Set_AngleDeg(Value))
+
+    def BasekV(self, *args):
+        """
+        Source voltage in kV
+
+        Original COM help: https://opendss.epri.com/BasekV.html
+        """
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.Vsources_Get_BasekV())
+
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.Vsources_Set_BasekV(Value))
+
+    def Frequency(self, *args):
+        """
+        Source frequency in Hz
+
+        Original COM help: https://opendss.epri.com/Frequency2.html
+        """
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.Vsources_Get_Frequency())
+
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.Vsources_Set_Frequency(Value))
+
+    def Phases(self, *args):
+        """
+        Number of phases
+
+        Original COM help: https://opendss.epri.com/Phases3.html
+        """
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.Vsources_Get_Phases())
+
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.Vsources_Set_Phases(Value))
+
+    def PU(self, *args):
+        """
+        Per-unit value of source voltage
+
+        Original COM help: https://opendss.epri.com/pu.html
+        """
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.Vsources_Get_pu())
+
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.Vsources_Set_pu(Value))
 
 
-def AngleDeg(*args):
-    """Phase angle of first phase in degrees"""
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.Vsources_Get_AngleDeg())
+_Vsources = IVsources(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
-    # Setter
-    Value, = args
-    CheckForError(lib.Vsources_Set_AngleDeg(Value))
-
-
-def BasekV(*args):
-    """Source voltage in kV"""
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.Vsources_Get_BasekV())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.Vsources_Set_BasekV(Value))
-
-
-def Count():
-    """(read-only) Number of Vsources"""
-    return CheckForError(lib.Vsources_Get_Count())
-
-
-def First():
-    """Set first Vsource active; returns 0 if none."""
-    return CheckForError(lib.Vsources_Get_First())
-
-
-def Frequency(*args):
-    """Source frequency in Hz"""
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.Vsources_Get_Frequency())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.Vsources_Set_Frequency(Value))
-
-
-def Name(*args):
-    """
-    Get/set the name of the active Vsource
-    """
-    # Getter
-    if len(args) == 0:
-        return CheckForError(get_string(lib.Vsources_Get_Name()))
-
-    # Setter
-    Value, = args
-    if type(Value) is not bytes:
-        Value = Value.encode(codec)
-    CheckForError(lib.Vsources_Set_Name(Value))
-
-
-def Next():
-    """Sets next Vsource active; returns 0 if no more."""
-    return CheckForError(lib.Vsources_Get_Next())
-
-
-def Phases(*args):
-    """Number of phases"""
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.Vsources_Get_Phases())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.Vsources_Set_Phases(Value))
-
-
-def PU(*args):
-    """Per-unit value of source voltage"""
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.Vsources_Get_pu())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.Vsources_Set_pu(Value))
-
-
-def Idx(*args):
-    """
-    Get/set active Vsource by index;  1..Count
-    """
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.Vsources_Get_idx())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.Vsources_Set_idx(Value))
-
-
-_columns = ["AngleDeg", "BasekV", "Frequency", "Name", "Phases", "PU", "Idx"]
+# For backwards compatibility, bind to the default instance
+AllNames = _Vsources.AllNames
+AngleDeg = _Vsources.AngleDeg
+BasekV = _Vsources.BasekV
+Count = _Vsources.Count
+First = _Vsources.First
+Frequency = _Vsources.Frequency
+Name = _Vsources.Name
+Next = _Vsources.Next
+Phases = _Vsources.Phases
+PU = _Vsources.PU
+Idx = _Vsources.Idx
+_columns = _Vsources._columns
 __all__ = [
     "AllNames",
     "AngleDeg",

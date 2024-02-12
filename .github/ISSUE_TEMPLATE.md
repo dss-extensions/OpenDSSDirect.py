@@ -12,7 +12,7 @@
 You can use the following block of code to find the version of OpenDSSDirect.py that you are using
 
 	```python
-	import opendssdirect as dss
+	from opendssdirect import dss
 	print(dss.__version__)
 	```
 

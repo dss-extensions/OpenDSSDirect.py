@@ -1,374 +1,555 @@
-import warnings
-from ._utils import (
-    lib,
-    ffi,
-    codec,
-    CheckForError,
-    get_string,
-    get_float64_array,
-    get_int32_array,
-    get_string_array,
-    prepare_string_array,
-    DSSException,
-)
+from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from .Bases import Base
+from dss import DSSException, OCPDevType as OCPDevTypeEnum
 
 
-def Close(Term, Phs):
-    CheckForError(lib.CktElement_Close(Term, Phs))
+class ICktElement(Base):
+    __slots__ = []
 
+    __name__ = "CktElement"
+    _api_prefix = "CktElement"
+    _columns = [
+        "Name",
+        "DisplayName",
+        "Handle",
+        "GUID",
+        "Enabled",
+        "NumTerminals",
+        "NumPhases",
+        "NumConductors",
+        "NumControls",
+        "NumProperties",
+        "AllPropertyNames",
+        "AllVariableValues",
+        "AllVariableNames",
+        "BusNames",
+        "NormalAmps",
+        "EmergAmps",
+        "HasVoltControl",
+        "HasSwitchControl",
+        "HasOCPDevice",
+        "OCPDevType",
+        "OCPDevIndex",
+        "IsIsolated",
+        "EnergyMeter",
+        "TotalPowers",
+        "YPrim",
+        "NodeOrder",
+        "Voltages",
+        "VoltagesMagAng",
+        "SeqVoltages",
+        "CplxSeqVoltages",
+        "Powers",
+        "SeqPowers",
+        "Currents",
+        "CurrentsMagAng",
+        "SeqCurrents",
+        "CplxSeqCurrents",
+        "Residuals",
+        "Losses",
+        "PhaseLosses",
+    ]
 
-def Controller(idx):
-    """(read-only) Full name of the i-th controller attached to this element. Ex: str = Controller(2).  See NumControls to determine valid index range"""
-    return get_string(CheckForError(lib.CktElement_Get_Controller(idx)))
+    def Close(self, Term, Phs):
+        """
+        Close the specified terminal and phase, if non-zero, or all conductors at the terminal.
 
+        Original COM help: https://opendss.epri.com/Close1.html
+        """
+        self._check_for_error(self._lib.CktElement_Close(Term, Phs))
 
-def Variable(MyVarName, Code=None):
-    """
-    If the active element is a PCElement, get the value of a variable by name.
-    Otherwise, an exception is raised.
-    """
-    if Code is not None:
-        warnings.warn(
-            "The Code parameter is deprecated and unused. It will be removed in a future version."
+    def Controller(self, idx):
+        """Full name of the i-th controller attached to this element. Ex: str = Controller(2).  See NumControls to determine valid index range"""
+        return self._get_string(
+            self._check_for_error(self._lib.CktElement_Get_Controller(idx))
         )
 
-    if type(MyVarName) is not bytes:
-        MyVarName = MyVarName.encode(codec)
-    Code = ffi.new("int32_t*")
-    result = lib.CktElement_Get_Variable(MyVarName, Code)
-    if Code[0] != 0:
-        raise DSSException(Code[0], "No variable by this name or not a PCelement.")
+    def Variable(self, MyVarName):
+        """
+        If the active element is a PCElement, get the value of a variable by name.
+        Otherwise, an exception is raised.
+        """
+        if not isinstance(MyVarName, bytes):
+            MyVarName = MyVarName.encode(self._api_util.codec)
+        Code = self._api_util.ffi.new("int32_t*")
+        result = self._check_for_error(self._lib.CktElement_Get_Variable(MyVarName, Code))
+        if Code[0] != 0:
+            raise DSSException(Code[0], "No variable by this name or not a PCelement.")
+        
+        return result
 
-    return result
+    def Variablei(self, Idx):
+        """
+        If the active element is a PCElement, get the value of a variable by its integer index.
+        Otherwise, an exception is raised.
+        """
+        Code = self._api_util.ffi.new("int32_t*")
+        result = self._check_for_error(self._lib.CktElement_Get_Variablei(Idx, Code))
+        if Code[0] != 0:
+            raise DSSException(Code[0], "No variable by this index or not a PCelement.")
 
+        return result
 
-def Variablei(Idx, Code=None):
-    """
-    If the active element is a PCElement, get the value of a variable by its integer index.
-    Otherwise, an exception is raised.
-    """
-    if Code is not None:
-        warnings.warn(
-            "The Code parameter is deprecated and unused. It will be removed in a future version."
+    def setVariableByIndex(self, Idx, Value):
+        Code = self._api_util.ffi.new("int32_t*")
+        self._check_for_error(self._lib.CktElement_Set_Variablei(Idx, Code, Value))
+        return Code[0]
+
+    def setVariableByName(self, Idx, Value):
+        Code = self._api_util.ffi.new("int32_t*")
+        self._check_for_error(self._lib.CktElement_Set_Variable(Idx, Code, Value))
+        return Code[0]
+
+    def IsOpen(self, Term, Phs):
+        return self._check_for_error(self._lib.CktElement_IsOpen(Term, Phs)) != 0
+
+    def Open(self, Term, Phs):
+        """
+        Open the specified terminal and phase, if non-zero, or all conductors at the terminal.
+
+        Original COM help: https://opendss.epri.com/Open1.html
+        """
+        self._check_for_error(self._lib.CktElement_Open(Term, Phs))
+
+    def AllPropertyNames(self):
+        """
+        Array containing all property names of the active device.
+
+        Original COM help: https://opendss.epri.com/AllPropertyNames.html
+        """
+        return self._check_for_error(
+            self._get_string_array(self._lib.CktElement_Get_AllPropertyNames)
         )
 
-    Code = ffi.new("int32_t*")
-    result = lib.CktElement_Get_Variablei(Idx, Code)
-    if Code[0] != 0:
-        raise DSSException(Code[0], "No variable by this index or not a PCelement.")
-
-    return result
-
-
-def IsOpen(Term, Phs):
-    return CheckForError(lib.CktElement_IsOpen(Term, Phs)) != 0
-
-
-def Open(Term, Phs):
-    CheckForError(lib.CktElement_Open(Term, Phs))
-
-
-def AllPropertyNames():
-    """(read-only) Array containing all property names of the active device."""
-    return CheckForError(get_string_array(lib.CktElement_Get_AllPropertyNames))
-
-
-def AllVariableNames():
-    """
-    Array of strings listing all the published state variable names.
-    Valid only for PCElements.
-    """
-    return CheckForError(get_string_array(lib.CktElement_Get_AllVariableNames))
-
-
-def AllVariableValues():
-    """
-    Array of doubles. Values of state variables of active element if PC element.
-    Valid only for PCElements.
-    """
-    return CheckForError(get_float64_array(lib.CktElement_Get_AllVariableValues))
-
-
-def BusNames(*args):
-    """
-    Array of strings. Get  Bus definitions to which each terminal is connected. 0-based array.
-    """
-    # Getter
-    if len(args) == 0:
-        return CheckForError(get_string_array(lib.CktElement_Get_BusNames))
-
-    # Setter
-    Value, = args
-    Value, ValuePtr, ValueCount = prepare_string_array(Value)
-    CheckForError(lib.CktElement_Set_BusNames(ValuePtr, ValueCount))
-
-
-def CplxSeqCurrents():
-    """(read-only) Complex double array of Sequence Currents for all conductors of all terminals of active circuit element."""
-    return get_float64_array(lib.CktElement_Get_CplxSeqCurrents)
-
-
-def CplxSeqVoltages():
-    """(read-only) Complex double array of Sequence Voltage for all terminals of active circuit element."""
-    return get_float64_array(lib.CktElement_Get_CplxSeqVoltages)
-
-
-def Currents():
-    """(read-only) Complex array of currents into each conductor of each terminal"""
-    return get_float64_array(lib.CktElement_Get_Currents)
-
-
-def CurrentsMagAng():
-    """(read-only) Currents in magnitude, angle format as a array of doubles."""
-    return get_float64_array(lib.CktElement_Get_CurrentsMagAng)
-
-
-def DisplayName(*args):
-    """Display name of the object (not necessarily unique)"""
-    # Getter
-    if len(args) == 0:
-        return get_string(CheckForError(lib.CktElement_Get_DisplayName()))
-
-    # Setter
-    Value, = args
-    if type(Value) is not bytes:
-        Value = Value.encode(codec)
-    CheckForError(lib.CktElement_Set_DisplayName(Value))
-
-
-def EmergAmps(*args):
-    """Emergency Ampere Rating for PD elements"""
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.CktElement_Get_EmergAmps())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.CktElement_Set_EmergAmps(Value))
-
-
-def Enabled(*args):
-    """Boolean indicating that element is currently in the circuit."""
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.CktElement_Get_Enabled()) != 0
-
-    # Setter
-    Value, = args
-    CheckForError(lib.CktElement_Set_Enabled(Value))
-
-
-def EnergyMeter():
-    """(read-only) Name of the Energy Meter this element is assigned to."""
-    return get_string(CheckForError(lib.CktElement_Get_EnergyMeter()))
-
-
-def GUID():
-    """(read-only) globally unique identifier for this object"""
-    return get_string(CheckForError(lib.CktElement_Get_GUID()))
-
-
-def Handle():
-    """(read-only) Pointer to this object"""
-    return CheckForError(lib.CktElement_Get_Handle())
-
-
-def HasOCPDevice():
-    """(read-only) True if a recloser, relay, or fuse controlling this ckt element. OCP = Overcurrent Protection"""
-    return CheckForError(lib.CktElement_Get_HasOCPDevice()) != 0
-
-
-def HasSwitchControl():
-    """(read-only) This element has a SwtControl attached."""
-    return CheckForError(lib.CktElement_Get_HasSwitchControl()) != 0
-
-
-def HasVoltControl():
-    """(read-only) This element has a CapControl or RegControl attached."""
-    return CheckForError(lib.CktElement_Get_HasVoltControl()) != 0
-
-
-def Losses():
-    """(read-only) Total losses in the element: two-element complex array"""
-    return get_float64_array(lib.CktElement_Get_Losses)
-
-
-def Name():
-    """(read-only) Full Name of Active Circuit Element"""
-    return get_string(CheckForError(lib.CktElement_Get_Name()))
-
-
-def NodeOrder():
-    """(read-only) Array of integer containing the node numbers (representing phases, for example) for each conductor of each terminal."""
-    return get_int32_array(lib.CktElement_Get_NodeOrder)
-
-
-def NormalAmps(*args):
-    """Normal ampere rating for PD Elements"""
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.CktElement_Get_NormalAmps())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.CktElement_Set_NormalAmps(Value))
-
-
-def NumConductors():
-    """(read-only) Number of Conductors per Terminal"""
-    return CheckForError(lib.CktElement_Get_NumConductors())
-
-
-def NumControls():
-    """
-    (read-only) Number of controls connected to this device. 
-    Use to determine valid range for index into Controller array.
-    """
-    return CheckForError(lib.CktElement_Get_NumControls())
-
-
-def NumPhases():
-    """(read-only) Number of Phases"""
-    return CheckForError(lib.CktElement_Get_NumPhases())
-
-
-def NumProperties():
-    """(read-only) Number of Properties this Circuit Element."""
-    return CheckForError(lib.CktElement_Get_NumProperties())
-
-
-def NumTerminals():
-    """(read-only) Number of Terminals this Circuit Element"""
-    return CheckForError(lib.CktElement_Get_NumTerminals())
-
-
-def OCPDevIndex():
-    """(read-only) Index into Controller list of OCP Device controlling this CktElement"""
-    return CheckForError(lib.CktElement_Get_OCPDevIndex())
-
-
-def OCPDevType():
-    """(read-only) 0=None; 1=Fuse; 2=Recloser; 3=Relay;  Type of OCP controller device"""
-    return CheckForError(lib.CktElement_Get_OCPDevType())
-
-
-def PhaseLosses():
-    """(read-only) Complex array of losses by phase"""
-    return get_float64_array(lib.CktElement_Get_PhaseLosses)
-
-
-def Powers():
-    """(read-only) Complex array of powers into each conductor of each terminal"""
-    return get_float64_array(lib.CktElement_Get_Powers)
-
-
-def Residuals():
-    """(read-only) Residual currents for each terminal: (mag, angle)"""
-    return get_float64_array(lib.CktElement_Get_Residuals)
-
-
-def SeqCurrents():
-    """(read-only) Double array of symmetrical component currents into each 3-phase terminal"""
-    return get_float64_array(lib.CktElement_Get_SeqCurrents)
-
-
-def SeqPowers():
-    """(read-only) Double array of sequence powers into each 3-phase teminal"""
-    return get_float64_array(lib.CktElement_Get_SeqPowers)
-
-
-def SeqVoltages():
-    """(read-only) Double array of symmetrical component voltages at each 3-phase terminal"""
-    return get_float64_array(lib.CktElement_Get_SeqVoltages)
-
-
-def TotalPowers():
-    """Returns the total powers (complex) at ALL terminals of the active circuit element."""
-    return get_float64_array(lib.CktElement_Get_TotalPowers)
-
-
-def Voltages():
-    """(read-only) Complex array of voltages at terminals"""
-    return get_float64_array(lib.CktElement_Get_Voltages)
-
-
-def VoltagesMagAng():
-    """(read-only) Voltages at each conductor in magnitude, angle form as array of doubles."""
-    return get_float64_array(lib.CktElement_Get_VoltagesMagAng)
-
-
-def YPrim():
-    """(read-only) YPrim matrix, column order, complex numbers (paired)"""
-    return get_float64_array(lib.CktElement_Get_Yprim)
-
-
-def IsIsolated():
-    """
-    Returns true if the current active element is isolated.
-    Note that this only fetches the current value. See also the Topology interface.
-    """
-    return CheckForError(lib.CktElement_Get_IsIsolated()) != 0
-
-
-def setVariableByIndex(Idx, Value):
-    Code = ffi.new("int32_t*")
-    CheckForError(lib.CktElement_Set_Variablei(Idx, Code, Value))
-    return Code[0]
-
-
-def setVariableByName(Idx, Value):
-    Code = ffi.new("int32_t*")
-    CheckForError(lib.CktElement_Set_Variable(Idx, Code, Value))
-    return Code[0]
-
-
-def NodeRef():
-    """Array of integers, a copy of the internal NodeRef of the CktElement."""
-    return get_int32_array(lib.CktElement_Get_NodeRef)
-
-
-_columns = [
-    "BusNames",
-    "CplxSeqCurrents",
-    "CplxSeqVoltages",
-    "Currents",
-    "CurrentsMagAng",
-    "DisplayName",
-    "EmergAmps",
-    "Enabled",
-    "EnergyMeter",
-    "GUID",
-    "Handle",
-    "HasOCPDevice",
-    "HasSwitchControl",
-    "HasVoltControl",
-    "Losses",
-    "Name",
-    "NodeOrder",
-    "NormalAmps",
-    "NumConductors",
-    "NumControls",
-    "NumPhases",
-    "NumProperties",
-    "NumTerminals",
-    "OCPDevIndex",
-    "OCPDevType",
-    "PhaseLosses",
-    "Powers",
-    "Residuals",
-    "SeqCurrents",
-    "SeqPowers",
-    "SeqVoltages",
-    "TotalPowers",
-    "Voltages",
-    "VoltagesMagAng",
-    "YPrim",
-    "IsIsolated",
-    "AllPropertyNames",
-    "AllVariableValues",
-    "AllVariableNames",
-]
-
+    def AllVariableNames(self):
+        """
+        Array of strings listing all the published state variable names.
+        Valid only for PCElements.
+
+        Original COM help: https://opendss.epri.com/AllVariableNames.html
+        """
+        return self._check_for_error(
+            self._get_string_array(self._lib.CktElement_Get_AllVariableNames)
+        )
+
+    def AllVariableValues(self):
+        """
+        Array of doubles. Values of state variables of active element if PC element.
+        Valid only for PCElements.
+
+        Original COM help: https://opendss.epri.com/AllVariableValues.html
+        """
+        self._check_for_error(self._lib.CktElement_Get_AllVariableValues_GR())
+        return self._get_float64_gr_array()
+
+    def BusNames(self, *args):
+        """
+        Bus definitions to which each terminal is connected.
+
+        Original COM help: https://opendss.epri.com/BusNames.html
+        """
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(
+                self._get_string_array(self._lib.CktElement_Get_BusNames)
+            )
+
+        # Setter
+        (Value,) = args
+        self._check_for_error(
+            self._set_string_array(self._lib.CktElement_Set_BusNames, Value)
+        )
+
+    def CplxSeqCurrents(self):
+        """
+        Complex double array of Sequence Currents for all conductors of all terminals of active circuit element.
+
+        Original COM help: https://opendss.epri.com/CplxSeqCurrents.html
+        """
+        self._check_for_error(self._lib.CktElement_Get_CplxSeqCurrents_GR())
+        return self._get_complex128_gr_array()
+
+    def CplxSeqVoltages(self):
+        """
+        Complex double array of Sequence Voltage for all terminals of active circuit element.
+
+        Original COM help: https://opendss.epri.com/CplxSeqVoltages1.html
+        """
+        self._check_for_error(self._lib.CktElement_Get_CplxSeqVoltages_GR())
+        return self._get_complex128_gr_array()
+
+    def Currents(self):
+        """
+        Complex array of currents into each conductor of each terminal
+
+        Original COM help: https://opendss.epri.com/Currents1.html
+        """
+        self._check_for_error(self._lib.CktElement_Get_Currents_GR())
+        return self._get_complex128_gr_array()
+
+    def CurrentsMagAng(self):
+        """
+        Currents in magnitude, angle (degrees) format as a array of doubles.
+
+        Original COM help: https://opendss.epri.com/CurrentsMagAng.html
+        """
+        self._check_for_error(self._lib.CktElement_Get_CurrentsMagAng_GR())
+        return self._get_float64_gr_array()
+
+    def DisplayName(self, *args):
+        """
+        Display name of the object (not necessarily unique)
+
+        Original COM help: https://opendss.epri.com/DisplayName.html
+        """
+        # Getter
+        if len(args) == 0:
+            return self._get_string(
+                self._check_for_error(self._lib.CktElement_Get_DisplayName())
+            )
+
+        # Setter
+        (Value,) = args
+        if not isinstance(Value, bytes):
+            Value = Value.encode(self._api_util.codec)
+        self._check_for_error(self._lib.CktElement_Set_DisplayName(Value))
+
+    def EmergAmps(self, *args):
+        """
+        Emergency Ampere Rating for PD elements
+
+        Original COM help: https://opendss.epri.com/EmergAmps.html
+        """
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.CktElement_Get_EmergAmps())
+
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.CktElement_Set_EmergAmps(Value))
+
+    def Enabled(self, *args):
+        """
+        Boolean indicating that element is currently in the circuit.
+
+        Original COM help: https://opendss.epri.com/Enabled.html
+        """
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.CktElement_Get_Enabled()) != 0
+
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.CktElement_Set_Enabled(Value))
+
+    def EnergyMeter(self):
+        """
+        Name of the Energy Meter this element is assigned to.
+
+        Original COM help: https://opendss.epri.com/EnergyMeter.html
+        """
+        return self._get_string(
+            self._check_for_error(self._lib.CktElement_Get_EnergyMeter())
+        )
+
+    def GUID(self):
+        """
+        globally unique identifier for this object
+
+        Original COM help: https://opendss.epri.com/GUID.html
+        """
+        return self._get_string(self._check_for_error(self._lib.CktElement_Get_GUID()))
+
+    def Handle(self):
+        """
+        Pointer to this object
+
+        Original COM help: https://opendss.epri.com/Handle.html
+        """
+        return self._check_for_error(self._lib.CktElement_Get_Handle())
+
+    def HasOCPDevice(self):
+        """
+        True if a recloser, relay, or fuse controlling this ckt element. OCP = Overcurrent Protection
+
+        Original COM help: https://opendss.epri.com/HasOCPDevice.html
+        """
+        return self._check_for_error(self._lib.CktElement_Get_HasOCPDevice()) != 0
+
+    def HasSwitchControl(self):
+        """
+        This element has a SwtControl attached.
+
+        Original COM help: https://opendss.epri.com/HasSwitchControl.html
+        """
+        return self._check_for_error(self._lib.CktElement_Get_HasSwitchControl()) != 0
+
+    def HasVoltControl(self):
+        """
+        This element has a CapControl or RegControl attached.
+
+        Original COM help: https://opendss.epri.com/HasVoltControl.html
+        """
+        return self._check_for_error(self._lib.CktElement_Get_HasVoltControl()) != 0
+
+    def Losses(self):
+        """
+        Total losses in the element: two-element double array (complex), in VA (watts, vars)
+
+        Original COM help: https://opendss.epri.com/Losses1.html
+        """
+        self._check_for_error(self._lib.CktElement_Get_Losses_GR())
+        return self._get_complex128_gr_simple()
+
+    def Name(self):
+        """
+        Full Name of Active Circuit Element
+
+        Original COM help: https://opendss.epri.com/Name4.html
+        """
+        return self._get_string(self._check_for_error(self._lib.CktElement_Get_Name()))
+
+    def NodeOrder(self):
+        """
+        Array of integer containing the node numbers (representing phases, for example) for each conductor of each terminal.
+
+        Original COM help: https://opendss.epri.com/NodeOrder.html
+        """
+        self._check_for_error(self._lib.CktElement_Get_NodeOrder_GR())
+        return self._get_int32_gr_array()
+
+    def NormalAmps(self, *args):
+        """
+        Normal ampere rating for PD Elements
+
+        Original COM help: https://opendss.epri.com/NormalAmps.html
+        """
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.CktElement_Get_NormalAmps())
+
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.CktElement_Set_NormalAmps(Value))
+
+    def NumConductors(self):
+        """
+        Number of Conductors per Terminal
+
+        Original COM help: https://opendss.epri.com/NumConductors.html
+        """
+        return self._check_for_error(self._lib.CktElement_Get_NumConductors())
+
+    def NumControls(self):
+        """
+        Number of controls connected to this device.
+        Use to determine valid range for index into Controller array.
+
+        Original COM help: https://opendss.epri.com/NumControls.html
+        """
+        return self._check_for_error(self._lib.CktElement_Get_NumControls())
+
+    def NumPhases(self):
+        """
+        Number of Phases
+
+        Original COM help: https://opendss.epri.com/NumPhases.html
+        """
+        return self._check_for_error(self._lib.CktElement_Get_NumPhases())
+
+    def NumProperties(self):
+        """
+        Number of Properties this Circuit Element.
+
+        Original COM help: https://opendss.epri.com/NumProperties.html
+        """
+        return self._check_for_error(self._lib.CktElement_Get_NumProperties())
+
+    def NumTerminals(self):
+        """
+        Number of Terminals this Circuit Element
+
+        Original COM help: https://opendss.epri.com/NumTerminals.html
+        """
+        return self._check_for_error(self._lib.CktElement_Get_NumTerminals())
+
+    def OCPDevIndex(self):
+        """
+        Index into Controller list of OCP Device controlling this CktElement
+
+        Original COM help: https://opendss.epri.com/OCPDevIndex.html
+        """
+        return self._check_for_error(self._lib.CktElement_Get_OCPDevIndex())
+
+    def OCPDevType(self):
+        """
+        0=None; 1=Fuse; 2=Recloser; 3=Relay;  Type of OCP controller device
+
+        Original COM help: https://opendss.epri.com/OCPDevType.html
+        """
+        return OCPDevTypeEnum(self._check_for_error(self._lib.CktElement_Get_OCPDevType()))
+
+    def PhaseLosses(self):
+        """
+        Complex array of losses (kVA) by phase
+
+        Original COM help: https://opendss.epri.com/PhaseLosses.html
+        """
+        self._check_for_error(self._lib.CktElement_Get_PhaseLosses_GR())
+        return self._get_complex128_gr_array()
+
+    def Powers(self):
+        """
+        Complex array of powers (kVA) into each conductor of each terminal
+
+        Original COM help: https://opendss.epri.com/Powers.html
+        """
+        self._check_for_error(self._lib.CktElement_Get_Powers_GR())
+        return self._get_complex128_gr_array()
+
+    def Residuals(self):
+        """
+        Residual currents for each terminal: (magnitude, angle in degrees)
+
+        Original COM help: https://opendss.epri.com/Residuals.html
+        """
+        self._check_for_error(self._lib.CktElement_Get_Residuals_GR())
+        return self._get_float64_gr_array()
+
+    def SeqCurrents(self):
+        """
+        Double array of symmetrical component currents (magnitudes only) into each 3-phase terminal
+
+        Original COM help: https://opendss.epri.com/SeqCurrents.html
+        """
+        self._check_for_error(self._lib.CktElement_Get_SeqCurrents_GR())
+        return self._get_float64_gr_array()
+
+    def SeqPowers(self):
+        """
+        Complex array of sequence powers (kW, kvar) into each 3-phase terminal
+
+        Original COM help: https://opendss.epri.com/SeqPowers.html
+        """
+        self._check_for_error(self._lib.CktElement_Get_SeqPowers_GR())
+        return self._get_complex128_gr_array()
+
+    def SeqVoltages(self):
+        """
+        Double array of symmetrical component voltages (magnitudes only) at each 3-phase terminal
+
+        Original COM help: https://opendss.epri.com/SeqVoltages1.html
+        """
+        self._check_for_error(self._lib.CktElement_Get_SeqVoltages_GR())
+        return self._get_float64_gr_array()
+
+    def Voltages(self):
+        """
+        Complex array of voltages at terminals
+
+        Original COM help: https://opendss.epri.com/Voltages1.html
+        """
+        self._check_for_error(self._lib.CktElement_Get_Voltages_GR())
+        return self._get_complex128_gr_array()
+
+    def VoltagesMagAng(self):
+        """
+        Voltages at each conductor in magnitude, angle form as array of doubles.
+
+        Original COM help: https://opendss.epri.com/VoltagesMagAng.html
+        """
+        self._check_for_error(self._lib.CktElement_Get_VoltagesMagAng_GR())
+        return self._get_float64_gr_array()
+
+    def YPrim(self):
+        """
+        YPrim matrix, column order, complex numbers
+
+        Original COM help: https://opendss.epri.com/Yprim.html
+        """
+        self._check_for_error(self._lib.CktElement_Get_Yprim_GR())
+        return self._get_complex128_gr_array()
+
+    def IsIsolated(self):
+        """
+        Returns true if the current active element is isolated.
+        Note that this only fetches the current value. See also the Topology interface.
+
+        **(API Extension)**
+        """
+        return self._check_for_error(self._lib.CktElement_Get_IsIsolated()) != 0
+
+    def TotalPowers(self):
+        """
+        Returns an array with the total powers (complex, kVA) at ALL terminals of the active circuit element.
+
+        Original COM help: https://opendss.epri.com/TotalPowers.html
+        """
+        self._check_for_error(self._lib.CktElement_Get_TotalPowers_GR())
+        return self._get_complex128_gr_array()
+
+    def NodeRef(self):
+        """
+        Array of integers, a copy of the internal NodeRef of the CktElement.
+
+        **(API Extension)**
+        """
+        self._lib.CktElement_Get_NodeRef_GR()
+        return self._get_int32_gr_array()
+
+
+_CktElement = ICktElement(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
+
+# For backwards compatibility, bind to the default instance
+Close = _CktElement.Close
+Controller = _CktElement.Controller
+Variable = _CktElement.Variable
+Variablei = _CktElement.Variablei
+IsOpen = _CktElement.IsOpen
+Open = _CktElement.Open
+AllPropertyNames = _CktElement.AllPropertyNames
+AllVariableNames = _CktElement.AllVariableNames
+AllVariableValues = _CktElement.AllVariableValues
+BusNames = _CktElement.BusNames
+CplxSeqCurrents = _CktElement.CplxSeqCurrents
+CplxSeqVoltages = _CktElement.CplxSeqVoltages
+Currents = _CktElement.Currents
+CurrentsMagAng = _CktElement.CurrentsMagAng
+DisplayName = _CktElement.DisplayName
+EmergAmps = _CktElement.EmergAmps
+Enabled = _CktElement.Enabled
+EnergyMeter = _CktElement.EnergyMeter
+GUID = _CktElement.GUID
+Handle = _CktElement.Handle
+HasOCPDevice = _CktElement.HasOCPDevice
+HasSwitchControl = _CktElement.HasSwitchControl
+HasVoltControl = _CktElement.HasVoltControl
+Losses = _CktElement.Losses
+Name = _CktElement.Name
+NodeOrder = _CktElement.NodeOrder
+NormalAmps = _CktElement.NormalAmps
+NumConductors = _CktElement.NumConductors
+NumControls = _CktElement.NumControls
+NumPhases = _CktElement.NumPhases
+NumProperties = _CktElement.NumProperties
+NumTerminals = _CktElement.NumTerminals
+OCPDevIndex = _CktElement.OCPDevIndex
+OCPDevType = _CktElement.OCPDevType
+PhaseLosses = _CktElement.PhaseLosses
+Powers = _CktElement.Powers
+Residuals = _CktElement.Residuals
+SeqCurrents = _CktElement.SeqCurrents
+SeqPowers = _CktElement.SeqPowers
+SeqVoltages = _CktElement.SeqVoltages
+TotalPowers = _CktElement.TotalPowers
+Voltages = _CktElement.Voltages
+VoltagesMagAng = _CktElement.VoltagesMagAng
+YPrim = _CktElement.YPrim
+IsIsolated = _CktElement.IsIsolated
+setVariableByIndex = _CktElement.setVariableByIndex
+setVariableByName = _CktElement.setVariableByName
+NodeRef = _CktElement.NodeRef
+_columns = _CktElement._columns
 __all__ = [
     "Close",
     "Controller",

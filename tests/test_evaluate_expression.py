@@ -1,5 +1,14 @@
 def test_ee():
-    from opendssdirect.utils import _evaluate_expression as ee
+    import sys
+    if sys.platform == 'win32':
+        # When running pytest, the faulthandler seems too eager
+        # to grab FPC's exceptions, even when handled
+        import faulthandler
+        faulthandler.disable()
+        from opendssdirect.utils import _evaluate_expression as ee
+        faulthandler.enable()
+    else:
+        from opendssdirect.utils import _evaluate_expression as ee
 
     assert ee('1') == '1'
     assert ee('1.0') == '1.0'

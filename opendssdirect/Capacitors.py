@@ -1,149 +1,132 @@
-from ._utils import (
-    lib,
-    codec,
-    CheckForError,
-    get_string,
-    get_int32_array,
-    get_string_array,
-    prepare_int32_array,
-)
+from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from .Bases import Iterable
 
 
-def AddStep():
-    return CheckForError(lib.Capacitors_AddStep()) != 0
+class ICapacitors(Iterable):
+    __slots__ = []
+
+    __name__ = "Capacitors"
+    _api_prefix = "Capacitors"
+    _columns = [
+        "Name",
+        "Idx",
+        "kV",
+        "NumSteps",
+        "AvailableSteps",
+        "IsDelta",
+        "States",
+        "kvar",
+    ]
+
+    def AddStep(self):
+        return self._check_for_error(self._lib.Capacitors_AddStep()) != 0
+
+    def Close(self):
+        self._check_for_error(self._lib.Capacitors_Close())
+
+    def Open(self):
+        self._check_for_error(self._lib.Capacitors_Open())
+
+    def SubtractStep(self):
+        return self._check_for_error(self._lib.Capacitors_SubtractStep()) != 0
+
+    def AvailableSteps(self):
+        """
+        Number of Steps available in cap bank to be switched ON.
+
+        Original COM help: https://opendss.epri.com/AvailableSteps.html
+        """
+        return self._check_for_error(self._lib.Capacitors_Get_AvailableSteps())
+
+    def IsDelta(self, *args):
+        """
+        Delta connection or wye?
+
+        Original COM help: https://opendss.epri.com/IsDelta.html
+        """
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.Capacitors_Get_IsDelta()) != 0
+
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.Capacitors_Set_IsDelta(Value))
+
+    def NumSteps(self, *args):
+        """
+        Number of steps (default 1) for distributing and switching the total bank kVAR.
+
+        Original COM help: https://opendss.epri.com/NumSteps.html
+        """
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.Capacitors_Get_NumSteps())
+
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.Capacitors_Set_NumSteps(Value))
+
+    def States(self, *args):
+        """
+        An array of integers [0..NumSteps-1] indicating state of each step. If the read value is -1 an error has occurred.
+
+        Original COM help: https://opendss.epri.com/States.html
+        """
+        # Getter
+        if len(args) == 0:
+            self._check_for_error(self._lib.Capacitors_Get_States_GR())
+            return self._get_int32_gr_array()
+
+        # Setter
+        (Value,) = args
+        Value, ValuePtr, ValueCount = self._prepare_int32_array(Value)
+        self._check_for_error(self._lib.Capacitors_Set_States(ValuePtr, ValueCount))
+
+    def kV(self, *args):
+        """
+        Bank kV rating. Use LL for 2 or 3 phases, or actual can rating for 1 phase.
+
+        Original COM help: https://opendss.epri.com/kV.html
+        """
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.Capacitors_Get_kV())
+
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.Capacitors_Set_kV(Value))
+
+    def kvar(self, *args):
+        """Total bank KVAR, distributed equally among phases and steps."""
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.Capacitors_Get_kvar())
+
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.Capacitors_Set_kvar(Value))
 
 
-def Close():
-    CheckForError(lib.Capacitors_Close())
+_Capacitors = ICapacitors(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
-
-def Open():
-    CheckForError(lib.Capacitors_Open())
-
-
-def SubtractStep():
-    return CheckForError(lib.Capacitors_SubtractStep()) != 0
-
-
-def AllNames():
-    """(read-only) List of strings with all Capacitor names"""
-    return CheckForError(get_string_array(lib.Capacitors_Get_AllNames))
-
-
-def AvailableSteps():
-    """(read-only) Number of Steps available in cap bank to be switched ON."""
-    return CheckForError(lib.Capacitors_Get_AvailableSteps())
-
-
-def Count():
-    """(read-only) Number of Capacitors"""
-    return CheckForError(lib.Capacitors_Get_Count())
-
-
-def First():
-    """Set first Capacitor active; returns 0 if none."""
-    return CheckForError(lib.Capacitors_Get_First())
-
-
-def IsDelta(*args):
-    """Delta connection or wye?"""
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.Capacitors_Get_IsDelta()) != 0
-
-    # Setter
-    Value, = args
-    CheckForError(lib.Capacitors_Set_IsDelta(Value))
-
-
-def Name(*args):
-    """
-    Get/set the name of the active Capacitor
-    """
-    # Getter
-    if len(args) == 0:
-        return CheckForError(get_string(lib.Capacitors_Get_Name()))
-
-    # Setter
-    Value, = args
-    if type(Value) is not bytes:
-        Value = Value.encode(codec)
-    CheckForError(lib.Capacitors_Set_Name(Value))
-
-
-def Next():
-    """Sets next Capacitor active; returns 0 if no more."""
-    return CheckForError(lib.Capacitors_Get_Next())
-
-
-def NumSteps(*args):
-    """Number of steps (default 1) for distributing and switching the total bank kVAR."""
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.Capacitors_Get_NumSteps())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.Capacitors_Set_NumSteps(Value))
-
-
-def States(*args):
-    """A array of  integer [0..numsteps-1] indicating state of each step. If the read value is -1 an error has occurred."""
-    # Getter
-    if len(args) == 0:
-        return get_int32_array(lib.Capacitors_Get_States)
-
-    # Setter
-    Value, = args
-    Value, ValuePtr, ValueCount = prepare_int32_array(Value)
-    CheckForError(lib.Capacitors_Set_States(ValuePtr, ValueCount))
-
-
-def kV(*args):
-    """Bank kV rating. Use LL for 2 or 3 phases, or actual can rating for 1 phase."""
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.Capacitors_Get_kV())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.Capacitors_Set_kV(Value))
-
-
-def kvar(*args):
-    """Total bank KVAR, distributed equally among phases and steps."""
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.Capacitors_Get_kvar())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.Capacitors_Set_kvar(Value))
-
-
-def Idx(*args):
-    """
-    Get/set active Capacitor by index;  1..Count
-    """
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.Capacitors_Get_idx())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.Capacitors_Set_idx(Value))
-
-
-_columns = [
-    "AvailableSteps",
-    "IsDelta",
-    "Name",
-    "NumSteps",
-    "States",
-    "kV",
-    "kvar",
-    "Idx",
-]
+# For backwards compatibility, bind to the default instance
+AddStep = _Capacitors.AddStep
+Close = _Capacitors.Close
+Open = _Capacitors.Open
+SubtractStep = _Capacitors.SubtractStep
+AllNames = _Capacitors.AllNames
+AvailableSteps = _Capacitors.AvailableSteps
+Count = _Capacitors.Count
+First = _Capacitors.First
+IsDelta = _Capacitors.IsDelta
+Name = _Capacitors.Name
+Next = _Capacitors.Next
+NumSteps = _Capacitors.NumSteps
+States = _Capacitors.States
+kV = _Capacitors.kV
+kvar = _Capacitors.kvar
+Idx = _Capacitors.Idx
+_columns = _Capacitors._columns
 __all__ = [
     "AddStep",
     "Close",

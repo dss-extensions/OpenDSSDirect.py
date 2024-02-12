@@ -1,10 +1,19 @@
 """
 This package implements the OpenDSSDirect.py API using DSS C-API instead
-of the official OpenDSS Direct DLL.
+of the official OpenDSS Direct DLL, sharing the CFFI backend and some other
+features (plotting) with DSS-Python and AltDSS.
 """
-from ._version import __version__
-from . import dss, utils
-from .dss import (
+try:
+    # Version is now populated by the build script based
+    # on the git tags. See pyproject.toml for more info.
+    from ._version import __version__
+except:
+    __version__ = "0.0dev"
+
+from . import utils
+from . import enums
+from .OpenDSSDirect import (
+    dss,
     run_command,
     ActiveClass,
     Basic,
@@ -13,11 +22,8 @@ from .dss import (
     Capacitors,
     Circuit,
     CktElement,
-    CmathLib,
     CtrlQueue,
     DSSCore,
-    DSSEvents,
-    DSSimComs,
     Element,
     Error,
     Executive,
@@ -51,8 +57,12 @@ from .dss import (
     XYCurves,
     YMatrix,
     ZIP,
+    to_dss_python,
+    to_altdss,
+    NewContext,
     dss_lib,
     DSSException,
 )
-
-dss.dss = dss
+# Since run_command is deprecated, use these instead
+Command = dss.Command
+Commands = dss.Commands

@@ -1,197 +1,226 @@
-from ._utils import (
-    lib,
-    codec,
-    CheckForError,
-    get_string,
-    get_float64_array,
-    get_string_array,
-    prepare_float64_array,
-)
+from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from .Bases import Iterable
 
 
-def New(Name):
-    if type(Name) is not bytes:
-        Name = Name.encode(codec)
-    return CheckForError(lib.LoadShapes_New(Name))
+class ILoadShape(Iterable):
+    __slots__ = []
+
+    __name__ = "LoadShape"
+    _api_prefix = "LoadShapes"
+    _columns = [
+        "Name",
+        "Idx",
+        "UseActual",
+        "Npts",
+        "HrInterval",
+        "MinInterval",
+        "SInterval",
+        "PBase",
+        "PMult",
+        "QBase",
+        "QMult",
+        "TimeArray",
+    ]
+
+    def New(self, Name):
+        """Create a new LoadShape, with default parameters"""
+        if not isinstance(Name, bytes):
+            Name = Name.encode(self._api_util.codec)
+        return self._check_for_error(self._lib.LoadShapes_New(Name))
+
+    def Normalize(self):
+        """Normalize the LoadShape data inplace"""
+        self._check_for_error(self._lib.LoadShapes_Normalize())
+
+    def HrInterval(self, *args):
+        """
+        Fixed interval time value, in hours.
+
+        Original COM help: https://opendss.epri.com/HrInterval.html
+        """
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.LoadShapes_Get_HrInterval())
+
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.LoadShapes_Set_HrInterval(Value))
+
+    def MinInterval(self, *args):
+        """
+        Fixed Interval time value, in minutes
+
+        Original COM help: https://opendss.epri.com/MinInterval.html
+        """
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.LoadShapes_Get_MinInterval())
+
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.LoadShapes_Set_MinInterval(Value))
+
+    def Npts(self, *args):
+        """
+        Get/set Number of points in active Loadshape.
+
+        Original COM help: https://opendss.epri.com/Npts.html
+        """
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.LoadShapes_Get_Npts())
+
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.LoadShapes_Set_Npts(Value))
+
+    def PBase(self, *args):
+        """
+        Base P value for normalization. Default is zero, meaning the peak will be used.
+
+        Original COM help: https://opendss.epri.com/Pbase.html
+        """
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.LoadShapes_Get_PBase())
+
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.LoadShapes_Set_PBase(Value))
+
+    def PMult(self, *args):
+        """
+        Array of doubles for the P multiplier in the Loadshape.
+
+        Original COM help: https://opendss.epri.com/Pmult.html
+        """
+        # Getter
+        if len(args) == 0:
+            self._check_for_error(self._lib.LoadShapes_Get_Pmult_GR())
+            return self._get_float64_gr_array()
+
+        # Setter
+        (Value,) = args
+        Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
+        self._check_for_error(self._lib.LoadShapes_Set_Pmult(ValuePtr, ValueCount))
+
+    def QBase(self, *args):
+        """
+        Base for normalizing Q curve. If left at zero, the peak value is used.
+
+        Original COM help: https://opendss.epri.com/Qbase.html
+        """
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.LoadShapes_Get_Qbase())
+
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.LoadShapes_Set_Qbase(Value))
+
+    def QMult(self, *args):
+        """
+        Array of doubles containing the Q multipliers.
+
+        Original COM help: https://opendss.epri.com/Qmult.html
+        """
+        # Getter
+        if len(args) == 0:
+            self._check_for_error(self._lib.LoadShapes_Get_Qmult_GR())
+            return self._get_float64_gr_array()
+
+        # Setter
+        (Value,) = args
+        Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
+        self._check_for_error(self._lib.LoadShapes_Set_Qmult(ValuePtr, ValueCount))
+
+    def TimeArray(self, *args):
+        """
+        Time array in hours corresponding to P and Q multipliers when the Interval=0.
+
+        Original COM help: https://opendss.epri.com/TimeArray.html
+        """
+        # Getter
+        if len(args) == 0:
+            self._check_for_error(self._lib.LoadShapes_Get_TimeArray_GR())
+            return self._get_float64_gr_array()
+
+        # Setter
+        (Value,) = args
+        Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
+        self._check_for_error(self._lib.LoadShapes_Set_TimeArray(ValuePtr, ValueCount))
+
+    def UseActual(self, *args):
+        """
+        Boolean flag to let Loads know to use the actual value in the curve rather than use the value as a multiplier.
+
+        Original COM help: https://opendss.epri.com/UseActual.html
+        """
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.LoadShapes_Get_UseActual()) != 0
+
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.LoadShapes_Set_UseActual(Value))
+
+    def SInterval(self, *args):
+        """
+        Fixed interval time value, in seconds.
+
+        Original COM help: https://opendss.epri.com/Sinterval.html
+        """
+        # Getter
+        if len(args) == 0:
+            return self._check_for_error(self._lib.LoadShapes_Get_SInterval())
+
+        # Setter
+        (Value,) = args
+        self._check_for_error(self._lib.LoadShapes_Set_SInterval(Value))
+
+    def UseFloat32(self):
+        """
+        Converts the current LoadShape data to float32/single precision.
+        If there is no data or the data is already represented using float32, nothing is done.
+
+        **(API Extension)**
+        """
+        self._check_for_error(self._lib.LoadShapes_UseFloat32())
+
+    def UseFloat64(self):
+        """
+        Converts the current LoadShape data to float64/double precision.
+        If there is no data or the data is already represented using float64, nothing is done.
+
+        **(API Extension)**
+        """
+        self._check_for_error(self._lib.LoadShapes_UseFloat64())
 
 
-def Normalize():
-    CheckForError(lib.LoadShapes_Normalize())
+_LoadShape = ILoadShape(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
 
-
-def AllNames():
-    """(read-only) List of strings with all LoadShape names"""
-    return CheckForError(get_string_array(lib.LoadShapes_Get_AllNames))
-
-
-def Count():
-    """(read-only) Number of LoadShapes"""
-    return CheckForError(lib.LoadShapes_Get_Count())
-
-
-def First():
-    """Set first LoadShape active; returns 0 if none."""
-    return CheckForError(lib.LoadShapes_Get_First())
-
-
-def HrInterval(*args):
-    """Fixed interval time value, hours."""
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.LoadShapes_Get_HrInterval())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.LoadShapes_Set_HrInterval(Value))
-
-
-def MinInterval(*args):
-    """Fixed Interval time value, in minutes"""
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.LoadShapes_Get_MinInterval())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.LoadShapes_Set_MinInterval(Value))
-
-
-def Name(*args):
-    """
-    Get/set the name of the active LoadShape
-    """
-    # Getter
-    if len(args) == 0:
-        return CheckForError(get_string(lib.LoadShapes_Get_Name()))
-
-    # Setter
-    Value, = args
-    if type(Value) is not bytes:
-        Value = Value.encode(codec)
-    CheckForError(lib.LoadShapes_Set_Name(Value))
-
-
-def Next():
-    """Sets next LoadShape active; returns 0 if no more."""
-    return CheckForError(lib.LoadShapes_Get_Next())
-
-
-def Npts(*args):
-    """Get/set Number of points in active Loadshape."""
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.LoadShapes_Get_Npts())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.LoadShapes_Set_Npts(Value))
-
-
-def PBase(*args):
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.LoadShapes_Get_PBase())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.LoadShapes_Set_PBase(Value))
-
-
-def PMult(*args):
-    """Array of doubles for the P multiplier in the Loadshape."""
-    # Getter
-    if len(args) == 0:
-        return get_float64_array(lib.LoadShapes_Get_Pmult)
-
-    # Setter
-    Value, = args
-    Value, ValuePtr, ValueCount = prepare_float64_array(Value)
-    CheckForError(lib.LoadShapes_Set_Pmult(ValuePtr, ValueCount))
-
-
-def QBase(*args):
-    """Base for normalizing Q curve. If left at zero, the peak value is used."""
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.LoadShapes_Get_Qbase())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.LoadShapes_Set_Qbase(Value))
-
-
-def QMult(*args):
-    """Array of doubles containing the Q multipliers."""
-    # Getter
-    if len(args) == 0:
-        return get_float64_array(lib.LoadShapes_Get_Qmult)
-
-    # Setter
-    Value, = args
-    Value, ValuePtr, ValueCount = prepare_float64_array(Value)
-    CheckForError(lib.LoadShapes_Set_Qmult(ValuePtr, ValueCount))
-
-
-def TimeArray(*args):
-    """Time array in hours correscponding to P and Q multipliers when the Interval=0."""
-    # Getter
-    if len(args) == 0:
-        return get_float64_array(lib.LoadShapes_Get_TimeArray)
-
-    # Setter
-    Value, = args
-    Value, ValuePtr, ValueCount = prepare_float64_array(Value)
-    CheckForError(lib.LoadShapes_Set_TimeArray(ValuePtr, ValueCount))
-
-
-def UseActual(*args):
-    """Boolean flag to let Loads know to use the actual value in the curve rather than use the value as a multiplier."""
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.LoadShapes_Get_UseActual()) != 0
-
-    # Setter
-    Value, = args
-    CheckForError(lib.LoadShapes_Set_UseActual(Value))
-
-
-def SInterval(*args):
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.LoadShapes_Get_SInterval())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.LoadShapes_Set_SInterval(Value))
-
-
-def Idx(*args):
-    """
-    Get/set active LoadShape by index;  1..Count
-    """
-    # Getter
-    if len(args) == 0:
-        return CheckForError(lib.LoadShapes_Get_idx())
-
-    # Setter
-    Value, = args
-    CheckForError(lib.LoadShapes_Set_idx(Value))
-
-
-_columns = [
-    "HrInterval",
-    "MinInterval",
-    "Name",
-    "Npts",
-    "PBase",
-    "PMult",
-    "QBase",
-    "QMult",
-    "TimeArray",
-    "UseActual",
-    "SInterval",
-    "Idx",
-]
+# For backwards compatibility, bind to the default instance
+New = _LoadShape.New
+Normalize = _LoadShape.Normalize
+AllNames = _LoadShape.AllNames
+Count = _LoadShape.Count
+First = _LoadShape.First
+HrInterval = _LoadShape.HrInterval
+MinInterval = _LoadShape.MinInterval
+Name = _LoadShape.Name
+Next = _LoadShape.Next
+Npts = _LoadShape.Npts
+PBase = _LoadShape.PBase
+PMult = _LoadShape.PMult
+QBase = _LoadShape.QBase
+QMult = _LoadShape.QMult
+TimeArray = _LoadShape.TimeArray
+UseActual = _LoadShape.UseActual
+SInterval = _LoadShape.SInterval
+Idx = _LoadShape.Idx
+UseFloat32 = _LoadShape.UseFloat32
+UseFloat64 = _LoadShape.UseFloat64
+_columns = _LoadShape._columns
 __all__ = [
     "New",
     "Normalize",
@@ -211,4 +240,6 @@ __all__ = [
     "UseActual",
     "SInterval",
     "Idx",
+    "UseFloat32",
+    "UseFloat64",
 ]
