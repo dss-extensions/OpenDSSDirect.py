@@ -1,0 +1,586 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Multiple DSS engines and multithreading &#8212; OpenDSSDirect.py 0.9.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=362ab14a" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=2a76c96f"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/Multithreading';</script>
+    <link rel="icon" href="../_static/dssx.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="opendssdirect package reference" href="../opendssdirect.html" />
+    <link rel="prev" title="Example: Circuit SystemY" href="SystemY.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/opendssdirect.svg" class="logo__image only-light" alt="OpenDSSDirect.py 0.9.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/opendssdirect-dark.svg" class="logo__image only-dark" alt="OpenDSSDirect.py 0.9.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">OpenDSSDirect.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GettingStarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../updating_to_0.9.html">Upgrading to OpenDSSDirect.py v0.9+</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Example-OpenDSSDirect.py.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ActiveClass.html">Using ActiveClass interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VoltageProfilePlot.html">Plotting voltage profile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SystemY.html">Circuit SystemY</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Multithreading, multiple DSS engines</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../opendssdirect.html">opendssdirect</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../opendssdirect_utils_ref.html">opendssdirect.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../enumerations.html">opendssdirect.enums</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">External links</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://github.com/dss-extensions/OpenDSSDirect.py">GitHub repository</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.python.org/pypi/OpenDSSDirect.py/">Package on PyPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/dss-extensions/electricdss-tst">Test/example circuits</a></li>
+
+<li class="toctree-l1"><a class="reference external" href="https://dss-extensions.org/dss_python">DSS-Python</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://dss-extensions.org/AltDSS-Python/">AltDSS-Python</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/orgs/dss-extensions/discussions">DSS-Extensions Discussions</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://sourceforge.net/p/electricdss/discussion/">OpenDSS forum</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://opendss.epri.com/opendss_documentation.html">OpenDSS documentation</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/Multithreading.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Multiple DSS engines and multithreading</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="multiple-dss-engines-and-multithreading">
+<h1>Multiple DSS engines and multithreading<a class="headerlink" href="#multiple-dss-engines-and-multithreading" title="Link to this heading">#</a></h1>
+<p><em>Parallel OpenDSS/AltDSS engines in the same process</em></p>
+<p>This is a slightly modified version, ported directly from DSS-Python. The <code class="docutils literal notranslate"><span class="pre">_run</span></code> function is what changes mostly, visit <a class="reference external" href="https://dss-extensions.org/dss_python/examples/Multithreading.html">https://dss-extensions.org/dss_python/examples/Multithreading.html</a> for a few more comments and a comparison with <code class="docutils literal notranslate"><span class="pre">multiprocessing</span></code> and notes on the internal parallel-machine implementation.</p>
+<p>This version uses only the 13Bus circuit, but can be easily extended.</p>
+<!-- TODO: update link to the website when ready -->
+<p><a class="reference external" href="https://github.com/dss-extensions/dss-extensions/blob/main/docs/multithreading.md">General recommendations apply</a>, like using a good memory allocator on Linux.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">perf_counter</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">opendssdirect.OpenDSSDirect</span> <span class="kn">import</span> <span class="n">OpenDSSDirect</span> <span class="c1"># for type hints</span>
+<span class="kn">from</span> <span class="nn">opendssdirect</span> <span class="kn">import</span> <span class="n">dss</span>
+
+<span class="c1"># Adjust this if required</span>
+<span class="n">PATH_TO_DSS_SCRIPT</span> <span class="o">=</span> <span class="s1">&#39;./../../tests/data/13Bus/IEEE13Nodeckt.dss&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Remember that OpenDSS changes the working directory of the process? To use multiple instances, we need to disable that behavior. When disabled, the AltDSS engine will track the required paths without changing the working directory.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dss</span><span class="o">.</span><span class="n">Basic</span><span class="o">.</span><span class="n">AllowChangeDir</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we need to create a list of cases to run. Let’s try 100 samples of LoadMult between 0.9 and 1.1:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fns</span> <span class="o">=</span> <span class="p">[</span><span class="n">PATH_TO_DSS_SCRIPT</span><span class="p">]</span>
+
+<span class="n">cases</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">fns</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">load_mult</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mi">100</span><span class="p">):</span>
+        <span class="n">cases</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">fn</span><span class="p">,</span> <span class="n">load_mult</span><span class="p">))</span>
+
+<span class="n">cases_to_run_threads</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">cases</span><span class="p">)</span>
+<span class="n">cases_to_run_seq</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">cases</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Decide how many instances based on the number of cases and the CPU count. For processors with Hyper-threading, it might be best to run with the number of real cores. It all depends on the processor architecture, such as cache and memory bandwidth, and the characteristics of the DSS circuit being used. It is recommended to run a few tests to select the optional number of threads, especially for large scale circuits (IEEE13 is tiny).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use the number of threads as CPU count, number of cases</span>
+<span class="n">num</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cases</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">())</span>
+
+<span class="c1"># Initialize a new context for each of the threads</span>
+<span class="n">ctxs</span> <span class="o">=</span> <span class="p">[</span><span class="n">dss</span><span class="o">.</span><span class="n">NewContext</span><span class="p">()</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ctxs</span><span class="p">)</span><span class="si">}</span><span class="s2"> DSS contexts&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Using 32 DSS contexts
+</pre></div>
+</div>
+</div>
+</div>
+<p>Some dicts to keep the results:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tresults</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">tconverged</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">sresults</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">sconverged</span> <span class="o">=</span> <span class="p">{}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is the worker function that will run the workload, both in the threads and sequentially.</p>
+<p>Note that it references some structures shared as input to the function. Since there is a GIL, we don’t need to use locks. You may need to adjust that for more general usage.</p>
+<p>Uncomment the <code class="docutils literal notranslate"><span class="pre">print</span></code> calls for some visual feedback while running.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_run</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">OpenDSSDirect</span><span class="p">,</span> <span class="n">case_list</span><span class="p">,</span> <span class="n">converged</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
+    <span class="n">tname</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">current_thread</span><span class="p">()</span><span class="o">.</span><span class="n">name</span>
+    <span class="k">while</span> <span class="n">case_list</span><span class="p">:</span>
+        <span class="n">fn</span><span class="p">,</span> <span class="n">load_mult</span> <span class="o">=</span> <span class="n">case_list</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">Command</span><span class="p">(</span><span class="s1">&#39;clear&#39;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">ctx</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">Command</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;redirect &quot;</span><span class="si">{</span><span class="n">fn</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+            <span class="n">ctx</span><span class="o">.</span><span class="n">Solution</span><span class="o">.</span><span class="n">LoadMult</span><span class="p">(</span><span class="n">load_mult</span><span class="p">)</span>
+            <span class="c1"># print(f&#39;{tname}: Running &quot;{fn}&quot;, circuit &quot;{ctx.Circuit.Name()}&quot;, mult={load_mult}&#39;)</span>
+            <span class="n">ctx</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">Command</span><span class="p">(</span><span class="s1">&#39;Solve mode=daily number=5000&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ERROR:&#39;</span><span class="p">,</span> <span class="n">tname</span><span class="p">,</span> <span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">load_mult</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;      &#39;</span><span class="p">,</span> <span class="n">ex</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+
+        <span class="c1"># print(f&#39;{tname}: Done &quot;{fn}&quot; (LoadMult={load_mult}), circuit &quot;{ctx.Circuit.Name()}&quot;&#39;)</span>
+        <span class="n">converged</span><span class="p">[(</span><span class="n">fn</span><span class="p">,</span> <span class="n">load_mult</span><span class="p">)]</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">Solution</span><span class="o">.</span><span class="n">Converged</span><span class="p">()</span>
+        <span class="n">results</span><span class="p">[(</span><span class="n">fn</span><span class="p">,</span> <span class="n">load_mult</span><span class="p">)]</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">Circuit</span><span class="o">.</span><span class="n">AllBusVolts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>With all in place, let’s create and run the threads until completion.</p>
+<p>The threads will consume input scenarios from <code class="docutils literal notranslate"><span class="pre">cases_to_run_threads</span></code>, outputting to <code class="docutils literal notranslate"><span class="pre">tconverged</span></code> and <code class="docutils literal notranslate"><span class="pre">tresults</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t0</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span>
+<span class="n">threads</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">ctx</span> <span class="ow">in</span> <span class="n">ctxs</span><span class="p">:</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">_run</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">cases_to_run_threads</span><span class="p">,</span> <span class="n">tconverged</span><span class="p">,</span> <span class="n">tresults</span><span class="p">))</span>
+    <span class="n">threads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">threads</span><span class="p">:</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">threads</span><span class="p">:</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+
+<span class="n">t1</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span>
+
+<span class="c1"># Check if all solutions converged</span>
+<span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="n">tconverged</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+<span class="n">dt_thread</span> <span class="o">=</span> <span class="p">(</span><span class="n">t1</span> <span class="o">-</span> <span class="n">t0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Done in </span><span class="si">{</span><span class="n">dt_thread</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> s with </span><span class="si">{</span><span class="n">num</span><span class="si">}</span><span class="s1"> threads&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done in 0.294 s with 32 threads
+</pre></div>
+</div>
+</div>
+</div>
+<p>For a comparison, let’s also run the same cases sequentially in a simple thread.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t0</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span>
+
+<span class="n">_run</span><span class="p">(</span><span class="n">dss</span><span class="p">,</span> <span class="n">cases_to_run_seq</span><span class="p">,</span> <span class="n">sconverged</span><span class="p">,</span> <span class="n">sresults</span><span class="p">)</span>
+
+<span class="n">t1</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span>
+<span class="n">dt_seq</span> <span class="o">=</span> <span class="p">(</span><span class="n">t1</span> <span class="o">-</span> <span class="n">t0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Done in </span><span class="si">{</span><span class="n">dt_seq</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> s sequentially&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done in 4.637 s sequentially
+</pre></div>
+</div>
+</div>
+</div>
+<p>Check if each scenario has the same results whether it ran in multiple threads or a single thread</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">case</span> <span class="ow">in</span> <span class="n">cases</span><span class="p">:</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_equal</span><span class="p">(</span><span class="n">sresults</span><span class="p">[</span><span class="n">case</span><span class="p">],</span> <span class="n">tresults</span><span class="p">[</span><span class="n">case</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>That’s it! For modern processors, the difference of running in a single thread vs. multiple can be significant.</p>
+<p>Traditionally, a lot of OpenDSS users ran tasks in parallel with the <code class="docutils literal notranslate"><span class="pre">multiprocessing</span></code> module or other tools like Dask.Distributed, but depending on the use-case, multithreading can present interesting advantages, such as easier use of shared resources.</p>
+<p>For an approach compatible with the current official OpenDSS versions, using either <code class="docutils literal notranslate"><span class="pre">multiprocessing</span></code> or the <code class="docutils literal notranslate"><span class="pre">dss.Parallel</span></code> functions would be required.</p>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="SystemY.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Example: Circuit SystemY</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../opendssdirect.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">opendssdirect package reference</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2017-2024 Dheepak Krishnamurthy, Paulo Meira, DSS-Extensions contributors.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

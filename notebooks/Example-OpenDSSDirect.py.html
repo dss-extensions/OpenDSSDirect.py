@@ -1,0 +1,902 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Usage &#8212; OpenDSSDirect.py 0.9.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=362ab14a" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=2a76c96f"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/Example-OpenDSSDirect.py';</script>
+    <link rel="icon" href="../_static/dssx.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Using ActiveClass interface" href="ActiveClass.html" />
+    <link rel="prev" title="Upgrading to OpenDSSDirect.py v0.9+" href="../updating_to_0.9.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/opendssdirect.svg" class="logo__image only-light" alt="OpenDSSDirect.py 0.9.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/opendssdirect-dark.svg" class="logo__image only-dark" alt="OpenDSSDirect.py 0.9.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">OpenDSSDirect.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GettingStarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../updating_to_0.9.html">Upgrading to OpenDSSDirect.py v0.9+</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ActiveClass.html">Using ActiveClass interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VoltageProfilePlot.html">Plotting voltage profile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SystemY.html">Circuit SystemY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Multithreading.html">Multithreading, multiple DSS engines</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../opendssdirect.html">opendssdirect</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../opendssdirect_utils_ref.html">opendssdirect.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../enumerations.html">opendssdirect.enums</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">External links</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://github.com/dss-extensions/OpenDSSDirect.py">GitHub repository</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.python.org/pypi/OpenDSSDirect.py/">Package on PyPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/dss-extensions/electricdss-tst">Test/example circuits</a></li>
+
+<li class="toctree-l1"><a class="reference external" href="https://dss-extensions.org/dss_python">DSS-Python</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://dss-extensions.org/AltDSS-Python/">AltDSS-Python</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/orgs/dss-extensions/discussions">DSS-Extensions Discussions</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://sourceforge.net/p/electricdss/discussion/">OpenDSS forum</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://opendss.epri.com/opendss_documentation.html">OpenDSS documentation</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/Example-OpenDSSDirect.py.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Usage</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-a-file">Import a file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-loads">Module <code class="docutils literal notranslate"><span class="pre">Loads</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#low-level-api-advanced-topic">Low-level API (advanced topic)</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Link to this heading">#</a></h1>
+<p>OpenDSSDirect.py is a package in the <a class="reference external" href="https://dss-extensions.org/">DSS-Extensions</a> project. As such, it doesn’t require EPRI’s OpenDSS to be installed. OpenDSSDirect.py provides it’s own customized engine through <a class="reference external" href="https://dss-extensions.org/dss_python/">DSS-Python</a>, which in turn enables us to run the DSS engine on Windows, Linux and macOS (including newer Apple ARM processors).</p>
+<p>After the installation, you can just import the module and start using it without further steps:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">opendssdirect</span> <span class="kn">import</span> <span class="n">dss</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;OpenDSSDirect.py and engine versions:&#39;</span><span class="p">,</span> <span class="n">dss</span><span class="o">.</span><span class="n">Version</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>OpenDSSDirect.py and engine versions: DSS C-API Library version 0.14.0 revision 04941400a091677da98b033a3b682480f2584693 based on OpenDSS SVN 3723 [FPC 3.2.2] (64-bit build) MVMULT INCREMENTAL_Y CONTEXT_API PM 20240209141429; License Status: Open 
+DSS-Python version: 0.15.0
+OpenDSSDirect.py version: 0.9.0
+</pre></div>
+</div>
+</div>
+</div>
+<section id="import-a-file">
+<h2>Import a file<a class="headerlink" href="#import-a-file" title="Link to this heading">#</a></h2>
+<p>Use the high level interface for automatic error handling, mapping errors to Python exceptions.</p>
+<p>This first example should give an error:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dss</span><span class="o">.</span><span class="n">Command</span><span class="p">(</span><span class="s1">&#39;Redirect this_file_does_not_exist.dss&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">DSSException</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">dss</span><span class="o">.</span><span class="n">Command</span><span class="p">(</span><span class="s1">&#39;Redirect this_file_does_not_exist.dss&#39;</span><span class="p">)</span>
+
+<span class="nn">File /opt/python/lib/python3.11/site-packages/opendssdirect/Text.py:26,</span> in <span class="ni">IText.Command</span><span class="nt">(self, *args)</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">Value</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span>     <span class="n">Value</span> <span class="o">=</span> <span class="n">Value</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_api_util</span><span class="o">.</span><span class="n">codec</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">26</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_for_error</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_lib</span><span class="o">.</span><span class="n">Text_Set_Command</span><span class="p">(</span><span class="n">Value</span><span class="p">))</span>
+
+<span class="nn">File /opt/python/lib/python3.11/site-packages/dss/_cffi_api_util.py:267,</span> in <span class="ni">Base._check_for_error</span><span class="nt">(self, result)</span>
+<span class="g g-Whitespace">    </span><span class="mi">265</span>     <span class="n">error_num</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_errorPtr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">266</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_errorPtr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="ne">--&gt; </span><span class="mi">267</span>     <span class="k">raise</span> <span class="n">DSSException</span><span class="p">(</span><span class="n">error_num</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_lib</span><span class="o">.</span><span class="n">Error_Get_Description</span><span class="p">()))</span>
+<span class="g g-Whitespace">    </span><span class="mi">269</span> <span class="k">return</span> <span class="n">result</span>
+
+<span class="ne">DSSException</span>: (#243) Redirect file not found: &quot;this_file_does_not_exist.dss&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<p>This second example uses a correct file path:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dss</span><span class="o">.</span><span class="n">Command</span><span class="p">(</span><span class="s1">&#39;Redirect &quot;../../tests/data/13Bus/IEEE13Nodeckt.dss&quot;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>👉 <strong>In previous versions of this document, we used to recommend <code class="docutils literal notranslate"><span class="pre">dss.run_command()</span></code>. Unfortunately the error-checking from <code class="docutils literal notranslate"><span class="pre">run_command</span></code> can be confusing and we cannot change it, for historical and backwards-compatibility reasons.</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">dss.Command</span></code> itself is a shortcut to <code class="docutils literal notranslate"><span class="pre">dss.Text.Command</span></code>, the interface function for dispatching single DSS commands. Since v0.9, when importing the <code class="docutils literal notranslate"><span class="pre">dss</span></code> instance (<code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">opendssdirect</span> <span class="pre">import</span> <span class="pre">dss</span></code>), one can also use just <code class="docutils literal notranslate"><span class="pre">dss('Redirect</span> <span class="pre">&quot;../../tests/data/13Bus/IEEE13Nodeckt.dss&quot;')</span></code> instead of <code class="docutils literal notranslate"><span class="pre">dss.Command('Redirect</span> <span class="pre">&quot;../../tests/data/13Bus/IEEE13Nodeckt.dss&quot;')</span></code> for an even shorter version. As an added feature, calling <code class="docutils literal notranslate"><span class="pre">dss(script_string)</span></code> also allows passing multiple commands through multi-line strings.</p>
+<p>If you need text output from the Text interface, you can use <code class="docutils literal notranslate"><span class="pre">dss.Text.Result()</span></code>. In general, if there is a dedicated API for a certain class of component, prefere to use that for performance and safety reasons. Otherwise, for example, you can query the DSS engine:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dss</span><span class="p">(</span><span class="s1">&#39;? Load.634a.kW&#39;</span><span class="p">)</span>
+<span class="n">dss</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">Result</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;160&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="module-loads">
+<h2>Module <code class="docutils literal notranslate"><span class="pre">Loads</span></code><a class="headerlink" href="#module-loads" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">dss</span></code> object has many attributes, many of them representing specific DSS interfaces. Check the the API reference for details.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">types</span>
+
+<span class="kn">import</span> <span class="nn">inspect</span>
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmembers</span><span class="p">(</span><span class="n">dss</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="p">(</span><span class="n">types</span><span class="o">.</span><span class="n">MethodType</span><span class="p">,</span> <span class="n">types</span><span class="o">.</span><span class="n">FunctionType</span><span class="p">))</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;dss.</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dss.ActiveClass
+dss.Basic
+dss.Bus
+dss.CNData
+dss.CapControls
+dss.Capacitors
+dss.Circuit
+dss.CktElement
+dss.CtrlQueue
+dss.DSSCore
+dss.DSSException
+dss.Element
+dss.Error
+dss.Executive
+dss.Fuses
+dss.GICSources
+dss.Generators
+dss.Isource
+dss.LineCodes
+dss.LineGeometries
+dss.LineSpacings
+dss.Lines
+dss.LoadShape
+dss.Loads
+dss.Meters
+dss.Monitors
+dss.PDElements
+dss.PVsystems
+dss.Parallel
+dss.Parser
+dss.Progress
+dss.Properties
+dss.Reactors
+dss.Reclosers
+dss.ReduceCkt
+dss.RegControls
+dss.Relays
+dss.Sensors
+dss.Settings
+dss.Solution
+dss.Storages
+dss.SwtControls
+dss.TSData
+dss.Text
+dss.Topology
+dss.Transformers
+dss.Vsources
+dss.WireData
+dss.XYCurves
+dss.YMatrix
+dss.ZIP
+dss.dss
+dss.dss_ffi
+dss.dss_lib
+dss.utils
+</pre></div>
+</div>
+</div>
+</div>
+<p>Each class or submodule has functions that can be called. Many of them mirror the properties exposed in the official COM interface. For those, the documentation tries to provide links to the official OpenDSS site. Many other functions are exclusive to DSS-Extensions and are marked as “API Extension” in the docs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">function</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmembers</span><span class="p">(</span><span class="n">dss</span><span class="o">.</span><span class="n">Loads</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">function</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;dss.Loads.</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dss.Loads.AllNames
+dss.Loads.AllocationFactor
+dss.Loads.CFactor
+dss.Loads.CVRCurve
+dss.Loads.CVRvars
+dss.Loads.CVRwatts
+dss.Loads.Class
+dss.Loads.Count
+dss.Loads.Daily
+dss.Loads.Duty
+dss.Loads.First
+dss.Loads.Growth
+dss.Loads.Idx
+dss.Loads.IsDelta
+dss.Loads.Model
+dss.Loads.Name
+dss.Loads.Next
+dss.Loads.NumCust
+dss.Loads.PF
+dss.Loads.PctMean
+dss.Loads.PctStdDev
+dss.Loads.Phases
+dss.Loads.RelWeighting
+dss.Loads.Rneut
+dss.Loads.Sensor
+dss.Loads.Spectrum
+dss.Loads.Status
+dss.Loads.Vmaxpu
+dss.Loads.VminEmerg
+dss.Loads.VminNorm
+dss.Loads.Vminpu
+dss.Loads.XfkVA
+dss.Loads.Xneut
+dss.Loads.Yearly
+dss.Loads.ZipV
+dss.Loads.kV
+dss.Loads.kVABase
+dss.Loads.kW
+dss.Loads.kWh
+dss.Loads.kWhDays
+dss.Loads.kvar
+dss.Loads.puSeriesRL
+</pre></div>
+</div>
+</div>
+</div>
+<p>For example, <code class="docutils literal notranslate"><span class="pre">Loads.kW</span></code> is available in the official OpenDSS COM API…</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">?</span> dss.Loads.kW
+</pre></div>
+</div>
+</div>
+</div>
+<p>…but <code class="docutils literal notranslate"><span class="pre">Loads.Phases</span></code> is not:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">?</span> dss.Loads.Phases
+</pre></div>
+</div>
+</div>
+</div>
+<p>It is important to understand that OpenDSSDirect.py uses function calls instead of Python properties to expose the API. So, to get the value of a property, just call the function without arguments:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dss</span><span class="o">.</span><span class="n">Loads</span><span class="o">.</span><span class="n">AllNames</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;671&#39;,
+ &#39;634a&#39;,
+ &#39;634b&#39;,
+ &#39;634c&#39;,
+ &#39;645&#39;,
+ &#39;646&#39;,
+ &#39;692&#39;,
+ &#39;675a&#39;,
+ &#39;675b&#39;,
+ &#39;675c&#39;,
+ &#39;611&#39;,
+ &#39;652&#39;,
+ &#39;670a&#39;,
+ &#39;670b&#39;,
+ &#39;670c&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dss</span><span class="o">.</span><span class="n">Loads</span><span class="o">.</span><span class="n">Name</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;670c&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dss</span><span class="o">.</span><span class="n">Loads</span><span class="o">.</span><span class="n">kW</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>117.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, if you want to set the value of a property, pass the value as argument:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dss</span><span class="o">.</span><span class="n">Loads</span><span class="o">.</span><span class="n">kW</span><span class="p">(</span><span class="mi">125</span><span class="p">)</span>
+<span class="n">dss</span><span class="o">.</span><span class="n">Loads</span><span class="o">.</span><span class="n">kW</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>125.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>To get all <code class="docutils literal notranslate"><span class="pre">kW</span></code>, one must iterate over all the loads. v0.9+ support Python iterators, so a simple <code class="docutils literal notranslate"><span class="pre">for</span></code> will do. Remember that OpenDSS API restrictions still apply – a simple object of this type must be active. Check <a class="reference external" href="https://github.com/dss-extensions/AltDSS-Python">AltDSS-Python</a> for an alternative.</p>
+<p>Iterators and a few other features are only available when using classes instead of submodules.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">load</span> <span class="ow">in</span> <span class="n">dss</span><span class="o">.</span><span class="n">Loads</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s1">&#39;Name=</span><span class="si">{name}</span><span class="s1"> </span><span class="se">\t</span><span class="s1"> kW=</span><span class="si">{kW}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">load</span><span class="o">.</span><span class="n">Name</span><span class="p">(),</span> 
+            <span class="n">kW</span><span class="o">=</span><span class="n">load</span><span class="o">.</span><span class="n">kW</span><span class="p">()</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Name=671 	 kW=1155.0
+Name=634a 	 kW=160.0
+Name=634b 	 kW=120.0
+Name=634c 	 kW=120.0
+Name=645 	 kW=170.0
+Name=646 	 kW=230.0
+Name=692 	 kW=170.0
+Name=675a 	 kW=485.0
+Name=675b 	 kW=68.0
+Name=675c 	 kW=290.0
+Name=611 	 kW=170.0
+Name=652 	 kW=128.0
+Name=670a 	 kW=17.0
+Name=670b 	 kW=66.0
+Name=670c 	 kW=125.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>List comprehensions also work great:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">l</span><span class="o">.</span><span class="n">kW</span><span class="p">()</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">dss</span><span class="o">.</span><span class="n">Loads</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1155.0,
+ 160.0,
+ 120.0,
+ 120.0,
+ 170.0,
+ 230.0,
+ 170.0,
+ 485.0,
+ 68.0,
+ 290.0,
+ 170.0,
+ 128.0,
+ 17.0,
+ 66.0,
+ 125.0]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The (now deprecated) <code class="docutils literal notranslate"><span class="pre">Iterator</span></code> class from the <code class="docutils literal notranslate"><span class="pre">utils</span></code> module provides a similar option in pre-v0.9 versions. As seen below, it has greater overhead, so prefer the usual Python iteration for new code.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">opendssdirect.utils</span> <span class="kn">import</span> <span class="n">Iterator</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">timeit</span> load_kW = [i() for i in Iterator(dss.Loads, &#39;kW&#39;)]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;magic-timeit&gt;:1: DeprecationWarning: OpenDSSDirect.py&#39;s Iterator is deprecated; you can use native Python iterators directly now.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5.83 µs ± 27.7 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">timeit</span> load_kW = [l.kW() for l in dss.Loads]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.85 µs ± 4.6 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="low-level-api-advanced-topic">
+<h2>Low-level API (advanced topic)<a class="headerlink" href="#low-level-api-advanced-topic" title="Link to this heading">#</a></h2>
+<p><strong>If you are a new OpenDSS user, you are not expected to use the low-level interface, i.e. the <code class="docutils literal notranslate"><span class="pre">dss_lib</span></code> and <code class="docutils literal notranslate"><span class="pre">dss_ffi</span></code> objects are for advanced users only, and may change without warning.</strong></p>
+<p>The low-level interface exposes <a class="reference external" href="https://dss-extensions.org/dss_capi/dss__capi_8h.html">DSS C-API</a> as wrapped in <a class="reference external" href="https://dss-extensions.org/dss_python/">DSS-Python</a>. It’s useful to prototype low-level operations in Python before porting to C, which is not something most of the OpenDSS users will ever do.</p>
+<p>Still, in some rare occasions, it might be useful to use the low-level interface. Beware that error checking needs to done by the user in this case.
+The reference for the low-level API is the source code of the DSS engine itself and the C header, e.g.</p>
+<ul class="simple">
+<li><p><a class="github reference external" href="https://github.com/dss-extensions/dss_capi/blob/master/include/dss_capi.h">dss-extensions/dss_capi</a></p></li>
+<li><p><a class="reference external" href="https://dss-extensions.org/dss_capi/dss__capi_8h.html">https://dss-extensions.org/dss_capi/dss__capi_8h.html</a></p></li>
+</ul>
+<p>Advanced knowledge of DSS C-API, pointers, and the CFFI module are required.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dss</span><span class="o">.</span><span class="n">dss_lib</span><span class="o">.</span><span class="n">Text_Set_Command</span><span class="p">(</span><span class="s1">&#39;Redirect ./../../tests/data/13Bus/IEEE13Nodeckt.dss&#39;</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Each of the properties from the official COM implementation of OpenDSS is implemented as a pair of functions. While in OpenDSSDirect.py one can use, e.g., <code class="docutils literal notranslate"><span class="pre">dss.Loads.kW()</span></code> to read the active load element <code class="docutils literal notranslate"><span class="pre">kW</span></code> and <code class="docutils literal notranslate"><span class="pre">dss.Loads.kW(some_value)</span></code> to set the <code class="docutils literal notranslate"><span class="pre">kW</span></code> value, the low-level interface exposes <code class="docutils literal notranslate"><span class="pre">dss.dss_lib.Loads_Get_kW()</span></code> and <code class="docutils literal notranslate"><span class="pre">dss.dss_lib.Loads_Set_kW()</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dss</span><span class="o">.</span><span class="n">Loads</span><span class="o">.</span><span class="n">Name</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;670c&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dss</span><span class="o">.</span><span class="n">dss_lib</span><span class="o">.</span><span class="n">Loads_Get_kW</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>117.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dss</span><span class="o">.</span><span class="n">dss_lib</span><span class="o">.</span><span class="n">Loads_Set_kW</span><span class="p">(</span><span class="mi">120</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dss</span><span class="o">.</span><span class="n">Loads</span><span class="o">.</span><span class="n">kW</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>120.0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../updating_to_0.9.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Upgrading to OpenDSSDirect.py v0.9+</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="ActiveClass.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Using ActiveClass interface</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-a-file">Import a file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-loads">Module <code class="docutils literal notranslate"><span class="pre">Loads</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#low-level-api-advanced-topic">Low-level API (advanced topic)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2017-2024 Dheepak Krishnamurthy, Paulo Meira, DSS-Extensions contributors.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

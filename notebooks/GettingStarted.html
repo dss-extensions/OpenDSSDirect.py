@@ -1,0 +1,1374 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Getting Started &#8212; OpenDSSDirect.py 0.9.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=362ab14a" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=2a76c96f"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/GettingStarted';</script>
+    <link rel="icon" href="../_static/dssx.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Upgrading to OpenDSSDirect.py v0.9+" href="../updating_to_0.9.html" />
+    <link rel="prev" title="Installation" href="Installation.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/opendssdirect.svg" class="logo__image only-light" alt="OpenDSSDirect.py 0.9.0 documentation - Home"/>
+    <script>document.write(`<img src="../_static/opendssdirect-dark.svg" class="logo__image only-dark" alt="OpenDSSDirect.py 0.9.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">OpenDSSDirect.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../updating_to_0.9.html">Upgrading to OpenDSSDirect.py v0.9+</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Example-OpenDSSDirect.py.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ActiveClass.html">Using ActiveClass interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VoltageProfilePlot.html">Plotting voltage profile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SystemY.html">Circuit SystemY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Multithreading.html">Multithreading, multiple DSS engines</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../opendssdirect.html">opendssdirect</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../opendssdirect_utils_ref.html">opendssdirect.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../enumerations.html">opendssdirect.enums</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">External links</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://github.com/dss-extensions/OpenDSSDirect.py">GitHub repository</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.python.org/pypi/OpenDSSDirect.py/">Package on PyPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/dss-extensions/electricdss-tst">Test/example circuits</a></li>
+
+<li class="toctree-l1"><a class="reference external" href="https://dss-extensions.org/dss_python">DSS-Python</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://dss-extensions.org/AltDSS-Python/">AltDSS-Python</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/orgs/dss-extensions/discussions">DSS-Extensions Discussions</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://sourceforge.net/p/electricdss/discussion/">OpenDSS forum</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://opendss.epri.com/opendss_documentation.html">OpenDSS documentation</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/GettingStarted.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Getting Started</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-the-enums">Use the enums</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#migrating-from-the-com-implementation">Migrating from the COM implementation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#returning-numpy-arrays">Returning NumPy arrays</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#native-python-iterators">Native Python iterators</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-engines-in-the-same-process">Multiple engines in the same process</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-and-notebook-integration">Plotting and notebook integration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#json-exports-and-imports">JSON exports and imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-pandas-interface">Using the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> interface</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">OpenDSSDirect.py</span></code> is a package in the <a class="reference external" href="https://dss-extensions.org/">DSS-Extensions</a> project. As such, it doesn’t require EPRI’s OpenDSS to be installed. <code class="docutils literal notranslate"><span class="pre">OpenDSSDirect.py</span></code> provides its own customized engine through <a class="reference external" href="https://dss-extensions.org/dss_python/">DSS-Python</a>, which in turn enables us to run the DSS engine on Windows, Linux and macOS (including newer Apple ARM processors, a.k.a. “Apple Silicon”).</p>
+<p>For a comparison of the general Python-level API, including a list of our extra functions, please check <a class="reference external" href="https://github.com/dss-extensions/dss-extensions/blob/main/docs/python_apis.md">DSS-Extensions — OpenDSS: Overview of Python APIs</a>. That documents introduces and compares DSS-Python, OpenDSSDirect.py, and the official COM implementation.</p>
+<p>To use <code class="docutils literal notranslate"><span class="pre">OpenDSSDirect.py</span></code>, open a Python interpreter and type the following command:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">opendssdirect</span> <span class="kn">import</span> <span class="n">dss</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In previous versions, <code class="docutils literal notranslate"><span class="pre">dss</span></code> was a module here, organized with submodules. Nowadays, <code class="docutils literal notranslate"><span class="pre">dss</span></code> is an instance of the <code class="docutils literal notranslate"><span class="pre">OpenDSSDirect</span></code> class.</p>
+<p>Just like the previous implementation, the <code class="docutils literal notranslate"><span class="pre">dss</span></code> instance has attributes following the original submodules. These act as interfaces to various components in OpenDSS. The full list is shown below.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>dss.ActiveClass
+dss.Basic
+dss.Bus
+dss.CapControls
+dss.Capacitors
+dss.Circuit
+dss.CktElement
+dss.CtrlQueue
+dss.DSSCore
+dss.Element
+dss.Error
+dss.Executive
+dss.Fuses
+dss.Generators
+dss.GICSources
+dss.Isource
+dss.LineCodes
+dss.Lines
+dss.LoadShape
+dss.Loads
+dss.Meters
+dss.Monitors
+dss.PDElements
+dss.PVsystems
+dss.Parallel
+dss.Parser
+dss.Progress
+dss.Properties
+dss.Reclosers
+dss.RegControls
+dss.Relays
+dss.Sensors
+dss.Settings
+dss.Solution
+dss.Storages
+dss.SwtControls
+dss.Text
+dss.Topology
+dss.Transformers
+dss.Vsources
+dss.XYCurves
+dss.YMatrix
+dss.CNData
+dss.LineGeometries
+dss.LineSpacings
+dss.Reactors
+dss.ReduceCkt
+dss.TSData
+dss.WireData
+dss.ZIP
+</pre></div>
+</div>
+<p><em>For backwards compatibility, pre-made instances are exposed as modules. Prefer migrating to the instances as recommended in “Upgrading to OpenDSSDirect.py v0.9+”.</em></p>
+<p>These interfaces are the higher level interface to OpenDSS. The higher level interface uses the lower level interface to call the appropriate functions, adding error checking and Python features. For the most part, an <code class="docutils literal notranslate"><span class="pre">OpenDSSDirect.py</span></code> user will not need to use the lower level interface, but knowing that it exists can be useful.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dss</span><span class="o">.</span><span class="n">Command</span><span class="p">(</span><span class="s1">&#39;Redirect &quot;../../tests/data/13Bus/IEEE13Nodeckt.dss&quot;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>👉 <strong>In previous versions of this document, we used to recommend <code class="docutils literal notranslate"><span class="pre">dss.run_command()</span></code>. Unfortunately the error-checking from <code class="docutils literal notranslate"><span class="pre">run_command</span></code> can be confusing and we cannot change it, for historical and backwards-compatibility reasons.</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">dss.Command</span></code> itself is a shortcut to <code class="docutils literal notranslate"><span class="pre">dss.Text.Command</span></code>, the interface function for dispatching single DSS commands. Since v0.9, when importing the <code class="docutils literal notranslate"><span class="pre">dss</span></code> instance (<code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">opendssdirect</span> <span class="pre">import</span> <span class="pre">dss</span></code>), one can also use just <code class="docutils literal notranslate"><span class="pre">dss('Redirect</span> <span class="pre">&quot;../../tests/data/13Bus/IEEE13Nodeckt.dss&quot;')</span></code> instead of <code class="docutils literal notranslate"><span class="pre">dss.Command('Redirect</span> <span class="pre">&quot;../../tests/data/13Bus/IEEE13Nodeckt.dss&quot;')</span></code> for an even shorter version. As an added feature, calling <code class="docutils literal notranslate"><span class="pre">dss(script_string)</span></code> also allows passing multiple commands through a multi-line string.</p>
+<p>We can print all bus names using the following.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dss</span><span class="o">.</span><span class="n">Circuit</span><span class="o">.</span><span class="n">AllBusNames</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sourcebus
+650
+rg60
+633
+634
+671
+645
+646
+692
+675
+611
+652
+670
+632
+680
+684
+</pre></div>
+</div>
+</div>
+</div>
+<section id="use-the-enums">
+<h2>Use the enums<a class="headerlink" href="#use-the-enums" title="Link to this heading">#</a></h2>
+<p>Instead of using magic numbers like in <code class="docutils literal notranslate"><span class="pre">dss.Solution.Mode(1)</span></code>, use the enums. Import the whole <code class="docutils literal notranslate"><span class="pre">enums</span></code> module, or separate enums you use. You can import the enums from the <code class="docutils literal notranslate"><span class="pre">dss</span></code> package (which is DSS-Python) for short:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">opendssdirect</span> <span class="kn">import</span> <span class="n">dss</span><span class="p">,</span> <span class="n">enums</span>
+<span class="n">dss</span><span class="o">.</span><span class="n">Solution</span><span class="o">.</span><span class="n">Mode</span><span class="p">(</span><span class="n">enums</span><span class="o">.</span><span class="n">SolveModes</span><span class="o">.</span><span class="n">Daily</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">opendssdirect.enums</span> <span class="kn">import</span> <span class="n">SolveModes</span>
+<span class="n">dss</span><span class="o">.</span><span class="n">Solution</span><span class="o">.</span><span class="n">Mode</span><span class="p">(</span><span class="n">SolveModes</span><span class="o">.</span><span class="n">Daily</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">dss</span> <span class="kn">import</span> <span class="n">SolveModes</span>
+<span class="n">dss</span><span class="o">.</span><span class="n">Solution</span><span class="o">.</span><span class="n">Mode</span><span class="p">(</span><span class="n">SolveModes</span><span class="o">.</span><span class="n">Daily</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Using magic numbers is bad for multiple reasons:</p>
+<ul class="simple">
+<li><p>Harder to read for other users. Each user has to each memorize every value or constantly check the reference.</p></li>
+<li><p>The values can actually change throughout the releases. It already happened in the past in OpenDSS and some bugs persistent for about 15 years!</p></li>
+<li><p>Using the provided enum classes ensure, in most cases, that you are passing a valid value. Currently, OpenDSSDirect.py or most Python APIs for OpenDSS do not enforce or check the values, so using the correct enum can reduce the chance of accidents.</p></li>
+</ul>
+<p>See the list of enumerations, including important comments, in <a class="reference external" href="https://dss-extensions.org/OpenDSSDirect.py/enumerations.html">opendssdirect.enums</a> page.</p>
+</section>
+<section id="migrating-from-the-com-implementation">
+<h2>Migrating from the COM implementation<a class="headerlink" href="#migrating-from-the-com-implementation" title="Link to this heading">#</a></h2>
+<p>Sometimes users have code written for the official COM API, in which case <code class="docutils literal notranslate"><span class="pre">dss.ActiveCircuit.Loads.kW</span> <span class="pre">=</span> <span class="pre">125</span></code> is used to set the value, and reading is done directly via <code class="docutils literal notranslate"><span class="pre">dss.ActiveCircuit.Loads.kW</span></code> (instead of using function calls). If that is your case, you can use DSS-Python in conjunction with OpenDSSDirect.py in order to minimize the code changes, and/or maintain compatibility. Note that OpenDSSDirect.py and DSS-Python are effectively the same thing and are maintained by the same team.</p>
+<p>For example, suppose you had the following code running in the official OpenDSS via COM, using <code class="docutils literal notranslate"><span class="pre">win32com</span></code> or <code class="docutils literal notranslate"><span class="pre">comtypes</span></code> (Windows only, etc.):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load OpenDSS</span>
+<span class="kn">import</span> <span class="nn">win32com.client</span>
+<span class="n">dss</span> <span class="o">=</span> <span class="n">win32com</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">Dispatch</span><span class="p">(</span><span class="s1">&#39;OpenDSSengine.DSS&#39;</span><span class="p">)</span>
+
+<span class="c1"># Run a DSS script to load a circuit</span>
+<span class="c1"># (NOTE: typically you would use either the full path here since the official OpenDSS implementation changes the current working directory of the process)</span>
+<span class="n">dss</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">Command</span> <span class="o">=</span> <span class="s1">&#39;Redirect &quot;../../tests/data/13Bus/IEEE13Nodeckt.dss&quot;&#39;</span>
+
+<span class="c1"># Select a load and update its kW</span>
+<span class="n">dss</span><span class="o">.</span><span class="n">ActiveCircuit</span><span class="o">.</span><span class="n">Loads</span><span class="o">.</span><span class="n">Name</span> <span class="o">=</span> <span class="s2">&quot;675c&quot;</span>
+<span class="n">dss</span><span class="o">.</span><span class="n">ActiveCircuit</span><span class="o">.</span><span class="n">Loads</span><span class="o">.</span><span class="n">kW</span> <span class="o">=</span> <span class="mi">320</span>
+
+<span class="c1"># Solve</span>
+<span class="n">dss</span><span class="o">.</span><span class="n">ActiveCircuit</span><span class="o">.</span><span class="n">Solution</span><span class="o">.</span><span class="n">Solve</span><span class="p">()</span>
+
+<span class="c1"># Get the voltage magnitudes</span>
+<span class="n">voltages</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">ActiveCircuit</span><span class="o">.</span><span class="n">AllBusVmag</span>
+</pre></div>
+</div>
+<p>You could fully port it to OpenDSSDirect.py, but it would require rewriting most of the code:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load OpenDSS</span>
+<span class="kn">from</span> <span class="nn">opendssdirect</span> <span class="kn">import</span> <span class="n">dss</span>
+
+<span class="c1"># Run a DSS script to load a circuit</span>
+<span class="n">dss</span><span class="p">(</span><span class="s1">&#39;Redirect &quot;../../tests/data/13Bus/IEEE13Nodeckt.dss&quot;&#39;</span><span class="p">)</span>
+<span class="c1"># or dss.Text.Command(&#39;Redirect &quot;./../../tests/data/13Bus/IEEE13Nodeckt.dss&quot;&#39;)</span>
+
+<span class="c1"># Select a load and update its kW</span>
+<span class="n">dss</span><span class="o">.</span><span class="n">Loads</span><span class="o">.</span><span class="n">Name</span><span class="p">(</span><span class="s2">&quot;675c&quot;</span><span class="p">)</span>
+<span class="n">dss</span><span class="o">.</span><span class="n">Loads</span><span class="o">.</span><span class="n">kW</span><span class="p">(</span><span class="mi">320</span><span class="p">)</span>
+
+<span class="c1"># Solve</span>
+<span class="n">dss</span><span class="o">.</span><span class="n">Solution</span><span class="o">.</span><span class="n">Solve</span><span class="p">()</span>
+
+<span class="c1"># Get the voltage magnitudes</span>
+<span class="n">voltages</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">Circuit</span><span class="o">.</span><span class="n">AllBusVMag</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Alternatively, you could use DSS-Python to keep the code with a few changes, and use OpenDSSDirect.py to complement some functionally. In this case, we recommend importing OpenDSSDirect.py as <code class="docutils literal notranslate"><span class="pre">odd</span></code> to make it distinct:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load OpenDSSDirect.py</span>
+<span class="kn">from</span> <span class="nn">opendssdirect</span> <span class="kn">import</span> <span class="n">dss</span> <span class="k">as</span> <span class="n">odd</span>
+<span class="c1"># Get the equivalent DSS-Python instance for the engine. For the default DSS engine, this would be equivalent to `from dss import dss`</span>
+<span class="n">dss</span> <span class="o">=</span> <span class="n">odd</span><span class="o">.</span><span class="n">to_dss_python</span><span class="p">()</span>
+
+<span class="c1"># Run a DSS script to load a circuit</span>
+<span class="n">dss</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">Command</span> <span class="o">=</span> <span class="s1">&#39;Redirect &quot;../../tests/data/13Bus/IEEE13Nodeckt.dss&quot;&#39;</span>
+
+<span class="c1"># Select a load and update its kW</span>
+<span class="n">dss</span><span class="o">.</span><span class="n">ActiveCircuit</span><span class="o">.</span><span class="n">Loads</span><span class="o">.</span><span class="n">Name</span> <span class="o">=</span> <span class="s2">&quot;675c&quot;</span>
+<span class="n">dss</span><span class="o">.</span><span class="n">ActiveCircuit</span><span class="o">.</span><span class="n">Loads</span><span class="o">.</span><span class="n">kW</span> <span class="o">=</span> <span class="mi">320</span>
+
+<span class="c1"># Solve</span>
+<span class="n">dss</span><span class="o">.</span><span class="n">ActiveCircuit</span><span class="o">.</span><span class="n">Solution</span><span class="o">.</span><span class="n">Solve</span><span class="p">()</span>
+
+<span class="c1"># Get the voltage magnitudes</span>
+<span class="n">voltages</span> <span class="o">=</span> <span class="n">dss</span><span class="o">.</span><span class="n">ActiveCircuit</span><span class="o">.</span><span class="n">AllBusVmag</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Only the first lines of the original code were changed. From this point, you can use OpenDSSDirect.py:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the voltage magnitudes using OpenDSSDirect.py</span>
+<span class="n">voltages2</span> <span class="o">=</span> <span class="n">odd</span><span class="o">.</span><span class="n">Circuit</span><span class="o">.</span><span class="n">AllBusVMag</span><span class="p">()</span>
+
+<span class="nb">list</span><span class="p">(</span><span class="n">voltages</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">(</span><span class="n">voltages2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<p>See <a class="reference external" href="https://dss-extensions.org/dss_python/examples/GettingStarted.html">DSS-Python’s Getting Started guide</a> for more notes and features that could make the migration easier.</p>
+</section>
+<section id="returning-numpy-arrays">
+<h2>Returning NumPy arrays<a class="headerlink" href="#returning-numpy-arrays" title="Link to this heading">#</a></h2>
+<p>By default, OpenDSSDirect.py returns lists of elements instead of NumPy arrays, for backwards compatibility. DSS-Python always returns NumPy arrays.</p>
+<p>Since version 0.9, there is an option to return NumPy arrays. This is generally done by setting the environment variable <code class="docutils literal notranslate"><span class="pre">OPENDSSDIRECT_PY_USE_NUMPY=1</span></code>.</p>
+<p>A future version might return NumPy arrays by default, depending on the community feedback.</p>
+<p>If you want to try using arrays, you can create a separate instance:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">opendssdirect.OpenDSSDirect</span> <span class="kn">import</span> <span class="n">OpenDSSDirect</span>
+
+<span class="c1"># This will still be bound to the default DSS engine</span>
+<span class="n">dss_np</span> <span class="o">=</span> <span class="n">OpenDSSDirect</span><span class="p">(</span><span class="n">prefer_lists</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">dss_np</span><span class="o">.</span><span class="n">Circuit</span><span class="o">.</span><span class="n">AllBusVMag</span><span class="p">()[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([66393.52789449, 66394.73908962, 66391.69346686,  2401.55779273,
+        2401.70729944,  2401.5975313 ,  2536.35096825,  2491.56939617,
+        2536.37098399,  2431.55474957])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="native-python-iterators">
+<h2>Native Python iterators<a class="headerlink" href="#native-python-iterators" title="Link to this heading">#</a></h2>
+<p>Like in DSS-Python, version 0.9+ supports Pythonic iterators when imported as class:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">opendssdirect</span> <span class="kn">import</span> <span class="n">dss</span>
+
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">dss</span><span class="o">.</span><span class="n">Lines</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">Name</span><span class="p">(),</span> <span class="n">line</span><span class="o">.</span><span class="n">Bus1</span><span class="p">(),</span> <span class="n">line</span><span class="o">.</span><span class="n">Bus2</span><span class="p">(),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>650632	rg60.1.2.3	632.1.2.3
+632670	632.1.2.3	670.1.2.3
+670671	670.1.2.3	671.1.2.3
+671680	671.1.2.3	680.1.2.3
+632633	632.1.2.3	633.1.2.3
+632645	632.3.2	645.3.2
+645646	645.3.2	646.3.2
+692675	692.1.2.3	675.1.2.3
+671684	671.1.3	684.1.3
+684611	684.3	611.3
+684652	684.1	652.1
+671692	671	692
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dss</span><span class="o">.</span><span class="n">Lines</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>12
+</pre></div>
+</div>
+</div>
+</div>
+<p>General OpenDSS caveats related to the classic OpenDSS API, which only allows one active object for each class, still apply.</p>
+</section>
+<section id="multiple-engines-in-the-same-process">
+<h2>Multiple engines in the same process<a class="headerlink" href="#multiple-engines-in-the-same-process" title="Link to this heading">#</a></h2>
+<p>Follow the notebook for an example: <a class="reference external" href="https://dss-extensions.org/OpenDSSDirect.py/notebooks/Multithreading.html">Multiple DSS engines and multithreading</a>.</p>
+</section>
+<section id="plotting-and-notebook-integration">
+<h2>Plotting and notebook integration<a class="headerlink" href="#plotting-and-notebook-integration" title="Link to this heading">#</a></h2>
+<p>For examples on how to use the plot commands from OpenDSS, including an extensive gallery, see <a class="reference external" href="https://dss-extensions.org/dss_python/examples/Plotting.html">Integrated plotting in Python</a>.</p>
+</section>
+<section id="json-exports-and-imports">
+<h2>JSON exports and imports<a class="headerlink" href="#json-exports-and-imports" title="Link to this heading">#</a></h2>
+<p>Another on-going effort is JSON export and import: <a class="reference external" href="https://dss-extensions.org/dss_python/examples/JSON.html">https://dss-extensions.org/dss_python/examples/JSON.html</a></p>
+</section>
+<section id="using-the-pandas-interface">
+<h2>Using the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> interface<a class="headerlink" href="#using-the-pandas-interface" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">utils</span></code> module implements helper functions that make it easier to use the interface.</p>
+<p>An optional <code class="docutils literal notranslate"><span class="pre">pandas</span></code> interface is also provided in the package, so making it easier to get data from OpenDSS. See <a class="reference external" href="https://dss-extensions.github.io/OpenDSSDirect.py/notebooks/Installation.html">installation instructions</a> for how to install the requirements for this interface.</p>
+<p>All load data can be attained using the <code class="docutils literal notranslate"><span class="pre">loads_to_dataframe</span></code> function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dss</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">loads_to_dataframe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Idx</th>
+      <th>Phases</th>
+      <th>Class</th>
+      <th>Model</th>
+      <th>NumCust</th>
+      <th>IsDelta</th>
+      <th>Rneut</th>
+      <th>Xneut</th>
+      <th>PF</th>
+      <th>...</th>
+      <th>kV</th>
+      <th>kW</th>
+      <th>kVABase</th>
+      <th>kvar</th>
+      <th>kWh</th>
+      <th>kWhDays</th>
+      <th>AllocationFactor</th>
+      <th>XfkVA</th>
+      <th>puSeriesRL</th>
+      <th>Sensor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>671</th>
+      <td>671</td>
+      <td>1</td>
+      <td>3</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>True</td>
+      <td>-1.0</td>
+      <td>0.0</td>
+      <td>0.868243</td>
+      <td>...</td>
+      <td>4.16</td>
+      <td>1155.0</td>
+      <td>1330.272528</td>
+      <td>660.0</td>
+      <td>0.0</td>
+      <td>30.0</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>50.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>634a</th>
+      <td>634a</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>False</td>
+      <td>-1.0</td>
+      <td>0.0</td>
+      <td>0.824042</td>
+      <td>...</td>
+      <td>0.277</td>
+      <td>160.0</td>
+      <td>194.164878</td>
+      <td>110.0</td>
+      <td>0.0</td>
+      <td>30.0</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>50.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>634b</th>
+      <td>634b</td>
+      <td>3</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>False</td>
+      <td>-1.0</td>
+      <td>0.0</td>
+      <td>0.8</td>
+      <td>...</td>
+      <td>0.277</td>
+      <td>120.0</td>
+      <td>150.0</td>
+      <td>90.0</td>
+      <td>0.0</td>
+      <td>30.0</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>50.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>634c</th>
+      <td>634c</td>
+      <td>4</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>False</td>
+      <td>-1.0</td>
+      <td>0.0</td>
+      <td>0.8</td>
+      <td>...</td>
+      <td>0.277</td>
+      <td>120.0</td>
+      <td>150.0</td>
+      <td>90.0</td>
+      <td>0.0</td>
+      <td>30.0</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>50.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>645</th>
+      <td>645</td>
+      <td>5</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>False</td>
+      <td>-1.0</td>
+      <td>0.0</td>
+      <td>0.805651</td>
+      <td>...</td>
+      <td>2.4</td>
+      <td>170.0</td>
+      <td>211.009478</td>
+      <td>125.0</td>
+      <td>0.0</td>
+      <td>30.0</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>50.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>646</th>
+      <td>646</td>
+      <td>6</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>1</td>
+      <td>True</td>
+      <td>-1.0</td>
+      <td>0.0</td>
+      <td>0.867313</td>
+      <td>...</td>
+      <td>4.16</td>
+      <td>230.0</td>
+      <td>265.186727</td>
+      <td>132.0</td>
+      <td>0.0</td>
+      <td>30.0</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>50.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>692</th>
+      <td>692</td>
+      <td>7</td>
+      <td>1</td>
+      <td>1</td>
+      <td>5</td>
+      <td>1</td>
+      <td>True</td>
+      <td>-1.0</td>
+      <td>0.0</td>
+      <td>0.747652</td>
+      <td>...</td>
+      <td>4.16</td>
+      <td>170.0</td>
+      <td>227.378539</td>
+      <td>151.0</td>
+      <td>0.0</td>
+      <td>30.0</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>50.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>675a</th>
+      <td>675a</td>
+      <td>8</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>False</td>
+      <td>-1.0</td>
+      <td>0.0</td>
+      <td>0.931101</td>
+      <td>...</td>
+      <td>2.4</td>
+      <td>485.0</td>
+      <td>520.888664</td>
+      <td>190.0</td>
+      <td>0.0</td>
+      <td>30.0</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>50.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>675b</th>
+      <td>675b</td>
+      <td>9</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>False</td>
+      <td>-1.0</td>
+      <td>0.0</td>
+      <td>0.749838</td>
+      <td>...</td>
+      <td>2.4</td>
+      <td>68.0</td>
+      <td>90.686272</td>
+      <td>60.0</td>
+      <td>0.0</td>
+      <td>30.0</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>50.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>675c</th>
+      <td>675c</td>
+      <td>10</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>False</td>
+      <td>-1.0</td>
+      <td>0.0</td>
+      <td>0.807289</td>
+      <td>...</td>
+      <td>2.4</td>
+      <td>320.0</td>
+      <td>396.388356</td>
+      <td>233.931034</td>
+      <td>0.0</td>
+      <td>30.0</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>50.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>611</th>
+      <td>611</td>
+      <td>11</td>
+      <td>1</td>
+      <td>1</td>
+      <td>5</td>
+      <td>1</td>
+      <td>False</td>
+      <td>-1.0</td>
+      <td>0.0</td>
+      <td>0.904819</td>
+      <td>...</td>
+      <td>2.4</td>
+      <td>170.0</td>
+      <td>187.882942</td>
+      <td>80.0</td>
+      <td>0.0</td>
+      <td>30.0</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>50.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>652</th>
+      <td>652</td>
+      <td>12</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>1</td>
+      <td>False</td>
+      <td>-1.0</td>
+      <td>0.0</td>
+      <td>0.83005</td>
+      <td>...</td>
+      <td>2.4</td>
+      <td>128.0</td>
+      <td>154.207652</td>
+      <td>86.0</td>
+      <td>0.0</td>
+      <td>30.0</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>50.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>670a</th>
+      <td>670a</td>
+      <td>13</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>False</td>
+      <td>-1.0</td>
+      <td>0.0</td>
+      <td>0.861934</td>
+      <td>...</td>
+      <td>2.4</td>
+      <td>17.0</td>
+      <td>19.723083</td>
+      <td>10.0</td>
+      <td>0.0</td>
+      <td>30.0</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>50.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>670b</th>
+      <td>670b</td>
+      <td>14</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>False</td>
+      <td>-1.0</td>
+      <td>0.0</td>
+      <td>0.866622</td>
+      <td>...</td>
+      <td>2.4</td>
+      <td>66.0</td>
+      <td>76.157731</td>
+      <td>38.0</td>
+      <td>0.0</td>
+      <td>30.0</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>50.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>670c</th>
+      <td>670c</td>
+      <td>15</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>False</td>
+      <td>-1.0</td>
+      <td>0.0</td>
+      <td>0.864582</td>
+      <td>...</td>
+      <td>2.4</td>
+      <td>117.0</td>
+      <td>135.325533</td>
+      <td>68.0</td>
+      <td>0.0</td>
+      <td>30.0</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>50.0</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+<p>15 rows × 38 columns</p>
+</div></div></div>
+</div>
+<p>Similarly, all transformer data can be attained using the <code class="docutils literal notranslate"><span class="pre">transformers_to_dataframe</span></code> function</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dss</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">transformers_to_dataframe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Idx</th>
+      <th>XfmrCode</th>
+      <th>IsDelta</th>
+      <th>CoreType</th>
+      <th>NumWindings</th>
+      <th>Wdg</th>
+      <th>NumTaps</th>
+      <th>MinTap</th>
+      <th>MaxTap</th>
+      <th>...</th>
+      <th>R</th>
+      <th>Xhl</th>
+      <th>Xht</th>
+      <th>Xlt</th>
+      <th>Rneut</th>
+      <th>Xneut</th>
+      <th>RdcOhms</th>
+      <th>WdgCurrents</th>
+      <th>WdgVoltages</th>
+      <th>LossesByType</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>sub</th>
+      <td>sub</td>
+      <td>1</td>
+      <td></td>
+      <td>False</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>32</td>
+      <td>0.9</td>
+      <td>1.1</td>
+      <td>...</td>
+      <td>0.0005</td>
+      <td>0.008</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>-1.0</td>
+      <td>0.0</td>
+      <td>0.000005</td>
+      <td>[10.877067360936053, -5.963620603957679, -10.8...</td>
+      <td>[2401.557747950874, -0.46374119916828, -1201.2...</td>
+      <td>[33.09125445736572, 268.8962846386712, 33.0912...</td>
+    </tr>
+    <tr>
+      <th>reg1</th>
+      <td>reg1</td>
+      <td>2</td>
+      <td></td>
+      <td>False</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>32</td>
+      <td>0.9</td>
+      <td>1.1</td>
+      <td>...</td>
+      <td>0.005</td>
+      <td>0.01</td>
+      <td>35.0</td>
+      <td>30.0</td>
+      <td>-1.0</td>
+      <td>0.0</td>
+      <td>0.000147</td>
+      <td>[520.8070706627332, -285.5448633637279, -520.8...</td>
+      <td>[2536.3509029025226, -0.5757412504234813]</td>
+      <td>[121.96806245902553, 123.73248070548289, 121.9...</td>
+    </tr>
+    <tr>
+      <th>reg2</th>
+      <td>reg2</td>
+      <td>3</td>
+      <td></td>
+      <td>False</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>32</td>
+      <td>0.9</td>
+      <td>1.1</td>
+      <td>...</td>
+      <td>0.005</td>
+      <td>0.01</td>
+      <td>35.0</td>
+      <td>30.0</td>
+      <td>-1.0</td>
+      <td>0.0</td>
+      <td>0.000147</td>
+      <td>[-339.3029943173751, -271.81222396553494, 339....</td>
+      <td>[-1246.2649814386443, -2157.485029368464]</td>
+      <td>[65.34740648663137, 67.07937129359925, 65.3474...</td>
+    </tr>
+    <tr>
+      <th>reg3</th>
+      <td>reg3</td>
+      <td>4</td>
+      <td></td>
+      <td>False</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>32</td>
+      <td>0.9</td>
+      <td>1.1</td>
+      <td>...</td>
+      <td>0.005</td>
+      <td>0.01</td>
+      <td>35.0</td>
+      <td>30.0</td>
+      <td>-1.0</td>
+      <td>0.0</td>
+      <td>0.000147</td>
+      <td>[-31.894151246873662, 642.8710100436583, 31.89...</td>
+      <td>[-1267.5669269740297, 2196.9187181280263]</td>
+      <td>[143.23943321383558, 145.00389700813685, 143.2...</td>
+    </tr>
+    <tr>
+      <th>xfm1</th>
+      <td>xfm1</td>
+      <td>5</td>
+      <td></td>
+      <td>False</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>32</td>
+      <td>0.9</td>
+      <td>1.1</td>
+      <td>...</td>
+      <td>0.55</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>-1.0</td>
+      <td>0.0</td>
+      <td>0.000718</td>
+      <td>[64.61651916490291, -50.16306989128452, -64.61...</td>
+      <td>[273.4231632248873, -15.834059501756999, -148....</td>
+      <td>[5555.031997120503, 10100.560748497694, 5555.0...</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 23 columns</p>
+</div></div></div>
+</div>
+<p>A full list of available functions is listed below:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>dss.utils.capacitors_to_dataframe
+dss.utils.fuses_to_dataframe
+dss.utils.generators_to_dataframe
+dss.utils.isource_to_dataframe
+dss.utils.lines_to_dataframe
+dss.utils.loads_to_dataframe
+dss.utils.loadshape_to_dataframe
+dss.utils.meters_to_dataframe
+dss.utils.monitors_to_dataframe
+dss.utils.pvsystems_to_dataframe
+dss.utils.reclosers_to_dataframe
+dss.utils.regcontrols_to_dataframe
+dss.utils.relays_to_dataframe
+dss.utils.sensors_to_dataframe
+dss.utils.transformers_to_dataframe
+dss.utils.vsources_to_dataframe
+dss.utils.xycurves_to_dataframe
+</pre></div>
+</div>
+<p>Basically, these functions iterate through all the elements of a certain class of objects, and extract the values as exposed in the API. There is the <code class="docutils literal notranslate"><span class="pre">class_to_dataframe</span></code> function to do a similar operation using the DSS properties instead, but it is now being deprecated due to its limitations (lack of types and performance). Follow the link to JSON features in the previous section for a modern and customizable approach.</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Installation.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Installation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../updating_to_0.9.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Upgrading to OpenDSSDirect.py v0.9+</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-the-enums">Use the enums</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#migrating-from-the-com-implementation">Migrating from the COM implementation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#returning-numpy-arrays">Returning NumPy arrays</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#native-python-iterators">Native Python iterators</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-engines-in-the-same-process">Multiple engines in the same process</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-and-notebook-integration">Plotting and notebook integration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#json-exports-and-imports">JSON exports and imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-pandas-interface">Using the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> interface</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2017-2024 Dheepak Krishnamurthy, Paulo Meira, DSS-Extensions contributors.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

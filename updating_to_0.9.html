@@ -1,0 +1,575 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Upgrading to OpenDSSDirect.py v0.9+ &#8212; OpenDSSDirect.py 0.9.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=362ab14a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="_static/documentation_options.js?v=2a76c96f"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script src="https://unpkg.com/mermaid@10.2.0/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'updating_to_0.9';</script>
+    <link rel="icon" href="_static/dssx.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Usage" href="notebooks/Example-OpenDSSDirect.py.html" />
+    <link rel="prev" title="Getting Started" href="notebooks/GettingStarted.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/opendssdirect.svg" class="logo__image only-light" alt="OpenDSSDirect.py 0.9.0 documentation - Home"/>
+    <script>document.write(`<img src="_static/opendssdirect-dark.svg" class="logo__image only-dark" alt="OpenDSSDirect.py 0.9.0 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="index.html">OpenDSSDirect.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/GettingStarted.html">Getting Started</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Upgrading to OpenDSSDirect.py v0.9+</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Example-OpenDSSDirect.py.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/ActiveClass.html">Using ActiveClass interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/VoltageProfilePlot.html">Plotting voltage profile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/SystemY.html">Circuit SystemY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Multithreading.html">Multithreading, multiple DSS engines</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="opendssdirect.html">opendssdirect</a></li>
+<li class="toctree-l1"><a class="reference internal" href="opendssdirect_utils_ref.html">opendssdirect.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="enumerations.html">opendssdirect.enums</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">External links</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://github.com/dss-extensions/OpenDSSDirect.py">GitHub repository</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.python.org/pypi/OpenDSSDirect.py/">Package on PyPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/dss-extensions/electricdss-tst">Test/example circuits</a></li>
+
+<li class="toctree-l1"><a class="reference external" href="https://dss-extensions.org/dss_python">DSS-Python</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://dss-extensions.org/AltDSS-Python/">AltDSS-Python</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/orgs/dss-extensions/discussions">DSS-Extensions Discussions</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://sourceforge.net/p/electricdss/discussion/">OpenDSS forum</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://opendss.epri.com/opendss_documentation.html">OpenDSS documentation</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/updating_to_0.9.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Upgrading to OpenDSSDirect.py v0.9+</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-of-version-0-9">Architecture of version 0.9</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-opendssdirect-py-with-dss-python-and-altdss-python">Using OpenDSSDirect.py with DSS-Python and AltDSS-Python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-multi-threading-example">A multi-threading example</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="upgrading-to-opendssdirect-py-v0-9">
+<h1>Upgrading to OpenDSSDirect.py v0.9+<a class="headerlink" href="#upgrading-to-opendssdirect-py-v0-9" title="Link to this heading">#</a></h1>
+<p>If you are using older OpenDSSDirect.py versions, some specifics changed in v0.9 are important to note. For general changes of the DSS engine, please see the changelog at <a class="github reference external" href="https://github.com/dss-extensions/dss_capi/blob/master/docs/changelog.md#version-0140">dss-extensions/dss_capi</a></p>
+<p>Basic usage of ODD.py can continue as in previous versions, and should mostly keep working out-of-the-box if you do not intend to use multiple DSS instances.
+There are also a couple of deprecation warnings introduced to signal some changes to the users.</p>
+<ul class="simple">
+<li><p>Instead of using <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">opendssdirect</span> <span class="pre">as</span> <span class="pre">odd</span></code>, we now recommend <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">opendssdirect</span> <span class="pre">import</span> <span class="pre">dss</span> <span class="pre">as</span> <span class="pre">odd</span></code>. This will import a class instance, which exposes more features and is safer. For example, the main class (<code class="docutils literal notranslate"><span class="pre">OpenDSSDirect</span></code>) exposes the <code class="docutils literal notranslate"><span class="pre">OpenDSSDirect.Text.Commands</span></code> as the call operator – you can use <code class="docutils literal notranslate"><span class="pre">odd('redirect</span> <span class="pre">some_script.dss')</span></code>, even with multi-line strings.</p></li>
+<li><p>The classes also handle a common mistake of new users, which is using OpenDSSDirect.py as DSS-Python or the COM API, accidentally replacing the functions/methods with the intended values instead. That is, something like <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">opendssdirect</span> <span class="pre">import</span> <span class="pre">dss</span> <span class="pre">as</span> <span class="pre">odd;</span> <span class="pre">odd.Text.Command</span> <span class="pre">=</span> <span class="pre">'clear'</span></code> now results in an error.</p></li>
+<li><p>The old <code class="docutils literal notranslate"><span class="pre">Iterator</span></code> class is deprecated since all iterable classes should now support the native iterator protocol in Python. That is <code class="docutils literal notranslate"><span class="pre">[load.kW()</span> <span class="pre">for</span> <span class="pre">load</span> <span class="pre">in</span> <span class="pre">odd.Loads]</span></code> now works. Limitations from OpenDSS still applies (a single object of a certain type must be active, etc.).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">opendssdirect.run_command</span></code> is also deprecated due to the lack of direct error handling. We noticed this was resulting in error being ignored by many users, especially new users.</p></li>
+<li><p>Multiple DSS engines are now supported, including multi-threading in Python. This means that some old usage patterns are not recommended anymore, since the code moved from plain modules to classes in order to allow this kind of feature.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">opendssdirect</span> <span class="kn">import</span> <span class="n">dss</span> <span class="k">as</span> <span class="n">odd_default</span>
+
+<span class="c1"># When using multiple contexts, it&#39;s better avoid changing the </span>
+<span class="c1"># working directory of the process</span>
+<span class="n">odd_default</span><span class="o">.</span><span class="n">Basic</span><span class="o">.</span><span class="n">AllowChangeDir</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">odd1</span> <span class="o">=</span> <span class="n">odd_default</span><span class="o">.</span><span class="n">NewContext</span><span class="p">()</span>
+<span class="n">odd2</span> <span class="o">=</span> <span class="n">odd_default</span><span class="o">.</span><span class="n">NewContext</span><span class="p">()</span>
+
+<span class="n">odd1</span><span class="p">(</span><span class="s1">&#39;new circuit.circuit1&#39;</span><span class="p">)</span>
+<span class="n">odd2</span><span class="p">(</span><span class="s1">&#39;new circuit.circuit2&#39;</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="n">odd1</span><span class="o">.</span><span class="n">Circuit</span><span class="o">.</span><span class="n">Name</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;circuit1&#39;</span>
+<span class="k">assert</span> <span class="n">odd2</span><span class="o">.</span><span class="n">Circuit</span><span class="o">.</span><span class="n">Name</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;circuit2&#39;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>The package now has the option of returning NumPy arrays (like DSS-Python) instead of plain lists. As of v0.9, this is not enabled by default, but it could be in future versions (feedback is welcome). To enable it globally, you can set the environment variable <code class="docutils literal notranslate"><span class="pre">OPENDSSDIRECT_PY_USE_NUMPY=1</span></code>. To enable it on a per-instance base, you can pass <code class="docutils literal notranslate"><span class="pre">prefer_lists=False</span></code> to the constructor. For example, from one of the tests:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">opendssdirect.OpenDSSDirect</span> <span class="kn">import</span> <span class="n">OpenDSSDirect</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">ndarray</span>
+
+<span class="c1"># NOTE: this constructors ALWAYS binds to the default DSS engine.</span>
+<span class="n">odd_np</span> <span class="o">=</span> <span class="n">OpenDSSDirect</span><span class="p">(</span><span class="n">prefer_lists</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># Use it normally</span>
+<span class="n">odd_np</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Redirect &#39;</span><span class="si">{</span><span class="n">PATH_TO_DSS</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">odd_np</span><span class="o">.</span><span class="n">Circuit</span><span class="o">.</span><span class="n">AllBusMagPu</span><span class="p">(),</span> <span class="n">ndarray</span><span class="p">)</span>
+
+<span class="n">odd_lst</span> <span class="o">=</span> <span class="n">OpenDSSDirect</span><span class="p">(</span><span class="n">prefer_lists</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># Same global instance, we can just reuse the result</span>
+<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">odd_lst</span><span class="o">.</span><span class="n">Circuit</span><span class="o">.</span><span class="n">AllBusMagPu</span><span class="p">(),</span> <span class="nb">list</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Due to changes in the AltDSS/DSS C-API engine, the capitalization of the DSS properties was changed. OpenDSS is case insensitive, but a lot of third-party code assumes a certain capitalization. This is not recommended since OpenDSS already changed the capitalization in the past. Code that relied on the capitalization before should stop working, but we added a way to toggle the capitalization style through <code class="docutils literal notranslate"><span class="pre">Settings.SetPropertyNameStyle</span></code>, as in the snippet below. We’d recommend using this but updating any related code to not depend on the capitalization at all. Note that there is also <code class="docutils literal notranslate"><span class="pre">DSSPropertyNameStyle.Lowercase</span></code> which may simplify some comparisons.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">opendssdirect</span> <span class="kn">import</span> <span class="n">dss</span> <span class="k">as</span> <span class="n">odd</span><span class="p">,</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">dss_enums</span>
+<span class="n">odd</span><span class="o">.</span><span class="n">Settings</span><span class="o">.</span><span class="n">SetPropertyNameStyle</span><span class="p">(</span><span class="n">dss_enums</span><span class="o">.</span><span class="n">DSSPropertyNameStyle</span><span class="o">.</span><span class="n">Legacy</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="architecture-of-version-0-9">
+<h2>Architecture of version 0.9<a class="headerlink" href="#architecture-of-version-0-9" title="Link to this heading">#</a></h2>
+<p>Previous versions of OpenDSSDirect.py only exposed the default OpenDSS engine instance, as that was the how the original OpenDSS worked. With just a single instance, modules used to fit nicely to map the interfaces:</p>
+<div class="mermaid">
+            flowchart LR
+    A[&quot;AltDSS/DSS C-API\n(libdss_capi)&quot;] ---|CFFI| B[&quot;DSS-Python\n(dss package)&quot;]
+    B --- C[&quot;OpenDSSDirect.py\n(opendssdirect package)&quot;]
+    C --- D[opendssdirect.ActiveCircuit mod.]
+    C --- E[opendssdirect.Basic mod.]
+    C --- F[opendssdirect.Bus mod.]
+    C --- G[...]
+    C --- H[opendssdirect.XYCurve mod.]
+    C --- I[opendssdirect.YMatrix mod.]
+    C --- J[opendssdirect.ZIP mod.]
+        </div><p>To allow multiple instances and other desirable features like pythonic iteration, indexing, <code class="docutils literal notranslate"><span class="pre">len()</span></code>, etc., a new <a class="reference internal" href="opendssdirect.html#opendssdirect.OpenDSSDirect.OpenDSSDirect" title="opendssdirect.OpenDSSDirect.OpenDSSDirect"><span class="xref myst py py-class"><code class="docutils literal notranslate"><span class="pre">OpenDSSDirect</span> <span class="pre">class</span></code></span></a> was introduced, and the original modules were replaced with instances of dedicated classes:</p>
+<div class="mermaid">
+            flowchart LR
+    A[&quot;AltDSS/DSS C-API\n(libdss_capi)&quot;] ---|CFFI| B[&quot;DSS-Python\n(dss package)&quot;]
+    B --- C1[&quot;OpenDSSDirect.py\n(opendssdirect package)&quot;]
+    C1 --- C[&quot;opendssdirect.dss\n(instance of OpenDSSDirect class)&quot;]
+    C --- D[ActiveCircuit attr.]
+    C --- E[Basic attr.]
+    C --- F[Bus attr.]
+    C --- G[...]
+    C --- H[XYCurve attr.]
+    C --- I[YMatrix attr.]
+    C --- J[ZIP attr.]
+        </div><p>Finally, to provide better backwards compatibility, in case users imported separate modules directly, the methods bound to the default DSS engine instance/context are exposed in the original module organization.</p>
+<div class="mermaid">
+            flowchart LR
+    A[&quot;AltDSS/DSS C-API\n(libdss_capi)&quot;] ---|CFFI| B[&quot;DSS-Python\n(dss package)&quot;]
+    B --- C1[&quot;OpenDSSDirect.py\n(opendssdirect package)&quot;]
+    C1 --- C[&quot;opendssdirect.dss\n(instance of OpenDSSDirect class)&quot;]
+    C --- D[ActiveCircuit attr.]
+    C --- E[Basic attr.]
+    C --- F[Bus attr.]
+    C --- G[...]
+    C --- H[XYCurve attr.]
+    C --- I[YMatrix attr.]
+    C --- J[ZIP attr.]
+
+    D -.- D2[opendssdirect.ActiveCircuit mod.]
+    E -.- E2[opendssdirect.Basic mod.]
+    F -.- F2[opendssdirect.Bus mod.]
+    G -.- G2[...]
+    H -.- H2[opendssdirect.XYCurve mod.]
+    I -.- I2[opendssdirect.YMatrix mod.]
+    J -.- J2[opendssdirect.ZIP mod.]
+        </div><p>In the end, importing the default instance is enough to provide the new features:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">opendssdirect</span> <span class="kn">import</span> <span class="n">dss</span>
+</pre></div>
+</div>
+<p>In the long term, the modules could be removed if the community does indeed migrate to the import above. Typically, replacing <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">opendssdirect</span> <span class="pre">as</span> <span class="pre">dss</span></code> with <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">opendssdirect</span> <span class="pre">import</span> <span class="pre">dss</span></code> is enough.</p>
+<p>The design mirrors the basics of what was done in DSS-Python 0.12 (July 2022) when support for DSSContexts (multiple engines) was introduced, with the caveat that DSS-Python already used a class-based approach. After a few releases, the design seems fit and stable to port over to ODD.py. Besides the extras, especially <a class="reference internal" href="opendssdirect_utils_ref.html#module-opendssdirect.utils" title="opendssdirect.utils"><span class="xref myst py py-mod"><code class="docutils literal notranslate"><span class="pre">opendssdirect.utils</span></code></span></a>, ODD.py is effectively equal to DSS-Python using a different convention, that is, instead of using Python properties like DSS-Python (done to achieve drop-in compatibility with the official COM implementation), OpenDSSDirect.py uses function calls for setters and getters.</p>
+<p>For backwards compatibility, and to respect users expectations, OpenDSSDirect.py doesn’t allow/recommend using the constructor of the main interface class directly. Instead, <a class="reference internal" href="opendssdirect.html#opendssdirect.OpenDSSDirect.OpenDSSDirect.NewContext" title="opendssdirect.OpenDSSDirect.OpenDSSDirect.NewContext"><span class="xref myst py py-meth"><code class="docutils literal notranslate"><span class="pre">NewContext</span></code></span></a> must be used.</p>
+</section>
+<section id="using-opendssdirect-py-with-dss-python-and-altdss-python">
+<h2>Using OpenDSSDirect.py with DSS-Python and AltDSS-Python<a class="headerlink" href="#using-opendssdirect-py-with-dss-python-and-altdss-python" title="Link to this heading">#</a></h2>
+<p>Two new functions were introduced to make it easier to map from one module to the other:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="opendssdirect.html#opendssdirect.OpenDSSDirect.OpenDSSDirect.to_dss_python" title="opendssdirect.OpenDSSDirect.OpenDSSDirect.to_dss_python"><span class="xref myst py py-meth"><code class="docutils literal notranslate"><span class="pre">OpenDSSDirect.to_dss_python</span></code></span></a></p></li>
+<li><p><a class="reference internal" href="opendssdirect.html#opendssdirect.OpenDSSDirect.OpenDSSDirect.to_altdss" title="opendssdirect.OpenDSSDirect.OpenDSSDirect.to_altdss"><span class="xref myst py py-meth"><code class="docutils literal notranslate"><span class="pre">OpenDSSDirect.to_altdss</span></code></span></a></p></li>
+</ul>
+<p>This is especially useful now that <code class="docutils literal notranslate"><span class="pre">altdss</span></code> exposes most of the classic API in a more pythonic approach, batches and more.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See also <a class="reference external" href="https://dss-extensions.org/dss_python/">DSS-Python</a> and <a class="reference external" href="https://dss-extensions.org/AltDSS-Python/">AltDSS-Python</a>.</p>
+</div>
+</section>
+<section id="a-multi-threading-example">
+<h2>A multi-threading example<a class="headerlink" href="#a-multi-threading-example" title="Link to this heading">#</a></h2>
+<p>An example of how to use multiple DSS instances and multi-threading, directly in Python, is available at <a class="reference internal" href="notebooks/Multithreading.html"><span class="doc std std-doc">Multiple DSS engines and multithreading</span></a>. This would be recommended for most uses instead of the internal/classic <a class="reference internal" href="opendssdirect.html#opendssdirect.Parallel.IParallel" title="opendssdirect.Parallel.IParallel"><span class="xref myst py py-class">Parallel interface</span></a>.</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="notebooks/GettingStarted.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Getting Started</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="notebooks/Example-OpenDSSDirect.py.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Usage</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-of-version-0-9">Architecture of version 0.9</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-opendssdirect-py-with-dss-python-and-altdss-python">Using OpenDSSDirect.py with DSS-Python and AltDSS-Python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-multi-threading-example">A multi-threading example</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2017-2024 Dheepak Krishnamurthy, Paulo Meira, DSS-Extensions contributors.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
