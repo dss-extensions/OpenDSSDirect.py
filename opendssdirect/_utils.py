@@ -1,4 +1,4 @@
-# Import dss_python
+# Import DSS-Python
 import dss as dss_py
 import os
 

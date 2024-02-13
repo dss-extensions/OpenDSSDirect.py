@@ -135,7 +135,7 @@ Two new functions were introduced to make it easier to map from one module to th
 This is especially useful now that `altdss` exposes most of the classic API in a more pythonic approach, batches and more.
 
 ```{note}
-See also [DSS-Python](https://dss-extensions.org/dss_python/) and [AltDSS-Python](https://dss-extensions.org/AltDSS-Python/).
+See also [DSS-Python](https://dss-extensions.org/DSS-Python/) and [AltDSS-Python](https://dss-extensions.org/AltDSS-Python/).
 ```
 
 ## A multi-threading example

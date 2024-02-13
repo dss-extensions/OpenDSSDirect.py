@@ -164,7 +164,7 @@ def class_to_dataframe(class_name, dss=None, transform_string=None, clean_data=N
 
     For alternatives:
     
-    - Check the functions for JSON output, such as [`Circuit.ToJSON()`](#opendssdirect.Circuit.ICircuit.ToJSON) (whole circuit), [`ActiveClass.ToJSON()`](#opendssdirect.ActiveClass.IActiveClass.ToJSON) (a whole class), and [`Element.ToJSON()`](#opendssdirect.Element.IElement.ToJSON). The DSS-Python examples are a good starting point (all related functions are also available in OpenDSSDirect.py): https://dss-extensions.org/dss_python/examples/JSON
+    - Check the functions for JSON output, such as [`Circuit.ToJSON()`](#opendssdirect.Circuit.ICircuit.ToJSON) (whole circuit), [`ActiveClass.ToJSON()`](#opendssdirect.ActiveClass.IActiveClass.ToJSON) (a whole class), and [`Element.ToJSON()`](#opendssdirect.Element.IElement.ToJSON). The DSS-Python examples are a good starting point (all related functions are also available in OpenDSSDirect.py): https://dss-extensions.org/DSS-Python/examples/JSON
     - The JSON output/input, and other future alternatives are based on the work-in-progress AltDSS Schema project. Check https://github.com/dss-extensions/AltDSS-Schema
     
     """
