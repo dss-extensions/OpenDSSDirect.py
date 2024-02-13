@@ -375,7 +375,7 @@ OpenDSS is an open-source electric power distribution system simulator.</p>
             flowchart TD
     C[&quot;AltDSS engine/DSS C-API\n(libdss_capi)&quot;] --&gt; P[&quot;DSS-Python: Backend&quot;]
     P --- DSSPY[&quot;&lt;a href='https://dss-extensions.org/dss_python/'&gt;DSS-Python\n(dss package)&lt;a/&gt;&quot;]
-    P --- ODDPY[OpenDSSDirect.py\n(opendssdirect package)]
+    P --- ODDPY[&quot;OpenDSSDirect.py\n(opendssdirect package)&quot;]
     P --- ALTDSSPY[&quot;&lt;a href='https://dss-extensions.org/AltDSS-Python/'&gt;AltDSS-Python\n(altdss package)&lt;/a&gt;&quot;]
         </div></center>
 <p>Both OpenDSSDirect.py and DSS-Python expose the classic OpenDSS API, including most of its limitations. For an alternative API which exposes all OpenDSS objects, batch operations, and a more intuitive API, check <a class="reference external" href="https://dss-extensions.org/AltDSS-Python/">AltDSS-Python</a>. If required, users can mix all three packages in the same project to access some of their unique features.</p>
