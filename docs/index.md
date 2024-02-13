@@ -21,7 +21,7 @@ See [OpenDSSDirect.jl](https://github.com/dss-extensions/OpenDSSDirect.jl) for a
 flowchart TD
     C["AltDSS engine/DSS C-API\n(libdss_capi)"] --> P["DSS-Python: Backend"]
     P --- DSSPY["<a href='https://dss-extensions.org/dss_python/'>DSS-Python\n(dss package)<a/>"]
-    P --- ODDPY[OpenDSSDirect.py\n(opendssdirect package)]
+    P --- ODDPY["OpenDSSDirect.py\n(opendssdirect package)"]
     P --- ALTDSSPY["<a href='https://dss-extensions.org/AltDSS-Python/'>AltDSS-Python\n(altdss package)</a>"]
 ```
 
