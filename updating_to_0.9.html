@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Upgrading to OpenDSSDirect.py v0.9+ &#8212; OpenDSSDirect.py 0.9.0 documentation</title>
+    <title>Upgrading to OpenDSSDirect.py v0.9+ &#8212; OpenDSSDirect.py 0.9.0.post3+g81daed3 documentation</title>
   
   
   
@@ -38,7 +38,7 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="_static/documentation_options.js?v=2a76c96f"></script>
+    <script src="_static/documentation_options.js?v=1c0a46c0"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
@@ -139,8 +139,8 @@
       
     
     
-    <img src="_static/opendssdirect.svg" class="logo__image only-light" alt="OpenDSSDirect.py 0.9.0 documentation - Home"/>
-    <script>document.write(`<img src="_static/opendssdirect-dark.svg" class="logo__image only-dark" alt="OpenDSSDirect.py 0.9.0 documentation - Home"/>`);</script>
+    <img src="_static/opendssdirect.svg" class="logo__image only-light" alt="OpenDSSDirect.py 0.9.0.post3+g81daed3 documentation - Home"/>
+    <script>document.write(`<img src="_static/opendssdirect-dark.svg" class="logo__image only-dark" alt="OpenDSSDirect.py 0.9.0.post3+g81daed3 documentation - Home"/>`);</script>
   
   
 </a></div>
@@ -359,7 +359,7 @@ There are also a couple of deprecation warnings introduced to signal some change
 <ul class="simple">
 <li><p>Instead of using <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">opendssdirect</span> <span class="pre">as</span> <span class="pre">odd</span></code>, we now recommend <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">opendssdirect</span> <span class="pre">import</span> <span class="pre">dss</span> <span class="pre">as</span> <span class="pre">odd</span></code>. This will import a class instance, which exposes more features and is safer. For example, the main class (<code class="docutils literal notranslate"><span class="pre">OpenDSSDirect</span></code>) exposes the <code class="docutils literal notranslate"><span class="pre">OpenDSSDirect.Text.Commands</span></code> as the call operator – you can use <code class="docutils literal notranslate"><span class="pre">odd('redirect</span> <span class="pre">some_script.dss')</span></code>, even with multi-line strings.</p></li>
 <li><p>The classes also handle a common mistake of new users, which is using OpenDSSDirect.py as DSS-Python or the COM API, accidentally replacing the functions/methods with the intended values instead. That is, something like <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">opendssdirect</span> <span class="pre">import</span> <span class="pre">dss</span> <span class="pre">as</span> <span class="pre">odd;</span> <span class="pre">odd.Text.Command</span> <span class="pre">=</span> <span class="pre">'clear'</span></code> now results in an error.</p></li>
-<li><p>The old <code class="docutils literal notranslate"><span class="pre">Iterator</span></code> class is deprecated since all iterable classes should now support the native iterator protocol in Python. That is <code class="docutils literal notranslate"><span class="pre">[load.kW()</span> <span class="pre">for</span> <span class="pre">load</span> <span class="pre">in</span> <span class="pre">odd.Loads]</span></code> now works. Limitations from OpenDSS still applies (a single object of a certain type must be active, etc.).</p></li>
+<li><p>The old <code class="docutils literal notranslate"><span class="pre">Iterator</span></code> class is deprecated since all iterable classes should now support the native iterator protocol in Python. That is <code class="docutils literal notranslate"><span class="pre">[load.kW()</span> <span class="pre">for</span> <span class="pre">load</span> <span class="pre">in</span> <span class="pre">odd.Loads]</span></code> now works. The general behavior from OpenDSS still applies (a single object of a certain type must be active, etc.).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">opendssdirect.run_command</span></code> is also deprecated due to the lack of direct error handling. We noticed this was resulting in error being ignored by many users, especially new users.</p></li>
 <li><p>Multiple DSS engines are now supported, including multi-threading in Python. This means that some old usage patterns are not recommended anymore, since the code moved from plain modules to classes in order to allow this kind of feature.</p></li>
 </ul>
