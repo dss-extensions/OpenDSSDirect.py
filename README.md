@@ -5,7 +5,9 @@
 [![Documentation](https://img.shields.io/badge/docs-ready-blue.svg)](http://dss-extensions.org/OpenDSSDirect.py)
 
 OpenDSSDirect.py is a cross-platform Python package implements a "direct" library interface to [our customized implementation](https://github.com/dss-extensions/dss_capi) of [OpenDSS](http://smartgrid.epri.com/SimulationTool.aspx) using [DSS-Python](https://github.com/dss-extensions/dss_python/).
-OpenDSS is an open-source distribution system simulator. See [OpenDSSDirect.jl](https://github.com/dss-extensions/OpenDSSDirect.jl) for a similar package in Julia, and for more context about this project and its components (including alternatives in MATLAB, C++ and C#/.NET), please check [https://dss-extensions.org/](https://dss-extensions.org/) and our hub repository at [dss-extensions/dss-extensions](https://github.com/dss-extensions/dss-extensions) for more documentation, discussions and the [FAQ](https://github.com/dss-extensions/dss-extensions#faq).
+OpenDSS is an open-source distribution system simulator [distributed by EPRI](https://sourceforge.net/p/electricdss/). See [OpenDSSDirect.jl](https://github.com/dss-extensions/OpenDSSDirect.jl) for a similar package in Julia, and for more context about this project and its components (including alternatives in MATLAB, C++, C#/.NET, Go, and Rust), please check [https://dss-extensions.org/](https://dss-extensions.org/) and our hub repository at [dss-extensions/dss-extensions](https://github.com/dss-extensions/dss-extensions) for more documentation, discussions and the [FAQ](https://github.com/dss-extensions/dss-extensions#faq).
+
+An alternative Python package is being developed in [AltDSS-Python](https://dss-extensions.org/AltDSS-Python/). It can be used together with OpenDSSDirect.py.
 
 
 <p align="center">

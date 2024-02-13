@@ -9,7 +9,7 @@ There are also a couple of deprecation warnings introduced to signal some change
 
 - The classes also handle a common mistake of new users, which is using OpenDSSDirect.py as DSS-Python or the COM API, accidentally replacing the functions/methods with the intended values instead. That is, something like `from opendssdirect import dss as odd; odd.Text.Command = 'clear'` now results in an error.
 
-- The old `Iterator` class is deprecated since all iterable classes should now support the native iterator protocol in Python. That is `[load.kW() for load in odd.Loads]` now works. Limitations from OpenDSS still applies (a single object of a certain type must be active, etc.).
+- The old `Iterator` class is deprecated since all iterable classes should now support the native iterator protocol in Python. That is `[load.kW() for load in odd.Loads]` now works. The general behavior from OpenDSS still applies (a single object of a certain type must be active, etc.).
 
 - `opendssdirect.run_command` is also deprecated due to the lack of direct error handling. We noticed this was resulting in error being ignored by many users, especially new users. 
 
