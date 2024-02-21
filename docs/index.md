@@ -72,6 +72,7 @@ notebooks/ActiveClass
 Plotting voltage profile <notebooks/VoltageProfilePlot>
 Circuit SystemY <notebooks/SystemY>
 Multithreading, multiple DSS engines <notebooks/Multithreading>
+notebooks/Saving
 ```
 
 ```{toctree}
