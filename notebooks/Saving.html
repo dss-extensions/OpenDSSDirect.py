@@ -1,0 +1,1645 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Saving and exporting circuits &#8212; OpenDSSDirect.py 0.9.1 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=918a4b72"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/Saving';</script>
+    <link rel="icon" href="../_static/dssx.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="opendssdirect package reference" href="../opendssdirect.html" />
+    <link rel="prev" title="Multiple DSS engines and multithreading" href="Multithreading.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/opendssdirect.svg" class="logo__image only-light" alt="OpenDSSDirect.py 0.9.1 documentation - Home"/>
+    <script>document.write(`<img src="../_static/opendssdirect-dark.svg" class="logo__image only-dark" alt="OpenDSSDirect.py 0.9.1 documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">OpenDSSDirect.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GettingStarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../updating_to_0.9.html">Upgrading to OpenDSSDirect.py v0.9+</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Example-OpenDSSDirect.py.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ActiveClass.html">Using ActiveClass interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VoltageProfilePlot.html">Plotting voltage profile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SystemY.html">Circuit SystemY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Multithreading.html">Multithreading, multiple DSS engines</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Saving and exporting circuits</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../opendssdirect.html">opendssdirect</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../opendssdirect_utils_ref.html">opendssdirect.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../enumerations.html">opendssdirect.enums</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">External links</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://github.com/dss-extensions/OpenDSSDirect.py">GitHub repository</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.python.org/pypi/OpenDSSDirect.py/">Package on PyPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/dss-extensions/electricdss-tst">Test/example circuits</a></li>
+
+<li class="toctree-l1"><a class="reference external" href="https://dss-extensions.org/DSS-Python">DSS-Python</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://dss-extensions.org/AltDSS-Python/">AltDSS-Python</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/orgs/dss-extensions/discussions">DSS-Extensions Discussions</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://sourceforge.net/p/electricdss/discussion/">OpenDSS forum</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://opendss.epri.com/opendss_documentation.html">OpenDSS documentation</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/Saving.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Saving and exporting circuits</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-circuit-save-function">The <code class="docutils literal notranslate"><span class="pre">Circuit.Save</span></code> function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-to-a-folder">Saving to a folder</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-to-a-single-file">Saving to a single file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exporting-directly-to-a-string">Exporting directly to a string</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supressing-defaults">Supressing defaults</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#keeping-the-order-of-elements">Keeping the order of elements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#open-elements">Open elements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#including-the-options">Including the options</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interaction-with-compatflags">Interaction with <code class="docutils literal notranslate"><span class="pre">CompatFlags()</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#without-property-tracking">Without property tracking</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#with-property-tracking-default">With property tracking (default)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#is-json-a-better-alternative">Is JSON a better alternative?</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="saving-and-exporting-circuits">
+<h1>Saving and exporting circuits<a class="headerlink" href="#saving-and-exporting-circuits" title="Link to this heading">#</a></h1>
+<p>OpenDSS has a command to save the current circuit, e.g. <code class="docutils literal notranslate"><span class="pre">save</span> <span class="pre">circuit</span> <span class="pre">dir=some/path/</span></code>.</p>
+<p>During the development of the JSON functions for whole circuits (<code class="docutils literal notranslate"><span class="pre">Circuit.ToJSON()</span></code> and <code class="docutils literal notranslate"><span class="pre">Circuit.FromJSON()</span></code>) on DSS-Extensions, we took the oportunity to add some options to the save command, exposing it as a new function in API. This is thus avaiable in most projects under DSS-Extensions. Since many third-party software use OpenDSSDirect.py to inspect and export data, this is being added to the ODD.py documentation, but most of the information here applies to other Python packages and other projects in general on DSS-Extensions.</p>
+<p>The options are controlled through a bitmask integer, with the options from <a class="reference external" href="https://dss-extensions.org/OpenDSSDirect.py/enumerations.html#dss_python_backend.enums.DSSSaveFlags">DSSSaveFlags</a>, as <a class="reference external" href="https://dss-extensions.org/OpenDSSDirect.py/opendssdirect.html#opendssdirect.Circuit.ICircuit.Save">documented in the API reference for <code class="docutils literal notranslate"><span class="pre">Circuit.Save()</span></code></a>.</p>
+<p>This notebook shows some examples of the options.</p>
+<p>If you have a suggestion for new flags, please feel free to suggest on GitHub, either through the <a class="reference external" href="https://github.com/dss-extensions/OpenDSSDirect.py/issues">ODD.py issues</a>, or general issues/discussions on  <a class="github reference external" href="https://github.com/dss-extensions/dss-extensions">dss-extensions/dss-extensions</a></p>
+<p>Remember that both the <code class="docutils literal notranslate"><span class="pre">save</span> <span class="pre">circuit</span></code> command and the function used here export snapshots of the circuit. If the original .DSS script is a complete simulation, if won’t be tracked, currently.</p>
+<p>Another limitation is that some file references are kept as-is. This is not typically an issue since most fields are read into numeric fields, which are exported OK.</p>
+<p><strong>Notebook requirements</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># When running via Colab, install the package first</span>
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">subprocess</span>
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;COLAB_RELEASE_TAG&quot;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="s1">&#39;pip install opendssdirect.py[extras]&#39;</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+
+<span class="c1"># Download the sample circuits and test cases if they do not exist already</span>
+<span class="kn">from</span> <span class="nn">dss.examples</span> <span class="kn">import</span> <span class="n">download_repo_snapshot</span>
+<span class="n">REPO_PATH</span> <span class="o">=</span> <span class="n">download_repo_snapshot</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">repo_name</span><span class="o">=</span><span class="s1">&#39;electricdss-tst&#39;</span><span class="p">,</span> <span class="n">use_version</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">IEEE13_PATH</span> <span class="o">=</span> <span class="n">REPO_PATH</span> <span class="o">/</span> <span class="s1">&#39;Version8/Distrib/IEEETestCases/13Bus/IEEE13Nodeckt.dss&#39;</span>
+<span class="k">assert</span> <span class="n">IEEE13_PATH</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="the-circuit-save-function">
+<h2>The <code class="docutils literal notranslate"><span class="pre">Circuit.Save</span></code> function<a class="headerlink" href="#the-circuit-save-function" title="Link to this heading">#</a></h2>
+<p>It takes two arguments, a path for the file or directory to be used (if not saving to a string), and the options. It returns the DSS script as a string if <code class="docutils literal notranslate"><span class="pre">SingleFile|ToString</span></code> is used.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dss</span> <span class="kn">import</span> <span class="n">DSSSaveFlags</span>
+<span class="kn">from</span> <span class="nn">opendssdirect</span> <span class="kn">import</span> <span class="n">dss</span> <span class="k">as</span> <span class="n">odd</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">Markdown</span>
+<span class="kn">from</span> <span class="nn">textwrap</span> <span class="kn">import</span> <span class="n">dedent</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">?</span> odd.Circuit.Save
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span><span class="n">dedent</span><span class="p">(</span><span class="n">odd</span><span class="o">.</span><span class="n">Circuit</span><span class="o">.</span><span class="n">Save</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<p>Equivalent of the “save circuit” DSS command, but allows customization
+through the <code class="docutils literal notranslate"><span class="pre">saveFlags</span></code> argument, which is a set of bit flags.
+See the “DSSSaveFlags” enumeration for available flags:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CalcVoltageBases</span></code>: Include the command CalcVoltageBases.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SetVoltageBases</span></code>: Include commands to set the voltage bases individually.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IncludeOptions</span></code>: Include most of the options (from the Set/Get DSS commands).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IncludeDisabled</span></code>: Include disabled circuit elements (and LoadShapes).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ExcludeDefault</span></code>: Exclude default DSS items if they are not modified by the user.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SingleFile</span></code>: Use a single file instead of a folder for output.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">KeepOrder</span></code>: Save the circuit elements in the order they were loaded in the active circuit. Guarantees better reproducibility, especially when the system is ill-conditioned. Requires “SingleFile” flag.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ExcludeMeterZones</span></code>: Do not export meter zones (as “feeders”) separately. Has no effect when using a single file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IsOpen</span></code>: Export commands to open terminals of elements.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ToString</span></code>: to the result string. Requires “SingleFile” flag.</p></li>
+</ul>
+<p>If <code class="docutils literal notranslate"><span class="pre">SingleFile</span></code> is enabled, the first argument (<code class="docutils literal notranslate"><span class="pre">dirOrFilePath</span></code>) is the file path,
+otherwise it is the folder path. For string output, the argument is not used.</p>
+<p><strong>(API Extension)</strong></p>
+</div>
+</div>
+</section>
+<section id="saving-to-a-folder">
+<h2>Saving to a folder<a class="headerlink" href="#saving-to-a-folder" title="Link to this heading">#</a></h2>
+<p>This is equivalent to the <code class="docutils literal notranslate"><span class="pre">save</span> <span class="pre">circuit</span> <span class="pre">dir=save_dir</span></code>. Inspect the <code class="docutils literal notranslate"><span class="pre">save_dir</span></code> folder after running it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Don&#39;t forget to load a circuit first:</span>
+<span class="n">odd</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;redirect &quot;</span><span class="si">{</span><span class="n">IEEE13_PATH</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Saving to&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">REPO_PATH</span> <span class="o">/</span> <span class="s1">&#39;save_dir&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Saving to /tmp/dss/OpenDSSDirect.py/docs/notebooks/electricdss-tst/save_dir
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">odd</span><span class="o">.</span><span class="n">Circuit</span><span class="o">.</span><span class="n">Save</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">REPO_PATH</span> <span class="o">/</span> <span class="s1">&#39;save_dir&#39;</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="saving-to-a-single-file">
+<h2>Saving to a single file<a class="headerlink" href="#saving-to-a-single-file" title="Link to this heading">#</a></h2>
+<p>Saving to a single file can be useful to simplify copying the circuit. Sometimes the circuit is small enough that it can useful to keep everything in the same file.</p>
+<p>Note that DSS-Extensions introduced a few lines always exported by default, since they are common sources of issues:</p>
+<ul class="simple">
+<li><p>A comment with the version of the engine, making it clear what was used and/or what is the target of the script. Although OpenDSS doesn’t change frequently, it can break compatibility from time to time, and AltDSS/DSS C-API follows most of this kind of decision from the official OpenDSS (for compatibility and so on).</p></li>
+<li><p>It always sets the <code class="docutils literal notranslate"><span class="pre">DefaultBaseFreq</span></code>. New users frequently stumble on issues like loading a 50 Hz circuit on OpenDSS, followed by a 60 Hz circuit (which doesn’t explicitly set this).</p></li>
+<li><p>Similarly, it always sets the <code class="docutils literal notranslate"><span class="pre">EarthModel</span></code>.</p></li>
+</ul>
+<p>As suggested in the options, <code class="docutils literal notranslate"><span class="pre">CalcVoltageBases</span></code> is not included by default since many system require more careful handling of the base voltages than what <code class="docutils literal notranslate"><span class="pre">CalcVoltageBases</span></code> provides. If the user is sure that the circuit is fine with <code class="docutils literal notranslate"><span class="pre">CalcVoltageBases</span></code>, the option can be used or <a class="reference external" href="https://dss-extensions.org/OpenDSSDirect.py/enumerations.html#dss_python_backend.enums.DSSCompatFlags.SaveCalcVoltageBases">the general compatibility flag</a> can be configured in <a class="reference external" href="https://dss-extensions.org/OpenDSSDirect.py/opendssdirect.html#opendssdirect.Basic.IBasic.CompatFlags"><code class="docutils literal notranslate"><span class="pre">Basic.CompatFlags()</span></code> function</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">odd</span><span class="o">.</span><span class="n">Circuit</span><span class="o">.</span><span class="n">Save</span><span class="p">(</span><span class="s1">&#39;saved_circuit.dss&#39;</span><span class="p">,</span> <span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">SingleFile</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;saved_circuit.dss&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">saved_data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">saved_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>! Last saved by AltDSS/DSS C-API Library version 0.14.1 revision 8b3da5b576f4dedd16d2bfb88bfb911c0aca3783 based on OpenDSS SVN 3723 [FPC 3.2.2] (64-bit build) MVMULT INCREMENTAL_Y CONTEXT_API PM 20240217013457 on 2024-02-21T23:45:11.036Z
+Clear
+Set DefaultBaseFreq=60
+New Circuit.ieee13nodeckt
+
+Set EarthModel=Deri
+
+New &quot;LineCode.1&quot; NPhases=3 BaseFreq=60 RMatrix=[0.086666667000000003 |0.029545455000000002 0.088371212000000005 |0.029071969999999999 0.029924242 0.087405303000000004 ] XMatrix=[0.204166667 |0.095018938999999997 0.19852272700000001 |0.072897726999999996 0.080227273000000002 0.20172348500000001 ] CMatrix=[2.8517100719999999 |-0.92029378699999997 3.0046318620000001 |-0.35075556600000002 -0.58501125300000001 2.7113475600000001 ]
+New &quot;LineCode.2&quot; NPhases=3 BaseFreq=60 RMatrix=[0.088371212000000005 |0.029924240000000001 0.087405303000000004 |0.029545455000000002 0.029071969999999999 0.086666667000000003 ] XMatrix=[0.19852272700000001 |0.080227273000000002 0.20172348500000001 |0.095018938999999997 0.072897726999999996 0.204166667 ] CMatrix=[3.0046318620000001 |-0.58501125300000001 2.7113475600000001 |-0.92029378699999997 -0.35075556600000002 2.8517100719999999 ]
+New &quot;LineCode.3&quot; NPhases=3 BaseFreq=60 RMatrix=[0.087405303000000004 |0.029071969999999999 0.086666667000000003 |0.029924242 0.029545455000000002 0.088371212000000005 ] XMatrix=[0.20172348500000001 |0.072897726999999996 0.204166667 |0.080227273000000002 0.095018938999999997 0.19852272700000001 ] CMatrix=[2.7113475600000001 |-0.35075556600000002 2.8517100719999999 |-0.58501125300000001 -0.92029378699999997 3.0046318620000001 ]
+New &quot;LineCode.4&quot; NPhases=3 BaseFreq=60 RMatrix=[0.087405303000000004 |0.029924242 0.088371212000000005 |0.029071969999999999 0.029545455000000002 0.086666667000000003 ] XMatrix=[0.20172348500000001 |0.080227273000000002 0.19852272700000001 |0.072897726999999996 0.095018938999999997 0.204166667 ] CMatrix=[2.7113475600000001 |-0.58501125300000001 3.0046318620000001 |-0.35075556600000002 -0.92029378699999997 2.8517100719999999 ]
+New &quot;LineCode.5&quot; NPhases=3 BaseFreq=60 RMatrix=[0.088371212000000005 |0.029545455000000002 0.086666667000000003 |0.029924242 0.029071969999999999 0.087405303000000004 ] XMatrix=[0.19852272700000001 |0.095018938999999997 0.204166667 |0.080227273000000002 0.072897726999999996 0.20172348500000001 ] CMatrix=[3.0046318620000001 |-0.92029378699999997 2.8517100719999999 |-0.58501125300000001 -0.35075556600000002 2.7113475600000001 ]
+New &quot;LineCode.6&quot; NPhases=3 BaseFreq=60 RMatrix=[0.086666667000000003 |0.029071969999999999 0.087405303000000004 |0.029545455000000002 0.029924242 0.088371212000000005 ] XMatrix=[0.204166667 |0.072897726999999996 0.20172348500000001 |0.095018938999999997 0.080227273000000002 0.19852272700000001 ] CMatrix=[2.8517100719999999 |-0.35075556600000002 2.7113475600000001 |-0.92029378699999997 -0.58501125300000001 3.0046318620000001 ]
+New &quot;LineCode.7&quot; NPhases=2 BaseFreq=60 RMatrix=[0.086666667000000003 |0.029071969999999999 0.087405303000000004 ] XMatrix=[0.204166667 |0.072897726999999996 0.20172348500000001 ] CMatrix=[2.5698295959999999 |-0.52995137000000003 2.5974600109999999 ]
+New &quot;LineCode.8&quot; NPhases=2 BaseFreq=60 RMatrix=[0.086666667000000003 |0.029071969999999999 0.087405303000000004 ] XMatrix=[0.204166667 |0.072897726999999996 0.20172348500000001 ] CMatrix=[2.5698295959999999 |-0.52995137000000003 2.5974600109999999 ]
+New &quot;LineCode.9&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25174242400000002 ] XMatrix=[0.25520833300000001 ] CMatrix=[2.270366128 ]
+New &quot;LineCode.10&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25174242400000002 ] XMatrix=[0.25520833300000001 ] CMatrix=[2.270366128 ]
+New &quot;LineCode.11&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25174242400000002 ] XMatrix=[0.25520833300000001 ] CMatrix=[2.270366128 ]
+New &quot;LineCode.12&quot; NPhases=3 BaseFreq=60 RMatrix=[0.28804924199999998 |0.098446969999999995 0.29032196999999998 |0.093257575999999995 0.098446969999999995 0.28804924199999998 ] XMatrix=[0.142443182 |0.052556817999999998 0.13564393899999999 |0.040852273000000001 0.052556817999999998 0.142443182 ] CMatrix=[33.771501489999999 |0 33.771501489999999 |0 0 33.771501489999999 ]
+New &quot;LineCode.300&quot; NPhases=3 BaseFreq=60 RMatrix=[0.253181818 |0.039791667000000003 0.25071969700000002 |0.040340909000000001 0.039128787999999998 0.25178030299999998 ] XMatrix=[0.25270833300000001 |0.109450758 0.25698863599999999 |0.094981061000000006 0.086950758000000003 0.255132576 ] CMatrix=[2.6801503090000001 |-0.76928100600000004 2.5610381000000002 |-0.49950767600000001 -0.312072984 2.455590387 ]
+New &quot;LineCode.301&quot; NPhases=3 BaseFreq=60 RMatrix=[0.365530303 |0.044071970000000002 0.36282196999999999 |0.044678030000000001 0.043333333000000002 0.36399621199999999 ] XMatrix=[0.267329545 |0.12200757600000001 0.27047348500000001 |0.107784091 0.099204545000000005 0.26910984799999998 ] CMatrix=[2.5724921630000002 |-0.72160597999999998 2.4643818820000001 |-0.47232939499999999 -0.29896109599999998 2.3688811190000001 ]
+New &quot;LineCode.302&quot; NPhases=1 BaseFreq=60 RMatrix=[0.53020800000000001 ] XMatrix=[0.28134500000000001 ] CMatrix=[2.1225700000000001 ]
+New &quot;LineCode.303&quot; NPhases=1 BaseFreq=60 RMatrix=[0.53020800000000001 ] XMatrix=[0.28134500000000001 ] CMatrix=[2.1225700000000001 ]
+New &quot;LineCode.304&quot; NPhases=1 BaseFreq=60 RMatrix=[0.363958 ] XMatrix=[0.26916699999999999 ] CMatrix=[2.1922000000000001 ]
+New &quot;LineCode.400&quot; NPhases=3 BaseFreq=60 RMatrix=[0.088205000000000006 |0.0312137 0.0901946 |0.030626400000000002 0.031614299999999998 0.088966500000000004 ] XMatrix=[0.20744000000000001 |0.093531400000000001 0.20078299999999999 |0.076031199999999993 0.085587899999999995 0.204877 ] CMatrix=[2.9030100000000001 |-0.67933500000000002 3.15896 |-0.22313 -0.48141600000000001 2.8965000000000001 ]
+New &quot;LineCode.601&quot; NPhases=3 BaseFreq=60 RMatrix=[0.065625000000000003 |0.029545455000000002 0.063920455000000001 |0.029924242 0.029071969999999999 0.064659091000000002 ] XMatrix=[0.19278409099999999 |0.095018938999999997 0.19844697 |0.080227273000000002 0.072897726999999996 0.19598484799999999 ] CMatrix=[3.1648380359999999 |-1.002632425 2.993981593 |-0.63273651600000003 -0.37260871299999992 2.8326702030000002 ]
+New &quot;LineCode.602&quot; NPhases=3 BaseFreq=60 RMatrix=[0.14253787900000001 |0.029924242 0.14157196999999999 |0.029545455000000002 0.029071969999999999 0.14083333300000001 ] XMatrix=[0.22375 |0.080227273000000002 0.226950758 |0.095018938999999997 0.072897726999999996 0.22939393899999999 ] CMatrix=[2.8630134229999999 |-0.54341491799999997 2.6020315890000001 |-0.84925849999999992 -0.33096214099999993 2.7251627679999997 ]
+New &quot;LineCode.603&quot; NPhases=2 BaseFreq=60 RMatrix=[0.25178030299999998 |0.039128787999999998 0.25071969700000002 ] XMatrix=[0.255132576 |0.086950758000000003 0.25698863599999999 ] CMatrix=[2.366017603 |-0.45208383599999996 2.3439635079999999 ]
+New &quot;LineCode.604&quot; NPhases=2 BaseFreq=60 RMatrix=[0.25071969700000002 |0.039128787999999998 0.25178030299999998 ] XMatrix=[0.25698863599999999 |0.086950758000000003 0.255132576 ] CMatrix=[2.3439635079999999 |-0.45208383599999996 2.366017603 ]
+New &quot;LineCode.605&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25174242400000002 ] XMatrix=[0.25520833300000001 ] CMatrix=[2.270366128 ]
+New &quot;LineCode.606&quot; NPhases=3 BaseFreq=60 RMatrix=[0.15117424199999999 |0.060454544999999998 0.14945075799999999 |0.053958332999999997 0.060454544999999998 0.15117424199999999 ] XMatrix=[0.084526514999999997 |0.0062121210000000001 0.076534090999999999 |-0.0027083329999999998 0.0062121210000000001 0.084526514999999997 ] CMatrix=[48.674594079999999 |0 48.674594079999999 |0 0 48.674594079999999 ]
+New &quot;LineCode.607&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25426136399999999 ] XMatrix=[0.097045455000000003 ] CMatrix=[44.706615220000003 ]
+New &quot;LineCode.721&quot; NPhases=3 BaseFreq=60 RMatrix=[0.055416667000000003 |0.012746212 0.050113636000000003 |0.006382576 0.012746212 0.055416667000000003 ] XMatrix=[0.037367424000000003 |-0.0069696970000000004 0.035984848 |-0.0078977270000000002 -0.0069696970000000004 0.037367424000000003 ] CMatrix=[80.274847280000003 |0 80.274847280000003 |0 0 80.274847280000003 ]
+New &quot;LineCode.722&quot; NPhases=3 BaseFreq=60 RMatrix=[0.089981061000000001 |0.030852273 0.085000000000000006 |0.023371211999999999 0.030852273 0.089981061000000001 ] XMatrix=[0.056306818000000002 |-0.0061742419999999999 0.050719697000000001 |-0.011496212 -0.0061742419999999999 0.056306818000000002 ] CMatrix=[64.218410899999995 |0 64.218410899999995 |0 0 64.218410899999995 ]
+New &quot;LineCode.723&quot; NPhases=3 BaseFreq=60 RMatrix=[0.245 |0.092253788000000003 0.24662878799999999 |0.086837121000000003 0.092253788000000003 0.245 ] XMatrix=[0.12714015200000001 |0.039981060999999998 0.119810606 |0.028806818000000001 0.039981060999999998 0.12714015200000001 ] CMatrix=[37.597711199999999 |0 37.597711199999999 |0 0 37.597711199999999 ]
+New &quot;LineCode.724&quot; NPhases=3 BaseFreq=60 RMatrix=[0.39681818200000002 |0.098560605999999995 0.39901515199999998 |0.093295454999999999 0.098560605999999995 0.39681818200000002 ] XMatrix=[0.14693181799999999 |0.051856061000000002 0.14011363600000001 |0.040208332999999999 0.051856061000000002 0.14693181799999999 ] CMatrix=[30.267010290000005 |0 30.267010290000005 |0 0 30.267010290000005 ]
+New &quot;LineCode.mtx601&quot; NPhases=3 BaseFreq=60 RMatrix=[0.34649999999999997 |0.156 0.33750000000000002 |0.158 0.1535 0.34139999999999998 ] XMatrix=[1.0179 |0.50170000000000003 1.0478000000000001 |0.42359999999999998 0.38490000000000002 1.0347999999999999 ] Units=mi
+New &quot;LineCode.mtx602&quot; NPhases=3 BaseFreq=60 RMatrix=[0.75260000000000005 |0.158 0.74750000000000005 |0.156 0.1535 0.74360000000000004 ] XMatrix=[1.1814 |0.42359999999999998 1.1982999999999999 |0.50170000000000003 0.38490000000000002 1.2112000000000001 ] Units=mi
+New &quot;LineCode.mtx603&quot; NPhases=2 BaseFreq=60 RMatrix=[1.3238000000000001 |0.20660000000000001 1.3293999999999999 ] XMatrix=[1.3569 |0.45910000000000001 1.3471 ] Units=mi
+New &quot;LineCode.mtx604&quot; NPhases=2 BaseFreq=60 RMatrix=[1.3238000000000001 |0.20660000000000001 1.3293999999999999 ] XMatrix=[1.3569 |0.45910000000000001 1.3471 ] Units=mi
+New &quot;LineCode.mtx605&quot; NPhases=1 BaseFreq=60 RMatrix=[1.3291999999999999 ] XMatrix=[1.3474999999999999 ] Units=mi
+New &quot;LineCode.mtx606&quot; NPhases=3 Units=mi RMatrix=[0.79172100000000001 |0.31847599999999998 0.78164900000000004 |0.28344999999999998 0.31847599999999998 0.79172100000000001 ] XMatrix=[0.43835200000000002 |0.027683800000000001 0.39669700000000002 |-0.0184204 0.027683800000000001 0.43835200000000002 ] CMatrix=[383.94800000000004 |0 383.94800000000004 |0 0 383.94800000000004 ]
+New &quot;LineCode.mtx607&quot; NPhases=1 BaseFreq=60 RMatrix=[1.3425 ] XMatrix=[0.51239999999999997 ] CMatrix=[236 ] Units=mi
+New &quot;LoadShape.default&quot; NPts=24 Interval=1 Mult=[ 0.67700000000000005 0.62560000000000004 0.60870000000000002 0.58330000000000004 0.58028000000000002 0.60250000000000004 0.65700000000000003 0.74770000000000003 0.83199999999999996 0.88 0.93999999999999995 0.98899999999999999 0.98499999999999999 0.97999999999999998 0.98980000000000001 0.999 1 0.95799999999999996 0.93600000000000005 0.91300000000000003 0.876 0.876 0.82799999999999996 0.75600000000000001]
+New &quot;GrowthShape.default&quot; NPts=2 Year=[ 1 20] Mult=[ 1.0249999999999999 1.0249999999999999]
+New &quot;TCC_Curve.a&quot; NPts=5 C_Array=[ 1 2.5 4.5 8 14] T_Array=[ 0.14999999999999999 0.070000000000000007 0.050000000000000003 0.044999999999999998 0.044999999999999998]
+New &quot;TCC_Curve.d&quot; NPts=5 C_Array=[ 1 2.5 4.5 8 14] T_Array=[ 6 0.69999999999999996 0.20000000000000001 0.059999999999999998 0.02]
+New &quot;TCC_Curve.tlink&quot; NPts=7 C_Array=[ 2 2.1000000000000001 3 4 6 22 50] T_Array=[ 300 100 10.1 4 1.3999999999999999 0.10000000000000001 0.02]
+New &quot;TCC_Curve.klink&quot; NPts=6 C_Array=[ 2 2.2000000000000002 3 4 6 30] T_Array=[ 300 20 4 1.3 0.40999999999999998 0.02]
+New &quot;TCC_Curve.uv1547&quot; NPts=2 C_Array=[ 0.5 0.90000000000000002] T_Array=[ 0.16600000000000001 2]
+New &quot;TCC_Curve.ov1547&quot; NPts=2 C_Array=[ 1.1000000000000001 1.2] T_Array=[ 2 0.16600000000000001]
+New &quot;TCC_Curve.mod_inv&quot; NPts=15 C_Array=[ 1.1000000000000001 1.3 1.5 2 3 4 5 6 7 8 9 10 20 50 100] T_Array=[ 27.1053 9.9029000000000007 6.4390000000000001 3.8031999999999999 2.4321999999999999 1.9458 1.6882999999999999 1.5255000000000001 1.4117 1.3267 1.2604 1.2068000000000001 0.94810000000000005 0.74680000000000002 0.64780000000000004]
+New &quot;TCC_Curve.very_inv&quot; NPts=15 C_Array=[ 1.1000000000000001 1.3 1.5 2 3 4 5 6 7 8 9 10 20 50 100] T_Array=[ 93.872 28.911300000000001 16.178999999999998 7.0277000000000003 2.9422999999999999 1.7983 1.3081 1.0512999999999999 0.89949999999999997 0.80230000000000001 0.73609999999999998 0.68910000000000005 0.54010000000000002 0.49880000000000002 0.49299999999999999]
+New &quot;TCC_Curve.ext_inv&quot; NPts=15 C_Array=[ 1.1000000000000001 1.3 1.5 2 3 4 5 6 7 8 9 10 20 50 100] T_Array=[ 134.4074 40.991300000000003 22.681699999999999 9.5216999999999992 3.6467000000000001 2.0017 1.2967 0.9274 0.70920000000000005 0.56930000000000003 0.47420000000000001 0.40649999999999997 0.19239999999999999 0.13300000000000001 0.1245]
+New &quot;TCC_Curve.definite&quot; NPts=3 C_Array=[ 1 1.0009999999999999 100] T_Array=[ 300 1 1]
+New &quot;Spectrum.default&quot; NumHarm=7 Harmonic=[ 1 3 5 7 9 11 13] %Mag=[ 100 33 20 14.000000000000002 11 9 7.0000000000000009] Angle=[ 0 0 0 0 0 0 0]
+New &quot;Spectrum.defaultload&quot; NumHarm=7 Harmonic=[ 1 3 5 7 9 11 13] %Mag=[ 100 1.5 20 14.000000000000002 1 9 7.0000000000000009] Angle=[ 0 180 180 180 180 180 180]
+New &quot;Spectrum.defaultgen&quot; NumHarm=7 Harmonic=[ 1 3 5 7 9 11 13] %Mag=[ 100 5 3 1.5 1 0.69999999999999996 0.5] Angle=[ 0 0 0 0 0 0 0]
+New &quot;Spectrum.defaultvsource&quot; NumHarm=1 Harmonic=[ 1] %Mag=[ 100] Angle=[ 0]
+New &quot;Spectrum.linear&quot; NumHarm=1 Harmonic=[ 1] %Mag=[ 100] Angle=[ 0]
+New &quot;Spectrum.pwm6&quot; NumHarm=13 Harmonic=[ 1 3 5 7 9 11 13 15 17 19 21 23 25] %Mag=[ 100 4.4000000000000004 76.5 62.699999999999996 2.8999999999999999 24.800000000000001 12.699999999999999 0.5 7.0999999999999996 8.4000000000000004 0.90000000000000013 4.4000000000000004 3.3000000000000003] Angle=[ -103 -5 28 -180 -33 -59 79 36 -253 -124 3 -30 86]
+New &quot;Spectrum.dc6&quot; NumHarm=10 Harmonic=[ 1 3 5 7 9 11 13 15 17 19] %Mag=[ 100 1.2 33.600000000000001 1.6000000000000001 0.40000000000000002 8.6999999999999993 1.2 0.29999999999999999 4.5 1.3] Angle=[ -75 28 156 29 -91 49 54 148 -57 -46]
+Edit &quot;Vsource.source&quot; BasekV=115 pu=1.0001 Phases=3 Bus1=sourcebus Angle=30 MVASC3=20000 MVASC1=21000
+New &quot;Line.650632&quot; Phases=3 Bus1=rg60.1.2.3 Bus2=632.1.2.3 LineCode=mtx601 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=2000 Units=ft
+New &quot;Line.632670&quot; Phases=3 Bus1=632.1.2.3 Bus2=670.1.2.3 LineCode=mtx601 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=667 Units=ft
+New &quot;Line.670671&quot; Phases=3 Bus1=670.1.2.3 Bus2=671.1.2.3 LineCode=mtx601 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=1333 Units=ft
+New &quot;Line.671680&quot; Phases=3 Bus1=671.1.2.3 Bus2=680.1.2.3 LineCode=mtx601 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=1000 Units=ft
+New &quot;Line.632633&quot; Phases=3 Bus1=632.1.2.3 Bus2=633.1.2.3 LineCode=mtx602 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=500 Units=ft
+New &quot;Line.632645&quot; Phases=2 Bus1=632.3.2 Bus2=645.3.2 LineCode=mtx603 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=500 Units=ft
+New &quot;Line.645646&quot; Phases=2 Bus1=645.3.2 Bus2=646.3.2 LineCode=mtx603 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=300 Units=ft
+New &quot;Line.692675&quot; Phases=3 Bus1=692.1.2.3 Bus2=675.1.2.3 LineCode=mtx606 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=500 Units=ft
+New &quot;Line.671684&quot; Phases=2 Bus1=671.1.3 Bus2=684.1.3 LineCode=mtx604 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=300 Units=ft
+New &quot;Line.684611&quot; Phases=1 Bus1=684.3 Bus2=611.3 LineCode=mtx605 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=300 Units=ft
+New &quot;Line.684652&quot; Phases=1 Bus1=684.1 Bus2=652.1 LineCode=mtx607 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=800 Units=ft
+New &quot;Line.671692&quot; Phases=3 Bus1=671 Bus2=692 Switch=Yes Length=0.001 Units=none R1=0.0001 R0=0.0001 X1=0 X0=0 C1=0 C0=0
+New &quot;Load.671&quot; Bus1=671.1.2.3 Phases=3 Conn=delta Model=1 kV=4.16 kW=1155 kvar=660
+New &quot;Load.634a&quot; Bus1=634.1 Phases=1 Conn=wye Model=1 kV=0.277 kW=160 kvar=110
+New &quot;Load.634b&quot; Bus1=634.2 Phases=1 Conn=wye Model=1 kV=0.277 kW=120 kvar=90
+New &quot;Load.634c&quot; Bus1=634.3 Phases=1 Conn=wye Model=1 kV=0.277 kW=120 kvar=90
+New &quot;Load.645&quot; Bus1=645.2 Phases=1 Conn=wye Model=1 kV=2.4 kW=170 kvar=125
+New &quot;Load.646&quot; Bus1=646.2.3 Phases=1 Conn=delta Model=2 kV=4.16 kW=230 kvar=132
+New &quot;Load.692&quot; Bus1=692.3.1 Phases=1 Conn=delta Model=5 kV=4.16 kW=170 kvar=151
+New &quot;Load.675a&quot; Bus1=675.1 Phases=1 Conn=wye Model=1 kV=2.4 kW=485 kvar=190
+New &quot;Load.675b&quot; Bus1=675.2 Phases=1 Conn=wye Model=1 kV=2.4 kW=68 kvar=60
+New &quot;Load.675c&quot; Bus1=675.3 Phases=1 Conn=wye Model=1 kV=2.4 kW=290 kvar=212
+New &quot;Load.611&quot; Bus1=611.3 Phases=1 Conn=wye Model=5 kV=2.4 kW=170 kvar=80
+New &quot;Load.652&quot; Bus1=652.1 Phases=1 Conn=wye Model=2 kV=2.4 kW=128 kvar=86
+New &quot;Load.670a&quot; Bus1=670.1 Phases=1 Conn=wye Model=1 kV=2.4 kW=17 kvar=10
+New &quot;Load.670b&quot; Bus1=670.2 Phases=1 Conn=wye Model=1 kV=2.4 kW=66 kvar=38
+New &quot;Load.670c&quot; Bus1=670.3 Phases=1 Conn=wye Model=1 kV=2.4 kW=117 kvar=68
+New &quot;Transformer.sub&quot; Phases=3 Windings=2 XHL=0.008 Buses=[sourcebus, 650, ] Conns=[delta, wye, ] kVs=[115, 4.1600000000000001, ] kVAs=[5000, 5000, ] Taps=[1, 1, ] %Rs=[0.00050000000000000001, 0.00050000000000000001, ] Wdg=1 Wdg=2
+New &quot;Transformer.reg1&quot; Phases=1 Bank=reg1 XHL=0.01 kVAs=[1666, 1666, ] Buses=[650.1, rg60.1, ] kVs=[2.3999999999999999, 2.3999999999999999, ] %LoadLoss=0.01
+New &quot;Transformer.reg2&quot; Phases=1 Bank=reg1 XHL=0.01 kVAs=[1666, 1666, ] Buses=[650.2, rg60.2, ] kVs=[2.3999999999999999, 2.3999999999999999, ] %LoadLoss=0.01
+New &quot;Transformer.reg3&quot; Phases=1 Bank=reg1 XHL=0.01 kVAs=[1666, 1666, ] Buses=[650.3, rg60.3, ] kVs=[2.3999999999999999, 2.3999999999999999, ] %LoadLoss=0.01
+New &quot;Transformer.xfm1&quot; Phases=3 Windings=2 XHL=2 Buses=[633, 634, ] Conns=[wye, wye, ] kVs=[4.1600000000000001, 0.47999999999999998, ] kVAs=[500, 500, ] Taps=[1, 1, ] %Rs=[0.55000000000000004, 0.55000000000000004, ] Wdg=1 Wdg=2
+New &quot;RegControl.reg1&quot; Transformer=reg1 Winding=2 VReg=122 Band=2 PTRatio=20 CTPrim=700 R=3 X=9
+New &quot;RegControl.reg2&quot; Transformer=reg2 Winding=2 VReg=122 Band=2 PTRatio=20 CTPrim=700 R=3 X=9
+New &quot;RegControl.reg3&quot; Transformer=reg3 Winding=2 VReg=122 Band=2 PTRatio=20 CTPrim=700 R=3 X=9
+New &quot;Capacitor.cap1&quot; Bus1=675 Phases=3 kvar=[ 600] kV=4.16
+New &quot;Capacitor.cap2&quot; Bus1=611.3 Phases=1 kvar=[ 100] kV=2.4
+MakeBusList
+Set VoltageBases=(115, 4.1600000000000001, 0.47999999999999998, )
+! CalcVoltageBases
+SetBusXY Bus=sourcebus X=200 Y=400
+SetBusXY Bus=650 X=200 Y=350
+SetBusXY Bus=rg60 X=200 Y=300
+SetBusXY Bus=633 X=350 Y=250
+SetBusXY Bus=634 X=400 Y=250
+SetBusXY Bus=671 X=200 Y=100
+SetBusXY Bus=645 X=100 Y=250
+SetBusXY Bus=646 X=0 Y=250
+SetBusXY Bus=692 X=250 Y=100
+SetBusXY Bus=675 X=400 Y=100
+SetBusXY Bus=611 X=0 Y=100
+SetBusXY Bus=652 X=100 Y=0
+SetBusXY Bus=670 X=200 Y=200
+SetBusXY Bus=632 X=200 Y=250
+SetBusXY Bus=680 X=200 Y=0
+SetBusXY Bus=684 X=100 Y=100
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exporting-directly-to-a-string">
+<h2>Exporting directly to a string<a class="headerlink" href="#exporting-directly-to-a-string" title="Link to this heading">#</a></h2>
+<p>One basic feature is to save circuits directly to a string, which is returned by the function. This is very useful for both inspecting and copying the data to another process.</p>
+<p>Let’s use the IEEE13 circuit since it’s not too large. Even for this circuit, we can notice that a lot of the text is not user-provided data, but the default OpenDSS items (the basic items created automatically for every circuit).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">odd</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;redirect &quot;</span><span class="si">{</span><span class="n">IEEE13_PATH</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">saved_data_from_str</span> <span class="o">=</span> <span class="n">odd</span><span class="o">.</span><span class="n">Circuit</span><span class="o">.</span><span class="n">Save</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">SingleFile</span><span class="o">|</span><span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">ToString</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Besides the timestamp from the comment, the data is the save as when saved to the file:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">saved_data_from_str</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>! Last saved by AltDSS/DSS C-API Library version 0.14.1 revision 8b3da5b576f4dedd16d2bfb88bfb911c0aca3783 based on OpenDSS SVN 3723 [FPC 3.2.2] (64-bit build) MVMULT INCREMENTAL_Y CONTEXT_API PM 20240217013457 on 2024-02-21T23:45:11.045Z
+Clear
+Set DefaultBaseFreq=60
+New Circuit.ieee13nodeckt
+
+Set EarthModel=Deri
+
+New &quot;LineCode.1&quot; NPhases=3 BaseFreq=60 RMatrix=[0.086666667000000003 |0.029545455000000002 0.088371212000000005 |0.029071969999999999 0.029924242 0.087405303000000004 ] XMatrix=[0.204166667 |0.095018938999999997 0.19852272700000001 |0.072897726999999996 0.080227273000000002 0.20172348500000001 ] CMatrix=[2.8517100719999999 |-0.92029378699999997 3.0046318620000001 |-0.35075556600000002 -0.58501125300000001 2.7113475600000001 ]
+New &quot;LineCode.2&quot; NPhases=3 BaseFreq=60 RMatrix=[0.088371212000000005 |0.029924240000000001 0.087405303000000004 |0.029545455000000002 0.029071969999999999 0.086666667000000003 ] XMatrix=[0.19852272700000001 |0.080227273000000002 0.20172348500000001 |0.095018938999999997 0.072897726999999996 0.204166667 ] CMatrix=[3.0046318620000001 |-0.58501125300000001 2.7113475600000001 |-0.92029378699999997 -0.35075556600000002 2.8517100719999999 ]
+New &quot;LineCode.3&quot; NPhases=3 BaseFreq=60 RMatrix=[0.087405303000000004 |0.029071969999999999 0.086666667000000003 |0.029924242 0.029545455000000002 0.088371212000000005 ] XMatrix=[0.20172348500000001 |0.072897726999999996 0.204166667 |0.080227273000000002 0.095018938999999997 0.19852272700000001 ] CMatrix=[2.7113475600000001 |-0.35075556600000002 2.8517100719999999 |-0.58501125300000001 -0.92029378699999997 3.0046318620000001 ]
+New &quot;LineCode.4&quot; NPhases=3 BaseFreq=60 RMatrix=[0.087405303000000004 |0.029924242 0.088371212000000005 |0.029071969999999999 0.029545455000000002 0.086666667000000003 ] XMatrix=[0.20172348500000001 |0.080227273000000002 0.19852272700000001 |0.072897726999999996 0.095018938999999997 0.204166667 ] CMatrix=[2.7113475600000001 |-0.58501125300000001 3.0046318620000001 |-0.35075556600000002 -0.92029378699999997 2.8517100719999999 ]
+New &quot;LineCode.5&quot; NPhases=3 BaseFreq=60 RMatrix=[0.088371212000000005 |0.029545455000000002 0.086666667000000003 |0.029924242 0.029071969999999999 0.087405303000000004 ] XMatrix=[0.19852272700000001 |0.095018938999999997 0.204166667 |0.080227273000000002 0.072897726999999996 0.20172348500000001 ] CMatrix=[3.0046318620000001 |-0.92029378699999997 2.8517100719999999 |-0.58501125300000001 -0.35075556600000002 2.7113475600000001 ]
+New &quot;LineCode.6&quot; NPhases=3 BaseFreq=60 RMatrix=[0.086666667000000003 |0.029071969999999999 0.087405303000000004 |0.029545455000000002 0.029924242 0.088371212000000005 ] XMatrix=[0.204166667 |0.072897726999999996 0.20172348500000001 |0.095018938999999997 0.080227273000000002 0.19852272700000001 ] CMatrix=[2.8517100719999999 |-0.35075556600000002 2.7113475600000001 |-0.92029378699999997 -0.58501125300000001 3.0046318620000001 ]
+New &quot;LineCode.7&quot; NPhases=2 BaseFreq=60 RMatrix=[0.086666667000000003 |0.029071969999999999 0.087405303000000004 ] XMatrix=[0.204166667 |0.072897726999999996 0.20172348500000001 ] CMatrix=[2.5698295959999999 |-0.52995137000000003 2.5974600109999999 ]
+New &quot;LineCode.8&quot; NPhases=2 BaseFreq=60 RMatrix=[0.086666667000000003 |0.029071969999999999 0.087405303000000004 ] XMatrix=[0.204166667 |0.072897726999999996 0.20172348500000001 ] CMatrix=[2.5698295959999999 |-0.52995137000000003 2.5974600109999999 ]
+New &quot;LineCode.9&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25174242400000002 ] XMatrix=[0.25520833300000001 ] CMatrix=[2.270366128 ]
+New &quot;LineCode.10&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25174242400000002 ] XMatrix=[0.25520833300000001 ] CMatrix=[2.270366128 ]
+New &quot;LineCode.11&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25174242400000002 ] XMatrix=[0.25520833300000001 ] CMatrix=[2.270366128 ]
+New &quot;LineCode.12&quot; NPhases=3 BaseFreq=60 RMatrix=[0.28804924199999998 |0.098446969999999995 0.29032196999999998 |0.093257575999999995 0.098446969999999995 0.28804924199999998 ] XMatrix=[0.142443182 |0.052556817999999998 0.13564393899999999 |0.040852273000000001 0.052556817999999998 0.142443182 ] CMatrix=[33.771501489999999 |0 33.771501489999999 |0 0 33.771501489999999 ]
+New &quot;LineCode.300&quot; NPhases=3 BaseFreq=60 RMatrix=[0.253181818 |0.039791667000000003 0.25071969700000002 |0.040340909000000001 0.039128787999999998 0.25178030299999998 ] XMatrix=[0.25270833300000001 |0.109450758 0.25698863599999999 |0.094981061000000006 0.086950758000000003 0.255132576 ] CMatrix=[2.6801503090000001 |-0.76928100600000004 2.5610381000000002 |-0.49950767600000001 -0.312072984 2.455590387 ]
+New &quot;LineCode.301&quot; NPhases=3 BaseFreq=60 RMatrix=[0.365530303 |0.044071970000000002 0.36282196999999999 |0.044678030000000001 0.043333333000000002 0.36399621199999999 ] XMatrix=[0.267329545 |0.12200757600000001 0.27047348500000001 |0.107784091 0.099204545000000005 0.26910984799999998 ] CMatrix=[2.5724921630000002 |-0.72160597999999998 2.4643818820000001 |-0.47232939499999999 -0.29896109599999998 2.3688811190000001 ]
+New &quot;LineCode.302&quot; NPhases=1 BaseFreq=60 RMatrix=[0.53020800000000001 ] XMatrix=[0.28134500000000001 ] CMatrix=[2.1225700000000001 ]
+New &quot;LineCode.303&quot; NPhases=1 BaseFreq=60 RMatrix=[0.53020800000000001 ] XMatrix=[0.28134500000000001 ] CMatrix=[2.1225700000000001 ]
+New &quot;LineCode.304&quot; NPhases=1 BaseFreq=60 RMatrix=[0.363958 ] XMatrix=[0.26916699999999999 ] CMatrix=[2.1922000000000001 ]
+New &quot;LineCode.400&quot; NPhases=3 BaseFreq=60 RMatrix=[0.088205000000000006 |0.0312137 0.0901946 |0.030626400000000002 0.031614299999999998 0.088966500000000004 ] XMatrix=[0.20744000000000001 |0.093531400000000001 0.20078299999999999 |0.076031199999999993 0.085587899999999995 0.204877 ] CMatrix=[2.9030100000000001 |-0.67933500000000002 3.15896 |-0.22313 -0.48141600000000001 2.8965000000000001 ]
+New &quot;LineCode.601&quot; NPhases=3 BaseFreq=60 RMatrix=[0.065625000000000003 |0.029545455000000002 0.063920455000000001 |0.029924242 0.029071969999999999 0.064659091000000002 ] XMatrix=[0.19278409099999999 |0.095018938999999997 0.19844697 |0.080227273000000002 0.072897726999999996 0.19598484799999999 ] CMatrix=[3.1648380359999999 |-1.002632425 2.993981593 |-0.63273651600000003 -0.37260871299999992 2.8326702030000002 ]
+New &quot;LineCode.602&quot; NPhases=3 BaseFreq=60 RMatrix=[0.14253787900000001 |0.029924242 0.14157196999999999 |0.029545455000000002 0.029071969999999999 0.14083333300000001 ] XMatrix=[0.22375 |0.080227273000000002 0.226950758 |0.095018938999999997 0.072897726999999996 0.22939393899999999 ] CMatrix=[2.8630134229999999 |-0.54341491799999997 2.6020315890000001 |-0.84925849999999992 -0.33096214099999993 2.7251627679999997 ]
+New &quot;LineCode.603&quot; NPhases=2 BaseFreq=60 RMatrix=[0.25178030299999998 |0.039128787999999998 0.25071969700000002 ] XMatrix=[0.255132576 |0.086950758000000003 0.25698863599999999 ] CMatrix=[2.366017603 |-0.45208383599999996 2.3439635079999999 ]
+New &quot;LineCode.604&quot; NPhases=2 BaseFreq=60 RMatrix=[0.25071969700000002 |0.039128787999999998 0.25178030299999998 ] XMatrix=[0.25698863599999999 |0.086950758000000003 0.255132576 ] CMatrix=[2.3439635079999999 |-0.45208383599999996 2.366017603 ]
+New &quot;LineCode.605&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25174242400000002 ] XMatrix=[0.25520833300000001 ] CMatrix=[2.270366128 ]
+New &quot;LineCode.606&quot; NPhases=3 BaseFreq=60 RMatrix=[0.15117424199999999 |0.060454544999999998 0.14945075799999999 |0.053958332999999997 0.060454544999999998 0.15117424199999999 ] XMatrix=[0.084526514999999997 |0.0062121210000000001 0.076534090999999999 |-0.0027083329999999998 0.0062121210000000001 0.084526514999999997 ] CMatrix=[48.674594079999999 |0 48.674594079999999 |0 0 48.674594079999999 ]
+New &quot;LineCode.607&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25426136399999999 ] XMatrix=[0.097045455000000003 ] CMatrix=[44.706615220000003 ]
+New &quot;LineCode.721&quot; NPhases=3 BaseFreq=60 RMatrix=[0.055416667000000003 |0.012746212 0.050113636000000003 |0.006382576 0.012746212 0.055416667000000003 ] XMatrix=[0.037367424000000003 |-0.0069696970000000004 0.035984848 |-0.0078977270000000002 -0.0069696970000000004 0.037367424000000003 ] CMatrix=[80.274847280000003 |0 80.274847280000003 |0 0 80.274847280000003 ]
+New &quot;LineCode.722&quot; NPhases=3 BaseFreq=60 RMatrix=[0.089981061000000001 |0.030852273 0.085000000000000006 |0.023371211999999999 0.030852273 0.089981061000000001 ] XMatrix=[0.056306818000000002 |-0.0061742419999999999 0.050719697000000001 |-0.011496212 -0.0061742419999999999 0.056306818000000002 ] CMatrix=[64.218410899999995 |0 64.218410899999995 |0 0 64.218410899999995 ]
+New &quot;LineCode.723&quot; NPhases=3 BaseFreq=60 RMatrix=[0.245 |0.092253788000000003 0.24662878799999999 |0.086837121000000003 0.092253788000000003 0.245 ] XMatrix=[0.12714015200000001 |0.039981060999999998 0.119810606 |0.028806818000000001 0.039981060999999998 0.12714015200000001 ] CMatrix=[37.597711199999999 |0 37.597711199999999 |0 0 37.597711199999999 ]
+New &quot;LineCode.724&quot; NPhases=3 BaseFreq=60 RMatrix=[0.39681818200000002 |0.098560605999999995 0.39901515199999998 |0.093295454999999999 0.098560605999999995 0.39681818200000002 ] XMatrix=[0.14693181799999999 |0.051856061000000002 0.14011363600000001 |0.040208332999999999 0.051856061000000002 0.14693181799999999 ] CMatrix=[30.267010290000005 |0 30.267010290000005 |0 0 30.267010290000005 ]
+New &quot;LineCode.mtx601&quot; NPhases=3 BaseFreq=60 RMatrix=[0.34649999999999997 |0.156 0.33750000000000002 |0.158 0.1535 0.34139999999999998 ] XMatrix=[1.0179 |0.50170000000000003 1.0478000000000001 |0.42359999999999998 0.38490000000000002 1.0347999999999999 ] Units=mi
+New &quot;LineCode.mtx602&quot; NPhases=3 BaseFreq=60 RMatrix=[0.75260000000000005 |0.158 0.74750000000000005 |0.156 0.1535 0.74360000000000004 ] XMatrix=[1.1814 |0.42359999999999998 1.1982999999999999 |0.50170000000000003 0.38490000000000002 1.2112000000000001 ] Units=mi
+New &quot;LineCode.mtx603&quot; NPhases=2 BaseFreq=60 RMatrix=[1.3238000000000001 |0.20660000000000001 1.3293999999999999 ] XMatrix=[1.3569 |0.45910000000000001 1.3471 ] Units=mi
+New &quot;LineCode.mtx604&quot; NPhases=2 BaseFreq=60 RMatrix=[1.3238000000000001 |0.20660000000000001 1.3293999999999999 ] XMatrix=[1.3569 |0.45910000000000001 1.3471 ] Units=mi
+New &quot;LineCode.mtx605&quot; NPhases=1 BaseFreq=60 RMatrix=[1.3291999999999999 ] XMatrix=[1.3474999999999999 ] Units=mi
+New &quot;LineCode.mtx606&quot; NPhases=3 Units=mi RMatrix=[0.79172100000000001 |0.31847599999999998 0.78164900000000004 |0.28344999999999998 0.31847599999999998 0.79172100000000001 ] XMatrix=[0.43835200000000002 |0.027683800000000001 0.39669700000000002 |-0.0184204 0.027683800000000001 0.43835200000000002 ] CMatrix=[383.94800000000004 |0 383.94800000000004 |0 0 383.94800000000004 ]
+New &quot;LineCode.mtx607&quot; NPhases=1 BaseFreq=60 RMatrix=[1.3425 ] XMatrix=[0.51239999999999997 ] CMatrix=[236 ] Units=mi
+New &quot;LoadShape.default&quot; NPts=24 Interval=1 Mult=[ 0.67700000000000005 0.62560000000000004 0.60870000000000002 0.58330000000000004 0.58028000000000002 0.60250000000000004 0.65700000000000003 0.74770000000000003 0.83199999999999996 0.88 0.93999999999999995 0.98899999999999999 0.98499999999999999 0.97999999999999998 0.98980000000000001 0.999 1 0.95799999999999996 0.93600000000000005 0.91300000000000003 0.876 0.876 0.82799999999999996 0.75600000000000001]
+New &quot;GrowthShape.default&quot; NPts=2 Year=[ 1 20] Mult=[ 1.0249999999999999 1.0249999999999999]
+New &quot;TCC_Curve.a&quot; NPts=5 C_Array=[ 1 2.5 4.5 8 14] T_Array=[ 0.14999999999999999 0.070000000000000007 0.050000000000000003 0.044999999999999998 0.044999999999999998]
+New &quot;TCC_Curve.d&quot; NPts=5 C_Array=[ 1 2.5 4.5 8 14] T_Array=[ 6 0.69999999999999996 0.20000000000000001 0.059999999999999998 0.02]
+New &quot;TCC_Curve.tlink&quot; NPts=7 C_Array=[ 2 2.1000000000000001 3 4 6 22 50] T_Array=[ 300 100 10.1 4 1.3999999999999999 0.10000000000000001 0.02]
+New &quot;TCC_Curve.klink&quot; NPts=6 C_Array=[ 2 2.2000000000000002 3 4 6 30] T_Array=[ 300 20 4 1.3 0.40999999999999998 0.02]
+New &quot;TCC_Curve.uv1547&quot; NPts=2 C_Array=[ 0.5 0.90000000000000002] T_Array=[ 0.16600000000000001 2]
+New &quot;TCC_Curve.ov1547&quot; NPts=2 C_Array=[ 1.1000000000000001 1.2] T_Array=[ 2 0.16600000000000001]
+New &quot;TCC_Curve.mod_inv&quot; NPts=15 C_Array=[ 1.1000000000000001 1.3 1.5 2 3 4 5 6 7 8 9 10 20 50 100] T_Array=[ 27.1053 9.9029000000000007 6.4390000000000001 3.8031999999999999 2.4321999999999999 1.9458 1.6882999999999999 1.5255000000000001 1.4117 1.3267 1.2604 1.2068000000000001 0.94810000000000005 0.74680000000000002 0.64780000000000004]
+New &quot;TCC_Curve.very_inv&quot; NPts=15 C_Array=[ 1.1000000000000001 1.3 1.5 2 3 4 5 6 7 8 9 10 20 50 100] T_Array=[ 93.872 28.911300000000001 16.178999999999998 7.0277000000000003 2.9422999999999999 1.7983 1.3081 1.0512999999999999 0.89949999999999997 0.80230000000000001 0.73609999999999998 0.68910000000000005 0.54010000000000002 0.49880000000000002 0.49299999999999999]
+New &quot;TCC_Curve.ext_inv&quot; NPts=15 C_Array=[ 1.1000000000000001 1.3 1.5 2 3 4 5 6 7 8 9 10 20 50 100] T_Array=[ 134.4074 40.991300000000003 22.681699999999999 9.5216999999999992 3.6467000000000001 2.0017 1.2967 0.9274 0.70920000000000005 0.56930000000000003 0.47420000000000001 0.40649999999999997 0.19239999999999999 0.13300000000000001 0.1245]
+New &quot;TCC_Curve.definite&quot; NPts=3 C_Array=[ 1 1.0009999999999999 100] T_Array=[ 300 1 1]
+New &quot;Spectrum.default&quot; NumHarm=7 Harmonic=[ 1 3 5 7 9 11 13] %Mag=[ 100 33 20 14.000000000000002 11 9 7.0000000000000009] Angle=[ 0 0 0 0 0 0 0]
+New &quot;Spectrum.defaultload&quot; NumHarm=7 Harmonic=[ 1 3 5 7 9 11 13] %Mag=[ 100 1.5 20 14.000000000000002 1 9 7.0000000000000009] Angle=[ 0 180 180 180 180 180 180]
+New &quot;Spectrum.defaultgen&quot; NumHarm=7 Harmonic=[ 1 3 5 7 9 11 13] %Mag=[ 100 5 3 1.5 1 0.69999999999999996 0.5] Angle=[ 0 0 0 0 0 0 0]
+New &quot;Spectrum.defaultvsource&quot; NumHarm=1 Harmonic=[ 1] %Mag=[ 100] Angle=[ 0]
+New &quot;Spectrum.linear&quot; NumHarm=1 Harmonic=[ 1] %Mag=[ 100] Angle=[ 0]
+New &quot;Spectrum.pwm6&quot; NumHarm=13 Harmonic=[ 1 3 5 7 9 11 13 15 17 19 21 23 25] %Mag=[ 100 4.4000000000000004 76.5 62.699999999999996 2.8999999999999999 24.800000000000001 12.699999999999999 0.5 7.0999999999999996 8.4000000000000004 0.90000000000000013 4.4000000000000004 3.3000000000000003] Angle=[ -103 -5 28 -180 -33 -59 79 36 -253 -124 3 -30 86]
+New &quot;Spectrum.dc6&quot; NumHarm=10 Harmonic=[ 1 3 5 7 9 11 13 15 17 19] %Mag=[ 100 1.2 33.600000000000001 1.6000000000000001 0.40000000000000002 8.6999999999999993 1.2 0.29999999999999999 4.5 1.3] Angle=[ -75 28 156 29 -91 49 54 148 -57 -46]
+Edit &quot;Vsource.source&quot; BasekV=115 pu=1.0001 Phases=3 Bus1=sourcebus Angle=30 MVASC3=20000 MVASC1=21000
+New &quot;Line.650632&quot; Phases=3 Bus1=rg60.1.2.3 Bus2=632.1.2.3 LineCode=mtx601 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=2000 Units=ft
+New &quot;Line.632670&quot; Phases=3 Bus1=632.1.2.3 Bus2=670.1.2.3 LineCode=mtx601 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=667 Units=ft
+New &quot;Line.670671&quot; Phases=3 Bus1=670.1.2.3 Bus2=671.1.2.3 LineCode=mtx601 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=1333 Units=ft
+New &quot;Line.671680&quot; Phases=3 Bus1=671.1.2.3 Bus2=680.1.2.3 LineCode=mtx601 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=1000 Units=ft
+New &quot;Line.632633&quot; Phases=3 Bus1=632.1.2.3 Bus2=633.1.2.3 LineCode=mtx602 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=500 Units=ft
+New &quot;Line.632645&quot; Phases=2 Bus1=632.3.2 Bus2=645.3.2 LineCode=mtx603 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=500 Units=ft
+New &quot;Line.645646&quot; Phases=2 Bus1=645.3.2 Bus2=646.3.2 LineCode=mtx603 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=300 Units=ft
+New &quot;Line.692675&quot; Phases=3 Bus1=692.1.2.3 Bus2=675.1.2.3 LineCode=mtx606 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=500 Units=ft
+New &quot;Line.671684&quot; Phases=2 Bus1=671.1.3 Bus2=684.1.3 LineCode=mtx604 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=300 Units=ft
+New &quot;Line.684611&quot; Phases=1 Bus1=684.3 Bus2=611.3 LineCode=mtx605 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=300 Units=ft
+New &quot;Line.684652&quot; Phases=1 Bus1=684.1 Bus2=652.1 LineCode=mtx607 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=800 Units=ft
+New &quot;Line.671692&quot; Phases=3 Bus1=671 Bus2=692 Switch=Yes Length=0.001 Units=none R1=0.0001 R0=0.0001 X1=0 X0=0 C1=0 C0=0
+New &quot;Load.671&quot; Bus1=671.1.2.3 Phases=3 Conn=delta Model=1 kV=4.16 kW=1155 kvar=660
+New &quot;Load.634a&quot; Bus1=634.1 Phases=1 Conn=wye Model=1 kV=0.277 kW=160 kvar=110
+New &quot;Load.634b&quot; Bus1=634.2 Phases=1 Conn=wye Model=1 kV=0.277 kW=120 kvar=90
+New &quot;Load.634c&quot; Bus1=634.3 Phases=1 Conn=wye Model=1 kV=0.277 kW=120 kvar=90
+New &quot;Load.645&quot; Bus1=645.2 Phases=1 Conn=wye Model=1 kV=2.4 kW=170 kvar=125
+New &quot;Load.646&quot; Bus1=646.2.3 Phases=1 Conn=delta Model=2 kV=4.16 kW=230 kvar=132
+New &quot;Load.692&quot; Bus1=692.3.1 Phases=1 Conn=delta Model=5 kV=4.16 kW=170 kvar=151
+New &quot;Load.675a&quot; Bus1=675.1 Phases=1 Conn=wye Model=1 kV=2.4 kW=485 kvar=190
+New &quot;Load.675b&quot; Bus1=675.2 Phases=1 Conn=wye Model=1 kV=2.4 kW=68 kvar=60
+New &quot;Load.675c&quot; Bus1=675.3 Phases=1 Conn=wye Model=1 kV=2.4 kW=290 kvar=212
+New &quot;Load.611&quot; Bus1=611.3 Phases=1 Conn=wye Model=5 kV=2.4 kW=170 kvar=80
+New &quot;Load.652&quot; Bus1=652.1 Phases=1 Conn=wye Model=2 kV=2.4 kW=128 kvar=86
+New &quot;Load.670a&quot; Bus1=670.1 Phases=1 Conn=wye Model=1 kV=2.4 kW=17 kvar=10
+New &quot;Load.670b&quot; Bus1=670.2 Phases=1 Conn=wye Model=1 kV=2.4 kW=66 kvar=38
+New &quot;Load.670c&quot; Bus1=670.3 Phases=1 Conn=wye Model=1 kV=2.4 kW=117 kvar=68
+New &quot;Transformer.sub&quot; Phases=3 Windings=2 XHL=0.008 Buses=[sourcebus, 650, ] Conns=[delta, wye, ] kVs=[115, 4.1600000000000001, ] kVAs=[5000, 5000, ] Taps=[1, 1, ] %Rs=[0.00050000000000000001, 0.00050000000000000001, ] Wdg=1 Wdg=2
+New &quot;Transformer.reg1&quot; Phases=1 Bank=reg1 XHL=0.01 kVAs=[1666, 1666, ] Buses=[650.1, rg60.1, ] kVs=[2.3999999999999999, 2.3999999999999999, ] %LoadLoss=0.01
+New &quot;Transformer.reg2&quot; Phases=1 Bank=reg1 XHL=0.01 kVAs=[1666, 1666, ] Buses=[650.2, rg60.2, ] kVs=[2.3999999999999999, 2.3999999999999999, ] %LoadLoss=0.01
+New &quot;Transformer.reg3&quot; Phases=1 Bank=reg1 XHL=0.01 kVAs=[1666, 1666, ] Buses=[650.3, rg60.3, ] kVs=[2.3999999999999999, 2.3999999999999999, ] %LoadLoss=0.01
+New &quot;Transformer.xfm1&quot; Phases=3 Windings=2 XHL=2 Buses=[633, 634, ] Conns=[wye, wye, ] kVs=[4.1600000000000001, 0.47999999999999998, ] kVAs=[500, 500, ] Taps=[1, 1, ] %Rs=[0.55000000000000004, 0.55000000000000004, ] Wdg=1 Wdg=2
+New &quot;RegControl.reg1&quot; Transformer=reg1 Winding=2 VReg=122 Band=2 PTRatio=20 CTPrim=700 R=3 X=9
+New &quot;RegControl.reg2&quot; Transformer=reg2 Winding=2 VReg=122 Band=2 PTRatio=20 CTPrim=700 R=3 X=9
+New &quot;RegControl.reg3&quot; Transformer=reg3 Winding=2 VReg=122 Band=2 PTRatio=20 CTPrim=700 R=3 X=9
+New &quot;Capacitor.cap1&quot; Bus1=675 Phases=3 kvar=[ 600] kV=4.16
+New &quot;Capacitor.cap2&quot; Bus1=611.3 Phases=1 kvar=[ 100] kV=2.4
+MakeBusList
+Set VoltageBases=(115, 4.1600000000000001, 0.47999999999999998, )
+! CalcVoltageBases
+SetBusXY Bus=sourcebus X=200 Y=400
+SetBusXY Bus=650 X=200 Y=350
+SetBusXY Bus=rg60 X=200 Y=300
+SetBusXY Bus=633 X=350 Y=250
+SetBusXY Bus=634 X=400 Y=250
+SetBusXY Bus=671 X=200 Y=100
+SetBusXY Bus=645 X=100 Y=250
+SetBusXY Bus=646 X=0 Y=250
+SetBusXY Bus=692 X=250 Y=100
+SetBusXY Bus=675 X=400 Y=100
+SetBusXY Bus=611 X=0 Y=100
+SetBusXY Bus=652 X=100 Y=0
+SetBusXY Bus=670 X=200 Y=200
+SetBusXY Bus=632 X=200 Y=250
+SetBusXY Bus=680 X=200 Y=0
+SetBusXY Bus=684 X=100 Y=100
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="supressing-defaults">
+<h2>Supressing defaults<a class="headerlink" href="#supressing-defaults" title="Link to this heading">#</a></h2>
+<p>Since most circuits do not actually use most of the default items, suppressing them can remove some noise from the output.</p>
+<p>Note that if a default object is edited, they will be</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">odd</span><span class="o">.</span><span class="n">Circuit</span><span class="o">.</span><span class="n">Save</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">SingleFile</span><span class="o">|</span><span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">ToString</span><span class="o">|</span><span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">ExcludeDefault</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>! Last saved by AltDSS/DSS C-API Library version 0.14.1 revision 8b3da5b576f4dedd16d2bfb88bfb911c0aca3783 based on OpenDSS SVN 3723 [FPC 3.2.2] (64-bit build) MVMULT INCREMENTAL_Y CONTEXT_API PM 20240217013457 on 2024-02-21T23:45:11.049Z
+Clear
+Set DefaultBaseFreq=60
+New Circuit.ieee13nodeckt
+
+Set EarthModel=Deri
+
+New &quot;LineCode.1&quot; NPhases=3 BaseFreq=60 RMatrix=[0.086666667000000003 |0.029545455000000002 0.088371212000000005 |0.029071969999999999 0.029924242 0.087405303000000004 ] XMatrix=[0.204166667 |0.095018938999999997 0.19852272700000001 |0.072897726999999996 0.080227273000000002 0.20172348500000001 ] CMatrix=[2.8517100719999999 |-0.92029378699999997 3.0046318620000001 |-0.35075556600000002 -0.58501125300000001 2.7113475600000001 ]
+New &quot;LineCode.2&quot; NPhases=3 BaseFreq=60 RMatrix=[0.088371212000000005 |0.029924240000000001 0.087405303000000004 |0.029545455000000002 0.029071969999999999 0.086666667000000003 ] XMatrix=[0.19852272700000001 |0.080227273000000002 0.20172348500000001 |0.095018938999999997 0.072897726999999996 0.204166667 ] CMatrix=[3.0046318620000001 |-0.58501125300000001 2.7113475600000001 |-0.92029378699999997 -0.35075556600000002 2.8517100719999999 ]
+New &quot;LineCode.3&quot; NPhases=3 BaseFreq=60 RMatrix=[0.087405303000000004 |0.029071969999999999 0.086666667000000003 |0.029924242 0.029545455000000002 0.088371212000000005 ] XMatrix=[0.20172348500000001 |0.072897726999999996 0.204166667 |0.080227273000000002 0.095018938999999997 0.19852272700000001 ] CMatrix=[2.7113475600000001 |-0.35075556600000002 2.8517100719999999 |-0.58501125300000001 -0.92029378699999997 3.0046318620000001 ]
+New &quot;LineCode.4&quot; NPhases=3 BaseFreq=60 RMatrix=[0.087405303000000004 |0.029924242 0.088371212000000005 |0.029071969999999999 0.029545455000000002 0.086666667000000003 ] XMatrix=[0.20172348500000001 |0.080227273000000002 0.19852272700000001 |0.072897726999999996 0.095018938999999997 0.204166667 ] CMatrix=[2.7113475600000001 |-0.58501125300000001 3.0046318620000001 |-0.35075556600000002 -0.92029378699999997 2.8517100719999999 ]
+New &quot;LineCode.5&quot; NPhases=3 BaseFreq=60 RMatrix=[0.088371212000000005 |0.029545455000000002 0.086666667000000003 |0.029924242 0.029071969999999999 0.087405303000000004 ] XMatrix=[0.19852272700000001 |0.095018938999999997 0.204166667 |0.080227273000000002 0.072897726999999996 0.20172348500000001 ] CMatrix=[3.0046318620000001 |-0.92029378699999997 2.8517100719999999 |-0.58501125300000001 -0.35075556600000002 2.7113475600000001 ]
+New &quot;LineCode.6&quot; NPhases=3 BaseFreq=60 RMatrix=[0.086666667000000003 |0.029071969999999999 0.087405303000000004 |0.029545455000000002 0.029924242 0.088371212000000005 ] XMatrix=[0.204166667 |0.072897726999999996 0.20172348500000001 |0.095018938999999997 0.080227273000000002 0.19852272700000001 ] CMatrix=[2.8517100719999999 |-0.35075556600000002 2.7113475600000001 |-0.92029378699999997 -0.58501125300000001 3.0046318620000001 ]
+New &quot;LineCode.7&quot; NPhases=2 BaseFreq=60 RMatrix=[0.086666667000000003 |0.029071969999999999 0.087405303000000004 ] XMatrix=[0.204166667 |0.072897726999999996 0.20172348500000001 ] CMatrix=[2.5698295959999999 |-0.52995137000000003 2.5974600109999999 ]
+New &quot;LineCode.8&quot; NPhases=2 BaseFreq=60 RMatrix=[0.086666667000000003 |0.029071969999999999 0.087405303000000004 ] XMatrix=[0.204166667 |0.072897726999999996 0.20172348500000001 ] CMatrix=[2.5698295959999999 |-0.52995137000000003 2.5974600109999999 ]
+New &quot;LineCode.9&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25174242400000002 ] XMatrix=[0.25520833300000001 ] CMatrix=[2.270366128 ]
+New &quot;LineCode.10&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25174242400000002 ] XMatrix=[0.25520833300000001 ] CMatrix=[2.270366128 ]
+New &quot;LineCode.11&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25174242400000002 ] XMatrix=[0.25520833300000001 ] CMatrix=[2.270366128 ]
+New &quot;LineCode.12&quot; NPhases=3 BaseFreq=60 RMatrix=[0.28804924199999998 |0.098446969999999995 0.29032196999999998 |0.093257575999999995 0.098446969999999995 0.28804924199999998 ] XMatrix=[0.142443182 |0.052556817999999998 0.13564393899999999 |0.040852273000000001 0.052556817999999998 0.142443182 ] CMatrix=[33.771501489999999 |0 33.771501489999999 |0 0 33.771501489999999 ]
+New &quot;LineCode.300&quot; NPhases=3 BaseFreq=60 RMatrix=[0.253181818 |0.039791667000000003 0.25071969700000002 |0.040340909000000001 0.039128787999999998 0.25178030299999998 ] XMatrix=[0.25270833300000001 |0.109450758 0.25698863599999999 |0.094981061000000006 0.086950758000000003 0.255132576 ] CMatrix=[2.6801503090000001 |-0.76928100600000004 2.5610381000000002 |-0.49950767600000001 -0.312072984 2.455590387 ]
+New &quot;LineCode.301&quot; NPhases=3 BaseFreq=60 RMatrix=[0.365530303 |0.044071970000000002 0.36282196999999999 |0.044678030000000001 0.043333333000000002 0.36399621199999999 ] XMatrix=[0.267329545 |0.12200757600000001 0.27047348500000001 |0.107784091 0.099204545000000005 0.26910984799999998 ] CMatrix=[2.5724921630000002 |-0.72160597999999998 2.4643818820000001 |-0.47232939499999999 -0.29896109599999998 2.3688811190000001 ]
+New &quot;LineCode.302&quot; NPhases=1 BaseFreq=60 RMatrix=[0.53020800000000001 ] XMatrix=[0.28134500000000001 ] CMatrix=[2.1225700000000001 ]
+New &quot;LineCode.303&quot; NPhases=1 BaseFreq=60 RMatrix=[0.53020800000000001 ] XMatrix=[0.28134500000000001 ] CMatrix=[2.1225700000000001 ]
+New &quot;LineCode.304&quot; NPhases=1 BaseFreq=60 RMatrix=[0.363958 ] XMatrix=[0.26916699999999999 ] CMatrix=[2.1922000000000001 ]
+New &quot;LineCode.400&quot; NPhases=3 BaseFreq=60 RMatrix=[0.088205000000000006 |0.0312137 0.0901946 |0.030626400000000002 0.031614299999999998 0.088966500000000004 ] XMatrix=[0.20744000000000001 |0.093531400000000001 0.20078299999999999 |0.076031199999999993 0.085587899999999995 0.204877 ] CMatrix=[2.9030100000000001 |-0.67933500000000002 3.15896 |-0.22313 -0.48141600000000001 2.8965000000000001 ]
+New &quot;LineCode.601&quot; NPhases=3 BaseFreq=60 RMatrix=[0.065625000000000003 |0.029545455000000002 0.063920455000000001 |0.029924242 0.029071969999999999 0.064659091000000002 ] XMatrix=[0.19278409099999999 |0.095018938999999997 0.19844697 |0.080227273000000002 0.072897726999999996 0.19598484799999999 ] CMatrix=[3.1648380359999999 |-1.002632425 2.993981593 |-0.63273651600000003 -0.37260871299999992 2.8326702030000002 ]
+New &quot;LineCode.602&quot; NPhases=3 BaseFreq=60 RMatrix=[0.14253787900000001 |0.029924242 0.14157196999999999 |0.029545455000000002 0.029071969999999999 0.14083333300000001 ] XMatrix=[0.22375 |0.080227273000000002 0.226950758 |0.095018938999999997 0.072897726999999996 0.22939393899999999 ] CMatrix=[2.8630134229999999 |-0.54341491799999997 2.6020315890000001 |-0.84925849999999992 -0.33096214099999993 2.7251627679999997 ]
+New &quot;LineCode.603&quot; NPhases=2 BaseFreq=60 RMatrix=[0.25178030299999998 |0.039128787999999998 0.25071969700000002 ] XMatrix=[0.255132576 |0.086950758000000003 0.25698863599999999 ] CMatrix=[2.366017603 |-0.45208383599999996 2.3439635079999999 ]
+New &quot;LineCode.604&quot; NPhases=2 BaseFreq=60 RMatrix=[0.25071969700000002 |0.039128787999999998 0.25178030299999998 ] XMatrix=[0.25698863599999999 |0.086950758000000003 0.255132576 ] CMatrix=[2.3439635079999999 |-0.45208383599999996 2.366017603 ]
+New &quot;LineCode.605&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25174242400000002 ] XMatrix=[0.25520833300000001 ] CMatrix=[2.270366128 ]
+New &quot;LineCode.606&quot; NPhases=3 BaseFreq=60 RMatrix=[0.15117424199999999 |0.060454544999999998 0.14945075799999999 |0.053958332999999997 0.060454544999999998 0.15117424199999999 ] XMatrix=[0.084526514999999997 |0.0062121210000000001 0.076534090999999999 |-0.0027083329999999998 0.0062121210000000001 0.084526514999999997 ] CMatrix=[48.674594079999999 |0 48.674594079999999 |0 0 48.674594079999999 ]
+New &quot;LineCode.607&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25426136399999999 ] XMatrix=[0.097045455000000003 ] CMatrix=[44.706615220000003 ]
+New &quot;LineCode.721&quot; NPhases=3 BaseFreq=60 RMatrix=[0.055416667000000003 |0.012746212 0.050113636000000003 |0.006382576 0.012746212 0.055416667000000003 ] XMatrix=[0.037367424000000003 |-0.0069696970000000004 0.035984848 |-0.0078977270000000002 -0.0069696970000000004 0.037367424000000003 ] CMatrix=[80.274847280000003 |0 80.274847280000003 |0 0 80.274847280000003 ]
+New &quot;LineCode.722&quot; NPhases=3 BaseFreq=60 RMatrix=[0.089981061000000001 |0.030852273 0.085000000000000006 |0.023371211999999999 0.030852273 0.089981061000000001 ] XMatrix=[0.056306818000000002 |-0.0061742419999999999 0.050719697000000001 |-0.011496212 -0.0061742419999999999 0.056306818000000002 ] CMatrix=[64.218410899999995 |0 64.218410899999995 |0 0 64.218410899999995 ]
+New &quot;LineCode.723&quot; NPhases=3 BaseFreq=60 RMatrix=[0.245 |0.092253788000000003 0.24662878799999999 |0.086837121000000003 0.092253788000000003 0.245 ] XMatrix=[0.12714015200000001 |0.039981060999999998 0.119810606 |0.028806818000000001 0.039981060999999998 0.12714015200000001 ] CMatrix=[37.597711199999999 |0 37.597711199999999 |0 0 37.597711199999999 ]
+New &quot;LineCode.724&quot; NPhases=3 BaseFreq=60 RMatrix=[0.39681818200000002 |0.098560605999999995 0.39901515199999998 |0.093295454999999999 0.098560605999999995 0.39681818200000002 ] XMatrix=[0.14693181799999999 |0.051856061000000002 0.14011363600000001 |0.040208332999999999 0.051856061000000002 0.14693181799999999 ] CMatrix=[30.267010290000005 |0 30.267010290000005 |0 0 30.267010290000005 ]
+New &quot;LineCode.mtx601&quot; NPhases=3 BaseFreq=60 RMatrix=[0.34649999999999997 |0.156 0.33750000000000002 |0.158 0.1535 0.34139999999999998 ] XMatrix=[1.0179 |0.50170000000000003 1.0478000000000001 |0.42359999999999998 0.38490000000000002 1.0347999999999999 ] Units=mi
+New &quot;LineCode.mtx602&quot; NPhases=3 BaseFreq=60 RMatrix=[0.75260000000000005 |0.158 0.74750000000000005 |0.156 0.1535 0.74360000000000004 ] XMatrix=[1.1814 |0.42359999999999998 1.1982999999999999 |0.50170000000000003 0.38490000000000002 1.2112000000000001 ] Units=mi
+New &quot;LineCode.mtx603&quot; NPhases=2 BaseFreq=60 RMatrix=[1.3238000000000001 |0.20660000000000001 1.3293999999999999 ] XMatrix=[1.3569 |0.45910000000000001 1.3471 ] Units=mi
+New &quot;LineCode.mtx604&quot; NPhases=2 BaseFreq=60 RMatrix=[1.3238000000000001 |0.20660000000000001 1.3293999999999999 ] XMatrix=[1.3569 |0.45910000000000001 1.3471 ] Units=mi
+New &quot;LineCode.mtx605&quot; NPhases=1 BaseFreq=60 RMatrix=[1.3291999999999999 ] XMatrix=[1.3474999999999999 ] Units=mi
+New &quot;LineCode.mtx606&quot; NPhases=3 Units=mi RMatrix=[0.79172100000000001 |0.31847599999999998 0.78164900000000004 |0.28344999999999998 0.31847599999999998 0.79172100000000001 ] XMatrix=[0.43835200000000002 |0.027683800000000001 0.39669700000000002 |-0.0184204 0.027683800000000001 0.43835200000000002 ] CMatrix=[383.94800000000004 |0 383.94800000000004 |0 0 383.94800000000004 ]
+New &quot;LineCode.mtx607&quot; NPhases=1 BaseFreq=60 RMatrix=[1.3425 ] XMatrix=[0.51239999999999997 ] CMatrix=[236 ] Units=mi
+Edit &quot;Vsource.source&quot; BasekV=115 pu=1.0001 Phases=3 Bus1=sourcebus Angle=30 MVASC3=20000 MVASC1=21000
+New &quot;Line.650632&quot; Phases=3 Bus1=rg60.1.2.3 Bus2=632.1.2.3 LineCode=mtx601 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=2000 Units=ft
+New &quot;Line.632670&quot; Phases=3 Bus1=632.1.2.3 Bus2=670.1.2.3 LineCode=mtx601 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=667 Units=ft
+New &quot;Line.670671&quot; Phases=3 Bus1=670.1.2.3 Bus2=671.1.2.3 LineCode=mtx601 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=1333 Units=ft
+New &quot;Line.671680&quot; Phases=3 Bus1=671.1.2.3 Bus2=680.1.2.3 LineCode=mtx601 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=1000 Units=ft
+New &quot;Line.632633&quot; Phases=3 Bus1=632.1.2.3 Bus2=633.1.2.3 LineCode=mtx602 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=500 Units=ft
+New &quot;Line.632645&quot; Phases=2 Bus1=632.3.2 Bus2=645.3.2 LineCode=mtx603 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=500 Units=ft
+New &quot;Line.645646&quot; Phases=2 Bus1=645.3.2 Bus2=646.3.2 LineCode=mtx603 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=300 Units=ft
+New &quot;Line.692675&quot; Phases=3 Bus1=692.1.2.3 Bus2=675.1.2.3 LineCode=mtx606 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=500 Units=ft
+New &quot;Line.671684&quot; Phases=2 Bus1=671.1.3 Bus2=684.1.3 LineCode=mtx604 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=300 Units=ft
+New &quot;Line.684611&quot; Phases=1 Bus1=684.3 Bus2=611.3 LineCode=mtx605 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=300 Units=ft
+New &quot;Line.684652&quot; Phases=1 Bus1=684.1 Bus2=652.1 LineCode=mtx607 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=800 Units=ft
+New &quot;Line.671692&quot; Phases=3 Bus1=671 Bus2=692 Switch=Yes Length=0.001 Units=none R1=0.0001 R0=0.0001 X1=0 X0=0 C1=0 C0=0
+New &quot;Load.671&quot; Bus1=671.1.2.3 Phases=3 Conn=delta Model=1 kV=4.16 kW=1155 kvar=660
+New &quot;Load.634a&quot; Bus1=634.1 Phases=1 Conn=wye Model=1 kV=0.277 kW=160 kvar=110
+New &quot;Load.634b&quot; Bus1=634.2 Phases=1 Conn=wye Model=1 kV=0.277 kW=120 kvar=90
+New &quot;Load.634c&quot; Bus1=634.3 Phases=1 Conn=wye Model=1 kV=0.277 kW=120 kvar=90
+New &quot;Load.645&quot; Bus1=645.2 Phases=1 Conn=wye Model=1 kV=2.4 kW=170 kvar=125
+New &quot;Load.646&quot; Bus1=646.2.3 Phases=1 Conn=delta Model=2 kV=4.16 kW=230 kvar=132
+New &quot;Load.692&quot; Bus1=692.3.1 Phases=1 Conn=delta Model=5 kV=4.16 kW=170 kvar=151
+New &quot;Load.675a&quot; Bus1=675.1 Phases=1 Conn=wye Model=1 kV=2.4 kW=485 kvar=190
+New &quot;Load.675b&quot; Bus1=675.2 Phases=1 Conn=wye Model=1 kV=2.4 kW=68 kvar=60
+New &quot;Load.675c&quot; Bus1=675.3 Phases=1 Conn=wye Model=1 kV=2.4 kW=290 kvar=212
+New &quot;Load.611&quot; Bus1=611.3 Phases=1 Conn=wye Model=5 kV=2.4 kW=170 kvar=80
+New &quot;Load.652&quot; Bus1=652.1 Phases=1 Conn=wye Model=2 kV=2.4 kW=128 kvar=86
+New &quot;Load.670a&quot; Bus1=670.1 Phases=1 Conn=wye Model=1 kV=2.4 kW=17 kvar=10
+New &quot;Load.670b&quot; Bus1=670.2 Phases=1 Conn=wye Model=1 kV=2.4 kW=66 kvar=38
+New &quot;Load.670c&quot; Bus1=670.3 Phases=1 Conn=wye Model=1 kV=2.4 kW=117 kvar=68
+New &quot;Transformer.sub&quot; Phases=3 Windings=2 XHL=0.008 Buses=[sourcebus, 650, ] Conns=[delta, wye, ] kVs=[115, 4.1600000000000001, ] kVAs=[5000, 5000, ] Taps=[1, 1, ] %Rs=[0.00050000000000000001, 0.00050000000000000001, ] Wdg=1 Wdg=2
+New &quot;Transformer.reg1&quot; Phases=1 Bank=reg1 XHL=0.01 kVAs=[1666, 1666, ] Buses=[650.1, rg60.1, ] kVs=[2.3999999999999999, 2.3999999999999999, ] %LoadLoss=0.01
+New &quot;Transformer.reg2&quot; Phases=1 Bank=reg1 XHL=0.01 kVAs=[1666, 1666, ] Buses=[650.2, rg60.2, ] kVs=[2.3999999999999999, 2.3999999999999999, ] %LoadLoss=0.01
+New &quot;Transformer.reg3&quot; Phases=1 Bank=reg1 XHL=0.01 kVAs=[1666, 1666, ] Buses=[650.3, rg60.3, ] kVs=[2.3999999999999999, 2.3999999999999999, ] %LoadLoss=0.01
+New &quot;Transformer.xfm1&quot; Phases=3 Windings=2 XHL=2 Buses=[633, 634, ] Conns=[wye, wye, ] kVs=[4.1600000000000001, 0.47999999999999998, ] kVAs=[500, 500, ] Taps=[1, 1, ] %Rs=[0.55000000000000004, 0.55000000000000004, ] Wdg=1 Wdg=2
+New &quot;RegControl.reg1&quot; Transformer=reg1 Winding=2 VReg=122 Band=2 PTRatio=20 CTPrim=700 R=3 X=9
+New &quot;RegControl.reg2&quot; Transformer=reg2 Winding=2 VReg=122 Band=2 PTRatio=20 CTPrim=700 R=3 X=9
+New &quot;RegControl.reg3&quot; Transformer=reg3 Winding=2 VReg=122 Band=2 PTRatio=20 CTPrim=700 R=3 X=9
+New &quot;Capacitor.cap1&quot; Bus1=675 Phases=3 kvar=[ 600] kV=4.16
+New &quot;Capacitor.cap2&quot; Bus1=611.3 Phases=1 kvar=[ 100] kV=2.4
+MakeBusList
+Set VoltageBases=(115, 4.1600000000000001, 0.47999999999999998, )
+! CalcVoltageBases
+SetBusXY Bus=sourcebus X=200 Y=400
+SetBusXY Bus=650 X=200 Y=350
+SetBusXY Bus=rg60 X=200 Y=300
+SetBusXY Bus=633 X=350 Y=250
+SetBusXY Bus=634 X=400 Y=250
+SetBusXY Bus=671 X=200 Y=100
+SetBusXY Bus=645 X=100 Y=250
+SetBusXY Bus=646 X=0 Y=250
+SetBusXY Bus=692 X=250 Y=100
+SetBusXY Bus=675 X=400 Y=100
+SetBusXY Bus=611 X=0 Y=100
+SetBusXY Bus=652 X=100 Y=0
+SetBusXY Bus=670 X=200 Y=200
+SetBusXY Bus=632 X=200 Y=250
+SetBusXY Bus=680 X=200 Y=0
+SetBusXY Bus=684 X=100 Y=100
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="keeping-the-order-of-elements">
+<h2>Keeping the order of elements<a class="headerlink" href="#keeping-the-order-of-elements" title="Link to this heading">#</a></h2>
+<p>Some circuits, probably somewhat ill-conditioned, are very sensible to the order of elements. This means that saving the circuit and reloading it can give slightly different results. This is expected, given how the numerical methods used in the engine work, but it is understandable it the user needs to keep the save results. This is used, for example, to test some of the DSS-Extensions functions related to JSON imports/exports.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">odd</span><span class="o">.</span><span class="n">Circuit</span><span class="o">.</span><span class="n">Save</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">SingleFile</span><span class="o">|</span><span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">ToString</span><span class="o">|</span><span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">ExcludeDefault</span><span class="o">|</span><span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">KeepOrder</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>! Last saved by AltDSS/DSS C-API Library version 0.14.1 revision 8b3da5b576f4dedd16d2bfb88bfb911c0aca3783 based on OpenDSS SVN 3723 [FPC 3.2.2] (64-bit build) MVMULT INCREMENTAL_Y CONTEXT_API PM 20240217013457 on 2024-02-21T23:45:11.052Z
+Clear
+Set DefaultBaseFreq=60
+New Circuit.ieee13nodeckt
+
+Set EarthModel=Deri
+
+New &quot;LineCode.1&quot; NPhases=3 BaseFreq=60 RMatrix=[0.086666667000000003 |0.029545455000000002 0.088371212000000005 |0.029071969999999999 0.029924242 0.087405303000000004 ] XMatrix=[0.204166667 |0.095018938999999997 0.19852272700000001 |0.072897726999999996 0.080227273000000002 0.20172348500000001 ] CMatrix=[2.8517100719999999 |-0.92029378699999997 3.0046318620000001 |-0.35075556600000002 -0.58501125300000001 2.7113475600000001 ]
+New &quot;LineCode.2&quot; NPhases=3 BaseFreq=60 RMatrix=[0.088371212000000005 |0.029924240000000001 0.087405303000000004 |0.029545455000000002 0.029071969999999999 0.086666667000000003 ] XMatrix=[0.19852272700000001 |0.080227273000000002 0.20172348500000001 |0.095018938999999997 0.072897726999999996 0.204166667 ] CMatrix=[3.0046318620000001 |-0.58501125300000001 2.7113475600000001 |-0.92029378699999997 -0.35075556600000002 2.8517100719999999 ]
+New &quot;LineCode.3&quot; NPhases=3 BaseFreq=60 RMatrix=[0.087405303000000004 |0.029071969999999999 0.086666667000000003 |0.029924242 0.029545455000000002 0.088371212000000005 ] XMatrix=[0.20172348500000001 |0.072897726999999996 0.204166667 |0.080227273000000002 0.095018938999999997 0.19852272700000001 ] CMatrix=[2.7113475600000001 |-0.35075556600000002 2.8517100719999999 |-0.58501125300000001 -0.92029378699999997 3.0046318620000001 ]
+New &quot;LineCode.4&quot; NPhases=3 BaseFreq=60 RMatrix=[0.087405303000000004 |0.029924242 0.088371212000000005 |0.029071969999999999 0.029545455000000002 0.086666667000000003 ] XMatrix=[0.20172348500000001 |0.080227273000000002 0.19852272700000001 |0.072897726999999996 0.095018938999999997 0.204166667 ] CMatrix=[2.7113475600000001 |-0.58501125300000001 3.0046318620000001 |-0.35075556600000002 -0.92029378699999997 2.8517100719999999 ]
+New &quot;LineCode.5&quot; NPhases=3 BaseFreq=60 RMatrix=[0.088371212000000005 |0.029545455000000002 0.086666667000000003 |0.029924242 0.029071969999999999 0.087405303000000004 ] XMatrix=[0.19852272700000001 |0.095018938999999997 0.204166667 |0.080227273000000002 0.072897726999999996 0.20172348500000001 ] CMatrix=[3.0046318620000001 |-0.92029378699999997 2.8517100719999999 |-0.58501125300000001 -0.35075556600000002 2.7113475600000001 ]
+New &quot;LineCode.6&quot; NPhases=3 BaseFreq=60 RMatrix=[0.086666667000000003 |0.029071969999999999 0.087405303000000004 |0.029545455000000002 0.029924242 0.088371212000000005 ] XMatrix=[0.204166667 |0.072897726999999996 0.20172348500000001 |0.095018938999999997 0.080227273000000002 0.19852272700000001 ] CMatrix=[2.8517100719999999 |-0.35075556600000002 2.7113475600000001 |-0.92029378699999997 -0.58501125300000001 3.0046318620000001 ]
+New &quot;LineCode.7&quot; NPhases=2 BaseFreq=60 RMatrix=[0.086666667000000003 |0.029071969999999999 0.087405303000000004 ] XMatrix=[0.204166667 |0.072897726999999996 0.20172348500000001 ] CMatrix=[2.5698295959999999 |-0.52995137000000003 2.5974600109999999 ]
+New &quot;LineCode.8&quot; NPhases=2 BaseFreq=60 RMatrix=[0.086666667000000003 |0.029071969999999999 0.087405303000000004 ] XMatrix=[0.204166667 |0.072897726999999996 0.20172348500000001 ] CMatrix=[2.5698295959999999 |-0.52995137000000003 2.5974600109999999 ]
+New &quot;LineCode.9&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25174242400000002 ] XMatrix=[0.25520833300000001 ] CMatrix=[2.270366128 ]
+New &quot;LineCode.10&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25174242400000002 ] XMatrix=[0.25520833300000001 ] CMatrix=[2.270366128 ]
+New &quot;LineCode.11&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25174242400000002 ] XMatrix=[0.25520833300000001 ] CMatrix=[2.270366128 ]
+New &quot;LineCode.12&quot; NPhases=3 BaseFreq=60 RMatrix=[0.28804924199999998 |0.098446969999999995 0.29032196999999998 |0.093257575999999995 0.098446969999999995 0.28804924199999998 ] XMatrix=[0.142443182 |0.052556817999999998 0.13564393899999999 |0.040852273000000001 0.052556817999999998 0.142443182 ] CMatrix=[33.771501489999999 |0 33.771501489999999 |0 0 33.771501489999999 ]
+New &quot;LineCode.300&quot; NPhases=3 BaseFreq=60 RMatrix=[0.253181818 |0.039791667000000003 0.25071969700000002 |0.040340909000000001 0.039128787999999998 0.25178030299999998 ] XMatrix=[0.25270833300000001 |0.109450758 0.25698863599999999 |0.094981061000000006 0.086950758000000003 0.255132576 ] CMatrix=[2.6801503090000001 |-0.76928100600000004 2.5610381000000002 |-0.49950767600000001 -0.312072984 2.455590387 ]
+New &quot;LineCode.301&quot; NPhases=3 BaseFreq=60 RMatrix=[0.365530303 |0.044071970000000002 0.36282196999999999 |0.044678030000000001 0.043333333000000002 0.36399621199999999 ] XMatrix=[0.267329545 |0.12200757600000001 0.27047348500000001 |0.107784091 0.099204545000000005 0.26910984799999998 ] CMatrix=[2.5724921630000002 |-0.72160597999999998 2.4643818820000001 |-0.47232939499999999 -0.29896109599999998 2.3688811190000001 ]
+New &quot;LineCode.302&quot; NPhases=1 BaseFreq=60 RMatrix=[0.53020800000000001 ] XMatrix=[0.28134500000000001 ] CMatrix=[2.1225700000000001 ]
+New &quot;LineCode.303&quot; NPhases=1 BaseFreq=60 RMatrix=[0.53020800000000001 ] XMatrix=[0.28134500000000001 ] CMatrix=[2.1225700000000001 ]
+New &quot;LineCode.304&quot; NPhases=1 BaseFreq=60 RMatrix=[0.363958 ] XMatrix=[0.26916699999999999 ] CMatrix=[2.1922000000000001 ]
+New &quot;LineCode.400&quot; NPhases=3 BaseFreq=60 RMatrix=[0.088205000000000006 |0.0312137 0.0901946 |0.030626400000000002 0.031614299999999998 0.088966500000000004 ] XMatrix=[0.20744000000000001 |0.093531400000000001 0.20078299999999999 |0.076031199999999993 0.085587899999999995 0.204877 ] CMatrix=[2.9030100000000001 |-0.67933500000000002 3.15896 |-0.22313 -0.48141600000000001 2.8965000000000001 ]
+New &quot;LineCode.601&quot; NPhases=3 BaseFreq=60 RMatrix=[0.065625000000000003 |0.029545455000000002 0.063920455000000001 |0.029924242 0.029071969999999999 0.064659091000000002 ] XMatrix=[0.19278409099999999 |0.095018938999999997 0.19844697 |0.080227273000000002 0.072897726999999996 0.19598484799999999 ] CMatrix=[3.1648380359999999 |-1.002632425 2.993981593 |-0.63273651600000003 -0.37260871299999992 2.8326702030000002 ]
+New &quot;LineCode.602&quot; NPhases=3 BaseFreq=60 RMatrix=[0.14253787900000001 |0.029924242 0.14157196999999999 |0.029545455000000002 0.029071969999999999 0.14083333300000001 ] XMatrix=[0.22375 |0.080227273000000002 0.226950758 |0.095018938999999997 0.072897726999999996 0.22939393899999999 ] CMatrix=[2.8630134229999999 |-0.54341491799999997 2.6020315890000001 |-0.84925849999999992 -0.33096214099999993 2.7251627679999997 ]
+New &quot;LineCode.603&quot; NPhases=2 BaseFreq=60 RMatrix=[0.25178030299999998 |0.039128787999999998 0.25071969700000002 ] XMatrix=[0.255132576 |0.086950758000000003 0.25698863599999999 ] CMatrix=[2.366017603 |-0.45208383599999996 2.3439635079999999 ]
+New &quot;LineCode.604&quot; NPhases=2 BaseFreq=60 RMatrix=[0.25071969700000002 |0.039128787999999998 0.25178030299999998 ] XMatrix=[0.25698863599999999 |0.086950758000000003 0.255132576 ] CMatrix=[2.3439635079999999 |-0.45208383599999996 2.366017603 ]
+New &quot;LineCode.605&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25174242400000002 ] XMatrix=[0.25520833300000001 ] CMatrix=[2.270366128 ]
+New &quot;LineCode.606&quot; NPhases=3 BaseFreq=60 RMatrix=[0.15117424199999999 |0.060454544999999998 0.14945075799999999 |0.053958332999999997 0.060454544999999998 0.15117424199999999 ] XMatrix=[0.084526514999999997 |0.0062121210000000001 0.076534090999999999 |-0.0027083329999999998 0.0062121210000000001 0.084526514999999997 ] CMatrix=[48.674594079999999 |0 48.674594079999999 |0 0 48.674594079999999 ]
+New &quot;LineCode.607&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25426136399999999 ] XMatrix=[0.097045455000000003 ] CMatrix=[44.706615220000003 ]
+New &quot;LineCode.721&quot; NPhases=3 BaseFreq=60 RMatrix=[0.055416667000000003 |0.012746212 0.050113636000000003 |0.006382576 0.012746212 0.055416667000000003 ] XMatrix=[0.037367424000000003 |-0.0069696970000000004 0.035984848 |-0.0078977270000000002 -0.0069696970000000004 0.037367424000000003 ] CMatrix=[80.274847280000003 |0 80.274847280000003 |0 0 80.274847280000003 ]
+New &quot;LineCode.722&quot; NPhases=3 BaseFreq=60 RMatrix=[0.089981061000000001 |0.030852273 0.085000000000000006 |0.023371211999999999 0.030852273 0.089981061000000001 ] XMatrix=[0.056306818000000002 |-0.0061742419999999999 0.050719697000000001 |-0.011496212 -0.0061742419999999999 0.056306818000000002 ] CMatrix=[64.218410899999995 |0 64.218410899999995 |0 0 64.218410899999995 ]
+New &quot;LineCode.723&quot; NPhases=3 BaseFreq=60 RMatrix=[0.245 |0.092253788000000003 0.24662878799999999 |0.086837121000000003 0.092253788000000003 0.245 ] XMatrix=[0.12714015200000001 |0.039981060999999998 0.119810606 |0.028806818000000001 0.039981060999999998 0.12714015200000001 ] CMatrix=[37.597711199999999 |0 37.597711199999999 |0 0 37.597711199999999 ]
+New &quot;LineCode.724&quot; NPhases=3 BaseFreq=60 RMatrix=[0.39681818200000002 |0.098560605999999995 0.39901515199999998 |0.093295454999999999 0.098560605999999995 0.39681818200000002 ] XMatrix=[0.14693181799999999 |0.051856061000000002 0.14011363600000001 |0.040208332999999999 0.051856061000000002 0.14693181799999999 ] CMatrix=[30.267010290000005 |0 30.267010290000005 |0 0 30.267010290000005 ]
+New &quot;LineCode.mtx601&quot; NPhases=3 BaseFreq=60 RMatrix=[0.34649999999999997 |0.156 0.33750000000000002 |0.158 0.1535 0.34139999999999998 ] XMatrix=[1.0179 |0.50170000000000003 1.0478000000000001 |0.42359999999999998 0.38490000000000002 1.0347999999999999 ] Units=mi
+New &quot;LineCode.mtx602&quot; NPhases=3 BaseFreq=60 RMatrix=[0.75260000000000005 |0.158 0.74750000000000005 |0.156 0.1535 0.74360000000000004 ] XMatrix=[1.1814 |0.42359999999999998 1.1982999999999999 |0.50170000000000003 0.38490000000000002 1.2112000000000001 ] Units=mi
+New &quot;LineCode.mtx603&quot; NPhases=2 BaseFreq=60 RMatrix=[1.3238000000000001 |0.20660000000000001 1.3293999999999999 ] XMatrix=[1.3569 |0.45910000000000001 1.3471 ] Units=mi
+New &quot;LineCode.mtx604&quot; NPhases=2 BaseFreq=60 RMatrix=[1.3238000000000001 |0.20660000000000001 1.3293999999999999 ] XMatrix=[1.3569 |0.45910000000000001 1.3471 ] Units=mi
+New &quot;LineCode.mtx605&quot; NPhases=1 BaseFreq=60 RMatrix=[1.3291999999999999 ] XMatrix=[1.3474999999999999 ] Units=mi
+New &quot;LineCode.mtx606&quot; NPhases=3 Units=mi RMatrix=[0.79172100000000001 |0.31847599999999998 0.78164900000000004 |0.28344999999999998 0.31847599999999998 0.79172100000000001 ] XMatrix=[0.43835200000000002 |0.027683800000000001 0.39669700000000002 |-0.0184204 0.027683800000000001 0.43835200000000002 ] CMatrix=[383.94800000000004 |0 383.94800000000004 |0 0 383.94800000000004 ]
+New &quot;LineCode.mtx607&quot; NPhases=1 BaseFreq=60 RMatrix=[1.3425 ] XMatrix=[0.51239999999999997 ] CMatrix=[236 ] Units=mi
+Edit &quot;Vsource.source&quot; BasekV=115 pu=1.0001 Phases=3 Bus1=sourcebus Angle=30 MVASC3=20000 MVASC1=21000
+New &quot;Transformer.sub&quot; Phases=3 Windings=2 XHL=0.008 Buses=[sourcebus, 650, ] Conns=[delta, wye, ] kVs=[115, 4.1600000000000001, ] kVAs=[5000, 5000, ] Taps=[1, 1, ] %Rs=[0.00050000000000000001, 0.00050000000000000001, ] Wdg=1 Wdg=2
+New &quot;Transformer.reg1&quot; Phases=1 Bank=reg1 XHL=0.01 kVAs=[1666, 1666, ] Buses=[650.1, rg60.1, ] kVs=[2.3999999999999999, 2.3999999999999999, ] %LoadLoss=0.01
+New &quot;RegControl.reg1&quot; Transformer=reg1 Winding=2 VReg=122 Band=2 PTRatio=20 CTPrim=700 R=3 X=9
+New &quot;Transformer.reg2&quot; Phases=1 Bank=reg1 XHL=0.01 kVAs=[1666, 1666, ] Buses=[650.2, rg60.2, ] kVs=[2.3999999999999999, 2.3999999999999999, ] %LoadLoss=0.01
+New &quot;RegControl.reg2&quot; Transformer=reg2 Winding=2 VReg=122 Band=2 PTRatio=20 CTPrim=700 R=3 X=9
+New &quot;Transformer.reg3&quot; Phases=1 Bank=reg1 XHL=0.01 kVAs=[1666, 1666, ] Buses=[650.3, rg60.3, ] kVs=[2.3999999999999999, 2.3999999999999999, ] %LoadLoss=0.01
+New &quot;RegControl.reg3&quot; Transformer=reg3 Winding=2 VReg=122 Band=2 PTRatio=20 CTPrim=700 R=3 X=9
+New &quot;Transformer.xfm1&quot; Phases=3 Windings=2 XHL=2 Buses=[633, 634, ] Conns=[wye, wye, ] kVs=[4.1600000000000001, 0.47999999999999998, ] kVAs=[500, 500, ] Taps=[1, 1, ] %Rs=[0.55000000000000004, 0.55000000000000004, ] Wdg=1 Wdg=2
+New &quot;Load.671&quot; Bus1=671.1.2.3 Phases=3 Conn=delta Model=1 kV=4.16 kW=1155 kvar=660
+New &quot;Load.634a&quot; Bus1=634.1 Phases=1 Conn=wye Model=1 kV=0.277 kW=160 kvar=110
+New &quot;Load.634b&quot; Bus1=634.2 Phases=1 Conn=wye Model=1 kV=0.277 kW=120 kvar=90
+New &quot;Load.634c&quot; Bus1=634.3 Phases=1 Conn=wye Model=1 kV=0.277 kW=120 kvar=90
+New &quot;Load.645&quot; Bus1=645.2 Phases=1 Conn=wye Model=1 kV=2.4 kW=170 kvar=125
+New &quot;Load.646&quot; Bus1=646.2.3 Phases=1 Conn=delta Model=2 kV=4.16 kW=230 kvar=132
+New &quot;Load.692&quot; Bus1=692.3.1 Phases=1 Conn=delta Model=5 kV=4.16 kW=170 kvar=151
+New &quot;Load.675a&quot; Bus1=675.1 Phases=1 Conn=wye Model=1 kV=2.4 kW=485 kvar=190
+New &quot;Load.675b&quot; Bus1=675.2 Phases=1 Conn=wye Model=1 kV=2.4 kW=68 kvar=60
+New &quot;Load.675c&quot; Bus1=675.3 Phases=1 Conn=wye Model=1 kV=2.4 kW=290 kvar=212
+New &quot;Load.611&quot; Bus1=611.3 Phases=1 Conn=wye Model=5 kV=2.4 kW=170 kvar=80
+New &quot;Load.652&quot; Bus1=652.1 Phases=1 Conn=wye Model=2 kV=2.4 kW=128 kvar=86
+New &quot;Load.670a&quot; Bus1=670.1 Phases=1 Conn=wye Model=1 kV=2.4 kW=17 kvar=10
+New &quot;Load.670b&quot; Bus1=670.2 Phases=1 Conn=wye Model=1 kV=2.4 kW=66 kvar=38
+New &quot;Load.670c&quot; Bus1=670.3 Phases=1 Conn=wye Model=1 kV=2.4 kW=117 kvar=68
+New &quot;Capacitor.cap1&quot; Bus1=675 Phases=3 kvar=[ 600] kV=4.16
+New &quot;Capacitor.cap2&quot; Bus1=611.3 Phases=1 kvar=[ 100] kV=2.4
+New &quot;Line.650632&quot; Phases=3 Bus1=rg60.1.2.3 Bus2=632.1.2.3 LineCode=mtx601 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=2000 Units=ft
+New &quot;Line.632670&quot; Phases=3 Bus1=632.1.2.3 Bus2=670.1.2.3 LineCode=mtx601 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=667 Units=ft
+New &quot;Line.670671&quot; Phases=3 Bus1=670.1.2.3 Bus2=671.1.2.3 LineCode=mtx601 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=1333 Units=ft
+New &quot;Line.671680&quot; Phases=3 Bus1=671.1.2.3 Bus2=680.1.2.3 LineCode=mtx601 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=1000 Units=ft
+New &quot;Line.632633&quot; Phases=3 Bus1=632.1.2.3 Bus2=633.1.2.3 LineCode=mtx602 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=500 Units=ft
+New &quot;Line.632645&quot; Phases=2 Bus1=632.3.2 Bus2=645.3.2 LineCode=mtx603 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=500 Units=ft
+New &quot;Line.645646&quot; Phases=2 Bus1=645.3.2 Bus2=646.3.2 LineCode=mtx603 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=300 Units=ft
+New &quot;Line.692675&quot; Phases=3 Bus1=692.1.2.3 Bus2=675.1.2.3 LineCode=mtx606 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=500 Units=ft
+New &quot;Line.671684&quot; Phases=2 Bus1=671.1.3 Bus2=684.1.3 LineCode=mtx604 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=300 Units=ft
+New &quot;Line.684611&quot; Phases=1 Bus1=684.3 Bus2=611.3 LineCode=mtx605 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=300 Units=ft
+New &quot;Line.684652&quot; Phases=1 Bus1=684.1 Bus2=652.1 LineCode=mtx607 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=800 Units=ft
+New &quot;Line.671692&quot; Phases=3 Bus1=671 Bus2=692 Switch=Yes Length=0.001 Units=none R1=0.0001 R0=0.0001 X1=0 X0=0 C1=0 C0=0
+MakeBusList
+Set VoltageBases=(115, 4.1600000000000001, 0.47999999999999998, )
+! CalcVoltageBases
+SetBusXY Bus=sourcebus X=200 Y=400
+SetBusXY Bus=650 X=200 Y=350
+SetBusXY Bus=rg60 X=200 Y=300
+SetBusXY Bus=633 X=350 Y=250
+SetBusXY Bus=634 X=400 Y=250
+SetBusXY Bus=671 X=200 Y=100
+SetBusXY Bus=645 X=100 Y=250
+SetBusXY Bus=646 X=0 Y=250
+SetBusXY Bus=692 X=250 Y=100
+SetBusXY Bus=675 X=400 Y=100
+SetBusXY Bus=611 X=0 Y=100
+SetBusXY Bus=652 X=100 Y=0
+SetBusXY Bus=670 X=200 Y=200
+SetBusXY Bus=632 X=200 Y=250
+SetBusXY Bus=680 X=200 Y=0
+SetBusXY Bus=684 X=100 Y=100
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="open-elements">
+<h2>Open elements<a class="headerlink" href="#open-elements" title="Link to this heading">#</a></h2>
+<p>Keeping the order is generally enough to reproduce the save <code class="docutils literal notranslate"><span class="pre">SystemY</span></code> matrix, but there are also situations that some elements are normal-open.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">odd</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">    redirect &quot;</span><span class="si">{</span><span class="n">IEEE13_PATH</span><span class="si">}</span><span class="s1">&quot;</span>
+<span class="s1">    open Line.671692 terminal=1</span>
+<span class="s1">&#39;&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">odd</span><span class="o">.</span><span class="n">Circuit</span><span class="o">.</span><span class="n">Save</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">SingleFile</span><span class="o">|</span><span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">ToString</span><span class="o">|</span><span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">ExcludeDefault</span><span class="o">|</span><span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">KeepOrder</span><span class="o">|</span><span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">IsOpen</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>! Last saved by AltDSS/DSS C-API Library version 0.14.1 revision 8b3da5b576f4dedd16d2bfb88bfb911c0aca3783 based on OpenDSS SVN 3723 [FPC 3.2.2] (64-bit build) MVMULT INCREMENTAL_Y CONTEXT_API PM 20240217013457 on 2024-02-21T23:45:11.061Z
+Clear
+Set DefaultBaseFreq=60
+New Circuit.ieee13nodeckt
+
+Set EarthModel=Deri
+
+New &quot;LineCode.1&quot; NPhases=3 BaseFreq=60 RMatrix=[0.086666667000000003 |0.029545455000000002 0.088371212000000005 |0.029071969999999999 0.029924242 0.087405303000000004 ] XMatrix=[0.204166667 |0.095018938999999997 0.19852272700000001 |0.072897726999999996 0.080227273000000002 0.20172348500000001 ] CMatrix=[2.8517100719999999 |-0.92029378699999997 3.0046318620000001 |-0.35075556600000002 -0.58501125300000001 2.7113475600000001 ]
+New &quot;LineCode.2&quot; NPhases=3 BaseFreq=60 RMatrix=[0.088371212000000005 |0.029924240000000001 0.087405303000000004 |0.029545455000000002 0.029071969999999999 0.086666667000000003 ] XMatrix=[0.19852272700000001 |0.080227273000000002 0.20172348500000001 |0.095018938999999997 0.072897726999999996 0.204166667 ] CMatrix=[3.0046318620000001 |-0.58501125300000001 2.7113475600000001 |-0.92029378699999997 -0.35075556600000002 2.8517100719999999 ]
+New &quot;LineCode.3&quot; NPhases=3 BaseFreq=60 RMatrix=[0.087405303000000004 |0.029071969999999999 0.086666667000000003 |0.029924242 0.029545455000000002 0.088371212000000005 ] XMatrix=[0.20172348500000001 |0.072897726999999996 0.204166667 |0.080227273000000002 0.095018938999999997 0.19852272700000001 ] CMatrix=[2.7113475600000001 |-0.35075556600000002 2.8517100719999999 |-0.58501125300000001 -0.92029378699999997 3.0046318620000001 ]
+New &quot;LineCode.4&quot; NPhases=3 BaseFreq=60 RMatrix=[0.087405303000000004 |0.029924242 0.088371212000000005 |0.029071969999999999 0.029545455000000002 0.086666667000000003 ] XMatrix=[0.20172348500000001 |0.080227273000000002 0.19852272700000001 |0.072897726999999996 0.095018938999999997 0.204166667 ] CMatrix=[2.7113475600000001 |-0.58501125300000001 3.0046318620000001 |-0.35075556600000002 -0.92029378699999997 2.8517100719999999 ]
+New &quot;LineCode.5&quot; NPhases=3 BaseFreq=60 RMatrix=[0.088371212000000005 |0.029545455000000002 0.086666667000000003 |0.029924242 0.029071969999999999 0.087405303000000004 ] XMatrix=[0.19852272700000001 |0.095018938999999997 0.204166667 |0.080227273000000002 0.072897726999999996 0.20172348500000001 ] CMatrix=[3.0046318620000001 |-0.92029378699999997 2.8517100719999999 |-0.58501125300000001 -0.35075556600000002 2.7113475600000001 ]
+New &quot;LineCode.6&quot; NPhases=3 BaseFreq=60 RMatrix=[0.086666667000000003 |0.029071969999999999 0.087405303000000004 |0.029545455000000002 0.029924242 0.088371212000000005 ] XMatrix=[0.204166667 |0.072897726999999996 0.20172348500000001 |0.095018938999999997 0.080227273000000002 0.19852272700000001 ] CMatrix=[2.8517100719999999 |-0.35075556600000002 2.7113475600000001 |-0.92029378699999997 -0.58501125300000001 3.0046318620000001 ]
+New &quot;LineCode.7&quot; NPhases=2 BaseFreq=60 RMatrix=[0.086666667000000003 |0.029071969999999999 0.087405303000000004 ] XMatrix=[0.204166667 |0.072897726999999996 0.20172348500000001 ] CMatrix=[2.5698295959999999 |-0.52995137000000003 2.5974600109999999 ]
+New &quot;LineCode.8&quot; NPhases=2 BaseFreq=60 RMatrix=[0.086666667000000003 |0.029071969999999999 0.087405303000000004 ] XMatrix=[0.204166667 |0.072897726999999996 0.20172348500000001 ] CMatrix=[2.5698295959999999 |-0.52995137000000003 2.5974600109999999 ]
+New &quot;LineCode.9&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25174242400000002 ] XMatrix=[0.25520833300000001 ] CMatrix=[2.270366128 ]
+New &quot;LineCode.10&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25174242400000002 ] XMatrix=[0.25520833300000001 ] CMatrix=[2.270366128 ]
+New &quot;LineCode.11&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25174242400000002 ] XMatrix=[0.25520833300000001 ] CMatrix=[2.270366128 ]
+New &quot;LineCode.12&quot; NPhases=3 BaseFreq=60 RMatrix=[0.28804924199999998 |0.098446969999999995 0.29032196999999998 |0.093257575999999995 0.098446969999999995 0.28804924199999998 ] XMatrix=[0.142443182 |0.052556817999999998 0.13564393899999999 |0.040852273000000001 0.052556817999999998 0.142443182 ] CMatrix=[33.771501489999999 |0 33.771501489999999 |0 0 33.771501489999999 ]
+New &quot;LineCode.300&quot; NPhases=3 BaseFreq=60 RMatrix=[0.253181818 |0.039791667000000003 0.25071969700000002 |0.040340909000000001 0.039128787999999998 0.25178030299999998 ] XMatrix=[0.25270833300000001 |0.109450758 0.25698863599999999 |0.094981061000000006 0.086950758000000003 0.255132576 ] CMatrix=[2.6801503090000001 |-0.76928100600000004 2.5610381000000002 |-0.49950767600000001 -0.312072984 2.455590387 ]
+New &quot;LineCode.301&quot; NPhases=3 BaseFreq=60 RMatrix=[0.365530303 |0.044071970000000002 0.36282196999999999 |0.044678030000000001 0.043333333000000002 0.36399621199999999 ] XMatrix=[0.267329545 |0.12200757600000001 0.27047348500000001 |0.107784091 0.099204545000000005 0.26910984799999998 ] CMatrix=[2.5724921630000002 |-0.72160597999999998 2.4643818820000001 |-0.47232939499999999 -0.29896109599999998 2.3688811190000001 ]
+New &quot;LineCode.302&quot; NPhases=1 BaseFreq=60 RMatrix=[0.53020800000000001 ] XMatrix=[0.28134500000000001 ] CMatrix=[2.1225700000000001 ]
+New &quot;LineCode.303&quot; NPhases=1 BaseFreq=60 RMatrix=[0.53020800000000001 ] XMatrix=[0.28134500000000001 ] CMatrix=[2.1225700000000001 ]
+New &quot;LineCode.304&quot; NPhases=1 BaseFreq=60 RMatrix=[0.363958 ] XMatrix=[0.26916699999999999 ] CMatrix=[2.1922000000000001 ]
+New &quot;LineCode.400&quot; NPhases=3 BaseFreq=60 RMatrix=[0.088205000000000006 |0.0312137 0.0901946 |0.030626400000000002 0.031614299999999998 0.088966500000000004 ] XMatrix=[0.20744000000000001 |0.093531400000000001 0.20078299999999999 |0.076031199999999993 0.085587899999999995 0.204877 ] CMatrix=[2.9030100000000001 |-0.67933500000000002 3.15896 |-0.22313 -0.48141600000000001 2.8965000000000001 ]
+New &quot;LineCode.601&quot; NPhases=3 BaseFreq=60 RMatrix=[0.065625000000000003 |0.029545455000000002 0.063920455000000001 |0.029924242 0.029071969999999999 0.064659091000000002 ] XMatrix=[0.19278409099999999 |0.095018938999999997 0.19844697 |0.080227273000000002 0.072897726999999996 0.19598484799999999 ] CMatrix=[3.1648380359999999 |-1.002632425 2.993981593 |-0.63273651600000003 -0.37260871299999992 2.8326702030000002 ]
+New &quot;LineCode.602&quot; NPhases=3 BaseFreq=60 RMatrix=[0.14253787900000001 |0.029924242 0.14157196999999999 |0.029545455000000002 0.029071969999999999 0.14083333300000001 ] XMatrix=[0.22375 |0.080227273000000002 0.226950758 |0.095018938999999997 0.072897726999999996 0.22939393899999999 ] CMatrix=[2.8630134229999999 |-0.54341491799999997 2.6020315890000001 |-0.84925849999999992 -0.33096214099999993 2.7251627679999997 ]
+New &quot;LineCode.603&quot; NPhases=2 BaseFreq=60 RMatrix=[0.25178030299999998 |0.039128787999999998 0.25071969700000002 ] XMatrix=[0.255132576 |0.086950758000000003 0.25698863599999999 ] CMatrix=[2.366017603 |-0.45208383599999996 2.3439635079999999 ]
+New &quot;LineCode.604&quot; NPhases=2 BaseFreq=60 RMatrix=[0.25071969700000002 |0.039128787999999998 0.25178030299999998 ] XMatrix=[0.25698863599999999 |0.086950758000000003 0.255132576 ] CMatrix=[2.3439635079999999 |-0.45208383599999996 2.366017603 ]
+New &quot;LineCode.605&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25174242400000002 ] XMatrix=[0.25520833300000001 ] CMatrix=[2.270366128 ]
+New &quot;LineCode.606&quot; NPhases=3 BaseFreq=60 RMatrix=[0.15117424199999999 |0.060454544999999998 0.14945075799999999 |0.053958332999999997 0.060454544999999998 0.15117424199999999 ] XMatrix=[0.084526514999999997 |0.0062121210000000001 0.076534090999999999 |-0.0027083329999999998 0.0062121210000000001 0.084526514999999997 ] CMatrix=[48.674594079999999 |0 48.674594079999999 |0 0 48.674594079999999 ]
+New &quot;LineCode.607&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25426136399999999 ] XMatrix=[0.097045455000000003 ] CMatrix=[44.706615220000003 ]
+New &quot;LineCode.721&quot; NPhases=3 BaseFreq=60 RMatrix=[0.055416667000000003 |0.012746212 0.050113636000000003 |0.006382576 0.012746212 0.055416667000000003 ] XMatrix=[0.037367424000000003 |-0.0069696970000000004 0.035984848 |-0.0078977270000000002 -0.0069696970000000004 0.037367424000000003 ] CMatrix=[80.274847280000003 |0 80.274847280000003 |0 0 80.274847280000003 ]
+New &quot;LineCode.722&quot; NPhases=3 BaseFreq=60 RMatrix=[0.089981061000000001 |0.030852273 0.085000000000000006 |0.023371211999999999 0.030852273 0.089981061000000001 ] XMatrix=[0.056306818000000002 |-0.0061742419999999999 0.050719697000000001 |-0.011496212 -0.0061742419999999999 0.056306818000000002 ] CMatrix=[64.218410899999995 |0 64.218410899999995 |0 0 64.218410899999995 ]
+New &quot;LineCode.723&quot; NPhases=3 BaseFreq=60 RMatrix=[0.245 |0.092253788000000003 0.24662878799999999 |0.086837121000000003 0.092253788000000003 0.245 ] XMatrix=[0.12714015200000001 |0.039981060999999998 0.119810606 |0.028806818000000001 0.039981060999999998 0.12714015200000001 ] CMatrix=[37.597711199999999 |0 37.597711199999999 |0 0 37.597711199999999 ]
+New &quot;LineCode.724&quot; NPhases=3 BaseFreq=60 RMatrix=[0.39681818200000002 |0.098560605999999995 0.39901515199999998 |0.093295454999999999 0.098560605999999995 0.39681818200000002 ] XMatrix=[0.14693181799999999 |0.051856061000000002 0.14011363600000001 |0.040208332999999999 0.051856061000000002 0.14693181799999999 ] CMatrix=[30.267010290000005 |0 30.267010290000005 |0 0 30.267010290000005 ]
+New &quot;LineCode.mtx601&quot; NPhases=3 BaseFreq=60 RMatrix=[0.34649999999999997 |0.156 0.33750000000000002 |0.158 0.1535 0.34139999999999998 ] XMatrix=[1.0179 |0.50170000000000003 1.0478000000000001 |0.42359999999999998 0.38490000000000002 1.0347999999999999 ] Units=mi
+New &quot;LineCode.mtx602&quot; NPhases=3 BaseFreq=60 RMatrix=[0.75260000000000005 |0.158 0.74750000000000005 |0.156 0.1535 0.74360000000000004 ] XMatrix=[1.1814 |0.42359999999999998 1.1982999999999999 |0.50170000000000003 0.38490000000000002 1.2112000000000001 ] Units=mi
+New &quot;LineCode.mtx603&quot; NPhases=2 BaseFreq=60 RMatrix=[1.3238000000000001 |0.20660000000000001 1.3293999999999999 ] XMatrix=[1.3569 |0.45910000000000001 1.3471 ] Units=mi
+New &quot;LineCode.mtx604&quot; NPhases=2 BaseFreq=60 RMatrix=[1.3238000000000001 |0.20660000000000001 1.3293999999999999 ] XMatrix=[1.3569 |0.45910000000000001 1.3471 ] Units=mi
+New &quot;LineCode.mtx605&quot; NPhases=1 BaseFreq=60 RMatrix=[1.3291999999999999 ] XMatrix=[1.3474999999999999 ] Units=mi
+New &quot;LineCode.mtx606&quot; NPhases=3 Units=mi RMatrix=[0.79172100000000001 |0.31847599999999998 0.78164900000000004 |0.28344999999999998 0.31847599999999998 0.79172100000000001 ] XMatrix=[0.43835200000000002 |0.027683800000000001 0.39669700000000002 |-0.0184204 0.027683800000000001 0.43835200000000002 ] CMatrix=[383.94800000000004 |0 383.94800000000004 |0 0 383.94800000000004 ]
+New &quot;LineCode.mtx607&quot; NPhases=1 BaseFreq=60 RMatrix=[1.3425 ] XMatrix=[0.51239999999999997 ] CMatrix=[236 ] Units=mi
+Edit &quot;Vsource.source&quot; BasekV=115 pu=1.0001 Phases=3 Bus1=sourcebus Angle=30 MVASC3=20000 MVASC1=21000
+New &quot;Transformer.sub&quot; Phases=3 Windings=2 XHL=0.008 Buses=[sourcebus, 650, ] Conns=[delta, wye, ] kVs=[115, 4.1600000000000001, ] kVAs=[5000, 5000, ] Taps=[1, 1, ] %Rs=[0.00050000000000000001, 0.00050000000000000001, ] Wdg=1 Wdg=2
+New &quot;Transformer.reg1&quot; Phases=1 Bank=reg1 XHL=0.01 kVAs=[1666, 1666, ] Buses=[650.1, rg60.1, ] kVs=[2.3999999999999999, 2.3999999999999999, ] %LoadLoss=0.01
+New &quot;RegControl.reg1&quot; Transformer=reg1 Winding=2 VReg=122 Band=2 PTRatio=20 CTPrim=700 R=3 X=9
+New &quot;Transformer.reg2&quot; Phases=1 Bank=reg1 XHL=0.01 kVAs=[1666, 1666, ] Buses=[650.2, rg60.2, ] kVs=[2.3999999999999999, 2.3999999999999999, ] %LoadLoss=0.01
+New &quot;RegControl.reg2&quot; Transformer=reg2 Winding=2 VReg=122 Band=2 PTRatio=20 CTPrim=700 R=3 X=9
+New &quot;Transformer.reg3&quot; Phases=1 Bank=reg1 XHL=0.01 kVAs=[1666, 1666, ] Buses=[650.3, rg60.3, ] kVs=[2.3999999999999999, 2.3999999999999999, ] %LoadLoss=0.01
+New &quot;RegControl.reg3&quot; Transformer=reg3 Winding=2 VReg=122 Band=2 PTRatio=20 CTPrim=700 R=3 X=9
+New &quot;Transformer.xfm1&quot; Phases=3 Windings=2 XHL=2 Buses=[633, 634, ] Conns=[wye, wye, ] kVs=[4.1600000000000001, 0.47999999999999998, ] kVAs=[500, 500, ] Taps=[1, 1, ] %Rs=[0.55000000000000004, 0.55000000000000004, ] Wdg=1 Wdg=2
+New &quot;Load.671&quot; Bus1=671.1.2.3 Phases=3 Conn=delta Model=1 kV=4.16 kW=1155 kvar=660
+New &quot;Load.634a&quot; Bus1=634.1 Phases=1 Conn=wye Model=1 kV=0.277 kW=160 kvar=110
+New &quot;Load.634b&quot; Bus1=634.2 Phases=1 Conn=wye Model=1 kV=0.277 kW=120 kvar=90
+New &quot;Load.634c&quot; Bus1=634.3 Phases=1 Conn=wye Model=1 kV=0.277 kW=120 kvar=90
+New &quot;Load.645&quot; Bus1=645.2 Phases=1 Conn=wye Model=1 kV=2.4 kW=170 kvar=125
+New &quot;Load.646&quot; Bus1=646.2.3 Phases=1 Conn=delta Model=2 kV=4.16 kW=230 kvar=132
+New &quot;Load.692&quot; Bus1=692.3.1 Phases=1 Conn=delta Model=5 kV=4.16 kW=170 kvar=151
+New &quot;Load.675a&quot; Bus1=675.1 Phases=1 Conn=wye Model=1 kV=2.4 kW=485 kvar=190
+New &quot;Load.675b&quot; Bus1=675.2 Phases=1 Conn=wye Model=1 kV=2.4 kW=68 kvar=60
+New &quot;Load.675c&quot; Bus1=675.3 Phases=1 Conn=wye Model=1 kV=2.4 kW=290 kvar=212
+New &quot;Load.611&quot; Bus1=611.3 Phases=1 Conn=wye Model=5 kV=2.4 kW=170 kvar=80
+New &quot;Load.652&quot; Bus1=652.1 Phases=1 Conn=wye Model=2 kV=2.4 kW=128 kvar=86
+New &quot;Load.670a&quot; Bus1=670.1 Phases=1 Conn=wye Model=1 kV=2.4 kW=17 kvar=10
+New &quot;Load.670b&quot; Bus1=670.2 Phases=1 Conn=wye Model=1 kV=2.4 kW=66 kvar=38
+New &quot;Load.670c&quot; Bus1=670.3 Phases=1 Conn=wye Model=1 kV=2.4 kW=117 kvar=68
+New &quot;Capacitor.cap1&quot; Bus1=675 Phases=3 kvar=[ 600] kV=4.16
+New &quot;Capacitor.cap2&quot; Bus1=611.3 Phases=1 kvar=[ 100] kV=2.4
+New &quot;Line.650632&quot; Phases=3 Bus1=rg60.1.2.3 Bus2=632.1.2.3 LineCode=mtx601 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=2000 Units=ft
+New &quot;Line.632670&quot; Phases=3 Bus1=632.1.2.3 Bus2=670.1.2.3 LineCode=mtx601 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=667 Units=ft
+New &quot;Line.670671&quot; Phases=3 Bus1=670.1.2.3 Bus2=671.1.2.3 LineCode=mtx601 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=1333 Units=ft
+New &quot;Line.671680&quot; Phases=3 Bus1=671.1.2.3 Bus2=680.1.2.3 LineCode=mtx601 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=1000 Units=ft
+New &quot;Line.632633&quot; Phases=3 Bus1=632.1.2.3 Bus2=633.1.2.3 LineCode=mtx602 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=500 Units=ft
+New &quot;Line.632645&quot; Phases=2 Bus1=632.3.2 Bus2=645.3.2 LineCode=mtx603 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=500 Units=ft
+New &quot;Line.645646&quot; Phases=2 Bus1=645.3.2 Bus2=646.3.2 LineCode=mtx603 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=300 Units=ft
+New &quot;Line.692675&quot; Phases=3 Bus1=692.1.2.3 Bus2=675.1.2.3 LineCode=mtx606 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=500 Units=ft
+New &quot;Line.671684&quot; Phases=2 Bus1=671.1.3 Bus2=684.1.3 LineCode=mtx604 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=300 Units=ft
+New &quot;Line.684611&quot; Phases=1 Bus1=684.3 Bus2=611.3 LineCode=mtx605 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=300 Units=ft
+New &quot;Line.684652&quot; Phases=1 Bus1=684.1 Bus2=652.1 LineCode=mtx607 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=800 Units=ft
+New &quot;Line.671692&quot; Phases=3 Bus1=671 Bus2=692 Switch=Yes Length=0.001 Units=none R1=0.0001 R0=0.0001 X1=0 X0=0 C1=0 C0=0
+MakeBusList
+Set VoltageBases=(115, 4.1600000000000001, 0.47999999999999998, )
+! CalcVoltageBases
+SetBusXY Bus=sourcebus X=200 Y=400
+SetBusXY Bus=650 X=200 Y=350
+SetBusXY Bus=rg60 X=200 Y=300
+SetBusXY Bus=633 X=350 Y=250
+SetBusXY Bus=634 X=400 Y=250
+SetBusXY Bus=671 X=200 Y=100
+SetBusXY Bus=645 X=100 Y=250
+SetBusXY Bus=646 X=0 Y=250
+SetBusXY Bus=692 X=250 Y=100
+SetBusXY Bus=675 X=400 Y=100
+SetBusXY Bus=611 X=0 Y=100
+SetBusXY Bus=652 X=100 Y=0
+SetBusXY Bus=670 X=200 Y=200
+SetBusXY Bus=632 X=200 Y=250
+SetBusXY Bus=680 X=200 Y=0
+SetBusXY Bus=684 X=100 Y=100
+Open Line.671692 1
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="including-the-options">
+<h2>Including the options<a class="headerlink" href="#including-the-options" title="Link to this heading">#</a></h2>
+<p>Finally, including the circuit options might be important to reproduce it:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">odd</span><span class="o">.</span><span class="n">Circuit</span><span class="o">.</span><span class="n">Save</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">SingleFile</span><span class="o">|</span><span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">ToString</span><span class="o">|</span><span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">ExcludeDefault</span><span class="o">|</span><span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">KeepOrder</span><span class="o">|</span><span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">IsOpen</span><span class="o">|</span><span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">IncludeOptions</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>! Last saved by AltDSS/DSS C-API Library version 0.14.1 revision 8b3da5b576f4dedd16d2bfb88bfb911c0aca3783 based on OpenDSS SVN 3723 [FPC 3.2.2] (64-bit build) MVMULT INCREMENTAL_Y CONTEXT_API PM 20240217013457 on 2024-02-21T23:45:11.063Z
+Clear
+Set DefaultBaseFreq=60
+New Circuit.ieee13nodeckt
+
+Set EarthModel=Deri
+! OPTIONS
+! NumNodes = 41
+Set ControlMode=Static
+Set Random=Gaussian
+Set frequency=60
+Set stepsize=0.001
+Set number=100
+Set tolerance=0.0001
+Set maxiterations=15
+Set miniterations=2
+Set loadmodel=PowerFlow
+Set loadmult=1
+Set Normvminpu=0.94999999999999996
+Set Normvmaxpu=1.05
+Set Emergvminpu=0.90000000000000002
+Set Emergvmaxpu=1.0800000000000001
+Set %mean=82.58
+Set %stddev=15.31
+Set LDCurve=
+Set %growth=2.5
+Set genkw=1000
+Set genpf=1
+Set capkvar=600
+Set addtype=generator
+Set zonelock=No
+Set ueweight=    1.00
+Set lossweight=    1.00
+Set ueregs=[10]
+Set lossregs=[13]
+Set algorithm=Normal
+Set Trapezoidal=No
+Set genmult=1
+Set Basefrequency=60
+Set harmonics=(ALL)
+Set maxcontroliter=10
+
+
+New &quot;LineCode.1&quot; NPhases=3 BaseFreq=60 RMatrix=[0.086666667000000003 |0.029545455000000002 0.088371212000000005 |0.029071969999999999 0.029924242 0.087405303000000004 ] XMatrix=[0.204166667 |0.095018938999999997 0.19852272700000001 |0.072897726999999996 0.080227273000000002 0.20172348500000001 ] CMatrix=[2.8517100719999999 |-0.92029378699999997 3.0046318620000001 |-0.35075556600000002 -0.58501125300000001 2.7113475600000001 ]
+New &quot;LineCode.2&quot; NPhases=3 BaseFreq=60 RMatrix=[0.088371212000000005 |0.029924240000000001 0.087405303000000004 |0.029545455000000002 0.029071969999999999 0.086666667000000003 ] XMatrix=[0.19852272700000001 |0.080227273000000002 0.20172348500000001 |0.095018938999999997 0.072897726999999996 0.204166667 ] CMatrix=[3.0046318620000001 |-0.58501125300000001 2.7113475600000001 |-0.92029378699999997 -0.35075556600000002 2.8517100719999999 ]
+New &quot;LineCode.3&quot; NPhases=3 BaseFreq=60 RMatrix=[0.087405303000000004 |0.029071969999999999 0.086666667000000003 |0.029924242 0.029545455000000002 0.088371212000000005 ] XMatrix=[0.20172348500000001 |0.072897726999999996 0.204166667 |0.080227273000000002 0.095018938999999997 0.19852272700000001 ] CMatrix=[2.7113475600000001 |-0.35075556600000002 2.8517100719999999 |-0.58501125300000001 -0.92029378699999997 3.0046318620000001 ]
+New &quot;LineCode.4&quot; NPhases=3 BaseFreq=60 RMatrix=[0.087405303000000004 |0.029924242 0.088371212000000005 |0.029071969999999999 0.029545455000000002 0.086666667000000003 ] XMatrix=[0.20172348500000001 |0.080227273000000002 0.19852272700000001 |0.072897726999999996 0.095018938999999997 0.204166667 ] CMatrix=[2.7113475600000001 |-0.58501125300000001 3.0046318620000001 |-0.35075556600000002 -0.92029378699999997 2.8517100719999999 ]
+New &quot;LineCode.5&quot; NPhases=3 BaseFreq=60 RMatrix=[0.088371212000000005 |0.029545455000000002 0.086666667000000003 |0.029924242 0.029071969999999999 0.087405303000000004 ] XMatrix=[0.19852272700000001 |0.095018938999999997 0.204166667 |0.080227273000000002 0.072897726999999996 0.20172348500000001 ] CMatrix=[3.0046318620000001 |-0.92029378699999997 2.8517100719999999 |-0.58501125300000001 -0.35075556600000002 2.7113475600000001 ]
+New &quot;LineCode.6&quot; NPhases=3 BaseFreq=60 RMatrix=[0.086666667000000003 |0.029071969999999999 0.087405303000000004 |0.029545455000000002 0.029924242 0.088371212000000005 ] XMatrix=[0.204166667 |0.072897726999999996 0.20172348500000001 |0.095018938999999997 0.080227273000000002 0.19852272700000001 ] CMatrix=[2.8517100719999999 |-0.35075556600000002 2.7113475600000001 |-0.92029378699999997 -0.58501125300000001 3.0046318620000001 ]
+New &quot;LineCode.7&quot; NPhases=2 BaseFreq=60 RMatrix=[0.086666667000000003 |0.029071969999999999 0.087405303000000004 ] XMatrix=[0.204166667 |0.072897726999999996 0.20172348500000001 ] CMatrix=[2.5698295959999999 |-0.52995137000000003 2.5974600109999999 ]
+New &quot;LineCode.8&quot; NPhases=2 BaseFreq=60 RMatrix=[0.086666667000000003 |0.029071969999999999 0.087405303000000004 ] XMatrix=[0.204166667 |0.072897726999999996 0.20172348500000001 ] CMatrix=[2.5698295959999999 |-0.52995137000000003 2.5974600109999999 ]
+New &quot;LineCode.9&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25174242400000002 ] XMatrix=[0.25520833300000001 ] CMatrix=[2.270366128 ]
+New &quot;LineCode.10&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25174242400000002 ] XMatrix=[0.25520833300000001 ] CMatrix=[2.270366128 ]
+New &quot;LineCode.11&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25174242400000002 ] XMatrix=[0.25520833300000001 ] CMatrix=[2.270366128 ]
+New &quot;LineCode.12&quot; NPhases=3 BaseFreq=60 RMatrix=[0.28804924199999998 |0.098446969999999995 0.29032196999999998 |0.093257575999999995 0.098446969999999995 0.28804924199999998 ] XMatrix=[0.142443182 |0.052556817999999998 0.13564393899999999 |0.040852273000000001 0.052556817999999998 0.142443182 ] CMatrix=[33.771501489999999 |0 33.771501489999999 |0 0 33.771501489999999 ]
+New &quot;LineCode.300&quot; NPhases=3 BaseFreq=60 RMatrix=[0.253181818 |0.039791667000000003 0.25071969700000002 |0.040340909000000001 0.039128787999999998 0.25178030299999998 ] XMatrix=[0.25270833300000001 |0.109450758 0.25698863599999999 |0.094981061000000006 0.086950758000000003 0.255132576 ] CMatrix=[2.6801503090000001 |-0.76928100600000004 2.5610381000000002 |-0.49950767600000001 -0.312072984 2.455590387 ]
+New &quot;LineCode.301&quot; NPhases=3 BaseFreq=60 RMatrix=[0.365530303 |0.044071970000000002 0.36282196999999999 |0.044678030000000001 0.043333333000000002 0.36399621199999999 ] XMatrix=[0.267329545 |0.12200757600000001 0.27047348500000001 |0.107784091 0.099204545000000005 0.26910984799999998 ] CMatrix=[2.5724921630000002 |-0.72160597999999998 2.4643818820000001 |-0.47232939499999999 -0.29896109599999998 2.3688811190000001 ]
+New &quot;LineCode.302&quot; NPhases=1 BaseFreq=60 RMatrix=[0.53020800000000001 ] XMatrix=[0.28134500000000001 ] CMatrix=[2.1225700000000001 ]
+New &quot;LineCode.303&quot; NPhases=1 BaseFreq=60 RMatrix=[0.53020800000000001 ] XMatrix=[0.28134500000000001 ] CMatrix=[2.1225700000000001 ]
+New &quot;LineCode.304&quot; NPhases=1 BaseFreq=60 RMatrix=[0.363958 ] XMatrix=[0.26916699999999999 ] CMatrix=[2.1922000000000001 ]
+New &quot;LineCode.400&quot; NPhases=3 BaseFreq=60 RMatrix=[0.088205000000000006 |0.0312137 0.0901946 |0.030626400000000002 0.031614299999999998 0.088966500000000004 ] XMatrix=[0.20744000000000001 |0.093531400000000001 0.20078299999999999 |0.076031199999999993 0.085587899999999995 0.204877 ] CMatrix=[2.9030100000000001 |-0.67933500000000002 3.15896 |-0.22313 -0.48141600000000001 2.8965000000000001 ]
+New &quot;LineCode.601&quot; NPhases=3 BaseFreq=60 RMatrix=[0.065625000000000003 |0.029545455000000002 0.063920455000000001 |0.029924242 0.029071969999999999 0.064659091000000002 ] XMatrix=[0.19278409099999999 |0.095018938999999997 0.19844697 |0.080227273000000002 0.072897726999999996 0.19598484799999999 ] CMatrix=[3.1648380359999999 |-1.002632425 2.993981593 |-0.63273651600000003 -0.37260871299999992 2.8326702030000002 ]
+New &quot;LineCode.602&quot; NPhases=3 BaseFreq=60 RMatrix=[0.14253787900000001 |0.029924242 0.14157196999999999 |0.029545455000000002 0.029071969999999999 0.14083333300000001 ] XMatrix=[0.22375 |0.080227273000000002 0.226950758 |0.095018938999999997 0.072897726999999996 0.22939393899999999 ] CMatrix=[2.8630134229999999 |-0.54341491799999997 2.6020315890000001 |-0.84925849999999992 -0.33096214099999993 2.7251627679999997 ]
+New &quot;LineCode.603&quot; NPhases=2 BaseFreq=60 RMatrix=[0.25178030299999998 |0.039128787999999998 0.25071969700000002 ] XMatrix=[0.255132576 |0.086950758000000003 0.25698863599999999 ] CMatrix=[2.366017603 |-0.45208383599999996 2.3439635079999999 ]
+New &quot;LineCode.604&quot; NPhases=2 BaseFreq=60 RMatrix=[0.25071969700000002 |0.039128787999999998 0.25178030299999998 ] XMatrix=[0.25698863599999999 |0.086950758000000003 0.255132576 ] CMatrix=[2.3439635079999999 |-0.45208383599999996 2.366017603 ]
+New &quot;LineCode.605&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25174242400000002 ] XMatrix=[0.25520833300000001 ] CMatrix=[2.270366128 ]
+New &quot;LineCode.606&quot; NPhases=3 BaseFreq=60 RMatrix=[0.15117424199999999 |0.060454544999999998 0.14945075799999999 |0.053958332999999997 0.060454544999999998 0.15117424199999999 ] XMatrix=[0.084526514999999997 |0.0062121210000000001 0.076534090999999999 |-0.0027083329999999998 0.0062121210000000001 0.084526514999999997 ] CMatrix=[48.674594079999999 |0 48.674594079999999 |0 0 48.674594079999999 ]
+New &quot;LineCode.607&quot; NPhases=1 BaseFreq=60 RMatrix=[0.25426136399999999 ] XMatrix=[0.097045455000000003 ] CMatrix=[44.706615220000003 ]
+New &quot;LineCode.721&quot; NPhases=3 BaseFreq=60 RMatrix=[0.055416667000000003 |0.012746212 0.050113636000000003 |0.006382576 0.012746212 0.055416667000000003 ] XMatrix=[0.037367424000000003 |-0.0069696970000000004 0.035984848 |-0.0078977270000000002 -0.0069696970000000004 0.037367424000000003 ] CMatrix=[80.274847280000003 |0 80.274847280000003 |0 0 80.274847280000003 ]
+New &quot;LineCode.722&quot; NPhases=3 BaseFreq=60 RMatrix=[0.089981061000000001 |0.030852273 0.085000000000000006 |0.023371211999999999 0.030852273 0.089981061000000001 ] XMatrix=[0.056306818000000002 |-0.0061742419999999999 0.050719697000000001 |-0.011496212 -0.0061742419999999999 0.056306818000000002 ] CMatrix=[64.218410899999995 |0 64.218410899999995 |0 0 64.218410899999995 ]
+New &quot;LineCode.723&quot; NPhases=3 BaseFreq=60 RMatrix=[0.245 |0.092253788000000003 0.24662878799999999 |0.086837121000000003 0.092253788000000003 0.245 ] XMatrix=[0.12714015200000001 |0.039981060999999998 0.119810606 |0.028806818000000001 0.039981060999999998 0.12714015200000001 ] CMatrix=[37.597711199999999 |0 37.597711199999999 |0 0 37.597711199999999 ]
+New &quot;LineCode.724&quot; NPhases=3 BaseFreq=60 RMatrix=[0.39681818200000002 |0.098560605999999995 0.39901515199999998 |0.093295454999999999 0.098560605999999995 0.39681818200000002 ] XMatrix=[0.14693181799999999 |0.051856061000000002 0.14011363600000001 |0.040208332999999999 0.051856061000000002 0.14693181799999999 ] CMatrix=[30.267010290000005 |0 30.267010290000005 |0 0 30.267010290000005 ]
+New &quot;LineCode.mtx601&quot; NPhases=3 BaseFreq=60 RMatrix=[0.34649999999999997 |0.156 0.33750000000000002 |0.158 0.1535 0.34139999999999998 ] XMatrix=[1.0179 |0.50170000000000003 1.0478000000000001 |0.42359999999999998 0.38490000000000002 1.0347999999999999 ] Units=mi
+New &quot;LineCode.mtx602&quot; NPhases=3 BaseFreq=60 RMatrix=[0.75260000000000005 |0.158 0.74750000000000005 |0.156 0.1535 0.74360000000000004 ] XMatrix=[1.1814 |0.42359999999999998 1.1982999999999999 |0.50170000000000003 0.38490000000000002 1.2112000000000001 ] Units=mi
+New &quot;LineCode.mtx603&quot; NPhases=2 BaseFreq=60 RMatrix=[1.3238000000000001 |0.20660000000000001 1.3293999999999999 ] XMatrix=[1.3569 |0.45910000000000001 1.3471 ] Units=mi
+New &quot;LineCode.mtx604&quot; NPhases=2 BaseFreq=60 RMatrix=[1.3238000000000001 |0.20660000000000001 1.3293999999999999 ] XMatrix=[1.3569 |0.45910000000000001 1.3471 ] Units=mi
+New &quot;LineCode.mtx605&quot; NPhases=1 BaseFreq=60 RMatrix=[1.3291999999999999 ] XMatrix=[1.3474999999999999 ] Units=mi
+New &quot;LineCode.mtx606&quot; NPhases=3 Units=mi RMatrix=[0.79172100000000001 |0.31847599999999998 0.78164900000000004 |0.28344999999999998 0.31847599999999998 0.79172100000000001 ] XMatrix=[0.43835200000000002 |0.027683800000000001 0.39669700000000002 |-0.0184204 0.027683800000000001 0.43835200000000002 ] CMatrix=[383.94800000000004 |0 383.94800000000004 |0 0 383.94800000000004 ]
+New &quot;LineCode.mtx607&quot; NPhases=1 BaseFreq=60 RMatrix=[1.3425 ] XMatrix=[0.51239999999999997 ] CMatrix=[236 ] Units=mi
+Edit &quot;Vsource.source&quot; BasekV=115 pu=1.0001 Phases=3 Bus1=sourcebus Angle=30 MVASC3=20000 MVASC1=21000
+New &quot;Transformer.sub&quot; Phases=3 Windings=2 XHL=0.008 Buses=[sourcebus, 650, ] Conns=[delta, wye, ] kVs=[115, 4.1600000000000001, ] kVAs=[5000, 5000, ] Taps=[1, 1, ] %Rs=[0.00050000000000000001, 0.00050000000000000001, ] Wdg=1 Wdg=2
+New &quot;Transformer.reg1&quot; Phases=1 Bank=reg1 XHL=0.01 kVAs=[1666, 1666, ] Buses=[650.1, rg60.1, ] kVs=[2.3999999999999999, 2.3999999999999999, ] %LoadLoss=0.01
+New &quot;RegControl.reg1&quot; Transformer=reg1 Winding=2 VReg=122 Band=2 PTRatio=20 CTPrim=700 R=3 X=9
+New &quot;Transformer.reg2&quot; Phases=1 Bank=reg1 XHL=0.01 kVAs=[1666, 1666, ] Buses=[650.2, rg60.2, ] kVs=[2.3999999999999999, 2.3999999999999999, ] %LoadLoss=0.01
+New &quot;RegControl.reg2&quot; Transformer=reg2 Winding=2 VReg=122 Band=2 PTRatio=20 CTPrim=700 R=3 X=9
+New &quot;Transformer.reg3&quot; Phases=1 Bank=reg1 XHL=0.01 kVAs=[1666, 1666, ] Buses=[650.3, rg60.3, ] kVs=[2.3999999999999999, 2.3999999999999999, ] %LoadLoss=0.01
+New &quot;RegControl.reg3&quot; Transformer=reg3 Winding=2 VReg=122 Band=2 PTRatio=20 CTPrim=700 R=3 X=9
+New &quot;Transformer.xfm1&quot; Phases=3 Windings=2 XHL=2 Buses=[633, 634, ] Conns=[wye, wye, ] kVs=[4.1600000000000001, 0.47999999999999998, ] kVAs=[500, 500, ] Taps=[1, 1, ] %Rs=[0.55000000000000004, 0.55000000000000004, ] Wdg=1 Wdg=2
+New &quot;Load.671&quot; Bus1=671.1.2.3 Phases=3 Conn=delta Model=1 kV=4.16 kW=1155 kvar=660
+New &quot;Load.634a&quot; Bus1=634.1 Phases=1 Conn=wye Model=1 kV=0.277 kW=160 kvar=110
+New &quot;Load.634b&quot; Bus1=634.2 Phases=1 Conn=wye Model=1 kV=0.277 kW=120 kvar=90
+New &quot;Load.634c&quot; Bus1=634.3 Phases=1 Conn=wye Model=1 kV=0.277 kW=120 kvar=90
+New &quot;Load.645&quot; Bus1=645.2 Phases=1 Conn=wye Model=1 kV=2.4 kW=170 kvar=125
+New &quot;Load.646&quot; Bus1=646.2.3 Phases=1 Conn=delta Model=2 kV=4.16 kW=230 kvar=132
+New &quot;Load.692&quot; Bus1=692.3.1 Phases=1 Conn=delta Model=5 kV=4.16 kW=170 kvar=151
+New &quot;Load.675a&quot; Bus1=675.1 Phases=1 Conn=wye Model=1 kV=2.4 kW=485 kvar=190
+New &quot;Load.675b&quot; Bus1=675.2 Phases=1 Conn=wye Model=1 kV=2.4 kW=68 kvar=60
+New &quot;Load.675c&quot; Bus1=675.3 Phases=1 Conn=wye Model=1 kV=2.4 kW=290 kvar=212
+New &quot;Load.611&quot; Bus1=611.3 Phases=1 Conn=wye Model=5 kV=2.4 kW=170 kvar=80
+New &quot;Load.652&quot; Bus1=652.1 Phases=1 Conn=wye Model=2 kV=2.4 kW=128 kvar=86
+New &quot;Load.670a&quot; Bus1=670.1 Phases=1 Conn=wye Model=1 kV=2.4 kW=17 kvar=10
+New &quot;Load.670b&quot; Bus1=670.2 Phases=1 Conn=wye Model=1 kV=2.4 kW=66 kvar=38
+New &quot;Load.670c&quot; Bus1=670.3 Phases=1 Conn=wye Model=1 kV=2.4 kW=117 kvar=68
+New &quot;Capacitor.cap1&quot; Bus1=675 Phases=3 kvar=[ 600] kV=4.16
+New &quot;Capacitor.cap2&quot; Bus1=611.3 Phases=1 kvar=[ 100] kV=2.4
+New &quot;Line.650632&quot; Phases=3 Bus1=rg60.1.2.3 Bus2=632.1.2.3 LineCode=mtx601 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=2000 Units=ft
+New &quot;Line.632670&quot; Phases=3 Bus1=632.1.2.3 Bus2=670.1.2.3 LineCode=mtx601 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=667 Units=ft
+New &quot;Line.670671&quot; Phases=3 Bus1=670.1.2.3 Bus2=671.1.2.3 LineCode=mtx601 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=1333 Units=ft
+New &quot;Line.671680&quot; Phases=3 Bus1=671.1.2.3 Bus2=680.1.2.3 LineCode=mtx601 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=1000 Units=ft
+New &quot;Line.632633&quot; Phases=3 Bus1=632.1.2.3 Bus2=633.1.2.3 LineCode=mtx602 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=500 Units=ft
+New &quot;Line.632645&quot; Phases=2 Bus1=632.3.2 Bus2=645.3.2 LineCode=mtx603 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=500 Units=ft
+New &quot;Line.645646&quot; Phases=2 Bus1=645.3.2 Bus2=646.3.2 LineCode=mtx603 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=300 Units=ft
+New &quot;Line.692675&quot; Phases=3 Bus1=692.1.2.3 Bus2=675.1.2.3 LineCode=mtx606 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=500 Units=ft
+New &quot;Line.671684&quot; Phases=2 Bus1=671.1.3 Bus2=684.1.3 LineCode=mtx604 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=300 Units=ft
+New &quot;Line.684611&quot; Phases=1 Bus1=684.3 Bus2=611.3 LineCode=mtx605 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=300 Units=ft
+New &quot;Line.684652&quot; Phases=1 Bus1=684.1 Bus2=652.1 LineCode=mtx607 Ratings=[ 400] NormAmps=400 EmergAmps=600 Length=800 Units=ft
+New &quot;Line.671692&quot; Phases=3 Bus1=671 Bus2=692 Switch=Yes Length=0.001 Units=none R1=0.0001 R0=0.0001 X1=0 X0=0 C1=0 C0=0
+MakeBusList
+Set VoltageBases=(115, 4.1600000000000001, 0.47999999999999998, )
+! CalcVoltageBases
+SetBusXY Bus=sourcebus X=200 Y=400
+SetBusXY Bus=650 X=200 Y=350
+SetBusXY Bus=rg60 X=200 Y=300
+SetBusXY Bus=633 X=350 Y=250
+SetBusXY Bus=634 X=400 Y=250
+SetBusXY Bus=671 X=200 Y=100
+SetBusXY Bus=645 X=100 Y=250
+SetBusXY Bus=646 X=0 Y=250
+SetBusXY Bus=692 X=250 Y=100
+SetBusXY Bus=675 X=400 Y=100
+SetBusXY Bus=611 X=0 Y=100
+SetBusXY Bus=652 X=100 Y=0
+SetBusXY Bus=670 X=200 Y=200
+SetBusXY Bus=632 X=200 Y=250
+SetBusXY Bus=680 X=200 Y=0
+SetBusXY Bus=684 X=100 Y=100
+Open Line.671692 1
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="interaction-with-compatflags">
+<h2>Interaction with <code class="docutils literal notranslate"><span class="pre">CompatFlags()</span></code><a class="headerlink" href="#interaction-with-compatflags" title="Link to this heading">#</a></h2>
+<p>Besides the <code class="docutils literal notranslate"><span class="pre">CalcVoltageBases</span></code> mentioned before, the <code class="docutils literal notranslate"><span class="pre">PropertyTracking</span></code> flag also affects some output. Property tracking was introduced as an attempt to make the saved data (both DSS scripts and JSON) less ambiguous.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">IEEE4_DSS</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">clear</span>
+<span class="s1">Set DefaultBaseFrequency=60</span>
+<span class="s1">new circuit.4busDYBal   basekV=12.47 phases=3 mvasc3=200000 200000</span>
+<span class="s1">set earthmodel=carson</span>
+<span class="s1">new wiredata.conductor Runits=mi Rac=0.306 GMRunits=ft GMRac=0.0244  Radunits=in Diam=0.721 normamps=530</span>
+<span class="s1">new wiredata.neutral   Runits=mi Rac=0.592 GMRunits=ft GMRac=0.00814 Radunits=in Diam=0.563 normamps=340</span>
+<span class="s1">new linegeometry.4wire nconds=4 nphases=3 reduce=yes </span>
+<span class="s1">~ cond=1 wire=conductor units=ft x=-4   h=28 </span>
+<span class="s1">~ cond=2 wire=conductor units=ft x=-1.5 h=28 </span>
+<span class="s1">~ cond=3 wire=conductor units=ft x=3    h=28 </span>
+<span class="s1">~ cond=4 wire=neutral   units=ft x=0    h=24 </span>
+<span class="s1">new line.line1 geometry=4wire length=2000 units=ft bus1=sourcebus bus2=n2</span>
+<span class="s1">new transformer.t1 xhl=6</span>
+<span class="s1">~ wdg=1 bus=n2 conn=delta kV=12.47 kVA=6000 </span><span class="si">%r</span><span class="s1">=0.5 </span>
+<span class="s1">~ wdg=2 bus=n3 conn=wye   kV=4.16  kVA=6000 </span><span class="si">%r</span><span class="s1">=0.5 </span>
+<span class="s1">new line.line2 bus1=n3 bus2=n4 geometry=4wire length=2500 units=ft  </span>
+<span class="s1">new load.load1 phases=3 bus1=n4 conn=wye kV=4.16 kW=5400 pf=0.9  model=1 vminpu=0.75</span>
+<span class="s1">set voltagebases=[12.47, 4.16] </span>
+<span class="s1">&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="without-property-tracking">
+<h3>Without property tracking<a class="headerlink" href="#without-property-tracking" title="Link to this heading">#</a></h3>
+<p>Note here that when the load is edited, it still outputs <code class="docutils literal notranslate"><span class="pre">kW</span></code>, <code class="docutils literal notranslate"><span class="pre">PF</span></code> and <code class="docutils literal notranslate"><span class="pre">kvar</span></code>, which can be misleading and could confuse third-party parsers that don’t fully implement the OpenDSS parser:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dss</span> <span class="kn">import</span> <span class="n">DSSCompatFlags</span>
+<span class="n">odd</span><span class="o">.</span><span class="n">Basic</span><span class="o">.</span><span class="n">CompatFlags</span><span class="p">(</span><span class="n">DSSCompatFlags</span><span class="o">.</span><span class="n">NoPropertyTracking</span><span class="p">)</span>
+<span class="n">odd</span><span class="p">(</span><span class="n">IEEE4_DSS</span><span class="p">)</span>
+<span class="n">odd</span><span class="p">(</span><span class="s1">&#39;load.load1.kvar=1000&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">odd</span><span class="o">.</span><span class="n">Circuit</span><span class="o">.</span><span class="n">Save</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">SingleFile</span><span class="o">|</span><span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">ToString</span><span class="o">|</span><span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">ExcludeDefault</span><span class="o">|</span><span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">KeepOrder</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>! Last saved by AltDSS/DSS C-API Library version 0.14.1 revision 8b3da5b576f4dedd16d2bfb88bfb911c0aca3783 based on OpenDSS SVN 3723 [FPC 3.2.2] (64-bit build) MVMULT INCREMENTAL_Y CONTEXT_API PM 20240217013457 on 2024-02-21T23:45:11.071Z
+Clear
+Set DefaultBaseFreq=60
+New Circuit.4busdybal
+
+Set EarthModel=Carson
+
+New &quot;WireData.conductor&quot; RUnits=mi RAC=0.306 GMRUnits=ft GMRAC=0.0244 RadUnits=in Diam=0.721 NormAmps=530
+New &quot;WireData.neutral&quot; RUnits=mi RAC=0.592 GMRUnits=ft GMRAC=0.00814 RadUnits=in Diam=0.563 NormAmps=340
+New &quot;LineGeometry.4wire&quot;
+~ NConds=4
+~ NPhases=3
+~ Reduce=Yes
+~ Cond=1 wire=conductor X=-4 h=28 units=ft
+~ Cond=2 wire=conductor X=-1.5 h=28 units=ft
+~ Cond=3 wire=conductor X=3 h=28 units=ft
+~ Cond=4 wire=neutral X=0 h=24 units=ft
+
+Edit &quot;Vsource.source&quot; Bus1=sourcebus BasekV=12.47 Phases=3 MVASC3=200000 MVASC1=200000
+New &quot;Line.line1&quot; Geometry=4wire Ratings=[ 0] NormAmps=530 EmergAmps=795 Length=2000 Units=ft Bus1=sourcebus Bus2=n2
+New &quot;Transformer.t1&quot; XHL=6 Buses=[n2, n3, ] Conns=[delta, wye, ] kVs=[12.470000000000001, 4.1600000000000001, ] kVAs=[6000, 6000, ] Taps=[1, 1, ] %Rs=[0.5, 0.5, ] Wdg=1 Wdg=2
+New &quot;Line.line2&quot; Bus1=n3 Bus2=n4 Geometry=4wire Ratings=[ 0] NormAmps=530 EmergAmps=795 Length=2500 Units=ft
+New &quot;Load.load1&quot; Phases=3 Bus1=n4 Conn=wye kV=4.16 kW=5400 PF=0.98328200498446 Model=1 VMinpu=0.75 kvar=1000
+MakeBusList
+Set VoltageBases=(12.470000000000001, 4.1600000000000001, )
+! CalcVoltageBases
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="with-property-tracking-default">
+<h3>With property tracking (default)<a class="headerlink" href="#with-property-tracking-default" title="Link to this heading">#</a></h3>
+<p>With property tracking, <code class="docutils literal notranslate"><span class="pre">PF</span></code> is supressed from the load, since the load definition switches from (<code class="docutils literal notranslate"><span class="pre">kW</span></code>, <code class="docutils literal notranslate"><span class="pre">PF</span></code>) to (<code class="docutils literal notranslate"><span class="pre">kW</span></code>, <code class="docutils literal notranslate"><span class="pre">kvar</span></code>).</p>
+<p>Property tracking is an added functionaly on DSS-Extensions, the default OpenDSS does not implement this.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">odd</span><span class="o">.</span><span class="n">Basic</span><span class="o">.</span><span class="n">CompatFlags</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">odd</span><span class="p">(</span><span class="n">IEEE4_DSS</span><span class="p">)</span>
+<span class="n">odd</span><span class="p">(</span><span class="s1">&#39;load.load1.kvar=1000&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">odd</span><span class="o">.</span><span class="n">Circuit</span><span class="o">.</span><span class="n">Save</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">SingleFile</span><span class="o">|</span><span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">ToString</span><span class="o">|</span><span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">ExcludeDefault</span><span class="o">|</span><span class="n">DSSSaveFlags</span><span class="o">.</span><span class="n">KeepOrder</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>! Last saved by AltDSS/DSS C-API Library version 0.14.1 revision 8b3da5b576f4dedd16d2bfb88bfb911c0aca3783 based on OpenDSS SVN 3723 [FPC 3.2.2] (64-bit build) MVMULT INCREMENTAL_Y CONTEXT_API PM 20240217013457 on 2024-02-21T23:45:11.076Z
+Clear
+Set DefaultBaseFreq=60
+New Circuit.4busdybal
+
+Set EarthModel=Carson
+
+New &quot;WireData.conductor&quot; RUnits=mi RAC=0.306 GMRUnits=ft GMRAC=0.0244 RadUnits=in Diam=0.721 NormAmps=530
+New &quot;WireData.neutral&quot; RUnits=mi RAC=0.592 GMRUnits=ft GMRAC=0.00814 RadUnits=in Diam=0.563 NormAmps=340
+New &quot;LineGeometry.4wire&quot;
+~ NConds=4
+~ NPhases=3
+~ Reduce=Yes
+~ Cond=1 wire=conductor X=-4 h=28 units=ft
+~ Cond=2 wire=conductor X=-1.5 h=28 units=ft
+~ Cond=3 wire=conductor X=3 h=28 units=ft
+~ Cond=4 wire=neutral X=0 h=24 units=ft
+
+Edit &quot;Vsource.source&quot; Bus1=sourcebus BasekV=12.47 Phases=3 MVASC3=200000 MVASC1=200000
+New &quot;Line.line1&quot; Geometry=4wire Ratings=[ 0] NormAmps=530 EmergAmps=795 Length=2000 Units=ft Bus1=sourcebus Bus2=n2
+New &quot;Transformer.t1&quot; XHL=6 Buses=[n2, n3, ] Conns=[delta, wye, ] kVs=[12.470000000000001, 4.1600000000000001, ] kVAs=[6000, 6000, ] Taps=[1, 1, ] %Rs=[0.5, 0.5, ] Wdg=1 Wdg=2
+New &quot;Line.line2&quot; Bus1=n3 Bus2=n4 Geometry=4wire Ratings=[ 0] NormAmps=530 EmergAmps=795 Length=2500 Units=ft
+New &quot;Load.load1&quot; Phases=3 Bus1=n4 Conn=wye kV=4.16 kW=5400 Model=1 VMinpu=0.75 kvar=1000
+MakeBusList
+Set VoltageBases=(12.470000000000001, 4.1600000000000001, )
+! CalcVoltageBases
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="is-json-a-better-alternative">
+<h2>Is JSON a better alternative?<a class="headerlink" href="#is-json-a-better-alternative" title="Link to this heading">#</a></h2>
+<p>If the exported circuit will be used for other software, the engine in DSS-Extensions include work-in-progress implementation of JSON export and import functions. The repository for general discussions on this is at <a class="github reference external" href="https://github.com/dss-extensions/AltDSS-Schema">dss-extensions/AltDSS-Schema</a> and the docs are also being updated.</p>
+<p>For short, there are some small changes to match JSON expectations (this is encoded in the JSON Schema), some DSS properties (like winding and conductor iterators) are suppressed, etc.</p>
+<p>Currently, some options and commands are included in the <code class="docutils literal notranslate"><span class="pre">PreCommands</span></code> and <code class="docutils literal notranslate"><span class="pre">PostCommands</span></code> lists. They will be formalized as JSON objects later.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="n">json_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">odd</span><span class="o">.</span><span class="n">Circuit</span><span class="o">.</span><span class="n">ToJSON</span><span class="p">())</span>
+<span class="n">json_data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;$schema&#39;: &#39;https://dss-extensions.org/altdss-schema/2023-12-13.schema.json&#39;,
+ &#39;Name&#39;: &#39;4busdybal&#39;,
+ &#39;DefaultBaseFreq&#39;: 60.0,
+ &#39;PreCommands&#39;: [&#39;! Last saved by AltDSS/DSS C-API Library version 0.14.1 revision 8b3da5b576f4dedd16d2bfb88bfb911c0aca3783 based on OpenDSS SVN 3723 [FPC 3.2.2] (64-bit build) MVMULT INCREMENTAL_Y CONTEXT_API PM 20240217013457 on 2024-02-21T23:45:11.078Z&#39;,
+  &#39;Set EarthModel=Carson&#39;,
+  &#39;Set VoltageBases=[ 12.470000000000001 4.1600000000000001]&#39;],
+ &#39;Bus&#39;: [],
+ &#39;PostCommands&#39;: [&#39;Set ControlMode=Static&#39;,
+  &#39;Set Random=Gaussian&#39;,
+  &#39;Set frequency=60&#39;,
+  &#39;Set stepsize=0.001&#39;,
+  &#39;Set number=100&#39;,
+  &#39;Set tolerance=0.0001&#39;,
+  &#39;Set maxiterations=15&#39;,
+  &#39;Set miniterations=2&#39;,
+  &#39;Set loadmodel=PowerFlow&#39;,
+  &#39;Set loadmult=1&#39;,
+  &#39;Set Normvminpu=0.94999999999999996&#39;,
+  &#39;Set Normvmaxpu=1.05&#39;,
+  &#39;Set Emergvminpu=0.90000000000000002&#39;,
+  &#39;Set Emergvmaxpu=1.0800000000000001&#39;,
+  &#39;Set %mean=82.58&#39;,
+  &#39;Set %stddev=15.31&#39;,
+  &#39;Set LDCurve=&#39;,
+  &#39;Set %growth=2.5&#39;,
+  &#39;Set genkw=1000&#39;,
+  &#39;Set genpf=1&#39;,
+  &#39;Set capkvar=600&#39;,
+  &#39;Set addtype=Generator&#39;,
+  &#39;Set zonelock=No&#39;,
+  &#39;Set ueweight=    1.00&#39;,
+  &#39;Set lossweight=    1.00&#39;,
+  &#39;Set ueregs=[10]&#39;,
+  &#39;Set lossregs=[13]&#39;,
+  &#39;Set algorithm=Normal&#39;,
+  &#39;Set Trapezoidal=No&#39;,
+  &#39;Set genmult=1&#39;,
+  &#39;Set Basefrequency=60&#39;,
+  &#39;Set harmonics=ALL&#39;,
+  &#39;Set maxcontroliter=10&#39;],
+ &#39;WireData&#39;: [{&#39;Name&#39;: &#39;conductor&#39;,
+   &#39;RUnits&#39;: &#39;mi&#39;,
+   &#39;RAC&#39;: 0.306,
+   &#39;GMRUnits&#39;: &#39;ft&#39;,
+   &#39;GMRAC&#39;: 0.0244,
+   &#39;RadUnits&#39;: &#39;in&#39;,
+   &#39;Radius&#39;: 0.3605,
+   &#39;NormAmps&#39;: 530.0},
+  {&#39;Name&#39;: &#39;neutral&#39;,
+   &#39;RUnits&#39;: &#39;mi&#39;,
+   &#39;RAC&#39;: 0.592,
+   &#39;GMRUnits&#39;: &#39;ft&#39;,
+   &#39;GMRAC&#39;: 0.00814,
+   &#39;RadUnits&#39;: &#39;in&#39;,
+   &#39;Radius&#39;: 0.2815,
+   &#39;NormAmps&#39;: 340.0}],
+ &#39;LineGeometry&#39;: [{&#39;Name&#39;: &#39;4wire&#39;,
+   &#39;NConds&#39;: 4,
+   &#39;NPhases&#39;: 3,
+   &#39;Reduce&#39;: True,
+   &#39;Conductors&#39;: [&#39;WireData.conductor&#39;,
+    &#39;WireData.conductor&#39;,
+    &#39;WireData.conductor&#39;,
+    &#39;WireData.neutral&#39;],
+   &#39;Units&#39;: [&#39;ft&#39;, &#39;ft&#39;, &#39;ft&#39;, &#39;ft&#39;],
+   &#39;X&#39;: [-4.0, -1.5, 3.0, 0.0],
+   &#39;H&#39;: [28.0, 28.0, 28.0, 24.0]}],
+ &#39;Line&#39;: [{&#39;Name&#39;: &#39;line1&#39;,
+   &#39;Geometry&#39;: &#39;4wire&#39;,
+   &#39;Ratings&#39;: [0.0],
+   &#39;NormAmps&#39;: 530.0,
+   &#39;EmergAmps&#39;: 795.0,
+   &#39;Length&#39;: 2000.0,
+   &#39;Units&#39;: &#39;ft&#39;,
+   &#39;Bus1&#39;: &#39;sourcebus&#39;,
+   &#39;Bus2&#39;: &#39;n2&#39;},
+  {&#39;Name&#39;: &#39;line2&#39;,
+   &#39;Bus1&#39;: &#39;n3&#39;,
+   &#39;Bus2&#39;: &#39;n4&#39;,
+   &#39;Geometry&#39;: &#39;4wire&#39;,
+   &#39;Ratings&#39;: [0.0],
+   &#39;NormAmps&#39;: 530.0,
+   &#39;EmergAmps&#39;: 795.0,
+   &#39;Length&#39;: 2500.0,
+   &#39;Units&#39;: &#39;ft&#39;}],
+ &#39;Vsource&#39;: [{&#39;Name&#39;: &#39;source&#39;,
+   &#39;Bus1&#39;: &#39;sourcebus&#39;,
+   &#39;BasekV&#39;: 12.47,
+   &#39;Phases&#39;: 3,
+   &#39;MVASC3&#39;: 200000.0,
+   &#39;MVASC1&#39;: 200000.0}],
+ &#39;Load&#39;: [{&#39;Name&#39;: &#39;load1&#39;,
+   &#39;Phases&#39;: 3,
+   &#39;Bus1&#39;: &#39;n4&#39;,
+   &#39;Conn&#39;: &#39;wye&#39;,
+   &#39;kV&#39;: 4.16,
+   &#39;kW&#39;: 5400.0,
+   &#39;Model&#39;: 1,
+   &#39;VMinpu&#39;: 0.75,
+   &#39;kvar&#39;: 1000.0}],
+ &#39;Transformer&#39;: [{&#39;Name&#39;: &#39;t1&#39;,
+   &#39;X12&#39;: 6.0,
+   &#39;Bus&#39;: [&#39;n2&#39;, &#39;n3&#39;],
+   &#39;Conn&#39;: [&#39;delta&#39;, &#39;wye&#39;],
+   &#39;kV&#39;: [12.47, 4.16],
+   &#39;kVA&#39;: [6000.0, 6000.0],
+   &#39;pctR&#39;: [0.5, 0.5]}]}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># If you are running on Jupyter, better display</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">JSON</span>
+<span class="n">display</span><span class="p">(</span><span class="n">JSON</span><span class="p">(</span><span class="n">json_data</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.JSON object&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Multithreading.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Multiple DSS engines and multithreading</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../opendssdirect.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">opendssdirect package reference</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-circuit-save-function">The <code class="docutils literal notranslate"><span class="pre">Circuit.Save</span></code> function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-to-a-folder">Saving to a folder</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-to-a-single-file">Saving to a single file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exporting-directly-to-a-string">Exporting directly to a string</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supressing-defaults">Supressing defaults</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#keeping-the-order-of-elements">Keeping the order of elements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#open-elements">Open elements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#including-the-options">Including the options</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interaction-with-compatflags">Interaction with <code class="docutils literal notranslate"><span class="pre">CompatFlags()</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#without-property-tracking">Without property tracking</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#with-property-tracking-default">With property tracking (default)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#is-json-a-better-alternative">Is JSON a better alternative?</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2017-2024 Dheepak Krishnamurthy, Paulo Meira, DSS-Extensions contributors.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

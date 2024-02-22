@@ -6,9 +6,9 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>OpenDSSDirect.py &#8212; OpenDSSDirect.py 0.9.0.post3+g81daed3 documentation</title>
+    <title>OpenDSSDirect.py &#8212; OpenDSSDirect.py 0.9.1 documentation</title>
   
   
   
@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=362ab14a" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
@@ -38,7 +38,7 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="_static/documentation_options.js?v=1c0a46c0"></script>
+    <script src="_static/documentation_options.js?v=918a4b72"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
@@ -140,8 +140,8 @@
       
     
     
-    <img src="_static/opendssdirect.svg" class="logo__image only-light" alt="OpenDSSDirect.py 0.9.0.post3+g81daed3 documentation - Home"/>
-    <script>document.write(`<img src="_static/opendssdirect-dark.svg" class="logo__image only-dark" alt="OpenDSSDirect.py 0.9.0.post3+g81daed3 documentation - Home"/>`);</script>
+    <img src="_static/opendssdirect.svg" class="logo__image only-light" alt="OpenDSSDirect.py 0.9.1 documentation - Home"/>
+    <script>document.write(`<img src="_static/opendssdirect-dark.svg" class="logo__image only-dark" alt="OpenDSSDirect.py 0.9.1 documentation - Home"/>`);</script>
   
   
 </a></div>
@@ -172,6 +172,7 @@
 <li class="toctree-l1"><a class="reference internal" href="notebooks/VoltageProfilePlot.html">Plotting voltage profile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/SystemY.html">Circuit SystemY</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/Multithreading.html">Multithreading, multiple DSS engines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Saving.html">Saving and exporting circuits</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="nav bd-sidenav">
@@ -185,7 +186,7 @@
 <li class="toctree-l1"><a class="reference external" href="https://pypi.python.org/pypi/OpenDSSDirect.py/">Package on PyPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/dss-extensions/electricdss-tst">Test/example circuits</a></li>
 
-<li class="toctree-l1"><a class="reference external" href="https://dss-extensions.org/dss_python">DSS-Python</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://dss-extensions.org/DSS-Python">DSS-Python</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://dss-extensions.org/AltDSS-Python/">AltDSS-Python</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/orgs/dss-extensions/discussions">DSS-Extensions Discussions</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://sourceforge.net/p/electricdss/discussion/">OpenDSS forum</a></li>
@@ -362,7 +363,7 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="opendssdirect-py">
 <h1>OpenDSSDirect.py<a class="headerlink" href="#opendssdirect-py" title="Link to this heading">#</a></h1>
 <p><a class="reference external" href="https://pypi.python.org/pypi/OpenDSSDirect.py/"><img alt="PyPI" src="https://img.shields.io/pypi/v/OpenDSSDirect.py.svg" /></a> <img alt="Supports Linux" src="https://img.shields.io/badge/Linux-FCC624?logo=linux&logoColor=black"> <img alt="Supports macOS" src="https://img.shields.io/badge/macOS-000000?logo=apple&logoColor=white"> <img alt="Supports Microsoft Windows" src="https://img.shields.io/badge/Windows-0078D6?logo=windows&logoColor=white"></p>
-<p>OpenDSSDirect.py is a cross-platform Python package implements a “direct” library interface to <a class="reference external" href="https://github.com/dss-extensions/dss_capi">our customized implementation</a> of <a class="reference external" href="http://smartgrid.epri.com/SimulationTool.aspx">OpenDSS</a> using <a class="reference external" href="https://dss-extensions.org/dss_python/">DSS-Python</a>.
+<p>OpenDSSDirect.py is a cross-platform Python package implements a “direct” library interface to <a class="reference external" href="https://github.com/dss-extensions/dss_capi">our customized implementation</a> of <a class="reference external" href="http://smartgrid.epri.com/SimulationTool.aspx">OpenDSS</a> using <a class="reference external" href="https://dss-extensions.org/DSS-Python/">DSS-Python</a>.
 OpenDSS is an open-source electric power distribution system simulator <a class="reference external" href="https://sourceforge.net/p/electricdss/">distributed by EPRI</a>.</p>
 <p>OpenDSSDirect.py is part of DSS-Extensions, a larger effort to port the original OpenDSS to support more platforms (OSs, processor architectures), programming languages, and extend both the OpenDSS engine and API, represented in the AltDSS engine:</p>
 <p align="center">
@@ -374,7 +375,7 @@ OpenDSS is an open-source electric power distribution system simulator <a class=
 <div class="mermaid">
             flowchart TD
     C[&quot;AltDSS engine/DSS C-API\n(libdss_capi)&quot;] --&gt; P[&quot;DSS-Python: Backend&quot;]
-    P --- DSSPY[&quot;&lt;a href='https://dss-extensions.org/dss_python/'&gt;DSS-Python\n(dss package)&lt;a/&gt;&quot;]
+    P --- DSSPY[&quot;&lt;a href='https://dss-extensions.org/DSS-Python/'&gt;DSS-Python\n(dss package)&lt;a/&gt;&quot;]
     P --- ODDPY[&quot;OpenDSSDirect.py\n(opendssdirect package)&quot;]
     P --- ALTDSSPY[&quot;&lt;a href='https://dss-extensions.org/AltDSS-Python/'&gt;AltDSS-Python\n(altdss package)&lt;/a&gt;&quot;]
         </div></center>
@@ -391,7 +392,7 @@ This package interfaces with OpenDSS using the “direct” library interface, s
 <section id="acknowledgments">
 <h2>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Link to this heading">#</a></h2>
 <p>Thanks to &#64;tshort, Davis, &#64;temcdrm, &#64;GordStephen, &#64;Muxelmann and &#64;PMeira for their contributions, as well as all the users for their valuable feedback. Thanks to EPRI for providing OpenDSS to the power systems community.</p>
-<p>See also our repositories for <a class="reference external" href="https://github.com/dss-extensions/dss_python">DSS-Python</a> for the underlying Python package used in this package, and
+<p>See also our repositories for <a class="reference external" href="https://github.com/dss-extensions/DSS-Python">DSS-Python</a> for the underlying Python package used in this package, and
 <a class="reference external" href="https://github.com/dss-extensions/dss_capi">DSS C-API</a> for the modified and extended OpenDSS codebase used in DSS-Extensions.</p>
 </section>
 <section id="documentation">
@@ -415,6 +416,7 @@ This package interfaces with OpenDSS using the “direct” library interface, s
 <li class="toctree-l1"><a class="reference internal" href="notebooks/VoltageProfilePlot.html">Plotting voltage profile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/SystemY.html">Circuit SystemY</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks/Multithreading.html">Multithreading, multiple DSS engines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Saving.html">Saving and exporting circuits</a></li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">

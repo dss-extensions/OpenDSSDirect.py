@@ -6,9 +6,9 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Usage &#8212; OpenDSSDirect.py 0.9.0.post3+g81daed3 documentation</title>
+    <title>Usage &#8212; OpenDSSDirect.py 0.9.1 documentation</title>
   
   
   
@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=362ab14a" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
@@ -38,7 +38,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="../_static/documentation_options.js?v=1c0a46c0"></script>
+    <script src="../_static/documentation_options.js?v=918a4b72"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
@@ -137,8 +137,8 @@
       
     
     
-    <img src="../_static/opendssdirect.svg" class="logo__image only-light" alt="OpenDSSDirect.py 0.9.0.post3+g81daed3 documentation - Home"/>
-    <script>document.write(`<img src="../_static/opendssdirect-dark.svg" class="logo__image only-dark" alt="OpenDSSDirect.py 0.9.0.post3+g81daed3 documentation - Home"/>`);</script>
+    <img src="../_static/opendssdirect.svg" class="logo__image only-light" alt="OpenDSSDirect.py 0.9.1 documentation - Home"/>
+    <script>document.write(`<img src="../_static/opendssdirect-dark.svg" class="logo__image only-dark" alt="OpenDSSDirect.py 0.9.1 documentation - Home"/>`);</script>
   
   
 </a></div>
@@ -169,6 +169,7 @@
 <li class="toctree-l1"><a class="reference internal" href="VoltageProfilePlot.html">Plotting voltage profile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="SystemY.html">Circuit SystemY</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Multithreading.html">Multithreading, multiple DSS engines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Saving.html">Saving and exporting circuits</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="nav bd-sidenav">
@@ -182,7 +183,7 @@
 <li class="toctree-l1"><a class="reference external" href="https://pypi.python.org/pypi/OpenDSSDirect.py/">Package on PyPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/dss-extensions/electricdss-tst">Test/example circuits</a></li>
 
-<li class="toctree-l1"><a class="reference external" href="https://dss-extensions.org/dss_python">DSS-Python</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://dss-extensions.org/DSS-Python">DSS-Python</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://dss-extensions.org/AltDSS-Python/">AltDSS-Python</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/orgs/dss-extensions/discussions">DSS-Extensions Discussions</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://sourceforge.net/p/electricdss/discussion/">OpenDSS forum</a></li>
@@ -351,7 +352,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="usage">
 <h1>Usage<a class="headerlink" href="#usage" title="Link to this heading">#</a></h1>
-<p>OpenDSSDirect.py is a package in the <a class="reference external" href="https://dss-extensions.org/">DSS-Extensions</a> project. As such, it doesn’t require EPRI’s OpenDSS to be installed. OpenDSSDirect.py provides it’s own customized engine through <a class="reference external" href="https://dss-extensions.org/dss_python/">DSS-Python</a>, which in turn enables us to run the DSS engine on Windows, Linux and macOS (including newer Apple ARM processors).</p>
+<p>OpenDSSDirect.py is a package in the <a class="reference external" href="https://dss-extensions.org/">DSS-Extensions</a> project. As such, it doesn’t require EPRI’s OpenDSS to be installed. OpenDSSDirect.py provides it’s own customized engine through <a class="reference external" href="https://dss-extensions.org/DSS-Python/">DSS-Python</a>, which in turn enables us to run the DSS engine on Windows, Linux and macOS (including newer Apple ARM processors).</p>
 <p>After the installation, you can just import the module and start using it without further steps:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -367,9 +368,9 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>OpenDSSDirect.py and engine versions: DSS C-API Library version 0.14.0 revision 04941400a091677da98b033a3b682480f2584693 based on OpenDSS SVN 3723 [FPC 3.2.2] (64-bit build) MVMULT INCREMENTAL_Y CONTEXT_API PM 20240209141429; License Status: Open 
-DSS-Python version: 0.15.1
-OpenDSSDirect.py version: 0.9.0.post3+g81daed3
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>OpenDSSDirect.py and engine versions: DSS C-API Library version 0.14.1 revision 8b3da5b576f4dedd16d2bfb88bfb911c0aca3783 based on OpenDSS SVN 3723 [FPC 3.2.2] (64-bit build) MVMULT INCREMENTAL_Y CONTEXT_API PM 20240217013457; License Status: Open 
+DSS-Python version: 0.15.2
+OpenDSSDirect.py version: 0.9.1
 </pre></div>
 </div>
 </div>
@@ -390,12 +391,12 @@ OpenDSSDirect.py version: 0.9.0.post3+g81daed3
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">dss</span><span class="o">.</span><span class="n">Command</span><span class="p">(</span><span class="s1">&#39;Redirect this_file_does_not_exist.dss&#39;</span><span class="p">)</span>
 
-<span class="nn">File /opt/python/lib/python3.11/site-packages/opendssdirect/Text.py:26,</span> in <span class="ni">IText.Command</span><span class="nt">(self, *args)</span>
+<span class="nn">File /opt/python/lib/python3.12/site-packages/opendssdirect/Text.py:26,</span> in <span class="ni">IText.Command</span><span class="nt">(self, *args)</span>
 <span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">Value</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
 <span class="g g-Whitespace">     </span><span class="mi">25</span>     <span class="n">Value</span> <span class="o">=</span> <span class="n">Value</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_api_util</span><span class="o">.</span><span class="n">codec</span><span class="p">)</span>
 <span class="ne">---&gt; </span><span class="mi">26</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_for_error</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_lib</span><span class="o">.</span><span class="n">Text_Set_Command</span><span class="p">(</span><span class="n">Value</span><span class="p">))</span>
 
-<span class="nn">File /opt/python/lib/python3.11/site-packages/dss/_cffi_api_util.py:267,</span> in <span class="ni">Base._check_for_error</span><span class="nt">(self, result)</span>
+<span class="nn">File /opt/python/lib/python3.12/site-packages/dss/_cffi_api_util.py:267,</span> in <span class="ni">Base._check_for_error</span><span class="nt">(self, result)</span>
 <span class="g g-Whitespace">    </span><span class="mi">265</span>     <span class="n">error_num</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_errorPtr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="g g-Whitespace">    </span><span class="mi">266</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_errorPtr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="ne">--&gt; </span><span class="mi">267</span>     <span class="k">raise</span> <span class="n">DSSException</span><span class="p">(</span><span class="n">error_num</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_lib</span><span class="o">.</span><span class="n">Error_Get_Description</span><span class="p">()))</span>
@@ -510,7 +511,7 @@ dss.utils
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">function</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmembers</span><span class="p">(</span><span class="n">dss</span><span class="o">.</span><span class="n">Loads</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">function</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">function</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;dss.Loads.</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -722,7 +723,7 @@ Name=670c 	 kW=125.0
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;magic-timeit&gt;:1: DeprecationWarning: OpenDSSDirect.py&#39;s Iterator is deprecated; you can use native Python iterators directly now.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5.23 µs ± 25.7 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5.51 µs ± 22 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)
 </pre></div>
 </div>
 </div>
@@ -734,7 +735,7 @@ Name=670c 	 kW=125.0
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.54 µs ± 14.8 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.67 µs ± 80.8 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)
 </pre></div>
 </div>
 </div>
@@ -743,7 +744,7 @@ Name=670c 	 kW=125.0
 <section id="low-level-api-advanced-topic">
 <h2>Low-level API (advanced topic)<a class="headerlink" href="#low-level-api-advanced-topic" title="Link to this heading">#</a></h2>
 <p><strong>If you are a new OpenDSS user, you are not expected to use the low-level interface, i.e. the <code class="docutils literal notranslate"><span class="pre">dss_lib</span></code> and <code class="docutils literal notranslate"><span class="pre">dss_ffi</span></code> objects are for advanced users only, and may change without warning.</strong></p>
-<p>The low-level interface exposes <a class="reference external" href="https://dss-extensions.org/dss_capi/dss__capi_8h.html">DSS C-API</a> as wrapped in <a class="reference external" href="https://dss-extensions.org/dss_python/">DSS-Python</a>. It’s useful to prototype low-level operations in Python before porting to C, which is not something most of the OpenDSS users will ever do.</p>
+<p>The low-level interface exposes <a class="reference external" href="https://dss-extensions.org/dss_capi/dss__capi_8h.html">DSS C-API</a> as wrapped in <a class="reference external" href="https://dss-extensions.org/DSS-Python/">DSS-Python</a>. It’s useful to prototype low-level operations in Python before porting to C, which is not something most of the OpenDSS users will ever do.</p>
 <p>Still, in some rare occasions, it might be useful to use the low-level interface. Beware that error checking needs to done by the user in this case.
 The reference for the low-level API is the source code of the DSS engine itself and the C header, e.g.</p>
 <ul class="simple">

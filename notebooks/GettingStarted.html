@@ -6,9 +6,9 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Getting Started &#8212; OpenDSSDirect.py 0.9.0.post3+g81daed3 documentation</title>
+    <title>Getting Started &#8212; OpenDSSDirect.py 0.9.1 documentation</title>
   
   
   
@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=362ab14a" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
@@ -38,7 +38,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="../_static/documentation_options.js?v=1c0a46c0"></script>
+    <script src="../_static/documentation_options.js?v=918a4b72"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
@@ -137,8 +137,8 @@
       
     
     
-    <img src="../_static/opendssdirect.svg" class="logo__image only-light" alt="OpenDSSDirect.py 0.9.0.post3+g81daed3 documentation - Home"/>
-    <script>document.write(`<img src="../_static/opendssdirect-dark.svg" class="logo__image only-dark" alt="OpenDSSDirect.py 0.9.0.post3+g81daed3 documentation - Home"/>`);</script>
+    <img src="../_static/opendssdirect.svg" class="logo__image only-light" alt="OpenDSSDirect.py 0.9.1 documentation - Home"/>
+    <script>document.write(`<img src="../_static/opendssdirect-dark.svg" class="logo__image only-dark" alt="OpenDSSDirect.py 0.9.1 documentation - Home"/>`);</script>
   
   
 </a></div>
@@ -169,6 +169,7 @@
 <li class="toctree-l1"><a class="reference internal" href="VoltageProfilePlot.html">Plotting voltage profile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="SystemY.html">Circuit SystemY</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Multithreading.html">Multithreading, multiple DSS engines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Saving.html">Saving and exporting circuits</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="nav bd-sidenav">
@@ -182,7 +183,7 @@
 <li class="toctree-l1"><a class="reference external" href="https://pypi.python.org/pypi/OpenDSSDirect.py/">Package on PyPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/dss-extensions/electricdss-tst">Test/example circuits</a></li>
 
-<li class="toctree-l1"><a class="reference external" href="https://dss-extensions.org/dss_python">DSS-Python</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://dss-extensions.org/DSS-Python">DSS-Python</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://dss-extensions.org/AltDSS-Python/">AltDSS-Python</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/orgs/dss-extensions/discussions">DSS-Extensions Discussions</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://sourceforge.net/p/electricdss/discussion/">OpenDSS forum</a></li>
@@ -356,7 +357,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="getting-started">
 <h1>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">OpenDSSDirect.py</span></code> is a package in the <a class="reference external" href="https://dss-extensions.org/">DSS-Extensions</a> project. As such, it doesn’t require EPRI’s OpenDSS to be installed. <code class="docutils literal notranslate"><span class="pre">OpenDSSDirect.py</span></code> provides its own customized engine through <a class="reference external" href="https://dss-extensions.org/dss_python/">DSS-Python</a>, which in turn enables us to run the DSS engine on Windows, Linux and macOS (including newer Apple ARM processors, a.k.a. “Apple Silicon”).</p>
+<p><code class="docutils literal notranslate"><span class="pre">OpenDSSDirect.py</span></code> is a package in the <a class="reference external" href="https://dss-extensions.org/">DSS-Extensions</a> project. As such, it doesn’t require EPRI’s OpenDSS to be installed. <code class="docutils literal notranslate"><span class="pre">OpenDSSDirect.py</span></code> provides its own customized engine through <a class="reference external" href="https://dss-extensions.org/DSS-Python/">DSS-Python</a>, which in turn enables us to run the DSS engine on Windows, Linux and macOS (including newer Apple ARM processors, a.k.a. “Apple Silicon”).</p>
 <p>For a comparison of the general Python-level API, including a list of our extra functions, please check <a class="reference external" href="https://github.com/dss-extensions/dss-extensions/blob/main/docs/python_apis.md">DSS-Extensions — OpenDSS: Overview of Python APIs</a>. That documents introduces and compares DSS-Python, OpenDSSDirect.py, and the official COM implementation.</p>
 <p>To use <code class="docutils literal notranslate"><span class="pre">OpenDSSDirect.py</span></code>, open a Python interpreter and type the following command:</p>
 <div class="cell docutils container">
@@ -571,7 +572,7 @@ rg60
 </div>
 </div>
 </div>
-<p>See <a class="reference external" href="https://dss-extensions.org/dss_python/examples/GettingStarted.html">DSS-Python’s Getting Started guide</a> for more notes and features that could make the migration easier.</p>
+<p>See <a class="reference external" href="https://dss-extensions.org/DSS-Python/examples/GettingStarted.html">DSS-Python’s Getting Started guide</a> for more notes and features that could make the migration easier.</p>
 </section>
 <section id="returning-numpy-arrays">
 <h2>Returning NumPy arrays<a class="headerlink" href="#returning-numpy-arrays" title="Link to this heading">#</a></h2>
@@ -648,11 +649,11 @@ rg60
 </section>
 <section id="plotting-and-notebook-integration">
 <h2>Plotting and notebook integration<a class="headerlink" href="#plotting-and-notebook-integration" title="Link to this heading">#</a></h2>
-<p>For examples on how to use the plot commands from OpenDSS, including an extensive gallery, see <a class="reference external" href="https://dss-extensions.org/dss_python/examples/Plotting">Integrated plotting in Python</a>.</p>
+<p>For examples on how to use the plot commands from OpenDSS, including an extensive gallery, see <a class="reference external" href="https://dss-extensions.org/DSS-Python/examples/Plotting">Integrated plotting in Python</a>.</p>
 </section>
 <section id="json-exports-and-imports">
 <h2>JSON exports and imports<a class="headerlink" href="#json-exports-and-imports" title="Link to this heading">#</a></h2>
-<p>Another on-going effort is JSON export and import: <a class="reference external" href="https://dss-extensions.org/dss_python/examples/JSON">https://dss-extensions.org/dss_python/examples/JSON</a></p>
+<p>Another on-going effort is JSON export and import: <a class="reference external" href="https://dss-extensions.org/DSS-Python/examples/JSON">https://dss-extensions.org/DSS-Python/examples/JSON</a></p>
 </section>
 <section id="using-the-pandas-interface">
 <h2>Using the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> interface<a class="headerlink" href="#using-the-pandas-interface" title="Link to this heading">#</a></h2>

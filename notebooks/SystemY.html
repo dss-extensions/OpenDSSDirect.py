@@ -6,9 +6,9 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Example: Circuit SystemY &#8212; OpenDSSDirect.py 0.9.0.post3+g81daed3 documentation</title>
+    <title>Example: Circuit SystemY &#8212; OpenDSSDirect.py 0.9.1 documentation</title>
   
   
   
@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=362ab14a" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
@@ -38,7 +38,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
   <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script src="../_static/documentation_options.js?v=1c0a46c0"></script>
+    <script src="../_static/documentation_options.js?v=918a4b72"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
@@ -137,8 +137,8 @@
       
     
     
-    <img src="../_static/opendssdirect.svg" class="logo__image only-light" alt="OpenDSSDirect.py 0.9.0.post3+g81daed3 documentation - Home"/>
-    <script>document.write(`<img src="../_static/opendssdirect-dark.svg" class="logo__image only-dark" alt="OpenDSSDirect.py 0.9.0.post3+g81daed3 documentation - Home"/>`);</script>
+    <img src="../_static/opendssdirect.svg" class="logo__image only-light" alt="OpenDSSDirect.py 0.9.1 documentation - Home"/>
+    <script>document.write(`<img src="../_static/opendssdirect-dark.svg" class="logo__image only-dark" alt="OpenDSSDirect.py 0.9.1 documentation - Home"/>`);</script>
   
   
 </a></div>
@@ -169,6 +169,7 @@
 <li class="toctree-l1"><a class="reference internal" href="VoltageProfilePlot.html">Plotting voltage profile</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Circuit SystemY</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Multithreading.html">Multithreading, multiple DSS engines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Saving.html">Saving and exporting circuits</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="nav bd-sidenav">
@@ -182,7 +183,7 @@
 <li class="toctree-l1"><a class="reference external" href="https://pypi.python.org/pypi/OpenDSSDirect.py/">Package on PyPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/dss-extensions/electricdss-tst">Test/example circuits</a></li>
 
-<li class="toctree-l1"><a class="reference external" href="https://dss-extensions.org/dss_python">DSS-Python</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://dss-extensions.org/DSS-Python">DSS-Python</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://dss-extensions.org/AltDSS-Python/">AltDSS-Python</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/orgs/dss-extensions/discussions">DSS-Extensions Discussions</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://sourceforge.net/p/electricdss/discussion/">OpenDSS forum</a></li>
@@ -445,10 +446,10 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.lines.Line2D at 0x7effe7265ed0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.lines.Line2D at 0x7fb068f9f740&gt;
 </pre></div>
 </div>
-<img alt="../_images/4011f1b1a019bbb1ed195bccc5a7b157b962b7834cf429e3b68289ce04fa9dc9.png" src="../_images/4011f1b1a019bbb1ed195bccc5a7b157b962b7834cf429e3b68289ce04fa9dc9.png" />
+<img alt="../_images/9d2bc88057dbb659285d2268fa7077cf50c1c98b69bf85013d830552f512a64e.png" src="../_images/9d2bc88057dbb659285d2268fa7077cf50c1c98b69bf85013d830552f512a64e.png" />
 </div>
 </div>
 <p>Although not recommended, you can also get the whole dense system Y matrix as below, just like in the official OpenDSS COM implementation. This is kept for compatibility with the official implementation. It is useful to quickly analyze very small circuits without installing extra Python packages.</p>

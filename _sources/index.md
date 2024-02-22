@@ -2,7 +2,7 @@
 
 [![PyPI](https://img.shields.io/pypi/v/OpenDSSDirect.py.svg)](https://pypi.python.org/pypi/OpenDSSDirect.py/) <img alt="Supports Linux" src="https://img.shields.io/badge/Linux-FCC624?logo=linux&logoColor=black"> <img alt="Supports macOS" src="https://img.shields.io/badge/macOS-000000?logo=apple&logoColor=white"> <img alt="Supports Microsoft Windows" src="https://img.shields.io/badge/Windows-0078D6?logo=windows&logoColor=white">
 
-OpenDSSDirect.py is a cross-platform Python package implements a "direct" library interface to [our customized implementation](https://github.com/dss-extensions/dss_capi) of [OpenDSS](http://smartgrid.epri.com/SimulationTool.aspx) using [DSS-Python](https://dss-extensions.org/dss_python/).
+OpenDSSDirect.py is a cross-platform Python package implements a "direct" library interface to [our customized implementation](https://github.com/dss-extensions/dss_capi) of [OpenDSS](http://smartgrid.epri.com/SimulationTool.aspx) using [DSS-Python](https://dss-extensions.org/DSS-Python/).
 OpenDSS is an open-source electric power distribution system simulator [distributed by EPRI](https://sourceforge.net/p/electricdss/). 
 
 OpenDSSDirect.py is part of DSS-Extensions, a larger effort to port the original OpenDSS to support more platforms (OSs, processor architectures), programming languages, and extend both the OpenDSS engine and API, represented in the AltDSS engine:
@@ -20,7 +20,7 @@ See [OpenDSSDirect.jl](https://github.com/dss-extensions/OpenDSSDirect.jl) for a
 ```mermaid
 flowchart TD
     C["AltDSS engine/DSS C-API\n(libdss_capi)"] --> P["DSS-Python: Backend"]
-    P --- DSSPY["<a href='https://dss-extensions.org/dss_python/'>DSS-Python\n(dss package)<a/>"]
+    P --- DSSPY["<a href='https://dss-extensions.org/DSS-Python/'>DSS-Python\n(dss package)<a/>"]
     P --- ODDPY["OpenDSSDirect.py\n(opendssdirect package)"]
     P --- ALTDSSPY["<a href='https://dss-extensions.org/AltDSS-Python/'>AltDSS-Python\n(altdss package)</a>"]
 ```
@@ -46,7 +46,7 @@ The official repository for OpenDSSDirect.py is hosted at https://github.com/dss
 
 Thanks to @tshort, Davis, @temcdrm, @GordStephen, @Muxelmann and @PMeira for their contributions, as well as all the users for their valuable feedback. Thanks to EPRI for providing OpenDSS to the power systems community.
 
-See also our repositories for [DSS-Python](https://github.com/dss-extensions/dss_python) for the underlying Python package used in this package, and 
+See also our repositories for [DSS-Python](https://github.com/dss-extensions/DSS-Python) for the underlying Python package used in this package, and 
 [DSS C-API](https://github.com/dss-extensions/dss_capi) for the modified and extended OpenDSS codebase used in DSS-Extensions.
 
 ## Documentation
@@ -72,6 +72,7 @@ notebooks/ActiveClass
 Plotting voltage profile <notebooks/VoltageProfilePlot>
 Circuit SystemY <notebooks/SystemY>
 Multithreading, multiple DSS engines <notebooks/Multithreading>
+notebooks/Saving
 ```
 
 ```{toctree}
@@ -90,7 +91,7 @@ GitHub repository <https://github.com/dss-extensions/OpenDSSDirect.py>
 Package on PyPI <https://pypi.python.org/pypi/OpenDSSDirect.py/>
 Test/example circuits <https://github.com/dss-extensions/electricdss-tst>
 DSS-Extensions/FAQ <https://github.com/dss-extensions/dss-extensions#faq>
-DSS-Python <https://dss-extensions.org/dss_python>
+DSS-Python <https://dss-extensions.org/DSS-Python>
 AltDSS-Python <https://dss-extensions.org/AltDSS-Python/>
 DSS-Extensions Discussions <https://github.com/orgs/dss-extensions/discussions>
 OpenDSS forum <https://sourceforge.net/p/electricdss/discussion/>
