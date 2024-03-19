@@ -23,7 +23,7 @@ packages = ["opendssdirect"]
 name = "opendssdirect.py"
 dynamic = ["version"]
 dependencies = [
-    "dss-python>=0.15.1,<0.16",
+    "dss-python==0.15.5",
 ]
 requires-python = ">=3.7"
 authors = [
@@ -34,7 +34,7 @@ maintainers = [
   {name = "Dheepak Krishnamurthy", email = "me@kdheepak.com"},
   {name = "Paulo Meira", email = "pmeira@ieee.org"},
 ]
-description = "Python direct-mode interface to an alternative implementation of OpenDSS"
+description = "Python direct-mode interface to the alternative implementation of OpenDSS from DSS-Extensions.org"
 readme = "README.md"
 license = {file = "LICENSE"}
 keywords = ["opendss", "altdss", "electric power systems", "opendssdirect", "cffi"]
@@ -51,7 +51,7 @@ classifiers = [
     'Programming Language :: Python :: 3.12',
     'Programming Language :: Python :: Implementation :: CPython',
     'Programming Language :: Python :: Implementation :: PyPy',
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
     'Topic :: Scientific/Engineering',
     "License :: Other/Proprietary License",
 ]
