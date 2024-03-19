@@ -23,7 +23,7 @@ packages = ["opendssdirect"]
 name = "opendssdirect.py"
 dynamic = ["version"]
 dependencies = [
-    "dss-python==0.15.5",
+    "dss-python==0.15.6",
 ]
 requires-python = ">=3.7"
 authors = [
