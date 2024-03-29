@@ -5666,3 +5666,37 @@ def test_threading2(dss):
     # Check if we actually got a lower time
     if len(ctxs) > 2:
         assert dt_thread < dt_seq
+
+
+def test_geometry_conductors(dss):
+    dss('''
+        clear
+        new circuit.test
+        New WireData.A diam=0.793 radunits=in GMRac=0.3 GMRunits=in Rac=0.1968 Runits=mi
+        New WireData.B diam=0.793 radunits=in GMRac=0.3 GMRunits=in Rac=0.1968 Runits=mi
+        New LineGeometry.sample_linegeo_reduce nconds=4 nphases=3 reduce=yes
+        ~ cond=1 wire=A x=-3.67 h=31.33 units=ft
+        ~ cond=2 wire=A x=0 h=31.33 units=ft
+        ~ cond=3 wire=A x=3.67 h=31.33 units=ft
+        ~ cond=4 wire=B x=0 h=26 units=ft
+        New LineGeometry.sample_linegeo_no_reduce nconds=4 nphases=3 reduce=no
+        ~ cond=1 wire=A x=-3.67 h=31.33 units=ft
+        ~ cond=2 wire=A x=0 h=31.33 units=ft
+        ~ cond=3 wire=A x=3.67 h=31.33 units=ft
+        ~ cond=4 wire=B x=0 h=26 units=ft
+    ''')
+
+    LG = dss.LineGeometries 
+    for name in ('sample_linegeo_no_reduce', 'sample_linegeo_reduce'):
+        LG.Name(name)
+        assert LG.Name() == name
+        assert LG.Conductors() == ['a', 'a', 'a', 'b']
+        assert LG.Phases() == 3
+        assert LG.Nconds() == 4
+        print(LG.NormAmps())
+        print(LG.EmergAmps())
+        np.testing.assert_array_almost_equal(LG.Xcoords(), [-3.67, 0, 3.67, 0])
+        np.testing.assert_array_almost_equal(LG.Ycoords(), [31.33, 31.33, 31.33, 26])
+        assert len(LG.Units()) == 4
+
+
