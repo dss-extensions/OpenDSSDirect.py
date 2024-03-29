@@ -380,7 +380,7 @@ class OpenDSSDirect(Base):
         A compatible AltDSS (`pip install altdss`) is required.
         """
         from altdss import AltDSS
-        return AltDSS._get_instance(self._api_util.ctx, self._api_util)
+        return AltDSS._get_instance(ctx=self._api_util.ctx, api_util=self._api_util)
 
     def __call__(self, cmds: Union[AnyStr, List[AnyStr]] = None):
         '''
