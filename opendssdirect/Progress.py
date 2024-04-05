@@ -1,4 +1,4 @@
-from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util
 from .Bases import Base
 
 
@@ -10,36 +10,48 @@ class IProgress(Base):
     _columns = []
 
     def Close(self):
-        self._check_for_error(self._lib.DSSProgress_Close())
+        """
+        Close progress form
+
+        Typically used with EPRI's OpenDSS, on Windows. Otherwise, it could be a no-op.
+        """
+        self._lib.DSSProgress_Close()
 
     def Show(self):
-        self._check_for_error(self._lib.DSSProgress_Show())
+        """
+        Show progress form
+
+        Typically used with EPRI's OpenDSS, on Windows. Otherwise, it could be a no-op.
+        """
+        self._lib.DSSProgress_Show()
 
     def Caption(self, Value):
         """
-        (write-only) Caption to appear on the bottom of the DSS Progress form.
+        Set the caption to appear on the bottom of the DSS Progress form.
+
+        Typically used with EPRI's OpenDSS, on Windows. Otherwise, it could be a no-op.
 
         Original COM help: https://opendss.epri.com/Caption.html
         """
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.DSSProgress_Set_Caption(Value))
+        self._lib.DSSProgress_Set_Caption(Value)
 
     def PctProgress(self, Value):
         """
-        (write-only) Percent progress to indicate [0..100]
+        Set the percent progress to indicate [0..100] on the progress form.
+
+        Typically used with EPRI's OpenDSS, on Windows. Otherwise, it could be a no-op.
 
         Original COM help: https://opendss.epri.com/PctProgress.html
         """
-        self._check_for_error(self._lib.DSSProgress_Set_PctProgress(Value))
+        self._lib.DSSProgress_Set_PctProgress(Value)
 
 
-_Progress = IProgress(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
+_Progress = IProgress(api_util)
 
 # For backwards compatibility, bind to the default instance
-Close = _Progress.Close
-Show = _Progress.Show
 Caption = _Progress.Caption
+Close = _Progress.Close
 PctProgress = _Progress.PctProgress
+Show = _Progress.Show
 _columns = _Progress._columns
-__all__ = ["Close", "Show", "Caption", "PctProgress"]
+__all__ = ["Caption", "Close", "PctProgress", "Show"]

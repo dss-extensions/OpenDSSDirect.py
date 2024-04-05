@@ -1,4 +1,4 @@
-from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util
 from .Bases import Iterable
 
 
@@ -6,7 +6,7 @@ class IReactors(Iterable):
     """
     Reactor objects
 
-    (API Extension)
+    Originally, an **(API Extension)**, but was introduced in EPRI's OpenDSS distribution in version 10.x
     """
 
     __name__ = "Reactors"
@@ -40,68 +40,72 @@ class IReactors(Iterable):
         """
         How the reactor data was provided: 1=kvar, 2=R+jX, 3=R and X matrices, 4=sym components.
         Depending on this value, only some properties are filled or make sense in the context.
+
+        Typically not used by end users.
+
+        **(API Extension)**
         """
-        return self._check_for_error(self._lib.Reactors_Get_SpecType())
+        return self._lib.Reactors_Get_SpecType()
 
     def IsDelta(self, *args):
         """Delta connection or wye?"""
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Reactors_Get_IsDelta()) != 0
+            return self._lib.Reactors_Get_IsDelta()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Reactors_Set_IsDelta(Value))
+        self._lib.Reactors_Set_IsDelta(Value)
 
     def Parallel(self, *args):
         """Indicates whether Rmatrix and Xmatrix are to be considered in parallel."""
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Reactors_Get_Parallel()) != 0
+            return self._lib.Reactors_Get_Parallel()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Reactors_Set_Parallel(Value))
+        self._lib.Reactors_Set_Parallel(Value)
 
     def LmH(self, *args):
         """Inductance, mH. Alternate way to define the reactance, X, property."""
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Reactors_Get_LmH())
+            return self._lib.Reactors_Get_LmH()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Reactors_Set_LmH(Value))
+        self._lib.Reactors_Set_LmH(Value)
 
     def kV(self, *args):
         """For 2, 3-phase, kV phase-phase. Otherwise specify actual coil rating."""
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Reactors_Get_kV())
+            return self._lib.Reactors_Get_kV()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Reactors_Set_kV(Value))
+        self._lib.Reactors_Set_kV(Value)
 
     def kvar(self, *args):
         """Total kvar, all phases.  Evenly divided among phases. Only determines X. Specify R separately"""
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Reactors_Get_kvar())
+            return self._lib.Reactors_Get_kvar()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Reactors_Set_kvar(Value))
+        self._lib.Reactors_Set_kvar(Value)
 
     def Phases(self, *args):
         """Number of phases."""
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Reactors_Get_Phases())
+            return self._lib.Reactors_Get_Phases()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Reactors_Set_Phases(Value))
+        self._lib.Reactors_Set_Phases(Value)
 
     def Bus1(self, *args):
         """
@@ -111,13 +115,11 @@ class IReactors(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(self._check_for_error(self._lib.Reactors_Get_Bus1()))
+            return self._lib.Reactors_Get_Bus1()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.Reactors_Set_Bus1(Value))
+        self._lib.Reactors_Set_Bus1(Value)
 
     def Bus2(self, *args):
         """
@@ -126,103 +128,94 @@ class IReactors(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(self._check_for_error(self._lib.Reactors_Get_Bus2()))
+            return self._lib.Reactors_Get_Bus2()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.Reactors_Set_Bus2(Value))
+        self._lib.Reactors_Set_Bus2(Value)
 
     def LCurve(self, *args):
         """Name of XYCurve object, previously defined, describing per-unit variation of phase inductance, L=X/w, vs. frequency. Applies to reactance specified by X, LmH, Z, or kvar property. L generally decreases somewhat with frequency above the base frequency, approaching a limit at a few kHz."""
         # Getter
         if len(args) == 0:
-            return self._get_string(self._check_for_error(self._lib.Reactors_Get_LCurve()))
+            return self._lib.Reactors_Get_LCurve()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.Reactors_Set_LCurve(Value))
+        self._lib.Reactors_Set_LCurve(Value)
 
     def RCurve(self, *args):
         """Name of XYCurve object, previously defined, describing per-unit variation of phase resistance, R, vs. frequency. Applies to resistance specified by R or Z property. If actual values are not known, R often increases by approximately the square root of frequency."""
         # Getter
         if len(args) == 0:
-            return self._get_string(self._check_for_error(self._lib.Reactors_Get_RCurve()))
+            return self._lib.Reactors_Get_RCurve()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.Reactors_Set_RCurve(Value))
+        self._lib.Reactors_Set_RCurve(Value)
 
     def R(self, *args):
         """Resistance (in series with reactance), each phase, ohms. This property applies to REACTOR specified by either kvar or X. See also help on Z."""
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Reactors_Get_R())
+            return self._lib.Reactors_Get_R()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Reactors_Set_R(Value))
+        self._lib.Reactors_Set_R(Value)
 
     def X(self, *args):
         """Reactance, each phase, ohms at base frequency. See also help on Z and LmH properties."""
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Reactors_Get_X())
+            return self._lib.Reactors_Get_X()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Reactors_Set_X(Value))
+        self._lib.Reactors_Set_X(Value)
 
     def Rp(self, *args):
         """Resistance in parallel with R and X (the entire branch). Assumed infinite if not specified."""
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Reactors_Get_Rp())
+            return self._lib.Reactors_Get_Rp()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Reactors_Set_Rp(Value))
+        self._lib.Reactors_Set_Rp(Value)
 
     def Rmatrix(self, *args):
         """Resistance matrix, ohms at base frequency. Order of the matrix is the number of phases. Mutually exclusive to specifying parameters by kvar or X."""
         # Getter
         if len(args) == 0:
-            self._check_for_error(self._lib.Reactors_Get_Rmatrix_GR())
-            return self._get_float64_gr_array()
+            return self._lib.Reactors_Get_Rmatrix_GR()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self._check_for_error(self._lib.Reactors_Set_Rmatrix(ValuePtr, ValueCount))
+        self._lib.Reactors_Set_Rmatrix(ValuePtr, ValueCount)
 
     def Xmatrix(self, *args):
         """Reactance matrix, ohms at base frequency. Order of the matrix is the number of phases. Mutually exclusive to specifying parameters by kvar or X."""
         # Getter
         if len(args) == 0:
-            self._check_for_error(self._lib.Reactors_Get_Xmatrix_GR())
-            return self._get_float64_gr_array()
+            return self._lib.Reactors_Get_Xmatrix_GR()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self._check_for_error(self._lib.Reactors_Set_Xmatrix(ValuePtr, ValueCount))
+        self._lib.Reactors_Set_Xmatrix(ValuePtr, ValueCount)
 
     def Z(self, *args):
         """Alternative way of defining R and X properties. Enter a 2-element array representing R +jX in ohms."""
         # Getter
         if len(args) == 0:
-            self._check_for_error(self._lib.Reactors_Get_Z_GR())
-            return self._get_complex128_gr_simple()
+            return self._lib.Reactors_Get_Z_GR()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_complex128_simple(Value)
-        self._check_for_error(self._lib.Reactors_Set_Z(ValuePtr, ValueCount))
+        self._lib.Reactors_Set_Z(ValuePtr, ValueCount)
 
     def Z1(self, *args):
         """
@@ -236,13 +229,12 @@ class IReactors(Iterable):
         """
         # Getter
         if len(args) == 0:
-            self._check_for_error(self._lib.Reactors_Get_Z1_GR())
-            return self._get_complex128_gr_simple()
+            return self._lib.Reactors_Get_Z1_GR()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_complex128_simple(Value)
-        self._check_for_error(self._lib.Reactors_Set_Z1(ValuePtr, ValueCount))
+        self._lib.Reactors_Set_Z1(ValuePtr, ValueCount)
 
     def Z2(self, *args):
         """
@@ -254,13 +246,12 @@ class IReactors(Iterable):
         """
         # Getter
         if len(args) == 0:
-            self._check_for_error(self._lib.Reactors_Get_Z2_GR())
-            return self._get_complex128_gr_simple()
+            return self._lib.Reactors_Get_Z2_GR()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_complex128_simple(Value)
-        self._check_for_error(self._lib.Reactors_Set_Z2(ValuePtr, ValueCount))
+        self._lib.Reactors_Set_Z2(ValuePtr, ValueCount)
 
     def Z0(self, *args):
         """
@@ -272,70 +263,69 @@ class IReactors(Iterable):
         """
         # Getter
         if len(args) == 0:
-            self._check_for_error(self._lib.Reactors_Get_Z0_GR())
-            return self._get_complex128_gr_simple()
+            return self._lib.Reactors_Get_Z0_GR()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_complex128_simple(Value)
-        self._check_for_error(self._lib.Reactors_Set_Z0(ValuePtr, ValueCount))
+        self._lib.Reactors_Set_Z0(ValuePtr, ValueCount)
 
 
-_Reactors = IReactors(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
+_Reactors = IReactors(api_util)
 
 # For backwards compatibility, bind to the default instance
-SpecType = _Reactors.SpecType
-IsDelta = _Reactors.IsDelta
-Parallel = _Reactors.Parallel
-LmH = _Reactors.LmH
-kV = _Reactors.kV
-kvar = _Reactors.kvar
-Phases = _Reactors.Phases
+AllNames = _Reactors.AllNames
 Bus1 = _Reactors.Bus1
 Bus2 = _Reactors.Bus2
+Count = _Reactors.Count
+First = _Reactors.First
+Idx = _Reactors.Idx
+IsDelta = _Reactors.IsDelta
 LCurve = _Reactors.LCurve
-RCurve = _Reactors.RCurve
+LmH = _Reactors.LmH
+Name = _Reactors.Name
+Next = _Reactors.Next
+Parallel = _Reactors.Parallel
+Phases = _Reactors.Phases
 R = _Reactors.R
-X = _Reactors.X
-Rp = _Reactors.Rp
+RCurve = _Reactors.RCurve
 Rmatrix = _Reactors.Rmatrix
+Rp = _Reactors.Rp
+SpecType = _Reactors.SpecType
+X = _Reactors.X
 Xmatrix = _Reactors.Xmatrix
 Z = _Reactors.Z
+Z0 = _Reactors.Z0
 Z1 = _Reactors.Z1
 Z2 = _Reactors.Z2
-Z0 = _Reactors.Z0
-Idx = _Reactors.Idx
-First = _Reactors.First
-Next = _Reactors.Next
-AllNames = _Reactors.AllNames
-Count = _Reactors.Count
-Name = _Reactors.Name
+kV = _Reactors.kV
+kvar = _Reactors.kvar
 _columns = _Reactors._columns
 __all__ = [
-    "SpecType",
-    "IsDelta",
-    "Parallel",
-    "LmH",
-    "kV",
-    "kvar",
-    "Phases",
+    "AllNames",
     "Bus1",
     "Bus2",
+    "Count",
+    "First",
+    "Idx",
+    "IsDelta",
     "LCurve",
-    "RCurve",
+    "LmH",
+    "Name",
+    "Next",
+    "Parallel",
+    "Phases",
     "R",
-    "X",
-    "Rp",
+    "RCurve",
     "Rmatrix",
+    "Rp",
+    "SpecType",
+    "X",
     "Xmatrix",
     "Z",
+    "Z0",
     "Z1",
     "Z2",
-    "Z0",
-    "Idx",
-    "First",
-    "Next",
-    "AllNames",
-    "Count",
-    "Name",
+    "kV",
+    "kvar",
 ]

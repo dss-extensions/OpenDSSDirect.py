@@ -1,4 +1,4 @@
-from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util
 from .Bases import Base
 from dss import ControlModes, SolutionAlgorithms, SolveModes
 
@@ -51,49 +51,49 @@ class ISolution(Base):
     ]
 
     def BuildYMatrix(self, BuildOption, AllocateVI):
-        self._check_for_error(self._lib.Solution_BuildYMatrix(BuildOption, AllocateVI))
+        self._lib.Solution_BuildYMatrix(BuildOption, AllocateVI)
 
     def CheckControls(self):
-        self._check_for_error(self._lib.Solution_CheckControls())
+        self._lib.Solution_CheckControls()
 
     def CheckFaultStatus(self):
-        self._check_for_error(self._lib.Solution_CheckFaultStatus())
+        self._lib.Solution_CheckFaultStatus()
 
     def Cleanup(self):
-        self._check_for_error(self._lib.Solution_Cleanup())
+        self._lib.Solution_Cleanup()
 
     def DoControlActions(self):
-        self._check_for_error(self._lib.Solution_DoControlActions())
+        self._lib.Solution_DoControlActions()
 
     def FinishTimeStep(self):
-        self._check_for_error(self._lib.Solution_FinishTimeStep())
+        self._lib.Solution_FinishTimeStep()
 
     def InitSnap(self):
-        self._check_for_error(self._lib.Solution_InitSnap())
+        self._lib.Solution_InitSnap()
 
     def SampleControlDevices(self):
-        self._check_for_error(self._lib.Solution_SampleControlDevices())
+        self._lib.Solution_SampleControlDevices()
 
     def SampleDoControlActions(self):
-        self._check_for_error(self._lib.Solution_Sample_DoControlActions())
+        self._lib.Solution_Sample_DoControlActions()
 
     def Solve(self):
-        self._check_for_error(self._lib.Solution_Solve())
+        self._lib.Solution_Solve()
 
     def SolveDirect(self):
-        self._check_for_error(self._lib.Solution_SolveDirect())
+        self._lib.Solution_SolveDirect()
 
     def SolveNoControl(self):
-        self._check_for_error(self._lib.Solution_SolveNoControl())
+        self._lib.Solution_SolveNoControl()
 
     def SolvePFlow(self):
-        self._check_for_error(self._lib.Solution_SolvePflow())
+        self._lib.Solution_SolvePflow()
 
     def SolvePlusControl(self):
-        self._check_for_error(self._lib.Solution_SolvePlusControl())
+        self._lib.Solution_SolvePlusControl()
 
     def SolveSnap(self):
-        self._check_for_error(self._lib.Solution_SolveSnap())
+        self._lib.Solution_SolveSnap()
 
     def AddType(self, *args):
         """
@@ -103,11 +103,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Solution_Get_AddType())
+            return self._lib.Solution_Get_AddType()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Solution_Set_AddType(Value))
+        self._lib.Solution_Set_AddType(Value)
 
     def Algorithm(self, *args):
         """
@@ -117,13 +117,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return SolutionAlgorithms(
-                self._check_for_error(self._lib.Solution_Get_Algorithm())
-            )
+            return SolutionAlgorithms(self._lib.Solution_Get_Algorithm())
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Solution_Set_Algorithm(Value))
+        self._lib.Solution_Set_Algorithm(Value)
 
     def Capkvar(self, *args):
         """
@@ -133,11 +131,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Solution_Get_Capkvar())
+            return self._lib.Solution_Get_Capkvar()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Solution_Set_Capkvar(Value))
+        self._lib.Solution_Set_Capkvar(Value)
 
     def ControlActionsDone(self, *args):
         """
@@ -147,11 +145,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Solution_Get_ControlActionsDone()) != 0
+            return self._lib.Solution_Get_ControlActionsDone()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Solution_Set_ControlActionsDone(Value))
+        self._lib.Solution_Set_ControlActionsDone(Value)
 
     def ControlIterations(self, *args):
         """
@@ -161,11 +159,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Solution_Get_ControlIterations())
+            return self._lib.Solution_Get_ControlIterations()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Solution_Set_ControlIterations(Value))
+        self._lib.Solution_Set_ControlIterations(Value)
 
     def ControlMode(self, *args):
         """
@@ -175,13 +173,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return ControlModes(
-                self._check_for_error(self._lib.Solution_Get_ControlMode())
-            )
+            return ControlModes(self._lib.Solution_Get_ControlMode())
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Solution_Set_ControlMode(Value))
+        self._lib.Solution_Set_ControlMode(Value)
 
     def Converged(self, *args):
         """
@@ -191,11 +187,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Solution_Get_Converged()) != 0
+            return self._lib.Solution_Get_Converged()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Solution_Set_Converged(Value))
+        self._lib.Solution_Set_Converged(Value)
 
     def DefaultDaily(self, *args):
         """
@@ -205,15 +201,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(
-                self._check_for_error(self._lib.Solution_Get_DefaultDaily())
-            )
+            return self._lib.Solution_Get_DefaultDaily()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.Solution_Set_DefaultDaily(Value))
+        self._lib.Solution_Set_DefaultDaily(Value)
 
     def DefaultYearly(self, *args):
         """
@@ -223,15 +215,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(
-                self._check_for_error(self._lib.Solution_Get_DefaultYearly())
-            )
+            return self._lib.Solution_Get_DefaultYearly()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.Solution_Set_DefaultYearly(Value))
+        self._lib.Solution_Set_DefaultYearly(Value)
 
     def EventLog(self):
         """
@@ -239,9 +227,7 @@ class ISolution(Base):
 
         Original COM help: https://opendss.epri.com/EventLog.html
         """
-        return self._check_for_error(
-            self._get_string_array(self._lib.Solution_Get_EventLog)
-        )
+        return self._lib.Solution_Get_EventLog()
 
     def Frequency(self, *args):
         """
@@ -251,11 +237,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Solution_Get_Frequency())
+            return self._lib.Solution_Get_Frequency()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Solution_Set_Frequency(Value))
+        self._lib.Solution_Set_Frequency(Value)
 
     def GenMult(self, *args):
         """
@@ -265,11 +251,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Solution_Get_GenMult())
+            return self._lib.Solution_Get_GenMult()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Solution_Set_GenMult(Value))
+        self._lib.Solution_Set_GenMult(Value)
 
     def GenPF(self, *args):
         """
@@ -279,11 +265,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Solution_Get_GenPF())
+            return self._lib.Solution_Get_GenPF()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Solution_Set_GenPF(Value))
+        self._lib.Solution_Set_GenPF(Value)
 
     def GenkW(self, *args):
         """
@@ -293,11 +279,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Solution_Get_GenkW())
+            return self._lib.Solution_Get_GenkW()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Solution_Set_GenkW(Value))
+        self._lib.Solution_Set_GenkW(Value)
 
     def Hour(self, *args):
         """
@@ -307,11 +293,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Solution_Get_Hour())
+            return self._lib.Solution_Get_Hour()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Solution_Set_Hour(Value))
+        self._lib.Solution_Set_Hour(Value)
 
     def IntervalHrs(self, *args):
         """
@@ -319,11 +305,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Solution_Get_IntervalHrs())
+            return self._lib.Solution_Get_IntervalHrs()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Solution_Set_IntervalHrs(Value))
+        self._lib.Solution_Set_IntervalHrs(Value)
 
     def Iterations(self):
         """
@@ -331,7 +317,7 @@ class ISolution(Base):
 
         Original COM help: https://opendss.epri.com/Iterations.html
         """
-        return self._check_for_error(self._lib.Solution_Get_Iterations())
+        return self._lib.Solution_Get_Iterations()
 
     def LDCurve(self, *args):
         """
@@ -341,15 +327,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(
-                self._check_for_error(self._lib.Solution_Get_LDCurve())
-            )
+            return self._lib.Solution_Get_LDCurve()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.Solution_Set_LDCurve(Value))
+        self._lib.Solution_Set_LDCurve(Value)
 
     def LoadModel(self, *args):
         """
@@ -359,11 +341,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Solution_Get_LoadModel())
+            return self._lib.Solution_Get_LoadModel()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Solution_Set_LoadModel(Value))
+        self._lib.Solution_Set_LoadModel(Value)
 
     def LoadMult(self, *args):
         """
@@ -373,11 +355,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Solution_Get_LoadMult())
+            return self._lib.Solution_Get_LoadMult()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Solution_Set_LoadMult(Value))
+        self._lib.Solution_Set_LoadMult(Value)
 
     def MaxControlIterations(self, *args):
         """
@@ -387,11 +369,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Solution_Get_MaxControlIterations())
+            return self._lib.Solution_Get_MaxControlIterations()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Solution_Set_MaxControlIterations(Value))
+        self._lib.Solution_Set_MaxControlIterations(Value)
 
     def MaxIterations(self, *args):
         """
@@ -401,11 +383,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Solution_Get_MaxIterations())
+            return self._lib.Solution_Get_MaxIterations()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Solution_Set_MaxIterations(Value))
+        self._lib.Solution_Set_MaxIterations(Value)
 
     def MinIterations(self, *args):
         """
@@ -415,11 +397,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Solution_Get_MinIterations())
+            return self._lib.Solution_Get_MinIterations()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Solution_Set_MinIterations(Value))
+        self._lib.Solution_Set_MinIterations(Value)
 
     def Mode(self, *args):
         """
@@ -429,11 +411,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return SolveModes(self._check_for_error(self._lib.Solution_Get_Mode()))
+            return SolveModes(self._lib.Solution_Get_Mode())
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Solution_Set_Mode(Value))
+        self._lib.Solution_Set_Mode(Value)
 
     def ModeID(self):
         """
@@ -441,7 +423,7 @@ class ISolution(Base):
 
         Original COM help: https://opendss.epri.com/ModeID.html
         """
-        return self._get_string(self._check_for_error(self._lib.Solution_Get_ModeID()))
+        return self._lib.Solution_Get_ModeID()
 
     def MostIterationsDone(self):
         """
@@ -449,7 +431,7 @@ class ISolution(Base):
 
         Original COM help: https://opendss.epri.com/MostIterationsDone.html
         """
-        return self._check_for_error(self._lib.Solution_Get_MostIterationsDone())
+        return self._lib.Solution_Get_MostIterationsDone()
 
     def Number(self, *args):
         """
@@ -459,11 +441,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Solution_Get_Number())
+            return self._lib.Solution_Get_Number()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Solution_Set_Number(Value))
+        self._lib.Solution_Set_Number(Value)
 
     def ProcessTime(self):
         """
@@ -471,7 +453,7 @@ class ISolution(Base):
 
         Original COM help: https://opendss.epri.com/Process_Time.html
         """
-        return self._check_for_error(self._lib.Solution_Get_Process_Time())
+        return self._lib.Solution_Get_Process_Time()
 
     def Random(self, *args):
         """
@@ -481,11 +463,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Solution_Get_Random())
+            return self._lib.Solution_Get_Random()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Solution_Set_Random(Value))
+        self._lib.Solution_Set_Random(Value)
 
     def Seconds(self, *args):
         """
@@ -495,11 +477,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Solution_Get_Seconds())
+            return self._lib.Solution_Get_Seconds()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Solution_Set_Seconds(Value))
+        self._lib.Solution_Set_Seconds(Value)
 
     def StepSize(self, *args):
         """
@@ -509,11 +491,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Solution_Get_StepSize())
+            return self._lib.Solution_Get_StepSize()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Solution_Set_StepSize(Value))
+        self._lib.Solution_Set_StepSize(Value)
 
     def SystemYChanged(self):
         """
@@ -521,7 +503,7 @@ class ISolution(Base):
 
         Original COM help: https://opendss.epri.com/SystemYChanged.html
         """
-        return self._check_for_error(self._lib.Solution_Get_SystemYChanged() != 0)
+        return self._lib.Solution_Get_SystemYChanged()
 
     def TimeTimeStep(self):
         """
@@ -529,7 +511,7 @@ class ISolution(Base):
 
         Original COM help: https://opendss.epri.com/Time_of_Step.html
         """
-        return self._check_for_error(self._lib.Solution_Get_Time_of_Step())
+        return self._lib.Solution_Get_Time_of_Step()
 
     def Convergence(self, *args):
         """
@@ -539,11 +521,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Solution_Get_Tolerance())
+            return self._lib.Solution_Get_Tolerance()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Solution_Set_Tolerance(Value))
+        self._lib.Solution_Set_Tolerance(Value)
 
     def TotalTime(self, *args):
         """
@@ -555,11 +537,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Solution_Get_Total_Time())
+            return self._lib.Solution_Get_Total_Time()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Solution_Set_Total_Time(Value))
+        self._lib.Solution_Set_Total_Time(Value)
 
     def TotalIterations(self):
         """
@@ -567,7 +549,7 @@ class ISolution(Base):
 
         Original COM help: https://opendss.epri.com/Totaliterations.html
         """
-        return self._check_for_error(self._lib.Solution_Get_Totaliterations())
+        return self._lib.Solution_Get_Totaliterations()
 
     def Year(self, *args):
         """
@@ -577,11 +559,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Solution_Get_Year())
+            return self._lib.Solution_Get_Year()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Solution_Set_Year(Value))
+        self._lib.Solution_Set_Year(Value)
 
     def DblHour(self, *args):
         """
@@ -591,11 +573,11 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Solution_Get_dblHour())
+            return self._lib.Solution_Get_dblHour()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Solution_Set_dblHour(Value))
+        self._lib.Solution_Set_dblHour(Value)
 
     def PctGrowth(self, *args):
         """
@@ -605,19 +587,19 @@ class ISolution(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Solution_Get_pctGrowth())
+            return self._lib.Solution_Get_pctGrowth()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Solution_Set_pctGrowth(Value))
+        self._lib.Solution_Set_pctGrowth(Value)
 
     def StepSizeHr(self, Value):
         """(write-only) Set Stepsize in Hr"""
-        self._check_for_error(self._lib.Solution_Set_StepsizeHr(Value))
+        self._lib.Solution_Set_StepsizeHr(Value)
 
     def StepSizeMin(self, Value):
         """(write-only) Set Stepsize in minutes"""
-        self._check_for_error(self._lib.Solution_Set_StepsizeMin(Value))
+        self._lib.Solution_Set_StepsizeMin(Value)
 
     def BusLevels(self):
         """
@@ -630,8 +612,7 @@ class ISolution(Base):
 
         Original COM help: https://opendss.epri.com/BusLevels.html
         """
-        self._check_for_error(self._lib.Solution_Get_BusLevels_GR())
-        return self._get_int32_gr_array()
+        return self._lib.Solution_Get_BusLevels_GR()
 
     def IncMatrix(self):
         """
@@ -645,8 +626,7 @@ class ISolution(Base):
 
         Original COM help: https://opendss.epri.com/IncMatrix.html
         """
-        self._check_for_error(self._lib.Solution_Get_IncMatrix_GR())
-        return self._get_int32_gr_array()
+        return self._lib.Solution_Get_IncMatrix_GR()
 
     def IncMatrixCols(self):
         """
@@ -654,9 +634,7 @@ class ISolution(Base):
 
         Original COM help: https://opendss.epri.com/IncMatrixCols.html
         """
-        return self._check_for_error(
-            self._get_string_array(self._lib.Solution_Get_IncMatrixCols)
-        )
+        return self._lib.Solution_Get_IncMatrixCols()
 
     def IncMatrixRows(self):
         """
@@ -664,9 +642,7 @@ class ISolution(Base):
 
         Original COM help: https://opendss.epri.com/IncMatrixRows.html
         """
-        return self._check_for_error(
-            self._get_string_array(self._lib.Solution_Get_IncMatrixRows)
-        )
+        return self._lib.Solution_Get_IncMatrixRows()
 
     def Laplacian(self):
         """
@@ -681,46 +657,44 @@ class ISolution(Base):
 
         Original COM help: https://opendss.epri.com/Laplacian.html
         """
-        self._check_for_error(self._lib.Solution_Get_Laplacian_GR())
-        return self._get_int32_gr_array()
+        return self._lib.Solution_Get_Laplacian_GR()
 
 
-_Solution = ISolution(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
+_Solution = ISolution(api_util)
 
 # For backwards compatibility, bind to the default instance
+AddType = _Solution.AddType
+Algorithm = _Solution.Algorithm
 BuildYMatrix = _Solution.BuildYMatrix
+BusLevels = _Solution.BusLevels
+Capkvar = _Solution.Capkvar
 CheckControls = _Solution.CheckControls
 CheckFaultStatus = _Solution.CheckFaultStatus
 Cleanup = _Solution.Cleanup
-DoControlActions = _Solution.DoControlActions
-FinishTimeStep = _Solution.FinishTimeStep
-InitSnap = _Solution.InitSnap
-SampleControlDevices = _Solution.SampleControlDevices
-SampleDoControlActions = _Solution.SampleDoControlActions
-Solve = _Solution.Solve
-SolveDirect = _Solution.SolveDirect
-SolveNoControl = _Solution.SolveNoControl
-SolvePFlow = _Solution.SolvePFlow
-SolvePlusControl = _Solution.SolvePlusControl
-SolveSnap = _Solution.SolveSnap
-AddType = _Solution.AddType
-Algorithm = _Solution.Algorithm
-Capkvar = _Solution.Capkvar
 ControlActionsDone = _Solution.ControlActionsDone
 ControlIterations = _Solution.ControlIterations
 ControlMode = _Solution.ControlMode
 Converged = _Solution.Converged
+Convergence = _Solution.Convergence
+DblHour = _Solution.DblHour
 DefaultDaily = _Solution.DefaultDaily
 DefaultYearly = _Solution.DefaultYearly
+DoControlActions = _Solution.DoControlActions
 EventLog = _Solution.EventLog
+FinishTimeStep = _Solution.FinishTimeStep
 Frequency = _Solution.Frequency
 GenMult = _Solution.GenMult
 GenPF = _Solution.GenPF
 GenkW = _Solution.GenkW
 Hour = _Solution.Hour
+IncMatrix = _Solution.IncMatrix
+IncMatrixCols = _Solution.IncMatrixCols
+IncMatrixRows = _Solution.IncMatrixRows
+InitSnap = _Solution.InitSnap
 IntervalHrs = _Solution.IntervalHrs
 Iterations = _Solution.Iterations
 LDCurve = _Solution.LDCurve
+Laplacian = _Solution.Laplacian
 LoadModel = _Solution.LoadModel
 LoadMult = _Solution.LoadMult
 MaxControlIterations = _Solution.MaxControlIterations
@@ -730,60 +704,60 @@ Mode = _Solution.Mode
 ModeID = _Solution.ModeID
 MostIterationsDone = _Solution.MostIterationsDone
 Number = _Solution.Number
+PctGrowth = _Solution.PctGrowth
 ProcessTime = _Solution.ProcessTime
 Random = _Solution.Random
+SampleControlDevices = _Solution.SampleControlDevices
+SampleDoControlActions = _Solution.SampleDoControlActions
 Seconds = _Solution.Seconds
+Solve = _Solution.Solve
+SolveDirect = _Solution.SolveDirect
+SolveNoControl = _Solution.SolveNoControl
+SolvePFlow = _Solution.SolvePFlow
+SolvePlusControl = _Solution.SolvePlusControl
+SolveSnap = _Solution.SolveSnap
 StepSize = _Solution.StepSize
-SystemYChanged = _Solution.SystemYChanged
-TimeTimeStep = _Solution.TimeTimeStep
-Convergence = _Solution.Convergence
-TotalTime = _Solution.TotalTime
-TotalIterations = _Solution.TotalIterations
-Year = _Solution.Year
-DblHour = _Solution.DblHour
-PctGrowth = _Solution.PctGrowth
 StepSizeHr = _Solution.StepSizeHr
 StepSizeMin = _Solution.StepSizeMin
-BusLevels = _Solution.BusLevels
-IncMatrix = _Solution.IncMatrix
-IncMatrixCols = _Solution.IncMatrixCols
-IncMatrixRows = _Solution.IncMatrixRows
-Laplacian = _Solution.Laplacian
+SystemYChanged = _Solution.SystemYChanged
+TimeTimeStep = _Solution.TimeTimeStep
+TotalIterations = _Solution.TotalIterations
+TotalTime = _Solution.TotalTime
+Year = _Solution.Year
 _columns = _Solution._columns
 __all__ = [
+    "AddType",
+    "Algorithm",
     "BuildYMatrix",
+    "BusLevels",
+    "Capkvar",
     "CheckControls",
     "CheckFaultStatus",
     "Cleanup",
-    "DoControlActions",
-    "FinishTimeStep",
-    "InitSnap",
-    "SampleControlDevices",
-    "SampleDoControlActions",
-    "Solve",
-    "SolveDirect",
-    "SolveNoControl",
-    "SolvePFlow",
-    "SolvePlusControl",
-    "SolveSnap",
-    "AddType",
-    "Algorithm",
-    "Capkvar",
     "ControlActionsDone",
     "ControlIterations",
     "ControlMode",
     "Converged",
+    "Convergence",
+    "DblHour",
     "DefaultDaily",
     "DefaultYearly",
+    "DoControlActions",
     "EventLog",
+    "FinishTimeStep",
     "Frequency",
     "GenMult",
     "GenPF",
     "GenkW",
     "Hour",
+    "IncMatrix",
+    "IncMatrixCols",
+    "IncMatrixRows",
+    "InitSnap",
     "IntervalHrs",
     "Iterations",
     "LDCurve",
+    "Laplacian",
     "LoadModel",
     "LoadMult",
     "MaxControlIterations",
@@ -793,23 +767,24 @@ __all__ = [
     "ModeID",
     "MostIterationsDone",
     "Number",
+    "PctGrowth",
     "ProcessTime",
     "Random",
+    "SampleControlDevices",
+    "SampleDoControlActions",
     "Seconds",
+    "Solve",
+    "SolveDirect",
+    "SolveNoControl",
+    "SolvePFlow",
+    "SolvePlusControl",
+    "SolveSnap",
     "StepSize",
-    "SystemYChanged",
-    "TimeTimeStep",
-    "Convergence",
-    "TotalTime",
-    "TotalIterations",
-    "Year",
-    "DblHour",
-    "PctGrowth",
     "StepSizeHr",
     "StepSizeMin",
-    "BusLevels",
-    "IncMatrix",
-    "IncMatrixCols",
-    "IncMatrixRows",
-    "Laplacian",
+    "SystemYChanged",
+    "TimeTimeStep",
+    "TotalIterations",
+    "TotalTime",
+    "Year",
 ]

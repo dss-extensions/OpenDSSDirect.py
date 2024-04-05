@@ -1,4 +1,4 @@
-from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util
 from .Bases import Iterable
 
 
@@ -17,11 +17,11 @@ class IIsource(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.ISources_Get_Amps())
+            return self._lib.ISources_Get_Amps()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.ISources_Set_Amps(Value))
+        self._lib.ISources_Set_Amps(Value)
 
     def AngleDeg(self, *args):
         """
@@ -31,11 +31,11 @@ class IIsource(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.ISources_Get_AngleDeg())
+            return self._lib.ISources_Get_AngleDeg()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.ISources_Set_AngleDeg(Value))
+        self._lib.ISources_Set_AngleDeg(Value)
 
     def Frequency(self, *args):
         """
@@ -45,14 +45,14 @@ class IIsource(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.ISources_Get_Frequency())
+            return self._lib.ISources_Get_Frequency()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.ISources_Set_Frequency(Value))
+        self._lib.ISources_Set_Frequency(Value)
 
 
-_Isource = IIsource(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
+_Isource = IIsource(api_util)
 
 # For backwards compatibility, bind to the default instance
 AllNames = _Isource.AllNames
@@ -61,9 +61,9 @@ AngleDeg = _Isource.AngleDeg
 Count = _Isource.Count
 First = _Isource.First
 Frequency = _Isource.Frequency
+Idx = _Isource.Idx
 Name = _Isource.Name
 Next = _Isource.Next
-Idx = _Isource.Idx
 _columns = _Isource._columns
 __all__ = [
     "AllNames",
@@ -72,7 +72,7 @@ __all__ = [
     "Count",
     "First",
     "Frequency",
+    "Idx",
     "Name",
     "Next",
-    "Idx",
 ]

@@ -255,6 +255,11 @@ The `Iterable` base class is used by most of the interface classes that expose D
 ```{autodoc2-object} opendssdirect.YMatrix.IYMatrix
 ```
 
+## opendssdirect.WindGens
+
+```{autodoc2-object} opendssdirect.WindGens.IWindGens
+```
+
 ## opendssdirect.WireData
 
 ```{autodoc2-object} opendssdirect.WireData.IWireData

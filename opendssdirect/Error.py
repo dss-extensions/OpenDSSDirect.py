@@ -1,4 +1,4 @@
-from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util
 from .Bases import Base
 
 
@@ -15,7 +15,7 @@ class IError(Base):
 
         Original COM help: https://opendss.epri.com/Description1.html
         """
-        return self._get_string(self._lib.Error_Get_Description())
+        return self._lib.Error_Get_Description()
 
     def Number(self):
         """
@@ -33,7 +33,7 @@ class IError(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._lib.Error_Get_EarlyAbort() != 0
+            return self._lib.Error_Get_EarlyAbort()
 
         # Setter
         (Value,) = args
@@ -63,7 +63,7 @@ class IError(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._lib.Error_Get_ExtendedErrors() != 0
+            return self._lib.Error_Get_ExtendedErrors()
 
         # Setter
         (Value,) = args
@@ -83,27 +83,32 @@ class IError(Base):
 
         Users can also use the DSS command `Export ErrorLog` to inspect for errors.
 
-        **WARNING:** This is a global setting, affects all DSS instances from DSS-Python,
-        OpenDSSDirect.py and AltDSS.
+        With EPRI's OpenDSS engines, in contrast to our main AltDSS engine, users are 
+        also required to set `AllowForms` to `False`, otherwise the engine does not
+        populate the Error.Number API and the error is consumed by the popup form or
+        terminal message.
+
+        **NOTE:** this used to be a global settings. Since OpenDSSDirect.py v0.10.0,
+        it only affects the target instance.
 
         **(API Extension)**
         """
         # Getter
         if len(args) == 0:
-            return Base._use_exceptions
+            return self._lib.using_exceptions
 
         # Setter
         (value,) = args
-        Base._enable_exceptions(bool(value))
+        self._lib.using_exceptions = value
 
 
-_Error = IError(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
+_Error = IError(api_util)
 
 # For backwards compatibility, bind to the default instance
 Description = _Error.Description
-Number = _Error.Number
 EarlyAbort = _Error.EarlyAbort
 ExtendedErrors = _Error.ExtendedErrors
+Number = _Error.Number
 UseExceptions = _Error.UseExceptions
 _columns = _Error._columns
-__all__ = ["Description", "Number", "EarlyAbort", "ExtendedErrors", "UseExceptions"]
+__all__ = ["Description", "EarlyAbort", "ExtendedErrors", "Number", "UseExceptions"]

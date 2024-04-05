@@ -1,4 +1,4 @@
-from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util
 from .Bases import Iterable
 from dss_python_backend.enums import OCPDevType as OCPDevTypeEnum
 
@@ -43,7 +43,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/CloseAllDIFiles.html
         """
-        self._check_for_error(self._lib.Meters_CloseAllDIFiles())
+        self._lib.Meters_CloseAllDIFiles()
 
     def DoReliabilityCalc(self, AssumeRestoration):
         """
@@ -51,7 +51,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/DoReliabilityCalc.html
         """
-        self._check_for_error(self._lib.Meters_DoReliabilityCalc(AssumeRestoration))
+        self._lib.Meters_DoReliabilityCalc(AssumeRestoration)
 
     def OpenAllDIFiles(self):
         """
@@ -59,7 +59,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/OpenAllDIFiles.html
         """
-        self._check_for_error(self._lib.Meters_OpenAllDIFiles())
+        self._lib.Meters_OpenAllDIFiles()
 
     def Reset(self):
         """
@@ -67,7 +67,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/Reset2.html
         """
-        self._check_for_error(self._lib.Meters_Reset())
+        self._lib.Meters_Reset()
 
     def ResetAll(self):
         """
@@ -75,7 +75,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/ResetAll.html
         """
-        self._check_for_error(self._lib.Meters_ResetAll())
+        self._lib.Meters_ResetAll()
 
     def Sample(self):
         """
@@ -83,7 +83,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/Sample1.html
         """
-        self._check_for_error(self._lib.Meters_Sample())
+        self._lib.Meters_Sample()
 
     def SampleAll(self):
         """
@@ -91,7 +91,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/SampleAll.html
         """
-        self._check_for_error(self._lib.Meters_SampleAll())
+        self._lib.Meters_SampleAll()
 
     def Save(self):
         """
@@ -99,7 +99,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/Save.html
         """
-        self._check_for_error(self._lib.Meters_Save())
+        self._lib.Meters_Save()
 
     def SaveAll(self):
         """
@@ -107,20 +107,18 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/SaveAll.html
         """
-        self._check_for_error(self._lib.Meters_SaveAll())
+        self._lib.Meters_SaveAll()
 
     def SetActiveSection(self, SectIdx):
-        self._check_for_error(self._lib.Meters_SetActiveSection(SectIdx))
+        self._lib.Meters_SetActiveSection(SectIdx)
 
     def AllBranchesInZone(self):
         """
-        Wide string list of all branches in zone of the active EnergyMeter object.
+        List (strings) of all branches in zone of the active EnergyMeter object.
 
         Original COM help: https://opendss.epri.com/AllBranchesInZone.html
         """
-        return self._check_for_error(
-            self._get_string_array(self._lib.Meters_Get_AllBranchesInZone)
-        )
+        return self._lib.Meters_Get_AllBranchesInZone()
 
     def AllEndElements(self):
         """
@@ -128,9 +126,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/AllEndElements.html
         """
-        return self._check_for_error(
-            self._get_string_array(self._lib.Meters_Get_AllEndElements)
-        )
+        return self._lib.Meters_Get_AllEndElements()
 
     def AllocFactors(self, *args):
         """
@@ -140,13 +136,12 @@ class IMeters(Iterable):
         """
         # Getter
         if len(args) == 0:
-            self._check_for_error(self._lib.Meters_Get_AllocFactors_GR())
-            return self._get_float64_gr_array()
+            return self._lib.Meters_Get_AllocFactors_GR()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self._check_for_error(self._lib.Meters_Set_AllocFactors(ValuePtr, ValueCount))
+        self._lib.Meters_Set_AllocFactors(ValuePtr, ValueCount)
 
     def AvgRepairTime(self):
         """
@@ -154,7 +149,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/AvgRepairTime.html
         """
-        return self._check_for_error(self._lib.Meters_Get_AvgRepairTime())
+        return self._lib.Meters_Get_AvgRepairTime()
 
     def CalcCurrent(self, *args):
         """
@@ -164,13 +159,12 @@ class IMeters(Iterable):
         """
         # Getter
         if len(args) == 0:
-            self._check_for_error(self._lib.Meters_Get_CalcCurrent_GR())
-            return self._get_float64_gr_array()
+            return self._lib.Meters_Get_CalcCurrent_GR()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self._check_for_error(self._lib.Meters_Set_CalcCurrent(ValuePtr, ValueCount))
+        self._lib.Meters_Set_CalcCurrent(ValuePtr, ValueCount)
 
     def CountBranches(self):
         """
@@ -178,7 +172,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/CountBranches.html
         """
-        return self._check_for_error(self._lib.Meters_Get_CountBranches())
+        return self._lib.Meters_Get_CountBranches()
 
     def CountEndElements(self):
         """
@@ -186,7 +180,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/CountEndElements.html
         """
-        return self._check_for_error(self._lib.Meters_Get_CountEndElements())
+        return self._lib.Meters_Get_CountEndElements()
 
     def CustInterrupts(self):
         """
@@ -194,7 +188,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/CustInterrupts.html
         """
-        return self._check_for_error(self._lib.Meters_Get_CustInterrupts())
+        return self._lib.Meters_Get_CustInterrupts()
 
     def DIFilesAreOpen(self):
         """
@@ -202,7 +196,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/DIFilesAreOpen.html
         """
-        return self._check_for_error(self._lib.Meters_Get_DIFilesAreOpen()) != 0
+        return self._lib.Meters_Get_DIFilesAreOpen()
 
     def FaultRateXRepairHrs(self):
         """
@@ -210,7 +204,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/FaultRateXRepairHrs.html
         """
-        return self._check_for_error(self._lib.Meters_Get_FaultRateXRepairHrs())
+        return self._lib.Meters_Get_FaultRateXRepairHrs()
 
     def MeteredElement(self, *args):
         """
@@ -220,15 +214,11 @@ class IMeters(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(
-                self._check_for_error(self._lib.Meters_Get_MeteredElement())
-            )
+            return self._lib.Meters_Get_MeteredElement()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.Meters_Set_MeteredElement(Value))
+        self._lib.Meters_Set_MeteredElement(Value)
 
     def MeteredTerminal(self, *args):
         """
@@ -238,11 +228,11 @@ class IMeters(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Meters_Get_MeteredTerminal())
+            return self._lib.Meters_Get_MeteredTerminal()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Meters_Set_MeteredTerminal(Value))
+        self._lib.Meters_Set_MeteredTerminal(Value)
 
     def NumSectionBranches(self):
         """
@@ -250,7 +240,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/NumSectionBranches.html
         """
-        return self._check_for_error(self._lib.Meters_Get_NumSectionBranches())
+        return self._lib.Meters_Get_NumSectionBranches()
 
     def NumSectionCustomers(self):
         """
@@ -258,7 +248,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/NumSectionCustomers.html
         """
-        return self._check_for_error(self._lib.Meters_Get_NumSectionCustomers())
+        return self._lib.Meters_Get_NumSectionCustomers()
 
     def NumSections(self):
         """
@@ -266,7 +256,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/NumSections.html
         """
-        return self._check_for_error(self._lib.Meters_Get_NumSections())
+        return self._lib.Meters_Get_NumSections()
 
     def OCPDeviceType(self):
         """
@@ -274,7 +264,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/OCPDeviceType.html
         """
-        return OCPDevTypeEnum(self._check_for_error(self._lib.Meters_Get_OCPDeviceType()))
+        return OCPDevTypeEnum(self._lib.Meters_Get_OCPDeviceType())
 
     def PeakCurrent(self, *args):
         """
@@ -284,13 +274,12 @@ class IMeters(Iterable):
         """
         # Getter
         if len(args) == 0:
-            self._check_for_error(self._lib.Meters_Get_Peakcurrent_GR())
-            return self._get_float64_gr_array()
+            return self._lib.Meters_Get_Peakcurrent_GR()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self._check_for_error(self._lib.Meters_Set_Peakcurrent(ValuePtr, ValueCount))
+        self._lib.Meters_Set_Peakcurrent(ValuePtr, ValueCount)
 
     def RegisterNames(self):
         """
@@ -302,9 +291,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/RegisterNames1.html
         """
-        return self._check_for_error(
-            self._get_string_array(self._lib.Meters_Get_RegisterNames)
-        )
+        return self._lib.Meters_Get_RegisterNames()
 
     def RegisterValues(self):
         """
@@ -312,8 +299,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/RegisterValues1.html
         """
-        self._check_for_error(self._lib.Meters_Get_RegisterValues_GR())
-        return self._get_float64_gr_array()
+        return self._lib.Meters_Get_RegisterValues_GR()
 
     def SAIDI(self):
         """
@@ -321,7 +307,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/SAIDI.html
         """
-        return self._check_for_error(self._lib.Meters_Get_SAIDI())
+        return self._lib.Meters_Get_SAIDI()
 
     def SAIFI(self):
         """
@@ -329,7 +315,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/SAIFI.html
         """
-        return self._check_for_error(self._lib.Meters_Get_SAIFI())
+        return self._lib.Meters_Get_SAIFI()
 
     def SAIFIkW(self):
         """
@@ -337,7 +323,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/SAIFIKW.html
         """
-        return self._check_for_error(self._lib.Meters_Get_SAIFIKW())
+        return self._lib.Meters_Get_SAIFIKW()
 
     def SectSeqidx(self):
         """
@@ -345,7 +331,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/SectSeqIdx.html
         """
-        return self._check_for_error(self._lib.Meters_Get_SectSeqIdx())
+        return self._lib.Meters_Get_SectSeqIdx()
 
     def SectTotalCust(self):
         """
@@ -353,7 +339,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/SectTotalCust.html
         """
-        return self._check_for_error(self._lib.Meters_Get_SectTotalCust())
+        return self._lib.Meters_Get_SectTotalCust()
 
     def SeqListSize(self):
         """
@@ -361,7 +347,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/SeqListSize.html
         """
-        return self._check_for_error(self._lib.Meters_Get_SeqListSize())
+        return self._lib.Meters_Get_SeqListSize()
 
     def SequenceList(self, *args):
         """
@@ -372,11 +358,11 @@ class IMeters(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Meters_Get_SequenceIndex())
+            return self._lib.Meters_Get_SequenceIndex()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Meters_Set_SequenceIndex(Value))
+        self._lib.Meters_Set_SequenceIndex(Value)
 
     def SumBranchFltRates(self):
         """
@@ -384,7 +370,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/SumBranchFltRates.html
         """
-        return self._check_for_error(self._lib.Meters_Get_SumBranchFltRates())
+        return self._lib.Meters_Get_SumBranchFltRates()
 
     def TotalCustomers(self):
         """
@@ -392,7 +378,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/TotalCustomers.html
         """
-        return self._check_for_error(self._lib.Meters_Get_TotalCustomers())
+        return self._lib.Meters_Get_TotalCustomers()
 
     def Totals(self):
         """
@@ -400,8 +386,7 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/Totals.html
         """
-        self._check_for_error(self._lib.Meters_Get_Totals_GR())
-        return self._get_float64_gr_array()
+        return self._lib.Meters_Get_Totals_GR()
 
     def ZonePCE(self):
         """
@@ -409,38 +394,28 @@ class IMeters(Iterable):
 
         Original COM help: https://opendss.epri.com/ZonePCE.html
         """
-        result = self._check_for_error(
-            self._get_string_array(self._lib.Meters_Get_ZonePCE)
-        )
-        return result
+        return self._lib.Meters_Get_ZonePCE()
 
 
-_Meters = IMeters(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
+_Meters = IMeters(api_util)
 
 # For backwards compatibility, bind to the default instance
-CloseAllDIFiles = _Meters.CloseAllDIFiles
-DoReliabilityCalc = _Meters.DoReliabilityCalc
-OpenAllDIFiles = _Meters.OpenAllDIFiles
-Reset = _Meters.Reset
-ResetAll = _Meters.ResetAll
-Sample = _Meters.Sample
-SampleAll = _Meters.SampleAll
-Save = _Meters.Save
-SaveAll = _Meters.SaveAll
-SetActiveSection = _Meters.SetActiveSection
 AllBranchesInZone = _Meters.AllBranchesInZone
 AllEndElements = _Meters.AllEndElements
 AllNames = _Meters.AllNames
 AllocFactors = _Meters.AllocFactors
 AvgRepairTime = _Meters.AvgRepairTime
 CalcCurrent = _Meters.CalcCurrent
+CloseAllDIFiles = _Meters.CloseAllDIFiles
 Count = _Meters.Count
 CountBranches = _Meters.CountBranches
 CountEndElements = _Meters.CountEndElements
 CustInterrupts = _Meters.CustInterrupts
 DIFilesAreOpen = _Meters.DIFilesAreOpen
+DoReliabilityCalc = _Meters.DoReliabilityCalc
 FaultRateXRepairHrs = _Meters.FaultRateXRepairHrs
 First = _Meters.First
+Idx = _Meters.Idx
 MeteredElement = _Meters.MeteredElement
 MeteredTerminal = _Meters.MeteredTerminal
 Name = _Meters.Name
@@ -449,46 +424,46 @@ NumSectionBranches = _Meters.NumSectionBranches
 NumSectionCustomers = _Meters.NumSectionCustomers
 NumSections = _Meters.NumSections
 OCPDeviceType = _Meters.OCPDeviceType
+OpenAllDIFiles = _Meters.OpenAllDIFiles
 PeakCurrent = _Meters.PeakCurrent
 RegisterNames = _Meters.RegisterNames
 RegisterValues = _Meters.RegisterValues
+Reset = _Meters.Reset
+ResetAll = _Meters.ResetAll
 SAIDI = _Meters.SAIDI
 SAIFI = _Meters.SAIFI
 SAIFIkW = _Meters.SAIFIkW
+Sample = _Meters.Sample
+SampleAll = _Meters.SampleAll
+Save = _Meters.Save
+SaveAll = _Meters.SaveAll
 SectSeqidx = _Meters.SectSeqidx
 SectTotalCust = _Meters.SectTotalCust
 SeqListSize = _Meters.SeqListSize
 SequenceList = _Meters.SequenceList
+SetActiveSection = _Meters.SetActiveSection
 SumBranchFltRates = _Meters.SumBranchFltRates
 TotalCustomers = _Meters.TotalCustomers
 Totals = _Meters.Totals
 ZonePCE = _Meters.ZonePCE
-Idx = _Meters.Idx
 _columns = _Meters._columns
 __all__ = [
-    "CloseAllDIFiles",
-    "DoReliabilityCalc",
-    "OpenAllDIFiles",
-    "Reset",
-    "ResetAll",
-    "Sample",
-    "SampleAll",
-    "Save",
-    "SaveAll",
-    "SetActiveSection",
     "AllBranchesInZone",
     "AllEndElements",
     "AllNames",
     "AllocFactors",
     "AvgRepairTime",
     "CalcCurrent",
+    "CloseAllDIFiles",
     "Count",
     "CountBranches",
     "CountEndElements",
     "CustInterrupts",
     "DIFilesAreOpen",
+    "DoReliabilityCalc",
     "FaultRateXRepairHrs",
     "First",
+    "Idx",
     "MeteredElement",
     "MeteredTerminal",
     "Name",
@@ -497,19 +472,26 @@ __all__ = [
     "NumSectionCustomers",
     "NumSections",
     "OCPDeviceType",
+    "OpenAllDIFiles",
     "PeakCurrent",
     "RegisterNames",
     "RegisterValues",
+    "Reset",
+    "ResetAll",
     "SAIDI",
     "SAIFI",
     "SAIFIkW",
+    "Sample",
+    "SampleAll",
+    "Save",
+    "SaveAll",
     "SectSeqidx",
     "SectTotalCust",
     "SeqListSize",
     "SequenceList",
+    "SetActiveSection",
     "SumBranchFltRates",
     "TotalCustomers",
     "Totals",
     "ZonePCE",
-    "Idx",
 ]

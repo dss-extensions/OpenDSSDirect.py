@@ -1,4 +1,4 @@
-from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util
 from .Bases import Iterable
 from dss_python_backend.enums import ActionCodes
 
@@ -20,7 +20,7 @@ class ISwtControls(Iterable):
     ]
 
     def Reset(self):
-        self._check_for_error(self._lib.SwtControls_Reset())
+        self._lib.SwtControls_Reset()
 
     def Action(self, *args):
         """
@@ -30,11 +30,11 @@ class ISwtControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.SwtControls_Get_Action())
+            return self._lib.SwtControls_Get_Action()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.SwtControls_Set_Action(Value))
+        self._lib.SwtControls_Set_Action(Value)
 
     def Delay(self, *args):
         """
@@ -44,11 +44,11 @@ class ISwtControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.SwtControls_Get_Delay())
+            return self._lib.SwtControls_Get_Delay()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.SwtControls_Set_Delay(Value))
+        self._lib.SwtControls_Set_Delay(Value)
 
     def IsLocked(self, *args):
         """
@@ -58,25 +58,23 @@ class ISwtControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.SwtControls_Get_IsLocked()) != 0
+            return self._lib.SwtControls_Get_IsLocked()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.SwtControls_Set_IsLocked(Value))
+        self._lib.SwtControls_Set_IsLocked(Value)
 
     def NormalState(self, *args):
         """
-        Get/set Normal state of switch (see ActionCodes) dssActionOpen or dssActionClose
+        Get/set the Normal state of switch (see ActionCodes) dssActionOpen or dssActionClose
         """
         # Getter
         if len(args) == 0:
-            return ActionCodes(
-                self._check_for_error(self._lib.SwtControls_Get_NormalState())
-            )
+            return ActionCodes(self._lib.SwtControls_Get_NormalState())
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.SwtControls_Set_NormalState(Value))
+        self._lib.SwtControls_Set_NormalState(Value)
 
     def State(self, *args):
         """
@@ -86,11 +84,11 @@ class ISwtControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.SwtControls_Get_State())
+            return self._lib.SwtControls_Get_State()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.SwtControls_Set_State(Value))
+        self._lib.SwtControls_Set_State(Value)
 
     def SwitchedObj(self, *args):
         """
@@ -100,15 +98,11 @@ class ISwtControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(
-                self._check_for_error(self._lib.SwtControls_Get_SwitchedObj())
-            )
+            return self._lib.SwtControls_Get_SwitchedObj()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.SwtControls_Set_SwitchedObj(Value))
+        self._lib.SwtControls_Set_SwitchedObj(Value)
 
     def SwitchedTerm(self, *args):
         """
@@ -118,44 +112,44 @@ class ISwtControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.SwtControls_Get_SwitchedTerm())
+            return self._lib.SwtControls_Get_SwitchedTerm()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.SwtControls_Set_SwitchedTerm(Value))
+        self._lib.SwtControls_Set_SwitchedTerm(Value)
 
 
-_SwtControls = ISwtControls(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
+_SwtControls = ISwtControls(api_util)
 
 # For backwards compatibility, bind to the default instance
-Reset = _SwtControls.Reset
 Action = _SwtControls.Action
 AllNames = _SwtControls.AllNames
 Count = _SwtControls.Count
 Delay = _SwtControls.Delay
 First = _SwtControls.First
+Idx = _SwtControls.Idx
 IsLocked = _SwtControls.IsLocked
 Name = _SwtControls.Name
 Next = _SwtControls.Next
 NormalState = _SwtControls.NormalState
+Reset = _SwtControls.Reset
 State = _SwtControls.State
 SwitchedObj = _SwtControls.SwitchedObj
 SwitchedTerm = _SwtControls.SwitchedTerm
-Idx = _SwtControls.Idx
 _columns = _SwtControls._columns
 __all__ = [
-    "Reset",
     "Action",
     "AllNames",
     "Count",
     "Delay",
     "First",
+    "Idx",
     "IsLocked",
     "Name",
     "Next",
     "NormalState",
+    "Reset",
     "State",
     "SwitchedObj",
     "SwitchedTerm",
-    "Idx",
 ]

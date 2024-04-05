@@ -1,4 +1,4 @@
-from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util
 from .Bases import Iterable
 
 
@@ -26,15 +26,11 @@ class IRelays(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(
-                self._check_for_error(self._lib.Relays_Get_MonitoredObj())
-            )
+            return self._lib.Relays_Get_MonitoredObj()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.Relays_Set_MonitoredObj(Value))
+        self._lib.Relays_Set_MonitoredObj(Value)
 
     def MonitoredTerm(self, *args):
         """
@@ -44,11 +40,11 @@ class IRelays(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Relays_Get_MonitoredTerm())
+            return self._lib.Relays_Get_MonitoredTerm()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Relays_Set_MonitoredTerm(Value))
+        self._lib.Relays_Set_MonitoredTerm(Value)
 
     def SwitchedObj(self, *args):
         """
@@ -58,15 +54,11 @@ class IRelays(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(
-                self._check_for_error(self._lib.Relays_Get_SwitchedObj())
-            )
+            return self._lib.Relays_Get_SwitchedObj()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.Relays_Set_SwitchedObj(Value))
+        self._lib.Relays_Set_SwitchedObj(Value)
 
     def SwitchedTerm(self, *args):
         """
@@ -76,11 +68,11 @@ class IRelays(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Relays_Get_SwitchedTerm())
+            return self._lib.Relays_Get_SwitchedTerm()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Relays_Set_SwitchedTerm(Value))
+        self._lib.Relays_Set_SwitchedTerm(Value)
 
     def Open(self):
         """
@@ -88,7 +80,7 @@ class IRelays(Iterable):
 
         Original COM help: https://opendss.epri.com/Open4.html
         """
-        self._check_for_error(self._lib.Relays_Open())
+        self._lib.Relays_Open()
 
     def Close(self):
         """
@@ -96,7 +88,7 @@ class IRelays(Iterable):
 
         Original COM help: https://opendss.epri.com/Close5.html
         """
-        self._check_for_error(self._lib.Relays_Close())
+        self._lib.Relays_Close()
 
     def Reset(self):
         """
@@ -104,21 +96,21 @@ class IRelays(Iterable):
         If open, lock out the relay.
         If closed, resets relay to first operation.
         """
-        self._check_for_error(self._lib.Relays_Reset())
+        self._lib.Relays_Reset()
 
     def State(self, *args):
         """
-        Get/Set present state of relay.
+        Present state of relay.
         If set to open, open relay's controlled element and lock out the relay.
         If set to close, close relay's controlled element and resets relay to first operation.
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Relays_Get_State())
+            return self._lib.Relays_Get_State()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Relays_Set_State(Value))
+        self._lib.Relays_Set_State(Value)
 
     def NormalState(self, *args):
         """
@@ -128,46 +120,46 @@ class IRelays(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Relays_Get_NormalState())
+            return self._lib.Relays_Get_NormalState()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Relays_Set_NormalState(Value))
+        self._lib.Relays_Set_NormalState(Value)
 
 
-_Relays = IRelays(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
+_Relays = IRelays(api_util)
 
 # For backwards compatibility, bind to the default instance
 AllNames = _Relays.AllNames
+Close = _Relays.Close
 Count = _Relays.Count
 First = _Relays.First
+Idx = _Relays.Idx
 MonitoredObj = _Relays.MonitoredObj
 MonitoredTerm = _Relays.MonitoredTerm
 Name = _Relays.Name
 Next = _Relays.Next
-SwitchedObj = _Relays.SwitchedObj
-SwitchedTerm = _Relays.SwitchedTerm
-Idx = _Relays.Idx
+NormalState = _Relays.NormalState
 Open = _Relays.Open
-Close = _Relays.Close
 Reset = _Relays.Reset
 State = _Relays.State
-NormalState = _Relays.NormalState
+SwitchedObj = _Relays.SwitchedObj
+SwitchedTerm = _Relays.SwitchedTerm
 _columns = _Relays._columns
 __all__ = [
     "AllNames",
+    "Close",
     "Count",
     "First",
+    "Idx",
     "MonitoredObj",
     "MonitoredTerm",
     "Name",
     "Next",
-    "SwitchedObj",
-    "SwitchedTerm",
-    "Idx",
+    "NormalState",
     "Open",
-    "Close",
     "Reset",
     "State",
-    "NormalState",
+    "SwitchedObj",
+    "SwitchedTerm",
 ]

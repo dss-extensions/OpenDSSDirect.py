@@ -1,8 +1,22 @@
-from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util
 from .Bases import Base
 
 
 class IPDElements(Base):
+    """
+    The PDElements interface allows accessing some common properties and 
+    methods shared across power delivery elements in the DSS engine.
+
+    Users can iterate on all PD elements directly through this interface, 
+    or enable a PD element through a dedicated interface (e.g. use `Lines.Name`, `Transformers.First/Next`)
+    and access the properties here.
+
+    If you are new to OpenDSS/AltDSS and this classic interface, please read the following document
+    for an overview of the "active element" paradigm used by COM and the classic APIs:
+        
+    https://dss-extensions.org/classic_api.html#the-active-paradigm
+    """
+
     __slots__ = []
 
     __name__ = "PDElements"
@@ -27,9 +41,11 @@ class IPDElements(Base):
         """
         Accumulated failure rate for this branch on downline
 
+        *Requires a previous call to `RelCalc` command*
+
         Original COM help: https://opendss.epri.com/AccumulatedL.html
         """
-        return self._check_for_error(self._lib.PDElements_Get_AccumulatedL())
+        return self._lib.PDElements_Get_AccumulatedL()
 
     def Count(self):
         """
@@ -37,7 +53,7 @@ class IPDElements(Base):
 
         Original COM help: https://opendss.epri.com/Count12.html
         """
-        return self._check_for_error(self._lib.PDElements_Get_Count())
+        return self._lib.PDElements_Get_Count()
 
     def FaultRate(self, *args):
         """
@@ -46,25 +62,27 @@ class IPDElements(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.PDElements_Get_FaultRate())
+            return self._lib.PDElements_Get_FaultRate()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.PDElements_Set_FaultRate(Value))
+        self._lib.PDElements_Set_FaultRate(Value)
 
     def First(self):
         """
         (read-only) Set the first enabled PD element to be the active element.
         Returns 0 if none found.
         """
-        return self._check_for_error(self._lib.PDElements_Get_First())
+        return self._lib.PDElements_Get_First()
 
     def FromTerminal(self):
         """
         (read-only) Number of the terminal of active PD element that is on the "from"
         side. This is set after the meter zone is determined.
+
+        *Requires an energy meter with an updated zone.*
         """
-        return self._check_for_error(self._lib.PDElements_Get_FromTerminal())
+        return self._lib.PDElements_Get_FromTerminal()
 
     def IsShunt(self):
         """
@@ -72,15 +90,17 @@ class IPDElements(Base):
         element rather than a series element. Applies to Capacitor and Reactor
         elements in particular.
         """
-        return self._check_for_error(self._lib.PDElements_Get_IsShunt()) != 0
+        return self._lib.PDElements_Get_IsShunt()
 
     def Lambda(self):
         """
         Failure rate for this branch. Faults per year including length of line.
 
+        *Requires a previous call to `RelCalc` command*
+
         Original COM help: https://opendss.epri.com/Lambda1.html
         """
-        return self._check_for_error(self._lib.PDElements_Get_Lambda())
+        return self._lib.PDElements_Get_Lambda()
 
     def Name(self, *args):
         """
@@ -89,35 +109,37 @@ class IPDElements(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(self._check_for_error(self._lib.PDElements_Get_Name()))
+            return self._lib.PDElements_Get_Name()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.PDElements_Set_Name(Value))
+        self._lib.PDElements_Set_Name(Value)
 
     def Next(self):
         """
         (read-only) Advance to the next PD element in the circuit. Enabled elements
         only. Returns 0 when no more elements.
         """
-        return self._check_for_error(self._lib.PDElements_Get_Next())
+        return self._lib.PDElements_Get_Next()
 
     def NumCustomers(self):
         """
         Number of customers, this branch
 
+        *Requires an energy meter with an updated zone.*
+
         Original COM help: https://opendss.epri.com/Numcustomers.html
         """
-        return self._check_for_error(self._lib.PDElements_Get_Numcustomers())
+        return self._lib.PDElements_Get_Numcustomers()
 
     def ParentPDElement(self):
         """
         (read-only) Sets the parent PD element to be the active circuit element.
         Returns 0 if no more elements upline.
+
+        *Requires an energy meter with an updated zone.*
         """
-        return self._check_for_error(self._lib.PDElements_Get_ParentPDElement())
+        return self._lib.PDElements_Get_ParentPDElement()
 
     def RepairTime(self, *args):
         """
@@ -127,35 +149,41 @@ class IPDElements(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.PDElements_Get_RepairTime())
+            return self._lib.PDElements_Get_RepairTime()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.PDElements_Set_RepairTime(Value))
+        self._lib.PDElements_Set_RepairTime(Value)
 
     def SectionID(self):
         """
         Integer ID of the feeder section that this PDElement branch is part of
 
+        *Requires a previous call to `RelCalc` command*
+
         Original COM help: https://opendss.epri.com/SectionID1.html
         """
-        return self._check_for_error(self._lib.PDElements_Get_SectionID())
+        return self._lib.PDElements_Get_SectionID()
 
     def TotalMiles(self):
         """
         Total miles of line from this element to the end of the zone. For recloser siting algorithm.
 
+        *Requires a previous call to `RelCalc` command*
+
         Original COM help: https://opendss.epri.com/TotalMiles1.html
         """
-        return self._check_for_error(self._lib.PDElements_Get_TotalMiles())
+        return self._lib.PDElements_Get_TotalMiles()
 
     def TotalCustomers(self):
         """
         Total number of customers from this branch to the end of the zone
 
+        *Requires a circuit with an energy meter with an updated zone.*
+
         Original COM help: https://opendss.epri.com/TotalCustomers1.html
         """
-        return self._check_for_error(self._lib.PDElements_Get_Totalcustomers())
+        return self._lib.PDElements_Get_Totalcustomers()
 
     def PctPermanent(self, *args):
         """
@@ -165,11 +193,11 @@ class IPDElements(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.PDElements_Get_pctPermanent())
+            return self._lib.PDElements_Get_pctPermanent()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.PDElements_Set_pctPermanent(Value))
+        self._lib.PDElements_Set_pctPermanent(Value)
 
     def AllNames(self):
         """
@@ -177,9 +205,7 @@ class IPDElements(Base):
 
         **(API Extension)**
         """
-        return self._check_for_error(
-            self._get_string_array(self._lib.PDElements_Get_AllNames)
-        )
+        return self._lib.PDElements_Get_AllNames()
 
     def AllMaxCurrents(self, AllNodes=False):
         """
@@ -195,8 +221,7 @@ class IPDElements(Base):
 
         **(API Extension)**
         """
-        self._check_for_error(self._lib.PDElements_Get_AllMaxCurrents_GR(AllNodes))
-        return self._get_float64_gr_array()
+        return self._lib.PDElements_Get_AllMaxCurrents_GR(AllNodes)
 
     def AllPctNorm(self, AllNodes=False):
         """
@@ -212,8 +237,7 @@ class IPDElements(Base):
 
         **(API Extension)**
         """
-        self._check_for_error(self._lib.PDElements_Get_AllPctNorm_GR(AllNodes))
-        return self._get_float64_gr_array()
+        return self._lib.PDElements_Get_AllPctNorm_GR(AllNodes)
 
     def AllPctEmerg(self, AllNodes=False):
         """
@@ -229,8 +253,7 @@ class IPDElements(Base):
 
         **(API Extension)**
         """
-        self._check_for_error(self._lib.PDElements_Get_AllPctEmerg_GR(AllNodes))
-        return self._get_float64_gr_array()
+        return self._lib.PDElements_Get_AllPctEmerg_GR(AllNodes)
 
     def AllCurrents(self):
         """
@@ -238,8 +261,7 @@ class IPDElements(Base):
 
         **(API Extension)**
         """
-        self._check_for_error(self._lib.PDElements_Get_AllCurrents_GR())
-        return self._get_complex128_gr_array()
+        return self._lib.PDElements_Get_AllCurrents_GR()
 
     def AllCurrentsMagAng(self):
         """
@@ -247,8 +269,7 @@ class IPDElements(Base):
 
         **(API Extension)**
         """
-        self._check_for_error(self._lib.PDElements_Get_AllCurrentsMagAng_GR())
-        return self._get_float64_gr_array()
+        return self._lib.PDElements_Get_AllCurrentsMagAng_GR()
 
     def AllCplxSeqCurrents(self):
         """
@@ -256,8 +277,7 @@ class IPDElements(Base):
 
         **(API Extension)**
         """
-        self._check_for_error(self._lib.PDElements_Get_AllCplxSeqCurrents_GR())
-        return self._get_complex128_gr_array()
+        return self._lib.PDElements_Get_AllCplxSeqCurrents_GR()
 
     def AllSeqCurrents(self):
         """
@@ -265,8 +285,7 @@ class IPDElements(Base):
 
         **(API Extension)**
         """
-        self._check_for_error(self._lib.PDElements_Get_AllSeqCurrents_GR())
-        return self._get_float64_gr_array()
+        return self._lib.PDElements_Get_AllSeqCurrents_GR()
 
     def AllPowers(self):
         """
@@ -274,8 +293,7 @@ class IPDElements(Base):
 
         **(API Extension)**
         """
-        self._check_for_error(self._lib.PDElements_Get_AllPowers_GR())
-        return self._get_complex128_gr_array()
+        return self._lib.PDElements_Get_AllPowers_GR()
 
     def AllSeqPowers(self):
         """
@@ -283,8 +301,7 @@ class IPDElements(Base):
 
         **(API Extension)**
         """
-        self._check_for_error(self._lib.PDElements_Get_AllSeqPowers_GR())
-        return self._get_complex128_gr_array()
+        return self._lib.PDElements_Get_AllSeqPowers_GR()
 
     def AllNumPhases(self):
         """
@@ -292,8 +309,7 @@ class IPDElements(Base):
 
         **(API Extension)**
         """
-        self._check_for_error(self._lib.PDElements_Get_AllNumPhases_GR())
-        return self._get_int32_gr_array()
+        return self._lib.PDElements_Get_AllNumPhases_GR()
 
     def AllNumConductors(self):
         """
@@ -301,8 +317,7 @@ class IPDElements(Base):
 
         **(API Extension)**
         """
-        self._check_for_error(self._lib.PDElements_Get_AllNumConductors_GR())
-        return self._get_int32_gr_array()
+        return self._lib.PDElements_Get_AllNumConductors_GR()
 
     def AllNumTerminals(self):
         """
@@ -310,14 +325,26 @@ class IPDElements(Base):
 
         **(API Extension)**
         """
-        self._check_for_error(self._lib.PDElements_Get_AllNumTerminals_GR())
-        return self._get_int32_gr_array()
+        return self._lib.PDElements_Get_AllNumTerminals_GR()
 
 
-_PDElements = IPDElements(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
+_PDElements = IPDElements(api_util)
 
 # For backwards compatibility, bind to the default instance
 AccumulatedL = _PDElements.AccumulatedL
+AllCplxSeqCurrents = _PDElements.AllCplxSeqCurrents
+AllCurrents = _PDElements.AllCurrents
+AllCurrentsMagAng = _PDElements.AllCurrentsMagAng
+AllMaxCurrents = _PDElements.AllMaxCurrents
+AllNames = _PDElements.AllNames
+AllNumConductors = _PDElements.AllNumConductors
+AllNumPhases = _PDElements.AllNumPhases
+AllNumTerminals = _PDElements.AllNumTerminals
+AllPctEmerg = _PDElements.AllPctEmerg
+AllPctNorm = _PDElements.AllPctNorm
+AllPowers = _PDElements.AllPowers
+AllSeqCurrents = _PDElements.AllSeqCurrents
+AllSeqPowers = _PDElements.AllSeqPowers
 Count = _PDElements.Count
 FaultRate = _PDElements.FaultRate
 First = _PDElements.First
@@ -328,27 +355,27 @@ Name = _PDElements.Name
 Next = _PDElements.Next
 NumCustomers = _PDElements.NumCustomers
 ParentPDElement = _PDElements.ParentPDElement
+PctPermanent = _PDElements.PctPermanent
 RepairTime = _PDElements.RepairTime
 SectionID = _PDElements.SectionID
-TotalMiles = _PDElements.TotalMiles
 TotalCustomers = _PDElements.TotalCustomers
-PctPermanent = _PDElements.PctPermanent
-AllNames = _PDElements.AllNames
-AllMaxCurrents = _PDElements.AllMaxCurrents
-AllPctNorm = _PDElements.AllPctNorm
-AllPctEmerg = _PDElements.AllPctEmerg
-AllCurrents = _PDElements.AllCurrents
-AllCurrentsMagAng = _PDElements.AllCurrentsMagAng
-AllCplxSeqCurrents = _PDElements.AllCplxSeqCurrents
-AllSeqCurrents = _PDElements.AllSeqCurrents
-AllPowers = _PDElements.AllPowers
-AllSeqPowers = _PDElements.AllSeqPowers
-AllNumPhases = _PDElements.AllNumPhases
-AllNumConductors = _PDElements.AllNumConductors
-AllNumTerminals = _PDElements.AllNumTerminals
+TotalMiles = _PDElements.TotalMiles
 _columns = _PDElements._columns
 __all__ = [
     "AccumulatedL",
+    "AllCplxSeqCurrents",
+    "AllCurrents",
+    "AllCurrentsMagAng",
+    "AllMaxCurrents",
+    "AllNames",
+    "AllNumConductors",
+    "AllNumPhases",
+    "AllNumTerminals",
+    "AllPctEmerg",
+    "AllPctNorm",
+    "AllPowers",
+    "AllSeqCurrents",
+    "AllSeqPowers",
     "Count",
     "FaultRate",
     "First",
@@ -359,22 +386,9 @@ __all__ = [
     "Next",
     "NumCustomers",
     "ParentPDElement",
+    "PctPermanent",
     "RepairTime",
     "SectionID",
-    "TotalMiles",
     "TotalCustomers",
-    "PctPermanent",
-    "AllNames",
-    "AllMaxCurrents",
-    "AllPctNorm",
-    "AllPctEmerg",
-    "AllCurrents",
-    "AllCurrentsMagAng",
-    "AllCplxSeqCurrents",
-    "AllSeqCurrents",
-    "AllPowers",
-    "AllSeqPowers",
-    "AllNumPhases",
-    "AllNumConductors",
-    "AllNumTerminals",
+    "TotalMiles",
 ]

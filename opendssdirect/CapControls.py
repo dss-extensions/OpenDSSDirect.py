@@ -1,4 +1,4 @@
-from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util
 from .Bases import Iterable
 from dss_python_backend.enums import CapControlModes
 
@@ -32,7 +32,7 @@ class ICapControls(Iterable):
 
         Original COM help: https://opendss.epri.com/Reset.html
         """
-        self._check_for_error(self._lib.CapControls_Reset())
+        self._lib.CapControls_Reset()
 
     def CTRatio(self, *args):
         """
@@ -42,11 +42,11 @@ class ICapControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.CapControls_Get_CTratio())
+            return self._lib.CapControls_Get_CTratio()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.CapControls_Set_CTratio(Value))
+        self._lib.CapControls_Set_CTratio(Value)
 
     def Capacitor(self, *args):
         """
@@ -56,15 +56,11 @@ class ICapControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(
-                self._check_for_error(self._lib.CapControls_Get_Capacitor())
-            )
+            return self._lib.CapControls_Get_Capacitor()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.CapControls_Set_Capacitor(Value))
+        self._lib.CapControls_Set_Capacitor(Value)
 
     def DeadTime(self, *args):
         """
@@ -76,11 +72,11 @@ class ICapControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.CapControls_Get_DeadTime())
+            return self._lib.CapControls_Get_DeadTime()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.CapControls_Set_DeadTime(Value))
+        self._lib.CapControls_Set_DeadTime(Value)
 
     def Delay(self, *args):
         """
@@ -90,11 +86,11 @@ class ICapControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.CapControls_Get_Delay())
+            return self._lib.CapControls_Get_Delay()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.CapControls_Set_Delay(Value))
+        self._lib.CapControls_Set_Delay(Value)
 
     def DelayOff(self, *args):
         """
@@ -104,11 +100,11 @@ class ICapControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.CapControls_Get_DelayOff())
+            return self._lib.CapControls_Get_DelayOff()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.CapControls_Set_DelayOff(Value))
+        self._lib.CapControls_Set_DelayOff(Value)
 
     def Mode(self, *args):
         """
@@ -118,11 +114,11 @@ class ICapControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return CapControlModes(self._check_for_error(self._lib.CapControls_Get_Mode()))
+            return CapControlModes(self._lib.CapControls_Get_Mode())
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.CapControls_Set_Mode(Value))
+        self._lib.CapControls_Set_Mode(Value)
 
     def MonitoredObj(self, *args):
         """
@@ -132,15 +128,11 @@ class ICapControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(
-                self._check_for_error(self._lib.CapControls_Get_MonitoredObj())
-            )
+            return self._lib.CapControls_Get_MonitoredObj()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.CapControls_Set_MonitoredObj(Value))
+        self._lib.CapControls_Set_MonitoredObj(Value)
 
     def MonitoredTerm(self, *args):
         """
@@ -150,11 +142,11 @@ class ICapControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.CapControls_Get_MonitoredTerm())
+            return self._lib.CapControls_Get_MonitoredTerm()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.CapControls_Set_MonitoredTerm(Value))
+        self._lib.CapControls_Set_MonitoredTerm(Value)
 
     def OFFSetting(self, *args):
         """
@@ -164,11 +156,11 @@ class ICapControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.CapControls_Get_OFFSetting())
+            return self._lib.CapControls_Get_OFFSetting()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.CapControls_Set_OFFSetting(Value))
+        self._lib.CapControls_Set_OFFSetting(Value)
 
     def ONSetting(self, *args):
         """
@@ -178,11 +170,11 @@ class ICapControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.CapControls_Get_ONSetting())
+            return self._lib.CapControls_Get_ONSetting()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.CapControls_Set_ONSetting(Value))
+        self._lib.CapControls_Set_ONSetting(Value)
 
     def PTRatio(self, *args):
         """
@@ -192,11 +184,11 @@ class ICapControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.CapControls_Get_PTratio())
+            return self._lib.CapControls_Get_PTratio()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.CapControls_Set_PTratio(Value))
+        self._lib.CapControls_Set_PTratio(Value)
 
     def UseVoltOverride(self, *args):
         """
@@ -206,11 +198,11 @@ class ICapControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.CapControls_Get_UseVoltOverride()) != 0
+            return self._lib.CapControls_Get_UseVoltOverride()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.CapControls_Set_UseVoltOverride(Value))
+        self._lib.CapControls_Set_UseVoltOverride(Value)
 
     def Vmax(self, *args):
         """
@@ -220,11 +212,11 @@ class ICapControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.CapControls_Get_Vmax())
+            return self._lib.CapControls_Get_Vmax()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.CapControls_Set_Vmax(Value))
+        self._lib.CapControls_Set_Vmax(Value)
 
     def Vmin(self, *args):
         """
@@ -234,17 +226,16 @@ class ICapControls(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.CapControls_Get_Vmin())
+            return self._lib.CapControls_Get_Vmin()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.CapControls_Set_Vmin(Value))
+        self._lib.CapControls_Set_Vmin(Value)
 
 
-_CapControls = ICapControls(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
+_CapControls = ICapControls(api_util)
 
 # For backwards compatibility, bind to the default instance
-Reset = _CapControls.Reset
 AllNames = _CapControls.AllNames
 CTRatio = _CapControls.CTRatio
 Capacitor = _CapControls.Capacitor
@@ -253,6 +244,7 @@ DeadTime = _CapControls.DeadTime
 Delay = _CapControls.Delay
 DelayOff = _CapControls.DelayOff
 First = _CapControls.First
+Idx = _CapControls.Idx
 Mode = _CapControls.Mode
 MonitoredObj = _CapControls.MonitoredObj
 MonitoredTerm = _CapControls.MonitoredTerm
@@ -261,13 +253,12 @@ Next = _CapControls.Next
 OFFSetting = _CapControls.OFFSetting
 ONSetting = _CapControls.ONSetting
 PTRatio = _CapControls.PTRatio
+Reset = _CapControls.Reset
 UseVoltOverride = _CapControls.UseVoltOverride
 Vmax = _CapControls.Vmax
 Vmin = _CapControls.Vmin
-Idx = _CapControls.Idx
 _columns = _CapControls._columns
 __all__ = [
-    "Reset",
     "AllNames",
     "CTRatio",
     "Capacitor",
@@ -276,6 +267,7 @@ __all__ = [
     "Delay",
     "DelayOff",
     "First",
+    "Idx",
     "Mode",
     "MonitoredObj",
     "MonitoredTerm",
@@ -284,8 +276,8 @@ __all__ = [
     "OFFSetting",
     "ONSetting",
     "PTRatio",
+    "Reset",
     "UseVoltOverride",
     "Vmax",
     "Vmin",
-    "Idx",
 ]

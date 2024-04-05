@@ -1,9 +1,82 @@
-from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util
 from .Bases import Base
 from dss.enums import DSSPropertyNameStyle, CktModels
 
+class SettingsContext:
+    def __init__(self, settings):
+        self._settings = settings
+    
+    def __enter__(self):
+        # Using try...except since the official engine doesn't implement these.
+        # Only a few are (and can be) implemented through Oddie.
+        try:
+            self._AdvancedTypes = self._settings.AdvancedTypes()
+        except:
+            pass
+
+        try:
+            self._CompatFlags = self._settings.CompatFlags()
+        except:
+            pass
+
+        try:
+            self._IterateDisabled = self._settings.IterateDisabled()
+        except:
+            pass
+
+        try:
+            self._PreferLists = self._settings.PreferLists()
+        except:
+            pass
+
+        try:
+            self._SkipCommands = self._settings.SkipCommands()
+        except:
+            pass
+
+        try:
+            self._SkipFileRegExp = self._settings.SkipFileRegExp()
+        except:
+            pass
+
+        return self._settings
+        
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        try:
+            self._settings.AdvancedTypes(self._AdvancedTypes)
+        except:
+            pass
+
+        try:
+            self._settings.CompatFlags(self._CompatFlags)
+        except:
+            pass
+
+        try:
+            self._settings.IterateDisabled(self._IterateDisabled)
+        except:
+            pass
+
+        try:
+            self._settings.PreferLists(self._PreferLists)
+        except:
+            pass
+
+        try:
+            self._settings.SkipCommands(self._SkipCommands)
+        except:
+            pass
+
+        try:
+            self._settings.SkipFileRegExp(self._SkipFileRegExp)
+        except:
+            pass
+
+
 class ISettings(Base):
-    __slots__ = []
+    __slots__ = [
+        '_command_dict',
+    ]
 
     __name__ = "Settings"
     _api_prefix = "Settings"
@@ -29,20 +102,53 @@ class ISettings(Base):
         "IterateDisabled",
     ]
 
+    def __init__(self, api_util):
+        Base.__init__(self, api_util)
+        num_commands = self._lib.DSS_Executive_Get_NumCommands()
+        object.__setattr__(self, '_frozen_attrs', False)
+        self._command_dict = {
+            self._lib.DSS_Executive_Get_Command(i).lower(): i
+            for i in range(1, num_commands + 1)
+        }
+        object.__setattr__(self, '_frozen_attrs', True)
+
+
+    def Context(self) -> SettingsContext:
+        '''
+        Returns a Settings context manager. 
+        The context manager saves the values of the tracker settings on enter, 
+        restoring them on exit. This allows code to change the settings within 
+        the context block and they are restored to the initial values automatically.
+
+        Note: this context manager target OpenDSSDirect.py settings. Use the equivalent for DSS-Python.
+        A few settings are shared at engine level.
+
+        Settings tracked:
+        - AdvancedTypes
+        - CompatFlags
+        - IterateDisabled
+        - PreferLists
+        - SkipCommands
+        - SkipFileRegExp
+        '''
+        return SettingsContext(self)
+
     def AllowDuplicates(self, *args):
         """
-        {True | False*} Designates whether to allow duplicate names of objects
+        Designates whether to allow duplicate names of objects
+
+        False by default.
 
         **NOTE**: for DSS-Extensions, we are considering removing this option in a future
         release since it has performance impacts even when not used.
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Settings_Get_AllowDuplicates()) != 0
+            return self._lib.Settings_Get_AllowDuplicates()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Settings_Set_AllowDuplicates(Value))
+        self._lib.Settings_Set_AllowDuplicates(Value)
 
     def AutoBusList(self, *args):
         """
@@ -52,15 +158,11 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(
-                self._check_for_error(self._lib.Settings_Get_AutoBusList())
-            )
+            return self._lib.Settings_Get_AutoBusList()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.Settings_Set_AutoBusList(Value))
+        self._lib.Settings_Set_AutoBusList(Value)
 
     def CktModel(self, *args):
         """
@@ -70,11 +172,11 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(CktModels(self._lib.Settings_Get_CktModel()))
+            return CktModels(self._lib.Settings_Get_CktModel())
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Settings_Set_CktModel(Value))
+        self._lib.Settings_Set_CktModel(Value)
 
     def ControlTrace(self, *args):
         """
@@ -84,11 +186,11 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Settings_Get_ControlTrace()) != 0
+            return self._lib.Settings_Get_ControlTrace()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Settings_Set_ControlTrace(Value))
+        self._lib.Settings_Set_ControlTrace(Value)
 
     def EmergVmaxpu(self, *args):
         """
@@ -98,11 +200,11 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Settings_Get_EmergVmaxpu())
+            return self._lib.Settings_Get_EmergVmaxpu()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Settings_Set_EmergVmaxpu(Value))
+        self._lib.Settings_Set_EmergVmaxpu(Value)
 
     def EmergVminpu(self, *args):
         """
@@ -112,11 +214,11 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Settings_Get_EmergVminpu())
+            return self._lib.Settings_Get_EmergVminpu()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Settings_Set_EmergVminpu(Value))
+        self._lib.Settings_Set_EmergVminpu(Value)
 
     def LossRegs(self, *args):
         """
@@ -126,13 +228,12 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            self._check_for_error(self._lib.Settings_Get_LossRegs_GR())
-            return self._get_int32_gr_array()
+            return self._lib.Settings_Get_LossRegs_GR()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_int32_array(Value)
-        self._check_for_error(self._lib.Settings_Set_LossRegs(ValuePtr, ValueCount))
+        self._lib.Settings_Set_LossRegs(ValuePtr, ValueCount)
 
     def LossWeight(self, *args):
         """
@@ -142,11 +243,11 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Settings_Get_LossWeight())
+            return self._lib.Settings_Get_LossWeight()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Settings_Set_LossWeight(Value))
+        self._lib.Settings_Set_LossWeight(Value)
 
     def NormVmaxpu(self, *args):
         """
@@ -156,11 +257,11 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Settings_Get_NormVmaxpu())
+            return self._lib.Settings_Get_NormVmaxpu()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Settings_Set_NormVmaxpu(Value))
+        self._lib.Settings_Set_NormVmaxpu(Value)
 
     def NormVminpu(self, *args):
         """
@@ -170,11 +271,11 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Settings_Get_NormVminpu())
+            return self._lib.Settings_Get_NormVminpu()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Settings_Set_NormVminpu(Value))
+        self._lib.Settings_Set_NormVminpu(Value)
 
     def PriceCurve(self, *args):
         """
@@ -184,15 +285,11 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(
-                self._check_for_error(self._lib.Settings_Get_PriceCurve())
-            )
+            return self._lib.Settings_Get_PriceCurve()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.Settings_Set_PriceCurve(Value))
+        self._lib.Settings_Set_PriceCurve(Value)
 
     def PriceSignal(self, *args):
         """
@@ -202,11 +299,11 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Settings_Get_PriceSignal())
+            return self._lib.Settings_Get_PriceSignal()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Settings_Set_PriceSignal(Value))
+        self._lib.Settings_Set_PriceSignal(Value)
 
     def Trapezoidal(self, *args):
         """
@@ -216,11 +313,11 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Settings_Get_Trapezoidal()) != 0
+            return self._lib.Settings_Get_Trapezoidal()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Settings_Set_Trapezoidal(Value))
+        self._lib.Settings_Set_Trapezoidal(Value)
 
     def UERegs(self, *args):
         """
@@ -230,13 +327,12 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            self._check_for_error(self._lib.Settings_Get_UEregs_GR())
-            return self._get_int32_gr_array()
+            return self._lib.Settings_Get_UEregs_GR()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_int32_array(Value)
-        self._check_for_error(self._lib.Settings_Set_UEregs(ValuePtr, ValueCount))
+        self._lib.Settings_Set_UEregs(ValuePtr, ValueCount)
 
     def UEWeight(self, *args):
         """
@@ -246,11 +342,11 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Settings_Get_UEweight())
+            return self._lib.Settings_Get_UEweight()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Settings_Set_UEweight(Value))
+        self._lib.Settings_Set_UEweight(Value)
 
     def VoltageBases(self, *args):
         """
@@ -260,13 +356,12 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            self._check_for_error(self._lib.Settings_Get_VoltageBases_GR())
-            return self._get_float64_gr_array()
+            return self._lib.Settings_Get_VoltageBases_GR()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self._check_for_error(self._lib.Settings_Set_VoltageBases(ValuePtr, ValueCount))
+        self._lib.Settings_Set_VoltageBases(ValuePtr, ValueCount)
 
     def ZoneLock(self, *args):
         """
@@ -276,15 +371,15 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Settings_Get_ZoneLock()) != 0
+            return self._lib.Settings_Get_ZoneLock()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Settings_Set_ZoneLock(Value))
+        self._lib.Settings_Set_ZoneLock(Value)
 
     def AllocationFactors(self, Value):
         """(write-only) Sets all load allocation factors for all loads defined by XFKVA property to this value."""
-        self._check_for_error(self._lib.Settings_Set_AllocationFactors(Value))
+        self._lib.Settings_Set_AllocationFactors(Value)
 
     def LoadsTerminalCheck(self, *args):
         """
@@ -295,11 +390,11 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Settings_Get_LoadsTerminalCheck()) != 0
+            return self._lib.Settings_Get_LoadsTerminalCheck()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Settings_Set_LoadsTerminalCheck(Value))
+        self._lib.Settings_Set_LoadsTerminalCheck(Value)
 
     def IterateDisabled(self, *args):
         """
@@ -314,62 +409,230 @@ class ISettings(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Settings_Get_IterateDisabled())
+            return self._lib.Settings_Get_IterateDisabled()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Settings_Set_IterateDisabled(Value))
+        self._lib.Settings_Set_IterateDisabled(Value)
 
     def SetPropertyNameStyle(self, value):
-        """Switch the property names according"""
-        self._check_for_error(self._lib.Settings_SetPropertyNameStyle(value))
+        """
+        Switch the property names according to the target style.
+
+        Use this method for compatibility with code that doesn't consider that
+        OpenDSS is case insensitive. Check the enumeration for more:
+        [DSSPropertyNameStyle](#dss_python_backend.enums.DSSPropertyNameStyle)
+
+        **(API Extension)**
+        """
+        self._lib.Settings_SetPropertyNameStyle(value)
 
 
-_Settings = ISettings(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
+    def SkipFileRegExp(self, *args):
+        '''
+        Regular expression pattern to skip files.
+
+        If a file name as provided in the input for the `Redirect` and `Compile` commands
+        matches the regular expression pattern, it is skipped (the file is not read nor
+        commands contained in the file are executed).
+
+        Set to an empty string to reset/disable the filter.
+
+        Case-insensitive.
+        See https://regex.sorokin.engineer/en/latest/regular_expressions.html for information on 
+        the expression syntax and options.
+
+        Even if the `clear` command is included in `Settings.SkipCommands()`, the `DSS.ClearAll()` method can 
+        still be called. It resets both skip settings, `SkipCommands()` and `SkipFileRegExp()`.
+
+        **(API Extension)**
+        '''
+        # Getter
+        if len(args) == 0:
+            return self._lib.Settings_Get_SkipFileRegExp()
+
+        # Setter
+        (Value,) = args
+        self._lib.Settings_Set_SkipFileRegExp(Value or '')
+
+
+    def SkipCommands(self, *args):
+        '''
+        List of commands to skip
+
+        List of strings representing the command names to skip when processing DSS text commands or files.
+
+        If the `clear` command is included in `Settings.SkipCommands`, the `DSS.ClearAll()` method can 
+        still be called and it will reset both skip settings, `SkipCommands` and `SkipFileRegExp`.
+
+        **(API Extension)**
+        '''
+
+        # Getter
+        if len(args) == 0:
+            return [
+                self._lib.DSS_Executive_Get_Command(i)
+                for i in self._lib.Settings_Get_SkipCommands_GR()
+            ]
+
+        # Setter
+        (Value,) = args
+        if len(Value) != 0 and isinstance(Value[0], str):
+            # map command names to integer codes
+            Value = [self._command_dict[cmd_name] for cmd_name in Value]
+
+        Value, ValuePtr, ValueCount = self._prepare_int32_array(Value)
+        self._lib.Settings_Set_SkipCommands(ValuePtr, ValueCount)
+
+
+    def AdvancedTypes(self, *args):
+        """
+        When enabled, there are **two side-effects**:
+
+        - **Per DSS Context:** Complex arrays and complex numbers can be returned and consumed by the Python API.
+        - **Global effect:** The low-level API provides matrix dimensions when available (`EnableArrayDimensions` is enabled).
+
+        As a result, for example, `OpenDSSDirect.CktElement.Yprim()` is returned as a complex matrix instead
+        of a plain array.
+
+        When disabled, the legacy plain arrays are used and complex numbers cannot be consumed by the Python API.
+
+        *Defaults to **False** for backwards compatibility.*
+
+        **(API Extension)**
+        """
+        # Getter
+        if len(args) == 0:
+            return self._lib.advanced_types
+
+        # Setter
+        (Value,) = args
+        self._lib.advanced_types = bool(Value)
+
+
+    def CompatFlags(self, *args):
+        """
+        Controls some compatibility flags introduced to toggle some behavior from the official OpenDSS.
+
+        **THE FLAGS ARE GLOBAL, affecting all AltDSS engines in the process.**  
+        CompatFlags for Oddie-loaded instances (OpenDSS and OpenDSS-C engines) are handled by the Oddie code itself,
+        so it is global for each Oddie library.
+
+        These flags may change for each version of DSS C-API, but the same value will not be reused. That is,
+        when we remove a compatibility flag, it will have no effect but will also not affect anything else
+        besides raising an error if the user tries to toggle a flag that was available in a previous version.
+
+        We expect to keep a very limited number of flags. Since the flags are more transient than the other
+        options/flags, it was preferred to add this generic function instead of a separate function per
+        flag.
+
+        See the enumeration `DSSCompatFlags` for available flags, including description.
+
+        **(API Extension)**
+        """
+        # Getter
+        if len(args) == 0:
+            return self._lib.DSS_Get_CompatFlags()
+
+        # Setter
+        (Value,) = args
+        self._lib.DSS_Set_CompatFlags(Value)
+
+    def PreferLists(self, *args):
+        '''
+        Enable this setting to use lists instead of NumPy arrays, where it makes sense.
+
+        This was added for better for compatibility with the COM packages (`comtypes` and  `win32com` use lists
+        and tuples by default) and the original OpenDSSDirect.py releases.
+
+        Current releases of OpenDSSDirect.py, DSS-Python, and AltDSS(-Python) all use NumPy arrays by default.
+        Users can also activate the related `AdvancedTypes` for a richer experience.
+
+        **(API Extension)**
+        '''
+        # Getter
+        if len(args) == 0:
+            return self._lib.prefer_lists
+
+        # Setter
+        (value,) = args
+        self._lib.prefer_lists = value
+
+    def COMErrorResults(self, *args):
+        """
+        If enabled, in case of errors or empty arrays, the API returns arrays with values compatible with the
+        official OpenDSS COM interface.
+
+        For example, consider the function `Loads_Get_ZIPV`. If there is no active circuit or active load element:
+
+        - In the disabled state (`COMErrorResults(False)`), the function will return "[]", an array with 0 elements.
+        - In the enabled state (`COMErrorResults(True)`), the function will return "[0.0]" instead. This should
+        be compatible with the return value of the official COM interface.
+
+        Defaults to false (disabled state) in AltDSS since the v0.15.x series.
+
+        This does not affect the results when using EPRI's OpenDSS distribution through Oddie.
+
+        This can also be set through the environment variable `DSS_CAPI_COM_DEFAULTS`. Setting it to 1 enables
+        the legacy/COM behavior. The value can be toggled through the API at any time.
+
+        **(API Extension)**
+        """
+        # Getter
+        if len(args) == 0:
+            return self._lib.DSS_Get_COMErrorResults()
+
+        # Setter
+        (Value,) = args
+        self._lib.DSS_Set_COMErrorResults(Value)
+
+
+
+_Settings = ISettings(api_util)
 
 # For backwards compatibility, bind to the default instance
+AllocationFactors = _Settings.AllocationFactors
 AllowDuplicates = _Settings.AllowDuplicates
 AutoBusList = _Settings.AutoBusList
 CktModel = _Settings.CktModel
 ControlTrace = _Settings.ControlTrace
 EmergVmaxpu = _Settings.EmergVmaxpu
 EmergVminpu = _Settings.EmergVminpu
+IterateDisabled = _Settings.IterateDisabled
+LoadsTerminalCheck = _Settings.LoadsTerminalCheck
 LossRegs = _Settings.LossRegs
 LossWeight = _Settings.LossWeight
 NormVmaxpu = _Settings.NormVmaxpu
 NormVminpu = _Settings.NormVminpu
 PriceCurve = _Settings.PriceCurve
 PriceSignal = _Settings.PriceSignal
+SetPropertyNameStyle = _Settings.SetPropertyNameStyle
 Trapezoidal = _Settings.Trapezoidal
 UERegs = _Settings.UERegs
 UEWeight = _Settings.UEWeight
 VoltageBases = _Settings.VoltageBases
 ZoneLock = _Settings.ZoneLock
-AllocationFactors = _Settings.AllocationFactors
-LoadsTerminalCheck = _Settings.LoadsTerminalCheck
-IterateDisabled = _Settings.IterateDisabled
-SetPropertyNameStyle = _Settings.SetPropertyNameStyle
 _columns = _Settings._columns
 __all__ = [
+    "AllocationFactors",
     "AllowDuplicates",
     "AutoBusList",
     "CktModel",
     "ControlTrace",
     "EmergVmaxpu",
     "EmergVminpu",
+    "IterateDisabled",
+    "LoadsTerminalCheck",
     "LossRegs",
     "LossWeight",
     "NormVmaxpu",
     "NormVminpu",
     "PriceCurve",
     "PriceSignal",
+    "SetPropertyNameStyle",
     "Trapezoidal",
     "UERegs",
     "UEWeight",
     "VoltageBases",
     "ZoneLock",
-    "AllocationFactors",
-    "LoadsTerminalCheck",
-    "IterateDisabled",
-    "SetPropertyNameStyle",
 ]

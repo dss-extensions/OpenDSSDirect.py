@@ -1,5 +1,5 @@
 import numpy as np
-from ._utils import DSSException, api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import DSSException, api_util
 from .Bases import Iterable
 
 
@@ -31,7 +31,7 @@ class IMonitors(Iterable):
 
         Original COM help: https://opendss.epri.com/Channel.html
         """
-        num_channels = self._check_for_error(self._lib.Monitors_Get_NumChannels())
+        num_channels = self._lib.Monitors_Get_NumChannels()
         if Index < 1 or Index > num_channels:
             raise DSSException(
                 0,
@@ -40,8 +40,10 @@ class IMonitors(Iterable):
                 ),
             )
         ffi = self._api_util.ffi
-        self._check_for_error(self._lib.Monitors_Get_ByteStream_GR())
-        ptr, cnt = self._api_util.gr_int8_pointers
+        api_util = self._api_util
+        api_util.lib_unpatched.Monitors_Get_ByteStream_GR(api_util.ctx)
+        api_util._check_for_error()
+        ptr, cnt = api_util.gr_int8_pointers
         cnt = cnt[0]
         if cnt == 272:
             return np.zeros((1,), dtype=np.float32)
@@ -58,8 +60,10 @@ class IMonitors(Iterable):
         **(API Extension)**
         """
         ffi = self._api_util.ffi
-        self._check_for_error(self._lib.Monitors_Get_ByteStream_GR())
-        ptr, cnt = self._api_util.gr_int8_pointers
+        api_util = self._api_util
+        api_util.lib_unpatched.Monitors_Get_ByteStream_GR(api_util.ctx)
+        api_util._check_for_error()
+        ptr, cnt = api_util.gr_int8_pointers
         cnt = cnt[0]
         if cnt == 272:
             return None
@@ -75,7 +79,7 @@ class IMonitors(Iterable):
 
         Original COM help: https://opendss.epri.com/Process.html
         """
-        self._check_for_error(self._lib.Monitors_Process())
+        self._lib.Monitors_Process()
 
     def ProcessAll(self):
         """
@@ -83,7 +87,7 @@ class IMonitors(Iterable):
 
         Original COM help: https://opendss.epri.com/ProcessAll.html
         """
-        self._check_for_error(self._lib.Monitors_ProcessAll())
+        self._lib.Monitors_ProcessAll()
 
     def Reset(self):
         """
@@ -91,7 +95,7 @@ class IMonitors(Iterable):
 
         Original COM help: https://opendss.epri.com/Reset3.html
         """
-        self._check_for_error(self._lib.Monitors_Reset())
+        self._lib.Monitors_Reset()
 
     def ResetAll(self):
         """
@@ -99,7 +103,7 @@ class IMonitors(Iterable):
 
         Original COM help: https://opendss.epri.com/ResetAll1.html
         """
-        self._check_for_error(self._lib.Monitors_ResetAll())
+        self._lib.Monitors_ResetAll()
 
     def Sample(self):
         """
@@ -107,7 +111,7 @@ class IMonitors(Iterable):
 
         Original COM help: https://opendss.epri.com/Sample2.html
         """
-        self._check_for_error(self._lib.Monitors_Sample())
+        self._lib.Monitors_Sample()
 
     def SampleAll(self):
         """
@@ -115,7 +119,7 @@ class IMonitors(Iterable):
 
         Original COM help: https://opendss.epri.com/SampleAll1.html
         """
-        self._check_for_error(self._lib.Monitors_SampleAll())
+        self._lib.Monitors_SampleAll()
 
     def Save(self):
         """
@@ -127,7 +131,7 @@ class IMonitors(Iterable):
 
         Original COM help: https://opendss.epri.com/Save1.html
         """
-        self._check_for_error(self._lib.Monitors_Save())
+        self._lib.Monitors_Save()
 
     def SaveAll(self):
         """
@@ -137,7 +141,7 @@ class IMonitors(Iterable):
 
         Original COM help: https://opendss.epri.com/SaveAll1.html
         """
-        self._check_for_error(self._lib.Monitors_SaveAll())
+        self._lib.Monitors_SaveAll()
 
     def Show(self):
         """
@@ -145,7 +149,7 @@ class IMonitors(Iterable):
 
         Original COM help: https://opendss.epri.com/Show3.html
         """
-        self._check_for_error(self._lib.Monitors_Show())
+        self._lib.Monitors_Show()
 
     def ByteStream(self):
         """
@@ -153,8 +157,7 @@ class IMonitors(Iterable):
 
         Original COM help: https://opendss.epri.com/ByteStream.html
         """
-        self._check_for_error(self._lib.Monitors_Get_ByteStream_GR())
-        return self._get_int8_gr_array()
+        return self._lib.Monitors_Get_ByteStream_GR()
 
     def Element(self, *args):
         """
@@ -164,15 +167,11 @@ class IMonitors(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(
-                self._check_for_error(self._lib.Monitors_Get_Element())
-            )
+            return self._lib.Monitors_Get_Element()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.Monitors_Set_Element(Value))
+        self._lib.Monitors_Set_Element(Value)
 
     def FileName(self):
         """
@@ -180,7 +179,7 @@ class IMonitors(Iterable):
 
         Original COM help: https://opendss.epri.com/FileName.html
         """
-        return self._get_string(self._check_for_error(self._lib.Monitors_Get_FileName()))
+        return self._lib.Monitors_Get_FileName()
 
     def FileVersion(self):
         """
@@ -188,7 +187,7 @@ class IMonitors(Iterable):
 
         Original COM help: https://opendss.epri.com/FileVersion.html
         """
-        return self._check_for_error(self._lib.Monitors_Get_FileVersion())
+        return self._lib.Monitors_Get_FileVersion()
 
     def Header(self):
         """
@@ -196,21 +195,21 @@ class IMonitors(Iterable):
 
         Original COM help: https://opendss.epri.com/Header.html
         """
-        return self._check_for_error(self._get_string_array(self._lib.Monitors_Get_Header))
+        return self._lib.Monitors_Get_Header()
 
     def Mode(self, *args):
         """
-        Set Monitor mode (bitmask integer - see DSS Help)
+        Monitor mode (bitmask integer - see DSS Help)
 
         Original COM help: https://opendss.epri.com/Mode1.html
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Monitors_Get_Mode())
+            return self._lib.Monitors_Get_Mode()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Monitors_Set_Mode(Value))
+        self._lib.Monitors_Set_Mode(Value)
 
     def NumChannels(self):
         """
@@ -218,7 +217,7 @@ class IMonitors(Iterable):
 
         Original COM help: https://opendss.epri.com/NumChannels.html
         """
-        return self._check_for_error(self._lib.Monitors_Get_NumChannels())
+        return self._lib.Monitors_Get_NumChannels()
 
     def RecordSize(self):
         """
@@ -226,7 +225,7 @@ class IMonitors(Iterable):
 
         Original COM help: https://opendss.epri.com/RecordSize.html
         """
-        return self._check_for_error(self._lib.Monitors_Get_RecordSize())
+        return self._lib.Monitors_Get_RecordSize()
 
     def SampleCount(self):
         """
@@ -234,7 +233,7 @@ class IMonitors(Iterable):
 
         Original COM help: https://opendss.epri.com/SampleCount.html
         """
-        return self._check_for_error(self._lib.Monitors_Get_SampleCount())
+        return self._lib.Monitors_Get_SampleCount()
 
     def Terminal(self, *args):
         """
@@ -244,11 +243,11 @@ class IMonitors(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Monitors_Get_Terminal())
+            return self._lib.Monitors_Get_Terminal()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Monitors_Set_Terminal(Value))
+        self._lib.Monitors_Set_Terminal(Value)
 
     def dblFreq(self):
         """
@@ -256,8 +255,7 @@ class IMonitors(Iterable):
 
         Original COM help: https://opendss.epri.com/dblFreq.html
         """
-        self._check_for_error(self._lib.Monitors_Get_dblFreq_GR())
-        return self._get_float64_gr_array()
+        return self._lib.Monitors_Get_dblFreq_GR()
 
     def dblHour(self):
         """
@@ -265,71 +263,70 @@ class IMonitors(Iterable):
 
         Original COM help: https://opendss.epri.com/dblHour.html
         """
-        self._check_for_error(self._lib.Monitors_Get_dblHour_GR())
-        return self._get_float64_gr_array()
+        return self._lib.Monitors_Get_dblHour_GR()
 
 
-_Monitors = IMonitors(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
+_Monitors = IMonitors(api_util)
 
 # For backwards compatibility, bind to the default instance
-Channel = _Monitors.Channel
-Process = _Monitors.Process
-ProcessAll = _Monitors.ProcessAll
-Reset = _Monitors.Reset
-ResetAll = _Monitors.ResetAll
-Sample = _Monitors.Sample
-SampleAll = _Monitors.SampleAll
-Save = _Monitors.Save
-SaveAll = _Monitors.SaveAll
-Show = _Monitors.Show
 AllNames = _Monitors.AllNames
+AsMatrix = _Monitors.AsMatrix
 ByteStream = _Monitors.ByteStream
+Channel = _Monitors.Channel
 Count = _Monitors.Count
 Element = _Monitors.Element
 FileName = _Monitors.FileName
 FileVersion = _Monitors.FileVersion
 First = _Monitors.First
 Header = _Monitors.Header
+Idx = _Monitors.Idx
 Mode = _Monitors.Mode
 Name = _Monitors.Name
 Next = _Monitors.Next
 NumChannels = _Monitors.NumChannels
+Process = _Monitors.Process
+ProcessAll = _Monitors.ProcessAll
 RecordSize = _Monitors.RecordSize
+Reset = _Monitors.Reset
+ResetAll = _Monitors.ResetAll
+Sample = _Monitors.Sample
+SampleAll = _Monitors.SampleAll
 SampleCount = _Monitors.SampleCount
+Save = _Monitors.Save
+SaveAll = _Monitors.SaveAll
+Show = _Monitors.Show
 Terminal = _Monitors.Terminal
 dblFreq = _Monitors.dblFreq
 dblHour = _Monitors.dblHour
-AsMatrix = _Monitors.AsMatrix
-Idx = _Monitors.Idx
 _columns = _Monitors._columns
 __all__ = [
-    "Channel",
-    "Process",
-    "ProcessAll",
-    "Reset",
-    "ResetAll",
-    "Sample",
-    "SampleAll",
-    "Save",
-    "SaveAll",
-    "Show",
     "AllNames",
+    "AsMatrix",
     "ByteStream",
+    "Channel",
     "Count",
     "Element",
     "FileName",
     "FileVersion",
     "First",
     "Header",
+    "Idx",
     "Mode",
     "Name",
     "Next",
     "NumChannels",
+    "Process",
+    "ProcessAll",
     "RecordSize",
+    "Reset",
+    "ResetAll",
+    "Sample",
+    "SampleAll",
     "SampleCount",
+    "Save",
+    "SaveAll",
+    "Show",
     "Terminal",
     "dblFreq",
     "dblHour",
-    "AsMatrix",
-    "Idx",
 ]

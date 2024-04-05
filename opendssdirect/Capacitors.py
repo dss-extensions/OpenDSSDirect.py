@@ -1,4 +1,4 @@
-from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util
 from .Bases import Iterable
 
 
@@ -19,16 +19,16 @@ class ICapacitors(Iterable):
     ]
 
     def AddStep(self):
-        return self._check_for_error(self._lib.Capacitors_AddStep()) != 0
+        return self._lib.Capacitors_AddStep()
 
     def Close(self):
-        self._check_for_error(self._lib.Capacitors_Close())
+        self._lib.Capacitors_Close()
 
     def Open(self):
-        self._check_for_error(self._lib.Capacitors_Open())
+        self._lib.Capacitors_Open()
 
     def SubtractStep(self):
-        return self._check_for_error(self._lib.Capacitors_SubtractStep()) != 0
+        return self._lib.Capacitors_SubtractStep()
 
     def AvailableSteps(self):
         """
@@ -36,7 +36,7 @@ class ICapacitors(Iterable):
 
         Original COM help: https://opendss.epri.com/AvailableSteps.html
         """
-        return self._check_for_error(self._lib.Capacitors_Get_AvailableSteps())
+        return self._lib.Capacitors_Get_AvailableSteps()
 
     def IsDelta(self, *args):
         """
@@ -46,11 +46,11 @@ class ICapacitors(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Capacitors_Get_IsDelta()) != 0
+            return self._lib.Capacitors_Get_IsDelta()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Capacitors_Set_IsDelta(Value))
+        self._lib.Capacitors_Set_IsDelta(Value)
 
     def NumSteps(self, *args):
         """
@@ -60,11 +60,11 @@ class ICapacitors(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Capacitors_Get_NumSteps())
+            return self._lib.Capacitors_Get_NumSteps()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Capacitors_Set_NumSteps(Value))
+        self._lib.Capacitors_Set_NumSteps(Value)
 
     def States(self, *args):
         """
@@ -74,13 +74,12 @@ class ICapacitors(Iterable):
         """
         # Getter
         if len(args) == 0:
-            self._check_for_error(self._lib.Capacitors_Get_States_GR())
-            return self._get_int32_gr_array()
+            return self._lib.Capacitors_Get_States_GR()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_int32_array(Value)
-        self._check_for_error(self._lib.Capacitors_Set_States(ValuePtr, ValueCount))
+        self._lib.Capacitors_Set_States(ValuePtr, ValueCount)
 
     def kV(self, *args):
         """
@@ -90,58 +89,58 @@ class ICapacitors(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Capacitors_Get_kV())
+            return self._lib.Capacitors_Get_kV()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Capacitors_Set_kV(Value))
+        self._lib.Capacitors_Set_kV(Value)
 
     def kvar(self, *args):
         """Total bank KVAR, distributed equally among phases and steps."""
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Capacitors_Get_kvar())
+            return self._lib.Capacitors_Get_kvar()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Capacitors_Set_kvar(Value))
+        self._lib.Capacitors_Set_kvar(Value)
 
 
-_Capacitors = ICapacitors(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
+_Capacitors = ICapacitors(api_util)
 
 # For backwards compatibility, bind to the default instance
 AddStep = _Capacitors.AddStep
-Close = _Capacitors.Close
-Open = _Capacitors.Open
-SubtractStep = _Capacitors.SubtractStep
 AllNames = _Capacitors.AllNames
 AvailableSteps = _Capacitors.AvailableSteps
+Close = _Capacitors.Close
 Count = _Capacitors.Count
 First = _Capacitors.First
+Idx = _Capacitors.Idx
 IsDelta = _Capacitors.IsDelta
 Name = _Capacitors.Name
 Next = _Capacitors.Next
 NumSteps = _Capacitors.NumSteps
+Open = _Capacitors.Open
 States = _Capacitors.States
+SubtractStep = _Capacitors.SubtractStep
 kV = _Capacitors.kV
 kvar = _Capacitors.kvar
-Idx = _Capacitors.Idx
 _columns = _Capacitors._columns
 __all__ = [
     "AddStep",
-    "Close",
-    "Open",
-    "SubtractStep",
     "AllNames",
     "AvailableSteps",
+    "Close",
     "Count",
     "First",
+    "Idx",
     "IsDelta",
     "Name",
     "Next",
     "NumSteps",
+    "Open",
     "States",
+    "SubtractStep",
     "kV",
     "kvar",
-    "Idx",
 ]

@@ -1,4 +1,5 @@
 from __future__ import annotations
+import warnings
 from typing import TYPE_CHECKING
 from weakref import WeakKeyDictionary
 from typing import AnyStr, List, Union
@@ -56,6 +57,7 @@ from .LineSpacings import _LineSpacings, ILineSpacings
 from .Reactors import _Reactors, IReactors
 from .ReduceCkt import _ReduceCkt, IReduceCkt
 from .TSData import _TSData, ITSData
+from .WindGens import _WindGens, IWindGens
 from .WireData import _WireData, IWireData
 from .ZIP import _ZIP, IZIP
 
@@ -67,7 +69,7 @@ if TYPE_CHECKING:
     try:
         from altdss import AltDSS
     except:
-        AltDSS = None
+        pass
 
 
 class OpenDSSDirect(Base):
@@ -80,6 +82,8 @@ class OpenDSSDirect(Base):
     Note that users do not typically need to create instances of this class manually.
     For creating multiple, separate DSS engine instances, use the [`NewContext()`](OpenDSSDirect.NewContext)
     method.
+    For Oddie-wrapped libraries (EPRI's OpenDSS and OpenDSS-C), prefer the dedicated constructors and classes
+    (e.g. `IOddieDSS`, `EPRIOpenDSSC`, `EPRIOpenDSS`).
 
     This class also provides function to return DSS-Python and AltDSS representations
     of the same engine, allowing users to mix usage of the packages more easily.
@@ -144,6 +148,7 @@ class OpenDSSDirect(Base):
         "Reactors",
         "ReduceCkt",
         "TSData",
+        "WindGens",
         "WireData",
         "ZIP",
         "dss_lib",
@@ -162,7 +167,7 @@ class OpenDSSDirect(Base):
     _ctx_to_dss = WeakKeyDictionary()
 
     @classmethod
-    def _get_instance(cls: OpenDSSDirect, api_util: dss_py.CffiApiUtil = None, ctx=None) -> OpenDSSDirect:
+    def _get_instance(cls: OpenDSSDirect, api_util: dss_py.AltDSSAPIUtil = None, ctx=None) -> OpenDSSDirect:
         """
         If there is an existing OpenDSSDirect instance for a context, return it.
         Otherwise, try to wrap the context into a new OpenDSSDirect.py API instance.
@@ -170,7 +175,7 @@ class OpenDSSDirect(Base):
         if api_util is None:
             # If none exists, something is probably wrong elsewhere,
             # so let's allow the IndexError to propagate
-            api_util = dss_py.CffiApiUtil._ctx_to_util[ctx]
+            api_util = dss_py.AltDSSAPIUtil._ctx_to_util[ctx]
 
         dss = cls._ctx_to_dss.get(api_util.ctx)
         if dss is None:
@@ -186,23 +191,35 @@ class OpenDSSDirect(Base):
         to the [`NewContext()`](OpenDSSDirect.NewContext) method.
         """
         
-        if prefer_lists is None:
-            prefer_lists = not OPENDSSDIRECT_PY_USE_NUMPY
-
         if ctx_api_util is None:
             # If ctx_api_util is None, grab the default instance, already initialized.
             ctx_api_util = _ActiveClass._api_util
 
-        Base.__init__(self, ctx_api_util, prefer_lists=prefer_lists)
+        if ctx_api_util._opendssdirect is None:
+            ctx_api_util._opendssdirect = self
+
+        Base.__init__(self, ctx_api_util)
+        if prefer_lists is None:
+            self._lib.prefer_lists = not OPENDSSDIRECT_PY_USE_NUMPY
+        else:
+            if self._lib.prefer_lists != prefer_lists:
+                warnings.warn('"prefer_lists" is deprecated. Use instead the method `Settings.PreferLists` to toggle the behavior on an existing OpenDSSDirect instance. Current behavior: the value passed in "prefer_lists" will update the value on the new instance and potentially affect existing instances.', DeprecationWarning, stacklevel=2)
+
+            self._lib.prefer_lists = prefer_lists
+
         OpenDSSDirect._ctx_to_dss[ctx_api_util.ctx] = self
         object.__setattr__(self, '_frozen_attrs', False)
         
-        self.dss_lib = ctx_api_util.lib
+        self.dss_lib = ctx_api_util.lib_unpatched
         """
         `dss_lib` provides access to the low-level CFFI library; this is not recommended for most users and may 
         change across versions. The intention is to allow some (very) advanced operations directly, when the
         high-level interface either does not model some specific detail, or when users know how to manually
         address some data directly with lower overhead.
+
+        Note that the prepared alternative, which already abstracts away some details, is available in the 
+        `_lib` attribute. That one is private and could change when required to introduce new features. See
+        the source code for OpenDSSDirect.py or DSS-Python for examples of how it is used.
 
         **WARNING**: if used incorrectly, could even crash your computer.
         """
@@ -212,10 +229,7 @@ class OpenDSSDirect(Base):
         self.dss = self
 
         # Check if we're creating the default instance, with the same options
-        grab_default = (
-            (ctx_api_util == _ActiveClass._api_util) and
-            (prefer_lists == (_ActiveClass._get_complex128_array == _ActiveClass._api_util.get_complex128_array2))
-        )
+        grab_default = (ctx_api_util is _ActiveClass._api_util)
 
         if grab_default:
             self.ActiveClass = _ActiveClass
@@ -266,6 +280,7 @@ class OpenDSSDirect(Base):
             self.Reactors = _Reactors
             self.ReduceCkt = _ReduceCkt
             self.TSData = _TSData
+            self.WindGens = _WindGens
             self.WireData = _WireData
             self.ZIP = _ZIP
 
@@ -276,56 +291,59 @@ class OpenDSSDirect(Base):
 
             object.__setattr__(self, '_frozen_attrs', True)
             return
+        
+        not_using_oddie = not ctx_api_util._is_oddie
 
-        self.ActiveClass = IActiveClass(ctx_api_util, prefer_lists=prefer_lists)
-        self.Basic = IBasic(ctx_api_util, prefer_lists=prefer_lists)
-        self.Bus = IBus(ctx_api_util, prefer_lists=prefer_lists)
-        self.CapControls = ICapControls(ctx_api_util, prefer_lists=prefer_lists)
-        self.Capacitors = ICapacitors(ctx_api_util, prefer_lists=prefer_lists)
-        self.Circuit = ICircuit(ctx_api_util, prefer_lists=prefer_lists)
-        self.CktElement = ICktElement(ctx_api_util, prefer_lists=prefer_lists)
-        self.CtrlQueue = ICtrlQueue(ctx_api_util, prefer_lists=prefer_lists)
-        self.Element = IElement(ctx_api_util, prefer_lists=prefer_lists)
-        self.Error = IError(ctx_api_util, prefer_lists=prefer_lists)
-        self.Executive = IExecutive(ctx_api_util, prefer_lists=prefer_lists)
-        self.Fuses = IFuses(ctx_api_util, prefer_lists=prefer_lists)
-        self.Generators = IGenerators(ctx_api_util, prefer_lists=prefer_lists)
-        self.GICSources = IGICSources(ctx_api_util, prefer_lists=prefer_lists)
-        self.Isource = IIsource(ctx_api_util, prefer_lists=prefer_lists)
-        self.LineCodes = ILineCodes(ctx_api_util, prefer_lists=prefer_lists)
-        self.Lines = ILines(ctx_api_util, prefer_lists=prefer_lists)
-        self.LoadShape = ILoadShape(ctx_api_util, prefer_lists=prefer_lists)
-        self.Loads = ILoads(ctx_api_util, prefer_lists=prefer_lists)
-        self.Meters = IMeters(ctx_api_util, prefer_lists=prefer_lists)
-        self.Monitors = IMonitors(ctx_api_util, prefer_lists=prefer_lists)
-        self.PDElements = IPDElements(ctx_api_util, prefer_lists=prefer_lists)
-        self.PVsystems = IPVsystems(ctx_api_util, prefer_lists=prefer_lists)
-        self.Parallel = IParallel(ctx_api_util, prefer_lists=prefer_lists)
-        self.Parser = IParser(ctx_api_util, prefer_lists=prefer_lists)
-        self.Progress = IProgress(ctx_api_util, prefer_lists=prefer_lists)
-        self.Properties = IProperties(ctx_api_util, prefer_lists=prefer_lists)
-        self.Reclosers = IReclosers(ctx_api_util, prefer_lists=prefer_lists)
-        self.RegControls = IRegControls(ctx_api_util, prefer_lists=prefer_lists)
-        self.Relays = IRelays(ctx_api_util, prefer_lists=prefer_lists)
-        self.Sensors = ISensors(ctx_api_util, prefer_lists=prefer_lists)
-        self.Settings = ISettings(ctx_api_util, prefer_lists=prefer_lists)
-        self.Solution = ISolution(ctx_api_util, prefer_lists=prefer_lists)
-        self.Storages = IStorages(ctx_api_util, prefer_lists=prefer_lists)
-        self.SwtControls = ISwtControls(ctx_api_util, prefer_lists=prefer_lists)
-        self.Text = IText(ctx_api_util, prefer_lists=prefer_lists)
-        self.Topology = ITopology(ctx_api_util, prefer_lists=prefer_lists)
-        self.Transformers = ITransformers(ctx_api_util, prefer_lists=prefer_lists)
-        self.Vsources = IVsources(ctx_api_util, prefer_lists=prefer_lists)
-        self.XYCurves = IXYCurves(ctx_api_util, prefer_lists=prefer_lists)
-        self.YMatrix = IYMatrix(ctx_api_util, prefer_lists=prefer_lists)
-        self.CNData = ICNData(ctx_api_util, prefer_lists=prefer_lists)
-        self.LineGeometries = ILineGeometries(ctx_api_util, prefer_lists=prefer_lists)
-        self.LineSpacings = ILineSpacings(ctx_api_util, prefer_lists=prefer_lists)
-        self.Reactors = IReactors(ctx_api_util, prefer_lists=prefer_lists)
-        self.ReduceCkt = IReduceCkt(ctx_api_util, prefer_lists=prefer_lists)
-        self.TSData = ITSData(ctx_api_util, prefer_lists=prefer_lists)
-        self.WireData = IWireData(ctx_api_util, prefer_lists=prefer_lists)
-        self.ZIP = IZIP(ctx_api_util, prefer_lists=prefer_lists)
+        self.ActiveClass = IActiveClass(ctx_api_util)
+        self.Basic = IBasic(ctx_api_util)
+        self.Bus = IBus(ctx_api_util)
+        self.CapControls = ICapControls(ctx_api_util)
+        self.Capacitors = ICapacitors(ctx_api_util)
+        self.Circuit = ICircuit(ctx_api_util)
+        self.CktElement = ICktElement(ctx_api_util)
+        self.CtrlQueue = ICtrlQueue(ctx_api_util)
+        self.Element = IElement(ctx_api_util)
+        self.Error = IError(ctx_api_util)
+        self.Executive = IExecutive(ctx_api_util)
+        self.Fuses = IFuses(ctx_api_util)
+        self.Generators = IGenerators(ctx_api_util)
+        self.GICSources = IGICSources(ctx_api_util)
+        self.Isource = IIsource(ctx_api_util)
+        self.LineCodes = ILineCodes(ctx_api_util)
+        self.Lines = ILines(ctx_api_util)
+        self.LoadShape = ILoadShape(ctx_api_util)
+        self.Loads = ILoads(ctx_api_util)
+        self.Meters = IMeters(ctx_api_util)
+        self.Monitors = IMonitors(ctx_api_util)
+        self.PDElements = IPDElements(ctx_api_util)
+        self.PVsystems = IPVsystems(ctx_api_util)
+        self.Parallel = IParallel(ctx_api_util)
+        self.Parser = IParser(ctx_api_util)
+        self.Progress = IProgress(ctx_api_util)
+        self.Properties = IProperties(ctx_api_util)
+        self.Reclosers = IReclosers(ctx_api_util)
+        self.RegControls = IRegControls(ctx_api_util)
+        self.Relays = IRelays(ctx_api_util)
+        self.Sensors = ISensors(ctx_api_util)
+        self.Settings = ISettings(ctx_api_util)
+        self.Solution = ISolution(ctx_api_util)
+        self.Storages = IStorages(ctx_api_util)
+        self.SwtControls = ISwtControls(ctx_api_util)
+        self.Text = IText(ctx_api_util)
+        self.Topology = ITopology(ctx_api_util)
+        self.Transformers = ITransformers(ctx_api_util)
+        self.Vsources = IVsources(ctx_api_util)
+        self.XYCurves = IXYCurves(ctx_api_util)
+        self.YMatrix = IYMatrix(ctx_api_util)
+        self.CNData = ICNData(ctx_api_util) if not_using_oddie else None
+        self.LineGeometries = ILineGeometries(ctx_api_util) if not_using_oddie else None
+        self.LineSpacings = ILineSpacings(ctx_api_util) if not_using_oddie else None
+        self.Reactors = IReactors(ctx_api_util)
+        self.ReduceCkt = IReduceCkt(ctx_api_util)
+        self.TSData = ITSData(ctx_api_util) if not_using_oddie else None
+        self.WindGens = IWindGens(ctx_api_util)
+        self.WireData = IWireData(ctx_api_util) if not_using_oddie else None
+        self.ZIP = IZIP(ctx_api_util)
         self.DSSCore = self.YMatrix
 
         # Shortcuts
@@ -361,10 +379,8 @@ class OpenDSSDirect(Base):
         ffi = self._api_util.ffi
         lib = self._api_util.lib_unpatched
         new_ctx = ffi.gc(lib.ctx_New(), lib.ctx_Dispose)
-        new_api_util = dss_py.CffiApiUtil(ffi, lib, new_ctx)
-        new_api_util._allow_complex = self._api_util._allow_complex
-        prefer_lists = (self._get_complex128_array == self._api_util.get_complex128_array2)
-        return OpenDSSDirect(new_api_util, prefer_lists=prefer_lists)
+        new_api_util = dss_py.AltDSSAPIUtil(ffi, lib, new_ctx, parent=self._api_util)
+        return OpenDSSDirect(new_api_util, prefer_lists=self._lib.prefer_lists)
 
     def to_dss_python(self) -> DSSPython:
         """
@@ -381,6 +397,16 @@ class OpenDSSDirect(Base):
         """
         from altdss import AltDSS
         return AltDSS._get_instance(ctx=self._api_util.ctx, api_util=self._api_util)
+
+    def is_oddie(self) -> bool:
+        """
+        Returns True if this instance is based on the Oddie compatibility layer for
+        the official OpenDSS Direct API (a.k.a. DCSL).
+        
+        Note that the default engine in OpenDSSDirect.py has been based on AltDSS since
+        2018, even though it was not called AltDSS then.
+        """
+        return self._api_util._is_oddie
 
     def __call__(self, cmds: Union[AnyStr, List[AnyStr]] = None):
         '''
@@ -413,13 +439,9 @@ class OpenDSSDirect(Base):
         '''
         # self.Commands(cmds) -- inlined
         if isinstance(cmds, (str, bytes)):
-            if not isinstance(cmds, bytes):
-                cmds = cmds.encode(self._api_util.codec)
-            self._check_for_error(self._lib.Text_CommandBlock(cmds))
+            self._lib.Text_CommandBlock(cmds)
         else:
-            self._check_for_error(
-                self._set_string_array(self._lib.Text_CommandArray, cmds)
-            )
+            self._lib.Text_CommandArray(cmds)
 
 
 
@@ -472,10 +494,12 @@ LineSpacings = _LineSpacings
 Reactors = _Reactors
 ReduceCkt = _ReduceCkt
 TSData = _TSData
+WindGens = _WindGens
 WireData = _WireData
 ZIP = _ZIP
 to_dss_python = dss.to_dss_python
 to_altdss = dss.to_altdss
 NewContext = dss.NewContext
+is_oddie = dss.is_oddie
 
 __all__ = ["OpenDSSDirect", "dss", "OPENDSSDIRECT_PY_USE_NUMPY"]

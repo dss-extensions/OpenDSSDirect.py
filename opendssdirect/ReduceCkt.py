@@ -1,4 +1,4 @@
-from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util
 from .Bases import Base
 
 
@@ -20,11 +20,11 @@ class IReduceCkt(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.ReduceCkt_Get_Zmag())
+            return self._lib.ReduceCkt_Get_Zmag()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.ReduceCkt_Set_Zmag(Value))
+        self._lib.ReduceCkt_Set_Zmag(Value)
 
     def KeepLoad(self, *args):
         """
@@ -34,11 +34,11 @@ class IReduceCkt(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.ReduceCkt_Get_KeepLoad()) != 0
+            return self._lib.ReduceCkt_Get_KeepLoad()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.ReduceCkt_Set_KeepLoad(bool(Value)))
+        self._lib.ReduceCkt_Set_KeepLoad(Value)
 
     def EditString(self, *args):
         """
@@ -48,15 +48,11 @@ class IReduceCkt(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(
-                self._check_for_error(self._lib.ReduceCkt_Get_EditString())
-            )
+            return self._lib.ReduceCkt_Get_EditString()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.ReduceCkt_Set_EditString(Value))
+        self._lib.ReduceCkt_Set_EditString(Value)
 
     def StartPDElement(self, *args):
         """
@@ -66,15 +62,11 @@ class IReduceCkt(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(
-                self._check_for_error(self._lib.ReduceCkt_Get_StartPDElement())
-            )
+            return self._lib.ReduceCkt_Get_StartPDElement()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.ReduceCkt_Set_StartPDElement(Value))
+        self._lib.ReduceCkt_Set_StartPDElement(Value)
 
     def EnergyMeter(self, *args):
         """
@@ -84,24 +76,18 @@ class IReduceCkt(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(
-                self._check_for_error(self._lib.ReduceCkt_Get_EnergyMeter())
-            )
+            return self._lib.ReduceCkt_Get_EnergyMeter()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.ReduceCkt_Set_EnergyMeter(Value))
+        self._lib.ReduceCkt_Set_EnergyMeter(Value)
 
     def SaveCircuit(self, CktName):
         """
         Save present (reduced) circuit
         Filename is listed in the Text Result interface
         """
-        if not isinstance(CktName, bytes):
-            CktName = CktName.encode(self._api_util.codec)
-        self._check_for_error(self._lib.ReduceCkt_SaveCircuit(CktName))
+        self._lib.ReduceCkt_SaveCircuit(CktName)
 
     def DoDefault(self):
         """
@@ -109,7 +95,7 @@ class IReduceCkt(Base):
 
         Original COM help: https://opendss.epri.com/DoDefault.html
         """
-        self._check_for_error(self._lib.ReduceCkt_DoDefault())
+        self._lib.ReduceCkt_DoDefault()
 
     def DoShortLines(self):
         """
@@ -117,7 +103,7 @@ class IReduceCkt(Base):
 
         Original COM help: https://opendss.epri.com/DoShortLines.html
         """
-        self._check_for_error(self._lib.ReduceCkt_DoShortLines())
+        self._lib.ReduceCkt_DoShortLines()
 
     def DoDangling(self):
         """
@@ -125,7 +111,7 @@ class IReduceCkt(Base):
 
         Original COM help: https://opendss.epri.com/DoDangling.html
         """
-        self._check_for_error(self._lib.ReduceCkt_DoDangling())
+        self._lib.ReduceCkt_DoDangling()
 
     def DoLoopBreak(self):
         """
@@ -133,19 +119,19 @@ class IReduceCkt(Base):
 
         Disables one of the Line objects at the head of a loop to force the circuit to be radial.
         """
-        self._check_for_error(self._lib.ReduceCkt_DoLoopBreak())
+        self._lib.ReduceCkt_DoLoopBreak()
 
     def DoParallelLines(self):
         """
         Merge all parallel lines found in the circuit to facilitate its reduction.
         """
-        self._check_for_error(self._lib.ReduceCkt_DoParallelLines())
+        self._lib.ReduceCkt_DoParallelLines()
 
     def DoSwitches(self):
         """
         Merge Line objects in which the IsSwitch property is true with the down-line Line object.
         """
-        self._check_for_error(self._lib.ReduceCkt_DoSwitches())
+        self._lib.ReduceCkt_DoSwitches()
 
     def Do1phLaterals(self):
         """
@@ -153,7 +139,7 @@ class IReduceCkt(Base):
 
         Loads and other shunt elements are moved to the parent 3-phase bus.
         """
-        self._check_for_error(self._lib.ReduceCkt_Do1phLaterals())
+        self._lib.ReduceCkt_Do1phLaterals()
 
     def DoBranchRemove(self):
         """
@@ -163,40 +149,40 @@ class IReduceCkt(Base):
         If KeepLoad=Y (default), a new Load element is defined and kW, kvar are set to present power flow solution for the first element eliminated.
         The EditString is applied to each new Load element defined.
         """
-        self._check_for_error(self._lib.ReduceCkt_DoBranchRemove())
+        self._lib.ReduceCkt_DoBranchRemove()
 
 
-_ReduceCkt = IReduceCkt(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
+_ReduceCkt = IReduceCkt(api_util)
 
 # For backwards compatibility, bind to the default instance
-Zmag = _ReduceCkt.Zmag
-KeepLoad = _ReduceCkt.KeepLoad
-EditString = _ReduceCkt.EditString
-StartPDElement = _ReduceCkt.StartPDElement
-EnergyMeter = _ReduceCkt.EnergyMeter
-SaveCircuit = _ReduceCkt.SaveCircuit
-DoDefault = _ReduceCkt.DoDefault
-DoShortLines = _ReduceCkt.DoShortLines
-DoDangling = _ReduceCkt.DoDangling
-DoLoopBreak = _ReduceCkt.DoLoopBreak
-DoParallelLines = _ReduceCkt.DoParallelLines
-DoSwitches = _ReduceCkt.DoSwitches
 Do1phLaterals = _ReduceCkt.Do1phLaterals
 DoBranchRemove = _ReduceCkt.DoBranchRemove
+DoDangling = _ReduceCkt.DoDangling
+DoDefault = _ReduceCkt.DoDefault
+DoLoopBreak = _ReduceCkt.DoLoopBreak
+DoParallelLines = _ReduceCkt.DoParallelLines
+DoShortLines = _ReduceCkt.DoShortLines
+DoSwitches = _ReduceCkt.DoSwitches
+EditString = _ReduceCkt.EditString
+EnergyMeter = _ReduceCkt.EnergyMeter
+KeepLoad = _ReduceCkt.KeepLoad
+SaveCircuit = _ReduceCkt.SaveCircuit
+StartPDElement = _ReduceCkt.StartPDElement
+Zmag = _ReduceCkt.Zmag
 _columns = _ReduceCkt._columns
 __all__ = [
-    "Zmag",
-    "KeepLoad",
-    "EditString",
-    "StartPDElement",
-    "EnergyMeter",
-    "SaveCircuit",
-    "DoDefault",
-    "DoShortLines",
-    "DoDangling",
-    "DoLoopBreak",
-    "DoParallelLines",
-    "DoSwitches",
     "Do1phLaterals",
     "DoBranchRemove",
+    "DoDangling",
+    "DoDefault",
+    "DoLoopBreak",
+    "DoParallelLines",
+    "DoShortLines",
+    "DoSwitches",
+    "EditString",
+    "EnergyMeter",
+    "KeepLoad",
+    "SaveCircuit",
+    "StartPDElement",
+    "Zmag",
 ]

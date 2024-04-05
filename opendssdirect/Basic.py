@@ -1,5 +1,5 @@
-# import warnings
-from ._utils import api_util, dss_py, OPENDSSDIRECT_PY_USE_NUMPY
+import warnings
+from ._utils import api_util, dss_py
 from .Bases import Base
 try:
     from ._version import __version__
@@ -25,7 +25,7 @@ class IBasic(Base):
     __slots__ = []
 
     def ClearAll(self):
-        self._check_for_error(self._lib.DSS_ClearAll())
+        self._lib.DSS_ClearAll()
 
     def Reset(self):
         """
@@ -33,12 +33,10 @@ class IBasic(Base):
 
         Original COM help: https://opendss.epri.com/Reset1.html
         """
-        self._check_for_error(self._lib.DSS_Reset())
+        self._lib.DSS_Reset()
 
     def SetActiveClass(self, ClassName):
-        if not isinstance(ClassName, bytes):
-            ClassName = ClassName.encode(self._api_util.codec)
-        return self._check_for_error(self._lib.DSS_SetActiveClass(ClassName))
+        return self._lib.DSS_SetActiveClass(ClassName)
 
     def Start(self, code):
         """
@@ -49,11 +47,12 @@ class IBasic(Base):
         unless using AltDSS/DSS C-API directly without further tools.
 
         On the official OpenDSS, `Start` also does nothing at all in the current
-        versions.
+        Delphi versions. It is required for OpenDSS-C, but also handled behind
+        the scenes on DSS-Extensions.
 
         Original COM help: https://opendss.epri.com/Start.html
         """
-        return self._check_for_error(self._lib.DSS_Start(code)) != 0
+        return self._lib.DSS_Start(code)
 
     def Classes(self):
         """
@@ -61,7 +60,7 @@ class IBasic(Base):
 
         Original COM help: https://opendss.epri.com/Classes1.html
         """
-        return self._check_for_error(self._get_string_array(self._lib.DSS_Get_Classes))
+        return self._lib.DSS_Get_Classes()
 
     def DataPath(self, *args):
         """
@@ -71,13 +70,11 @@ class IBasic(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(self._check_for_error(self._lib.DSS_Get_DataPath()))
+            return self._lib.DSS_Get_DataPath()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.DSS_Set_DataPath(Value))
+        self._lib.DSS_Set_DataPath(Value)
 
     def DefaultEditor(self):
         """
@@ -85,7 +82,7 @@ class IBasic(Base):
 
         Original COM help: https://opendss.epri.com/DefaultEditor.html
         """
-        return self._get_string(self._check_for_error(self._lib.DSS_Get_DefaultEditor()))
+        return self._lib.DSS_Get_DefaultEditor()
 
     def NumCircuits(self):
         """
@@ -93,7 +90,7 @@ class IBasic(Base):
 
         Original COM help: https://opendss.epri.com/NumCircuits.html
         """
-        return self._check_for_error(self._lib.DSS_Get_NumCircuits())
+        return self._lib.DSS_Get_NumCircuits()
 
     def NumClasses(self):
         """
@@ -101,7 +98,7 @@ class IBasic(Base):
 
         Original COM help: https://opendss.epri.com/NumClasses.html
         """
-        return self._check_for_error(self._lib.DSS_Get_NumClasses())
+        return self._lib.DSS_Get_NumClasses()
 
     def NumUserClasses(self):
         """
@@ -109,7 +106,7 @@ class IBasic(Base):
 
         Original COM help: https://opendss.epri.com/NumUserClasses.html
         """
-        return self._check_for_error(self._lib.DSS_Get_NumUserClasses())
+        return self._lib.DSS_Get_NumUserClasses()
 
     def UserClasses(self):
         """
@@ -117,7 +114,7 @@ class IBasic(Base):
 
         Original COM help: https://opendss.epri.com/UserClasses.html
         """
-        return self._check_for_error(self._get_string_array(self._lib.DSS_Get_UserClasses))
+        return self._lib.DSS_Get_UserClasses()
 
     def Version(self):
         """
@@ -129,17 +126,19 @@ class IBasic(Base):
 
     def AllowForms(self, *args):
         """
-        Gets/sets whether text output is allowed (DSS-Extensions) or general forms/windows are shown (official OpenDSS).
+        Indicates whether text output is allowed or forms are used.  Disable to silence most output.
+
+        Currently, forms/windows are only used for EPRI's OpenDSS distribution on Windows.
 
         Original COM help: https://opendss.epri.com/AllowForms.html
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.DSS_Get_AllowForms()) != 0
+            return self._lib.DSS_Get_AllowForms()
 
         # Setter
         (value,) = args
-        self._check_for_error(self._lib.DSS_Set_AllowForms(value))
+        self._lib.DSS_Set_AllowForms(value)
 
     def AllowEditor(self, *args):
         """
@@ -153,19 +152,22 @@ class IBasic(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.DSS_Get_AllowEditor()) != 0
+            return self._lib.DSS_Get_AllowEditor()
 
         # Setter
         (value,) = args
-        self._check_for_error(self._lib.DSS_Set_AllowEditor(value))
+        self._lib.DSS_Set_AllowEditor(value)
 
     def ShowPanel(self):
         return 0
 
     def NewCircuit(self, name):
-        if not isinstance(name, bytes):
-            name = name.encode(self._api_util.codec)
-        self._check_for_error(self._lib.DSS_NewCircuit(name))
+        """
+        Make a new circuit.
+
+        Original COM help: https://opendss.epri.com/NewCircuit.html
+        """
+        self._lib.DSS_NewCircuit(name)
         return "New Circuit" # self.ActiveCircuit
 
     def LegacyModels(self, *args):
@@ -181,11 +183,11 @@ class IBasic(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.DSS_Get_LegacyModels()) != 0
+            return self._lib.DSS_Get_LegacyModels()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.DSS_Set_LegacyModels(Value))
+        self._lib.DSS_Set_LegacyModels(Value)
 
     def AllowChangeDir(self, *args):
         """
@@ -204,11 +206,11 @@ class IBasic(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.DSS_Get_AllowChangeDir()) != 0
+            return self._lib.DSS_Get_AllowChangeDir()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.DSS_Set_AllowChangeDir(Value))
+        self._lib.DSS_Set_AllowChangeDir(Value)
 
     def AllowDOScmd(self, *args):
         """
@@ -223,11 +225,11 @@ class IBasic(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.DSS_Get_AllowDOScmd()) != 0
+            return self._lib.DSS_Get_AllowDOScmd()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.DSS_Set_AllowDOScmd(Value))
+        self._lib.DSS_Set_AllowDOScmd(Value)
 
     def COMErrorResults(self, *args):
         """
@@ -240,24 +242,30 @@ class IBasic(Base):
         - In the enabled state (`COMErrorResults(True)`), the function will return "[0.0]" instead. This should
         be compatible with the return value of the official COM interface.
 
-        Defaults to True/1 (enabled state) in the v0.12.x series. This will change to false in future series.
+        Defaults to false (disabled state) in AltDSS since the v0.15.x series.
 
-        This can also be set through the environment variable `DSS_CAPI_COM_DEFAULTS`. Setting it to 0 disables
+        This does not affect the results when using EPRI's OpenDSS distribution through Oddie.
+
+        This can also be set through the environment variable `DSS_CAPI_COM_DEFAULTS`. Setting it to 1 enables
         the legacy/COM behavior. The value can be toggled through the API at any time.
+
+        **Deprecated:** Use `Settings.COMErrorResults` instead (same behavior, the setting was just moved there for better organization).
 
         **(API Extension)**
         """
+        warnings.warn('"COMErrorResults" was moved to the Settings interface. This method still works, but will be removed in a future release. Please use `...Settings.COMErrorResults` instead.', DeprecationWarning, stacklevel=2)
+
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.DSS_Get_COMErrorResults()) != 0
+            return self._lib.DSS_Get_COMErrorResults()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.DSS_Set_COMErrorResults(Value))
+        self._lib.DSS_Set_COMErrorResults(Value)
 
     def AdvancedTypes(self, *args):
         """
-        When enabled, there are two side-effects:
+        When enabled, there are **two side-effects**:
 
         - **Per DSS Context:** Complex arrays and complex numbers can be returned and consumed by the Python API.
         - **Global effect:** The low-level API provides matrix dimensions when available (`EnableArrayDimensions` is enabled).
@@ -267,26 +275,29 @@ class IBasic(Base):
 
         When disabled, the legacy plain arrays are used and complex numbers cannot be consumed by the Python API.
 
-        *Defaults to `False` for backwards compatibility.*
+        *Defaults to **False** for backwards compatibility.*
+
+        **Deprecated:** Use `Settings.AdvancedTypes` instead (same behavior, the setting was just moved there for better organization).
 
         **(API Extension)**
         """
+        warnings.warn('"AdvancedTypes" was moved to the Settings interface. This method still works, but will be removed in a future release. Please use `...Settings.AdvancedTypes` instead.', DeprecationWarning, stacklevel=2)
+
         # Getter
         if len(args) == 0:
-            arr_dim = self._check_for_error(self._lib.DSS_Get_EnableArrayDimensions()) != 0
-            allow_complex = self._api_util._allow_complex
-            return arr_dim and allow_complex
+            return self._lib.advanced_types
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.DSS_Set_EnableArrayDimensions(Value))
-        self._api_util._allow_complex = bool(Value)
+        self._lib.advanced_types = bool(Value)
 
     def CompatFlags(self, *args):
         """
         Controls some compatibility flags introduced to toggle some behavior from the official OpenDSS.
 
-        **THE FLAGS ARE GLOBAL, affecting all DSS engines in the process.**
+        **THE FLAGS ARE GLOBAL, affecting all AltDSS engines in the process.**  
+        CompatFlags for Oddie-loaded instances (OpenDSS and OpenDSS-C engines) are handled by the Oddie code itself,
+        so it is global for each Oddie library.
 
         These flags may change for each version of DSS C-API, but the same value will not be reused. That is,
         when we remove a compatibility flag, it will have no effect but will also not affect anything else
@@ -300,62 +311,64 @@ class IBasic(Base):
 
         **(API Extension)**
         """
+        warnings.warn('"CompatFlags" was moved to the Settings interface. This method still works, but will be removed in a future release. Please use `...Settings.CompatFlags` instead.', DeprecationWarning, stacklevel=2)
+
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.DSS_Get_CompatFlags())
+            return self._lib.DSS_Get_CompatFlags()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.DSS_Set_CompatFlags(Value))
+        self._lib.DSS_Set_CompatFlags(Value)
 
 
-_Basic = IBasic(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
+_Basic = IBasic(api_util)
 
 # For backwards compatibility, bind to the default instance
-ClearAll = _Basic.ClearAll
-Reset = _Basic.Reset
-SetActiveClass = _Basic.SetActiveClass
-Start = _Basic.Start
+AdvancedTypes = _Basic.AdvancedTypes
+AllowChangeDir = _Basic.AllowChangeDir
+AllowDOScmd = _Basic.AllowDOScmd
+AllowEditor = _Basic.AllowEditor
+AllowForms = _Basic.AllowForms
+COMErrorResults = _Basic.COMErrorResults
 Classes = _Basic.Classes
+ClearAll = _Basic.ClearAll
+CompatFlags = _Basic.CompatFlags
 DataPath = _Basic.DataPath
 DefaultEditor = _Basic.DefaultEditor
+LegacyModels = _Basic.LegacyModels
+NewCircuit = _Basic.NewCircuit
 NumCircuits = _Basic.NumCircuits
 NumClasses = _Basic.NumClasses
 NumUserClasses = _Basic.NumUserClasses
+Reset = _Basic.Reset
+SetActiveClass = _Basic.SetActiveClass
+ShowPanel = _Basic.ShowPanel
+Start = _Basic.Start
 UserClasses = _Basic.UserClasses
 Version = _Basic.Version
-AllowForms = _Basic.AllowForms
-ShowPanel = _Basic.ShowPanel
-NewCircuit = _Basic.NewCircuit
-AllowEditor = _Basic.AllowEditor
-LegacyModels = _Basic.LegacyModels
-AllowChangeDir = _Basic.AllowChangeDir
-AllowDOScmd = _Basic.AllowDOScmd
-COMErrorResults = _Basic.COMErrorResults
-AdvancedTypes = _Basic.AdvancedTypes
-CompatFlags = _Basic.CompatFlags
 _columns = _Basic._columns
 __all__ = [
-    "ClearAll",
-    "Reset",
-    "SetActiveClass",
-    "Start",
+    "AdvancedTypes",
+    "AllowChangeDir",
+    "AllowDOScmd",
+    "AllowEditor",
+    "AllowForms",
+    "COMErrorResults",
     "Classes",
+    "ClearAll",
+    "CompatFlags",
     "DataPath",
     "DefaultEditor",
+    "LegacyModels",
+    "NewCircuit",
     "NumCircuits",
     "NumClasses",
     "NumUserClasses",
+    "Reset",
+    "SetActiveClass",
+    "ShowPanel",
+    "Start",
     "UserClasses",
     "Version",
-    "AllowForms",
-    "ShowPanel",
-    "NewCircuit",
-    "AllowEditor",
-    "LegacyModels",
-    "AllowChangeDir",
-    "AllowDOScmd",
-    "COMErrorResults",
-    "AdvancedTypes",
-    "CompatFlags",
 ]
