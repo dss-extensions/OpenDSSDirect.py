@@ -5835,3 +5835,24 @@ def test_swtcontrol_txt(dss):
     assert not dss.CktElement.IsOpen(1, 1)
 
 
+def test_share_general(dss):
+
+    # Ported from DSS-Python
+
+    dss2 = dss.NewContext()
+    dss('new loadshape.sharedloadshape npts=4 pmult=[1, 2, 3, 4]')
+    dss.ShareGeneral(dss2)
+    dss.NewCircuit('test1')
+    dss2.NewCircuit('test2')
+
+    assert 'sharedloadshape' in dss.LoadShape.AllNames()
+    assert 'sharedloadshape' in dss2.LoadShape.AllNames()
+
+    LS = dss.LoadShape
+    LS.Name('sharedloadshape')
+
+    LS2 = dss2.LoadShape
+    LS2.Name('sharedloadshape')
+    assert list(LS2.PMult()) == list(LS.PMult())
+    assert list(LS2.PMult()) == [1., 2., 3., 4.]
+

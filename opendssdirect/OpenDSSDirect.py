@@ -365,6 +365,16 @@ class OpenDSSDirect(Base):
         run_command(text, self)
 
 
+    def NewCircuit(self, name: str):
+        """
+        Make a new circuit.
+
+        Original COM help: https://opendss.epri.com/NewCircuit.html
+        """
+        self._lib.DSS_NewCircuit(name)
+        return "New Circuit" # self.ActiveCircuit
+
+
     def NewContext(self):
         """
         Creates a new DSS engine context, wrapped by the OpenDSSDirect.py classes.
@@ -444,6 +454,32 @@ class OpenDSSDirect(Base):
             self._lib.Text_CommandArray(cmds)
 
 
+    def ShareGeneral(self, otherContext, skip_cmds=None, skip_file_regexp=None):
+        """
+        Share general DSS objects from this AltDSS (engine) context to another.
+
+        **WARNING:** currently, the pointers are not tracked! The user must ensure this context
+        and its objects are kept alive while other contexts require it.
+
+        Optionally, as a shortcut, the user can provide `skip_cmds` to be passed to the `Settings.SkipCommands`
+        and `skip_file_regexp` to be passed to `Settings.SkipFileRegExp`, in the second DSS context.
+
+        *Note*: If the `clear` command is included in `Settings.SkipCommands`, the `ClearAll()` Python method 
+        can still be called and it will reset both skip settings.
+
+        ***EXPERIMENTAL***
+
+        **(API Extension)**
+        """
+        if self._api_util._is_oddie or otherContext._api_util._is_oddie:
+            raise ValueError("Only AltDSS engine contexts can share data.")
+        self._lib.ctx_ShareGeneral(otherContext._api_util.ctx)
+        if skip_cmds is not None:
+            otherContext.Settings.SkipCommands(skip_cmds)
+        if skip_file_regexp is not None:
+            otherContext.Settings.SkipFileRegExp(skip_file_regexp)
+
+
 
 dss = OpenDSSDirect(None)
 ActiveClass = _ActiveClass
@@ -497,9 +533,11 @@ TSData = _TSData
 WindGens = _WindGens
 WireData = _WireData
 ZIP = _ZIP
-to_dss_python = dss.to_dss_python
-to_altdss = dss.to_altdss
-NewContext = dss.NewContext
 is_oddie = dss.is_oddie
+to_altdss = dss.to_altdss
+to_dss_python = dss.to_dss_python
+NewCircuit = dss.NewCircuit
+NewContext = dss.NewContext
+ShareGeneral = dss.ShareGeneral
 
 __all__ = ["OpenDSSDirect", "dss", "OPENDSSDIRECT_PY_USE_NUMPY"]

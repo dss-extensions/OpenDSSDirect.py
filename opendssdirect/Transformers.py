@@ -318,7 +318,7 @@ class ITransformers(Iterable):
 
     def LossesByType(self):
         """
-        Complex array with the losses by type (total losses, load losses, no-load losses), in VA
+        Complex array with the losses by type (total losses, load losses, no-load losses), in VA, for the current active transformer
 
         **(API Extension)**
         """

@@ -140,7 +140,7 @@ class ILines(Iterable):
 
     def Length(self, *args):
         """
-        Length of line section in units compatible with the LineCode definition.
+        Length of line in units compatible with the LineCode definition.
 
         Original COM help: https://opendss.epri.com/Length.html
         """
@@ -182,7 +182,7 @@ class ILines(Iterable):
 
     def NumCust(self):
         """
-        Number of customers on this line section.
+        Number of customers on this line.
 
         *Requires an energy meter with an updated zone.*
 
@@ -301,13 +301,18 @@ class ILines(Iterable):
 
     def TotalCust(self):
         """
-        Total Number of customers served from this line section.
+        Total Number of customers served from this line.
 
         Original COM help: https://opendss.epri.com/TotalCust.html
         """
         return self._lib.Lines_Get_TotalCust()
 
     def Units(self, *args):
+        """
+        Length units for the active line.
+
+        Original COM help: https://opendss.epri.com/Units.html
+        """
         # Getter
         if len(args) == 0:
             return LineUnits(self._lib.Lines_Get_Units())

@@ -238,7 +238,7 @@ class ICircuit(Base):
 
     def AllBusMagPu(self):
         """
-        Double Array of all bus voltages (each node) magnitudes in Per unit
+        Array of all bus voltages (each node) magnitudes in Per unit
 
         Original COM help: https://opendss.epri.com/AllBusVmagPu.html
         """

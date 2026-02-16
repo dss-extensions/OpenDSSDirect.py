@@ -374,6 +374,8 @@ class IBus(Base):
         """
         Returns an array with the names of all PCE connected to the active bus
 
+        This also includes shunt Capacitors/Reactors.
+
         Original COM help: https://opendss.epri.com/AllPCEatBus.html
         """
         return self._lib.Bus_Get_AllPCEatBus()
@@ -381,6 +383,8 @@ class IBus(Base):
     def AllPDEatBus(self):
         """
         Returns an array with the names of all PDE connected to the active bus
+
+        This excludes shunt Capacitors/Reactors.
 
         Original COM help: https://opendss.epri.com/AllPDEatBus1.html
         """

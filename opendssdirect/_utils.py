@@ -4,7 +4,7 @@ import os
 
 # Integrate "Use environment variable for numpy version" from @kdheepak
 # https://github.com/dss-extensions/OpenDSSDirect.py/pull/103/
-# Changed for v0.10: default to True now.
+# Changed for v0.10: defaults to True now.
 OPENDSSDIRECT_PY_USE_NUMPY = os.environ.get("OPENDSSDIRECT_PY_USE_NUMPY", "1").upper() in ("1", "TRUE")
 
 # Bind to the FFI module instance. This should be refined in a future version

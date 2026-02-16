@@ -45,7 +45,7 @@ class IError(Base):
 
         Extended errors are errors derived from checks across the API to ensure
         a valid state. Although many of these checks are already present in the
-        original/official COM interface, the checks do not produce any error
+        original/EPRI's COM interface, the checks do not produce any error
         message. An error value can be returned by a function but this value
         can, for many of the functions, be a valid value. As such, the user
         has no means to detect an invalid API call.
@@ -78,12 +78,12 @@ class IError(Base):
         **When disabled, the user takes responsibility for checking for errors.**
         This can be done through the `Error` interface. When `Error.Number` is not
         zero, there should be an error message in `Error.Description`. This is compatible
-        with the behavior on the official OpenDSS (Windows-only COM implementation) when
+        with the behavior on EPRI's OpenDSS (Windows-only COM implementation) when
         `AllowForms` is disabled.
 
         Users can also use the DSS command `Export ErrorLog` to inspect for errors.
 
-        With EPRI's OpenDSS engines, in contrast to our main AltDSS engine, users are 
+        With EPRI's OpenDSS engines, in contrast to our main AltDSS engine, users are
         also required to set `AllowForms` to `False`, otherwise the engine does not
         populate the Error.Number API and the error is consumed by the popup form or
         terminal message.

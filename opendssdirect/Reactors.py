@@ -5,8 +5,8 @@ from .Bases import Iterable
 class IReactors(Iterable):
     """
     Reactor objects
-
-    Originally, an **(API Extension)**, but was introduced in EPRI's OpenDSS distribution in version 10.x
+    
+    API Status: **(API Extension)** before 2024-10-04. Since then, functions partially marked as extensions (see each property/function documentation).
     """
 
     __name__ = "Reactors"
@@ -48,7 +48,11 @@ class IReactors(Iterable):
         return self._lib.Reactors_Get_SpecType()
 
     def IsDelta(self, *args):
-        """Delta connection or wye?"""
+        """
+        Delta connection or wye?
+
+        **(API Extension)**
+        """
         # Getter
         if len(args) == 0:
             return self._lib.Reactors_Get_IsDelta()
@@ -98,7 +102,11 @@ class IReactors(Iterable):
         self._lib.Reactors_Set_kvar(Value)
 
     def Phases(self, *args):
-        """Number of phases."""
+        """
+        Number of phases.
+
+        **(API Extension)**
+        """
         # Getter
         if len(args) == 0:
             return self._lib.Reactors_Get_Phases()
@@ -112,6 +120,8 @@ class IReactors(Iterable):
         Name of first bus.
         Bus2 property will default to this bus, node 0, unless previously specified.
         Only Bus1 need be specified for a Yg shunt reactor.
+
+        **(API Extension)**
         """
         # Getter
         if len(args) == 0:
@@ -124,7 +134,9 @@ class IReactors(Iterable):
     def Bus2(self, *args):
         """
         Name of 2nd bus. Defaults to all phases connected to first bus, node 0, (Shunt Wye Connection) except when Bus2 is specifically defined.
-        Not necessary to specify for delta (LL) connection
+        Not necessary to specify for delta (LL) connection.
+
+        **(API Extension)**
         """
         # Getter
         if len(args) == 0:

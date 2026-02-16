@@ -46,7 +46,7 @@ class IBasic(Base):
         handled automatically, so the users do not need to call it manually,
         unless using AltDSS/DSS C-API directly without further tools.
 
-        On the official OpenDSS, `Start` also does nothing at all in the current
+        On EPRI's OpenDSS, `Start` also does nothing at all in the current
         Delphi versions. It is required for OpenDSS-C, but also handled behind
         the scenes on DSS-Extensions.
 
@@ -148,10 +148,17 @@ class IBasic(Base):
         If you set to 0 (false), the editor is not executed. Note that other side effects,
         such as the creation of files, are not affected.
 
+        **Deprecated:** Use `Settings.AllowEditor()` instead (same behavior, the setting was just moved there for better organization).
+
         **(API Extension)**
         """
         # Getter
         if len(args) == 0:
+            warnings.warn(
+                '"AllowEditor" was moved to the Settings interface. This method still works, but will be removed in a future release. Please use `...Settings.AllowEditor` instead.',
+                DeprecationWarning,
+                stacklevel=2,
+            )
             return self._lib.DSS_Get_AllowEditor()
 
         # Setter
@@ -159,14 +166,24 @@ class IBasic(Base):
         self._lib.DSS_Set_AllowEditor(value)
 
     def ShowPanel(self):
+        if self._api_util._is_oddie:
+            self._lib.Text_Set_Command("panel")
+
         return 0
 
-    def NewCircuit(self, name):
+    def NewCircuit(self, name: str):
         """
         Make a new circuit.
 
         Original COM help: https://opendss.epri.com/NewCircuit.html
+
+        **Deprecated**: Use `OpenDSSDirect.NewCircuit()` directly (`NewCircuit()` in the parent object).
         """
+        warnings.warn(
+            '"NewCircuit" was moved to the parent object in the OpenDSSDirect class. This method still works, but will be removed in a future release. Please use `...AllowEditor` instead.',
+            DeprecationWarning,
+            stacklevel=2,
+        )
         self._lib.DSS_NewCircuit(name)
         return "New Circuit" # self.ActiveCircuit
 
@@ -174,7 +191,7 @@ class IBasic(Base):
         """
         LegacyModels was a flag used to toggle legacy (pre-2019) models for PVSystem, InvControl, Storage and
         StorageControl.
-        In the official OpenDSS version 9.0, the old models were removed. They were temporarily present here
+        In EPRI's OpenDSS version 9.0, the old models were removed. They were temporarily present here
         but were also removed in DSS C-API v0.13.0.
 
         **NOTE**: this property will be removed for v1.0. It is left to avoid breaking the current API too soon.
@@ -202,8 +219,15 @@ class IBasic(Base):
         This can also be set through the environment variable DSS_CAPI_ALLOW_CHANGE_DIR. Set it to 0 to
         disallow changing the active working directory.
 
+        **Deprecated:** Use `Settings.AllowChangeDir` instead (same behavior, the setting was just moved there for better organization).
+
         **(API Extension)**
         """
+        warnings.warn(
+            '"AllowChangeDir" was moved to the Settings interface. This method still works, but will be removed in a future release. Please use `...Settings.AllowChangeDir` instead.',
+            DeprecationWarning,
+            stacklevel=2,
+        )
         # Getter
         if len(args) == 0:
             return self._lib.DSS_Get_AllowChangeDir()
@@ -221,8 +245,15 @@ class IBasic(Base):
         This can also be set through the environment variable DSS_CAPI_ALLOW_DOSCMD. Setting it to 1 enables
         the command.
 
+        **Deprecated:** Use `Settings.AllowDOScmd` instead (same behavior, the setting was just moved there for better organization).
+
         **(API Extension)**
         """
+        warnings.warn(
+            '"AllowDOScmd" was moved to the Settings interface. This method still works, but will be removed in a future release. Please use `...Settings.AllowDOScmd` instead.',
+            DeprecationWarning,
+            stacklevel=2,
+        )
         # Getter
         if len(args) == 0:
             return self._lib.DSS_Get_AllowDOScmd()
@@ -233,14 +264,14 @@ class IBasic(Base):
 
     def COMErrorResults(self, *args):
         """
-        If enabled, in case of errors or empty arrays, the API returns arrays with values compatible with the
-        official OpenDSS COM interface.
+        If enabled, in case of errors or empty arrays, the API returns arrays with values compatible with
+        EPRI's OpenDSS COM interface.
 
         For example, consider the function `Loads_Get_ZIPV`. If there is no active circuit or active load element:
 
         - In the disabled state (`COMErrorResults(False)`), the function will return "[]", an array with 0 elements.
         - In the enabled state (`COMErrorResults(True)`), the function will return "[0.0]" instead. This should
-        be compatible with the return value of the official COM interface.
+        be compatible with the return value of EPRI's OpenDSS COM interface.
 
         Defaults to false (disabled state) in AltDSS since the v0.15.x series.
 
@@ -253,8 +284,11 @@ class IBasic(Base):
 
         **(API Extension)**
         """
-        warnings.warn('"COMErrorResults" was moved to the Settings interface. This method still works, but will be removed in a future release. Please use `...Settings.COMErrorResults` instead.', DeprecationWarning, stacklevel=2)
-
+        warnings.warn(
+            '"COMErrorResults" was moved to the Settings interface. This method still works, but will be removed in a future release. Please use `...Settings.COMErrorResults` instead.',
+            DeprecationWarning,
+            stacklevel=2,
+        )
         # Getter
         if len(args) == 0:
             return self._lib.DSS_Get_COMErrorResults()
@@ -293,9 +327,9 @@ class IBasic(Base):
 
     def CompatFlags(self, *args):
         """
-        Controls some compatibility flags introduced to toggle some behavior from the official OpenDSS.
+        Controls some compatibility flags introduced to toggle some behavior from EPRI's OpenDSS.
 
-        **THE FLAGS ARE GLOBAL, affecting all AltDSS engines in the process.**  
+        **THE FLAGS ARE GLOBAL, affecting all AltDSS engines in the process.**
         CompatFlags for Oddie-loaded instances (OpenDSS and OpenDSS-C engines) are handled by the Oddie code itself,
         so it is global for each Oddie library.
 
@@ -309,10 +343,15 @@ class IBasic(Base):
 
         See the enumeration `DSSCompatFlags` for available flags, including description.
 
+        **Deprecated:** Use `Settings.CompatFlags` instead (same behavior, the setting was just moved there for better organization).
+
         **(API Extension)**
         """
-        warnings.warn('"CompatFlags" was moved to the Settings interface. This method still works, but will be removed in a future release. Please use `...Settings.CompatFlags` instead.', DeprecationWarning, stacklevel=2)
-
+        warnings.warn(
+            '"CompatFlags" was moved to the Settings interface. This method still works, but will be removed in a future release. Please use `...Settings.CompatFlags` instead.',
+            DeprecationWarning,
+            stacklevel=2,
+        )
         # Getter
         if len(args) == 0:
             return self._lib.DSS_Get_CompatFlags()

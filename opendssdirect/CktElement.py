@@ -80,6 +80,8 @@ class ICktElement(Base):
         """
         If the active element is a PCElement, get the value of a variable by name.
         Otherwise, an exception is raised.
+
+        Original COM help: https://opendss.epri.com/Variable.html
         """
         if not isinstance(MyVarName, bytes):
             MyVarName = MyVarName.encode(self._api_util.codec)
@@ -94,6 +96,8 @@ class ICktElement(Base):
         """
         If the active element is a PCElement, get the value of a variable by its integer index.
         Otherwise, an exception is raised.
+
+        Original COM help: https://opendss.epri.com/Variablei.html
         """
         Code = self._api_util.ffi.new("int32_t*")
         result = self._lib.CktElement_Get_Variablei(Idx, Code)
@@ -121,7 +125,7 @@ class ICktElement(Base):
         Provide a non-zero phase number in `Phs` to check if a specific phase conductor is open.
 
         Original COM help: https://opendss.epri.com/IsOpen.html
-        """        
+        """
         return self._lib.CktElement_IsOpen(Term, Phs)
 
     def Open(self, Term: int, Phs: int = 0) -> None:
@@ -476,13 +480,12 @@ class ICktElement(Base):
         """
         return self._lib.CktElement_Get_Yprim_GR()
 
-    @property
-    def YPrimOrder(self) -> int:
-        '''
+    def YprimOrder(self) -> int:
+        """
         Order (size) of the active circuit element's primite Y matrix (Yprim), typically `NumConductors * NumTerminals`
 
         **(API Extension)**
-        '''
+        """
         return self._lib.CktElement_Get_YprimOrder()
 
     def IsIsolated(self) -> bool:
@@ -563,6 +566,7 @@ Variablei = _CktElement.Variablei
 Voltages = _CktElement.Voltages
 VoltagesMagAng = _CktElement.VoltagesMagAng
 YPrim = _CktElement.YPrim
+YprimOrder = _CktElement.YprimOrder
 setVariableByIndex = _CktElement.setVariableByIndex
 setVariableByName = _CktElement.setVariableByName
 _columns = _CktElement._columns
@@ -614,6 +618,7 @@ __all__ = [
     "Voltages",
     "VoltagesMagAng",
     "YPrim",
+    "YprimOrder",
     "setVariableByIndex",
     "setVariableByName",
 ]

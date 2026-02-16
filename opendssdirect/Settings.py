@@ -114,7 +114,7 @@ class ISettings(Base):
 
 
     def Context(self) -> SettingsContext:
-        '''
+        """
         Returns a Settings context manager. 
         The context manager saves the values of the tracker settings on enter, 
         restoring them on exit. This allows code to change the settings within 
@@ -130,7 +130,7 @@ class ISettings(Base):
         - PreferLists
         - SkipCommands
         - SkipFileRegExp
-        '''
+        """
         return SettingsContext(self)
 
     def AllowDuplicates(self, *args):
@@ -429,7 +429,7 @@ class ISettings(Base):
 
 
     def SkipFileRegExp(self, *args):
-        '''
+        """
         Regular expression pattern to skip files.
 
         If a file name as provided in the input for the `Redirect` and `Compile` commands
@@ -439,35 +439,34 @@ class ISettings(Base):
         Set to an empty string to reset/disable the filter.
 
         Case-insensitive.
-        See https://regex.sorokin.engineer/en/latest/regular_expressions.html for information on 
+        See https://regex.sorokin.engineer/en/latest/regular_expressions.html for information on
         the expression syntax and options.
 
         Even if the `clear` command is included in `Settings.SkipCommands()`, the `DSS.ClearAll()` method can 
         still be called. It resets both skip settings, `SkipCommands()` and `SkipFileRegExp()`.
 
         **(API Extension)**
-        '''
+        """
         # Getter
         if len(args) == 0:
             return self._lib.Settings_Get_SkipFileRegExp()
 
         # Setter
         (Value,) = args
-        self._lib.Settings_Set_SkipFileRegExp(Value or '')
+        self._lib.Settings_Set_SkipFileRegExp(Value or "")
 
 
     def SkipCommands(self, *args):
-        '''
+        """
         List of commands to skip
 
         List of strings representing the command names to skip when processing DSS text commands or files.
 
-        If the `clear` command is included in `Settings.SkipCommands`, the `DSS.ClearAll()` method can 
+        If the `clear` command is included in `Settings.SkipCommands()`, the `ClearAll()` method can
         still be called and it will reset both skip settings, `SkipCommands` and `SkipFileRegExp`.
 
         **(API Extension)**
-        '''
-
+        """
         # Getter
         if len(args) == 0:
             return [
@@ -512,9 +511,9 @@ class ISettings(Base):
 
     def CompatFlags(self, *args):
         """
-        Controls some compatibility flags introduced to toggle some behavior from the official OpenDSS.
+        Controls some compatibility flags introduced to toggle some behavior from EPRI's OpenDSS.
 
-        **THE FLAGS ARE GLOBAL, affecting all AltDSS engines in the process.**  
+        **THE FLAGS ARE GLOBAL, affecting all AltDSS engines in the process.**
         CompatFlags for Oddie-loaded instances (OpenDSS and OpenDSS-C engines) are handled by the Oddie code itself,
         so it is global for each Oddie library.
 
@@ -539,7 +538,7 @@ class ISettings(Base):
         self._lib.DSS_Set_CompatFlags(Value)
 
     def PreferLists(self, *args):
-        '''
+        """
         Enable this setting to use lists instead of NumPy arrays, where it makes sense.
 
         This was added for better for compatibility with the COM packages (`comtypes` and  `win32com` use lists
@@ -549,7 +548,7 @@ class ISettings(Base):
         Users can also activate the related `AdvancedTypes` for a richer experience.
 
         **(API Extension)**
-        '''
+        """
         # Getter
         if len(args) == 0:
             return self._lib.prefer_lists
@@ -560,14 +559,14 @@ class ISettings(Base):
 
     def COMErrorResults(self, *args):
         """
-        If enabled, in case of errors or empty arrays, the API returns arrays with values compatible with the
-        official OpenDSS COM interface.
+        If enabled, in case of errors or empty arrays, the API returns arrays with values compatible with
+        EPRI's OpenDSS COM interface.
 
-        For example, consider the function `Loads_Get_ZIPV`. If there is no active circuit or active load element:
+        For example, consider the method/property `Loads.ZIPV()`. If there is no active circuit or active load element:
 
         - In the disabled state (`COMErrorResults(False)`), the function will return "[]", an array with 0 elements.
         - In the enabled state (`COMErrorResults(True)`), the function will return "[0.0]" instead. This should
-        be compatible with the return value of the official COM interface.
+        be compatible with the return value of EPRI's OpenDSS COM interface.
 
         Defaults to false (disabled state) in AltDSS since the v0.15.x series.
 
@@ -587,14 +586,101 @@ class ISettings(Base):
         self._lib.DSS_Set_COMErrorResults(Value)
 
 
+    def AllowDOScmd(self, *args):
+        """
+        If enabled, the `DOScmd` command is allowed. Otherwise, an error is reported if the user tries to use it.
+
+        Defaults to False/0 (disabled state). Users should consider DOScmd deprecated on DSS-Extensions.
+
+        This can also be set through the environment variable `DSS_CAPI_ALLOW_DOSCMD`. Setting it to 1 enables
+        the command.
+
+        **(API Extension)**
+        """
+        # Getter
+        if len(args) == 0:
+            return self._lib.DSS_Get_AllowDOScmd()
+
+        # Setter
+        (Value,) = args
+        self._lib.DSS_Set_AllowDOScmd(Value)
+
+    def AllowChangeDir(self, *args):
+        """
+        If disabled, the engine will not change the active working directory during execution. E.g. a "compile"
+        command will not "chdir" to the file path.
+
+        If you have issues with long paths, enabling this might help in some scenarios.
+
+        Defaults to True (allow changes, backwards compatible) in the 0.10.x versions of DSS C-API.
+        This might change to False in future versions.
+
+        This can also be set through the environment variable `DSS_CAPI_ALLOW_CHANGE_DIR`. Set it to 0 to
+        disallow changing the active working directory.
+
+        **(API Extension)**
+        """
+        # Getter
+        if len(args) == 0:
+            return self._lib.DSS_Get_AllowChangeDir()
+
+        # Setter
+        (Value,) = args
+        self._lib.DSS_Set_AllowChangeDir(Value)
+
+    def AllowEditor(self, *args):
+        """
+        Gets/sets whether running the external editor for "Show" is allowed
+
+        AllowEditor controls whether the external editor is used in commands like "Show".
+        If you set to 0 (false), the editor is not executed. Note that other side effects,
+        such as the creation of files, are not affected.
+
+        **(API Extension)**
+        """
+        # Getter
+        if len(args) == 0:
+            return self._lib.DSS_Get_AllowEditor()
+
+        # Setter
+        (value,) = args
+        self._lib.DSS_Set_AllowEditor(value)
+
+    def PreserveCase(self, *args):
+        """
+        Gets/sets whether the engine tries to preserve original names
+
+        When enabled, bus and element names in many of the API functions, reports and
+        exports are kept as provided by the user, without applying lower or upper case
+        transformations.
+
+        Note that, even when enabled, the engine is still case-insensitive.
+
+        **(API Extension)**
+        """
+        # Getter
+        if len(args) == 0:
+            return self._lib.Settings_Get_Flag(1)
+
+        # Setter
+        (value,) = args
+        self._lib.Settings_Set_Flag(1, value)
+
 
 _Settings = ISettings(api_util)
 
 # For backwards compatibility, bind to the default instance
+AdvancedTypes = _Settings.AdvancedTypes
 AllocationFactors = _Settings.AllocationFactors
+AllowChangeDir = _Settings.AllowChangeDir
+AllowDOScmd = _Settings.AllowDOScmd
 AllowDuplicates = _Settings.AllowDuplicates
+AllowEditor = _Settings.AllowEditor
 AutoBusList = _Settings.AutoBusList
+COMErrorResults = _Settings.COMErrorResults
 CktModel = _Settings.CktModel
+CompatFlags = _Settings.CompatFlags
+Context = _Settings.Context
 ControlTrace = _Settings.ControlTrace
 EmergVmaxpu = _Settings.EmergVmaxpu
 EmergVminpu = _Settings.EmergVminpu
@@ -604,9 +690,13 @@ LossRegs = _Settings.LossRegs
 LossWeight = _Settings.LossWeight
 NormVmaxpu = _Settings.NormVmaxpu
 NormVminpu = _Settings.NormVminpu
+PreferLists = _Settings.PreferLists
+PreserveCase = _Settings.PreserveCase
 PriceCurve = _Settings.PriceCurve
 PriceSignal = _Settings.PriceSignal
 SetPropertyNameStyle = _Settings.SetPropertyNameStyle
+SkipCommands = _Settings.SkipCommands
+SkipFileRegExp = _Settings.SkipFileRegExp
 Trapezoidal = _Settings.Trapezoidal
 UERegs = _Settings.UERegs
 UEWeight = _Settings.UEWeight
@@ -614,10 +704,17 @@ VoltageBases = _Settings.VoltageBases
 ZoneLock = _Settings.ZoneLock
 _columns = _Settings._columns
 __all__ = [
+    "AdvancedTypes",
     "AllocationFactors",
+    "AllowChangeDir",
+    "AllowDOScmd",
     "AllowDuplicates",
+    "AllowEditor",
     "AutoBusList",
+    "COMErrorResults",
     "CktModel",
+    "CompatFlags",
+    "Context",
     "ControlTrace",
     "EmergVmaxpu",
     "EmergVminpu",
@@ -627,9 +724,13 @@ __all__ = [
     "LossWeight",
     "NormVmaxpu",
     "NormVminpu",
+    "PreferLists",
+    "PreserveCase",
     "PriceCurve",
     "PriceSignal",
     "SetPropertyNameStyle",
+    "SkipCommands",
+    "SkipFileRegExp",
     "Trapezoidal",
     "UERegs",
     "UEWeight",
