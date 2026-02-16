@@ -5753,3 +5753,76 @@ def test_geometry_conductors(dss):
         assert len(LG.Units()) == 4
 
 
+def test_swtcontrol_api(dss):
+    # This follows compatibility with pre-v11 release of EPRI's OpenDSS
+    # Based on the sample code provided by @wfvining at https://github.com/dss-extensions/OpenDSSDirect.py/issues/99
+
+    from dss import ActionCodes
+
+    dss("new swtcontrol.sw1 delay=0.0 normal=closed switchedobj=line.671684 switchedterm=1")
+    dss.Solution.Solve()
+    dss.SwtControls.Name("sw1")
+
+    # open the switch
+    dss.SwtControls.Action(ActionCodes.Open)
+    dss.Solution.Solve()
+
+    # lock the switch control
+    dss.SwtControls.IsLocked(True)
+
+    # try to close the switch, it should fail...
+    try:
+        dss.SwtControls.Action(ActionCodes.Close)
+    except dss.DSSException:
+        # It might throw an exception in the future
+        pass
+
+    dss.Solution.Solve()
+    
+    # ... but the line is still open because the control is locked
+    dss.Circuit.SetActiveElement("line.671684")
+    assert dss.CktElement.IsOpen(1, 1)
+    
+    # unlock the control and close the switch
+    dss.SwtControls.IsLocked(False)
+    dss.SwtControls.Action(ActionCodes.Close)
+    dss.Solution.Solve()
+
+    # the line should now be closed
+    assert not dss.CktElement.IsOpen(1, 1)
+
+
+def test_swtcontrol_txt(dss):
+    # Same as test_swtcontrol_1, but uses the Text interface
+
+    dss("new swtcontrol.sw1 delay=0.0 normal=closed switchedobj=line.671684 switchedterm=1")
+    dss.Solution.Solve()
+
+    # open the switch
+    dss("edit swtcontrol.sw1 state=open")
+    dss.Solution.Solve()
+
+    # lock the switch control
+    dss("edit swtcontrol.sw1 lock=true")
+
+    # try to close the switch, it should fail...
+    try:
+        dss("edit swtcontrol.sw1 state=closed")
+    except dss.DSSException:
+        pass
+
+    dss.Solution.Solve()
+
+    # ... but the line is still open because the control is locked
+    dss.Circuit.SetActiveElement("line.671684")
+    assert dss.CktElement.IsOpen(1, 1)
+
+    # unlock the control and close the switch
+    dss("edit swtcontrol.sw1 lock=false")
+    dss("edit swtcontrol.sw1 state=closed")
+    dss.Solution.Solve()
+
+    # the line should now be closed
+    assert not dss.CktElement.IsOpen(1, 1)
+
+
