@@ -27,7 +27,7 @@ def import_odd():
         from dss import IOddieDSS
         _dss = IOddieDSS()
         
-        # TODO: update so that we don't need this
+        # TODO: update so that we don't need this (it should only affect tests though)
         import dss
         dss.dss = _dss
         dss.DSS = _dss
@@ -1243,6 +1243,10 @@ def test_13Node_CktElement(dss):
         u"Seasons",
         u"Ratings",
         u"LineType",
+        "epsrmedium",
+        "heightoffset",
+        "heightunit",
+        "conductors",
         u"normamps",
         u"emergamps",
         u"faultrate",
@@ -1362,7 +1366,7 @@ def test_13Node_CktElement(dss):
     assert dss.CktElement.NumConductors() == 3
     assert dss.CktElement.NumControls() == 0
     assert dss.CktElement.NumPhases() == 3
-    assert dss.CktElement.NumProperties() == 38
+    assert dss.CktElement.NumProperties() == 42
     assert dss.CktElement.NumTerminals() == 2
     assert dss.CktElement.OCPDevIndex() == 0
     assert dss.CktElement.OCPDevType() == 0
@@ -1692,6 +1696,10 @@ def test_13Node_Element(dss):
         u"Seasons",
         u"Ratings",
         u"LineType",
+        "epsrmedium",
+        "heightoffset",
+        "heightunit",
+        "conductors",
         u"normamps",
         u"emergamps",
         u"faultrate",
@@ -1702,7 +1710,7 @@ def test_13Node_Element(dss):
         u"like",
     ])
     assert dss.Element.Name() == u"Line.671692"
-    assert dss.Element.NumProperties() == 38
+    assert dss.Element.NumProperties() == 42
 
 
 def test_13Node_Executive(dss):
@@ -1713,11 +1721,11 @@ def test_13Node_Executive(dss):
         == u"Create a new object within the DSS. Object becomes the active object\nExample: New Line.line1 ..."
     )
     assert (
-        dss.Executive.NumCommands() == 125
-    )  # adjusted to the latest version on 2022-03-22
+        dss.Executive.NumCommands() == 136
+    )  # adjusted to the latest version on 2026-02-15
     assert (
-        dss.Executive.NumOptions() == 128
-    )  # adjusted to the latest version on 2023-03-15
+        dss.Executive.NumOptions() == 140
+    )  # adjusted to the latest version on 2026-02-15
     assert dss.Executive.Option(1) == u"type"
     assert (
         dss.Executive.OptionHelp(1)
@@ -4993,6 +5001,7 @@ def test_linegeometry_class_to_dataframe(dss):
             "tscable": "acsr1/0",
             "cncables": ["acsr336", "acsr336", "acsr336", "acsr1/0"],
             "tscables": ["acsr336", "acsr336", "acsr336", "acsr1/0"],
+            "conductors": ["acsr336", "acsr336", "acsr336", "acsr1/0"],
             "like": "",
         }
     })
