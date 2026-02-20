@@ -5,7 +5,7 @@ on:
 
 jobs:
   test:
-    name: '${{ matrix.os }}, fastdss=${{ matrix.fastdss }}'
+    name: '${{ matrix.os }}, py${{ matrix.python-version }}, fastdss=${{ matrix.fastdss }}'
     strategy:
       fail-fast: false
       matrix:
