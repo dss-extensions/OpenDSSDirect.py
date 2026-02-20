@@ -5,19 +5,20 @@ on:
 
 jobs:
   test:
-    name: 'Tests'
+    name: '${{ matrix.os }}, fastdss=${{ matrix.fastdss }}'
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ["3.11", "3.12", "3.13", "3.14"]
+        os: [ubuntu-24.04-arm, ubuntu-latest, windows-latest, macos-15-intel, macos-latest]
+        fastdss: [0, 1]
 
     runs-on: ${{ matrix.os }}
     steps: 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -28,16 +29,42 @@ jobs:
           git fetch --unshallow
           python -m pip install .[extras]
 
-      - name: Test
+      - name: Run tests (NumPy)
+        if: runner.os == 'Windows'
+        shell: cmd
         run: |
+          set OPENDSSDIRECT_PY_USE_NUMPY=1
+          set DSS_EXTENSIONS_FASTDSS=${{ matrix.fastdss }}
           pytest -vv
 
-      - name: Test (debug version on Linux only)
-        if: runner.os == 'Linux'
+      - name: Run tests (lists)
+        if: runner.os == 'Windows'
+        shell: cmd
         run: |
-          DSS_EXTENSIONS_DEBUG=1 pytest -vv
+          set OPENDSSDIRECT_PY_USE_NUMPY=0
+          set DSS_EXTENSIONS_FASTDSS=${{ matrix.fastdss }}
+          pytest -vv
 
-      - name: Test (activate NumPy on Linux only)
+      - name: Run tests (NumPy)
+        if: runner.os != 'Windows'
+        run: |
+          OPENDSSDIRECT_PY_USE_NUMPY=1 DSS_EXTENSIONS_FASTDSS=${{ matrix.fastdss }} pytest -vv
+          pytest -vv
+
+      - name: Run tests (lists)
+        if: runner.os != 'Windows'
+        run: |
+          OPENDSSDIRECT_PY_USE_NUMPY=0 DSS_EXTENSIONS_FASTDSS=${{ matrix.fastdss }} pytest -vv
+          pytest -vv
+
+      - name: Run tests (NumPy/debug)
         if: runner.os == 'Linux'
         run: |
-          OPENDSSDIRECT_PY_USE_NUMPY=1 pytest -vv
+          OPENDSSDIRECT_PY_USE_NUMPY=1 DSS_EXTENSIONS_FASTDSS=${{ matrix.fastdss }} DSS_EXTENSIONS_DEBUG=1 pytest -vv
+          pytest -vv
+
+      - name: Run tests (lists/debug)
+        if: runner.os == 'Linux'
+        run: |
+          OPENDSSDIRECT_PY_USE_NUMPY=1 DSS_EXTENSIONS_FASTDSS=${{ matrix.fastdss }} DSS_EXTENSIONS_DEBUG=1 pytest -vv
+          pytest -vv
