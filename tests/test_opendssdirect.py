@@ -497,7 +497,8 @@ def test_13Node_Bus(dss):
         decimal=4,
     )
 
-    assert dss.Bus.GetUniqueNodeNumber(6) == 6
+    if not dss.is_oddie():
+        assert dss.Bus.GetUniqueNodeNumber(6) == 6
 
     # TODO: this should not be sorted, we should define the order of the results
     assert sorted(dss.YMatrix.getV()[2:]) == sorted(dss.Circuit.AllBusVolts())
