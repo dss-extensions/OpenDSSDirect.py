@@ -1,4 +1,4 @@
-from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util
 from .Bases import Iterable
 
 
@@ -36,11 +36,11 @@ class IPVsystems(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.PVSystems_Get_Irradiance())
+            return self._lib.PVSystems_Get_Irradiance()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.PVSystems_Set_Irradiance(Value))
+        self._lib.PVSystems_Set_Irradiance(Value)
 
     def pf(self, *args):
         """
@@ -50,11 +50,11 @@ class IPVsystems(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.PVSystems_Get_PF())
+            return self._lib.PVSystems_Get_PF()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.PVSystems_Set_PF(Value))
+        self._lib.PVSystems_Set_PF(Value)
 
     def RegisterNames(self):
         """
@@ -64,9 +64,7 @@ class IPVsystems(Iterable):
 
         Original COM help: https://opendss.epri.com/RegisterNames2.html
         """
-        return self._check_for_error(
-            self._get_string_array(self._lib.PVSystems_Get_RegisterNames)
-        )
+        return self._lib.PVSystems_Get_RegisterNames()
 
     def RegisterValues(self):
         """
@@ -74,8 +72,7 @@ class IPVsystems(Iterable):
 
         Original COM help: https://opendss.epri.com/RegisterValues2.html
         """
-        self._check_for_error(self._lib.PVSystems_Get_RegisterValues_GR())
-        return self._get_float64_gr_array()
+        return self._lib.PVSystems_Get_RegisterValues_GR()
 
     def kVARated(self, *args):
         """
@@ -85,11 +82,11 @@ class IPVsystems(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.PVSystems_Get_kVArated())
+            return self._lib.PVSystems_Get_kVArated()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.PVSystems_Set_kVArated(Value))
+        self._lib.PVSystems_Set_kVArated(Value)
 
     def kW(self):
         """
@@ -97,7 +94,7 @@ class IPVsystems(Iterable):
 
         Original COM help: https://opendss.epri.com/kW2.html
         """
-        return self._check_for_error(self._lib.PVSystems_Get_kW())
+        return self._lib.PVSystems_Get_kW()
 
     def kvar(self, *args):
         """
@@ -107,11 +104,11 @@ class IPVsystems(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.PVSystems_Get_kvar())
+            return self._lib.PVSystems_Get_kvar()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.PVSystems_Set_kvar(Value))
+        self._lib.PVSystems_Set_kvar(Value)
 
     def daily(self, *args):
         """
@@ -123,13 +120,11 @@ class IPVsystems(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(self._check_for_error(self._lib.PVSystems_Get_daily()))
+            return self._lib.PVSystems_Get_daily()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.PVSystems_Set_daily(Value))
+        self._lib.PVSystems_Set_daily(Value)
 
     def duty(self, *args):
         """
@@ -141,13 +136,11 @@ class IPVsystems(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(self._check_for_error(self._lib.PVSystems_Get_duty()))
+            return self._lib.PVSystems_Get_duty()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.PVSystems_Set_duty(Value))
+        self._lib.PVSystems_Set_duty(Value)
 
     def yearly(self, *args):
         """
@@ -160,15 +153,11 @@ class IPVsystems(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(
-                self._check_for_error(self._lib.PVSystems_Get_yearly())
-            )
+            return self._lib.PVSystems_Get_yearly()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.PVSystems_Set_yearly(Value))
+        self._lib.PVSystems_Set_yearly(Value)
 
     def Tdaily(self, *args):
         """
@@ -181,15 +170,11 @@ class IPVsystems(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(
-                self._check_for_error(self._lib.PVSystems_Get_Tdaily())
-            )
+            return self._lib.PVSystems_Get_Tdaily()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.PVSystems_Set_Tdaily(Value))
+        self._lib.PVSystems_Set_Tdaily(Value)
 
     def Tduty(self, *args):
         """
@@ -205,13 +190,11 @@ class IPVsystems(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(self._check_for_error(self._lib.PVSystems_Get_Tduty()))
+            return self._lib.PVSystems_Get_Tduty()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.PVSystems_Set_Tduty(Value))
+        self._lib.PVSystems_Set_Tduty(Value)
 
     def Tyearly(self, *args):
         """
@@ -225,15 +208,11 @@ class IPVsystems(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(
-                self._check_for_error(self._lib.PVSystems_Get_Tyearly())
-            )
+            return self._lib.PVSystems_Get_Tyearly()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.PVSystems_Set_Tyearly(Value))
+        self._lib.PVSystems_Set_Tyearly(Value)
 
     def IrradianceNow(self):
         """
@@ -242,7 +221,7 @@ class IPVsystems(Iterable):
 
         Original COM help: https://opendss.epri.com/IrradianceNow.html
         """
-        return self._check_for_error(self._lib.PVSystems_Get_IrradianceNow())
+        return self._lib.PVSystems_Get_IrradianceNow()
 
     def Pmpp(self, *args):
         """
@@ -253,11 +232,11 @@ class IPVsystems(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.PVSystems_Get_Pmpp())
+            return self._lib.PVSystems_Get_Pmpp()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.PVSystems_Set_Pmpp(Value))
+        self._lib.PVSystems_Set_Pmpp(Value)
 
     def Sensor(self):
         """
@@ -265,56 +244,56 @@ class IPVsystems(Iterable):
 
         Original COM help: https://opendss.epri.com/Sensor1.html
         """
-        return self._get_string(self._check_for_error(self._lib.PVSystems_Get_Sensor()))
+        return self._lib.PVSystems_Get_Sensor()
 
 
-_PVsystems = IPVsystems(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
+_PVsystems = IPVsystems(api_util)
 
 # For backwards compatibility, bind to the default instance
 AllNames = _PVsystems.AllNames
 Count = _PVsystems.Count
 First = _PVsystems.First
+Idx = _PVsystems.Idx
 Irradiance = _PVsystems.Irradiance
+IrradianceNow = _PVsystems.IrradianceNow
 Name = _PVsystems.Name
 Next = _PVsystems.Next
-pf = _PVsystems.pf
+Pmpp = _PVsystems.Pmpp
 RegisterNames = _PVsystems.RegisterNames
 RegisterValues = _PVsystems.RegisterValues
-Idx = _PVsystems.Idx
-kVARated = _PVsystems.kVARated
-kW = _PVsystems.kW
-kvar = _PVsystems.kvar
-daily = _PVsystems.daily
-duty = _PVsystems.duty
-yearly = _PVsystems.yearly
+Sensor = _PVsystems.Sensor
 Tdaily = _PVsystems.Tdaily
 Tduty = _PVsystems.Tduty
 Tyearly = _PVsystems.Tyearly
-IrradianceNow = _PVsystems.IrradianceNow
-Pmpp = _PVsystems.Pmpp
-Sensor = _PVsystems.Sensor
+daily = _PVsystems.daily
+duty = _PVsystems.duty
+kVARated = _PVsystems.kVARated
+kW = _PVsystems.kW
+kvar = _PVsystems.kvar
+pf = _PVsystems.pf
+yearly = _PVsystems.yearly
 _columns = _PVsystems._columns
 __all__ = [
     "AllNames",
     "Count",
     "First",
+    "Idx",
     "Irradiance",
+    "IrradianceNow",
     "Name",
     "Next",
-    "pf",
+    "Pmpp",
     "RegisterNames",
     "RegisterValues",
-    "Idx",
-    "kVARated",
-    "kW",
-    "kvar",
-    "daily",
-    "duty",
-    "yearly",
+    "Sensor",
     "Tdaily",
     "Tduty",
     "Tyearly",
-    "IrradianceNow",
-    "Pmpp",
-    "Sensor",
+    "daily",
+    "duty",
+    "kVARated",
+    "kW",
+    "kvar",
+    "pf",
+    "yearly",
 ]

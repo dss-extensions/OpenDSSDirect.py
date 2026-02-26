@@ -1,4 +1,4 @@
-from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util
 from .Bases import Base
 
 
@@ -15,9 +15,7 @@ class IElement(Base):
 
         Original COM help: https://opendss.epri.com/AllPropertyNames1.html
         """
-        return self._check_for_error(
-            self._get_string_array(self._lib.DSSElement_Get_AllPropertyNames)
-        )
+        return self._lib.DSSElement_Get_AllPropertyNames()
 
     def Name(self):
         """
@@ -25,7 +23,7 @@ class IElement(Base):
 
         Original COM help: https://opendss.epri.com/Name5.html
         """
-        return self._get_string(self._check_for_error(self._lib.DSSElement_Get_Name()))
+        return self._lib.DSSElement_Get_Name()
 
     def NumProperties(self):
         """
@@ -33,7 +31,7 @@ class IElement(Base):
 
         Original COM help: https://opendss.epri.com/NumProperties1.html
         """
-        return self._check_for_error(self._lib.DSSElement_Get_NumProperties())
+        return self._lib.DSSElement_Get_NumProperties()
 
     def ToJSON(self, options=0):
         """
@@ -44,17 +42,29 @@ class IElement(Base):
 
         **(API Extension)**
         """
-        return self._get_string(
-            self._check_for_error(self._lib.DSSElement_ToJSON(options))
-        )
+        return self._lib.DSSElement_ToJSON(options)
+
+    def to_altdss(self):
+        """
+        Returns a Python object for the current active DSS object in this interface.
+
+        Requires AltDSS-Python.
+
+        *Available only for the AltDSS engine.*
+
+        **(API Extension)**
+        """
+        ptr = self._api_util._lib.DSSElement_Get_Pointer()
+        return self._api_util.get_dss_obj(ptr)
 
 
-_Element = IElement(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
+_Element = IElement(api_util)
 
 # For backwards compatibility, bind to the default instance
 AllPropertyNames = _Element.AllPropertyNames
 Name = _Element.Name
 NumProperties = _Element.NumProperties
 ToJSON = _Element.ToJSON
+to_altdss = _Element.to_altdss
 _columns = _Element._columns
-__all__ = ["AllPropertyNames", "Name", "NumProperties", "ToJSON"]
+__all__ = ["AllPropertyNames", "Name", "NumProperties", "ToJSON", "to_altdss"]

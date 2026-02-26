@@ -2,10 +2,12 @@ from typing import Any
 from dss._cffi_api_util import Base as DSSPyBase
 
 class Base(DSSPyBase):
-    def __init__(self, api_util, prefer_lists=None):
-        DSSPyBase.__init__(self, api_util, prefer_lists=prefer_lists)
+    _oddpy = True
+    
+    def __init__(self, api_util):
+        DSSPyBase.__init__(self, api_util)
         # Keep this since there are some differences when the array is empty.
-        self._get_string_array = api_util.get_string_array2
+        # self._get_string_array = api_util.get_string_array2
         self._frozen_attrs = True
 
     def __setattr__(self, __name: str, __value: Any) -> None:
@@ -33,8 +35,8 @@ class Iterable(Base):
         "_Set_idx",
     ]
     
-    def __init__(self, api_util, prefer_lists=None):
-        Base.__init__(self, api_util, prefer_lists=prefer_lists)
+    def __init__(self, api_util):
+        Base.__init__(self, api_util)
         
         prefix = self._api_prefix
         object.__setattr__(self, '_frozen_attrs', False)
@@ -88,20 +90,17 @@ class Iterable(Base):
 
     def AllNames(self):
         """Array of all names of this object type"""
-        return self._get_string_array(self._Get_AllNames)
+        return self._Get_AllNames()
 
     def Name(self, *args):
         """Gets the current name or sets the active object of this type by name"""
         # Getter
         if len(args) == 0:
-            return self._get_string(self._Get_Name())
+            return self._Get_Name()
         
         # Setter
         Value, = args        
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-
-        self._check_for_error(self._Set_Name(Value))
+        self._Set_Name(Value)
         
     def Idx(self, *args):
         """Gets the current index or sets the active object of this type by index"""
@@ -111,7 +110,7 @@ class Iterable(Base):
 
         # Setter
         Value, = args        
-        if not isinstance(Value, bytes):
-            self._check_for_error(self._Set_idx(Value))
+        if not isinstance(Value, (str, bytes)): #TODO: is this still required? Let it error out?
+            self._Set_idx(Value)
 
 __all__ = ["Iterable", "Base",]

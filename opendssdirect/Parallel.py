@@ -1,4 +1,4 @@
-from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util
 from .Bases import Base
 
 
@@ -20,7 +20,7 @@ class IParallel(Base):
         """
         Create a new actor, if there are still cores available.
         """
-        self._check_for_error(self._lib.Parallel_CreateActor())
+        self._lib.Parallel_CreateActor()
 
     def Wait(self):
         """
@@ -28,7 +28,7 @@ class IParallel(Base):
 
         Original COM help: https://opendss.epri.com/Wait.html
         """
-        self._check_for_error(self._lib.Parallel_Wait())
+        self._lib.Parallel_Wait()
 
     def ActiveActor(self, *args):
         """
@@ -38,11 +38,11 @@ class IParallel(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Parallel_Get_ActiveActor())
+            return self._lib.Parallel_Get_ActiveActor()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Parallel_Set_ActiveActor(Value))
+        self._lib.Parallel_Set_ActiveActor(Value)
 
     def ActiveParallel(self, *args):
         """
@@ -53,11 +53,11 @@ class IParallel(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Parallel_Get_ActiveParallel())
+            return self._lib.Parallel_Get_ActiveParallel()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Parallel_Set_ActiveParallel(Value))
+        self._lib.Parallel_Set_ActiveParallel(Value)
 
     def ActorCPU(self, *args):
         """
@@ -67,11 +67,11 @@ class IParallel(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Parallel_Get_ActorCPU())
+            return self._lib.Parallel_Get_ActorCPU()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Parallel_Set_ActorCPU(Value))
+        self._lib.Parallel_Set_ActorCPU(Value)
 
     def ActorProgress(self):
         """
@@ -79,8 +79,7 @@ class IParallel(Base):
 
         Original COM help: https://opendss.epri.com/ActorProgress.html
         """
-        self._check_for_error(self._lib.Parallel_Get_ActorProgress_GR())
-        return self._get_int32_gr_array()
+        return self._lib.Parallel_Get_ActorProgress_GR()
 
     def ActorStatus(self):
         """
@@ -88,8 +87,7 @@ class IParallel(Base):
 
         Original COM help: https://opendss.epri.com/ActorStatus.html
         """
-        self._check_for_error(self._lib.Parallel_Get_ActorStatus_GR())
-        return self._get_int32_gr_array()
+        return self._lib.Parallel_Get_ActorStatus_GR()
 
     def ConcatenateReports(self, *args):
         """
@@ -100,11 +98,11 @@ class IParallel(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Parallel_Get_ConcatenateReports())
+            return self._lib.Parallel_Get_ConcatenateReports()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Parallel_Set_ConcatenateReports(Value))
+        self._lib.Parallel_Set_ConcatenateReports(Value)
 
     def NumCPUs(self):
         """
@@ -112,7 +110,7 @@ class IParallel(Base):
 
         Original COM help: https://opendss.epri.com/NumCPUs.html
         """
-        return self._check_for_error(self._lib.Parallel_Get_NumCPUs())
+        return self._lib.Parallel_Get_NumCPUs()
 
     def NumCores(self):
         """
@@ -120,7 +118,7 @@ class IParallel(Base):
 
         Original COM help: https://opendss.epri.com/NumCores.html
         """
-        return self._check_for_error(self._lib.Parallel_Get_NumCores())
+        return self._lib.Parallel_Get_NumCores()
 
     def NumOfActors(self):
         """
@@ -128,34 +126,34 @@ class IParallel(Base):
 
         Original COM help: https://opendss.epri.com/NumOfActors.html
         """
-        return self._check_for_error(self._lib.Parallel_Get_NumOfActors())
+        return self._lib.Parallel_Get_NumOfActors()
 
 
-_Parallel = IParallel(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
+_Parallel = IParallel(api_util)
 
 # For backwards compatibility, bind to the default instance
-CreateActor = _Parallel.CreateActor
-Wait = _Parallel.Wait
 ActiveActor = _Parallel.ActiveActor
 ActiveParallel = _Parallel.ActiveParallel
 ActorCPU = _Parallel.ActorCPU
 ActorProgress = _Parallel.ActorProgress
 ActorStatus = _Parallel.ActorStatus
 ConcatenateReports = _Parallel.ConcatenateReports
+CreateActor = _Parallel.CreateActor
 NumCPUs = _Parallel.NumCPUs
 NumCores = _Parallel.NumCores
 NumOfActors = _Parallel.NumOfActors
+Wait = _Parallel.Wait
 _columns = _Parallel._columns
 __all__ = [
-    "CreateActor",
-    "Wait",
     "ActiveActor",
     "ActiveParallel",
     "ActorCPU",
     "ActorProgress",
     "ActorStatus",
     "ConcatenateReports",
+    "CreateActor",
     "NumCPUs",
     "NumCores",
     "NumOfActors",
+    "Wait",
 ]

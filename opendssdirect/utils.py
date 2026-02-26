@@ -1,6 +1,7 @@
 import inspect
 import warnings
 from dss_python_backend import enums
+from dss import DSSException
 from .Bases import Iterable
 
 is_pandas_installed = True
@@ -57,11 +58,20 @@ def run_command(text, dss=None):
     api_util = dss.Basic._api_util
     r = []
     for l in text.splitlines():
-        dss.dss_lib.Text_Set_Command(l.encode(api_util.codec))
-        r.append(api_util.get_string(dss.dss_lib.Text_Get_Result()))
+        dss._lib.Text_Set_Command(l.encode(api_util.codec))
+        r.append(api_util.get_string(dss._lib.Text_Get_Result()))
 
     return "\n".join(r).strip()
 
+
+def try_impl(f):
+    try:
+        return f()
+    except DSSException as ex:
+        if ex.args[0] == 2:
+            return None
+        
+        raise
 
 def to_dataframe(module):
     """
@@ -78,7 +88,7 @@ def to_dataframe(module):
         for element in module:
             element_name = element.Name()
             data[element_name] = {
-                n: getattr(module, n)() for n, f in getmembers(module)
+                n: try_impl(getattr(module, n)) for n, f in getmembers(module)
             }
     else:
         class_name = module.__name__

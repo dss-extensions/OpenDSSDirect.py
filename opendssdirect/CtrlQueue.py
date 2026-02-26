@@ -1,4 +1,4 @@
-from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util
 from .Bases import Base
 
 
@@ -15,7 +15,7 @@ class ICtrlQueue(Base):
 
         Original COM help: https://opendss.epri.com/ClearActions.html
         """
-        self._check_for_error(self._lib.CtrlQueue_ClearActions())
+        self._lib.CtrlQueue_ClearActions()
 
     def ClearQueue(self):
         """
@@ -23,7 +23,7 @@ class ICtrlQueue(Base):
 
         Original COM help: https://opendss.epri.com/ClearQueue.html
         """
-        self._check_for_error(self._lib.CtrlQueue_ClearQueue())
+        self._lib.CtrlQueue_ClearQueue()
 
     def Delete(self, ActionHandle):
         """
@@ -33,7 +33,7 @@ class ICtrlQueue(Base):
 
         Original COM help: https://opendss.epri.com/Delete.html
         """
-        self._check_for_error(self._lib.CtrlQueue_Delete(ActionHandle))
+        self._lib.CtrlQueue_Delete(ActionHandle)
 
     def DoAllQueue(self):
         """
@@ -43,7 +43,7 @@ class ICtrlQueue(Base):
 
         Original COM help: https://opendss.epri.com/DoAllQueue.html
         """
-        self._check_for_error(self._lib.CtrlQueue_DoAllQueue())
+        self._lib.CtrlQueue_DoAllQueue()
 
     def Show(self):
         """
@@ -51,7 +51,7 @@ class ICtrlQueue(Base):
 
         Original COM help: https://opendss.epri.com/Show.html
         """
-        self._check_for_error(self._lib.CtrlQueue_Show())
+        self._lib.CtrlQueue_Show()
 
     def ActionCode(self):
         """
@@ -62,7 +62,7 @@ class ICtrlQueue(Base):
 
         Original COM help: https://opendss.epri.com/ActionCode.html
         """
-        return self._check_for_error(self._lib.CtrlQueue_Get_ActionCode())
+        return self._lib.CtrlQueue_Get_ActionCode()
 
     def DeviceHandle(self):
         """
@@ -75,7 +75,7 @@ class ICtrlQueue(Base):
 
         Original COM help: https://opendss.epri.com/DeviceHandle.html
         """
-        return self._check_for_error(self._lib.CtrlQueue_Get_DeviceHandle())
+        return self._lib.CtrlQueue_Get_DeviceHandle()
 
     def NumActions(self):
         """
@@ -83,7 +83,7 @@ class ICtrlQueue(Base):
 
         Original COM help: https://opendss.epri.com/NumActions.html
         """
-        return self._check_for_error(self._lib.CtrlQueue_Get_NumActions())
+        return self._lib.CtrlQueue_Get_NumActions()
 
     def Push(self, Hour, Seconds, ActionCode, DeviceHandle):
         """
@@ -91,9 +91,7 @@ class ICtrlQueue(Base):
 
         Original COM help: https://opendss.epri.com/Push.html
         """
-        return self._check_for_error(
-            self._lib.CtrlQueue_Push(Hour, Seconds, ActionCode, DeviceHandle)
-        )
+        return self._lib.CtrlQueue_Push(Hour, Seconds, ActionCode, DeviceHandle)
 
     def PopAction(self):
         """
@@ -101,7 +99,7 @@ class ICtrlQueue(Base):
 
         Original COM help: https://opendss.epri.com/PopAction.html
         """
-        return self._check_for_error(self._lib.CtrlQueue_Get_PopAction())
+        return self._lib.CtrlQueue_Get_PopAction()
 
     def Queue(self):
         """
@@ -109,7 +107,7 @@ class ICtrlQueue(Base):
 
         Original COM help: https://opendss.epri.com/Queue.html
         """
-        return self._check_for_error(self._get_string_array(self._lib.CtrlQueue_Get_Queue))
+        return self._lib.CtrlQueue_Get_Queue()
 
     def QueueSize(self):
         """
@@ -117,7 +115,7 @@ class ICtrlQueue(Base):
 
         Original COM help: https://opendss.epri.com/QueueSize.html
         """
-        return self._check_for_error(self._lib.CtrlQueue_Get_QueueSize())
+        return self._lib.CtrlQueue_Get_QueueSize()
 
     def Action(self, Param1):
         """
@@ -125,38 +123,38 @@ class ICtrlQueue(Base):
 
         Original COM help: https://opendss.epri.com/Action.html
         """
-        self._check_for_error(self._lib.CtrlQueue_Set_Action(Param1))
+        self._lib.CtrlQueue_Set_Action(Param1)
 
 
-_CtrlQueue = ICtrlQueue(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
+_CtrlQueue = ICtrlQueue(api_util)
 
 # For backwards compatibility, bind to the default instance
+Action = _CtrlQueue.Action
+ActionCode = _CtrlQueue.ActionCode
 ClearActions = _CtrlQueue.ClearActions
 ClearQueue = _CtrlQueue.ClearQueue
 Delete = _CtrlQueue.Delete
-DoAllQueue = _CtrlQueue.DoAllQueue
-Show = _CtrlQueue.Show
-ActionCode = _CtrlQueue.ActionCode
 DeviceHandle = _CtrlQueue.DeviceHandle
+DoAllQueue = _CtrlQueue.DoAllQueue
 NumActions = _CtrlQueue.NumActions
 PopAction = _CtrlQueue.PopAction
+Push = _CtrlQueue.Push
 Queue = _CtrlQueue.Queue
 QueueSize = _CtrlQueue.QueueSize
-Action = _CtrlQueue.Action
-Push = _CtrlQueue.Push
+Show = _CtrlQueue.Show
 _columns = _CtrlQueue._columns
 __all__ = [
+    "Action",
+    "ActionCode",
     "ClearActions",
     "ClearQueue",
     "Delete",
-    "DoAllQueue",
-    "Show",
-    "ActionCode",
     "DeviceHandle",
+    "DoAllQueue",
     "NumActions",
     "PopAction",
+    "Push",
     "Queue",
     "QueueSize",
-    "Action",
-    "Push",
+    "Show",
 ]

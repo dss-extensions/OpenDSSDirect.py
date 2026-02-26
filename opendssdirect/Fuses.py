@@ -1,4 +1,4 @@
-from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util
 from .Bases import Iterable
 
 
@@ -29,7 +29,7 @@ class IFuses(Iterable):
 
         Original COM help: https://opendss.epri.com/Close3.html
         """
-        self._check_for_error(self._lib.Fuses_Close())
+        self._lib.Fuses_Close()
 
     def IsBlown(self):
         """
@@ -37,7 +37,7 @@ class IFuses(Iterable):
 
         Original COM help: https://opendss.epri.com/IsBlown.html
         """
-        return self._check_for_error(self._lib.Fuses_IsBlown()) != 0
+        return self._lib.Fuses_IsBlown()
 
     def Open(self):
         """
@@ -45,7 +45,7 @@ class IFuses(Iterable):
 
         Original COM help: https://opendss.epri.com/Open2.html
         """
-        self._check_for_error(self._lib.Fuses_Open())
+        self._lib.Fuses_Open()
 
     def Reset(self):
         """
@@ -53,7 +53,7 @@ class IFuses(Iterable):
 
         Original COM help: https://opendss.epri.com/Reset7.html
         """
-        self._check_for_error(self._lib.Fuses_Reset())
+        self._lib.Fuses_Reset()
 
     def Delay(self, *args):
         """
@@ -64,11 +64,11 @@ class IFuses(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Fuses_Get_Delay())
+            return self._lib.Fuses_Get_Delay()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Fuses_Set_Delay(Value))
+        self._lib.Fuses_Set_Delay(Value)
 
     def MonitoredObj(self, *args):
         """
@@ -78,15 +78,11 @@ class IFuses(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(
-                self._check_for_error(self._lib.Fuses_Get_MonitoredObj())
-            )
+            return self._lib.Fuses_Get_MonitoredObj()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.Fuses_Set_MonitoredObj(Value))
+        self._lib.Fuses_Set_MonitoredObj(Value)
 
     def MonitoredTerm(self, *args):
         """
@@ -96,11 +92,11 @@ class IFuses(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Fuses_Get_MonitoredTerm())
+            return self._lib.Fuses_Get_MonitoredTerm()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Fuses_Set_MonitoredTerm(Value))
+        self._lib.Fuses_Set_MonitoredTerm(Value)
 
     def NumPhases(self):
         """
@@ -108,7 +104,7 @@ class IFuses(Iterable):
 
         Original COM help: https://opendss.epri.com/NumPhases1.html
         """
-        return self._check_for_error(self._lib.Fuses_Get_NumPhases())
+        return self._lib.Fuses_Get_NumPhases()
 
     def RatedCurrent(self, *args):
         """
@@ -120,11 +116,11 @@ class IFuses(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Fuses_Get_RatedCurrent())
+            return self._lib.Fuses_Get_RatedCurrent()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Fuses_Set_RatedCurrent(Value))
+        self._lib.Fuses_Set_RatedCurrent(Value)
 
     def SwitchedObj(self, *args):
         """
@@ -135,15 +131,11 @@ class IFuses(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(
-                self._check_for_error(self._lib.Fuses_Get_SwitchedObj())
-            )
+            return self._lib.Fuses_Get_SwitchedObj()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.Fuses_Set_SwitchedObj(Value))
+        self._lib.Fuses_Set_SwitchedObj(Value)
 
     def SwitchedTerm(self, *args):
         """
@@ -153,11 +145,11 @@ class IFuses(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Fuses_Get_SwitchedTerm())
+            return self._lib.Fuses_Get_SwitchedTerm()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Fuses_Set_SwitchedTerm(Value))
+        self._lib.Fuses_Set_SwitchedTerm(Value)
 
     def TCCCurve(self, *args):
         """
@@ -167,13 +159,11 @@ class IFuses(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(self._check_for_error(self._lib.Fuses_Get_TCCcurve()))
+            return self._lib.Fuses_Get_TCCcurve()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.Fuses_Set_TCCcurve(Value))
+        self._lib.Fuses_Set_TCCcurve(Value)
 
     def State(self, *args):
         """
@@ -183,11 +173,11 @@ class IFuses(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._get_string_array(self._lib.Fuses_Get_State))
+            return self._lib.Fuses_Get_State()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._set_string_array(self._lib.Fuses_Set_State, Value))
+        self._set_string_array(self._lib.Fuses_Set_State, Value)
 
     def NormalState(self, *args):
         """
@@ -197,60 +187,56 @@ class IFuses(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(
-                self._get_string_array(self._lib.Fuses_Get_NormalState)
-            )
+            return self._lib.Fuses_Get_NormalState()
 
         # Setter
         (Value,) = args
-        self._check_for_error(
-            self._set_string_array(self._lib.Fuses_Set_NormalState, Value)
-        )
+        self._set_string_array(self._lib.Fuses_Set_NormalState, Value)
 
 
-_Fuses = IFuses(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
+_Fuses = IFuses(api_util)
 
 # For backwards compatibility, bind to the default instance
-Close = _Fuses.Close
-IsBlown = _Fuses.IsBlown
-Open = _Fuses.Open
 AllNames = _Fuses.AllNames
+Close = _Fuses.Close
 Count = _Fuses.Count
 Delay = _Fuses.Delay
 First = _Fuses.First
+Idx = _Fuses.Idx
+IsBlown = _Fuses.IsBlown
 MonitoredObj = _Fuses.MonitoredObj
 MonitoredTerm = _Fuses.MonitoredTerm
 Name = _Fuses.Name
 Next = _Fuses.Next
+NormalState = _Fuses.NormalState
 NumPhases = _Fuses.NumPhases
+Open = _Fuses.Open
 RatedCurrent = _Fuses.RatedCurrent
+Reset = _Fuses.Reset
+State = _Fuses.State
 SwitchedObj = _Fuses.SwitchedObj
 SwitchedTerm = _Fuses.SwitchedTerm
 TCCCurve = _Fuses.TCCCurve
-Idx = _Fuses.Idx
-Reset = _Fuses.Reset
-State = _Fuses.State
-NormalState = _Fuses.NormalState
 _columns = _Fuses._columns
 __all__ = [
-    "Close",
-    "IsBlown",
-    "Open",
     "AllNames",
+    "Close",
     "Count",
     "Delay",
     "First",
+    "Idx",
+    "IsBlown",
     "MonitoredObj",
     "MonitoredTerm",
     "Name",
     "Next",
+    "NormalState",
     "NumPhases",
+    "Open",
     "RatedCurrent",
+    "Reset",
+    "State",
     "SwitchedObj",
     "SwitchedTerm",
     "TCCCurve",
-    "Idx",
-    "Reset",
-    "State",
-    "NormalState",
 ]

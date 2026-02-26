@@ -1,4 +1,4 @@
-from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util
 from .Bases import Base
 
 
@@ -50,7 +50,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/GetUniqueNodeNumber.html
         """
-        return self._check_for_error(self._lib.Bus_GetUniqueNodeNumber(StartNumber))
+        return self._lib.Bus_GetUniqueNodeNumber(StartNumber)
 
     def ZscRefresh(self):
         """
@@ -58,7 +58,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/ZscRefresh.html
         """
-        return self._check_for_error(self._lib.Bus_ZscRefresh()) != 0
+        return self._lib.Bus_ZscRefresh()
 
     def Coorddefined(self):
         """
@@ -66,89 +66,103 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/Coorddefined.html
         """
-        return self._check_for_error(self._lib.Bus_Get_Coorddefined()) != 0
+        return self._lib.Bus_Get_Coorddefined()
 
     def CplxSeqVoltages(self):
         """
-        Complex Double array of Sequence Voltages (0, 1, 2) at this Bus.
+        Complex array of Sequence Voltages (0, 1, 2) at this Bus.
 
         Original COM help: https://opendss.epri.com/CplxSeqVoltages.html
         """
-        self._check_for_error(self._lib.Bus_Get_CplxSeqVoltages_GR())
-        return self._get_complex128_gr_array()
+        return self._lib.Bus_Get_CplxSeqVoltages_GR()
 
     def Cust_Duration(self):
         """
         Accumulated customer outage durations
 
+        *Requires a previous call to `RelCalc` command*
+
         Original COM help: https://opendss.epri.com/Cust_Duration.html
         """
-        return self._check_for_error(self._lib.Bus_Get_Cust_Duration())
+        return self._lib.Bus_Get_Cust_Duration()
 
     def Cust_Interrupts(self):
         """
         Annual number of customer-interruptions from this bus
 
+        *Requires a previous call to `RelCalc` command*
+
         Original COM help: https://opendss.epri.com/Cust_Interrupts.html
         """
-        return self._check_for_error(self._lib.Bus_Get_Cust_Interrupts())
+        return self._lib.Bus_Get_Cust_Interrupts()
 
     def Distance(self):
         """
-        Distance from energymeter (if non-zero)
+        Distance from EnergyMeter (if non-zero)
+
+        *Requires an energy meter with an updated zone.*
 
         Original COM help: https://opendss.epri.com/Distance.html
         """
-        return self._check_for_error(self._lib.Bus_Get_Distance())
+        return self._lib.Bus_Get_Distance()
 
     def Int_Duration(self):
         """
-        Average interruption duration, hr.
+        Average interruption duration, hours.
+
+        *Requires a previous call to `RelCalc` command*
 
         Original COM help: https://opendss.epri.com/Int_Duration.html
         """
-        return self._check_for_error(self._lib.Bus_Get_Int_Duration())
+        return self._lib.Bus_Get_Int_Duration()
 
     def Isc(self):
         """
         Short circuit currents at bus; Complex Array.
 
+        *Requires a previous solution in `FaultStudy` mode.*
+
         Original COM help: https://opendss.epri.com/Isc.html
         """
-        self._check_for_error(self._lib.Bus_Get_Isc_GR())
-        return self._get_complex128_gr_array()
+        return self._lib.Bus_Get_Isc_GR()
 
     def Lambda(self):
         """
         Accumulated failure rate downstream from this bus; faults per year
 
+        *Requires a previous call to `RelCalc` command*
+
         Original COM help: https://opendss.epri.com/Lambda.html
         """
-        return self._check_for_error(self._lib.Bus_Get_Lambda())
+        return self._lib.Bus_Get_Lambda()
 
     def N_Customers(self):
         """
         Total numbers of customers served downline from this bus
 
+        *Requires a previous call to `RelCalc` command*
+
         Original COM help: https://opendss.epri.com/N_Customers.html
         """
-        return self._check_for_error(self._lib.Bus_Get_N_Customers())
+        return self._lib.Bus_Get_N_Customers()
 
     def N_interrupts(self):
         """
         Number of interruptions this bus per year
 
+        *Requires a previous call to `RelCalc` command*
+
         Original COM help: https://opendss.epri.com/N_interrupts.html
         """
-        return self._check_for_error(self._lib.Bus_Get_N_interrupts())
+        return self._lib.Bus_Get_N_interrupts()
 
     def Name(self):
         """
-        Name of Bus
+        Name of the active Bus
 
         Original COM help: https://opendss.epri.com/Name1.html
         """
-        return self._get_string(self._check_for_error(self._lib.Bus_Get_Name()))
+        return self._lib.Bus_Get_Name()
 
     def Nodes(self):
         """
@@ -156,8 +170,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/Nodes.html
         """
-        self._check_for_error(self._lib.Bus_Get_Nodes_GR())
-        return self._get_int32_gr_array()
+        return self._lib.Bus_Get_Nodes_GR()
 
     def NumNodes(self):
         """
@@ -165,15 +178,17 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/NumNodes.html
         """
-        return self._check_for_error(self._lib.Bus_Get_NumNodes())
+        return self._lib.Bus_Get_NumNodes()
 
     def SectionID(self):
         """
         Integer ID of the feeder section in which this bus is located.
 
+        *Requires a previous call to `RelCalc` command*
+
         Original COM help: https://opendss.epri.com/SectionID.html
         """
-        return self._check_for_error(self._lib.Bus_Get_SectionID())
+        return self._lib.Bus_Get_SectionID()
 
     def SeqVoltages(self):
         """
@@ -181,16 +196,17 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/SeqVoltages.html
         """
-        self._check_for_error(self._lib.Bus_Get_SeqVoltages_GR())
-        return self._get_float64_gr_array()
+        return self._lib.Bus_Get_SeqVoltages_GR()
 
     def TotalMiles(self):
         """
         Total length of line downline from this bus, in miles. For recloser siting algorithm.
 
+        *Requires a previous call to `RelCalc` command*
+
         Original COM help: https://opendss.epri.com/TotalMiles.html
         """
-        return self._check_for_error(self._lib.Bus_Get_TotalMiles())
+        return self._lib.Bus_Get_TotalMiles()
 
     def VLL(self):
         """
@@ -198,8 +214,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/VLL.html
         """
-        self._check_for_error(self._lib.Bus_Get_VLL_GR())
-        return self._get_complex128_gr_array()
+        return self._lib.Bus_Get_VLL_GR()
 
     def VMagAngle(self):
         """
@@ -207,17 +222,17 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/VMagAngle.html
         """
-        self._check_for_error(self._lib.Bus_Get_VMagAngle_GR())
-        return self._get_float64_gr_array()
+        return self._lib.Bus_Get_VMagAngle_GR()
 
     def Voc(self):
         """
         Open circuit voltage; Complex array.
 
+        *Requires a previous solution in `FaultStudy` mode.*
+
         Original COM help: https://opendss.epri.com/Voc.html
         """
-        self._check_for_error(self._lib.Bus_Get_Voc_GR())
-        return self._get_complex128_gr_array()
+        return self._lib.Bus_Get_Voc_GR()
 
     def Voltages(self):
         """
@@ -225,44 +240,47 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/Voltages.html
         """
-        self._check_for_error(self._lib.Bus_Get_Voltages_GR())
-        return self._get_complex128_gr_array()
+        return self._lib.Bus_Get_Voltages_GR()
 
     def YscMatrix(self):
         """
         Complex array of Ysc matrix at bus. Column by column.
 
+        *Requires a previous solution in `FaultStudy` mode or a call to `ZscRefresh`.*
+
         Original COM help: https://opendss.epri.com/YscMatrix.html
         """
-        self._check_for_error(self._lib.Bus_Get_YscMatrix_GR())
-        return self._get_complex128_gr_array()
+        return self._lib.Bus_Get_YscMatrix_GR()
 
     def Zsc0(self):
         """
         Complex Zero-Sequence short circuit impedance at bus.
 
+        *Requires a previous solution in `FaultStudy` mode or a call to `ZscRefresh`.*
+
         Original COM help: https://opendss.epri.com/Zsc0.html
         """
-        self._check_for_error(self._lib.Bus_Get_Zsc0_GR())
-        return self._get_complex128_gr_simple()
+        return self._lib.Bus_Get_Zsc0_GR()
 
     def Zsc1(self):
         """
         Complex Positive-Sequence short circuit impedance at bus.
 
+        *Requires a previous solution in `FaultStudy` mode or a call to `ZscRefresh`.*
+
         Original COM help: https://opendss.epri.com/Zsc1.html
         """
-        self._check_for_error(self._lib.Bus_Get_Zsc1_GR())
-        return self._get_complex128_gr_simple()
+        return self._lib.Bus_Get_Zsc1_GR()
 
     def ZscMatrix(self):
         """
         Complex array of Zsc matrix at bus. Column by column.
 
+        *Requires a previous solution in `FaultStudy` mode or a call to `ZscRefresh`.*
+
         Original COM help: https://opendss.epri.com/ZscMatrix.html
         """
-        self._check_for_error(self._lib.Bus_Get_ZscMatrix_GR())
-        return self._get_complex128_gr_array()
+        return self._lib.Bus_Get_ZscMatrix_GR()
 
     def kVBase(self):
         """
@@ -270,7 +288,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/kVBase.html
         """
-        return self._check_for_error(self._lib.Bus_Get_kVBase())
+        return self._lib.Bus_Get_kVBase()
 
     def puVLL(self):
         """
@@ -278,8 +296,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/puVLL.html
         """
-        self._check_for_error(self._lib.Bus_Get_puVLL_GR())
-        return self._get_complex128_gr_array()
+        return self._lib.Bus_Get_puVLL_GR()
 
     def puVmagAngle(self):
         """
@@ -287,8 +304,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/puVmagAngle.html
         """
-        self._check_for_error(self._lib.Bus_Get_puVmagAngle_GR())
-        return self._get_float64_gr_array()
+        return self._lib.Bus_Get_puVmagAngle_GR()
 
     def PuVoltage(self):
         """
@@ -296,19 +312,19 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/puVoltages.html
         """
-        self._check_for_error(self._lib.Bus_Get_puVoltages_GR())
-        return self._get_complex128_gr_array()
+        return self._lib.Bus_Get_puVoltages_GR()
 
     def ZSC012Matrix(self):
         """
-        Array of doubles (complex) containing the complete 012 Zsc matrix.
+        Complex array containing the complete 012 Zsc matrix.
         Only available after Zsc is computed, either through the "ZscRefresh" command, or running a "FaultStudy" solution.
         Only available for buses with 3 nodes.
 
+        *Requires a previous solution in `FaultStudy` mode or a call to `ZscRefresh`.*
+
         Original COM help: https://opendss.epri.com/ZSC012Matrix.html
         """
-        self._check_for_error(self._lib.Bus_Get_ZSC012Matrix_GR())
-        return self._get_complex128_gr_array()
+        return self._lib.Bus_Get_ZSC012Matrix_GR()
 
     def X(self, *args):
         """
@@ -318,11 +334,11 @@ class IBus(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Bus_Get_x())
+            return self._lib.Bus_Get_x()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Bus_Set_x(Value))
+        self._lib.Bus_Set_x(Value)
 
     def Y(self, *args):
         """
@@ -332,11 +348,11 @@ class IBus(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Bus_Get_y())
+            return self._lib.Bus_Get_y()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Bus_Set_y(Value))
+        self._lib.Bus_Set_y(Value)
 
     def LoadList(self):
         """
@@ -344,7 +360,7 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/LoadList.html
         """
-        return self._check_for_error(self._get_string_array(self._lib.Bus_Get_LoadList))
+        return self._lib.Bus_Get_LoadList()
 
     def LineList(self):
         """
@@ -352,51 +368,67 @@ class IBus(Base):
 
         Original COM help: https://opendss.epri.com/LineList.html
         """
-        return self._check_for_error(self._get_string_array(self._lib.Bus_Get_LineList))
+        return self._lib.Bus_Get_LineList()
 
     def AllPCEatBus(self):
         """
         Returns an array with the names of all PCE connected to the active bus
 
+        This also includes shunt Capacitors/Reactors.
+
         Original COM help: https://opendss.epri.com/AllPCEatBus.html
         """
-        result = self._check_for_error(
-            self._get_string_array(self._lib.Bus_Get_AllPCEatBus)
-        )
-        return result
+        return self._lib.Bus_Get_AllPCEatBus()
 
     def AllPDEatBus(self):
         """
         Returns an array with the names of all PDE connected to the active bus
 
+        This excludes shunt Capacitors/Reactors.
+
         Original COM help: https://opendss.epri.com/AllPDEatBus1.html
         """
-        result = self._check_for_error(
-            self._get_string_array(self._lib.Bus_Get_AllPDEatBus)
-        )
-        return result
+        return self._lib.Bus_Get_AllPDEatBus()
+
+    def to_altdss(self):
+        """
+        Returns a Python object for the current active bus in the circuit (if any).
+
+        Requires AltDSS-Python.
+
+        *Available only for the AltDSS engine.*
+
+        **(API Extension)**
+
+        """
+        idx = self._lib.Bus_Get_idx()
+        if idx < 0:
+            return None
+        return self._api_util.get_bus_obj(self._lib.Alt_Bus_GetByIndex(idx))
 
 
-_Bus = IBus(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
+_Bus = IBus(api_util)
 
 # For backwards compatibility, bind to the default instance
 AllPCEatBus = _Bus.AllPCEatBus
 AllPDEatBus = _Bus.AllPDEatBus
-GetUniqueNodeNumber = _Bus.GetUniqueNodeNumber
-ZscRefresh = _Bus.ZscRefresh
 Coorddefined = _Bus.Coorddefined
 CplxSeqVoltages = _Bus.CplxSeqVoltages
 Cust_Duration = _Bus.Cust_Duration
 Cust_Interrupts = _Bus.Cust_Interrupts
 Distance = _Bus.Distance
+GetUniqueNodeNumber = _Bus.GetUniqueNodeNumber
 Int_Duration = _Bus.Int_Duration
 Isc = _Bus.Isc
 Lambda = _Bus.Lambda
+LineList = _Bus.LineList
+LoadList = _Bus.LoadList
 N_Customers = _Bus.N_Customers
 N_interrupts = _Bus.N_interrupts
 Name = _Bus.Name
 Nodes = _Bus.Nodes
 NumNodes = _Bus.NumNodes
+PuVoltage = _Bus.PuVoltage
 SectionID = _Bus.SectionID
 SeqVoltages = _Bus.SeqVoltages
 TotalMiles = _Bus.TotalMiles
@@ -404,38 +436,39 @@ VLL = _Bus.VLL
 VMagAngle = _Bus.VMagAngle
 Voc = _Bus.Voc
 Voltages = _Bus.Voltages
+X = _Bus.X
+Y = _Bus.Y
 YscMatrix = _Bus.YscMatrix
+ZSC012Matrix = _Bus.ZSC012Matrix
 Zsc0 = _Bus.Zsc0
 Zsc1 = _Bus.Zsc1
 ZscMatrix = _Bus.ZscMatrix
+ZscRefresh = _Bus.ZscRefresh
 kVBase = _Bus.kVBase
 puVLL = _Bus.puVLL
 puVmagAngle = _Bus.puVmagAngle
-PuVoltage = _Bus.PuVoltage
-X = _Bus.X
-Y = _Bus.Y
-LoadList = _Bus.LoadList
-LineList = _Bus.LineList
-ZSC012Matrix = _Bus.ZSC012Matrix
+to_altdss = _Bus.to_altdss
 _columns = _Bus._columns
 __all__ = [
     "AllPCEatBus",
     "AllPDEatBus",
-    "GetUniqueNodeNumber",
-    "ZscRefresh",
     "Coorddefined",
     "CplxSeqVoltages",
     "Cust_Duration",
     "Cust_Interrupts",
     "Distance",
+    "GetUniqueNodeNumber",
     "Int_Duration",
     "Isc",
     "Lambda",
+    "LineList",
+    "LoadList",
     "N_Customers",
     "N_interrupts",
     "Name",
     "Nodes",
     "NumNodes",
+    "PuVoltage",
     "SectionID",
     "SeqVoltages",
     "TotalMiles",
@@ -443,17 +476,16 @@ __all__ = [
     "VMagAngle",
     "Voc",
     "Voltages",
+    "X",
+    "Y",
     "YscMatrix",
+    "ZSC012Matrix",
     "Zsc0",
     "Zsc1",
     "ZscMatrix",
+    "ZscRefresh",
     "kVBase",
     "puVLL",
     "puVmagAngle",
-    "PuVoltage",
-    "X",
-    "Y",
-    "LoadList",
-    "LineList",
-    "ZSC012Matrix",
+    "to_altdss",
 ]

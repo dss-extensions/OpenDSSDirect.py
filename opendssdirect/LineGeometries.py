@@ -1,4 +1,4 @@
-from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util
 from .Bases import Iterable
 from dss import LineUnits
 
@@ -7,7 +7,7 @@ class ILineGeometries(Iterable):
     """
     LineGeometry objects
 
-    (API Extension)
+    **(API Extension)**
     """
 
     __name__ = "LineGeometries"
@@ -33,175 +33,158 @@ class ILineGeometries(Iterable):
 
     def Conductors(self):
         """Array of strings with names of all conductors in the active LineGeometry object"""
-        return self._check_for_error(
-            self._get_string_array(self._lib.LineGeometries_Get_Conductors)
-        )
+        return self._lib.LineGeometries_Get_Conductors()
 
     def EmergAmps(self, *args):
         """Emergency ampere rating"""
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.LineGeometries_Get_EmergAmps())
+            return self._lib.LineGeometries_Get_EmergAmps()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.LineGeometries_Set_EmergAmps(Value))
+        self._lib.LineGeometries_Set_EmergAmps(Value)
 
     def NormAmps(self, *args):
         """Normal ampere rating"""
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.LineGeometries_Get_NormAmps())
+            return self._lib.LineGeometries_Get_NormAmps()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.LineGeometries_Set_NormAmps(Value))
+        self._lib.LineGeometries_Set_NormAmps(Value)
 
     def RhoEarth(self, *args):
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.LineGeometries_Get_RhoEarth())
+            return self._lib.LineGeometries_Get_RhoEarth()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.LineGeometries_Set_RhoEarth(Value))
+        self._lib.LineGeometries_Set_RhoEarth(Value)
 
     def Reduce(self, *args):
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.LineGeometries_Get_Reduce()) != 0
+            return self._lib.LineGeometries_Get_Reduce()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.LineGeometries_Set_Reduce(Value))
+        self._lib.LineGeometries_Set_Reduce(Value)
 
     def Phases(self, *args):
         """Number of Phases"""
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.LineGeometries_Get_Phases())
+            return self._lib.LineGeometries_Get_Phases()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.LineGeometries_Set_Phases(Value))
+        self._lib.LineGeometries_Set_Phases(Value)
 
     def Rmatrix(self, Frequency, Length, Units):
         """Resistance matrix, ohms"""
-        self._check_for_error(
-            self._lib.LineGeometries_Get_Rmatrix_GR(Frequency, Length, Units)
-        )
-        return self._get_float64_gr_array()
+        return self._lib.LineGeometries_Get_Rmatrix_GR(Frequency, Length, Units)
 
     def Xmatrix(self, Frequency, Length, Units):
         """Reactance matrix, ohms"""
-        self._check_for_error(
-            self._lib.LineGeometries_Get_Xmatrix_GR(Frequency, Length, Units)
-        )
-        return self._get_float64_gr_array()
+        return self._lib.LineGeometries_Get_Xmatrix_GR(Frequency, Length, Units)
 
     def Zmatrix(self, Frequency, Length, Units):
         """Complex impedance matrix, ohms"""
-        self._check_for_error(
-            self._lib.LineGeometries_Get_Zmatrix_GR(Frequency, Length, Units)
-        )
-        return self._get_complex128_gr_array()
+        return self._lib.LineGeometries_Get_Zmatrix_GR(Frequency, Length, Units)
 
     def Cmatrix(self, Frequency, Length, Units):
         """Capacitance matrix, nF"""
-        self._check_for_error(
-            self._lib.LineGeometries_Get_Cmatrix_GR(Frequency, Length, Units)
-        )
-        return self._get_float64_gr_array()
+        return self._lib.LineGeometries_Get_Cmatrix_GR(Frequency, Length, Units)
 
     def Units(self, *args):
         # Getter
         if len(args) == 0:
-            self._check_for_error(self._lib.LineGeometries_Get_Units_GR())
-            return [LineUnits(unit) for unit in self._get_int32_gr_array()]
+            return [LineUnits(unit) for unit in self._lib.LineGeometries_Get_Units_GR()]
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_int32_array(Value)
-        self._check_for_error(self._lib.LineGeometries_Set_Units(ValuePtr, ValueCount))
+        self._lib.LineGeometries_Set_Units(ValuePtr, ValueCount)
 
     def Xcoords(self, *args):
         """Get/Set the X (horizontal) coordinates of the conductors"""
         # Getter
         if len(args) == 0:
-            self._check_for_error(self._lib.LineGeometries_Get_Xcoords_GR())
-            return self._get_float64_gr_array()
+            return self._lib.LineGeometries_Get_Xcoords_GR()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self._check_for_error(self._lib.LineGeometries_Set_Xcoords(ValuePtr, ValueCount))
+        self._lib.LineGeometries_Set_Xcoords(ValuePtr, ValueCount)
 
     def Ycoords(self, *args):
         """Get/Set the Y (vertical/height) coordinates of the conductors"""
         # Getter
         if len(args) == 0:
-            self._check_for_error(self._lib.LineGeometries_Get_Ycoords_GR())
-            return self._get_float64_gr_array()
+            return self._lib.LineGeometries_Get_Ycoords_GR()
 
         # Setter
         (Value,) = args
         Value, ValuePtr, ValueCount = self._prepare_float64_array(Value)
-        self._check_for_error(self._lib.LineGeometries_Set_Ycoords(ValuePtr, ValueCount))
+        self._lib.LineGeometries_Set_Ycoords(ValuePtr, ValueCount)
 
     def Nconds(self, *args):
         """Number of conductors in this geometry. Default is 3. Triggers memory allocations. Define first!"""
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.LineGeometries_Get_Nconds())
+            return self._lib.LineGeometries_Get_Nconds()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.LineGeometries_Set_Nconds(Value))
+        self._lib.LineGeometries_Set_Nconds(Value)
 
 
-_LineGeometries = ILineGeometries(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
+_LineGeometries = ILineGeometries(api_util)
 
 # For backwards compatibility, bind to the default instance
-Conductors = _LineGeometries.Conductors
-EmergAmps = _LineGeometries.EmergAmps
-NormAmps = _LineGeometries.NormAmps
-RhoEarth = _LineGeometries.RhoEarth
-Reduce = _LineGeometries.Reduce
-Phases = _LineGeometries.Phases
-Rmatrix = _LineGeometries.Rmatrix
-Xmatrix = _LineGeometries.Xmatrix
-Zmatrix = _LineGeometries.Zmatrix
-Cmatrix = _LineGeometries.Cmatrix
-Units = _LineGeometries.Units
-Xcoords = _LineGeometries.Xcoords
-Ycoords = _LineGeometries.Ycoords
-Idx = _LineGeometries.Idx
-First = _LineGeometries.First
-Next = _LineGeometries.Next
 AllNames = _LineGeometries.AllNames
+Cmatrix = _LineGeometries.Cmatrix
+Conductors = _LineGeometries.Conductors
 Count = _LineGeometries.Count
+EmergAmps = _LineGeometries.EmergAmps
+First = _LineGeometries.First
+Idx = _LineGeometries.Idx
 Name = _LineGeometries.Name
 Nconds = _LineGeometries.Nconds
+Next = _LineGeometries.Next
+NormAmps = _LineGeometries.NormAmps
+Phases = _LineGeometries.Phases
+Reduce = _LineGeometries.Reduce
+RhoEarth = _LineGeometries.RhoEarth
+Rmatrix = _LineGeometries.Rmatrix
+Units = _LineGeometries.Units
+Xcoords = _LineGeometries.Xcoords
+Xmatrix = _LineGeometries.Xmatrix
+Ycoords = _LineGeometries.Ycoords
+Zmatrix = _LineGeometries.Zmatrix
 _columns = _LineGeometries._columns
 __all__ = [
-    "Conductors",
-    "EmergAmps",
-    "NormAmps",
-    "RhoEarth",
-    "Reduce",
-    "Phases",
-    "Rmatrix",
-    "Xmatrix",
-    "Zmatrix",
-    "Cmatrix",
-    "Units",
-    "Xcoords",
-    "Ycoords",
-    "Idx",
-    "First",
-    "Next",
     "AllNames",
+    "Cmatrix",
+    "Conductors",
     "Count",
+    "EmergAmps",
+    "First",
+    "Idx",
     "Name",
     "Nconds",
+    "Next",
+    "NormAmps",
+    "Phases",
+    "Reduce",
+    "RhoEarth",
+    "Rmatrix",
+    "Units",
+    "Xcoords",
+    "Xmatrix",
+    "Ycoords",
+    "Zmatrix",
 ]

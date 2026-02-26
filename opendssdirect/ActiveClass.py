@@ -1,4 +1,4 @@
-from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util
 from .Bases import Base
 
 
@@ -14,9 +14,7 @@ class IActiveClass(Base):
 
         Original COM help: https://opendss.epri.com/ActiveClassName.html
         """
-        return self._get_string(
-            self._check_for_error(self._lib.ActiveClass_Get_ActiveClassName())
-        )
+        return self._lib.ActiveClass_Get_ActiveClassName()
 
     def AllNames(self):
         """
@@ -24,9 +22,7 @@ class IActiveClass(Base):
 
         Original COM help: https://opendss.epri.com/AllNames.html
         """
-        return self._check_for_error(
-            self._get_string_array(self._lib.ActiveClass_Get_AllNames)
-        )
+        return self._lib.ActiveClass_Get_AllNames()
 
     def Count(self):
         """
@@ -34,18 +30,18 @@ class IActiveClass(Base):
 
         Original COM help: https://opendss.epri.com/Count.html
         """
-        return self._check_for_error(self._lib.ActiveClass_Get_Count())
+        return self._lib.ActiveClass_Get_Count()
 
     def First(self):
         """
         Sets first element in the active class to be the active DSS object.
-        If the object is a CktElement, ActiveCktELement also points to this element.
+        If the object is a CktElement, ActiveCktElement also points to this element.
 
         Returns 0 if none.
 
         Original COM help: https://opendss.epri.com/First.html
         """
-        return self._check_for_error(self._lib.ActiveClass_Get_First())
+        return self._lib.ActiveClass_Get_First()
 
     def Name(self, *args):
         """
@@ -55,15 +51,11 @@ class IActiveClass(Base):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(
-                self._check_for_error(self._lib.ActiveClass_Get_Name())
-            )
+            return self._lib.ActiveClass_Get_Name()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.ActiveClass_Set_Name(Value))
+        self._lib.ActiveClass_Set_Name(Value)
 
     def Next(self):
         """
@@ -74,7 +66,7 @@ class IActiveClass(Base):
 
         Original COM help: https://opendss.epri.com/Next.html
         """
-        return self._check_for_error(self._lib.ActiveClass_Get_Next())
+        return self._lib.ActiveClass_Get_Next()
 
     def NumElements(self):
         """
@@ -82,7 +74,7 @@ class IActiveClass(Base):
 
         Original COM help: https://opendss.epri.com/NumElements.html
         """
-        return self._check_for_error(self._lib.ActiveClass_Get_NumElements())
+        return self._lib.ActiveClass_Get_NumElements()
 
     def ActiveClassParent(self):
         """
@@ -90,9 +82,7 @@ class IActiveClass(Base):
 
         Original COM help: https://opendss.epri.com/ActiveClassParent.html
         """
-        return self._get_string(
-            self._check_for_error(self._lib.ActiveClass_Get_ActiveClassParent())
-        )
+        return self._lib.ActiveClass_Get_ActiveClassParent()
 
     def ToJSON(self, options=0):
         """
@@ -105,32 +95,45 @@ class IActiveClass(Base):
 
         **(API Extension)**
         """
-        return self._get_string(
-            self._check_for_error(self._lib.ActiveClass_ToJSON(options))
-        )
+        return self._lib.ActiveClass_ToJSON(options)
+
+    def to_altdss(self):
+        """
+        Returns a Python object for the current active DSS object in this interface.
+
+        Requires AltDSS-Python.
+
+        *Available only for the AltDSS engine.*
+
+        **(API Extension)**
+        """
+        ptr = self._lib.ActiveClass_Get_Pointer()
+        return self._api_util.get_dss_obj(ptr)
 
 
-_ActiveClass = IActiveClass(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
+_ActiveClass = IActiveClass(api_util)
 
 # For backwards compatibility, bind to the default instance
 ActiveClassName = _ActiveClass.ActiveClassName
+ActiveClassParent = _ActiveClass.ActiveClassParent
 AllNames = _ActiveClass.AllNames
 Count = _ActiveClass.Count
 First = _ActiveClass.First
 Name = _ActiveClass.Name
 Next = _ActiveClass.Next
 NumElements = _ActiveClass.NumElements
-ActiveClassParent = _ActiveClass.ActiveClassParent
 ToJSON = _ActiveClass.ToJSON
+to_altdss = _ActiveClass.to_altdss
 _columns = _ActiveClass._columns
 __all__ = [
     "ActiveClassName",
+    "ActiveClassParent",
     "AllNames",
     "Count",
     "First",
     "Name",
     "Next",
     "NumElements",
-    "ActiveClassParent",
     "ToJSON",
+    "to_altdss",
 ]

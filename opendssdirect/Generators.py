@@ -1,4 +1,4 @@
-from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from ._utils import api_util
 from .Bases import Iterable
 from dss import GeneratorStatus
 
@@ -41,11 +41,11 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Generators_Get_ForcedON()) != 0
+            return self._lib.Generators_Get_ForcedON()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Generators_Set_ForcedON(Value))
+        self._lib.Generators_Set_ForcedON(Value)
 
     def Model(self, *args):
         """
@@ -55,11 +55,11 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Generators_Get_Model())
+            return self._lib.Generators_Get_Model()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Generators_Set_Model(Value))
+        self._lib.Generators_Set_Model(Value)
 
     def PF(self, *args):
         """
@@ -69,11 +69,11 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Generators_Get_PF())
+            return self._lib.Generators_Get_PF()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Generators_Set_PF(Value))
+        self._lib.Generators_Set_PF(Value)
 
     def Phases(self, *args):
         """
@@ -83,11 +83,11 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Generators_Get_Phases())
+            return self._lib.Generators_Get_Phases()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Generators_Set_Phases(Value))
+        self._lib.Generators_Set_Phases(Value)
 
     def RegisterNames(self):
         """
@@ -95,9 +95,7 @@ class IGenerators(Iterable):
 
         See also the enum `GeneratorRegisters`.
         """
-        return self._check_for_error(
-            self._get_string_array(self._lib.Generators_Get_RegisterNames)
-        )
+        return self._lib.Generators_Get_RegisterNames()
 
     def RegisterValues(self):
         """
@@ -105,8 +103,7 @@ class IGenerators(Iterable):
 
         Original COM help: https://opendss.epri.com/RegisterValues.html
         """
-        self._check_for_error(self._lib.Generators_Get_RegisterValues_GR())
-        return self._get_float64_gr_array()
+        return self._lib.Generators_Get_RegisterValues_GR()
 
     def Vmaxpu(self, *args):
         """
@@ -116,11 +113,11 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Generators_Get_Vmaxpu())
+            return self._lib.Generators_Get_Vmaxpu()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Generators_Set_Vmaxpu(Value))
+        self._lib.Generators_Set_Vmaxpu(Value)
 
     def Vminpu(self, *args):
         """
@@ -130,11 +127,11 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Generators_Get_Vminpu())
+            return self._lib.Generators_Get_Vminpu()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Generators_Set_Vminpu(Value))
+        self._lib.Generators_Set_Vminpu(Value)
 
     def kV(self, *args):
         """
@@ -144,11 +141,11 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Generators_Get_kV())
+            return self._lib.Generators_Get_kV()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Generators_Set_kV(Value))
+        self._lib.Generators_Set_kV(Value)
 
     def kVARated(self, *args):
         """
@@ -158,11 +155,11 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Generators_Get_kVArated())
+            return self._lib.Generators_Get_kVArated()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Generators_Set_kVArated(Value))
+        self._lib.Generators_Set_kVArated(Value)
 
     def kW(self, *args):
         """
@@ -172,11 +169,11 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Generators_Get_kW())
+            return self._lib.Generators_Get_kW()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Generators_Set_kW(Value))
+        self._lib.Generators_Set_kW(Value)
 
     def kvar(self, *args):
         """
@@ -186,11 +183,11 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Generators_Get_kvar())
+            return self._lib.Generators_Get_kvar()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Generators_Set_kvar(Value))
+        self._lib.Generators_Set_kvar(Value)
 
     def daily(self, *args):
         """
@@ -200,15 +197,11 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(
-                self._check_for_error(self._lib.Generators_Get_daily())
-            )
+            return self._lib.Generators_Get_daily()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.Generators_Set_daily(Value))
+        self._lib.Generators_Set_daily(Value)
 
     def duty(self, *args):
         """
@@ -218,13 +211,11 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(self._check_for_error(self._lib.Generators_Get_duty()))
+            return self._lib.Generators_Get_duty()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.Generators_Set_duty(Value))
+        self._lib.Generators_Set_duty(Value)
 
     def Yearly(self, *args):
         """
@@ -234,15 +225,11 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(
-                self._check_for_error(self._lib.Generators_Get_Yearly())
-            )
+            return self._lib.Generators_Get_Yearly()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.Generators_Set_Yearly(Value))
+        self._lib.Generators_Set_Yearly(Value)
 
     def Status(self, *args):
         """
@@ -254,13 +241,11 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return GeneratorStatus(
-                self._check_for_error(self._lib.Generators_Get_Status())
-            )
+            return GeneratorStatus(self._lib.Generators_Get_Status())
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Generators_Set_Status(Value))
+        self._lib.Generators_Set_Status(Value)
 
     def IsDelta(self, *args):
         """
@@ -270,11 +255,11 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Generators_Get_IsDelta()) != 0
+            return self._lib.Generators_Get_IsDelta()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Generators_Set_IsDelta(Value))
+        self._lib.Generators_Set_IsDelta(Value)
 
     def kva(self, *args):
         """
@@ -284,25 +269,26 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Generators_Get_kva())
+            return self._lib.Generators_Get_kva()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Generators_Set_kva(Value))
+        self._lib.Generators_Set_kva(Value)
 
     def Class(self, *args):
         """
         An arbitrary integer number representing the class of Generator so that Generator values may be segregated by class.
+        No effect on the solution.
 
         **(API Extension)**
         """
         # Getter
         if len(args) == 0:
-            return self._check_for_error(self._lib.Generators_Get_Class_())
+            return self._lib.Generators_Get_Class_()
 
         # Setter
         (Value,) = args
-        self._check_for_error(self._lib.Generators_Set_Class_(Value))
+        self._lib.Generators_Set_Class_(Value)
 
     def Bus1(self, *args):
         """
@@ -312,22 +298,24 @@ class IGenerators(Iterable):
         """
         # Getter
         if len(args) == 0:
-            return self._get_string(self._check_for_error(self._lib.Generators_Get_Bus1()))
+            return self._lib.Generators_Get_Bus1()
 
         # Setter
         (Value,) = args
-        if not isinstance(Value, bytes):
-            Value = Value.encode(self._api_util.codec)
-        self._check_for_error(self._lib.Generators_Set_Bus1(Value))
+        self._lib.Generators_Set_Bus1(Value)
 
 
-_Generators = IGenerators(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
+_Generators = IGenerators(api_util)
 
 # For backwards compatibility, bind to the default instance
 AllNames = _Generators.AllNames
+Bus1 = _Generators.Bus1
+Class = _Generators.Class
 Count = _Generators.Count
 First = _Generators.First
 ForcedON = _Generators.ForcedON
+Idx = _Generators.Idx
+IsDelta = _Generators.IsDelta
 Model = _Generators.Model
 Name = _Generators.Name
 Next = _Generators.Next
@@ -335,27 +323,27 @@ PF = _Generators.PF
 Phases = _Generators.Phases
 RegisterNames = _Generators.RegisterNames
 RegisterValues = _Generators.RegisterValues
+Status = _Generators.Status
 Vmaxpu = _Generators.Vmaxpu
 Vminpu = _Generators.Vminpu
-Idx = _Generators.Idx
+Yearly = _Generators.Yearly
+daily = _Generators.daily
+duty = _Generators.duty
 kV = _Generators.kV
 kVARated = _Generators.kVARated
 kW = _Generators.kW
-kvar = _Generators.kvar
-daily = _Generators.daily
-duty = _Generators.duty
-Yearly = _Generators.Yearly
-Status = _Generators.Status
-IsDelta = _Generators.IsDelta
 kva = _Generators.kva
-Class = _Generators.Class
-Bus1 = _Generators.Bus1
+kvar = _Generators.kvar
 _columns = _Generators._columns
 __all__ = [
     "AllNames",
+    "Bus1",
+    "Class",
     "Count",
     "First",
     "ForcedON",
+    "Idx",
+    "IsDelta",
     "Model",
     "Name",
     "Next",
@@ -363,19 +351,15 @@ __all__ = [
     "Phases",
     "RegisterNames",
     "RegisterValues",
+    "Status",
     "Vmaxpu",
     "Vminpu",
-    "Idx",
+    "Yearly",
+    "daily",
+    "duty",
     "kV",
     "kVARated",
     "kW",
-    "kvar",
-    "daily",
-    "duty",
-    "Yearly",
-    "Status",
-    "IsDelta",
     "kva",
-    "Class",
-    "Bus1",
+    "kvar",
 ]

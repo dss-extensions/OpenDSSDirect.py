@@ -1,5 +1,7 @@
+from typing import Union, List
 import json
-from ._utils import api_util, OPENDSSDIRECT_PY_USE_NUMPY
+from dss import DSSSaveFlags
+from ._utils import api_util
 from .Bases import Base
 
 class ICircuit(Base):
@@ -46,7 +48,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/Capacity1.html
         """
-        return self._check_for_error(self._lib.Circuit_Capacity(Start, Increment))
+        return self._lib.Circuit_Capacity(Start, Increment)
 
     def Disable(self, Name):
         """
@@ -54,9 +56,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/Disable.html
         """
-        if not isinstance(Name, bytes):
-            Name = Name.encode(self._api_util.codec)
-        self._check_for_error(self._lib.Circuit_Disable(Name))
+        self._lib.Circuit_Disable(Name)
 
     def Enable(self, Name):
         """
@@ -64,9 +64,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/Enable.html
         """
-        if not isinstance(Name, bytes):
-            Name = Name.encode(self._api_util.codec)
-        self._check_for_error(self._lib.Circuit_Enable(Name))
+        self._lib.Circuit_Enable(Name)
 
     def EndOfTimeStepUpdate(self):
         """
@@ -74,7 +72,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/EndOfTimeStepUpdate.html
         """
-        self._check_for_error(self._lib.Circuit_EndOfTimeStepUpdate())
+        self._lib.Circuit_EndOfTimeStepUpdate()
 
     def FirstElement(self):
         """
@@ -84,7 +82,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/FirstElement.html
         """
-        return self._check_for_error(self._lib.Circuit_FirstElement())
+        return self._lib.Circuit_FirstElement()
 
     def FirstPCElement(self):
         """
@@ -94,7 +92,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/FirstPCElement.html
         """
-        return self._check_for_error(self._lib.Circuit_FirstPCElement())
+        return self._lib.Circuit_FirstPCElement()
 
     def FirstPDElement(self):
         """
@@ -104,28 +102,23 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/FirstPDElement.html
         """
-        return self._check_for_error(self._lib.Circuit_FirstPDElement())
+        return self._lib.Circuit_FirstPDElement()
 
     def AllNodeDistancesByPhase(self, Phase):
         """Returns an array of doubles representing the distances to parent EnergyMeter. Sequence of array corresponds to other node ByPhase properties."""
-        self._check_for_error(self._lib.Circuit_Get_AllNodeDistancesByPhase_GR(Phase))
-        return self._get_float64_gr_array()
+        return self._lib.Circuit_Get_AllNodeDistancesByPhase_GR(Phase)
 
     def AllNodeNamesByPhase(self, Phase):
         """Return array of strings of the node names for the By Phase criteria. Sequence corresponds to other ByPhase properties."""
-        return self._check_for_error(
-            self._get_string_array(self._lib.Circuit_Get_AllNodeNamesByPhase, Phase)
-        )
+        return self._lib.Circuit_Get_AllNodeNamesByPhase(Phase)
 
     def AllNodeVmagByPhase(self, Phase):
         """Returns Array of doubles represent voltage magnitudes for nodes on the specified phase."""
-        self._check_for_error(self._lib.Circuit_Get_AllNodeVmagByPhase_GR(Phase))
-        return self._get_float64_gr_array()
+        return self._lib.Circuit_Get_AllNodeVmagByPhase_GR(Phase)
 
     def AllNodeVmagPUByPhase(self, Phase):
         """Returns array of per unit voltage magnitudes for each node by phase"""
-        self._check_for_error(self._lib.Circuit_Get_AllNodeVmagPUByPhase_GR(Phase))
-        return self._get_float64_gr_array()
+        return self._lib.Circuit_Get_AllNodeVmagPUByPhase_GR(Phase)
 
     def NextElement(self):
         """
@@ -134,7 +127,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/NextElement.html
         """
-        return self._check_for_error(self._lib.Circuit_NextElement())
+        return self._lib.Circuit_NextElement()
 
     def NextPCElement(self):
         """
@@ -142,7 +135,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/NextPCElement.html
         """
-        return self._check_for_error(self._lib.Circuit_NextPCElement())
+        return self._lib.Circuit_NextPCElement()
 
     def NextPDElement(self):
         """
@@ -150,7 +143,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/NextPDElement.html
         """
-        return self._check_for_error(self._lib.Circuit_NextPDElement())
+        return self._lib.Circuit_NextPDElement()
 
     def Sample(self):
         """
@@ -158,7 +151,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/Sample.html
         """
-        self._check_for_error(self._lib.Circuit_Sample())
+        self._lib.Circuit_Sample()
 
     def SaveSample(self):
         """
@@ -166,7 +159,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/SaveSample.html
         """
-        self._check_for_error(self._lib.Circuit_SaveSample())
+        self._lib.Circuit_SaveSample()
 
     def SetActiveBus(self, BusName):
         """
@@ -176,9 +169,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/SetActiveBus.html
         """
-        if not isinstance(BusName, bytes):
-            BusName = BusName.encode(self._api_util.codec)
-        return self._check_for_error(self._lib.Circuit_SetActiveBus(BusName))
+        return self._lib.Circuit_SetActiveBus(BusName)
 
     def SetActiveBusi(self, BusIndex):
         """
@@ -189,7 +180,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/SetActiveBusi.html
         """
-        return self._check_for_error(self._lib.Circuit_SetActiveBusi(BusIndex))
+        return self._lib.Circuit_SetActiveBusi(BusIndex)
 
     def SetActiveClass(self, ClassName):
         """
@@ -199,9 +190,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/SetActiveClass.html
         """
-        if not isinstance(ClassName, bytes):
-            ClassName = ClassName.encode(self._api_util.codec)
-        return self._check_for_error(self._lib.Circuit_SetActiveClass(ClassName))
+        return self._lib.Circuit_SetActiveClass(ClassName)
 
     def SetActiveElement(self, FullName):
         """
@@ -211,9 +200,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/SetActiveElement.html
         """
-        if not isinstance(FullName, bytes):
-            FullName = FullName.encode(self._api_util.codec)
-        return self._check_for_error(self._lib.Circuit_SetActiveElement(FullName))
+        return self._lib.Circuit_SetActiveElement(FullName)
 
     def UpdateStorage(self):
         """
@@ -223,7 +210,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/UpdateStorage.html
         """
-        self._check_for_error(self._lib.Circuit_UpdateStorage())
+        self._lib.Circuit_UpdateStorage()
 
     def AllBusDistances(self):
         """
@@ -231,8 +218,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/AllBusDistances.html
         """
-        self._check_for_error(self._lib.Circuit_Get_AllBusDistances_GR())
-        return self._get_float64_gr_array()
+        return self._lib.Circuit_Get_AllBusDistances_GR()
 
     def AllBusNames(self):
         """
@@ -240,9 +226,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/AllBusNames.html
         """
-        return self._check_for_error(
-            self._get_string_array(self._lib.Circuit_Get_AllBusNames)
-        )
+        return self._lib.Circuit_Get_AllBusNames()
 
     def AllBusVMag(self):
         """
@@ -250,17 +234,15 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/AllBusVmag.html
         """
-        self._check_for_error(self._lib.Circuit_Get_AllBusVmag_GR())
-        return self._get_float64_gr_array()
+        return self._lib.Circuit_Get_AllBusVmag_GR()
 
     def AllBusMagPu(self):
         """
-        Double Array of all bus voltages (each node) magnitudes in Per unit
+        Array of all bus voltages (each node) magnitudes in Per unit
 
         Original COM help: https://opendss.epri.com/AllBusVmagPu.html
         """
-        self._check_for_error(self._lib.Circuit_Get_AllBusVmagPu_GR())
-        return self._get_float64_gr_array()
+        return self._lib.Circuit_Get_AllBusVmagPu_GR()
 
     def AllBusVolts(self):
         """
@@ -268,8 +250,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/AllBusVolts.html
         """
-        self._check_for_error(self._lib.Circuit_Get_AllBusVolts_GR())
-        return self._get_complex128_gr_array()
+        return self._lib.Circuit_Get_AllBusVolts_GR()
 
     def AllElementLosses(self):
         """
@@ -277,8 +258,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/AllElementLosses.html
         """
-        self._check_for_error(self._lib.Circuit_Get_AllElementLosses_GR())
-        return self._get_complex128_gr_array()
+        return self._lib.Circuit_Get_AllElementLosses_GR()
 
     def AllElementNames(self):
         """
@@ -286,9 +266,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/AllElementNames.html
         """
-        return self._check_for_error(
-            self._get_string_array(self._lib.Circuit_Get_AllElementNames)
-        )
+        return self._lib.Circuit_Get_AllElementNames()
 
     def AllNodeDistances(self):
         """
@@ -296,8 +274,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/AllNodeDistances.html
         """
-        self._check_for_error(self._lib.Circuit_Get_AllNodeDistances_GR())
-        return self._get_float64_gr_array()
+        return self._lib.Circuit_Get_AllNodeDistances_GR()
 
     def AllNodeNames(self):
         """
@@ -305,9 +282,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/AllNodeNames.html
         """
-        return self._check_for_error(
-            self._get_string_array(self._lib.Circuit_Get_AllNodeNames)
-        )
+        return self._lib.Circuit_Get_AllNodeNames()
 
     def LineLosses(self):
         """
@@ -315,8 +290,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/LineLosses.html
         """
-        self._check_for_error(self._lib.Circuit_Get_LineLosses_GR())
-        return self._get_complex128_gr_simple()
+        return self._lib.Circuit_Get_LineLosses_GR()
 
     def Losses(self):
         """
@@ -324,12 +298,11 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/Losses.html
         """
-        self._check_for_error(self._lib.Circuit_Get_Losses_GR())
-        return self._get_complex128_gr_simple()
+        return self._lib.Circuit_Get_Losses_GR()
 
     def Name(self):
         """Name of the active circuit."""
-        return self._get_string(self._check_for_error(self._lib.Circuit_Get_Name()))
+        return self._lib.Circuit_Get_Name()
 
     def NumBuses(self):
         """
@@ -337,7 +310,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/NumBuses.html
         """
-        return self._check_for_error(self._lib.Circuit_Get_NumBuses())
+        return self._lib.Circuit_Get_NumBuses()
 
     def NumCktElements(self):
         """
@@ -345,7 +318,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/NumCktElements.html
         """
-        return self._check_for_error(self._lib.Circuit_Get_NumCktElements())
+        return self._lib.Circuit_Get_NumCktElements()
 
     def NumNodes(self):
         """
@@ -353,7 +326,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/NumNodes1.html
         """
-        return self._check_for_error(self._lib.Circuit_Get_NumNodes())
+        return self._lib.Circuit_Get_NumNodes()
 
     def ParentPDElement(self):
         """
@@ -361,7 +334,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/ParentPDElement.html
         """
-        return self._check_for_error(self._lib.Circuit_Get_ParentPDElement())
+        return self._lib.Circuit_Get_ParentPDElement()
 
     def SubstationLosses(self):
         """
@@ -369,8 +342,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/SubstationLosses.html
         """
-        self._check_for_error(self._lib.Circuit_Get_SubstationLosses_GR())
-        return self._get_complex128_gr_simple()
+        return self._lib.Circuit_Get_SubstationLosses_GR()
 
     def SystemY(self):
         """
@@ -380,8 +352,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/SystemY.html
         """
-        self._check_for_error(self._lib.Circuit_Get_SystemY_GR())
-        return self._get_complex128_gr_array()
+        return self._lib.Circuit_Get_SystemY_GR()
 
     def TotalPower(self):
         """
@@ -389,8 +360,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/TotalPower.html
         """
-        self._check_for_error(self._lib.Circuit_Get_TotalPower_GR())
-        return self._get_complex128_gr_simple()
+        return self._lib.Circuit_Get_TotalPower_GR()
 
     def YCurrents(self):
         """
@@ -398,8 +368,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/YCurrents.html
         """
-        self._check_for_error(self._lib.Circuit_Get_YCurrents_GR())
-        return self._get_complex128_gr_array()
+        return self._lib.Circuit_Get_YCurrents_GR()
 
     def YNodeOrder(self):
         """
@@ -407,9 +376,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/YNodeOrder.html
         """
-        return self._check_for_error(
-            self._get_string_array(self._lib.Circuit_Get_YNodeOrder)
-        )
+        return self._lib.Circuit_Get_YNodeOrder()
 
     def YNodeVArray(self):
         """
@@ -417,8 +384,7 @@ class ICircuit(Base):
 
         Original COM help: https://opendss.epri.com/YNodeVarray.html
         """
-        self._check_for_error(self._lib.Circuit_Get_YNodeVarray_GR())
-        return self._get_complex128_gr_array()
+        return self._lib.Circuit_Get_YNodeVarray_GR()
 
     def ElementLosses(self, Value):
         """
@@ -428,8 +394,7 @@ class ICircuit(Base):
         **(API Extension)**
         """
         Value, ValuePtr, ValueCount = self._prepare_int32_array(Value)
-        self._check_for_error(self._lib.Circuit_Get_ElementLosses_GR(ValuePtr, ValueCount))
-        return self._get_complex128_gr_array()
+        return self._lib.Circuit_Get_ElementLosses_GR(ValuePtr, ValueCount)
 
     def ToJSON(self, options=0):
         """
@@ -443,7 +408,7 @@ class ICircuit(Base):
 
         **(API Extension)**
         """
-        return self._get_string(self._check_for_error(self._lib.Circuit_ToJSON(options)))
+        return self._lib.Circuit_ToJSON(options)
 
     def FromJSON(self, data, options=0):
         """
@@ -463,13 +428,12 @@ class ICircuit(Base):
         elif not isinstance(data, bytes):
             data = data.encode()
         self._lib.Circuit_FromJSON(data, options)
-        self._check_for_error()
 
-    def Save(self, dirOrFilePath, options):
+    def Save(self, dirOrFilePath, saveFlags: Union[DSSSaveFlags, List[DSSSaveFlags]]):
         """
         Equivalent of the "save circuit" DSS command, but allows customization
         through the `saveFlags` argument, which is a set of bit flags.
-        See the "DSSSaveFlags" enumeration for available flags:
+        See the `DSSSaveFlags` enumeration for available flags:
 
         - `CalcVoltageBases`: Include the command CalcVoltageBases.
         - `SetVoltageBases`: Include commands to set the voltage bases individually.
@@ -482,115 +446,151 @@ class ICircuit(Base):
         - `IsOpen`: Export commands to open terminals of elements.
         - `ToString`: to the result string. Requires "SingleFile" flag.
 
-        If `SingleFile` is enabled, the first argument (`dirOrFilePath`) is the file path,
+        If `SingleFile` is enabled, the path argument (`dirOrFilePath`) is the file path,
         otherwise it is the folder path. For string output, the argument is not used.
 
         **(API Extension)**
         """
         if not isinstance(dirOrFilePath, bytes):
             dirOrFilePath = dirOrFilePath.encode()
-        return self._check_for_error(
-            self._get_string(self._lib.Circuit_Save(dirOrFilePath, options))
-        )
+
+        if isinstance(saveFlags, (list, tuple)):
+            mask = 0
+            for v in saveFlags:
+                mask = mask | v
+
+            saveFlags = mask
+
+        return self._api_util.get_string(self._lib.Circuit_Save(dirOrFilePath, saveFlags))
+
+    def Flatten(self) -> None:
+        """
+        Flatten the circuit
+
+        Flatten the circuit structures, removing any object of the following types:
+
+        - XfmrCode
+        - LineCode
+        - LineSpacing
+        - LineGeometry
+        - WireData
+        - CNData
+        - TSData
+
+        The general data from those objects is propagated to the referencing Line and Transformer objects,
+        and the properties on the latter are updated to remove any references to the removed objects.
+
+        This is useful for some converting the DSS circuit to another format, without requiring the user to handle all 
+        the types listed above. This, of course, results in some limitations since a lot of detail is removed. Numerically,
+        a normal snapshot or daily solution should be the same before and after the flatten operation.
+
+        Available only on AltDSS.
+        
+        **(API Extension)**
+        """
+        self._lib.Circuit_Flatten()
 
 
-_Circuit = ICircuit(api_util, prefer_lists=not OPENDSSDIRECT_PY_USE_NUMPY)
+
+_Circuit = ICircuit(api_util)
 
 # For backwards compatibility, bind to the default instance
+AllBusDistances = _Circuit.AllBusDistances
+AllBusMagPu = _Circuit.AllBusMagPu
+AllBusNames = _Circuit.AllBusNames
+AllBusVMag = _Circuit.AllBusVMag
+AllBusVolts = _Circuit.AllBusVolts
+AllElementLosses = _Circuit.AllElementLosses
+AllElementNames = _Circuit.AllElementNames
+AllNodeDistances = _Circuit.AllNodeDistances
+AllNodeDistancesByPhase = _Circuit.AllNodeDistancesByPhase
+AllNodeNames = _Circuit.AllNodeNames
+AllNodeNamesByPhase = _Circuit.AllNodeNamesByPhase
+AllNodeVmagByPhase = _Circuit.AllNodeVmagByPhase
+AllNodeVmagPUByPhase = _Circuit.AllNodeVmagPUByPhase
 Capacity = _Circuit.Capacity
 Disable = _Circuit.Disable
+ElementLosses = _Circuit.ElementLosses
 Enable = _Circuit.Enable
 EndOfTimeStepUpdate = _Circuit.EndOfTimeStepUpdate
 FirstElement = _Circuit.FirstElement
 FirstPCElement = _Circuit.FirstPCElement
 FirstPDElement = _Circuit.FirstPDElement
-AllNodeDistancesByPhase = _Circuit.AllNodeDistancesByPhase
-AllNodeNamesByPhase = _Circuit.AllNodeNamesByPhase
-AllNodeVmagByPhase = _Circuit.AllNodeVmagByPhase
-AllNodeVmagPUByPhase = _Circuit.AllNodeVmagPUByPhase
+Flatten = _Circuit.Flatten
+FromJSON = _Circuit.FromJSON
+LineLosses = _Circuit.LineLosses
+Losses = _Circuit.Losses
+Name = _Circuit.Name
 NextElement = _Circuit.NextElement
 NextPCElement = _Circuit.NextPCElement
 NextPDElement = _Circuit.NextPDElement
+NumBuses = _Circuit.NumBuses
+NumCktElements = _Circuit.NumCktElements
+NumNodes = _Circuit.NumNodes
+ParentPDElement = _Circuit.ParentPDElement
 Sample = _Circuit.Sample
+Save = _Circuit.Save
 SaveSample = _Circuit.SaveSample
 SetActiveBus = _Circuit.SetActiveBus
 SetActiveBusi = _Circuit.SetActiveBusi
 SetActiveClass = _Circuit.SetActiveClass
 SetActiveElement = _Circuit.SetActiveElement
-UpdateStorage = _Circuit.UpdateStorage
-AllBusDistances = _Circuit.AllBusDistances
-AllBusNames = _Circuit.AllBusNames
-AllBusVMag = _Circuit.AllBusVMag
-AllBusMagPu = _Circuit.AllBusMagPu
-AllBusVolts = _Circuit.AllBusVolts
-AllElementLosses = _Circuit.AllElementLosses
-AllElementNames = _Circuit.AllElementNames
-AllNodeDistances = _Circuit.AllNodeDistances
-AllNodeNames = _Circuit.AllNodeNames
-LineLosses = _Circuit.LineLosses
-Losses = _Circuit.Losses
-Name = _Circuit.Name
-NumBuses = _Circuit.NumBuses
-NumCktElements = _Circuit.NumCktElements
-NumNodes = _Circuit.NumNodes
-ParentPDElement = _Circuit.ParentPDElement
 SubstationLosses = _Circuit.SubstationLosses
 SystemY = _Circuit.SystemY
+ToJSON = _Circuit.ToJSON
 TotalPower = _Circuit.TotalPower
+UpdateStorage = _Circuit.UpdateStorage
 YCurrents = _Circuit.YCurrents
 YNodeOrder = _Circuit.YNodeOrder
 YNodeVArray = _Circuit.YNodeVArray
-ElementLosses = _Circuit.ElementLosses
-ToJSON = _Circuit.ToJSON
-FromJSON = _Circuit.FromJSON
-Save = _Circuit.Save
 _columns = _Circuit._columns
 __all__ = [
+    "AllBusDistances",
+    "AllBusMagPu",
+    "AllBusNames",
+    "AllBusVMag",
+    "AllBusVolts",
+    "AllElementLosses",
+    "AllElementNames",
+    "AllNodeDistances",
+    "AllNodeDistancesByPhase",
+    "AllNodeNames",
+    "AllNodeNamesByPhase",
+    "AllNodeVmagByPhase",
+    "AllNodeVmagPUByPhase",
     "Capacity",
     "Disable",
+    "ElementLosses",
     "Enable",
     "EndOfTimeStepUpdate",
     "FirstElement",
     "FirstPCElement",
     "FirstPDElement",
-    "AllNodeDistancesByPhase",
-    "AllNodeNamesByPhase",
-    "AllNodeVmagByPhase",
-    "AllNodeVmagPUByPhase",
+    "Flatten",
+    "FromJSON",
+    "LineLosses",
+    "Losses",
+    "Name",
     "NextElement",
     "NextPCElement",
     "NextPDElement",
+    "NumBuses",
+    "NumCktElements",
+    "NumNodes",
+    "ParentPDElement",
     "Sample",
+    "Save",
     "SaveSample",
     "SetActiveBus",
     "SetActiveBusi",
     "SetActiveClass",
     "SetActiveElement",
-    "UpdateStorage",
-    "AllBusDistances",
-    "AllBusNames",
-    "AllBusVMag",
-    "AllBusMagPu",
-    "AllBusVolts",
-    "AllElementLosses",
-    "AllElementNames",
-    "AllNodeDistances",
-    "AllNodeNames",
-    "LineLosses",
-    "Losses",
-    "Name",
-    "NumBuses",
-    "NumCktElements",
-    "NumNodes",
-    "ParentPDElement",
     "SubstationLosses",
     "SystemY",
+    "ToJSON",
     "TotalPower",
+    "UpdateStorage",
     "YCurrents",
     "YNodeOrder",
     "YNodeVArray",
-    "ElementLosses",
-    "ToJSON",
-    "FromJSON",
-    "Save",
 ]
