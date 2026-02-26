@@ -23,7 +23,7 @@ packages = ["opendssdirect"]
 name = "opendssdirect.py"
 dynamic = ["version"]
 dependencies = [
-    "dss-python==0.16.0b1",
+    "dss-python==0.16.0b2",
 ]
 requires-python = ">=3.11"
 authors = [
@@ -64,7 +64,7 @@ extras = [
     "pandas", 
     "matplotlib", 
     "networkx",
-    # "altdss", -- removed temporarily so we can test without it
+    "altdss>=0.3.0b1,<0.4",
     "scipy",
 ]
 
